@@ -1,0 +1,202 @@
+[
+  {
+    "brand": "Tata",
+    "name": "Tata Punch EV",
+    "price": "₹9.69 - 12.59 Lakh",
+    "range": "275 - 350 km",
+    "battery": "30 - 40 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/164835/punch-ev-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Tata",
+    "name": "Tata Nexon EV",
+    "price": "₹12.49 - 17.69 Lakh",
+    "range": "275 - 489 km",
+    "battery": "30 - 45 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/176211/nexon-ev-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "Tata",
+    "name": "Tata Tiago EV",
+    "price": "₹6.99 - 9.99 Lakh",
+    "range": "226 - 285 km",
+    "battery": "19.2 - 24 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/124839/tiago-ev-exterior-right-front-three-quarter-6.jpeg"
+  },
+  {
+    "brand": "Tata",
+    "name": "Tata Curvv EV",
+    "price": "₹16.99 - 19.49 Lakh",
+    "range": "440 - 543 km",
+    "battery": "49 - 61 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/174311/curvv-ev-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Tata",
+    "name": "Tata Sierra EV",
+    "price": "₹18.79 - 25.99 Lakh",
+    "range": "566 - 665 km",
+    "battery": "63 - 75 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/141125/sierra-ev-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Mahindra",
+    "name": "Mahindra XEV 9e",
+    "price": "₹21.90 - 31.25 Lakh",
+    "range": "542 - 656 km",
+    "battery": "59 - 79 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/180235/xev-9e-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Mahindra",
+    "name": "Mahindra BE 6",
+    "price": "₹18.90 - 28.49 Lakh",
+    "range": "557 - 683 km",
+    "battery": "59 - 79 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/180231/be-6-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Mahindra",
+    "name": "Mahindra XUV400 EV",
+    "price": "₹15.49 - 17.69 Lakh",
+    "range": "456 km",
+    "battery": "34.5 - 39.4 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/156403/xuv400-ev-exterior-right-front-three-quarter-3.jpeg"
+  },
+  {
+    "brand": "MG",
+    "name": "MG Windsor EV",
+    "price": "₹14.10 - 18.60 Lakh",
+    "range": "332 - 449 km",
+    "battery": "38 - 52.9 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/171549/windsor-ev-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "MG",
+    "name": "MG Comet EV",
+    "price": "₹7.60 - 9.73 Lakh",
+    "range": "230 km",
+    "battery": "17.3 - 17.4 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/141071/comet-ev-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "MG",
+    "name": "MG ZS EV",
+    "price": "₹17.99 - 20.75 Lakh",
+    "range": "461 km",
+    "battery": "50.3 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/115169/zs-ev-exterior-right-front-three-quarter-3.jpeg"
+  },
+  {
+    "brand": "BYD",
+    "name": "BYD Seal",
+    "price": "₹41.50 - 53.65 Lakh",
+    "range": "510 - 650 km",
+    "battery": "61.4 - 82.5 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/174413/seal-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "BYD",
+    "name": "BYD Atto 3",
+    "price": "₹24.99 - 34.49 Lakh",
+    "range": "468 - 521 km",
+    "battery": "49.9 - 60.4 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/115189/atto-3-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "Hyundai",
+    "name": "Hyundai Ioniq 5",
+    "price": "₹46.05 Lakh",
+    "range": "631 km",
+    "battery": "72.6 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/134449/ioniq-5-exterior-right-front-three-quarter-4.jpeg"
+  },
+  {
+    "brand": "Hyundai",
+    "name": "Hyundai Creta EV",
+    "price": "₹18.02 Lakh Onwards",
+    "range": "510 km",
+    "battery": "45 - 50 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/145112/creta-ev-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "BMW",
+    "name": "BMW iX1",
+    "price": "₹51.40 Lakh Onwards",
+    "range": "531 km",
+    "battery": "66.4 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/149123/ix1-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "BMW",
+    "name": "BMW i7",
+    "price": "₹2.05 - 2.58 Crore",
+    "range": "560 - 625 km",
+    "battery": "101.7 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/131113/i7-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "Audi",
+    "name": "Audi Q8 e-tron",
+    "price": "₹1.15 - 1.27 Crore",
+    "range": "491 - 582 km",
+    "battery": "95 - 114 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/140591/q8-e-tron-exterior-right-front-three-quarter-3.jpeg"
+  },
+  {
+    "brand": "Citroen",
+    "name": "Citroën eC3",
+    "price": "₹11.61 - 13.50 Lakh",
+    "range": "320 km",
+    "battery": "29.2 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/141871/ec3-exterior-right-front-three-quarter-2.jpeg"
+  },
+  {
+    "brand": "Kia",
+    "name": "Kia EV6",
+    "price": "₹65.97 Lakh",
+    "range": "663 km",
+    "battery": "84 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/114999/ev6-exterior-right-front-three-quarter-5.jpeg"
+  },
+  {
+    "brand": "Renault",
+    "name": "Renault Zoe EV",
+    "price": "₹8.00 - 11.00 Lakh",
+    "range": "395 km",
+    "battery": "52 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/41551/kwid-exterior-right-front-three-quarter-3.jpeg"
+  },
+  {
+    "brand": "Skoda",
+    "name": "Skoda Enyaq iV",
+    "price": "₹50.00 - 55.00 Lakh",
+    "range": "500 km",
+    "battery": "77 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/121343/enyaq-iv-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Toyota",
+    "name": "Toyota bZ4X EV",
+    "price": "₹60.00 - 65.00 Lakh",
+    "range": "516 km",
+    "battery": "71.4 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/121855/bz4x-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "VinFast",
+    "name": "VinFast VF 6",
+    "price": "₹16.49 - 19.19 Lakh",
+    "range": "463 km",
+    "battery": "59.6 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/182511/vf-3-exterior-right-front-three-quarter.jpeg"
+  },
+  {
+    "brand": "Volkswagen",
+    "name": "Volkswagen ID.4",
+    "price": "₹55.00 - 65.00 Lakh",
+    "range": "500 km",
+    "battery": "77 kWh",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/115277/id4-exterior-right-front-three-quarter.jpeg"
+  }
+]
