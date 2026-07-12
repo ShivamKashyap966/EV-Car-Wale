@@ -1,77 +1,85 @@
 # EVcarwale Codebase Dependency Graph
 
-The project utilizes a zero-build pipeline. Connections are established directly at the browser level through HTML scripts, style link tags, and Javascript DOM selection.
+This document details the modular relationships, script linkages, and selector dependencies across both frontend and backend directories.
 
 ---
 
-## 1. Modular Relationships (Mermaid Graph)
+## 1. Codebase Dependency Diagram
 
 ```mermaid
 graph TD
-    %% Base Entry Point
-    index.html[index.html: Entry Host]
-
-    %% Stylesheet relationships
-    subgraph Styling Layer
-        index.html -->|Links Tag| style.css[style.css: Grayscale design system]
-        index.html -->|Script Tag| Tailwind[Tailwind CSS Play CDN]
-        Tailwind -.->|Applies utility rules to| index.html
-    end
-
-    %% Javascript relationships
-    subgraph Execution & Data Layer
-        index.html -->|Script Tag| app.js[app.js: Core database & driver]
-        app.js -->|Mutates / Reads DOM| index.html
-    end
-
-    %% External libraries
-    subgraph External Dependencies
-        index.html -->|Script Tag| jsPDF[jsPDF CDN: Document generator]
-        app.js -->|Calls window.jspdf| jsPDF
-    end
-
-    %% Styling linkages
-    style.css -.->|Provides custom animations & layouts for| index.html
-    style.css -.->|Provides transitions for dynamic cards injected by| app.js
+    %% Server Tier
+    server[server.js: Dev Server] -->|Requires| app_factory[backend/src/app.js: App Factory]
+    api_entry[api/index.js: Vercel Entry] -->|Requires| app_factory
     
-    style index.html fill:#fffde7,stroke:#fbc02d,stroke-width:1.5px;
-    style app.js fill:#e3f2fd,stroke:#1e88e5,stroke-width:1.5px;
-    style style.css fill:#eceff1,stroke:#546e7a,stroke-width:1.5px;
+    app_factory -->|Serves| index_html[index.html: Client canvas]
+    app_factory -->|Requires| api_router[backend/src/routes/index.js: Main API Router]
+    
+    %% API Routing Dependencies
+    api_router -->|Mounts| auth_routes[authRoutes.js]
+    api_router -->|Mounts| car_routes[carRoutes.js]
+    api_router -->|Mounts| blog_routes[blogRoutes.js]
+    api_router -->|Mounts| review_routes[reviewRoutes.js]
+    api_router -->|Mounts| lead_routes[leadRoutes.js]
+    api_router -->|Mounts| charger_routes[chargerRoutes.js]
+    api_router -->|Mounts| news_routes[newsRoutes.js]
+    api_router -->|Mounts| video_routes[videoRoutes.js]
+    api_router -->|Mounts| chat_routes[chat controller]
+    
+    %% Backend Business Layer
+    auth_routes -->|Uses| auth_controller[authController.js]
+    auth_controller -->|Uses| user_service[userService.js]
+    user_service -->|Uses| user_repo[userRepository.js]
+    user_repo -->|Uses| dynamo_repo[dynamoRepository.js]
+    
+    %% Client Dependencies
+    index_html -->|Loads CSS| style_css[style.css: Grayscale design]
+    index_html -->|Loads script| env_js[env.js: Env configurations]
+    index_html -->|Loads script| firebase_js[firebase.js: Client auth]
+    index_html -->|Loads script| app_js[app.js: Core SPA driver]
+    
+    app_js -->|Queries / Mutates DOM| index_html
+    app_js -->|Uses window.jspdf| jsPDF[jsPDF CDN]
+    app_js -->|Calls API| api_router
+    
+    classDef client fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px;
+    classDef server fill:#e3f2fd,stroke:#1565c0,stroke-width:1px;
+    class index_html,style_css,env_js,firebase_js,app_js,jsPDF client;
+    class server,api_entry,app_factory,api_router,auth_routes,car_routes,blog_routes,review_routes,lead_routes,charger_routes,news_routes,video_routes,chat_routes,auth_controller,user_service,user_repo,dynamo_repo server;
 ```
 
 ---
 
-## 2. Core Dependency Specifications
+## 2. Structural Dependencies
 
-### A. Host File (`index.html`) Dependencies:
-- **`style.css`** (Internal Link): Loaded via `<link rel="stylesheet" href="style.css">` on line 38. Sets up initial grayscale design system overrides.
-- **Tailwind Play CDN** (External Script): Loaded via `<script src="https://cdn.tailwindcss.com"></script>` on line 15. Performs runtime compilation of utility classes.
-- **jsPDF Library** (External Script): Loaded via `<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>` on line 17. Exposes `window.jspdf` for document downloads.
-- **Google Fonts Link**: Loads Plus Jakarta Sans, Inter, and Manrope fonts.
-- **`app.js`** (Internal Script): Loaded at the very bottom on line 2534 to prevent blocking layout renders.
+### A. HTML to JS DOM Selectors
+The frontend driver (`app.js`) is heavily coupled with selector IDs and CSS classes inside `index.html`. Removing or renaming these elements will break frontend execution:
 
-### B. Controller File (`app.js`) Selector Dependencies:
-The JavaScript file is heavily dependent on specific element IDs and class hooks defined inside `index.html`. Modifying these hooks inside the HTML will break corresponding features:
-
-| Selector Key (ID / Class) | Type | Responsible System / Function | Result of Modification / Removal |
+| Selector Key (ID / Class) | Type | Responsible JS Subsystem | Result of Modification / Removal |
 | :--- | :--- | :--- | :--- |
-| `#homepage-content` | Div | `handleRouting()` / `restoreHomepage()` | SPA main landing page content will fail to show/hide. |
-| `#details-page-content` | Div | `handleRouting()` / `renderCarDetailsPage()` | Vehicle details template injection will fail, breaking subpages. |
-| `#preloader` / `#loader-progress` | Div | `runPreloader()` | Preloader screen will hang or show errors on page startup. |
-| `#slider-price` / `#slider-down` | Slider | `updateEMICalculator()` | EMI repayments calculator will throw exceptions. |
-| `#savings-select-ev` | Select | `updateLandingSavings()` | Landing savings calculator will fail to load EV efficiency rates. |
-| `.jargon-term` | Class | `applyJargonBuster()` | Custom EV definition hover tooltips will fail to bind. |
-| `.variant-tab-btn` | Class | `renderCarDetailsPage()` | In-page variant trim pricing changes will not register. |
+| `#homepage-content` | Div | `restoreHomepage()`, `handleRouting()` | The main homepage dashboard fails to show/hide. |
+| `#details-page-content` | Div | `renderCarDetailsPage()`, `handleRouting()` | Car details template injection breaks, halting subpage renders. |
+| `#preloader` / `#loader-progress` | Div | `runPreloader()` | Startup loader screen hangs. |
+| `#slider-price` / `#slider-down` | Slider | `updateEMICalculator()` | Loan EMI amortization calculations fail. |
+| `#savings-select-ev` | Select | `updateLandingSavings()` | Fuel savings engine fails to load EV efficiency indices. |
+| `.jargon-term` | Class | `applyJargonBuster()` | Custom tooltip bindings for EV terminology fail. |
+| `.variant-tab-btn` | Class | `renderCarDetailsPage()` | In-page variant trim calculations break. |
+
+### B. Backend Configurations & Environment Keys
+The Express server depends on configuration models in `backend/src/config/`:
+- **`env.js`**: Validates keys and exposes options to the server runtime.
+- **`aws.js`**: Initializes DynamoDB and S3 clients.
+- **`firebaseAdmin.js`**: Reads service keys to configure Google token verification.
 
 ---
 
-## 3. High Impact Files (Files to Modify with Caution)
+## 3. High Impact Files (Modify with Caution)
 
-### 1. [app.js](file:///Users/tanisha/Documents/EVcarwale/app.js) (Critical Impact)
-Contains the entirety of the local databases, SPA routing pathways, calculation models, and DOM node binding callbacks. Changes in variable naming, route string schemas, or parameter keys will cause system-wide failures.
-
-### 2. [index.html](file:///Users/tanisha/Documents/EVcarwale/index.html) (High Impact)
-Houses structural nodes, navbar trigger targets, modal backdrops, and input sliders. Removing or renaming selectors will break Javascript selectors in `app.js`.
-
-### 3. [style.css](file:///Users/tanisha/Documents/EVcarwale/style.css) (Medium Impact)
-Contains design rules, transitions, and scrollbar layouts. Modifying this file will not break JavaScript execution, but can severely degrade the user experience and visual design.
+1. **[app.js](file:///Users/tanisha/Documents/EVcarwale/app.js) (Critical Client Impact)**:
+   Contains all static catalogs, range math formulas, RWA letter specifications, SPA routing paths, and event registrations. Single-character syntax issues will break the entire client experience.
+2. **[backend/src/app.js](file:///Users/tanisha/Documents/EVcarwale/backend/src/app.js) (Critical Backend Impact)**:
+   Initializes CORS, body parsing limits, and routing mount pathways. Changes here can break REST communications.
+3. **[index.html](file:///Users/tanisha/Documents/EVcarwale/index.html) (High Client Impact)**:
+   Defines the markup containers (homepage, detail page, modal windows). Modifying structural layouts will break element bindings in `app.js`.
+4. **[backend/src/repositories/dynamoRepository.js](file:///Users/tanisha/Documents/EVcarwale/backend/src/repositories/dynamoRepository.js) (High Database Impact)**:
+   Standardizes CRUD execution paths for DynamoDB. A bug introduced here will cascade to all data endpoints, blocking profile syncs, test drive lead bookings, and reviews.

@@ -1,6 +1,6 @@
 # EVcarwale System Architecture
 
-EVcarwale is architected as a lightweight, zero-build, serverless **client-side Single Page Application (SPA)**. It runs entirely inside the user's browser, utilizing vanilla HTML5, custom Grayscale CSS, Tailwind CSS (loaded via Play CDN), and vanilla JavaScript.
+EVcarwale is architected as a hybrid application combining a lightweight, zero-build, serverless **client-side Single Page Application (SPA)** with a Node.js + Express **API backend**. The entire application is packaged for deployment on Vercel, routing both static asset serving and REST API queries through a unified serverless Node.js handler.
 
 ---
 
@@ -8,85 +8,89 @@ EVcarwale is architected as a lightweight, zero-build, serverless **client-side 
 
 ```mermaid
 graph TD
-    %% Browser & Routing
-    subgraph Browser Context
-        User([User Action]) -->|URL Hash Change| HashEngine[SPA Hash Routing Engine]
-        HashEngine -->|Triggers| RouteDispatcher[handleRouting Controller]
+    %% Client Tier
+    subgraph Client Tier [Client Browser]
+        UI[User Interface: HTML/CSS/Tailwind] -->|User Interaction| SPA[SPA Hash Router app.js]
+        SPA -->|Dynamic Templates| DOM[DOM Injection: details-page-content]
+        DOM -->|Interactive Calculators| Math[Calculators: savings, EMI, trip route]
+        DOM -.->|API call via fetch| Express
+        Auth[Firebase Client Auth] -->|JWT ID Token| Express
     end
 
-    %% Routing Dispatched Views
-    subgraph SPA View Dispatcher
-        RouteDispatcher -->|Default / Fallback| HomeView[restoreHomepage: Displays Landing Sections]
-        RouteDispatcher -->|#/cars/:id| CarView[renderCarDetailsPage: Injects Details Page DOM]
-        RouteDispatcher -->|#/guide/:id| GuideView[renderGuideArticlePage: Chapters & SVGs]
-        RouteDispatcher -->|#/hub/:key| HubView[renderHubArticlePage: Detailed Tech FAQs]
-        RouteDispatcher -->|#/news/all| NewsView[renderAllNewsPage: News List]
-        RouteDispatcher -->|#/reviews/*| ReviewView[renderExpert/CustomerReviewsPage]
+    %% Routing & API Tier
+    subgraph API Tier [Vercel Serverless Layer]
+        VercelRoute[vercel.json: Wildcard Route] -->|All Requests| APIIndex[api/index.js: Serverless Entry]
+        APIIndex -->|Factory Init| Express[Express createApp backend/src/app.js]
+        Express -->|Route Middleware| Middleware[Logger / Auth / Error Handler]
+        Middleware -->|API Routers| Routers[backend/src/routes]
+        Routers -->|Request Controllers| Controllers[backend/src/controllers]
     end
 
-    %% Databases and Local Files
-    subgraph Codebase Modules
-        HomeView & CarView & GuideView & HubView -->|Reads Specs/Rules| EV_DB[(EV_DATABASE app.js)]
-        HomeView -->|Reads Distance / Route| Distance_DB[(CITY_DISTANCE_DATABASE app.js)]
-        CarView -->|Reads Tax Rates| Tax_DB[(STATE_TAX_DATABASE app.js)]
+    %% Logic & Persistence Tier
+    subgraph Persistence & Integration Tier
+        Controllers -->|Business Logic| Services[backend/src/services]
+        Controllers -->|Data Query| Repositories[backend/src/repositories]
+        Repositories -->|DB Schemas| Models[backend/src/models]
+        Repositories -->|CRUD Queries| DynamoDB[(Amazon DynamoDB)]
+        Services -->|S3 Upload Client| S3[(Amazon S3 Bucket)]
+        
+        %% Third Party APIs
+        Controllers -->|Gemini SDK| Gemini[Google Gemini API]
+        Controllers -->|Axios Fetch| CurrentsAPI[CurrentsAPI Live News]
+        Controllers -->|Axios Fetch| YouTube[YouTube v3 API Videos]
+        Controllers -->|Fetch Proxy| OpenCharge[OpenChargeMap API]
     end
 
-    %% DOM Injection & Post-Render Subsystems
-    subgraph DOM Injection & Binding
-        CarView & HomeView & GuideView & HubView -->|1. Inject HTML| MainDOM[details-page-content / homepage-content]
-        MainDOM -->|2. Bind Listeners| EventBinder[attachCardEvents / Event Listeners]
-        MainDOM -->|3. Scan Text Nodes| JargonBuster[applyJargonBuster: Dotted tooltips]
-    end
-
-    %% External CDNs
-    subgraph External Libraries & Resources
-        style.css[style.css: Grayscale Tokens & Animations] -->|Links| MainDOM
-        TailwindCDN[Tailwind CSS Play CDN] -->|Compiles Utilities| MainDOM
-        jsPDF[jsPDF CDN: window.jspdf] -->|Triggered by User| PDFGen[downloadRWAPdf: Local Letter PDF]
-    end
-    
-    classDef file fill:#f9f9f9,stroke:#333,stroke-width:1px;
-    classDef db fill:#e1f5fe,stroke:#0288d1,stroke-width:1px;
-    class style.css,app.js,index.html file;
-    class EV_DB,Distance_DB,Tax_DB db;
+    classDef client fill:#e8f5e9,stroke:#2e7d32,stroke-width:1.5px;
+    classDef server fill:#e3f2fd,stroke:#1565c0,stroke-width:1.5px;
+    classDef db fill:#fffde7,stroke:#f57f17,stroke-width:1.5px;
+    class UI,SPA,DOM,Math,Auth client;
+    class Express,Middleware,Routers,Controllers,Services,Repositories server;
+    class DynamoDB,S3,Gemini,CurrentsAPI,YouTube,OpenCharge db;
 ```
 
 ---
 
-## Codebase Modules
+## Architecture Layer Breakdown
 
-The system is decoupled into three primary files:
+### 1. Client-Side Presentation Layer
+- **`index.html` (Entry Host)**: Serves as the landing page canvas and hooks global layout overlays (modals for booking, search, and video playback). Imports Google Web Fonts, Tailwind CSS CDN, jsPDF CDN, and the Firebase Web SDK.
+- **`style.css` (Grayscale Design System)**: Restricts all UI highlight colors to grays, pure white, and charcoal `#111111`. Implements custom track scrollbars, skeleton loading shimmers, card hover lifts, and transition triggers.
+- **`app.js` (Core SPA Driver)**: Houses client-side databases (specs, tax rules, distances, guide chapters) and handles the Single Page App routing loop, template layout compilation, calculator math, and browser PDF generators.
 
-1. **`index.html`** (Entrypoint Host):
-   - Defines the initial HTML structure.
-   - Contains placeholder structures, landing page containers (`#homepage-content`), and the subpage destination wrapper (`#details-page-content`).
-   - Hosts global overlays (modals for Booking Test Drives, Search Overlay, Video Player, and the generic Information Reader log).
-   - Loads Tailwind Play CDN, Google Fonts, and the jsPDF library.
-2. **`style.css`** (Design System):
-   - Restricts all UI accents to a premium grayscale theme (black, white, and grays).
-   - Implements custom styling overrides: custom track scrollbars, selection coloring, skeleton loading shimmer animations (`skeleton-shimmer`), visual card lift states (`car-card`), range slider thumb overrides, and scroll-aligned section dividers.
-3. **`app.js`** (Core Driver):
-   - Central database repository, SPA router, template compilation engine, calculator compute engine, and dynamic event binder.
+### 2. API Gateway & Serverless Layer
+- **`vercel.json` (Deploy Configuration)**: Standardizes routing. Redirects all wildcard traffic (`/(.*)`) to the serverless function `api/index.js`.
+- **`api/index.js` (Serverless Router)**: Loads environment variables, configures core AWS data services, and invokes `createApp` from the backend workspace to return the Express listener.
+
+### 3. Backend Execution Layer
+- **`backend/src/app.js` (Express App Factory)**: Manages core Express settings: CORS permissions, JSON payload limiters, logger bindings, and routes static assets from the workspace root or the public folder. It mounts `/api` routes and maps unmatched frontend path prefixes to `index.html`.
+- **`backend/src/routes/` (REST Routers)**: Maps request endpoints (e.g. `/api/cars`, `/api/news`) to their respective controller handlers, applying auth verification middleware where required.
+- **`backend/src/middleware/` (Express Middlewares)**:
+  - `auth.js`: decodes incoming Firebase authentication headers.
+  - `errorHandler.js`: catches application exceptions, normalizing errors to JSON replies.
+  - `requestLogger.js`: logs API request parameters.
+
+### 4. Repository & Database Layer
+- **`backend/src/controllers/` (Request Handlers)**: Validates request payloads and routes execution calls to services or repositories.
+- **`backend/src/services/` (Services)**: Standardizes business processes (user updates, S3 media uploads).
+- **`backend/src/repositories/` (Repositories)**: Performs DynamoDB operations. Inherits CRUD capabilities from the shared repository driver `dynamoRepository.js`.
+- **`backend/src/models/` (Data Schemas)**: Houses key-value definitions (partition keys, sort keys, database columns) representing entity structures.
 
 ---
 
-## Core Subsystems
+## Key Architectural Decisions
 
-### 1. Hash Routing Engine
-Intercepts `DOMContentLoaded` and `hashchange` browser events. It executes `handleRouting()` which extracts the path name or location hash (e.g. `#/cars/nexon-ev`) to determine the active viewport. It updates the layout by showing/hiding parent DOM wrappers and resets the scroll offset to `(0, 0)`.
+### 1. Unified Single-Table Modeling
+The backend utilizes DynamoDB to manage multiple entities (Users, Favourites, Recently Viewed, Reviews, Test Drive Leads, Newsletter Subscriptions, Chat History) in a single-table layout pattern or clean prefix-divided indices. By structuring keys dynamically using `pk` and `sk` (e.g., `USER#<uid>` and `FAVOURITE#<carId>`), the database minimizes indexing overhead and supports decoupled repository queries.
 
-### 2. Dynamic Template Compilation & DOM Injection
-Pages other than the landing page are compiled on-the-fly. Functions like `renderCarDetailsPage()` build HTML strings using vehicle data, inject them into `#details-page-content`, and then bind local UI handlers (e.g., variant toggles, calculation sliders, and modal buttons).
+### 2. Serverless Execution with Express Routing
+Rather than building standalone serverless endpoints for each API path, the project runs an entire Express application behind a single serverless Vercel function (`api/index.js`). This approach simplifies routing, enables standard Express middleware usage, and supports both local development (`node server.js`) and cloud hosting without codebase alterations.
 
-### 3. Jargon Buster Scanner
-After any view update or routing transition, the application triggers `applyJargonBuster()`. This creates a DOM `TreeWalker` to scan all visible text nodes (excluding buttons, inputs, links, and navigations). It wraps matching EV keywords (like *V2L*, *kWh*, *ADAS*, *CCS2*) inside dotted-underline `<span>` tags. Clicking these elements reveals a dynamic scale-up tooltip with simplified everyday definitions.
+### 3. Graceful Database Fallbacks
+If AWS or DynamoDB parameters are not configured, read operations default to empty arrays or local files (`Cars.json`), and write operations return a descriptive `503 Service Unavailable` error instead of throwing uncaught exceptions. This allows the frontend to run as a client-side mockup while preparing database keys.
 
-### 4. Interactive Mathematical Compute Engines
-Runs client-side calculations based on slider and select inputs:
-- **On-Road Price Breakdowns**: Computes local state road taxes, dealer handling, registration charges, and incentives for 12 regions (e.g., Delhi road-tax waiver vs. Chennai 6% road-tax).
-- **Petrol vs EV Savings**: Computes fuel consumption and charging costs over a period of years based on an assumed 15 km/l petrol baseline.
-- **Trip Route Planning**: Computes optimal charging stops (to 85% SoC) based on city distances and the vehicle's DC charging performance, adjusting for AC usage, driving styles, and passenger weight.
-- **EMI Repayment**: Calculates monthly installments using standard loan amortization.
-
-### 5. Client-Side Document Generator
-When a user clicks "Download RWA Letter (PDF)" from a vehicle details view, the app loads `jsPDF` asynchronously from `window.jspdf`, generates a structured Resident Welfare Association NOC request letter pre-populated with the target vehicle model, and prompts a browser file download.
+### 4. Modular Third-Party API Proxies
+The backend acts as an API proxy for third-party endpoints:
+- **YouTube API & CurrentsAPI**: Integrates caching mechanisms to avoid hitting rate limits and handles relevance-filtering.
+- **OpenChargeMap API**: Proxies POI requests to hide developer API keys from client-side network inspectors.
+- **Google Gemini API**: Implements system prompts and error boundaries, exposing a simple `/api/chat` endpoint to the frontend.

@@ -1,0 +1,2700 @@
+/**
+ * app.js - EV Car Wale Marketplace Core Logic
+ * Handles interactive state machines, data filtering, math calculators,
+ * dropdown comparisons, video players, and accordion modules.
+ */
+
+// --- Global EV Fleet Database ---
+const EV_DATABASE = [
+  {
+    id: 'nexon-ev',
+    name: 'Nexon EV',
+    brand: 'tata',
+    priceVal: 14.50,
+    price: '₹14.50 Lakh',
+    rangeVal: 465,
+    range: '465 km',
+    battery: '40.5 kWh',
+    charging: '56 min (DC)',
+    speed: '150 km/h',
+    power: '143 hp',
+    safety: '5 Stars (BNCAP)',
+    features: 'Ventilated seats, 12.3-inch screen, V2L capability',
+    dimensions: '3994 x 1811 x 1616 mm',
+    image: 'tata_nexon_ev.jpeg',
+    sections: ['popular', 'launches'],
+    launchDate: '12 Days Ago'
+  },
+  {
+    id: 'xuv400',
+    name: 'XUV400',
+    brand: 'mahindra',
+    priceVal: 15.49,
+    price: '₹15.49 Lakh',
+    rangeVal: 456,
+    range: '456 km',
+    battery: '39.4 kWh',
+    charging: '50 min (DC)',
+    speed: '160 km/h',
+    power: '150 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Single pane sunroof, Drive modes, 10.25-inch touchscreen',
+    dimensions: '4200 x 1821 x 1634 mm',
+    image: 'mahindra_XUV_400.jpg',
+    sections: ['popular']
+  },
+  {
+    id: 'ioniq-5',
+    name: 'Ioniq 5',
+    brand: 'hyundai',
+    priceVal: 46.05,
+    price: '₹46.05 Lakh',
+    rangeVal: 631,
+    range: '631 km',
+    battery: '72.6 kWh',
+    charging: '18 min (DC)',
+    speed: '185 km/h',
+    power: '217 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Dual screens, Relaxion seats, V2L, Premium Bose Sound',
+    dimensions: '4635 x 1890 x 1605 mm',
+    image: 'hyundai_ioniq5.jpeg',
+    sections: ['popular']
+  },
+  {
+    id: 'byd-seal',
+    name: 'BYD Seal',
+    brand: 'byd',
+    priceVal: 41.00,
+    price: '₹41.00 Lakh',
+    rangeVal: 650,
+    range: '650 km',
+    battery: '82.5 kWh',
+    charging: '26 min (DC)',
+    speed: '240 km/h',
+    power: '530 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Rotating screen, Cell-to-body tech, Head-up display',
+    dimensions: '4800 x 1875 x 1460 mm',
+    image: 'byd_seal.jpeg',
+    sections: ['popular', 'launches'],
+    launchDate: '20 Days Ago'
+  },
+  {
+    id: 'ev6',
+    name: 'Kia EV6',
+    brand: 'kia',
+    priceVal: 60.95,
+    price: '₹60.95 Lakh',
+    rangeVal: 708,
+    range: '708 km',
+    battery: '77.4 kWh',
+    charging: '18 min (DC)',
+    speed: '325 hp',
+    power: '325 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Augmented reality HUD, Sunroof, Meridian Audio',
+    dimensions: '4695 x 1890 x 1550 mm',
+    image: 'kia_ev6.jpeg',
+    sections: ['popular']
+  },
+  {
+    id: 'bmw-i4',
+    name: 'BMW i4',
+    brand: 'bmw',
+    priceVal: 72.50,
+    price: '₹72.50 Lakh',
+    rangeVal: 590,
+    range: '590 km',
+    battery: '83.9 kWh',
+    charging: '31 min (DC)',
+    speed: '190 km/h',
+    power: '340 hp',
+    safety: '4 Stars (Euro NCAP)',
+    features: 'Curved display, Reversing assistant, Glass roof',
+    dimensions: '4783 x 1852 x 1448 mm',
+    image: 'bmw_i4.jpeg',
+    sections: ['popular']
+  },
+  {
+    id: 'etron-gt',
+    name: 'Audi e-tron GT',
+    brand: 'audi',
+    priceVal: 195.00,
+    price: '₹1.95 Crore',
+    rangeVal: 500,
+    range: '500 km',
+    battery: '93.4 kWh',
+    charging: '22 min (DC)',
+    speed: '245 km/h',
+    power: '530 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Matrix LED headlights, e-tron sport sound, Virtual cockpit',
+    dimensions: '4989 x 1964 x 1413 mm',
+    image: 'audi_etron_gt.jpg',
+    sections: ['popular']
+  },
+  {
+    id: 'eqs-suv',
+    name: 'EQS Sedan',
+    brand: 'mercedes-benz',
+    priceVal: 162.00,
+    price: '₹1.62 Crore',
+    rangeVal: 857,
+    range: '857 km',
+    battery: '107.8 kWh',
+    charging: '31 min (DC)',
+    speed: '210 km/h',
+    power: '523 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Hyperscreen display, Rear axle steering, Burmester 3D',
+    dimensions: '5216 x 1926 x 1512 mm',
+    image: 'mercedes_eqs_sedan.webp',
+    sections: ['popular']
+  },
+  {
+    id: 'be6',
+    name: 'BE.06',
+    brand: 'mahindra',
+    priceVal: 24.00,
+    price: '₹24.00 Lakh',
+    rangeVal: 450,
+    range: '450 km',
+    battery: '60 kWh',
+    charging: '30 min (DC)',
+    speed: '180 km/h',
+    power: '280 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Futuristic design, Digital cockpit, Advanced ADAS',
+    dimensions: '4370 x 1900 x 1635 mm',
+    image: 'mahindra-BE6.jpg',
+    sections: ['popular', 'launches'],
+    launchDate: '22 Days Ago'
+  },
+  {
+    id: 'curve-ev',
+    name: 'Curvv EV',
+    brand: 'tata',
+    priceVal: 17.49,
+    price: '₹17.49 Lakh',
+    rangeVal: 585,
+    range: '585 km',
+    battery: '55 kWh',
+    charging: '40 min (DC)',
+    speed: '160 km/h',
+    power: '167 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Panoramic sunroof, Powered tailgate, Flush door handles',
+    dimensions: '4310 x 1810 x 1637 mm',
+    image: 'tata_curve_ev.jpeg',
+    sections: ['popular', 'launches'],
+    launchDate: '15 Days Ago'
+  },
+  {
+    id: 'harrier-ev',
+    name: 'Harrier EV',
+    brand: 'tata',
+    priceVal: 22.00,
+    price: '₹22.00 Lakh',
+    rangeVal: 500,
+    range: '500 km',
+    battery: '60 kWh',
+    charging: '45 min (DC)',
+    speed: '170 km/h',
+    power: '218 hp',
+    safety: '5 Stars (Expected)',
+    features: 'AWD option, V2L & V2V charging, 12.3-inch infotainment',
+    dimensions: '4605 x 1922 x 1718 mm',
+    image: 'tata_harrier_ev.jpg',
+    sections: ['popular', 'launches'],
+    launchDate: '5 Days Ago'
+  },
+  {
+    id: 'punch-ev',
+    name: 'Punch EV',
+    brand: 'tata',
+    priceVal: 10.99,
+    price: '₹10.99 Lakh',
+    rangeVal: 421,
+    range: '421 km',
+    battery: '35 kWh',
+    charging: '56 min (DC)',
+    speed: '140 km/h',
+    power: '122 hp',
+    safety: '5 Stars (BNCAP)',
+    features: 'Electronic parking brake, Sunroof, Paddle shifters for regeneration',
+    dimensions: '3827 x 1742 x 1615 mm',
+    image: 'tata_punch_ev.jpg',
+    sections: ['popular']
+  },
+  {
+    id: 'tiago-ev',
+    name: 'Tiago EV',
+    brand: 'tata',
+    priceVal: 8.69,
+    price: '₹8.69 Lakh',
+    rangeVal: 315,
+    range: '315 km',
+    battery: '24 kWh',
+    charging: '58 min (DC)',
+    speed: '120 km/h',
+    power: '74 hp',
+    safety: '4 Stars (GNCAP)',
+    features: 'Harman touchscreen, Cruise control, Multi-drive modes',
+    dimensions: '3769 x 1677 x 1536 mm',
+    image: 'tata_tiago_EV.jpeg',
+    sections: ['popular']
+  },
+  {
+    id: 'vinfast-vf6',
+    name: 'VF6',
+    brand: 'vinfast',
+    priceVal: 15.00,
+    price: '₹15.00 Lakh',
+    rangeVal: 399,
+    range: '399 km',
+    battery: '59.6 kWh',
+    charging: '38 min (DC)',
+    speed: '160 km/h',
+    power: '201 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Sleek digital layout, Sophisticated interior, Active safety suite',
+    dimensions: '4238 x 1820 x 1590 mm',
+    image: 'vin_fast_vf6.jpeg',
+    sections: ['launches'],
+    launchDate: '28 Days Ago'
+  },
+  {
+    id: 'vinfast-vf7',
+    name: 'VF7',
+    brand: 'vinfast',
+    priceVal: 22.00,
+    price: '₹22.00 Lakh',
+    rangeVal: 450,
+    range: '450 km',
+    battery: '75.3 kWh',
+    charging: '35 min (DC)',
+    speed: '200 km/h',
+    power: '348 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Minimalist cabin, Flush door handles, Dual-motor AWD',
+    dimensions: '4545 x 1890 x 1635 mm',
+    image: 'vin_fast_vf7.jpeg',
+    sections: ['launches'],
+    launchDate: '30 Days Ago'
+  },
+  {
+    id: 'kia-ev9',
+    name: 'Kia EV9',
+    brand: 'kia',
+    priceVal: 110.00,
+    price: '₹1.10 Crore',
+    rangeVal: 561,
+    range: '561 km',
+    battery: '99.8 kWh',
+    charging: '24 min (DC)',
+    speed: '200 km/h',
+    power: '379 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Swivel seats, Dual sunroofs, Spacious three-row cabin',
+    dimensions: '5010 x 1980 x 1755 mm',
+    image: 'kia_ev9.jpeg',
+    sections: ['launches'],
+    launchDate: '35 Days Ago'
+  },
+  {
+    id: 'mahindra-be07',
+    name: 'BE.07',
+    brand: 'mahindra',
+    priceVal: 28.00,
+    price: '₹28.00 Lakh',
+    rangeVal: 500,
+    range: '500 km',
+    battery: '80 kWh',
+    charging: '35 min (DC)',
+    speed: '180 km/h',
+    power: '285 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Panoramic sunroof, Multi-screen dashboard, INGLO platform',
+    dimensions: '4585 x 1900 x 1660 mm',
+    image: 'mahindra_be07.png',
+    sections: ['upcoming'],
+    launchDate: 'Expected Oct 2026'
+  },
+  {
+    id: 'porsche-macan-ev',
+    name: 'Macan EV',
+    brand: 'porsche',
+    priceVal: 165.00,
+    price: '₹1.65 Crore',
+    rangeVal: 613,
+    range: '613 km',
+    battery: '100 kWh',
+    charging: '21 min (DC)',
+    speed: '220 km/h',
+    power: '408 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Aero coefficient walkaround, Porsche Active Suspension, Premium infotainment',
+    dimensions: '4784 x 1938 x 1622 mm',
+    image: 'porsche_macan_ev.png',
+    sections: ['upcoming'],
+    launchDate: 'Expected Nov 2026'
+  },
+  {
+    id: 'byd-atto',
+    name: 'Atto 3',
+    brand: 'byd',
+    priceVal: 24.99,
+    price: '₹24.99 Lakh',
+    rangeVal: 521,
+    range: '521 km',
+    battery: '60.48 kWh',
+    charging: '50 min (DC)',
+    speed: '160 km/h',
+    power: '201 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Rotating touchscreen, Blade battery, ADAS level 2',
+    dimensions: '4455 x 1875 x 1615 mm',
+    image: 'BYD_atto.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Dec 2026'
+  },
+  {
+    id: 'hyundai-ioniq6',
+    name: 'Ioniq 6',
+    brand: 'hyundai',
+    priceVal: 65.00,
+    price: '₹65.00 Lakh',
+    rangeVal: 614,
+    range: '614 km',
+    battery: '77.4 kWh',
+    charging: '18 min (DC)',
+    speed: '250 km/h',
+    power: '320 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'Aero streamliner profile, Dual-color ambient lighting, E-GMP platform',
+    dimensions: '4855 x 1880 x 1495 mm',
+    image: 'Hyundai_IONIQ6.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Jan 2027'
+  },
+  {
+    id: 'kia-syros-ev',
+    name: 'Syros EV',
+    brand: 'kia',
+    priceVal: 18.00,
+    price: '₹18.00 Lakh',
+    rangeVal: 400,
+    range: '400 km',
+    battery: '45 kWh',
+    charging: '40 min (DC)',
+    speed: '150 km/h',
+    power: '150 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Connected car tech, Panoramic sunroof, Smart regenerations',
+    dimensions: '4100 x 1780 x 1600 mm',
+    image: 'Kia_syros_ev.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Feb 2027'
+  },
+  {
+    id: 'toyota-bz4x',
+    name: 'bZ4X',
+    brand: 'toyota',
+    priceVal: 50.00,
+    price: '₹50.00 Lakh',
+    rangeVal: 516,
+    range: '516 km',
+    battery: '71.4 kWh',
+    charging: '30 min (DC)',
+    speed: '160 km/h',
+    power: '214 hp',
+    safety: '5 Stars (Euro NCAP)',
+    features: 'AWD drive modes, Solar charging roof option, Toyota Safety Sense',
+    dimensions: '4690 x 1860 x 1650 mm',
+    image: 'Toyota_bZ4X.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Mar 2027'
+  },
+  {
+    id: 'volvo-ex90',
+    name: 'EX90',
+    brand: 'volvo',
+    priceVal: 150.00,
+    price: '₹1.50 Crore',
+    rangeVal: 600,
+    range: '600 km',
+    battery: '111 kWh',
+    charging: '30 min (DC)',
+    speed: '180 km/h',
+    power: '517 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Lidar sensors standard, Safe space technology, Bowers & Wilkins audio',
+    dimensions: '5037 x 1964 x 1747 mm',
+    image: 'Volvo_EX90.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Apr 2027'
+  },
+  {
+    id: 'honda-elevate-ev',
+    name: 'Elevate EV',
+    brand: 'honda',
+    priceVal: 18.00,
+    price: '₹18.00 Lakh',
+    rangeVal: 450,
+    range: '450 km',
+    battery: '50 kWh',
+    charging: '45 min (DC)',
+    speed: '150 km/h',
+    power: '150 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Honda Sensing ADAS, Spacious boot, Honda Connect',
+    dimensions: '4312 x 1790 x 1650 mm',
+    image: 'honda_elevate_EV.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Mid 2027'
+  },
+  {
+    id: 'tata-avinya-ev',
+    name: 'Avinya EV',
+    brand: 'tata',
+    priceVal: 30.00,
+    price: '₹30.00 Lakh',
+    rangeVal: 500,
+    range: '500 km',
+    battery: '80 kWh',
+    charging: '30 min (DC)',
+    speed: '200 km/h',
+    power: '350 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Gen 3 EV architecture, Lounge seating, Aroma diffuser',
+    dimensions: '4600 x 1900 x 1550 mm',
+    image: 'tata_avinya_ev.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Late 2027'
+  },
+  {
+    id: 'tata-sierra-ev',
+    name: 'Sierra EV',
+    brand: 'tata',
+    priceVal: 25.00,
+    price: '₹25.00 Lakh',
+    rangeVal: 520,
+    range: '520 km',
+    battery: '60 kWh',
+    charging: '40 min (DC)',
+    speed: '160 km/h',
+    power: '200 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Lounge concept interior, Curved rear seating, Iconic glass house design',
+    dimensions: '4350 x 1850 x 1700 mm',
+    image: 'tata_sierra.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Late 2027'
+  },
+  {
+    id: 'thar-e',
+    name: 'Thar.e',
+    brand: 'mahindra',
+    priceVal: 28.00,
+    price: '₹28.00 Lakh',
+    rangeVal: 430,
+    range: '430 km',
+    battery: '60 kWh',
+    charging: '45 min (DC)',
+    speed: '155 km/h',
+    power: '250 hp',
+    safety: '5 Stars (Expected)',
+    features: 'Rugged off-road capability, Waterproof interior, Modular construction',
+    dimensions: '4500 x 1950 x 1850 mm',
+    image: 'thar.e.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected 2028'
+  },
+  {
+    id: 'vinfast-vf3',
+    name: 'VF3',
+    brand: 'vinfast',
+    priceVal: 8.00,
+    price: '₹8.00 Lakh',
+    rangeVal: 210,
+    range: '210 km',
+    battery: '18.4 kWh',
+    charging: '30 min (DC)',
+    speed: '100 km/h',
+    power: '43 hp',
+    safety: '3 Stars (Expected)',
+    features: 'Compact boxy design, City mobility focus, 10-inch screen',
+    dimensions: '3190 x 1679 x 1622 mm',
+    image: 'vin_fast_vf3.jpeg',
+    sections: ['upcoming'],
+    launchDate: 'Expected Early 2027'
+  }
+];
+
+const NEWS_DATABASE = [
+  {
+    id: 'news-1',
+    topic: 'Market Trends',
+    date: 'Oct 12, 2026',
+    title: 'FAME-III Subsidy Allocations Finalized',
+    summary: 'New policy outlines tax breaks for high-voltage commercial and passenger vehicle frameworks.',
+    content: 'The FAME-III framework introduces ₹12,500 crore in incentives, prioritizing localization of battery modules and public charging systems. Industry leaders expect this to drive electric vehicle adoption significantly across passenger and commercial segments.'
+  },
+  {
+    id: 'news-2',
+    topic: 'Infrastructure',
+    date: 'Oct 10, 2026',
+    title: 'Highway Fast Charger Corridor Expands',
+    summary: 'Grid operator adds 350 kW hyper-chargers on Golden Quadrilateral transit highways.',
+    content: 'Strategic partnerships aim to install DC fast chargers every 50 km on national expressways, boosting inter-city travel stability. The new 350 kW hyper-chargers will enable compatible premium vehicles to recharge from 10% to 80% in under 15 minutes.'
+  },
+  {
+    id: 'news-3',
+    topic: 'Battery Tech',
+    date: 'Oct 08, 2026',
+    title: 'Solid-State Modules Enter Trial Phase',
+    summary: 'Bespoke luxury manufacturer initiates high-density solid-state battery road runs.',
+    content: 'Solid-state battery prototypes promise up to 800 km range per charge and complete thermal runaway resistance, scaling production indexes. Crucially, these new modules offer double the energy density of current lithium-ion equivalents, opening up new possibilities for long-distance luxury touring.'
+  }
+];
+
+const GUIDE_DATABASE = [
+  {
+    id: 'guide-1',
+    chapter: 'Chapter 01',
+    title: 'Why Buy an EV?',
+    summary: 'Zero exhaust emissions, minimal mechanical moving components, instant electric motor torque profiles, and lower operating cost metrics.',
+    content: 'Electric vehicles reduce your carbon footprint significantly and offer extremely quiet and smooth rides due to the absence of combustion engines. The financial advantages include low cost-per-kilometer charging, tax breaks under section 80EEB, and highly reduced routine maintenance costs.'
+  },
+  {
+    id: 'guide-2',
+    chapter: 'Chapter 02',
+    title: 'Charging Explained',
+    summary: 'AC Level 1/2 home setups charge overnight, while DC Fast Chargers replenish lithium modules up to 80% SoC in under 30 minutes.',
+    content: 'Charging uses AC (Alternating Current) for slower home/office charging and DC (Direct Current) for high-speed highway charging stations. AC wallboxes (7.2kW to 11kW) typically charge a vehicle overnight in 6 to 10 hours. DC fast chargers (50kW to 350kW) bypass the vehicle\'s onboard charger to directly charge the battery pack, enabling rapid travel.'
+  },
+  {
+    id: 'guide-3',
+    chapter: 'Chapter 03',
+    title: 'Battery Technology',
+    summary: 'Modern vehicle integration uses Lithium-Iron-Phosphate (LFP) or Nickel-Manganese-Cobalt (NMC) configurations for cycle resilience.',
+    content: 'Solid battery pack casing isolates cell clusters. Sophisticated liquid cooling loops regulate temperatures during rapid energy transfers. LFP batteries are highly durable and thermal-runaway resistant, whereas NMC batteries offer superior energy density for longer highway ranges.'
+  },
+  {
+    id: 'guide-4',
+    chapter: 'Chapter 04',
+    title: 'Government Subsidies',
+    summary: 'State subsidies and FAME-II incentives offer road tax waivers, registration exemptions, and custom income tax deductions under Section 80EEB.',
+    content: 'Central FAME allocations and state incentives waive registration fees, reducing acquisition costs by up to 10-15%. Additionally, buying an EV on a loan allows tax deductions on interest paid up to ₹1.5 Lakh under section 80EEB, further reducing tax liabilities.'
+  },
+  {
+    id: 'guide-5',
+    chapter: 'Chapter 05',
+    title: 'EV Maintenance',
+    summary: 'No engine oil changes, spark plugs, or timing belts. Basic checks focus on coolant levels, tire wear, brake pads, and cabin air filtration blocks.',
+    content: 'Maintenance schedules are highly sparse. Regenerative braking limits friction pad wear, extending mechanical component lifecycles. Routine checkups involve checking battery coolant levels, rotating tires, and replacing cabin air filters every 15,000 to 20,000 km.'
+  },
+  {
+    id: 'guide-6',
+    chapter: 'Chapter 06',
+    title: 'Running Cost',
+    summary: 'Operating costs run approximately ₹1.0–₹1.5 per kilometer, compared to ₹7.0–₹9.0 per kilometer for internal combustion equivalents.',
+    content: 'Operating costs run approximately ₹1.0–₹1.5 per kilometer. Operating margins scale rapidly with home solar installations, saving up to ₹80,000 annually in energy expenditure, while reducing grid electricity reliance.'
+  }
+];
+
+
+// --- Charging Stations Database ---
+const STATIONS_DATABASE = [
+  { city: 'mumbai', name: 'Tata Power EZ Charger - Bandra', type: 'Fast', speed: '60 kW', address: 'Turner Road, Bandra West', status: 'Available' },
+  { city: 'mumbai', name: 'Zeon Charging - Lower Parel', type: 'Fast', speed: '120 kW', address: 'Phoenix Palladium Mall', status: 'In Use' },
+  { city: 'mumbai', name: 'Jio-bp pulse - Andheri East', type: 'Normal', speed: '22 kW', address: 'WEH Metro Station', status: 'Available' },
+  { city: 'delhi', name: 'Fortum Charge & Drive - Connaught Place', type: 'Fast', speed: '50 kW', address: 'Outer Circle, Block E', status: 'Available' },
+  { city: 'delhi', name: 'Statcon Energia - Saket', type: 'Normal', speed: '22 kW', address: 'Select Citywalk Mall', status: 'Available' },
+  { city: 'bangalore', name: 'Ather Grid - Indiranagar', type: 'Fast', speed: '80 kW', address: '100 Feet Road', status: 'Available' },
+  { city: 'bangalore', name: 'Shell Recharge - Whitefield', type: 'Fast', speed: '150 kW', address: 'ITPB Road', status: 'In Use' },
+  { city: 'pune', name: 'Tata Power - Hinjawadi', type: 'Normal', speed: '22 kW', address: 'Phase 1 Tech Park', status: 'Available' }
+];
+
+// Wishlist array
+let wishlistIds = [];
+
+// --- Database Enrichment for Car Details Pages ---
+function enrichDatabase() {
+  EV_DATABASE.forEach(car => {
+    // 1. Add variants if missing
+    if (!car.variants) {
+      const priceBase = car.priceVal;
+      const isCrore = car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'mercedes-benz';
+      car.variants = [
+        {
+          name: 'Executive Core',
+          price: isCrore ? `₹${(priceBase * 0.95).toFixed(2)} Crore` : `₹${(priceBase * 0.95).toFixed(2)} Lakh`,
+          priceVal: priceBase * 0.95,
+          battery: `${(parseFloat(car.battery) * 0.85).toFixed(1)} kWh`,
+          range: `${Math.floor(parseFloat(car.range) * 0.85)} km`,
+          charging: car.charging,
+          power: `${Math.floor(parseInt(car.power) * 0.85)} hp`,
+          speed: car.speed,
+          drivetrain: car.brand === 'bmw' || car.brand === 'kia' || car.brand === 'byd' ? 'RWD' : 'FWD'
+        },
+        {
+          name: 'Empowered Luxury',
+          price: car.price,
+          priceVal: priceBase,
+          battery: car.battery,
+          range: car.range,
+          charging: car.charging,
+          power: car.power,
+          speed: car.speed,
+          drivetrain: car.brand === 'bmw' || car.brand === 'kia' || car.brand === 'byd' ? 'RWD' : 'FWD'
+        },
+        {
+          name: 'Performance Flagship',
+          price: isCrore ? `₹${(priceBase * 1.15).toFixed(2)} Crore` : `₹${(priceBase * 1.15).toFixed(2)} Lakh`,
+          priceVal: priceBase * 1.15,
+          battery: `${(parseFloat(car.battery) * 1.15).toFixed(1)} kWh`,
+          range: `${Math.floor(parseFloat(car.range) * 1.1)} km`,
+          charging: car.charging,
+          power: `${Math.floor(parseInt(car.power) * 1.25)} hp`,
+          speed: `${Math.floor(parseInt(car.speed) * 1.1)} km/h`,
+          drivetrain: car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'kia' || car.brand === 'byd' ? 'AWD' : 'FWD'
+        }
+      ];
+    }
+    
+    // 2. Add extra specifications if missing
+    if (!car.torque) car.torque = car.brand === 'tata' || car.brand === 'mahindra' ? '250 Nm' : '350 Nm';
+    if (!car.chargingAC) car.chargingAC = '7.5 hours (7.2 kW AC)';
+    if (!car.clearance) car.clearance = car.brand === 'tata' || car.brand === 'mahindra' ? '190 mm' : '150 mm';
+    if (!car.bootSpace) car.bootSpace = '380 Litres';
+    if (!car.seating) car.seating = '5 Seater';
+    if (!car.warranty) car.warranty = '8 Years / 1,60,000 km';
+    
+    // 3. Add features list if missing
+    if (!car.featuresList) {
+      car.featuresList = {
+        exterior: ['LED Projector Headlamps', 'Alloy Wheels', 'Gloss Black Grille', 'Rear Spoiler'],
+        interior: ['Premium Dual Tone Dashboard', 'Soft Touch Door Pads', 'Leather Wrapping'],
+        safety: ['6 Airbags', 'Electronic Stability Program', 'ABS with EBD', 'ISOFIX Mounts'],
+        infotainment: ['10.25-inch Touchscreen Navigation', 'Premium Audio Channels', 'OTA Wireless Updates'],
+        adas: ['Lane Keep Assist', 'Blind Spot Monitoring', 'Adaptive Cruise Control', 'Emergency Brake Assist'],
+        comfort: ['Wireless Smartphone Charging', 'Smart Keyless Access', 'Ventilated Climate Seats']
+      };
+    }
+    
+    // 4. Add expert review if missing
+    if (!car.expertReview) {
+      car.expertReview = {
+        rating: car.id === 'ioniq-5' ? '4.8 / 5' : '4.5 / 5',
+        verdict: `A highly competent and premium EV that represents the absolute future of zero-emission mobility in its category. Highly recommended.`,
+        pros: ['Exceptional ride stability', 'Class-leading charging speed', 'Futuristic design aesthetics'],
+        cons: ['Limited rear visibility', 'Steering feedback is muted']
+      };
+    }
+    
+    // 5. Add customer reviews if missing
+    if (!car.customerReviews) {
+      car.customerReviews = [
+        {
+          author: 'Aniruddh D.',
+          duration: '6 Months',
+          score: '5.0 / 5',
+          feedback: `Running costs dropped significantly. Charging at home overnight is extremely convenient. Driving dynamics in sports mode are punchy.`
+        },
+        {
+          author: 'Kabir M.',
+          duration: '12 Months',
+          score: '4.5 / 5',
+          feedback: `Outstanding highway range. I regularly get over 500 km on a single charge. Cabin build quality feels incredibly high-end.`
+        }
+      ];
+    }
+  });
+}
+enrichDatabase();
+
+// --- Preloader Engine ---
+const preloader = document.getElementById('preloader');
+const loaderProgress = document.getElementById('loader-progress');
+const loaderPercent = document.getElementById('loader-percent');
+
+function runPreloader() {
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 15) + 5;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      setTimeout(() => {
+        preloader.classList.add('preloader-hidden');
+        document.body.classList.add('loaded'); // Trigger hero section luxury page-load sequence
+        setTimeout(() => preloader.style.display = 'none', 700);
+      }, 300);
+    }
+    loaderProgress.style.width = progress + '%';
+    loaderPercent.textContent = progress + '%';
+  }, 40);
+}
+window.addEventListener('DOMContentLoaded', runPreloader);
+
+
+// --- Active Filters Setup ---
+let activeBrand = null;
+let activeBudget = null;
+
+const carCarouselViewport = document.getElementById('car-carousel-viewport');
+const brandChips = document.querySelectorAll('.brand-chip');
+const budgetChips = document.querySelectorAll('.budget-chip');
+
+function getSpecGridHtml(car) {
+  if (car.sections.includes('upcoming')) {
+    return `
+      <div>EXPECTED: <span class="text-zinc-800 font-bold">${car.launchDate || 'Soon'}</span></div>
+      <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
+      <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
+      <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
+      <div class="col-span-2 truncate text-zinc-500" title="${car.features}">${car.features}</div>
+    `;
+  } else if (car.sections.includes('launches')) {
+    return `
+      <div>LAUNCHED: <span class="text-zinc-800 font-bold">${car.launchDate || 'Recently'}</span></div>
+      <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
+      <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
+      <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
+      <div class="col-span-2 truncate text-zinc-500" title="${car.features}">${car.features}</div>
+    `;
+  } else {
+    return `
+      <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
+      <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
+      <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
+      <div>TOP SPEED: <span class="text-zinc-800">${car.speed}</span></div>
+      <div class="col-span-2 truncate text-zinc-500" title="${car.features}">${car.features}</div>
+    `;
+  }
+}
+
+function createCarCardHtml(car, extraClasses = '') {
+  const isWishlisted = wishlistIds.includes(car.id);
+  return `
+    <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card">
+      <button class="wishlist-btn absolute top-4 right-4 p-2 bg-white hover:bg-black text-zinc-400 hover:text-white border border-zinc-200 hover:border-black transition-colors z-20 rounded-none" data-id="${car.id}" aria-label="Toggle Wishlist">
+        <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current ${isWishlisted ? 'fill-current text-white bg-black' : 'fill-none'}" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </button>
+
+      <div class="h-40 bg-zinc-50 flex items-center justify-center mb-4 relative overflow-hidden select-none border border-zinc-100">
+        <!-- Skeleton Shimmer -->
+        <div class="absolute inset-0 skeleton-shimmer"></div>
+        <img src="${car.image}" alt="${car.name}" class="w-full h-full object-contain relative z-10 transition-transform duration-500" onload="this.previousElementSibling.classList.add('hidden')">
+      </div>
+
+      <div>
+        <div class="flex justify-between items-start text-black">
+          <div>
+            <span class="font-mono text-[9px] text-zinc-500 uppercase">${car.brand}</span>
+            <h3 class="text-lg font-bold mt-0.5 text-black">${car.name}</h3>
+          </div>
+          <span class="font-mono text-sm font-bold text-black">${car.price}</span>
+        </div>
+        
+        <!-- Spec Grid -->
+        <div class="grid grid-cols-2 gap-y-1.5 gap-x-4 my-3 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono">
+          ${getSpecGridHtml(car)}
+        </div>
+      </div>
+
+      <button class="w-full py-2.5 border border-zinc-200 hover:border-black text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all btn-view-details" data-id="${car.id}">
+        VIEW DETAILS
+      </button>
+    </div>
+  `;
+}
+
+function renderAllCarousels() {
+  // 1. Popular Cars
+  if (carCarouselViewport) {
+    carCarouselViewport.innerHTML = '';
+    const popularCars = EV_DATABASE.filter(car => car.sections && car.sections.includes('popular'));
+    
+    // Apply filters
+    const nameSearch = document.getElementById('search-car-name').value.toLowerCase().trim();
+    const searchBrand = document.getElementById('search-car-brand').value;
+    const searchBudget = document.getElementById('search-car-budget').value;
+    
+    const filteredPopular = popularCars.filter(car => {
+      if (activeBrand && car.brand !== activeBrand) return false;
+      if (activeBudget) {
+        if (activeBudget === '10' && car.priceVal >= 10) return false;
+        if (activeBudget === '20' && (car.priceVal < 10 || car.priceVal > 20)) return false;
+        if (activeBudget === '40' && (car.priceVal <= 20 || car.priceVal > 40)) return false;
+        if (activeBudget === 'above' && car.priceVal <= 40) return false;
+      }
+      if (nameSearch && !car.name.toLowerCase().includes(nameSearch)) return false;
+      if (searchBrand !== 'all' && car.brand !== searchBrand) return false;
+      if (searchBudget !== 'all') {
+        if (searchBudget === '10' && car.priceVal >= 10) return false;
+        if (searchBudget === '20' && (car.priceVal < 10 || car.priceVal > 20)) return false;
+        if (searchBudget === '40' && (car.priceVal <= 20 || car.priceVal > 40)) return false;
+        if (searchBudget === 'above' && car.priceVal <= 40) return false;
+      }
+      return true;
+    });
+    
+    if (activeBrand || activeBudget || nameSearch || searchBrand !== 'all' || searchBudget !== 'all') {
+      filterResetContainer.classList.remove('hidden');
+    } else {
+      filterResetContainer.classList.add('hidden');
+    }
+    
+    if (filteredPopular.length === 0) {
+      carCarouselViewport.innerHTML = `
+        <div class="w-full text-center py-16 font-mono text-zinc-650 text-xs">
+          NO ELECTRIC VEHICLES FOUND MATCHING ACTIVE BROWSE CRITERIA.
+        </div>
+      `;
+    } else {
+      filteredPopular.forEach(car => {
+        carCarouselViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start');
+      });
+    }
+  }
+  
+  // 2. Latest EV Launches
+  const launchesViewport = document.getElementById('launch-carousel-viewport');
+  if (launchesViewport) {
+    launchesViewport.innerHTML = '';
+    const launchesCars = EV_DATABASE.filter(car => car.sections && car.sections.includes('launches'));
+    launchesCars.forEach(car => {
+      launchesViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start');
+    });
+  }
+  
+  // 3. Upcoming Electric Cars
+  const upcomingViewport = document.getElementById('up-carousel-viewport');
+  if (upcomingViewport) {
+    upcomingViewport.innerHTML = '';
+    const upcomingCars = EV_DATABASE.filter(car => car.sections && car.sections.includes('upcoming'));
+    upcomingCars.forEach(car => {
+      upcomingViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start');
+    });
+  }
+  
+  attachCardEvents();
+}
+
+function attachCardEvents() {
+  // Wishlist clicks
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const carId = btn.getAttribute('data-id');
+      toggleWishlist(carId);
+    });
+  });
+
+  // View Details clicks
+  document.querySelectorAll('.btn-view-details').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const carId = btn.getAttribute('data-id');
+      openCarDetails(carId);
+    });
+  });
+}
+
+function toggleWishlist(carId) {
+  const index = wishlistIds.indexOf(carId);
+  if (index === -1) {
+    wishlistIds.push(carId);
+  } else {
+    wishlistIds.splice(index, 1);
+  }
+  
+  // Update badge UI
+  if (wishlistIds.length > 0) {
+    wishlistBadge.textContent = wishlistIds.length;
+    wishlistBadge.classList.remove('scale-0');
+    wishlistBadge.classList.add('scale-100');
+  } else {
+    wishlistBadge.classList.remove('scale-100');
+    wishlistBadge.classList.add('scale-0');
+  }
+  
+  renderAllCarousels();
+}
+
+// Reset browse logic
+document.getElementById('filter-reset-btn').addEventListener('click', () => {
+  activeBrand = null;
+  activeBudget = null;
+  
+  brandChips.forEach(c => c.classList.remove('selected'));
+  budgetChips.forEach(c => c.classList.remove('selected'));
+  
+  document.getElementById('search-car-name').value = '';
+  document.getElementById('search-car-brand').value = 'all';
+  document.getElementById('search-car-budget').value = 'all';
+  
+  renderAllCarousels();
+});
+
+// Brand chips toggles
+brandChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    const brand = chip.getAttribute('data-brand');
+    if (activeBrand === brand) {
+      activeBrand = null;
+      chip.classList.remove('selected');
+    } else {
+      activeBrand = brand;
+      brandChips.forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+    }
+    renderAllCarousels();
+  });
+});
+
+// Budget chips toggles
+budgetChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    const budget = chip.getAttribute('data-budget');
+    if (activeBudget === budget) {
+      activeBudget = null;
+      chip.classList.remove('selected');
+    } else {
+      activeBudget = budget;
+      budgetChips.forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+    }
+    renderAllCarousels();
+  });
+});
+
+// Search submit button click
+document.getElementById('search-submit-btn').addEventListener('click', () => {
+  renderAllCarousels();
+  document.getElementById('popular-evs').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Initial carousels load
+renderAllCarousels();
+
+function scrollCarousel(viewport, direction) {
+  const isMobile = window.innerWidth < 640;
+  const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
+  let scrollAmount = viewport.clientWidth;
+  if (isTablet) {
+    scrollAmount = viewport.clientWidth / 2;
+  } else if (!isMobile) {
+    scrollAmount = viewport.clientWidth / 3;
+  }
+  
+  if (direction === 'prev') {
+    viewport.scrollLeft -= scrollAmount;
+  } else {
+    viewport.scrollLeft += scrollAmount;
+  }
+}
+
+// Controls
+document.getElementById('pop-car-prev').addEventListener('click', () => scrollCarousel(carCarouselViewport, 'prev'));
+document.getElementById('pop-car-next').addEventListener('click', () => scrollCarousel(carCarouselViewport, 'next'));
+
+const upCarouselViewport = document.getElementById('up-carousel-viewport');
+document.getElementById('up-car-prev').addEventListener('click', () => scrollCarousel(upCarouselViewport, 'prev'));
+document.getElementById('up-car-next').addEventListener('click', () => scrollCarousel(upCarouselViewport, 'next'));
+
+const launchCarouselViewport = document.getElementById('launch-carousel-viewport');
+document.getElementById('launch-car-prev').addEventListener('click', () => scrollCarousel(launchCarouselViewport, 'prev'));
+document.getElementById('launch-car-next').addEventListener('click', () => scrollCarousel(launchCarouselViewport, 'next'));
+
+
+
+// --- Section: Compare Cars Engine ---
+const compSelectA = document.getElementById('comp-select-a');
+const compSelectB = document.getElementById('comp-select-b');
+const compHdrA = document.getElementById('comp-hdr-a');
+const compHdrB = document.getElementById('comp-hdr-b');
+const compTableBody = document.getElementById('comp-table-body');
+
+function populateCompareDropdowns() {
+  compSelectA.innerHTML = '';
+  compSelectB.innerHTML = '';
+  
+  EV_DATABASE.forEach((car, index) => {
+    const optA = document.createElement('option');
+    optA.value = car.id;
+    optA.textContent = car.name;
+    if (index === 0) optA.selected = true; // Nexon initially
+    compSelectA.appendChild(optA);
+
+    const optB = document.createElement('option');
+    optB.value = car.id;
+    optB.textContent = car.name;
+    if (index === 2) optB.selected = true; // Ioniq 5 initially
+    compSelectB.appendChild(optB);
+  });
+}
+
+function updateCompareTable() {
+  const carIdA = compSelectA.value;
+  const carIdB = compSelectB.value;
+  
+  const carA = EV_DATABASE.find(c => c.id === carIdA);
+  const carB = EV_DATABASE.find(c => c.id === carIdB);
+  
+  if (!carA || !carB) return;
+  
+  compHdrA.textContent = carA.name;
+  compHdrB.textContent = carB.name;
+  
+  const specs = [
+    { label: 'PRICE', key: 'price' },
+    { label: 'BATTERY POWER', key: 'battery' },
+    { label: 'DRIVING RANGE', key: 'range' },
+    { label: 'CHARGING DURATION', key: 'charging' },
+    { label: 'MOTOR POWER Output', key: 'power' },
+    { label: 'MAX SPEED LIMIT', key: 'speed' },
+    { label: 'SAFETY COEFFICIENT', key: 'safety' },
+    { label: 'FEATURES SUMMARY', key: 'features' },
+    { label: 'CHASSIS DIMENSIONS', key: 'dimensions' },
+  ];
+  
+  compTableBody.innerHTML = '';
+  specs.forEach(spec => {
+    const row = document.createElement('tr');
+    row.className = 'border-b border-zinc-200 hover:bg-zinc-50 transition-colors';
+    row.innerHTML = `
+      <td class="p-4 font-bold text-zinc-500 uppercase text-[9px] tracking-wider">${spec.label}</td>
+      <td class="p-4 text-zinc-800">${carA[spec.key]}</td>
+      <td class="p-4 text-zinc-800">${carB[spec.key]}</td>
+    `;
+    compTableBody.appendChild(row);
+  });
+}
+
+populateCompareDropdowns();
+updateCompareTable();
+
+compSelectA.addEventListener('change', updateCompareTable);
+compSelectB.addEventListener('change', updateCompareTable);
+
+
+// --- Section: Charging Stations Finder ---
+const stationSearchInput = document.getElementById('station-search-input');
+const filterChargerFast = document.getElementById('filter-charger-fast');
+const filterChargerNormal = document.getElementById('filter-charger-normal');
+const stationsListContainer = document.getElementById('stations-list-container');
+
+function renderChargingStations() {
+  const query = stationSearchInput.value.toLowerCase().trim();
+  const showFast = filterChargerFast.checked;
+  const showNormal = filterChargerNormal.checked;
+  
+  stationsListContainer.innerHTML = '';
+  
+  const filtered = STATIONS_DATABASE.filter(st => {
+    if (query && !st.city.includes(query) && !st.name.toLowerCase().includes(query)) return false;
+    if (st.type === 'Fast' && !showFast) return false;
+    if (st.type === 'Normal' && !showNormal) return false;
+    return true;
+  });
+  
+  if (filtered.length === 0) {
+    stationsListContainer.innerHTML = `
+      <div class="text-center py-8 text-zinc-600 font-mono text-[10px]">
+        NO CHARGERS FOUND IN LOCATION BOUNDS.
+      </div>
+    `;
+    return;
+  }
+  
+  filtered.forEach(st => {
+    const item = document.createElement('div');
+    item.className = 'border-b border-zinc-100 pb-3 text-left font-mono';
+    item.innerHTML = `
+      <div class="flex justify-between items-start text-xs">
+        <div>
+          <h4 class="font-bold text-zinc-850">${st.name}</h4>
+          <span class="text-[9px] text-zinc-500">${st.address}</span>
+        </div>
+        <div class="text-right">
+          <span class="px-1.5 py-0.5 bg-zinc-100 text-[8px] text-zinc-655 border border-zinc-200 uppercase">${st.type} [${st.speed}]</span>
+          <span class="text-[8px] block mt-1 ${st.status === 'Available' ? 'text-black font-bold' : 'text-zinc-400'}">${st.status.toUpperCase()}</span>
+        </div>
+      </div>
+    `;
+    stationsListContainer.appendChild(item);
+  });
+}
+
+// Initial stations list load (using Mumbai as search default query placeholder)
+renderChargingStations();
+stationSearchInput.addEventListener('input', renderChargingStations);
+filterChargerFast.addEventListener('change', renderChargingStations);
+filterChargerNormal.addEventListener('change', renderChargingStations);
+
+
+// --- Section: EMI Loan Calculator ---
+const sliderPrice = document.getElementById('slider-price');
+const sliderDown = document.getElementById('slider-down');
+const sliderRate = document.getElementById('slider-rate');
+const sliderTenure = document.getElementById('slider-tenure');
+
+const lblPriceVal = document.getElementById('lbl-price-val');
+const lblDownVal = document.getElementById('lbl-down-val');
+const lblRateVal = document.getElementById('lbl-rate-val');
+const lblTenureVal = document.getElementById('lbl-tenure-val');
+
+const lblDownMin = document.getElementById('lbl-down-min');
+const lblDownMax = document.getElementById('lbl-down-max');
+
+const resLoanAmt = document.getElementById('res-loan-amt');
+const emiCalcResult = document.getElementById('emi-calc-result');
+
+function formatCurrency(val) {
+  return '₹' + Number(val).toLocaleString('en-IN');
+}
+
+function updateEMICalculator() {
+  const price = parseInt(sliderPrice.value);
+  
+  // Down payment bounds adjust (min 10%, max 90%)
+  const minDown = Math.floor(price * 0.1);
+  const maxDown = Math.floor(price * 0.9);
+  
+  sliderDown.min = minDown;
+  sliderDown.max = maxDown;
+  
+  // Make sure current down payment fits inside bounds
+  let downVal = parseInt(sliderDown.value);
+  if (downVal < minDown) {
+    downVal = minDown;
+    sliderDown.value = minDown;
+  } else if (downVal > maxDown) {
+    downVal = maxDown;
+    sliderDown.value = maxDown;
+  }
+  
+  const rate = parseFloat(sliderRate.value);
+  const tenure = parseInt(sliderTenure.value);
+  
+  const loanAmt = price - downVal;
+  
+  // Label UI update
+  lblPriceVal.textContent = formatCurrency(price);
+  lblDownVal.textContent = formatCurrency(downVal);
+  lblDownMin.textContent = formatCurrency(minDown);
+  lblDownMax.textContent = formatCurrency(maxDown);
+  lblRateVal.textContent = rate.toFixed(1) + '%';
+  lblTenureVal.textContent = tenure + (tenure === 1 ? ' Year' : ' Years');
+  
+  resLoanAmt.textContent = formatCurrency(loanAmt);
+  
+  // Amortization Math Formula:
+  // EMI = P * r * (1 + r)^n / ((1 + r)^n - 1)
+  const monthlyRate = (rate / 12) / 100;
+  const months = tenure * 12;
+  
+  let emi = 0;
+  if (monthlyRate > 0) {
+    const factor = Math.pow(1 + monthlyRate, months);
+    emi = Math.floor(loanAmt * monthlyRate * factor / (factor - 1));
+  } else {
+    emi = Math.floor(loanAmt / months);
+  }
+  
+  // Output update
+  emiCalcResult.textContent = formatCurrency(emi);
+}
+
+sliderPrice.addEventListener('input', updateEMICalculator);
+sliderDown.addEventListener('input', updateEMICalculator);
+sliderRate.addEventListener('input', updateEMICalculator);
+sliderTenure.addEventListener('input', updateEMICalculator);
+
+updateEMICalculator(); // initial calculation call
+
+
+// --- Modal Management Modules ---
+const modalTD = document.getElementById('modal-test-drive');
+const modalSearch = document.getElementById('modal-search-overlay');
+const modalVideo = document.getElementById('modal-video-overlay');
+const modalInfo = document.getElementById('modal-info-reader');
+
+// Close any open modal helper
+document.querySelectorAll('.modal-close-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    closeAllModals();
+  });
+});
+
+function closeAllModals() {
+  [modalTD, modalSearch, modalVideo, modalInfo].forEach(modal => {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+  });
+  // Clear video source to kill playbacks
+  document.getElementById('video-modal-iframe').src = '';
+}
+
+// Book Test drive trigger
+const tdCarSelect = document.getElementById('td-car');
+function openTestDriveModal(preselectedCar = '') {
+  // Populate dropdown selection inside form
+  tdCarSelect.innerHTML = '';
+  EV_DATABASE.forEach(car => {
+    const opt = document.createElement('option');
+    opt.value = car.id;
+    opt.textContent = car.name;
+    if (preselectedCar && car.name === preselectedCar) opt.selected = true;
+    tdCarSelect.appendChild(opt);
+  });
+  
+  modalTD.classList.remove('opacity-0', 'pointer-events-none');
+}
+
+document.querySelectorAll('.btn-book-test-drive').forEach(btn => {
+  btn.addEventListener('click', () => {
+    openTestDriveModal();
+  });
+});
+
+document.getElementById('form-test-drive').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('TEST DRIVE REQUEST SUBMITTED. OUR LOCAL PARTNER NETWORK WILL CONTACT YOU SHORTLY.');
+  closeAllModals();
+});
+
+// Search icon in nav
+document.getElementById('search-nav-btn').addEventListener('click', () => {
+  modalSearch.classList.remove('opacity-0', 'pointer-events-none');
+  document.getElementById('global-search-input').focus();
+});
+
+document.getElementById('global-search-input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    const val = e.target.value.trim();
+    document.getElementById('search-car-name').value = val;
+    closeAllModals();
+    renderAllCarousels();
+    document.getElementById('popular-evs').scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+// Video links
+document.querySelectorAll('.btn-video-play').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const url = btn.getAttribute('data-video');
+    const title = btn.getAttribute('data-title');
+    
+    document.getElementById('video-modal-title').textContent = title;
+    document.getElementById('video-modal-iframe').src = url;
+    
+    modalVideo.classList.remove('opacity-0', 'pointer-events-none');
+  });
+});
+
+// Info/Read More button modal triggers
+const infoText = document.getElementById('info-reader-text');
+document.querySelectorAll('.btn-read-more').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const topicText = btn.getAttribute('data-topic');
+    infoText.textContent = topicText;
+    modalInfo.classList.remove('opacity-0', 'pointer-events-none');
+  });
+});
+
+// Dynamic local image checker for additional vehicle gallery assets
+async function getVehicleImages(car) {
+  const images = [car.image];
+  
+  // Potential suffixes for additional views
+  const suffixes = ['_front', '_rear', '_side', '_interior', '_dashboard', '_1', '_2', '_3'];
+  const dotIndex = car.image.lastIndexOf('.');
+  if (dotIndex === -1) return images;
+  
+  const baseName = car.image.substring(0, dotIndex);
+  const ext = car.image.substring(dotIndex);
+  
+  for (const suffix of suffixes) {
+    const testUrl = `${baseName}${suffix}${ext}`;
+    try {
+      // Lightweight HEAD request to check asset existence without downloading
+      const response = await fetch(testUrl, { method: 'HEAD' });
+      if (response.ok) {
+        images.push(testUrl);
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+  return images;
+}
+
+// Redirect openCarDetails to SPA path for detailed page view
+function openCarDetails(carId) {
+  navigateTo(`/cars/${carId}`);
+}
+
+
+// --- Newsletter Form Submission ---
+document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('NEWSLETTER REGISTRATION SECURE. THANKS FOR SUBSCRIBING.');
+  e.target.reset();
+});
+
+
+// --- FAQ Accordion toggle Module ---
+document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const content = trigger.nextElementSibling;
+    const parent = trigger.parentElement;
+    const icon = trigger.querySelector('.acc-icon');
+    
+    // Close other panels
+    document.querySelectorAll('.accordion-content').forEach(c => {
+      if (c !== content) {
+        c.style.maxHeight = null;
+        c.parentElement.querySelector('.acc-icon').textContent = '+';
+      }
+    });
+    
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+      icon.textContent = '+';
+    } else {
+      content.style.maxHeight = content.scrollHeight + 'px';
+      icon.textContent = '-';
+    }
+  });
+});
+
+// ==========================================
+//        PREMIUM INTERACTIVITY ENGINE
+// ==========================================
+
+// --- 1. Active Navigation Indicator & Scroll Spy ---
+const navContainer = document.getElementById('nav-menu-links');
+const navLinks = navContainer ? navContainer.querySelectorAll('a.nav-link') : [];
+const navIndicator = document.getElementById('nav-indicator');
+let isScrollingFromNav = false;
+
+function positionIndicator(link) {
+  if (!link || !navIndicator) return;
+  navIndicator.style.left = `${link.offsetLeft}px`;
+  navIndicator.style.width = `${link.offsetWidth}px`;
+  navIndicator.style.opacity = '1';
+}
+
+function setActiveNavLink(link) {
+  if (!link) return;
+  navLinks.forEach(l => {
+    l.classList.remove('active', 'text-white');
+    l.classList.add('text-zinc-400');
+  });
+  link.classList.add('active', 'text-white');
+  link.classList.remove('text-zinc-400');
+  positionIndicator(link);
+}
+
+// Hover effects: slide indicator on enter, snap back on leave
+navLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    positionIndicator(link);
+  });
+});
+
+if (navContainer) {
+  navContainer.addEventListener('mouseleave', () => {
+    const activeLink = navContainer.querySelector('a.nav-link.active');
+    if (activeLink) {
+      positionIndicator(activeLink);
+    } else if (navIndicator) {
+      navIndicator.style.opacity = '0';
+    }
+  });
+}
+
+// Click interception for smooth scrolling
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href');
+    const targetEl = document.querySelector(targetId);
+    if (targetEl) {
+      isScrollingFromNav = true;
+      targetEl.scrollIntoView({ behavior: 'smooth' });
+      setActiveNavLink(link);
+      setTimeout(() => {
+        isScrollingFromNav = false;
+      }, 850);
+    }
+  });
+});
+
+// Update active states via intersection observer
+const spySections = [
+  document.getElementById('home'),
+  document.getElementById('popular-evs'),
+  document.getElementById('compare'),
+  document.getElementById('upcoming'),
+  document.getElementById('news'),
+  document.getElementById('reviews'),
+  document.getElementById('stations'),
+  document.getElementById('emi')
+].filter(Boolean);
+
+const spyObserver = new IntersectionObserver((entries) => {
+  if (isScrollingFromNav) return;
+  
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      const matchingLink = navContainer ? navContainer.querySelector(`a[href="#${id}"]`) : null;
+      if (matchingLink) {
+        setActiveNavLink(matchingLink);
+      }
+    }
+  });
+}, {
+  rootMargin: '-30% 0px -60% 0px'
+});
+
+spySections.forEach(sec => spyObserver.observe(sec));
+
+// Recalculate on window resize
+window.addEventListener('resize', () => {
+  const activeLink = navContainer ? navContainer.querySelector('a.nav-link.active') : null;
+  if (activeLink) positionIndicator(activeLink);
+});
+
+// Set initial active state after preloader is done
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const homeLink = navContainer ? navContainer.querySelector('a[href="#home"]') : null;
+    if (homeLink && !navContainer.querySelector('a.nav-link.active')) {
+      setActiveNavLink(homeLink);
+    }
+  }, 1050); // Delay slightly to allow preload fade and transition
+});
+
+
+// --- 2. Scroll Reveal Animations ---
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.05,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+
+// --- 3. Image Parallax Scrolling (Hero Background & Card SVGs) ---
+const heroBgImg = document.getElementById('hero-bg-img');
+window.addEventListener('scroll', () => {
+  const scrolled = window.pageYOffset;
+  const viewportHeight = window.innerHeight;
+  
+  // Hero background parallax
+  if (heroBgImg && scrolled < viewportHeight) {
+    heroBgImg.style.transform = `translateY(${scrolled * 0.15}px) scale(1.02)`;
+  }
+  
+  // Card Images scroll parallax
+  const cardImages = document.querySelectorAll('.car-card img, .upcoming-card img, .launch-card img');
+  cardImages.forEach(img => {
+    const rect = img.getBoundingClientRect();
+    if (rect.top < viewportHeight && rect.bottom > 0) {
+      const relativeY = (rect.top + rect.height / 2) - (viewportHeight / 2);
+      // Translate Image gently vertically based on scroll offset relative to viewport center
+      const translateY = relativeY * 0.05;
+      img.style.setProperty('--scroll-translate-y', `${translateY}px`);
+    }
+  });
+});
+
+
+// --- 4. Grayscale Click Ripple Animation ---
+const rippleTargets = '.btn-animate, .brand-chip, .budget-chip, #pop-car-prev, #pop-car-next, #up-car-prev, #up-car-next, .accordion-trigger, .nav-link';
+
+document.addEventListener('click', (e) => {
+  const target = e.target.closest(rippleTargets);
+  if (!target) return;
+  
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = `${size}px`;
+  
+  const x = e.clientX - rect.left - size / 2;
+  const y = e.clientY - rect.top - size / 2;
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
+  
+  if (getComputedStyle(target).position === 'static') {
+    target.style.position = 'relative';
+  }
+  
+  target.appendChild(ripple);
+  
+  ripple.addEventListener('animationend', () => {
+    ripple.remove();
+  });
+});
+
+// --- 5. Dynamic Navbar Theme Toggle (Dark on Hero, Light on White Sections) ---
+function handleNavbarTheme() {
+  const navElement = document.querySelector('nav');
+  const heroSection = document.getElementById('home');
+  if (!navElement || !heroSection) return;
+  
+  const heroHeight = heroSection.offsetHeight;
+  const navHeight = navElement.offsetHeight;
+  const scrolled = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+  
+  // Transition threshold: scroll position meets the bottom of the hero section minus the navbar height
+  if (scrolled >= (heroHeight - navHeight)) {
+    navElement.classList.add('nav-light-theme');
+  } else {
+    navElement.classList.remove('nav-light-theme');
+  }
+}
+
+// Bind navbar theme handlers
+window.addEventListener('scroll', handleNavbarTheme);
+window.addEventListener('resize', handleNavbarTheme);
+window.addEventListener('DOMContentLoaded', handleNavbarTheme);
+window.addEventListener('load', handleNavbarTheme);
+
+// Also run check immediately to catch initial scroll state on load
+handleNavbarTheme();
+
+
+// ========================================================
+//      INDIVIDUAL CAconst homepageContent = document.getElementById('homepage-content');
+const detailsPageContent = document.getElementById('details-page-content');
+
+// Helper to format absolute currency values dynamically
+function formatCurrency(val) {
+  return '₹' + Number(val).toLocaleString('en-IN');
+}
+
+function navigateTo(url) {
+  try {
+    history.pushState(null, '', url);
+  } catch (e) {
+    // Fallback to hash routing for file:// protocol or direct static server limits
+    window.location.hash = url.startsWith('/') ? '#' + url : '#/' + url;
+  }
+  handleRouting();
+}
+
+function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
+  if (homepageContent) homepageContent.classList.add('hidden');
+  if (detailsPageContent) {
+    detailsPageContent.classList.remove('hidden');
+    
+    // Generate breadcrumb items
+    let breadcrumbHtml = `<a href="#/" class="hover:text-black transition-colors">HOME</a>`;
+    breadcrumbs.forEach(b => {
+      breadcrumbHtml += ` <span class="mx-2">/</span> <span class="text-zinc-500 uppercase">${b}</span>`;
+    });
+    
+    detailsPageContent.innerHTML = `
+      <div class="max-w-6xl mx-auto flex flex-col gap-8 text-left">
+        <!-- Back & Breadcrumbs Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-zinc-150 pb-4 mt-6 gap-4">
+          <button id="btn-subpage-back" class="px-5 py-2.5 border border-zinc-200 hover:border-black font-mono text-[9px] tracking-widest text-zinc-655 hover:text-black uppercase transition-all duration-300 self-start">
+            ← BACK
+          </button>
+          <div class="font-mono text-[9px] text-zinc-400 uppercase">
+            ${breadcrumbHtml}
+          </div>
+        </div>
+        
+        <!-- Subpage Content -->
+        <div class="min-h-[400px]">
+          ${contentHtml}
+        </div>
+      </div>
+    `;
+    
+    // Bind back button
+    document.getElementById('btn-subpage-back').addEventListener('click', () => {
+      navigateTo(backPath);
+    });
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
+}
+
+function handleRouting() {
+  const path = window.location.pathname;
+  const hash = window.location.hash;
+  
+  let route = '/';
+  if (path.startsWith('/cars/')) {
+    route = path;
+  } else if (hash.startsWith('#/cars/')) {
+    route = hash.substring(1);
+  } else if (hash.startsWith('#cars/')) {
+    route = '/' + hash.substring(1);
+  } else if (path.startsWith('/view-all/')) {
+    route = path;
+  } else if (hash.startsWith('#/view-all/')) {
+    route = hash.substring(1);
+  } else if (path.startsWith('/news/')) {
+    route = path;
+  } else if (hash.startsWith('#/news/')) {
+    route = hash.substring(1);
+  } else if (path.startsWith('/guide/')) {
+    route = path;
+  } else if (hash.startsWith('#/guide/')) {
+    route = hash.substring(1);
+  } else if (path.startsWith('/reviews/')) {
+    route = path;
+  } else if (hash.startsWith('#/reviews/')) {
+    route = hash.substring(1);
+  }
+  
+  // Parse route parameters
+  if (route.startsWith('/cars/')) {
+    const carId = route.substring(6);
+    const car = EV_DATABASE.find(c => c.id === carId);
+    if (car) {
+      renderCarDetailsPage(car);
+      return;
+    }
+  } else if (route.startsWith('/view-all/')) {
+    const section = route.substring(10);
+    if (['popular', 'launches', 'upcoming'].includes(section)) {
+      renderViewAllPage(section);
+      return;
+    }
+  } else if (route.startsWith('/news/')) {
+    const id = route.substring(6);
+    if (id === 'all') {
+      renderAllNewsPage();
+      return;
+    } else {
+      const article = NEWS_DATABASE.find(a => a.id === id);
+      if (article) {
+        renderNewsArticlePage(article);
+        return;
+      }
+    }
+  } else if (route.startsWith('/guide/')) {
+    const id = route.substring(7);
+    const chapter = GUIDE_DATABASE.find(g => g.id === id);
+    if (chapter) {
+      renderGuideArticlePage(chapter);
+      return;
+    }
+  } else if (route.startsWith('/reviews/')) {
+    const type = route.substring(9);
+    if (type === 'expert') {
+      renderExpertReviewsPage();
+      return;
+    } else if (type === 'customer') {
+      renderCustomerReviewsPage();
+      return;
+    }
+  }
+  
+  restoreHomepage();
+}
+
+function restoreHomepage() {
+  if (homepageContent) homepageContent.classList.remove('hidden');
+  if (detailsPageContent) detailsPageContent.classList.add('hidden');
+  
+  // Clear hash if we are on the main landing page and it contains car details route
+  const hash = window.location.hash;
+  if (hash.includes('/cars/') || hash.includes('/view-all/') || hash.includes('/news/') || hash.includes('/guide/') || hash.includes('/reviews/')) {
+    try {
+      history.pushState(null, '', '/');
+    } catch (e) {
+      window.location.hash = '#/';
+    }
+  }
+  
+  if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
+}
+
+// Re-route on browser back/forward buttons
+window.addEventListener('popstate', handleRouting);
+window.addEventListener('hashchange', handleRouting);
+
+// Check path on page load
+window.addEventListener('load', handleRouting);
+window.addEventListener('DOMContentLoaded', handleRouting);
+
+// Intercept navigation triggers
+document.addEventListener('DOMContentLoaded', () => {
+  const logo = document.querySelector('.logo-link');
+  if (logo) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('/');
+    });
+  }
+  
+  const homeNavLink = document.querySelector('a.nav-link[href="#home"]');
+  if (homeNavLink) {
+    homeNavLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('/');
+      const hero = document.getElementById('home');
+      if (hero) hero.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  
+  // Intercept other nav menu links to return home first
+  const navContainer = document.getElementById('nav-menu-links');
+  const navLinks = navContainer ? navContainer.querySelectorAll('a.nav-link') : [];
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      
+      const isSubpage = !detailsPageContent.classList.contains('hidden');
+      if (isSubpage) {
+        navigateTo('/');
+        setTimeout(() => {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            isScrollingFromNav = true;
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+            setActiveNavLink(link);
+            setTimeout(() => { isScrollingFromNav = false; }, 850);
+          }
+        }, 100);
+      } else {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          isScrollingFromNav = true;
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+          setActiveNavLink(link);
+          setTimeout(() => { isScrollingFromNav = false; }, 850);
+        }
+      }
+    });
+  });
+  
+  // Dynamic Views Bindings
+  const btnPopAll = document.getElementById('btn-view-all-popular');
+  if (btnPopAll) {
+    btnPopAll.addEventListener('click', () => navigateTo('/view-all/popular'));
+  }
+  
+  const btnUpAll = document.getElementById('btn-view-all-upcoming');
+  if (btnUpAll) {
+    btnUpAll.addEventListener('click', () => navigateTo('/view-all/upcoming'));
+  }
+  
+  const btnLaunchAll = document.getElementById('btn-view-all-launches');
+  if (btnLaunchAll) {
+    btnLaunchAll.addEventListener('click', () => navigateTo('/view-all/launches'));
+  }
+  
+  const btnViewAllNews = document.getElementById('btn-view-all-news');
+  if (btnViewAllNews) {
+    btnViewAllNews.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('/news/all');
+    });
+  }
+  
+  const btnExpert = document.getElementById('btn-view-all-expert-reviews');
+  if (btnExpert) {
+    btnExpert.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('/reviews/expert');
+    });
+  }
+  
+  const btnCustomer = document.getElementById('btn-view-all-customer-reviews');
+  if (btnCustomer) {
+    btnCustomer.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('/reviews/customer');
+    });
+  }
+  
+  // Render guides and news dynamically
+  renderNewsAndGuides();
+});
+
+function renderNewsAndGuides() {
+  const newsContainer = document.getElementById('news-grid-container');
+  if (newsContainer) {
+    newsContainer.innerHTML = '';
+    NEWS_DATABASE.forEach(article => {
+      newsContainer.innerHTML += `
+        <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card news-card">
+          <div>
+            <div class="h-28 bg-zinc-100/50 border border-zinc-150 flex items-center justify-center mb-4 text-zinc-500 font-mono text-[8px]">
+              IMAGE_PLACEHOLDER // ${article.id.toUpperCase()}
+            </div>
+            <div class="flex justify-between items-center text-[8px] text-zinc-500 font-mono mb-2">
+              <span>${article.topic.toUpperCase()}</span>
+              <span>${article.date.toUpperCase()}</span>
+            </div>
+            <h3 class="text-base font-bold leading-snug group-hover:text-zinc-700 transition-colors mb-2">${article.title}</h3>
+            <p class="text-[11px] text-zinc-650 leading-normal">${article.summary}</p>
+          </div>
+          <button class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors self-end btn-read-news-more" data-id="${article.id}">
+            Read More
+          </button>
+        </div>
+      `;
+    });
+    
+    // Bind clicks
+    document.querySelectorAll('.btn-read-news-more').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        navigateTo(`/news/${id}`);
+      });
+    });
+  }
+  
+  const guideContainer = document.getElementById('guide-grid-container');
+  if (guideContainer) {
+    guideContainer.innerHTML = '';
+    GUIDE_DATABASE.forEach(chapter => {
+      guideContainer.innerHTML += `
+        <div class="border border-zinc-200 p-6 flex flex-col justify-between h-[240px] group hover:border-black transition-all bg-zinc-50 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card guide-card">
+          <div>
+            <span class="font-mono text-[9px] text-zinc-500">${chapter.chapter.toUpperCase()}</span>
+            <h3 class="text-base font-bold mt-1 mb-2">${chapter.title}</h3>
+            <p class="text-[11px] text-zinc-655 leading-normal">${chapter.summary}</p>
+          </div>
+          <button class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-widest self-start btn-learn-guide-more" data-id="${chapter.id}">
+            Learn More <span class="arrow">→</span>
+          </button>
+        </div>
+      `;
+    });
+    
+    // Bind clicks
+    document.querySelectorAll('.btn-learn-guide-more').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        navigateTo(`/guide/${id}`);
+      });
+    });
+  }
+}
+
+function renderViewAllPage(section) {
+  const sectionNames = {
+    popular: 'Popular Electric Cars',
+    launches: 'Latest EV Launches',
+    upcoming: 'Upcoming Electric Cars'
+  };
+  const title = sectionNames[section];
+  const breadcrumbs = ['MARKETPLACE', title];
+  
+  const sectionCars = EV_DATABASE.filter(car => car.sections && car.sections.includes(section));
+  let cardsHtml = '';
+  sectionCars.forEach(car => {
+    cardsHtml += createCarCardHtml(car, 'w-full');
+  });
+  
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">GRID INDEX / ${sectionCars.length} VEHICLES</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">${title}</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+        ${cardsHtml}
+      </div>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  attachCardEvents();
+}
+
+function renderAllNewsPage() {
+  const title = 'Latest EV News';
+  const breadcrumbs = ['RESOURCES', 'LATEST NEWS'];
+  
+  let newsHtml = '';
+  NEWS_DATABASE.forEach(article => {
+    newsHtml += `
+      <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] news-card">
+        <div>
+          <div class="h-28 bg-zinc-100/50 border border-zinc-150 flex items-center justify-center mb-4 text-zinc-500 font-mono text-[8px]">
+            IMAGE_PLACEHOLDER // ${article.id.toUpperCase()}
+          </div>
+          <div class="flex justify-between items-center text-[8px] text-zinc-500 font-mono mb-2">
+            <span>${article.topic.toUpperCase()}</span>
+            <span>${article.date.toUpperCase()}</span>
+          </div>
+          <h3 class="text-base font-bold leading-snug group-hover:text-zinc-700 transition-colors mb-2">${article.title}</h3>
+          <p class="text-[11px] text-zinc-650 leading-normal">${article.summary}</p>
+        </div>
+        <button class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors self-end btn-read-news-more" data-id="${article.id}">
+          Read More
+        </button>
+      </div>
+    `;
+  });
+  
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">JOURNAL INDEX / ${NEWS_DATABASE.length} DISPATCHES</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Latest EV News Dispatches</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+        ${newsHtml}
+      </div>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  
+  document.querySelectorAll('.btn-read-news-more').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      navigateTo(`/news/${id}`);
+    });
+  });
+}
+
+function renderNewsArticlePage(article) {
+  const title = article.title;
+  const breadcrumbs = ['RESOURCES', 'LATEST NEWS', 'ARTICLE'];
+  
+  const contentHtml = `
+    <div class="max-w-3xl mx-auto flex flex-col gap-6 pt-6 font-mono text-zinc-800">
+      <div class="flex justify-between items-center text-[9px] text-zinc-500 uppercase tracking-widest border-b border-zinc-100 pb-2">
+        <span>${article.topic}</span>
+        <span>${article.date}</span>
+      </div>
+      <h1 class="text-2xl md:text-4xl font-black text-black leading-tight">${article.title}</h1>
+      <div class="h-64 bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-400 text-xs select-none">
+        IMAGE_PLACEHOLDER // ${article.id.toUpperCase()}
+      </div>
+      <p class="text-sm leading-relaxed text-zinc-700 font-semibold border-l-2 border-black pl-4 my-2">${article.summary}</p>
+      <p class="text-sm leading-relaxed text-black mt-4">${article.content}</p>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/news/all');
+}
+
+function renderGuideArticlePage(chapter) {
+  const title = chapter.title;
+  const breadcrumbs = ['RESOURCES', 'EV BUYING GUIDE', chapter.chapter];
+  
+  const contentHtml = `
+    <div class="max-w-3xl mx-auto flex flex-col gap-6 pt-6 font-mono text-zinc-800">
+      <span class="text-[9px] text-zinc-500 uppercase tracking-widest border-b border-zinc-100 pb-2">${chapter.chapter}</span>
+      <h1 class="text-2xl md:text-4xl font-black text-black leading-tight">${chapter.title}</h1>
+      <p class="text-sm leading-relaxed text-zinc-700 font-semibold border-l-2 border-black pl-4 my-2">${chapter.summary}</p>
+      <p class="text-sm leading-relaxed text-black mt-4">${chapter.content}</p>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+}
+
+function renderExpertReviewsPage() {
+  const title = 'Expert Lab Reviews';
+  const breadcrumbs = ['RESOURCES', 'EXPERT REVIEWS'];
+  
+  let reviewsHtml = '';
+  EV_DATABASE.forEach(car => {
+    let prosList = '';
+    car.expertReview.pros.forEach(p => {
+      prosList += `<li>+ ${p}</li>`;
+    });
+    let consList = '';
+    car.expertReview.cons.forEach(c => {
+      consList += `<li class="text-zinc-500">- ${c}</li>`;
+    });
+    
+    reviewsHtml += `
+      <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col justify-between h-[380px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] review-card">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center justify-between border-b border-zinc-200 pb-3">
+            <div>
+              <h4 class="font-bold text-base text-black">${car.name}</h4>
+              <span class="font-mono text-[8px] text-zinc-400 uppercase">${car.brand} // LAB TEST</span>
+            </div>
+            <div class="text-right">
+              <span class="text-lg font-bold text-black font-mono">${car.expertReview.rating}</span>
+              <span class="text-[8px] text-zinc-450 block uppercase font-mono">LAB RATING</span>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4 text-[10px] font-mono">
+            <div>
+              <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">PROS</span>
+              <ul class="flex flex-col gap-1 text-zinc-700">${prosList}</ul>
+            </div>
+            <div>
+              <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">CONS</span>
+              <ul class="flex flex-col gap-1 text-zinc-500">${consList}</ul>
+            </div>
+          </div>
+          
+          <div class="text-[11px] font-mono leading-relaxed border-t border-zinc-150 pt-3">
+            <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">FINAL VERDICT</span>
+            <p class="text-zinc-700 italic truncate" title="${car.expertReview.verdict}">"${car.expertReview.verdict}"</p>
+          </div>
+        </div>
+        
+        <button class="w-full mt-4 py-2 border border-zinc-200 hover:border-black text-[9px] font-mono tracking-widest uppercase transition-colors btn-expert-details" data-id="${car.id}">
+          Read Full Lab Report →
+        </button>
+      </div>
+    `;
+  });
+  
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">EVALUATION INDEX / ${EV_DATABASE.length} VEHICLES TESTED</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Expert Diagnostics & Ratings</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+        ${reviewsHtml}
+      </div>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  
+  document.querySelectorAll('.btn-expert-details').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      navigateTo(`/cars/${id}`);
+    });
+  });
+}
+
+function renderCustomerReviewsPage() {
+  const title = 'Customer Feedback';
+  const breadcrumbs = ['RESOURCES', 'CUSTOMER REVIEWS'];
+  
+  let reviewsHtml = '';
+  EV_DATABASE.forEach(car => {
+    car.customerReviews.forEach(r => {
+      reviewsHtml += `
+        <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col justify-between h-[220px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] review-card">
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 bg-zinc-200 flex items-center justify-center font-bold text-[9px] text-zinc-700">${r.author.substring(0,2)}</div>
+                <div>
+                  <h5 class="font-bold text-black">${r.author}</h5>
+                  <span class="text-[8px] text-zinc-500 uppercase">OWNED FOR ${r.duration.toUpperCase()}</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-bold text-black font-mono">${r.score}</span>
+                <span class="text-[8px] text-zinc-500 block uppercase font-mono">${car.name.toUpperCase()} OWNER</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-zinc-655 leading-normal italic font-mono mt-4">"${r.feedback}"</p>
+          </div>
+          
+          <button class="font-mono text-[9px] text-zinc-550 hover:text-black uppercase tracking-widest mt-3 self-start btn-view-customer-car" data-id="${car.id}">
+            View Vehicle Profile →
+          </button>
+        </div>
+      `;
+    });
+  });
+  
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">FEEDBACK LOG / VERIFIED OWNER VOICES</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Verified Electric Vehicle Owner Reviews</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+        ${reviewsHtml}
+      </div>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  
+  document.querySelectorAll('.btn-view-customer-car').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      navigateTo(`/cars/${id}`);
+    });
+  });
+}
+
+// Dynamic Detail Page HTML Generator
+async function renderCarDetailsPage(car) {
+  const images = await getVehicleImages(car);
+  let activeVariantIdx = 0;
+  
+  function updateDetailsUI() {
+    const variant = car.variants[activeVariantIdx];
+    
+    // Related cars matching pricing proximity
+    const relatedCars = EV_DATABASE.filter(c => c.id !== car.id)
+      .sort((a, b) => Math.abs(a.priceVal - variant.priceVal) - Math.abs(b.priceVal - variant.priceVal))
+      .slice(0, 3);
+      
+    let relatedHtml = '';
+    relatedCars.forEach(c => {
+      relatedHtml += `
+        <div class="border border-zinc-200 bg-white p-5 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] related-card">
+          <div class="h-28 bg-zinc-50 flex items-center justify-center mb-3 relative overflow-hidden border border-zinc-100">
+            <img src="${c.image}" alt="${c.name}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div>
+            <span class="font-mono text-[8px] text-zinc-500 uppercase">${c.brand}</span>
+            <h4 class="font-bold text-xs text-black mt-0.5">${c.name}</h4>
+            <span class="font-mono text-[10px] text-zinc-650 block mt-1">${c.price}</span>
+          </div>
+          <button class="w-full mt-3 py-2 border border-zinc-200 hover:border-black text-[9px] font-mono tracking-widest uppercase transition-colors btn-related-view" data-id="${c.id}">
+            VIEW DETAILS
+          </button>
+        </div>
+      `;
+    });
+
+    let variantsTabsHtml = '';
+    car.variants.forEach((v, idx) => {
+      variantsTabsHtml += `
+        <button class="variant-tab-btn flex-1 py-3 px-4 text-center border font-mono text-[10px] tracking-wider transition-all duration-300 uppercase ${idx === activeVariantIdx ? 'bg-black text-white border-black font-bold' : 'bg-white border-zinc-200 text-zinc-650 hover:border-zinc-500'}" data-idx="${idx}">
+          ${v.name}<br><span class="text-[9px] font-semibold mt-1 inline-block">${v.price}</span>
+        </button>
+      `;
+    });
+
+    let specsHtml = `
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Battery Capacity</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${variant.battery}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Driving Range</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${variant.range}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Charging Time (DC Fast)</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${variant.charging}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Motor Output</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${variant.power}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Top Speed</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${variant.speed}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Drivetrain Configuration</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${variant.drivetrain}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Peak Torque</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.torque}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Standard AC Charging</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.chargingAC}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Chassis Dimensions</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.dimensions}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Ground Clearance</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.clearance}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Boot Space</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.bootSpace}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Seating Capacity</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.seating}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Safety Rating</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.safety}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3.5 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Warranty Coverage</td>
+        <td class="py-3.5 px-5 text-zinc-800 font-mono">${car.warranty}</td>
+      </tr>
+    `;
+
+    const featuresKeys = ['exterior', 'interior', 'safety', 'infotainment', 'adas', 'comfort'];
+    let featuresHtml = '';
+    featuresKeys.forEach(key => {
+      let itemsList = '';
+      car.featuresList[key].forEach(item => {
+        itemsList += `<li class="flex items-center gap-2 text-zinc-700 text-[11px] py-0.5"><span class="w-1 h-1 bg-black rounded-none"></span>${item}</li>`;
+      });
+      featuresHtml += `
+        <div class="border border-zinc-200 p-5 bg-zinc-50">
+          <h4 class="font-bold text-[10px] tracking-wider uppercase text-black border-b border-zinc-250 pb-2 mb-3 font-mono">${key}</h4>
+          <ul class="flex flex-col gap-1 text-left font-mono">
+            ${itemsList}
+          </ul>
+        </div>
+      `;
+    });
+
+    let prosHtml = '';
+    car.expertReview.pros.forEach(p => {
+      prosHtml += `<li class="flex items-start gap-1.5 py-0.5"><span>+</span><span>${p}</span></li>`;
+    });
+    let consHtml = '';
+    car.expertReview.cons.forEach(c => {
+      consHtml += `<li class="flex items-start gap-1.5 py-0.5 text-zinc-550"><span>-</span><span>${c}</span></li>`;
+    });
+
+    let customerReviewsHtml = '';
+    car.customerReviews.forEach(r => {
+      customerReviewsHtml += `
+        <div class="border border-zinc-200 bg-zinc-50 p-5 flex flex-col gap-3 shadow-sm">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 bg-zinc-200 flex items-center justify-center font-bold text-[9px] text-zinc-700">${r.author.substring(0,2)}</div>
+              <div>
+                <h5 class="font-bold text-black">${r.author}</h5>
+                <span class="text-[8px] text-zinc-500 uppercase">OWNED FOR ${r.duration.toUpperCase()}</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="font-bold text-black">${r.score}</span>
+              <span class="text-[8px] text-zinc-550 block uppercase">VERIFIED OWNER</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-zinc-650 leading-normal italic font-mono">"${r.feedback}"</p>
+        </div>
+      `;
+    });
+
+    let gallerySlideshowHtml = '';
+    if (images.length > 1) {
+      let thumbnailsHtml = '';
+      images.forEach((img, idx) => {
+        thumbnailsHtml += `
+          <button class="gallery-thumb-btn w-12 h-12 border transition-all duration-300 bg-zinc-50 overflow-hidden flex-shrink-0 ${idx === 0 ? 'border-black opacity-100 scale-105' : 'border-zinc-200 opacity-60 hover:opacity-100'}" data-img-idx="${idx}">
+            <img src="${img}" class="w-full h-full object-contain">
+          </button>
+        `;
+      });
+      
+      gallerySlideshowHtml = `
+        <div class="flex flex-col gap-3 w-full">
+          <div class="relative w-full h-[260px] md:h-[380px] bg-zinc-50 border border-zinc-200 flex items-center justify-center overflow-hidden select-none shadow-[inset_0_0_20px_rgba(0,0,0,0.015)]">
+            <img id="detail-main-img" src="${images[0]}" class="w-full h-full object-contain p-4 transition-all duration-300">
+            <button id="gallery-detail-prev" class="absolute left-4 p-2 bg-white/90 hover:bg-black hover:text-white text-zinc-700 border border-zinc-200 text-xs font-bold font-mono transition-colors">←</button>
+            <button id="gallery-detail-next" class="absolute right-4 p-2 bg-white/90 hover:bg-black hover:text-white text-zinc-700 border border-zinc-200 text-xs font-bold font-mono transition-colors">→</button>
+            <div id="gallery-detail-counter" class="absolute bottom-4 right-4 text-[8px] text-zinc-500 bg-white/90 px-2 py-0.5 border border-zinc-200 font-mono font-semibold">1 / ${images.length}</div>
+          </div>
+          <div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+            ${thumbnailsHtml}
+          </div>
+        </div>
+      `;
+    } else {
+      gallerySlideshowHtml = `
+        <div class="w-full h-[260px] md:h-[380px] bg-zinc-50 border border-zinc-200 flex items-center justify-center overflow-hidden select-none">
+          <img src="${car.image}" class="w-full h-full object-contain p-4">
+        </div>
+      `;
+    }
+
+    const htmlContent = `
+      <div class="flex flex-col gap-12">
+        <!-- 1. Hero Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Gallery Block (Left) -->
+          <div class="lg:col-span-7 flex flex-col gap-4">
+            ${gallerySlideshowHtml}
+          </div>
+
+          <!-- Hero Details Block (Right) -->
+          <div class="lg:col-span-5 flex flex-col gap-6">
+            <div>
+              <span class="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">${car.brand}</span>
+              <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-black mt-1 mb-2">${car.name}</h2>
+              <p class="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">Starting Price</p>
+              <div class="font-mono text-2xl font-black text-black mt-0.5">${variant.price}</div>
+            </div>
+
+            <div class="flex flex-col gap-3 font-mono text-[10px] tracking-wider">
+              <div class="grid grid-cols-2 gap-3">
+                <button id="detail-compare-btn" class="py-3 px-4 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
+                  COMPARE CAR
+                </button>
+                <button id="detail-wishlist-btn" class="py-3 px-4 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-1.5">
+                  <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current ${wishlistIds.includes(car.id) ? 'fill-current text-white bg-black' : 'fill-none'} stroke-[2]" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                  <span>WISHLIST</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Variants Switcher Panel -->
+            <div class="border-t border-zinc-150 pt-5">
+              <h4 class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest mb-3">SELECT VARIANT SPECIFICATION</h4>
+              <div class="flex flex-col md:flex-row gap-2">
+                ${variantsTabsHtml}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Variants & Complete Specifications -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-150 pt-10">
+          <div class="lg:col-span-4 text-left">
+            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">METRIC MATRIX</span>
+            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Technical Specifications</h3>
+            <p class="text-xs text-zinc-500 mt-2 leading-relaxed font-mono">Compare engine outputs, lithium battery limits, charging coefficients, chassis sizes, and structural safety ratios.</p>
+          </div>
+          <div class="lg:col-span-8 bg-zinc-50 border border-zinc-200 shadow-sm overflow-hidden">
+            <table class="w-full text-left font-mono text-xs text-zinc-650">
+              <tbody id="detail-specs-table-body">
+                ${specsHtml}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Features Accordions Grid -->
+        <div class="flex flex-col gap-6 border-t border-zinc-150 pt-10">
+          <div class="text-left">
+            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">COMPILATION DECK</span>
+            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Key Vehicle Features</h3>
+            <p class="text-xs text-zinc-500 mt-1">Full cabin console, driver safety suites, comfort parameters, and connectivity standards.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${featuresHtml}
+          </div>
+        </div>
+
+        <!-- 4. Reviews Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-zinc-150 pt-10">
+          <!-- Expert Evaluation (Left) -->
+          <div class="lg:col-span-6 flex flex-col gap-5">
+            <div>
+              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">EVALUATION LOG</span>
+              <h3 class="text-xl font-bold tracking-tight">EV Car Wale Expert Review</h3>
+            </div>
+            
+            <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col gap-5 shadow-sm">
+              <div class="flex items-center justify-between border-b border-zinc-200 pb-3">
+                <div>
+                  <h4 class="font-bold text-sm text-black">${car.name}</h4>
+                  <span class="font-mono text-[8px] text-zinc-400">TEST LAB DIAGNOSTICS</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-xl font-bold text-black font-mono">${car.expertReview.rating}</span>
+                  <span class="text-[8px] text-zinc-400 block uppercase font-mono">LAB RATING</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                <div>
+                  <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">PROS</span>
+                  <ul class="flex flex-col gap-1 text-[11px] text-zinc-700">
+                    ${prosHtml}
+                  </ul>
+                </div>
+                <div>
+                  <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">CONS</span>
+                  <ul class="flex flex-col gap-1 text-[11px] text-zinc-500">
+                    ${consHtml}
+                  </ul>
+                </div>
+              </div>
+              <div class="border-t border-zinc-200 pt-3 text-[11px] font-mono leading-relaxed">
+                <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">FINAL VERDICT</span>
+                <p class="text-zinc-700 italic">"${car.expertReview.verdict}"</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Reviews (Right) -->
+          <div class="lg:col-span-6 flex flex-col gap-5">
+            <div>
+              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">CUSTOMER INSIGHT</span>
+              <h3 class="text-xl font-bold tracking-tight">Owner Verification Feedback</h3>
+            </div>
+            <div class="flex flex-col gap-4">
+              ${customerReviewsHtml}
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. EMI Calculator Panel -->
+        <div class="border-t border-zinc-150 pt-10">
+          <div class="text-center mb-8">
+            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">FINANCIAL COEFFICIENT</span>
+            <h3 class="text-xl md:text-2xl font-bold tracking-tight">EMI Loan Calculator</h3>
+          </div>
+          
+          <div class="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-zinc-50 border border-zinc-200 p-8 shadow-sm">
+            <!-- Sliders -->
+            <div class="md:col-span-7 flex flex-col gap-5">
+              <!-- Price Slider (Static for variant) -->
+              <div class="flex flex-col gap-2 text-left font-mono">
+                <div class="flex justify-between text-xs">
+                  <span class="text-zinc-500">VEHICLE PRICE</span>
+                  <span class="font-bold text-black">${variant.price}</span>
+                </div>
+                <div class="h-[2px] bg-black w-full"></div>
+              </div>
+              <!-- Down Payment -->
+              <div class="flex flex-col gap-2 text-left font-mono">
+                <div class="flex justify-between text-xs">
+                  <span class="text-zinc-500">DOWN PAYMENT</span>
+                  <span id="detail-lbl-down-val" class="font-bold text-black">₹0</span>
+                </div>
+                <input type="range" id="detail-slider-down" min="0" max="0" step="50000" value="0" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
+                <div class="flex justify-between text-[9px] text-zinc-400">
+                  <span id="detail-lbl-down-min">₹0</span>
+                  <span id="detail-lbl-down-max">₹0</span>
+                </div>
+              </div>
+              <!-- Interest Rate -->
+              <div class="flex flex-col gap-2 text-left font-mono">
+                <div class="flex justify-between text-xs">
+                  <span class="text-zinc-500">INTEREST RATE (P.A.)</span>
+                  <span id="detail-lbl-rate-val" class="font-bold text-black">9.5%</span>
+                </div>
+                <input type="range" id="detail-slider-rate" min="7" max="15" step="0.1" value="9.5" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
+                <div class="flex justify-between text-[9px] text-zinc-400">
+                  <span>7.0%</span>
+                  <span>15.0%</span>
+                </div>
+              </div>
+              <!-- Tenure -->
+              <div class="flex flex-col gap-2 text-left font-mono">
+                <div class="flex justify-between text-xs">
+                  <span class="text-zinc-500">LOAN PERIOD</span>
+                  <span id="detail-lbl-tenure-val" class="font-bold text-black">5 Years</span>
+                </div>
+                <input type="range" id="detail-slider-tenure" min="1" max="7" step="1" value="5" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
+                <div class="flex justify-between text-[9px] text-zinc-400">
+                  <span>1 Year</span>
+                  <span>7 Years</span>
+                </div>
+              </div>
+            </div>
+            <!-- Results -->
+            <div class="md:col-span-5 border-t md:border-t-0 md:border-l border-zinc-200 p-6 flex flex-col justify-between items-center text-center font-mono">
+              <div class="w-full">
+                <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-4">CALCULATED INTEREST LOAN</span>
+                <div class="grid grid-cols-2 gap-4 text-left text-[10px] text-zinc-500 mb-6">
+                  <div>LOAN AMOUNT:<br><span id="detail-res-loan-amt" class="text-black font-bold">₹0</span></div>
+                  <div>INTEREST RATE:<br><span class="text-black font-bold" id="detail-res-interest-val">9.5%</span></div>
+                </div>
+              </div>
+              <div class="my-6">
+                <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-1">Estimated Monthly EMI</span>
+                <span id="detail-emi-calc-result" class="text-3xl font-extrabold text-black tracking-tight">₹0</span>
+                <span class="text-[8px] text-zinc-400 block uppercase mt-1">PER MONTH</span>
+              </div>
+              <button id="detail-loan-apply-btn" class="w-full py-3 bg-black text-white font-semibold text-xs tracking-widest uppercase hover:bg-zinc-800 transition-colors">
+                APPLY FOR EV LOAN
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Related Cars Section -->
+        <div class="border-t border-zinc-150 pt-10 pb-8">
+          <div class="text-left mb-8">
+            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">CATEGORICAL PAIRINGS</span>
+            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Related Electric Vehicles</h3>
+            <p class="text-xs text-zinc-500 mt-1">Similar EVs by budget pricing indices and body dimensions.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            ${relatedHtml}
+          </div>
+        </div>
+      </div>
+    `;
+    
+    renderSubpage(car.name, ['MARKETPLACE', car.name], htmlContent, '/');
+    
+    // Compare CTA
+    document.getElementById('detail-compare-btn').addEventListener('click', () => {
+      navigateTo('/');
+      setTimeout(() => {
+        const compareSelect = document.getElementById('comp-select-a');
+        if (compareSelect) {
+          compareSelect.value = car.id;
+          updateCompareTable();
+        }
+        const compSection = document.getElementById('compare');
+        if (compSection) compSection.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    });
+
+    // Wishlist CTA
+    document.getElementById('detail-wishlist-btn').addEventListener('click', () => {
+      toggleWishlist(car.id);
+      alert(`${car.name.toUpperCase()} ACCESSED IN WISHLIST LOG.`);
+      updateDetailsUI();
+    });
+
+    // Variant tab buttons click
+    document.querySelectorAll('.variant-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeVariantIdx = parseInt(btn.getAttribute('data-idx'));
+        updateDetailsUI();
+      });
+    });
+
+    // Related cards View Details click
+    document.querySelectorAll('.btn-related-view').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-id');
+        navigateTo(`/cars/${targetId}`);
+      });
+    });
+
+    // Gallery details controls
+    if (images.length > 1) {
+      let currentIdx = 0;
+      const mainImg = document.getElementById('detail-main-img');
+      const counter = document.getElementById('gallery-detail-counter');
+      const thumbs = document.querySelectorAll('.gallery-thumb-btn');
+      
+      function updateGalleryImg(idx) {
+        currentIdx = idx;
+        mainImg.src = images[currentIdx];
+        if (counter) counter.textContent = `${currentIdx + 1} / ${images.length}`;
+        
+        thumbs.forEach((t, tIdx) => {
+          if (tIdx === currentIdx) {
+            t.classList.add('border-black', 'scale-105', 'opacity-100');
+            t.classList.remove('border-zinc-200', 'opacity-60');
+          } else {
+            t.classList.remove('border-black', 'scale-105', 'opacity-100');
+            t.classList.add('border-zinc-200', 'opacity-60');
+          }
+        });
+      }
+
+      const prevBtn = document.getElementById('gallery-detail-prev');
+      const nextBtn = document.getElementById('gallery-detail-next');
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const nextIdx = (currentIdx - 1 + images.length) % images.length;
+          updateGalleryImg(nextIdx);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const nextIdx = (currentIdx + 1) % images.length;
+          updateGalleryImg(nextIdx);
+        });
+      }
+
+      thumbs.forEach((thumb, tIdx) => {
+        thumb.addEventListener('click', () => {
+          updateGalleryImg(tIdx);
+        });
+      });
+    }
+
+    // Dynamic EMI Calculations for Variant
+    const sliderDown = document.getElementById('detail-slider-down');
+    const sliderRate = document.getElementById('detail-slider-rate');
+    const sliderTenure = document.getElementById('detail-slider-tenure');
+
+    const lblDownVal = document.getElementById('detail-lbl-down-val');
+    const lblDownMin = document.getElementById('detail-lbl-down-min');
+    const lblDownMax = document.getElementById('detail-lbl-down-max');
+    const lblRateVal = document.getElementById('detail-lbl-rate-val');
+    const lblTenureVal = document.getElementById('detail-lbl-tenure-val');
+
+    const resLoanAmt = document.getElementById('detail-res-loan-amt');
+    const resInterestVal = document.getElementById('detail-res-interest-val');
+    const emiCalcResult = document.getElementById('detail-emi-calc-result');
+
+    const price = Math.floor(variant.priceVal * 100000); // lakh to absolute numbers
+    const minDown = Math.floor(price * 0.1);
+    const maxDown = Math.floor(price * 0.9);
+    
+    sliderDown.min = minDown;
+    sliderDown.max = maxDown;
+    sliderDown.value = minDown;
+
+    function updateDetailEMI() {
+      const downVal = parseInt(sliderDown.value);
+      const rate = parseFloat(sliderRate.value);
+      const tenure = parseInt(sliderTenure.value);
+      
+      const loanAmt = price - downVal;
+      
+      lblDownVal.textContent = formatCurrency(downVal);
+      lblDownMin.textContent = formatCurrency(minDown);
+      lblDownMax.textContent = formatCurrency(maxDown);
+      lblRateVal.textContent = rate.toFixed(1) + '%';
+      lblTenureVal.textContent = tenure + (tenure === 1 ? ' Year' : ' Years');
+      
+      resLoanAmt.textContent = formatCurrency(loanAmt);
+      resInterestVal.textContent = rate.toFixed(1) + '%';
+      
+      const monthlyRate = (rate / 12) / 100;
+      const months = tenure * 12;
+      
+      let emi = 0;
+      if (monthlyRate > 0) {
+        const factor = Math.pow(1 + monthlyRate, months);
+        emi = Math.floor(loanAmt * monthlyRate * factor / (factor - 1));
+      } else {
+        emi = Math.floor(loanAmt / months);
+      }
+      
+      emiCalcResult.textContent = formatCurrency(emi);
+    }
+
+    sliderDown.addEventListener('input', updateDetailEMI);
+    sliderRate.addEventListener('input', updateDetailEMI);
+    sliderTenure.addEventListener('input', updateDetailEMI);
+
+    updateDetailEMI();
+    
+    document.getElementById('detail-loan-apply-btn').addEventListener('click', () => {
+      alert('LOAN ELIGIBILITY REQUEST INITIATED. OUR PARTNERS WILL CONTACT YOU.');
+    });
+  }
+
+  updateDetailsUI();
+}
+
+

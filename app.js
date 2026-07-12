@@ -918,8 +918,8 @@ function calcTripData(carId, fromKey, toKey, days, passengers, acUsage, drivingS
     var m = car.charging.match(/(\d+)\s*min/);
     return m ? parseInt(m[1]) : 60;
   })();
-  // Approximate DC power: charge 70% of battery in chargingMinutes
-  const batteryKWh   = car.batteryVal || 40;  // from EV_DATABASE
+  // Parse battery kWh from car.battery string (e.g. "40.5 kWh") or batteryVal
+  const batteryKWh   = car.batteryVal || parseFloat(car.battery) || 40;
   const dcChargeKW   = Math.round((batteryKWh * 0.70) / (chargingMinutes / 60));
 
   // --- Route metrics ---
@@ -1119,6 +1119,195 @@ const GUIDE_DATABASE = [
   }
 ];
 
+// --- Learn Database (Buying Portal Articles) ---
+const LEARN_DATABASE = {
+  'home-charging': {
+    title: 'Charging at Home',
+    content: '<p>Setting up home charging is the most convenient and cost-effective way to keep your EV charged. Most EVs come with a portable charging cable that can plug into a standard 15A socket, but for faster charging, installing a dedicated AC wallbox is recommended.</p><h3>Standard 15A Socket Charging</h3><p>A standard 15A socket (the larger plug point found behind refrigerators and air conditioners) can delivers 2-3 kW of power. This charges most EV batteries from empty to full in 10-15 hours. It is perfectly adequate for overnight charging if your daily commute is under 80 km.</p><h3>AC Wallbox Installation</h3><p>A 7.2 kW AC wallbox is the gold standard for home charging. It charges 3-4 times faster than a standard socket, taking most EVs from 0-100% in 4-6 hours. Installation requires a dedicated 40A MCB in your electrical panel and proper earthing.</p><p>Many manufacturers offer free wallbox installation with vehicle purchase. The installation cost typically ranges from ₹3,000-8,000 depending on the distance from your meter box to the parking spot.</p><h3>Cost of Home Charging</h3><p>At residential electricity rates of ₹6-9 per kWh, home charging costs approximately ₹1-1.5 per km. This is 85-90% cheaper than petrol (₹8-9 per km). If you have solar panels, your running cost can drop to virtually zero.</p>'
+  },
+  'apartment-charging': {
+    title: 'Apartment Charging',
+    content: '<p>Living in an apartment or gated society does not mean you cannot own an EV. Here is a step-by-step guide to getting charging set up in your apartment complex.</p><h3>Step 1: Check Your Parking Situation</h3><p>If you have a designated reserved parking spot, you are eligible for a personal charger installation. If you have common/unreserved parking, you will need to work with your society to designate EV charging spots.</p><h3>Step 2: Submit a Formal Request</h3><p>Write a formal application to your Resident Welfare Association (RWA) or apartment management committee. The Electricity Act 2003 and Model Building Bye-Laws 2016 mandate that RWAs cannot unreasonably refuse EV charger installation.</p><h3>Step 3: Electrical Assessment</h3><p>Your society\'s electrical infrastructure must have sufficient sanctioned load. Most modern apartments with 15-20 kW per flat allocation can support a 7.2 kW EV charger without upgrading the main supply.</p><h3>Step 4: Installation & Metering</h3><p>A licensed electrician will run a dedicated wire from your meter box to your parking spot. Individual metering ensures you pay for your own charging electricity, not the society common area bill.</p><h3>Legal Protections</h3><p>The Maharashtra Electricity Regulatory Commission (MERC) and similar state bodies have issued directives that RWAs must approve EV charger installations within 15 days of application. Unreasonable denial can be appealed to the State Electricity Regulatory Commission.</p>'
+  },
+  'fast-vs-slow': {
+    title: 'Fast vs Slow Charging',
+    content: '<p>Understanding the difference between AC and DC charging is essential for efficient EV ownership. Here is a detailed comparison.</p><h3>AC Charging (Slow)</h3><p>Alternating Current from the grid is converted to Direct Current by the car\'s onboard charger. Speeds range from 2 kW (standard socket) to 22 kW (three-phase wallbox). AC charging is gentle on the battery, generates less heat, and contributes to longer battery life. Best for overnight and workplace charging.</p><h3>DC Fast Charging</h3><p>Direct Current is supplied directly to the battery, bypassing the onboard charger entirely. Speeds range from 50 kW to 350 kW. DC fast charging can add 200-300 km of range in just 15-30 minutes, making it ideal for highway road trips.</p><h3>Battery Impact</h3><p>While DC fast charging is convenient, frequent use (multiple times per week) can accelerate battery degradation by 2-5% over the vehicle\'s lifetime compared to exclusive AC charging. Most manufacturers recommend using DC fast charging only for long trips and relying on AC charging for daily needs.</p><h3>Cost Comparison</h3><p>AC home charging: ₹1-1.5/km. DC fast charging: ₹2.5-4.5/km. While still cheaper than petrol, DC charging costs 2-3x more than home AC charging due to infrastructure and electricity surcharges.</p>'
+  },
+  'battery-warranty': {
+    title: 'Battery Warranty',
+    content: '<p>EV battery warranties are one of the most important factors to consider when purchasing an electric vehicle. Here is what you need to know.</p><h3>Standard Coverage</h3><p>Most manufacturers in India offer 8 years or 1,60,000 km of battery warranty, whichever comes first. This covers manufacturing defects and capacity degradation below 70% of original capacity.</p><h3>What is Covered</h3><p>The warranty typically covers: battery cell defects, battery management system (BMS) failures, thermal management system issues, premature capacity loss beyond normal degradation, and complete battery failure.</p><h3>What is Not Covered</h3><p>Exclusions usually include: physical damage from accidents, damage from improper charging (using incompatible chargers), unauthorized modifications or tampering, and damage from natural disasters or flooding.</p><h3>Degradation Clauses</h3><p>Most warranties guarantee that the battery will retain at least 70% of its original capacity for the warranty period. If capacity falls below this threshold, the manufacturer will repair or replace the battery free of charge.</p><h3>Transferability</h3><p>Most EV battery warranties are transferable to subsequent owners, which helps maintain resale value. Some manufacturers charge a nominal transfer fee (₹5,000-15,000). Always check the specific terms before purchasing a used EV.</p>'
+  },
+  'subsidies': {
+    title: 'Government Subsidies & State Incentives',
+    content: '<p>Both the central government and various state governments offer financial incentives to make EVs more affordable. Here is a comprehensive overview.</p><h3>FAME-III Subsidy (Central)</h3><p>The FAME-III scheme allocates ₹12,500 crore for EV incentives. Passenger EVs receive ₹10,000-15,000 per kWh of battery capacity, capped at ₹3.5 lakh per vehicle. Two-wheelers receive ₹8,000-12,000 per kWh, capped at ₹35,000.</p><h3>Income Tax Benefits</h3><p>Under Section 80EEB, you can claim a deduction of up to ₹1.5 lakh on interest paid on loans taken to purchase an EV. This is in addition to other deductions under Section 80C.</p><h3>State-Level Incentives</h3><p>Delhi: 100% road tax exemption + registration fee waiver + up to ₹30,000 additional subsidy. Maharashtra: 100% road tax exemption (first EV) + reduced electricity tariff. Karnataka: 100% road tax exemption. Gujarat: 100% road tax exemption for 5 years. Tamil Nadu: 100% road tax exemption + interest subvention on EV loans.</p><h3>Registration Fee Waivers</h3><p>Most states offer full or partial registration fee waivers for EVs, saving you ₹10,000-30,000 depending on the vehicle price. Green license plates are issued for all EVs in India.</p>'
+  },
+  'running-cost': {
+    title: 'EV Running Cost Analysis',
+    content: '<p>One of the biggest advantages of EV ownership is the dramatically lower running cost compared to petrol or diesel vehicles. Here is a detailed breakdown.</p><h3>Electricity Cost</h3><p>At residential rates of ₹6-9 per kWh, an EV costs approximately ₹1-1.5 per km to run. A 40 kWh battery (typical for a compact EV) costs ₹240-360 to fully charge, providing 250-350 km of real-world range.</p><h3>Petrol Comparison</h3><p>A petrol car achieving 15 kmpl at ₹105 per litre costs approximately ₹7 per km. This means an EV saves you 80-85% on fuel costs compared to petrol. Over 15,000 km per year, the savings amount to ₹75,000-90,000 annually.</p><h3>Maintenance Savings</h3><p>EVs have no engine oil, timing belts, spark plugs, air filters, or exhaust systems to maintain. Annual maintenance costs for an EV are typically 40-50% lower than an equivalent petrol vehicle. A typical EV service costs ₹2,000-4,000 versus ₹5,000-10,000 for a petrol car.</p><h3>Total Cost of Ownership</h3><p>Over 5 years/75,000 km, an EV typically saves ₹3-5 lakh in fuel and maintenance costs compared to a petrol vehicle. Even with the higher upfront purchase price (₹1-3 lakh premium), the total cost of ownership is often lower for an EV, especially for high-mileage users.</p>'
+  },
+  'trip-planning': {
+    title: 'EV Road Trip Planning',
+    content: '<p>Planning a long-distance road trip in an EV requires a different approach than a petrol car. Here are tips and strategies for stress-free EV road trips.</p><h3>Route Planning</h3><p>Use apps like PlugShare, Tata Power EZ Charge, or Statiq to identify DC fast chargers along your route. Plan charging stops every 200-250 km (for most EVs). Always have a backup charging location in case your primary stop is occupied or out of service.</p><h3>Driving Style for Maximum Range</h3><p>Use Eco mode on highways to maximize range. Maintain a steady speed of 80-90 km/h for optimal efficiency. Use regenerative braking to recover energy when approaching exits or traffic. Pre-condition the cabin while plugged in to save battery for driving.</p><h3>Charging Strategy</h3><p>Charge from 10% to 80% at DC fast chargers for the fastest charging speeds (charging slows down significantly after 80%). A typical 10-80% session takes 25-40 minutes depending on the car and charger. Plan meals and rest breaks around charging stops.</p><h3>What to Carry</h3><p>Always carry your portable charging cable (3-pin plug) as backup. Download charging apps for the networks along your route. Keep a list of emergency charging contacts. Consider carrying a tire inflator and basic toolkit.</p>'
+  },
+  'real-range': {
+    title: 'Real World Range Explained',
+    content: '<p>The range quoted by manufacturers (ARAI certified) is always higher than what you will achieve in real-world driving. Here is why and how to estimate your actual range.</p><h3>Why Range Differs</h3><p>ARAI test cycles are conducted in controlled laboratory conditions with optimal temperatures, smooth driving patterns, and no accessories. Real-world conditions include: traffic, aggressive acceleration, AC/heater usage, highway speeds, elevation changes, and weather conditions.</p><h3>Typical Real-World Reduction</h3><p>Most EVs achieve 70-85% of their claimed ARAI range in mixed driving conditions. For example, a car with 465 km ARAI range typically delivers 350-400 km in real-world city driving and 300-350 km on highways at 100-120 km/h.</p><h3>Factors That Reduce Range</h3><p>High-speed driving (120+ km/h): reduces range by 15-25%. AC usage on high: reduces range by 10-15%. Cold weather: reduces range by 15-30% (less relevant for India). Heavy loads: reduces range by 5-10%. Stop-and-go traffic: surprisingly efficient due to regenerative braking recovery.</p><h3>How to Maximize Real Range</h3><p>Drive smoothly with gentle acceleration. Use Eco mode on highways. Set AC to 24°C on low/medium fan speed. Maintain tire pressure at recommended levels. Reduce payload when possible. Use regenerative braking to recover energy in city traffic.</p>'
+  }
+};
+
+// --- Blog Database ---
+const BLOG_DATABASE = [
+  {
+    id: 'blog-1',
+    slug: 'future-of-ev-charging-in-india',
+    title: 'The Future of EV Charging in India',
+    excerpt: 'How India is building a nationwide EV charging network and what it means for EV adoption.',
+    date: 'Oct 15, 2026',
+    author: 'EV Car Wale Team',
+    content: '<p>India is rapidly building out its EV charging infrastructure to support the growing fleet of electric vehicles on its roads. With over 12,000 public charging stations operational across the country as of 2026, the charging landscape is evolving quickly.</p><p>The government has set an ambitious target of installing one public charger for every 20 EVs by 2028. Major oil marketing companies (IOCL, BPCL, HPCL) are converting thousands of existing petrol pumps into combined fuel+charging stations.</p><p>Private players like Tata Power, Jio-bp, and Zeon Charging are racing to install DC fast chargers along highway corridors and in urban centers. The competition is driving down charging costs while improving reliability.</p><p>Perhaps the most exciting development is the emergence of battery swapping stations for two-wheelers and three-wheelers, which can replace a depleted battery with a fully charged one in under 2 minutes, eliminating range anxiety entirely for these segments.</p>'
+  },
+  {
+    id: 'blog-2',
+    slug: 'top-5-ev-myths-debunked',
+    title: 'Top 5 EV Myths Debunked',
+    excerpt: 'Separating fact from fiction: the most common misconceptions about electric vehicles in India.',
+    date: 'Oct 10, 2026',
+    author: 'EV Car Wale Team',
+    content: '<p>Despite the rapid growth of EV adoption in India, several myths persist that deter potential buyers. Here are the top 5 myths debunked.</p><p><strong>Myth 1: EVs have very limited range.</strong> Fact: Most modern EVs offer 300-500 km of real-world range, which covers 98% of daily commuting needs. Even the most affordable EVs offer 250+ km range.</p><p><strong>Myth 2: EVs are more expensive to maintain.</strong> Fact: EVs have fewer moving parts and require no oil changes, timing belt replacements, or exhaust system repairs. Annual maintenance costs are typically 40-50% lower than petrol cars.</p><p><strong>Myth 3: EVs are not suitable for Indian weather.</strong> Fact: Modern EVs have sophisticated battery thermal management systems that perform well in temperatures up to 50°C, and many EVs are designed and tested specifically for Indian conditions.</p><p><strong>Myth 4: Batteries need frequent replacement.</strong> Fact: EV batteries are designed to last the lifetime of the vehicle. Most manufacturers offer 8-year/1,60,000 km warranties, and batteries typically retain 70-80% capacity even after 10 years.</p><p><strong>Myth 5: Charging infrastructure is insufficient.</strong> Fact: With over 12,000 public charging stations and growing rapidly, plus the ability to charge at home, most EV owners never experience charging inconvenience. Home charging covers 90% of daily needs.</p>'
+  },
+  {
+    id: 'blog-3',
+    slug: 'guide-to-ev-loans-in-india',
+    title: 'Complete Guide to EV Loans in India',
+    excerpt: 'Everything you need to know about financing your electric vehicle purchase with EV-specific loans.',
+    date: 'Oct 5, 2026',
+    author: 'EV Car Wale Team',
+    content: '<p>Financing an EV purchase in India has become easier with several banks and NBFCs offering EV-specific loan products with attractive interest rates and terms.</p><p>Major banks like SBI, HDFC, ICICI, Axis, and Kotak offer EV loans with interest rates starting from 8.5% per annum, often 0.5-1% lower than conventional car loans due to the government\'s priority sector lending classification for EVs.</p><p>Loan amounts typically cover up to 90% of the on-road price, with tenures ranging from 3-7 years. The maximum loan amount varies by bank but most offer up to ₹50 lakh for passenger EVs.</p><p>Key documents required: KYC documents (Aadhaar, PAN), income proof (salary slips/IT returns for salaried, bank statements for self-employed), address proof, and the vehicle quotation from the dealer.</p><p>Under Section 80EEB of the Income Tax Act, you can claim a deduction of up to ₹1.5 lakh on the interest paid on your EV loan, saving up to ₹46,800 per year in taxes for those in the 30% tax bracket.</p>'
+  }
+];
+
+// --- Brand Logo Mapping ---
+const BRAND_LOGO_MAP = {
+  'audi': 'AUDI_LOGO.JPG',
+  'bmw': 'BMW_LOGO.jpeg',
+  'byd': 'BYD_LOGO.jpeg',
+  'citroen': 'CITROEN_logo.jpg',
+  'force-motors': 'force_logo.jpeg',
+  'honda': 'HONDA_LOGO.JPEG',
+  'hyundai': 'HYUNDAI_LOGO.jpeg',
+  'isuzu': 'isuzu_logo.jpeg',
+  'jeep': 'jeep_logo.jpeg',
+  'kia': 'KIA_LOGO.jpeg',
+  'mahindra': 'MAHINDRA_LOGO.jpeg',
+  'maruti-suzuki': 'maruti_suzuki_logo.jpeg',
+  'mercedes-benz': 'MERCEDES_LOGO.jpeg',
+  'mg': 'MG_LOGO.jpeg',
+  'nissan': 'nissan_logo.jpeg',
+  'porsche': 'PORSCHE_logo.jpeg',
+  'renault': 'RENAULT_LOGO.jpeg',
+  'skoda': 'SKODA_LOGO.jpeg',
+  'tata': 'TATA_LOGO.jpeg',
+  'toyota': 'TOYOTA_LOGO.jpeg',
+  'vinfast': 'VINFAST_LOGO.jpeg',
+  'volkswagen': 'VOLKSWAGEN_LOGO.jpeg',
+  'volvo': 'volvo_logo.jpeg',
+  'tesla': 'TESLA_LOGO.PNG',
+  'jaguar': 'Jaguar_logo.jpeg',
+  'range-rover': 'range_rover_logo.PNG',
+  'rolls-royce': 'ROLLS_ROYCE.JPG',
+};
+function getBrandLogoUrl(brandId) {
+  return './LOGOS/' + (BRAND_LOGO_MAP[brandId] || brandId.toUpperCase() + '_LOGO.jpeg');
+}
+function getBrandInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+}
+
+// --- Insights Master Database ---
+const INSIGHTS_DATABASE = {
+  'latest-news': [
+    { id: 'in-news-1', title: 'FAME-III Subsidy Allocations Finalized', subtitle: 'Government announces ₹12,500 crore incentive package', excerpt: 'The FAME-III framework introduces ₹12,500 crore in incentives, prioritizing localization of battery modules and public charging systems.', date: 'Oct 12, 2026', author: 'EV Bureau', readTime: '4 min read', tag: 'Policy', image: '', content: '<p>The Ministry of Heavy Industries has officially finalized the FAME-III subsidy framework, allocating ₹12,500 crore to accelerate electric vehicle adoption across India. The new policy prioritizes localization of battery module manufacturing and expansion of public charging infrastructure.</p><p>Industry leaders expect this to drive electric vehicle adoption significantly across passenger and commercial segments. Key highlights include higher subsidies for vehicles with higher localization percentages and additional incentives for installing home charging units.</p><p>The framework also introduces performance-linked incentives for OEMs that achieve domestic value addition targets, potentially reshaping the supply chain landscape in the coming years.</p>' },
+    { id: 'in-news-2', title: 'Highway Fast Charger Corridor Expands', subtitle: '350 kW hyper-chargers coming to Golden Quadrilateral', excerpt: 'Strategic partnerships aim to install DC fast chargers every 50 km on national expressways.', date: 'Oct 10, 2026', author: 'Tech Desk', readTime: '3 min read', tag: 'Infra', image: '', content: '<p>A consortium of energy companies has announced a massive expansion of the highway fast-charging network along India\'s Golden Quadrilateral. The plan includes installation of 350 kW hyper-chargers capable of adding 300 km of range in just 15 minutes.</p><p>Strategic partnerships aim to install DC fast chargers every 50 km on national expressways, boosting inter-city travel stability. The new 350 kW hyper-chargers will enable compatible premium vehicles to recharge from 10% to 80% in under 15 minutes.</p><p>This infrastructure push is expected to significantly reduce range anxiety for inter-city EV travelers and boost adoption in the premium and luxury segments.</p>' },
+    { id: 'in-news-3', title: 'Solid-State Modules Enter Trial Phase', subtitle: '800 km range battery technology hits the road', excerpt: 'Solid-state battery prototypes promise up to 800 km range per charge with complete thermal runaway resistance.', date: 'Oct 08, 2026', author: 'EV Bureau', readTime: '5 min read', tag: 'Tech', image: '', content: '<p>Solid-state battery technology has moved from the laboratory to real-world testing, with several manufacturers now conducting road trials. The new modules offer double the energy density of current lithium-ion equivalents.</p><p>Solid-state battery prototypes promise up to 800 km range per charge and complete thermal runaway resistance, scaling production indexes. Crucially, these new modules offer double the energy density of current lithium-ion equivalents, opening up new possibilities for long-distance luxury touring.</p><p>Commercial availability is expected within 18-24 months, potentially marking the biggest leap in EV technology since the mass-market electric car.</p>' },
+    { id: 'in-news-4', title: 'EV Sales Cross 2 Million Mark in India', subtitle: 'Annual EV registrations hit record high in FY 2025-26', excerpt: 'India\'s EV market has achieved a historic milestone with annual sales crossing the 2 million unit mark.', date: 'Oct 05, 2026', author: 'Market Desk', readTime: '3 min read', tag: 'Market', image: '', content: '<p>India has emerged as one of the fastest-growing EV markets globally, with annual registrations crossing 2 million units for the first time. The milestone represents a 67% year-on-year growth, driven primarily by two-wheeler and three-wheeler segments.</p><p>Passenger EV sales also saw significant uptick, crossing 150,000 units annually. The growth is attributed to expanding product portfolios, improving charging infrastructure, and sustained government policy support.</p><p>Industry analysts project the market to reach 5 million annual units by 2028, contingent on continued policy support and infrastructure development.</p>' },
+    { id: 'in-news-5', title: 'Battery Recycling Mandate Takes Effect', subtitle: 'New regulations require OEMs to manage end-of-life battery recycling', excerpt: 'India\'s battery recycling mandate comes into effect, requiring manufacturers to set up collection and recycling infrastructure.', date: 'Oct 03, 2026', author: 'Policy Desk', readTime: '4 min read', tag: 'Policy', image: '', content: '<p>The Ministry of Environment has enforced the Battery Waste Management Rules, mandating all EV manufacturers to establish end-of-life battery collection and recycling mechanisms. The policy requires a minimum of 70% material recovery from spent batteries.</p><p>This positions India as a leader in circular economy practices for the EV sector. Several manufacturers have already announced partnerships with recycling firms to comply with the mandate.</p><p>The regulation also introduces a deposit-refund scheme to incentivize consumers to return spent batteries to authorized collection centers.</p>' }
+  ],
+  'upcoming-launches': [
+    { id: 'in-upcoming-1', title: 'Tata Sierra EV: Production-Ready Version Spotted', subtitle: 'Iconic SUV returns as an electric avatar in 2027', excerpt: 'The Tata Sierra EV has been spotted testing ahead of its anticipated launch. The electric SUV promises a unique coupe-SUV silhouette.', date: 'Oct 2026', author: 'Spy Desk', readTime: '4 min read', tag: 'Launches', image: '', content: '<p>The Tata Sierra EV has been spotted testing on Indian roads, signaling that the production-ready version is nearing completion. The electric SUV pays homage to the original Sierra with its distinctive coupe-like roofline while incorporating modern design elements.</p><p>Expected to launch in early 2027, the Sierra EV will likely be built on Tata\'s Gen 2 architecture with an estimated range of 450-500 km. It will compete in the premium compact SUV segment.</p><p>Industry insiders suggest the Sierra EV will be priced competitively to take on the upcoming Hyundai Creta EV and Maruti Suzuki\'s first electric SUV.</p>' },
+    { id: 'in-upcoming-2', title: 'Hyundai Creta EV: Launch Timeline Revealed', subtitle: 'India\'s most popular SUV is going electric', excerpt: 'Hyundai has confirmed the Creta EV for India with a launch expected in early 2027.', date: 'Oct 2026', author: 'EV Bureau', readTime: '3 min read', tag: 'Launches', image: '', content: '<p>Hyundai Motor India has officially confirmed the development of the Creta EV, one of the most anticipated electric vehicles for the Indian market. The electric version of India\'s best-selling midsize SUV is expected to debut at the 2027 Auto Expo.</p><p>The Creta EV will likely feature a 45-50 kWh battery pack offering a range of 400-450 km. It is expected to be priced between ₹18-25 lakh, making it a strong contender in the mass-market EV segment.</p><p>Hyundai is also working on a localized version of its E-GMP platform for the Indian market, which will underpin future electric models.</p>' },
+    { id: 'in-upcoming-3', title: 'Mahindra XUV.e8: Full Details Revealed', subtitle: 'Mahindra\'s flagship electric SUV promises 600 km range', excerpt: 'Mahindra has revealed full specifications of its upcoming flagship electric SUV, the XUV.e8.', date: 'Oct 2026', author: 'Auto Desk', readTime: '5 min read', tag: 'Launches', image: '', content: '<p>Mahindra & Mahindra has released comprehensive details of the XUV.e8, its flagship electric SUV based on the INGLO platform. The vehicle promises a class-leading range of up to 600 km on a single charge.</p><p>The XUV.e8 features a 80 kWh battery pack with 175 kW DC fast charging capability, allowing a 10-80% charge in just 30 minutes. It will be available in both RWD and AWD configurations.</p><p>Mahindra plans to launch the XUV.e8 in the second half of 2027, positioning it as a premium electric SUV competing with the likes of the Kia EV6 and Hyundai Ioniq 5.</p>' },
+    { id: 'in-upcoming-4', title: 'Maruti Suzuki eVX: Production Begins', subtitle: 'Maruti\'s first mass-market EV starts rolling out', excerpt: 'Maruti Suzuki has commenced production of its first mass-market electric vehicle, the eVX.', date: 'Sep 2026', author: 'Industry Desk', readTime: '3 min read', tag: 'Launches', image: '', content: '<p>Maruti Suzuki has officially begun production of the eVX at its Gujarat facility, marking the company\'s entry into the mass-market EV segment. The compact electric SUV is expected to be one of the most affordable EVs in India.</p><p>The eVX features a 40 kWh battery pack with an ARAI-certified range of 350 km. It will be priced competitively to take on the Tata Nexon EV and MG ZS EV.</p><p>Maruti plans to introduce six more EV models by 2030, with the eVX laying the foundation for its electric future.</p>' },
+    { id: 'in-upcoming-5', title: 'BMW iX3 to Launch in India by 2027', subtitle: 'BMW\'s next-gen electric SUV confirmed for India', excerpt: 'BMW India has confirmed the launch of the next-generation iX3 electric SUV.', date: 'Sep 2026', author: 'Luxury Desk', readTime: '4 min read', tag: 'Launches', image: '', content: '<p>BMW Group India has confirmed the launch of the next-generation iX3 electric SUV, expected to arrive in the Indian market by the first quarter of 2027. The new iX3 will be based on BMW\'s dedicated Neue Klasse EV architecture.</p><p>The sixth-generation BMW eDrive technology will offer significant improvements in efficiency, with the iX3 expected to deliver over 500 km of real-world range. It will feature 350 kW fast charging capability.</p><p>BMW India is also evaluating the i5 Touring and i7 Protection for potential launch, as it continues to expand its electric portfolio in the luxury segment.</p>' }
+  ],
+  'ev-comparisons': [
+    { id: 'in-comp-1', title: 'Tata Nexon EV vs MG ZS EV: Detailed Comparison', subtitle: 'Which compact electric SUV is right for you?', excerpt: 'A comprehensive comparison of India\'s two most popular compact electric SUVs across all parameters.', date: 'Oct 2026', author: 'Compare Desk', readTime: '7 min read', tag: 'Comparison', image: '', content: '<p>The Tata Nexon EV and MG ZS EV have been the two best-selling electric SUVs in India. Here\'s a detailed comparison to help you decide which one suits your needs better.</p><p><strong>Pricing:</strong> The Nexon EV starts at ₹14.74 lakh while the ZS EV starts at ₹18.98 lakh (ex-showroom). The Nexon offers better value for money, but the ZS EV counters with a more premium interior.</p><p><strong>Range:</strong> The Nexon EV offers an ARAI-certified range of 465 km (LR version) while the ZS EV offers 461 km. Real-world range is comparable at around 350 km for both.</p><p><strong>Features:</strong> The ZS EV comes with a larger 10.1-inch touchscreen and connected car tech as standard, while the Nexon EV counters with a sunroof and ventilated seats in top trims.</p><p><strong>Verdict:</strong> The Nexon EV is the better value proposition, while the ZS EV offers a more premium ownership experience. Your choice depends on budget and priority for premium features.</p>' },
+    { id: 'in-comp-2', title: 'Hyundai Ioniq 5 vs Kia EV6: Sibling Rivalry', subtitle: 'Which Korean electric crossover wins?', excerpt: 'Both built on the same E-GMP platform, the Ioniq 5 and EV6 cater to different personalities.', date: 'Oct 2026', author: 'Compare Desk', readTime: '6 min read', tag: 'Comparison', image: '', content: '<p>Hyundai Ioniq 5 and Kia EV6 share the same E-GMP platform but target different buyers. Here\'s how they compare in the Indian context.</p><p><strong>Design:</strong> The Ioniq 5 features retro-futuristic styling inspired by the Hyundai Pony, while the EV6 sports a sharp, sporty crossover coupe look. Both turn heads but appeal to different tastes.</p><p><strong>Performance:</strong> Both offer similar specs with AWD variants doing 0-100 km/h in about 5.2 seconds. The 77.4 kWh battery pack provides a range of around 500 km in both models.</p><p><strong>Features:</strong> The Ioniq 5 offers unique features like sliding rear seats and a relaxation mode, while the EV6 focuses on driver engagement with sportier touches.</p><p><strong>Price:</strong> Both are priced similarly at around ₹45-50 lakh, making them premium offerings in the Indian market.</p>' },
+    { id: 'in-comp-3', title: 'MG Comet EV vs Tata Tiago EV: Entry-Level Showdown', subtitle: 'Battle of the most affordable EVs in India', excerpt: 'A detailed comparison of India\'s most accessible electric vehicles for first-time EV buyers.', date: 'Sep 2026', author: 'Compare Desk', readTime: '5 min read', tag: 'Comparison', image: '', content: '<p>The MG Comet EV and Tata Tiago EV are India\'s two most affordable electric cars, but they take very different approaches to urban mobility.</p><p><strong>Size & Space:</strong> The Comet is a micro-car designed specifically for city use with a 2+2 seating layout, while the Tiago EV is a proper 5-seater hatchback with more practical rear space.</p><p><strong>Range:</strong> The Tiago EV offers up to 315 km ARAI range, significantly more than the Comet\'s 230 km. Both are adequate for city commuting, but the Tiago allows occasional highway trips.</p><p><strong>Charging:</strong> The Comet only supports 3.3 kW AC charging (takes 5 hours), while the Tiago EV supports DC fast charging (10-80% in 57 minutes with optional charger).</p><p><strong>Verdict:</strong> The Tiago EV is more practical for most buyers. Choose the Comet only if you want a stylish city pod for short commutes.</p>' },
+    { id: 'in-comp-4', title: 'BYD Atto 3 vs MG ZS EV: Chinese EVs Battle for Supremacy', subtitle: 'Two Chinese-origin EVs fight for the Indian midsize SUV crown', excerpt: 'The BYD Atto 3 takes on the MG ZS EV in a battle of Chinese-origin electric SUVs in India.', date: 'Sep 2026', author: 'Compare Desk', readTime: '6 min read', tag: 'Comparison', image: '', content: '<p>With both BYD and MG (Chinese-owned) expanding aggressively in India, the Atto 3 and ZS EV offer compelling electric SUV options.</p><p><strong>Battery & Range:</strong> The BYD Atto 3\'s Blade Battery (50.1/60.5 kWh) offers 410-521 km ARAI range, while the ZS EV\'s 50.3 kWh pack offers 461 km. BYD\'s LFP chemistry provides better longevity.</p><p><strong>Performance:</strong> The Atto 3\'s 150 kW motor (201 hp) is more powerful than the ZS EV\'s 130 kW (174 hp), resulting in better acceleration.</p><p><strong>Features:</strong> The Atto 3 features a unique rotating 12.8-inch touchscreen, while the ZS EV counters with a panoramic sunroof and connected car features.</p><p><strong>Price:</strong> The Atto 3 starts at ₹25.99 lakh vs the ZS EV at ₹18.98 lakh—the MG offers better value.</p>' },
+    { id: 'in-comp-5', title: 'BMW i4 vs Tesla Model 3: Premium Electric Sedans Compared', subtitle: 'German luxury meets American innovation', excerpt: 'A detailed comparison of two premium electric sedans available in India.', date: 'Sep 2026', author: 'Compare Desk', readTime: '7 min read', tag: 'Comparison', image: '', content: '<p>The BMW i4 and Tesla Model 3 represent two different philosophies in the premium electric sedan segment. Here\'s how they stack up.</p><p><strong>Performance:</strong> The BMW i4 M50 produces 536 hp and does 0-100 in 3.9 seconds, while the Tesla Model 3 Performance produces 450 hp with a 3.3-second 0-100 time (claimed).</p><p><strong>Range:</strong> The i4 offers up to 590 km WLTP range, while the Model 3 Long Range claims up to 629 km. Real-world driving sees both achieving around 450-500 km.</p><p><strong>Interior:</strong> The BMW offers traditional luxury with high-quality materials and a driver-focused cockpit, while the Tesla features a minimalist approach with all controls through a central touchscreen.</p><p><strong>Price:</strong> Both are priced in the ₹70-80 lakh range in India, making them premium purchases accessible to luxury car buyers.</p>' }
+  ],
+  'buying-guides': [
+    { id: 'in-guide-1', title: 'The Complete EV Buyer\'s Handbook', subtitle: 'Everything you need to know before buying your first EV', excerpt: 'A comprehensive step-by-step guide to buying your first electric vehicle, covering budget, range, charging, and more.', date: 'Oct 2026', author: 'Guide Desk', readTime: '10 min read', tag: 'Guide', image: '', content: '<p>Buying your first EV can be overwhelming. This guide covers everything you need to know—from understanding battery sizes to calculating running costs and choosing the right charger.</p><p><strong>Step 1: Set Your Budget</strong><br>EV prices range from ₹5 lakh (MG Comet) to over ₹2 crore (Porsche Taycan). Factor in the initial higher cost against long-term fuel and maintenance savings.</p><p><strong>Step 2: Assess Your Range Needs</strong><br>Calculate your daily commute distance. Most city commuters need 150-250 km range, while frequent highway travelers should look for 400 km+. Always add 20% buffer.</p><p><strong>Step 3: Check Charging Infrastructure</strong><br>Ensure you have access to home charging (preferably a 7 kW AC wall box). Check workplace charging availability and nearby public fast chargers.</p><p><strong>Step 4: Calculate Total Cost</strong><br>Factor in electricity costs (₹1-1.5/km vs petrol\'s ₹8-9/km), maintenance savings, insurance premiums, and registration tax benefits.</p><p><strong>Step 5: Research EV Models</strong><br>Use our EV Brand Dictionary to explore models from all manufacturers. Compare features, range, charging speed, and warranty coverage.</p>' },
+    { id: 'in-guide-2', title: 'Home Charging Installation Guide', subtitle: 'Everything you need to set up EV charging at home', excerpt: 'A practical guide to installing a home EV charger, from choosing the right equipment to working with electricians.', date: 'Oct 2026', author: 'Guide Desk', readTime: '7 min read', tag: 'Guide', image: '', content: '<p>Setting up home charging is the most important step in EV ownership. Here\'s a complete guide to getting it right.</p><p><strong>1. Choose Your Charger</strong><br>Most EVs come with a portable 2-3 kW charger (15A socket). For faster charging, install a 7.2 kW AC wall box that charges 3-4x faster. Premium EVs may support 11-22 kW AC charging.</p><p><strong>2. Electrical Assessment</strong><br>Have a licensed electrician check your home\'s electrical panel capacity. A 7.2 kW charger typically needs a dedicated 40A MCB. Most Indian homes with 15-20 kW sanctioned load can support it.</p><p><strong>3. Installation Cost</strong><br>A basic 7.2 kW AC wall box costs ₹15,000-40,000 plus installation charges of ₹3,000-8,000. Many car manufacturers include a free charger with the vehicle purchase.</p><p><strong>4. Safety Considerations</strong><br>Ensure proper earthing (grounding), install a dedicated circuit with RCD protection, and protect outdoor chargers with weatherproof enclosures.</p>' },
+    { id: 'in-guide-3', title: 'Understanding EV Battery Warranties', subtitle: 'What battery coverage should you expect from manufacturers?', excerpt: 'A detailed look at EV battery warranties in India and what they cover.', date: 'Sep 2026', author: 'Guide Desk', readTime: '5 min read', tag: 'Guide', image: '', content: '<p>EV battery warranties are crucial for peace of mind. Here\'s what you need to know about coverage in India.</p><p><strong>Standard Coverage:</strong> Most manufacturers offer 8 years/1,60,000 km battery warranty (whichever comes first). This typically covers defects and capacity degradation below 70%.</p><p><strong>What\'s Covered:</strong> Manufacturing defects, premature capacity loss, thermal management system failures, and battery management system (BMS) issues.</p><p><strong>What\'s Not Covered:</strong> Physical damage from accidents, improper charging, unauthorized modifications, and damage from natural disasters.</p><p><strong>Transferability:</strong> Most warranties are transferable to second owners, which helps maintain resale value. Check the specific terms before purchase.</p>' },
+    { id: 'in-guide-4', title: 'EV Insurance: A Complete Guide', subtitle: 'Understanding insurance options and costs for electric vehicles', excerpt: 'Everything you need to know about insuring your electric vehicle in India.', date: 'Sep 2026', author: 'Guide Desk', readTime: '6 min read', tag: 'Guide', image: '', content: '<p>EV insurance differs from conventional vehicle insurance. Here\'s a complete guide to understanding your options.</p><p><strong>Premium Costs:</strong> EV insurance premiums are typically 10-20% higher than equivalent petrol vehicles due to higher battery replacement costs. However, many insurers now offer EV-specific policies with competitive rates.</p><p><strong>Key Coverage:</strong> Look for policies that specifically cover battery damage, charging equipment, and electrical component failure. Standard third-party liability is mandatory.</p><p><strong>Add-ons Worth Considering:</strong> Battery protection cover, charging equipment cover, roadside assistance (including battery jump-start), and zero depreciation cover for the first 3-5 years.</p><p><strong>Claim Process:</strong> Make sure your insurer has an EV-certified garage network. Battery damage claims require specialized assessment from manufacturer-approved technicians.</p>' },
+    { id: 'in-guide-5', title: 'Top 10 Questions to Ask Before Buying an EV', subtitle: 'Essential questions every EV buyer should ask the dealer', excerpt: 'A checklist of important questions to ask when test-driving and purchasing an electric vehicle.', date: 'Sep 2026', author: 'Guide Desk', readTime: '4 min read', tag: 'Guide', image: '', content: '<p>Before signing on the dotted line, make sure you ask these critical questions:</p><p><strong>1. What is the real-world range?</strong> ARAI figures are optimistic. Ask for real-world range estimates in city and highway conditions.</p><p><strong>2. What charger is included?</strong> Does the car come with a portable charger, a wall box, or both? Is installation included?</p><p><strong>3. What is the battery warranty?</strong> Check years, kilometer limit, and what constitutes a warranty-replaceable defect.</p><p><strong>4. How much does a replacement battery cost?</strong> Know the out-of-warranty battery replacement cost before purchase.</p><p><strong>5. What DC fast charging speed does it support?</strong> Higher is better for road trips. Also check the charging curve (does it slow down after 80%?).</p><p><strong>6. Is there a mobile app?</strong> Does it support remote monitoring, charging scheduling, and preconditioning?</p><p><strong>7. What are the service intervals?</strong> EVs need less maintenance but still require periodic checks.</p><p><strong>8. Is the warranty transferable?</strong> Important for resale value.</p><p><strong>9. How does the vehicle perform in extreme heat?</strong> Battery cooling system effectiveness matters in Indian summers.</p><p><strong>10. Are software updates over-the-air (OTA)?</strong> OTA updates mean your car improves over time without dealer visits.</p>' }
+  ],
+  'charging-guide': [
+    { id: 'in-charge-1', title: 'Understanding AC vs DC Charging', subtitle: 'The difference between slow home charging and fast public charging', excerpt: 'A comprehensive explanation of AC and DC charging technologies and when to use each.', date: 'Oct 2026', author: 'Tech Desk', readTime: '6 min read', tag: 'Charging', image: '', content: '<p>Understanding the difference between AC and DC charging is fundamental to EV ownership. Here\'s everything you need to know.</p><p><strong>AC Charging (Alternating Current):</strong> Your home and office supply AC electricity. EVs have an onboard charger that converts AC to DC to charge the battery. This is inherently slower—typically 2-22 kW depending on the onboard charger capacity.</p><p><strong>DC Charging (Direct Current):</strong> Public fast chargers supply DC electricity directly to the battery, bypassing the onboard charger entirely. This enables much faster charging rates, from 50 kW to 350 kW.</p><p><strong>When to Use AC:</strong> Overnight at home, during work hours, at shopping centers—anytime your car is parked for 2+ hours. AC charging is gentler on the battery and contributes to longer battery life.</p><p><strong>When to Use DC:</strong> On road trips, during quick top-ups while shopping, or whenever you need to add range quickly. DC fast charging is convenient but frequent use can accelerate battery degradation slightly.</p>' },
+    { id: 'in-charge-2', title: 'DC Fast Charging Network in India: Complete Guide', subtitle: 'All major fast-charging networks mapped and explained', excerpt: 'A comprehensive guide to DC fast charging networks available across Indian highways and cities.', date: 'Oct 2026', author: 'Infra Desk', readTime: '8 min read', tag: 'Charging', image: '', content: '<p>India\'s DC fast charging network is expanding rapidly. Here\'s a complete guide to the major networks.</p><p><strong>Tata Power EZ Charging:</strong> The largest network with 1,000+ DC chargers across 200+ cities. Speeds range from 30 kW to 150 kW. Available on highways and in urban areas.</p><p><strong>Jio-bp Pulse:</strong> A joint venture between Reliance and bp operating 500+ fast chargers. Focused on highway corridors with 60-120 kW chargers. Available at select petrol pumps and metro stations.</p><p><strong>Zeon Charging:</strong> 300+ DC chargers in 50+ cities with speeds up to 240 kW. Known for reliable uptime and good locations at shopping malls.</p><p><strong>ChargeZone:</strong> Focused on highway corridors with over 200 DC fast chargers. Excellent for inter-city travel with chargers spaced every 50-80 km on major routes.</p><p><strong>Government Initiatives:</strong> EESL, NTPC, and PGCIL are also installing DC chargers at government buildings, railway stations, and public parking lots across Tier 1 and Tier 2 cities.</p>' },
+    { id: 'in-charge-3', title: 'Charging Connector Types Explained', subtitle: 'Understanding CCS, CHAdeMO, and Type 2 AC connectors', excerpt: 'A guide to the different EV charging connector standards used in India.', date: 'Sep 2026', author: 'Tech Desk', readTime: '5 min read', tag: 'Charging', image: '', content: '<p>Different EVs use different charging connectors. Here\'s a guide to the standards used in India.</p><p><strong>CCS2 (Combined Charging System Type 2):</strong> The most common standard in India. Used by Tata, MG, Hyundai, Kia, BMW, Mercedes-Benz, Audi, Volvo, and most European manufacturers. Supports both AC (Type 2) and DC (CCS) charging.</p><p><strong>CHAdeMO:</strong> Used primarily by Japanese manufacturers like Nissan and Mitsubishi, and also available on some BYD models. Fewer CHAdeMO chargers exist in India compared to CCS.</p><p><strong>GB/T (Guobiao Standard):</strong> Used by Chinese manufacturers. BYD and MG initially used GB/T but newer models have switched to CCS2 for Indian compliance.</p><p><strong>Type 2 AC (Mennekes):</strong> The standard AC charging connector for all European and Indian EVs. Compatible with most home and office AC chargers.</p><p><strong>Pro Tip:</strong> Most public DC chargers in India come with CCS2 + CHAdeMO + Type 2 cables, ensuring compatibility with most EVs on the road.</p>' },
+    { id: 'in-charge-4', title: 'Maximizing EV Battery Life Through Smart Charging', subtitle: 'Best practices for charging your EV battery to ensure long life', excerpt: 'Learn how to charge your EV properly to maximize battery health and longevity.', date: 'Sep 2026', author: 'Tech Desk', readTime: '6 min read', tag: 'Charging', image: '', content: '<p>Your EV battery is the most expensive component in the car. Here\'s how to make it last as long as possible.</p><p><strong>Keep It Between 20-80%:</strong> Lithium-ion batteries are happiest when kept between 20% and 80% state of charge. Avoid regularly charging to 100% or depleting to 0%. Only charge to 100% when you need maximum range for a long trip.</p><p><strong>Minimize DC Fast Charging:</strong> DC fast charging generates more heat and places more stress on battery cells. Use AC home charging for daily needs and reserve DC charging for road trips.</p><p><strong>Charge in Moderate Temperatures:</strong> Extreme heat and cold degrade batteries faster. Park in shade when possible and avoid charging immediately after a high-speed drive when the battery is hot.</p><p><strong>Use Scheduled Charging:</strong> Set your car to finish charging just before you depart. This minimizes the time the battery spends at high state of charge, reducing calendar aging.</p><p><strong>Maintain Good Battery Cooling:</strong> Ensure your car\'s thermal management system is working properly. Liquid-cooled batteries (common in most modern EVs) maintain optimal temperatures better than air-cooled ones.</p>' },
+    { id: 'in-charge-5', title: 'The Cost of Charging: Home vs Public', subtitle: 'A detailed cost comparison of charging your EV at home versus using public chargers', excerpt: 'Calculate how much you\'ll actually spend on charging and where you get the best value.', date: 'Sep 2026', author: 'Cost Desk', readTime: '5 min read', tag: 'Charging', image: '', content: '<p>Understanding charging costs helps you make informed decisions. Here\'s a detailed breakdown of what you can expect to pay.</p><p><strong>Home Charging (AC):</strong> Residential electricity rates in India range from ₹6-9 per kWh. Charging a 40 kWh battery from 0-100% costs approximately ₹240-360, giving you a cost of ₹0.8-1.2 per km.</p><p><strong>Office/Public AC Charging:</strong> Rates vary from ₹8-12 per kWh plus parking fees. Cost per km: ₹1-1.8. Some employers offer free charging as an employee benefit.</p><p><strong>DC Fast Charging:</strong> Costs ₹12-22 per kWh depending on the network and location. A 30-minute charge (30 kWh) costs ₹360-660, providing about 150 km range. Cost per km: ₹2.4-4.4.</p><p><strong>Subscription Plans:</strong> Some networks offer subscription plans (e.g., ₹999/month for discounted rates). These are worth considering if you public charge frequently.</p><p><strong>Comparison with Petrol:</strong> Even at the most expensive DC charging (₹4.4/km), you\'re saving 45-50% compared to petrol (₹8-9/km). Home charging saves you 85-90%.</p>' }
+  ],
+  'industry-updates': [
+    { id: 'in-industry-1', title: 'Tata Motors EV Division Reports Record Revenue', subtitle: 'EV business unit achieves profitability milestone ahead of schedule', excerpt: 'Tata Motors\' EV division has reported record revenue and achieved EBITDA positive status.', date: 'Oct 2026', author: 'Market Desk', readTime: '4 min read', tag: 'Industry', image: '', content: '<p>Tata Motors Electric Mobility division has achieved a significant milestone by reporting EBITDA profitability ahead of its internal targets. The division recorded its highest-ever quarterly revenue of ₹4,500 crore.</p><p>The company attributes this success to the strong performance of the Nexon EV, Tiago EV, and the recently launched Curvv EV. Production capacity has been expanded to 5,000 units per month.</p><p>Tata Motors also announced plans to launch three new EV models in the next 12 months, including the Sierra EV and the Harrier EV, further strengthening its position as India\'s EV market leader.</p>' },
+    { id: 'in-industry-2', title: 'MG Motor India Plans ₹5,000 Crore EV Investment', subtitle: 'British-origin brand commits to major electrification push in India', excerpt: 'MG Motor India has announced a massive investment plan to expand its electric vehicle portfolio.', date: 'Oct 2026', author: 'Industry Desk', readTime: '3 min read', tag: 'Industry', image: '', content: '<p>MG Motor India has announced a ₹5,000 crore investment over the next three years to accelerate its electrification strategy. The investment will fund new EV model development and battery assembly facility expansion.</p><p>The company plans to launch four new EVs by 2028, including a mass-market electric hatchback and a premium electric MPV. MG is also working on introducing its innovative Battery-as-a-Service (BaaS) model in India.</p><p>MG\'s Halol and Gujarat facilities will be upgraded to support EV production, with battery pack assembly localized to reduce costs. The company targets 50% of its India sales to come from EVs by 2028.</p>' },
+    { id: 'in-industry-3', title: 'Ola Electric Announces Motorcycle Lineup', subtitle: 'Ola to launch its first electric motorcycle by early 2027', excerpt: 'Ola Electric has confirmed plans to enter the electric motorcycle segment with multiple models.', date: 'Sep 2026', author: 'Auto Desk', readTime: '3 min read', tag: 'Industry', image: '', content: '<p>Ola Electric Mobility has confirmed the development of a new platform for electric motorcycles, with the first model expected to launch in Q1 2027. The company aims to replicate its success in the scooter segment.</p><p>The electric motorcycle will feature Ola\'s in-house developed motor and battery technology. Multiple variants are planned, targeting different segments from commuter to performance.</p><p>Ola is also expanding its Hypercharger network to 10,000 points across India, with dedicated spaces for motorcycle charging at urban locations and highway corridors.</p>' },
+    { id: 'in-industry-4', title: 'Lotus Eletre: Indian Launch Announced', subtitle: 'British luxury EV brand confirms India entry by 2027', excerpt: 'Lotus Technology has confirmed its Indian launch with the Eletre electric SUV.', date: 'Sep 2026', author: 'Luxury Desk', readTime: '3 min read', tag: 'Industry', image: '', content: '<p>Lotus Technology, the iconic British sports car brand now owned by Geely, has confirmed its entry into the Indian market with the Eletre electric SUV. The luxury EV is expected to launch in the second half of 2027.</p><p>The Eletre features a 112 kWh battery pack with up to 600 km range and 350 kW fast charging. The range-topping Eletre R produces 905 hp and does 0-100 km/h in just 2.95 seconds.</p><p>Lotus will position the Eletre above the Porsche Cayenne and BMW XM in the Indian luxury EV segment, with prices expected north of ₹2.5 crore. The company plans to establish 5-7 dealerships in major metro cities.</p>' },
+    { id: 'in-industry-5', title: 'Honda Activa EV Launch Confirmed for 2027', subtitle: 'Honda\'s iconic scooter brand goes electric', excerpt: 'Honda Motorcycle & Scooter India confirms the Activa Electric for launch next year.', date: 'Sep 2026', author: 'Two-Wheeler Desk', readTime: '3 min read', tag: 'Industry', image: '', content: '<p>HMSI has confirmed that the Activa Electric will launch in 2027, marking the electrification of India\'s most popular scooter nameplate. The e-Activa will be built at Honda\'s Manesar facility.</p><p>The Activa Electric will feature a fixed battery design with approximately 80-100 km real-world range. Honda is expected to use an LFP battery chemistry for better longevity and thermal performance in Indian conditions.</p><p>Honda plans to leverage its extensive 6,000+ dealership network for sales and service, giving it a significant distribution advantage over electric-only competitors like Ola and Ather.</p>' }
+  ],
+  'market-analysis': [
+    { id: 'in-market-1', title: 'India EV Market Report: FY 2025-26 Analysis', subtitle: 'Comprehensive annual analysis of the Indian EV market performance', excerpt: 'A detailed analysis of EV sales, market share, and trends in India for FY 2025-26.', date: 'Oct 2026', author: 'Market Desk', readTime: '8 min read', tag: 'Analysis', image: '', content: '<h3>Market Overview</h3><p>The Indian EV market demonstrated remarkable resilience and growth in FY 2025-26, recording total sales of 2.1 million units across all segments. This represents a 67% year-on-year increase from the previous fiscal year.</p><h3>Two-Wheeler Dominance</h3><p>Electric two-wheelers continued to dominate the EV landscape, accounting for 1.6 million units (76% of total EV sales). Ola Electric led the segment with 35% market share, followed by Oben Electric and Ather Energy.</p><h3>Passenger Vehicle Growth</h3><p>Electric passenger vehicle sales crossed 156,000 units, a 92% increase over FY 2024-25. Tata Motors maintained its leadership with 62% market share, followed by MG Motor and Hyundai.</p><h3>Three-Wheelers and Commercial</h3><p>The electric three-wheeler segment grew 55% to 320,000 units. Electric buses also saw significant adoption with 4,500 units deployed across state transport corporations.</p><h3>Key Takeaways</h3><p>EV penetration in the overall automotive market reached 6.8%, up from 4.2% in the previous year. Continued policy support and expanding product portfolios are expected to drive penetration to 12% by FY 2027-28.</p>' },
+    { id: 'in-market-2', title: 'State-wise EV Adoption Analysis', subtitle: 'Which Indian states are leading the EV revolution?', excerpt: 'A detailed state-by-state breakdown of EV adoption rates, incentives, and infrastructure.', date: 'Sep 2026', author: 'Market Desk', readTime: '6 min read', tag: 'Analysis', image: '', content: '<p>EV adoption varies significantly across Indian states, driven by local policies, infrastructure, and consumer awareness. Here\'s the complete analysis for FY 2025-26.</p><p><strong>Top 5 States by EV Sales:</strong> Maharashtra (412,000 units), Karnataka (308,000), Tamil Nadu (275,000), Gujarat (256,000), and Uttar Pradesh (234,000). These five states account for 61% of all EV sales in India.</p><p><strong>Highest EV Penetration:</strong> Delhi leads with 18.5% EV penetration in new vehicle sales, followed by Goa (15.2%), Karnataka (11.8%), Maharashtra (10.4%), and Kerala (9.6%). Delhi\'s aggressive EV policy and comprehensive subsidy program are key drivers.</p><p><strong>Charging Infrastructure:</strong> Maharashtra has the most public charging stations (3,200+), followed by Karnataka (2,800+) and Delhi (2,100+). The Delhi-Mumbai and Bangalore-Chennai highway corridors are the most electrified routes.</p><p><strong>Emerging Markets:</strong> Tier 2 and 3 cities are showing accelerating adoption, with cities like Indore, Surat, Lucknow, and Coimbatore recording over 200% year-on-year growth.</p>' },
+    { id: 'in-market-3', title: 'EV Battery Price Trends in India', subtitle: 'Battery costs continue to decline, impacting EV affordability', excerpt: 'Analysis of battery price trends and their impact on EV pricing in India.', date: 'Sep 2026', author: 'Market Desk', readTime: '5 min read', tag: 'Analysis', image: '', content: '<p>Battery prices remain the single most significant factor in EV affordability. Here\'s the latest analysis on pricing trends.</p><p><strong>Current Pricing:</strong> Lithium-ion battery pack prices in India have fallen to approximately $105/kWh in 2026, down from $140/kWh in 2024. LFP battery packs are even cheaper at around $85/kWh.</p><p><strong>Localization Impact:</strong> The government\'s ACC PLI scheme and the recent battery cell manufacturing commitments from companies like Ola Electric, Reliance, and Exide are expected to further reduce costs. Domestic cell production could bring prices below $80/kWh by 2028.</p><p><strong>Impact on Vehicle Prices:</strong> A 40 kWh battery pack now costs approximately ₹3.5 lakh less than it did in 2024. This cost reduction is gradually being passed on to consumers through lower EV prices and improved feature sets.</p><p><strong>Future Outlook:</strong> With sodium-ion battery technology maturing and solid-state batteries entering production, we could see pack prices drop below $60/kWh by 2030, making EVs price-competitive with petrol vehicles without subsidies.</p>' },
+    { id: 'in-market-4', title: 'Premium EV Segment Market Analysis', subtitle: 'The luxury EV market in India is experiencing unprecedented growth', excerpt: 'Analysis of the premium and luxury EV segment performance in India.', date: 'Sep 2026', author: 'Luxury Desk', readTime: '5 min read', tag: 'Analysis', image: '', content: '<p>India\'s premium EV segment (₹30 lakh+) has become the fastest-growing EV category, with sales of 14,500 units in FY 2025-26, a 128% increase over the previous year.</p><p><strong>Market Leaders:</strong> BMW leads the luxury EV segment with 28% market share, followed by Mercedes-Benz (24%), Volvo (18%), Audi (15%), and Kia (12%). The Kia EV6 and Hyundai Ioniq 5 have been particularly successful in the crossover segment.</p><p><strong>Average Transaction Price:</strong> The average luxury EV in India now sells for ₹58.5 lakh, down 8% from the previous year due to increased localization and competitive pricing.</p><p><strong>Consumer Profile:</strong> 72% of luxury EV buyers are first-time EV owners, and 45% are upgrading from a premium internal combustion engine vehicle. The top reasons cited are running cost savings (58%), performance (52%), and environmental consciousness (41%).</p><p><strong>Infrastructure Gap:</strong> While home charging is the primary charging method (78% of luxury EV owners), the availability of high-power DC chargers in premium residential and commercial locations is becoming increasingly important for this segment.</p>' },
+    { id: 'in-market-5', title: 'Used EV Market Analysis', subtitle: 'The pre-owned EV market is growing rapidly in India', excerpt: 'Analysis of the emerging used EV market in India and its implications.', date: 'Aug 2026', author: 'Market Desk', readTime: '5 min read', tag: 'Analysis', image: '', content: '<p>The used EV market is emerging as a significant segment, with 22,000 pre-owned EVs changing hands in FY 2025-26. Here\'s the analysis.</p><p><strong>Resale Value:</strong> Early Tata Nexon EV models (2019-2021) retain approximately 65-70% of their original value, comparable to diesel variants. The Tiago EV shows even stronger retention at 72-75% due to its lower entry price.</p><p><strong>Battery Health Certification:</strong> Major used car platforms like Spinny and Cars24 have introduced battery health certification programs. These tests measure State of Health (SoH), maximum DC charging rate, and overall battery degradation.</p><p><strong>Price Trends:</strong> Used EVs typically sell at a 10-15% premium over comparable petrol models in the same age bracket, largely due to lower running costs. However, this premium is expected to shrink as more EVs enter the used market.</p><p><strong>Warranty Transfer:</strong> Most manufacturers allow warranty transfer to second owners, though some charge a nominal fee (₹5,000-15,000). Third-party extended warranty products covering EV-specific components are also becoming available.</p><p><strong>Market Outlook:</strong> The used EV market is projected to grow to 150,000 annual units by 2028 as early EV adopters upgrade to newer models with better range and technology.</p>' }
+  ],
+  'government-policies': [
+    { id: 'in-policy-1', title: 'FAME-III: Complete Policy Breakdown', subtitle: 'Everything you need to know about India\'s latest EV subsidy scheme', excerpt: 'A comprehensive breakdown of the FAME-III subsidy framework, eligibility criteria, and benefits.', date: 'Oct 2026', author: 'Policy Desk', readTime: '7 min read', tag: 'Policy', image: '', content: '<p>The FAME-III (Faster Adoption and Manufacturing of Electric Vehicles) scheme has been officially notified with an outlay of ₹12,500 crore. Here\'s a complete breakdown of the policy.</p><p><strong>Key Allocations:</strong> ₹6,500 crore for passenger vehicles, ₹3,500 crore for two-wheelers, ₹1,500 crore for three-wheelers, and ₹1,000 crore for buses.</p><p><strong>Subsidy Structure:</strong> Passenger EVs get ₹10,000-15,000 per kWh of battery capacity (capped at ₹3.5 lakh). Two-wheelers get ₹8,000-12,000 per kWh (capped at ₹35,000).</p><p><strong>New Requirements:</strong> To qualify for subsidies, vehicle manufacturers must use at least 50% locally sourced battery cells by 2028, with annual milestones. This is designed to boost domestic manufacturing.</p><p><strong>Charging Infrastructure:</strong> ₹2,000 crore allocated for public charging stations. Target: 1 charger per 20 EVs by 2028, with mandatory charging points at all new commercial buildings.</p><p><strong>State-Level Benefits:</strong> The scheme encourages states to adopt additional EV policies. Several states offer 100% road tax exemption, registration fee waivers, and electricity duty exemptions on EV charging.</p>' },
+    { id: 'in-policy-2', title: 'State EV Policies Comparison Guide', subtitle: 'A comprehensive comparison of EV policies across Indian states', excerpt: 'Detailed comparison of incentives, subsidies, and policies offered by different Indian states for EV adoption.', date: 'Sep 2026', author: 'Policy Desk', readTime: '6 min read', tag: 'Policy', image: '', content: '<p>State-level EV policies vary significantly, and choosing the right state for EV registration can save you up to ₹2.5 lakh. Here\'s a comprehensive comparison.</p><p><strong>Delhi:</strong> Most aggressive EV policy. Waivers: 100% road tax, 100% registration fee. Subsidies: Up to ₹50,000 for two-wheelers, ₹30,000 for four-wheelers (over FAME). Plus: Scrappage bonus if replacing old petrol car.</p><p><strong>Maharashtra:</strong> Waivers: 100% road tax (first EV only). Subsidies: Up to ₹1.5 lakh for four-wheelers. Plus: Reduced electricity tariff for home charging (₹4.5/kWh for EV owners during night).</p><p><strong>Karnataka:</strong> Waivers: 100% road tax. Subsidies: Up to ₹20,000 for two-wheelers. Perks: EV manufacturing hub with industrial incentives for OEMs setting up factories.</p><p><strong>Gujarat:</strong> Waivers: 100% road tax for 5 years. Subsidies: Up to ₹20,000 for two-wheelers. EV manufacturing focus with land and power subsidies.</p><p><strong>Tamil Nadu:</strong> Waivers: 100% road tax. Subsidies: Up to ₹15,000 for two-wheelers, interest subvention on EV loans. Investment in charging infrastructure.</p>' },
+    { id: 'in-policy-3', title: 'Income Tax Benefits for EV Buyers', subtitle: 'Section 80EEB and other tax benefits explained', excerpt: 'Understanding the income tax deductions available for EV purchases in India.', date: 'Sep 2026', author: 'Tax Desk', readTime: '4 min read', tag: 'Policy', image: '', content: '<p>Under Section 80EEB of the Income Tax Act, individuals can claim a deduction of up to ₹1.5 lakh on interest paid on loans taken to purchase electric vehicles.</p><p><strong>Eligibility:</strong> Available to individual taxpayers for loans sanctioned by banks or NBFCs for EV purchases. The vehicle must be registered as an electric vehicle.</p><p><strong>Loan Tenure:</strong> The deduction is available for the entire loan tenure, up to 8 years from the date of loan sanction. Maximum lifetime deduction is capped at ₹1.5 lakh per financial year.</p><p><strong>Combined Benefits:</strong> EV buyers can combine Section 80EEB with other deductions like Section 80C (up to ₹1.5 lakh), maximizing overall tax savings. A buyer in the 30% tax bracket can save approximately ₹46,800 per year in taxes.</p><p><strong>Employer Benefits:</strong> Some companies provide EV leasing as part of salary restructuring, which allows employees to pay for EV lease from pre-tax salary, resulting in additional 20-30% savings on effective vehicle cost.</p>' },
+    { id: 'in-policy-4', title: 'Battery Waste Management Rules 2026', subtitle: 'India\'s new battery recycling regulations explained', excerpt: 'Understanding the new regulations for battery disposal, recycling, and producer responsibility.', date: 'Sep 2026', author: 'Policy Desk', readTime: '5 min read', tag: 'Policy', image: '', content: '<p>The Battery Waste Management Rules 2026 represent India\'s comprehensive framework for managing end-of-life batteries, including EV batteries.</p><p><strong>Extended Producer Responsibility (EPR):</strong> All battery manufacturers and EV OEMs must register with the Central Pollution Control Board and meet annual recycling targets. Targets start at 40% in 2026 and increase to 80% by 2030.</p><p><strong>Collection Infrastructure:</strong> Manufacturers must establish collection centers in all districts with more than 10,000 EV registrations. Dealers must accept spent batteries from customers regardless of brand.</p><p><strong>Deposit Refund Scheme:</strong> A deposit of ₹2,000-5,000 (depending on battery size) will be collected at the time of vehicle purchase and refunded when the battery is returned to an authorized collection center.</p><p><strong>Material Recovery:</strong> Recyclers must achieve minimum 70% recovery of battery materials (lithium, cobalt, nickel, and manganese). Failure to meet targets results in environmental compensation charges.</p><p><strong>Consumer Awareness:</strong> Manufacturers must include battery disposal information in user manuals and provide online locators for the nearest authorized battery collection centers.</p>' },
+    { id: 'in-policy-5', title: 'EV Manufacturing PLI Scheme Progress Report', subtitle: 'How the production-linked incentive scheme is boosting domestic EV manufacturing', excerpt: 'Progress report on the PLI scheme for EV and battery manufacturing in India.', date: 'Aug 2026', author: 'Policy Desk', readTime: '6 min read', tag: 'Policy', image: '', content: '<p>The Production Linked Incentive (PLI) scheme for automotive and advanced chemistry cells has completed three years. Here\'s a progress report.</p><p><strong>ACC PLI (Advanced Chemistry Cells):</strong> 15 companies have been approved with a total committed investment of ₹45,000 crore. Ola Electric and Reliance New Energy have begun construction of 5 GWh and 10 GWh facilities respectively.</p><p><strong>Automotive PLI:</strong> 85 companies have applied, with 45 approved. Total committed investment: ₹32,500 crore. The scheme aims to increase domestic value addition from the current 40% to 70% by 2028.</p><p><strong>Job Creation:</strong> The two PLI schemes are projected to create 3,50,000 direct and indirect jobs by 2028. Over 1,20,000 jobs have already been created in the EV supply chain ecosystem.</p><p><strong>Challenges:</strong> Delays in tariff rationalization for EV components, limited availability of skilled labor for battery manufacturing, and uncertainty around global commodity prices remain key challenges for PLI beneficiaries.</p><p><strong>Impact Assessment:</strong> The PLI schemes have successfully attracted global EV supply chain players to India, with several Tier 1 suppliers establishing manufacturing bases in the country.</p>' }
+  ],
+  'expert-columns': [
+    { id: 'in-expert-1', title: 'The Solid-State Battery Revolution Is Closer Than You Think', subtitle: 'Expert analysis on the timeline for solid-state battery commercialization', excerpt: 'Our EV technology expert analyzes the current state and timeline for solid-state battery adoption in EVs.', date: 'Oct 2026', author: 'Dr. Rajesh Kumar', readTime: '8 min read', tag: 'Expert', image: '', content: '<p>As an automotive battery researcher with 15 years in the field, I\'ve been tracking solid-state battery development closely. Here\'s my analysis of the technology\'s readiness.</p><p>Solid-state batteries promise 2x energy density, 10x faster charging, and zero fire risk compared to conventional lithium-ion batteries. The technology replaces the liquid electrolyte with a solid ceramic or polymer material.</p><p>Major announcements from Toyota, Samsung SDI, and QuantumScape suggest commercial production could begin as early as 2027. However, my analysis suggests mass-market adoption is still 5-7 years away.</p><p>The key challenges are manufacturing scalability, material cost, and interface stability between the solid electrolyte and electrodes. Companies that solve these challenges first will have a significant competitive advantage.</p><p>For buyers today, my advice is simple: don\'t wait. Current lithium-ion battery technology is mature, reliable, and improving every year. Battery replacement costs are dropping by 10-15% annually.</p>' },
+    { id: 'in-expert-2', title: 'Why India Needs an EV Battery Swapping Policy', subtitle: 'Battery swapping could be the key to mass EV adoption in India', excerpt: 'An expert perspective on why battery swapping infrastructure is critical for India\'s two-wheeler and three-wheeler EV segments.', date: 'Oct 2026', author: 'Dr. Rajesh Kumar', readTime: '7 min read', tag: 'Expert', image: '', content: '<p>Battery swapping—instantly exchanging a depleted battery for a fully charged one—could be the game-changer for India\'s EV transition, particularly for two-wheelers and three-wheelers.</p><p>The advantage of swapping over charging is clear: zero wait time, no need for dedicated parking with chargers, and reduced upfront vehicle cost (since the battery is owned by the swapping station).</p><p>However, for swapping to work at scale, the government must establish a standardized battery form factor policy, similar to what Gogoro has achieved in Taiwan. Without standardization, swapping stations would need to carry inventory for every manufacturer\'s unique battery design, making the economics unviable.</p><p>Battery-as-a-Service (BaaS) models, where users pay per-swap, could reduce the upfront cost of an EV by 30-40%, dramatically accelerating adoption in the mass market. This is particularly relevant for commercial fleet operators in the delivery and ride-sharing segments.</p>' },
+    { id: 'in-expert-3', title: 'The Future of EV Charging: Wireless and Inductive', subtitle: 'How wireless charging technology could transform EV ownership', excerpt: 'Exploring the potential of wireless EV charging and its implications for the future of electric mobility.', date: 'Sep 2026', author: 'Dr. Priya Sharma', readTime: '6 min read', tag: 'Expert', image: '', content: '<p>Imagine never having to plug in your EV—just park over a charging pad in your garage or at a parking spot, and charging starts automatically. This is the promise of wireless inductive charging.</p><p>The technology uses electromagnetic fields to transfer energy between a ground-based pad and a receiver pad on the vehicle. Current implementations offer 85-92% efficiency, approaching that of plug-in AC charging (94-96%).</p><p>Several manufacturers, including BMW, Mercedes-Benz, and Volvo, have demonstrated wireless charging systems. The main barrier to adoption has been the cost: a home wireless charging pad currently costs ₹2-4 lakh versus ₹15,000-40,000 for a wired wall box.</p><p>Looking ahead, dynamic wireless charging—where roads themselves charge vehicles as they drive—could revolutionize long-distance travel. While still in experimental phases, this technology holds immense potential for electrifying India\'s national highway network.</p>' },
+    { id: 'in-expert-4', title: 'India\'s EV Supply Chain: Building Self-Reliance', subtitle: 'How India is building a domestic EV supply chain ecosystem', excerpt: 'An expert analysis of India\'s journey toward self-reliance in EV component manufacturing.', date: 'Sep 2026', author: 'Dr. Priya Sharma', readTime: '7 min read', tag: 'Expert', image: '', content: '<p>India\'s ambition to become a global EV manufacturing hub depends on building a robust domestic supply chain. Here\'s my assessment of where we stand.</p><p>The government\'s PLI schemes have catalyzed investment in battery cell manufacturing, with over 100 GWh of annual capacity planned by 2028. This addresses the single most critical component in the EV value chain.</p><p>Motor and powertrain manufacturing is well-established, with companies like Tata AutoComp and Bosch India developing local production capabilities. India has a natural advantage in electric motor production given its existing auto component ecosystem.</p><p>The gap areas include power electronics (SiC MOSFETs, IGBT modules), high-voltage connectors and wiring, and battery management system (BMS) semiconductor components. These remain largely import-dependent.</p><p>Bridging these gaps requires sustained investment in semiconductor design and fabrication capabilities. The government\'s recent ₹76,000 crore semiconductor PLI scheme should eventually address these needs.</p>' },
+    { id: 'in-expert-5', title: 'The Role of EVs in India\'s Renewable Energy Transition', subtitle: 'How EVs can help stabilize the grid and enable greater renewable energy adoption', excerpt: 'An expert analysis of vehicle-to-grid (V2G) technology and its potential for India.', date: 'Aug 2026', author: 'Dr. Rajesh Kumar', readTime: '6 min read', tag: 'Expert', image: '', content: '<p>EVs represent far more than just clean transportation—they are essentially mobile battery storage units that can play a crucial role in stabilizing India\'s power grid.</p><p>Vehicle-to-Grid (V2G) technology allows an EV to discharge electricity back to the grid during peak demand hours when electricity prices are high, and charge during off-peak hours when prices are low. This creates a potentially valuable revenue stream for EV owners.</p><p>For India, where solar energy generation creates a significant midday surplus, EV batteries could absorb excess energy and feed it back during evening peaks. With 10 million EVs on Indian roads by 2030 (projected), the aggregate battery capacity would be approximately 400 GWh—equivalent to India\'s current daily electricity consumption.</p><p>The regulatory framework for V2G is still being developed, but pilot projects in Delhi and Bangalore have demonstrated promising results. The key requirements are bidirectional chargers (currently ₹1.5-2.5 lakh more expensive than standard units) and ISO 15118-compliant communication protocols.</p>' }
+  ],
+  'tech-deep-dives': [
+    { id: 'in-tech-1', title: 'Understanding EV Battery Chemistries: LFP vs NMC vs Solid-State', subtitle: 'A deep dive into the different battery technologies powering modern EVs', excerpt: 'Comprehensive technical explanation of lithium-ion battery variants, their characteristics, and applications.', date: 'Oct 2026', author: 'Tech Desk', readTime: '10 min read', tag: 'Tech', image: '', content: '<p>All EV batteries are lithium-ion, but the specific chemistry varies significantly between manufacturers. Here\'s an in-depth technical explanation.</p><p><strong>LFP (Lithium Iron Phosphate):</strong> Uses iron phosphate as cathode material. Advantages: Excellent thermal stability (virtually zero fire risk), long cycle life (3,000-5,000 cycles), and no cobalt (cheaper and ethical). Disadvantages: Lower energy density (90-160 Wh/kg), poor cold-weather performance. Used in: Tata Nexon EV, BYD Atto 3, MG Comet. Best for: Budget-conscious buyers and commercial fleets.</p><p><strong>NMC (Lithium Nickel Manganese Cobalt):</strong> Uses nickel-rich cathode. Advantages: High energy density (150-220 Wh/kg), good performance across temperatures. Disadvantages: Cobalt dependency (expensive, ethical concerns), shorter cycle life (1,500-2,000 cycles). Used in: Hyundai Ioniq 5, Kia EV6, BMW i4. Best for: Premium vehicles where range is paramount.</p><p><strong>Solid-State:</strong> Replaces liquid electrolyte with solid ceramic/polymer. Advantages: 2x energy density (400-500 Wh/kg potential), 10x faster charging, zero fire risk. Disadvantages: Manufacturing challenges, high cost (currently ₹50,000+/kWh). Expected commercial availability: 2028-2030. Best for: Future luxury and performance EVs.</p><p><strong>Key Metrics Explained:</strong> Energy density (Wh/kg) determines range for a given battery weight. Cycle life determines how many charge-discharge cycles before capacity drops below 80%. C-rate determines how fast a battery can charge—1C means fully charged in 1 hour, 3C in 20 minutes.</p>' },
+    { id: 'in-tech-2', title: '800V Architecture Explained', subtitle: 'Why high-voltage electrical systems are the future of EVs', excerpt: 'A technical deep dive into 800V architecture and its advantages for fast charging and efficiency.', date: 'Oct 2026', author: 'Tech Desk', readTime: '7 min read', tag: 'Tech', image: '', content: '<p>800V architecture represents the most significant electrical system advancement in modern EVs. Here\'s a technical explanation of how it works and why it matters.</p><p><strong>What Is 800V Architecture?</strong> Most EVs use a 400V electrical system. 800V systems double the voltage, which allows the same power to be delivered with half the current (Power = Voltage × Current). Lower current means less resistive heating (proportional to I²R), allowing thinner, lighter wiring.</p><p><strong>Why It Matters for Charging:</strong> The maximum charging power is limited by both charger capability and the vehicle\'s voltage. An 800V system connected to a 350 kW charger can add 300-400 km of range in 15-20 minutes, compared to 30-40 minutes for a 400V system at 150-200 kW.</p><p><strong>Efficiency Benefits:</strong> Reduced resistive losses in the high-voltage cabling and motor controller improve overall powertrain efficiency by 3-5%. This translates to more range from the same battery capacity.</p><p><strong>Current 800V Vehicles:</strong> Hyundai Ioniq 5/6 (E-GMP platform), Kia EV6 (E-GMP), Porsche Taycan (first production 800V), Audi e-tron GT, and Lucid Air. Most premium EVs launching after 2026 will adopt 800V architecture.</p><p><strong>Challenges:</strong> 800V systems require more expensive power electronics (SiC MOSFETs instead of IGBTs), specialized high-voltage connectors, and careful design to prevent arcing. The cost premium is around ₹1-2 lakh per vehicle currently.</p>' },
+    { id: 'in-tech-3', title: 'Regenerative Braking Systems: How They Work', subtitle: 'The technology behind one-pedal driving and energy recovery', excerpt: 'A technical explanation of how regenerative braking captures energy and how one-pedal driving works.', date: 'Sep 2026', author: 'Tech Desk', readTime: '6 min read', tag: 'Tech', image: '', content: '<p>Regenerative braking is one of the most innovative features of EVs. Here\'s how it works at the technical level.</p><p><strong>The Physics:</strong> When an electric motor is powered, it converts electrical energy into rotational kinetic energy. Regenerative braking reverses this process—the motor becomes a generator, converting the vehicle\'s kinetic energy back into electricity.</p><p><strong>How It Works:</strong> When you lift off the accelerator pedal, the motor controller changes the motor\'s electrical phase relationship. Instead of drawing current, the motor now generates current that is fed back to the battery. This creates magnetic resistance that slows the vehicle.</p><p><strong>Regen Levels:</strong> Most EVs offer adjustable regen levels (typically 3-4 settings). Low regen provides mild deceleration (like coasting a petrol car), while high regen enables one-pedal driving where you rarely need the brake pedal.</p><p><strong>Energy Recovery Efficiency:</strong> Modern regenerative braking systems recover up to 70-80% of the kinetic energy that would otherwise be lost as heat. In city driving with frequent stop-and-go, regen can extend range by 15-25% compared to highway driving.</p><p><strong>Blended Braking:</strong> When you press the brake pedal, the system first applies maximum regen, then blends friction brakes only when more stopping force is needed. This maximizes energy recovery while maintaining familiar pedal feel.</p>' },
+    { id: 'in-tech-4', title: 'Electric Motor Types: PMSM vs Induction vs SRM', subtitle: 'Understanding the different electric motor technologies used in EVs', excerpt: 'A technical comparison of permanent magnet synchronous, induction, and switched reluctance motors.', date: 'Sep 2026', author: 'Tech Desk', readTime: '8 min read', tag: 'Tech', image: '', content: '<p>Understanding the different types of electric motors used in EVs helps explain differences in performance, efficiency, and cost. Here\'s a technical breakdown.</p><p><strong>PMSM (Permanent Magnet Synchronous Motor):</strong> Uses neodymium magnets in the rotor. Advantages: Highest efficiency (92-95%), compact size, high power density. Disadvantages: Requires rare earth magnets (expensive, supply chain concerns), magnets can demagnetize at very high temperatures. Used in: Most mainstream EVs (Tata, Hyundai, MG, Kia). Best for: Primary drive motor in most applications.</p><p><strong>Induction Motor (Asynchronous):</strong> Uses electromagnetic induction to create rotor magnetic field. Advantages: No rare earth magnets (cheaper), robust, excellent at high speeds, can freewheel without drag. Disadvantages: Lower efficiency (85-90%), larger size. Used in: Tesla (front motor in AWD models), Audi e-tron. Best for: Secondary motor in AWD systems, performance applications.</p><p><strong>SRM (Switched Reluctance Motor):</strong> Uses magnetic reluctance of the rotor to generate torque. Advantages: Simplest construction, no magnets, very low cost, high-speed capability. Disadvantages: Higher noise and vibration (audible whine), torque ripple (jerky at low speeds). Used in: Some industrial applications and future budget EVs. Still under development for mainstream automotive use.</p><p><strong>Dual Motor Configurations:</strong> Many premium EVs use one motor per axle for all-wheel drive. Common combinations include PMSM front + PMSM rear (most efficient), or PMSM front + Induction rear (better high-speed cruising efficiency, as used by Tesla Model Y Performance).</p>' },
+    { id: 'in-tech-5', title: 'Thermal Management Systems in EVs', subtitle: 'How EVs manage heat for battery, motor, and cabin comfort', excerpt: 'A technical deep dive into the cooling and heating systems that keep EVs running efficiently.', date: 'Aug 2026', author: 'Tech Desk', readTime: '7 min read', tag: 'Tech', image: '', content: '<p>Thermal management is critical to EV performance, safety, and longevity. Here\'s how modern EVs manage heat.</p><p><strong>Battery Thermal Management:</strong> Lithium-ion batteries operate optimally between 20-35°C. Active liquid cooling uses coolant circulating through cooling plates between battery cells. This maintains temperature during fast charging (which generates significant heat) and in hot climates like India.</p><p><strong>Motor Cooling:</strong> Electric motors generate heat through resistive losses in windings and magnetic losses in the core. Most motors use either air cooling (budget EVs) or oil cooling (premium EVs). Oil cooling allows the motor to sustain peak power longer.</p><p><strong>Heat Pump Systems:</strong> Instead of resistive heating (which consumes significant battery power), premium EVs use heat pumps that extract heat from the ambient air or from the motor/battery coolant to heat the cabin. Heat pumps are 2-4x more efficient than resistive heaters, preserving 15-30 km of range in cold weather.</p><p><strong>Integrated Thermal Architecture:</strong> Modern EVs integrate battery, motor, and cabin thermal management into a single system with a heat pump, multiple coolant loops, and electronically controlled valves. This allows waste heat from the motor and battery to warm the cabin in winter, and battery cooling to assist cabin air conditioning in summer.</p><p><strong>Importance in India:</strong> In India\'s hot climate, battery thermal management is crucial. Liquid-cooled systems (as opposed to air-cooled) maintain battery temperatures within safe limits during sustained highway driving and repeated fast charging sessions. This directly impacts battery life and safety.</p>' }
+  ]
+};
+const INSIGHTS_CATEGORIES = [
+  { key: 'latest-news', label: 'Latest EV News', icon: '📰', desc: 'Breaking news and updates from the EV world' },
+  { key: 'upcoming-launches', label: 'Upcoming Launches', icon: '🚀', desc: 'Upcoming electric vehicle launches in India' },
+  { key: 'ev-comparisons', label: 'EV Comparisons', icon: '⚖️', desc: 'Side-by-side comparisons of popular EVs' },
+  { key: 'buying-guides', label: 'Buying Guides', icon: '📋', desc: 'Comprehensive guides for EV buyers' },
+  { key: 'charging-guide', label: 'Charging Guide', icon: '⚡', desc: 'Everything about EV charging' },
+  { key: 'industry-updates', label: 'Industry Updates', icon: '🏭', desc: 'Latest from EV manufacturers and suppliers' },
+  { key: 'market-analysis', label: 'Market Analysis', icon: '📊', desc: 'In-depth market research and data analysis' },
+  { key: 'government-policies', label: 'Government Policies', icon: '🏛️', desc: 'EV policies, subsidies, and regulations' },
+  { key: 'expert-columns', label: 'Expert Columns', icon: '🎓', desc: 'Analysis and opinions from EV experts' },
+  { key: 'tech-deep-dives', label: 'Tech Deep Dives', icon: '🔧', desc: 'In-depth technical explanations of EV technology' }
+];
 
 // --- Charging Stations Database ---
 const STATIONS_DATABASE = [
@@ -2138,8 +2327,8 @@ function updateActiveNavTrigger(sectionId) {
   } else if (['guide', 'faq'].includes(sectionId)) {
     const trigger = document.querySelector('.mega-trigger[data-mega="learn"]');
     if (trigger) trigger.classList.add('mega-active');
-  } else if (['news', 'videos'].includes(sectionId)) {
-    const trigger = document.querySelector('.mega-trigger[data-mega="news"]');
+  } else if (['insights', 'videos'].includes(sectionId)) {
+    const trigger = document.querySelector('.mega-trigger[data-mega="insights"]');
     if (trigger) trigger.classList.add('mega-active');
   }
 }
@@ -2506,9 +2695,29 @@ function handleRouting() {
     route = path;
   } else if (hash.startsWith('#/reviews/')) {
     route = hash.substring(1);
+  } else if (path.startsWith('/brands/')) {
+    route = path;
+  } else if (hash.startsWith('#/brands/')) {
+    route = hash.substring(1);
   } else if (path.startsWith('/brand/')) {
     route = path;
   } else if (hash.startsWith('#/brand/')) {
+    route = hash.substring(1);
+  } else if (path.startsWith('/insights/') || path === '/insights') {
+    route = path;
+  } else if (hash.startsWith('#/insights/') || hash === '#/insights') {
+    route = hash.substring(1);
+  } else if (path.startsWith('/learn/')) {
+    route = path;
+  } else if (hash.startsWith('#/learn/')) {
+    route = hash.substring(1);
+  } else if (path.startsWith('/blog/')) {
+    route = path;
+  } else if (hash.startsWith('#/blog/')) {
+    route = hash.substring(1);
+  } else if (path.startsWith('/ev/')) {
+    route = path;
+  } else if (hash.startsWith('#/ev/')) {
     route = hash.substring(1);
   }
   
@@ -2524,6 +2733,10 @@ function handleRouting() {
     const section = route.substring(10);
     if (['popular', 'launches', 'upcoming'].includes(section)) {
       renderViewAllPage(section);
+      return;
+    }
+    if (section === 'brands') {
+      renderViewAllBrandsPage();
       return;
     }
   } else if (route.startsWith('/news/')) {
@@ -2558,10 +2771,51 @@ function handleRouting() {
       renderCustomerReviewsPage();
       return;
     }
+  } else if (route.startsWith('/brands/')) {
+    const brandId = route.substring(8);
+    renderBrandPage(brandId);
+    return;
   } else if (route.startsWith('/brand/')) {
     const brandId = route.substring(7);
     renderBrandPage(brandId);
     return;
+  } else if (route === '/insights') {
+    renderAllInsightsPage();
+    return;
+  } else if (route.startsWith('/insights/')) {
+    const parts = route.substring(10).split('/');
+    const categoryKey = parts[0] || 'latest-news';
+    const articleId = parts[1] || null;
+    if (articleId) {
+      const article = INSIGHTS_DATABASE[categoryKey]?.find(a => a.id === articleId);
+      if (article) {
+        renderInsightArticlePage(categoryKey, article);
+        return;
+      }
+    }
+    renderInsightCategoryPage(categoryKey);
+    return;
+  } else if (route.startsWith('/ev/')) {
+    const slug = route.substring(4);
+    const car = EV_DATABASE.find(c => c.id === slug);
+    if (car) {
+      renderCarDetailsPage(car);
+      return;
+    }
+  } else if (route.startsWith('/learn/')) {
+    const slug = route.substring(7);
+    const article = LEARN_DATABASE[slug];
+    if (article) {
+      renderLearnArticlePage(slug, article);
+      return;
+    }
+  } else if (route.startsWith('/blog/')) {
+    const slug = route.substring(6);
+    const article = BLOG_DATABASE.find(b => b.slug === slug || b.id === slug);
+    if (article) {
+      renderBlogArticlePage(article);
+      return;
+    }
   }
   
   restoreHomepage();
@@ -2573,7 +2827,7 @@ function restoreHomepage() {
   
   // Clear hash if we are on the main landing page and it contains car details route
   const hash = window.location.hash;
-  if (hash.includes('/cars/') || hash.includes('/view-all/') || hash.includes('/news/') || hash.includes('/guide/') || hash.includes('/reviews/') || hash.includes('/brand/')) {
+  if (hash.includes('/cars/') || hash.includes('/view-all/') || hash.includes('/news/') || hash.includes('/guide/') || hash.includes('/reviews/') || hash.includes('/brand/') || hash.includes('/brands/') || hash.includes('/insights/')) {
     try {
       history.pushState(null, '', '/');
     } catch (e) {
@@ -2623,11 +2877,16 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLaunchAll.addEventListener('click', () => navigateTo('/view-all/launches'));
   }
   
+  const btnViewAllBrands = document.getElementById('btn-view-all-brands');
+  if (btnViewAllBrands) {
+    btnViewAllBrands.addEventListener('click', () => navigateTo('/view-all/brands'));
+  }
+  
   const btnViewAllNews = document.getElementById('btn-view-all-news');
   if (btnViewAllNews) {
     btnViewAllNews.addEventListener('click', (e) => {
       e.preventDefault();
-      navigateTo('/news/all');
+      navigateTo('/insights/latest-news');
     });
   }
   
@@ -2698,7 +2957,8 @@ function renderNewsAndGuides() {
     document.querySelectorAll('.btn-read-news-more').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-id');
-        navigateTo(`/news/${id}`);
+        const mappedId = id === 'news-1' ? 'in-news-1' : id === 'news-2' ? 'in-news-2' : 'in-news-3';
+        navigateTo(`/insights/latest-news/${mappedId}`);
       });
     });
   }
@@ -2752,6 +3012,64 @@ function renderViewAllPage(section) {
   
   renderSubpage(title, breadcrumbs, contentHtml, '/');
   attachCardEvents();
+}
+
+function renderViewAllBrandsPage() {
+  const title = 'EV Brand Dictionary';
+  const breadcrumbs = ['MANUFACTURERS', 'ALL BRANDS'];
+  
+  const brandNameMap = {
+    'tata': 'Tata', 'mahindra': 'Mahindra', 'hyundai': 'Hyundai', 'mg': 'MG',
+    'kia': 'Kia', 'byd': 'BYD', 'bmw': 'BMW', 'mercedes-benz': 'Mercedes-Benz',
+    'volvo': 'Volvo', 'audi': 'Audi', 'maruti-suzuki': 'Maruti Suzuki',
+    'toyota': 'Toyota', 'honda': 'Honda', 'skoda': 'Skoda',
+    'volkswagen': 'Volkswagen', 'renault': 'Renault', 'nissan': 'Nissan',
+    'citroen': 'Citroën', 'jeep': 'Jeep', 'force-motors': 'Force Motors',
+    'isuzu': 'Isuzu', 'porsche': 'Porsche', 'vinfast': 'VinFast',
+    'tesla': 'Tesla',
+    'jaguar': 'Jaguar',
+    'range-rover': 'Range Rover',
+    'lexus': 'Lexus',
+    'ferrari': 'Ferrari',
+    'lamborghini': 'Lamborghini'
+  };
+  
+  let brandsHtml = '';
+  Object.keys(brandNameMap).forEach(brandId => {
+    const brandName = brandNameMap[brandId];
+    const brandCars = EV_DATABASE.filter(car => car.brand.toLowerCase() === brandId.toLowerCase());
+    const count = brandCars.length;
+    const logoUrl = getBrandLogoUrl(brandId);
+    const initials = getBrandInitials(brandName);
+    brandsHtml += `
+      <a href="/brand/${brandId}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white hover:shadow-[0_8px_30px_rgba(34,197,94,0.12)] hover:-translate-y-1 transition-all p-3 flex flex-col items-center gap-2 group rounded-xl text-center" style="border-radius:18px">
+<img
+    src="${logoUrl}"
+    alt="${brandName}"
+    class="w-14 h-14 object-contain mx-auto"
+/>
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-800 group-hover:text-black block">${brandName}</span>
+          <span class="font-mono text-[9px] text-zinc-500">${count} ${count === 1 ? 'EV' : 'EVs'}</span>
+        </div>
+      </a>
+    `;
+  });
+  
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">BRAND INDEX / ${Object.keys(brandNameMap).length} MANUFACTURERS</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">EV Brand Dictionary</h2>
+        <p class="text-xs text-zinc-500 font-mono mt-1">Browse all electric vehicle manufacturers and explore their lineups.</p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2">
+        ${brandsHtml}
+      </div>
+    </div>
+  `;
+  
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
 }
 
 function renderAllNewsPage() {
@@ -3242,6 +3560,179 @@ function renderCustomerReviewsPage() {
       navigateTo(`/cars/${id}`);
     });
   });
+}
+
+// --- INSIGHTS RENDERING FUNCTIONS ---
+function renderInsightCategoryPage(categoryKey) {
+  const catInfo = INSIGHTS_CATEGORIES.find(c => c.key === categoryKey) || { key: categoryKey, label: categoryKey.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), icon: '📄', desc: '' };
+  const title = catInfo.label;
+  const breadcrumbs = ['INSIGHTS', title];
+  const articles = INSIGHTS_DATABASE[categoryKey] || [];
+
+  let articlesHtml = '';
+  articles.forEach(article => {
+    const tagColor = article.tag === 'Policy' ? 'bg-blue-100 text-blue-800' :
+                     article.tag === 'Tech' ? 'bg-purple-100 text-purple-800' :
+                     article.tag === 'Market' || article.tag === 'Analysis' ? 'bg-amber-100 text-amber-800' :
+                     article.tag === 'Infra' ? 'bg-teal-100 text-teal-800' :
+                     article.tag === 'Launches' ? 'bg-emerald-100 text-emerald-800' :
+                     article.tag === 'Guide' ? 'bg-indigo-100 text-indigo-800' :
+                     article.tag === 'Charging' ? 'bg-cyan-100 text-cyan-800' :
+                     article.tag === 'Expert' ? 'bg-rose-100 text-rose-800' :
+                     article.tag === 'Comparison' ? 'bg-violet-100 text-violet-800' :
+                     article.tag === 'Industry' ? 'bg-orange-100 text-orange-800' :
+                     article.tag === 'Tax' ? 'bg-slate-100 text-slate-800' :
+                     'bg-zinc-100 text-zinc-800';
+    articlesHtml += `
+      <a href="/insights/${categoryKey}/${article.id}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all p-6 flex flex-col gap-2 group rounded-lg">
+        <div class="flex items-center gap-2 text-[8px] font-mono text-zinc-400 uppercase tracking-wider">
+          <span class="${tagColor} px-2 py-0.5 rounded-full font-bold text-[7px]">${article.tag}</span>
+          <span>${article.date}</span>
+          <span>${article.readTime}</span>
+        </div>
+        <h3 class="font-bold text-sm text-black group-hover:underline underline-offset-2">${article.title}</h3>
+        <p class="text-xs text-zinc-500 font-mono leading-relaxed">${article.excerpt}</p>
+        <span class="font-mono text-[9px] text-zinc-400 mt-1">By ${article.author}</span>
+      </a>
+    `;
+  });
+
+  if (!articlesHtml) {
+    articlesHtml = `<div class="col-span-full py-16 text-center text-zinc-400 font-mono text-xs">NO ARTICLES FOUND IN THIS CATEGORY</div>`;
+  }
+
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">${catInfo.icon} INSIGHTS / ${catInfo.key.replace(/-/g, ' ').toUpperCase()}</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">${title}</h2>
+          <p class="text-xs text-zinc-500 font-mono mt-1">${catInfo.desc}</p>
+        </div>
+        <a href="/insights" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-4 py-2 font-mono text-[9px] uppercase tracking-wider rounded-lg">All Categories</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+        ${articlesHtml}
+      </div>
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+}
+
+function renderInsightArticlePage(categoryKey, article) {
+  const catInfo = INSIGHTS_CATEGORIES.find(c => c.key === categoryKey);
+  const breadcrumbs = ['INSIGHTS', catInfo ? catInfo.label : categoryKey, article.title];
+
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
+      <a href="/insights/${categoryKey}" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to ${catInfo ? catInfo.label : categoryKey}</a>
+      <div>
+        <div class="flex items-center gap-2 text-[8px] font-mono text-zinc-400 uppercase tracking-wider mb-3">
+          <span class="text-zinc-700 font-bold text-[9px]">${article.tag}</span>
+          <span>·</span>
+          <span>${article.date}</span>
+          <span>·</span>
+          <span>${article.readTime}</span>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
+        ${article.subtitle ? `<p class="text-sm text-zinc-500 font-mono mt-2">${article.subtitle}</p>` : ''}
+        <div class="flex items-center gap-3 mt-4 border-t border-zinc-100 pt-4">
+          <div class="w-8 h-8 bg-zinc-200 rounded-full flex items-center justify-center font-bold text-xs text-zinc-600">${article.author.split(' ').map(w => w[0]).join('')}</div>
+          <div class="font-mono text-xs">
+            <span class="font-bold text-black block">${article.author}</span>
+            <span class="text-zinc-400 text-[9px]">${article.date} · ${article.readTime}</span>
+          </div>
+        </div>
+      </div>
+      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
+        ${article.content}
+      </div>
+      <div class="border-t border-zinc-200 pt-6 mt-6">
+        <a href="/insights/${categoryKey}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to ${catInfo ? catInfo.label : categoryKey}</a>
+      </div>
+    </div>
+  `;
+
+  renderSubpage(article.title, breadcrumbs, contentHtml, `/insights/${categoryKey}`);
+}
+
+function renderAllInsightsPage() {
+  const title = 'EV Insights Hub';
+  const breadcrumbs = ['INSIGHTS', 'ALL CATEGORIES'];
+
+  let categoriesHtml = '';
+  INSIGHTS_CATEGORIES.forEach(cat => {
+    const count = (INSIGHTS_DATABASE[cat.key] || []).length;
+    categoriesHtml += `
+      <a href="/insights/${cat.key}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all p-6 flex flex-col gap-3 group rounded-xl" style="border-radius:18px">
+        <div class="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center text-lg">${cat.icon}</div>
+        <div>
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-800 group-hover:text-black">${cat.label}</h3>
+          <p class="font-mono text-[9px] text-zinc-500 mt-0.5">${cat.desc}</p>
+          <span class="font-mono text-[8px] text-zinc-400 mt-1 block">${count} ${count === 1 ? 'article' : 'articles'}</span>
+        </div>
+      </a>
+    `;
+  });
+
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">RESOURCE CENTER / ${INSIGHTS_CATEGORIES.length} CATEGORIES</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">EV Insights Hub</h2>
+        <p class="text-xs text-zinc-500 font-mono mt-1">Expert analysis, buying guides, comparisons, and everything you need to know about electric vehicles.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+        ${categoriesHtml}
+      </div>
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+}
+
+// --- Learn Article Page ---
+function renderLearnArticlePage(slug, article) {
+  const breadcrumbs = ['LEARN', article.title];
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
+      <a href="/#buying-portal" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Educational Portal</a>
+      <div>
+        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
+      </div>
+      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
+        ${article.content}
+      </div>
+      <div class="border-t border-zinc-200 pt-6 mt-6">
+        <a href="/#buying-portal" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Guides</a>
+      </div>
+    </div>
+  `;
+  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
+}
+
+// --- Blog Article Page ---
+function renderBlogArticlePage(article) {
+  const breadcrumbs = ['BLOG', article.title];
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
+      <a href="/#home" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Home</a>
+      <div>
+        <div class="flex items-center gap-2 text-[8px] font-mono text-zinc-400 uppercase tracking-wider mb-3">
+          <span>${article.date}</span>
+          <span>·</span>
+          <span>${article.author}</span>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
+        <p class="text-sm text-zinc-500 font-mono mt-2">${article.excerpt}</p>
+      </div>
+      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
+        ${article.content}
+      </div>
+    </div>
+  `;
+  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
 }
 
 function getCarSuitabilityCard(car) {
@@ -4744,6 +5235,9 @@ function initTripPlanner() {
         this.classList.add('trip-active');
       });
     });
+    // Default: Medium
+    var acDefault = acGroup.querySelector('.trip-toggle-btn[data-value="medium"]');
+    if (acDefault) acDefault.classList.add('trip-active');
   }
 
   // Toggle group — Driving Style
@@ -4754,6 +5248,9 @@ function initTripPlanner() {
         this.classList.add('trip-active');
       });
     });
+    // Default: Normal
+    var styleDefault = styleGroup.querySelector('.trip-toggle-btn[data-value="normal"]');
+    if (styleDefault) styleDefault.classList.add('trip-active');
   }
 
   // Plan My Trip button
@@ -4768,6 +5265,14 @@ function initTripPlanner() {
     var styleBtn = styleGroup ? styleGroup.querySelector('.trip-active') : null;
     var acUsage      = acBtn    ? acBtn.getAttribute('data-value')    : 'medium';
     var drivingStyle = styleBtn ? styleBtn.getAttribute('data-value') : 'normal';
+
+    // Validate vehicle selected
+    if (!carId) {
+      var origHTML = planBtn.innerHTML;
+      planBtn.textContent = 'Please select a vehicle!';
+      setTimeout(function() { planBtn.innerHTML = origHTML; }, 2200);
+      return;
+    }
 
     // Same city check
     if (fromKey === toKey) {
@@ -5164,7 +5669,7 @@ function initEducationalModals() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const guideId = btn.getAttribute('data-guide-id');
-      navigateTo('/guide/guide-' + guideId);
+      navigateTo('/learn/' + guideId);
     });
   });
   
@@ -5257,7 +5762,11 @@ function renderBrandPage(brandId) {
     'force-motors': 'Force Motors',
     'isuzu': 'Isuzu',
     'porsche': 'Porsche',
-    'vinfast': 'VinFast'
+    'vinfast': 'VinFast',
+    'tesla': 'Tesla',
+    'jaguar': 'Jaguar',
+   'range-rover': 'Range Rover',
+   'lexus': 'Lexus',
   };
 
   const brandName = brandNameMap[brandId.toLowerCase()] || brandId.toUpperCase();
@@ -5269,6 +5778,8 @@ function renderBrandPage(brandId) {
 
   function generateBrandContentHtml() {
     const brandCars = EV_DATABASE.filter(car => car.brand.toLowerCase() === brandId.toLowerCase());
+    const logoUrl = getBrandLogoUrl(brandId);
+    const initials = getBrandInitials(brandName);
     
     const filteredCars = brandCars.filter(car => {
       const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -5293,6 +5804,16 @@ function renderBrandPage(brandId) {
     const availableCars = filteredCars.filter(c => !c.sections.includes('upcoming'));
     const upcomingCars = filteredCars.filter(c => c.sections.includes('upcoming'));
 
+    let minPrice = Infinity, maxPrice = 0, maxRange = 0;
+    brandCars.forEach(c => {
+      if (c.priceVal < minPrice) minPrice = c.priceVal;
+      if (c.priceVal > maxPrice) maxPrice = c.priceVal;
+      if (c.rangeVal > maxRange) maxRange = c.rangeVal;
+    });
+    const priceRange = minPrice === maxPrice
+      ? (minPrice < 5 ? `₹${minPrice.toFixed(2)} Crore` : `₹${minPrice.toFixed(2)} Lakh`)
+      : `₹${minPrice.toFixed(2)} - ${maxPrice < 5 ? `₹${maxPrice.toFixed(2)} Crore` : `₹${maxPrice.toFixed(2)} Lakh`}`;
+
     let availableGridHtml = '';
     if (availableCars.length > 0) {
       availableCars.forEach(car => {
@@ -5312,24 +5833,23 @@ function renderBrandPage(brandId) {
     }
 
     return `
-      <div class="relative bg-zinc-950 text-white p-8 md:p-12 overflow-hidden flex flex-col justify-between min-h-[220px] rounded-xl border border-zinc-900 shadow-[0_12px_40px_rgba(0,0,0,0.15)] mt-4">
+      <div class="relative bg-zinc-950 text-white p-8 md:p-12 overflow-hidden flex flex-col justify-between rounded-xl border border-zinc-900 shadow-[0_12px_40px_rgba(0,0,0,0.15)] mt-4">
         <div class="absolute inset-0 bg-radial-gradient from-zinc-800/10 to-transparent opacity-50 pointer-events-none"></div>
-        
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 z-10">
-          <div class="text-left flex flex-col gap-2">
-            <span class="text-[9px] font-mono text-zinc-400 tracking-[0.3em] uppercase block">MANUFACTURER ARCHIVE</span>
-            <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">${brandName}</h1>
-            <p class="text-xs text-zinc-400 font-mono max-w-md mt-1">Explore all current, latest, and upcoming electric mobility options from ${brandName}.</p>
-          </div>
-          
-          <div class="border border-zinc-800 bg-zinc-900/50 px-6 py-6 flex items-center justify-center min-w-[120px] rounded-lg">
-            <span class="font-mono text-lg font-black tracking-widest text-white uppercase">${brandId.replace('-', ' ')}</span>
+          <div class="flex items-center gap-5">
+            <img src="${logoUrl}" alt="${brandName}" class="w-20 h-20 md:w-24 md:h-24 object-contain rounded-xl bg-white/10 p-2 border border-zinc-800" loading="lazy" onerror="this.outerHTML='<div class=\\'w-20 h-20 md:w-24 md:h-24 rounded-xl bg-zinc-800 flex items-center justify-center text-white font-black font-mono text-sm border border-zinc-700\\'>${initials}</div>'">
+            <div class="text-left flex flex-col gap-1">
+              <span class="text-[9px] font-mono text-zinc-400 tracking-[0.3em] uppercase block">MANUFACTURER ARCHIVE</span>
+              <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">${brandName}</h1>
+              <p class="text-xs text-zinc-400 font-mono max-w-md mt-1">Explore all current, latest, and upcoming electric mobility options from ${brandName}.</p>
+            </div>
           </div>
         </div>
-
-        <div class="flex items-center gap-6 mt-8 z-10 font-mono text-[9px] text-zinc-400 border-t border-zinc-900 pt-4">
+        <div class="flex flex-wrap items-center gap-6 mt-8 z-10 font-mono text-[9px] text-zinc-400 border-t border-zinc-900 pt-4">
           <span>AVAILABLE: <strong>${brandCars.filter(c => !c.sections.includes('upcoming')).length} EVs</strong></span>
           <span>UPCOMING: <strong>${brandCars.filter(c => c.sections.includes('upcoming')).length} EVs</strong></span>
+          <span>PRICE RANGE: <strong>${priceRange}</strong></span>
+          <span>TOP RANGE: <strong>${maxRange} km</strong></span>
         </div>
       </div>
 

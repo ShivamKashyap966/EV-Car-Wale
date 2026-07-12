@@ -39,19 +39,7 @@
 </head>
 <body class="bg-white text-black font-sans overflow-x-hidden selection-none">
 
-  <!-- Preloader Screen -->
-  <div id="preloader" class="fixed inset-0 bg-black text-white z-50 flex flex-col items-center justify-center transition-all duration-700">
-    <div class="flex flex-col items-center gap-4">
-      <div class="font-bold tracking-widest text-lg flex items-center gap-2">
-        <span class="w-3 h-3 bg-white inline-block rounded-none animate-pulse"></span>
-        EV CAR WALE
-      </div>
-      <div class="w-32 h-[1px] bg-zinc-800 relative overflow-hidden">
-        <div id="loader-progress" class="absolute h-full bg-white top-0 left-0 transition-all duration-100" style="width: 0%"></div>
-      </div>
-      <span id="loader-percent" class="font-mono text-[10px] text-zinc-500 tracking-wider">0%</span>
-    </div>
-  </div>
+  
 
   <!-- =====================================================
        Premium Mega Menu Navbar
@@ -97,9 +85,9 @@
           <span class="mega-active-bar"></span>
         </div>
 
-        <!-- INSIGHTS -->
-        <div class="mega-trigger px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group cursor-pointer" data-mega="insights">
-          INSIGHTS
+        <!-- NEWS -->
+        <div class="mega-trigger px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group cursor-pointer" data-mega="news">
+          NEWS
           <svg viewBox="0 0 24 24" class="w-3 h-3 ml-1 stroke-current fill-none stroke-2 transition-transform duration-200 mega-caret" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           <span class="mega-active-bar"></span>
         </div>
@@ -206,6 +194,19 @@
                 <span class="mega-item-desc">Compare specs, charging, and features side-by-side.</span>
               </span>
             </a>
+            <a id="mega-wishlist-link" href="index.html#popular-evs" class="mega-item">
+              <span class="mega-item-icon">♥</span>
+              <span class="mega-item-body">
+                <span class="mega-item-desc">View your wishlisted electric vehicles.</span>
+              </span>
+            </a>
+            <a href="index.html#popular-evs" class="mega-item" id="nav-btn-recently-viewed">
+              <span class="mega-item-icon">🕒</span>
+              <span class="mega-item-body">
+                <span class="mega-item-title">Recently Viewed</span>
+                <span class="mega-item-desc">Check out the vehicles you recently explored.</span>
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -223,28 +224,28 @@
     <span class="mega-item-title">EV Trip Planner</span>
     <span class="mega-item-desc">Plan routes, charging stops, costs.</span>
   </span>
-  </a>
- <a href="index.html#emi" class="mega-item">
+</a>
+<a href="index.html#emi" class="mega-item">
   <span class="mega-item-icon">🏦</span>
   <span class="mega-item-body">
     <span class="mega-item-title">EMI Calculator</span>
     <span class="mega-item-desc">Calculate monthly loan repayments.</span>
   </span>
- </a>
- <a href="index.html#stations" class="mega-item">
+</a>
+<a href="index.html#stations" class="mega-item">
   <span class="mega-item-icon">🔌</span>
   <span class="mega-item-body">
     <span class="mega-item-title">Charging Stations</span>
     <span class="mega-item-desc">Locate DC fast chargers.</span>
   </span>
- </a>
- <a href="index.html#faq" class="mega-item">
+</a>
+<a href="index.html#faq" class="mega-item">
   <span class="mega-item-icon">🏢</span>
   <span class="mega-item-body">
     <span class="mega-item-title">Apartment Charging Guide</span>
     <span class="mega-item-desc">Get society NOC and home charging setup.</span>
   </span>
- </a>
+</a>
           </div>
         </div>
         <div>
@@ -274,154 +275,120 @@
       <div class="px-8 py-8 grid grid-cols-3 gap-8">
         <div>
           <p class="mega-col-title">Buying Guide</p>
+          <div class="flex flex-col gap-1 mt-3">
             <a href="index.html#guide" class="mega-item">
-              <span class="mega-item-icon">📘</span>
-              <span class="mega-item-body">
-               <span class="mega-item-title">EV Buying Guide</span>
-              <span class="mega-item-desc">Step-by-step purchase assistance.</span>
-              </span>
-            </a>
-          <a href="index.html#guide" class="mega-item">
-            <span class="mega-item-icon">🏠</span>
-              <span class="mega-item-body">
-              <span class="mega-item-title">Charging at Home</span>
-             <span class="mega-item-desc">Set up home charging safely.</span>
-              </span>
-            </a>
-            <a href="index.html#guide" class="mega-item">
-             <span class="mega-item-icon">🏢</span>
-             <span class="mega-item-body">
-             <span class="mega-item-title">Apartment Charging</span>
-              <span class="mega-item-desc">Charging solutions for apartments.</span>
-              </span>
-            </a>
-            <a href="index.html#guide" class="mega-item">
-             <span class="mega-item-icon">⚡</span>
-             <span class="mega-item-body">
-             <span class="mega-item-title">Fast vs Slow Charging</span>
-             <span class="mega-item-desc">Understand charging speeds.</span>
-              </span>
-            </a>
-             <a href="index.html#guide" class="mega-item">
-             <span class="mega-item-icon">🛡️</span>
-             <span class="mega-item-body">
-             <span class="mega-item-title">Battery Warranty</span>
-             <span class="mega-item-desc">Know battery warranty coverage.</span>
-              </span>
-            </a>
-            <a href="index.html#guide" class="mega-item">
-             <span class="mega-item-icon">🛡️</span>
-             <span class="mega-item-body">
-             <span class="mega-item-title">Battery Warranty</span>
-             <span class="mega-item-desc">Know battery warranty coverage.</span>
-              </span>
-            </a>
+  <span class="mega-item-icon">🤔</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">Everything You Need to Know Before Buying an EV</span>
+    <span class="mega-item-desc">Comprehensive buying guide.</span>
+  </span>
+</a>
+<a href="index.html#guide" class="mega-item">
+  <span class="mega-item-icon">🔋</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">EV Buying Guide</span>
+    <span class="mega-item-desc">Step‑by‑step purchase assistance.</span>
+  </span>
+</a>
+<a href="index.html#guide" class="mega-item">
+  <span class="mega-item-icon">📘</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">Learn Electric Vehicles</span>
+    <span class="mega-item-desc">Deep dive into EV tech.</span>
+  </span>
+</a>
+<a href="index.html#faq" class="mega-item">
+  <span class="mega-item-icon">❓</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">FAQs</span>
+    <span class="mega-item-desc">Quick answers to common questions.</span>
+  </span>
+</a>
+<a href="index.html#faq" class="mega-item">
+  <span class="mega-item-icon">📄</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">Apartment Permission Letter</span>
+    <span class="mega-item-desc">Download pre‑filled request templates.</span>
+  </span>
+</a>
           </div>
         </div>
         <div>
           <p class="mega-col-title">Knowledge Centre</p>
           <div class="flex flex-col gap-1 mt-3">
-             <a href="index.html#guide" class="mega-item">
-               <span class="mega-item-icon">🏛️</span>
-               <span class="mega-item-body">
-               <span class="mega-item-title">Government Subsidies</span>
-               <span class="mega-item-desc">Central and state EV incentives.</span>
-             </span>
-            </a>
-            <a href="index.html#guide" class="mega-item">
-               <span class="mega-item-icon">💰</span>
-                <span class="mega-item-body">
-                <span class="mega-item-title">Running Cost</span>
-                <span class="mega-item-desc">Compare EV vs petrol costs.</span>
-            </span>
-            </a>
-             <a href="index.html#learn" class="mega-item">
-                <span class="mega-item-icon">🚗</span>
-               <span class="mega-item-body">
-               <span class="mega-item-title">Learn Electric Vehicles</span>
-              <span class="mega-item-desc">Explore EV technology from basics.</span>
-            </span>
-            </a>
-            <a href="index.html#learn" class="mega-item">
+            <a href="index.html#faq" class="mega-item">
               <span class="mega-item-icon">📖</span>
               <span class="mega-item-body">
-               <span class="mega-item-title">EV Terminology</span>
-              <span class="mega-item-desc">Common EV glossary and definitions.</span>
-            </span>
+                <span class="mega-item-title">EV Terminology</span>
+                <span class="mega-item-desc">Plain language glossary of common EV terms.</span>
+              </span>
             </a>
-            <a href="index.html#learn" class="mega-item">
-              <span class="mega-item-icon">💡</span>
+            <a href="index.html#faq" class="mega-item">
+              <span class="mega-item-icon">ⓘ</span>
               <span class="mega-item-body">
-              <span class="mega-item-title">Jargon Buster</span>
-              <span class="mega-item-desc">Simple explanations for technical EV terms.</span>
-           </span>
+                <span class="mega-item-title">Jargon Buster</span>
+                <span class="mega-item-desc">Hover terms across the site for simple explanations.</span>
+              </span>
             </a>
-            <a href="index.html#learn" class="mega-item">
-             <span class="mega-item-icon">🔋</span>
-             <span class="mega-item-body">
-             <span class="mega-item-title">Battery Chemistry</span>
-             <span class="mega-item-desc">Understand LFP, NMC and battery technology.</span>
-           </span>
-            </a>
-             <a href="index.html#learn" class="mega-item">
-               <span class="mega-item-icon">🔋</span>
-                <span class="mega-item-body">
+            <a href="index.html#faq" class="mega-item">
+              <span class="mega-item-icon">🧪</span>
+              <span class="mega-item-body">
                 <span class="mega-item-title">Battery Chemistry</span>
-               <span class="mega-item-desc">Understand LFP, NMC and battery technology.</span>
-            </span>
+                <span class="mega-item-desc">Learn about LFP, NMC, and solid-state tech.</span>
+              </span>
             </a>
-             <a href="index.html#learn" class="mega-item">
-               <span class="mega-item-icon">🧪</span>
-               <span class="mega-item-body">
-               <span class="mega-item-title">LFP vs NMC Battery Pack</span>
-               <span class="mega-item-desc">Compare battery types and performance.</span>
-            </span>
+            <a href="index.html#faq" class="mega-item">
+              <span class="mega-item-icon">♻️</span>
+              <span class="mega-item-body">
+                <span class="mega-item-title">Regenerative Braking</span>
+                <span class="mega-item-desc">Recover energy while slowing down to extend range.</span>
+              </span>
             </a>
-            <a href="index.html#learn" class="mega-item">
-                <span class="mega-item-icon">🔌</span>
-               <span class="mega-item-body">
-               <span class="mega-item-title">AC vs DC Charging</span>
-               <span class="mega-item-desc">Know the difference between charging methods.</span>
-            </span>
-           </a>
-        <a href="index.html#learn" class="mega-item">
-            <span class="mega-item-icon">⚙️</span>
-            <span class="mega-item-body">
-            <span class="mega-item-title">Vehicle-to-Load (V2L)</span>
-            <span class="mega-item-desc">Power external devices directly from your EV.</span>
-         </span>
-         </a>
-         <a href="index.html#learn" class="mega-item">
-           <span class="mega-item-icon">♻️</span>
-           <span class="mega-item-body">
-            <span class="mega-item-title">Regenerative Braking</span>
-           <span class="mega-item-desc">Recover energy while slowing down.</span>
-         </span>
-       </a>
-       <a href="index.html#learn" class="mega-item">
-         <span class="mega-item-icon">🛣️</span>
-         <span class="mega-item-body">
-         <span class="mega-item-title">Highway Charging Strategies</span>
-         <span class="mega-item-desc">Plan charging stops for long-distance travel.</span>
-        </span>
-       </a>
-     </div>
-    </div>
-  <div>
+            <a href="index.html#faq" class="mega-item">
+              <span class="mega-item-icon">🔌</span>
+              <span class="mega-item-body">
+                <span class="mega-item-title">V2L Explained</span>
+                <span class="mega-item-desc">Power home appliances directly from your vehicle.</span>
+              </span>
+            </a>
+            <a href="index.html#guide" class="mega-item">
+              <span class="mega-item-icon">🛡️</span>
+              <span class="mega-item-body">
+                <span class="mega-item-title">ADAS Guide</span>
+                <span class="mega-item-desc">Guide to active safety systems & cruise controls.</span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div>
           <p class="mega-col-title">Resources</p>
           <div class="flex flex-col gap-1 mt-3">
-          <a href="index.html#faq" class="mega-item">
+            <a href="index.html#faq" class="mega-item">
               <span class="mega-item-icon">❓</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">FAQs</span>
                 <span class="mega-item-desc">Quick answers to frequently asked EV questions.</span>
               </span>
-          </a>
+            </a>
+            <a href="index.html#faq" class="mega-item">
+              <span class="mega-item-icon">📥</span>
+              <span class="mega-item-body">
+                <span class="mega-item-title">Download Guides</span>
+                <span class="mega-item-desc">Get buyer handbooks, checklists, and manuals.</span>
+              </span>
+            </a>
             <a href="index.html#faq" class="mega-item">
               <span class="mega-item-icon">📄</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Apartment Permission Letter</span>
                 <span class="mega-item-desc">Download pre-filled request templates for RWAs.</span>
+              </span>
+            </a>
+            <a href="index.html#stations" class="mega-item">
+              <span class="mega-item-icon">✅</span>
+              <span class="mega-item-body">
+                <span class="mega-item-title">Charging Checklist</span>
+                <span class="mega-item-desc">Complete checklist to set up home charging.</span>
               </span>
             </a>
           </div>
@@ -430,103 +397,49 @@
     </div>
 
     <!-- News Panel -->
-    <div class="mega-panel hidden" id="mega-panel-insights">
-      <div class="px-8 py-8 grid grid-cols-3 gap-6">
+    <div class="mega-panel hidden" id="mega-panel-news">
+      <div class="px-8 py-8 grid grid-cols-2 gap-10">
         <div>
-          <p class="mega-col-title">News & Reviews</p>
+          <p class="mega-col-title">Latest Updates</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="/insights/latest-news" class="mega-item">
+            <a href="index.html#news" class="mega-item">
               <span class="mega-item-icon">📰</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Latest EV News</span>
                 <span class="mega-item-desc">Breaking updates from the Indian EV industry.</span>
               </span>
             </a>
-            <a href="/insights/upcoming-launches" class="mega-item">
+            <a href="index.html#upcoming" class="mega-item">
               <span class="mega-item-icon">🚀</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Upcoming Launches</span>
                 <span class="mega-item-desc">Confirmed electric vehicle launches.</span>
               </span>
             </a>
-            <a href="/insights/ev-comparisons" class="mega-item">
-              <span class="mega-item-icon">⚖️</span>
+            <a href="index.html#reviews" class="mega-item">
+              <span class="mega-item-icon">🎥</span>
               <span class="mega-item-body">
-                <span class="mega-item-title">EV Comparisons</span>
-                <span class="mega-item-desc">Side-by-side EV comparisons.</span>
-              </span>
-            </a>
-            <a href="/insights/industry-updates" class="mega-item">
-              <span class="mega-item-icon">🏭</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Industry Updates</span>
-                <span class="mega-item-desc">Manufacturer news and updates.</span>
+                <span class="mega-item-title">Reviews</span>
+                <span class="mega-item-desc">In-depth expert drive reviews and test reports.</span>
               </span>
             </a>
           </div>
         </div>
         <div>
-          <p class="mega-col-title">Guides & Analysis</p>
+          <p class="mega-col-title">Market Analysis</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="/insights/buying-guides" class="mega-item">
-              <span class="mega-item-icon">📋</span>
+            <a href="index.html#news" class="mega-item">
+              <span class="mega-item-icon">📈</span>
               <span class="mega-item-body">
-                <span class="mega-item-title">Buying Guides</span>
-                <span class="mega-item-desc">Step-by-step EV purchase guides.</span>
+                <span class="mega-item-title">Industry Updates</span>
+                <span class="mega-item-desc">EV sales trends, infrastructure, and manufacturer updates.</span>
               </span>
             </a>
-            <a href="/insights/charging-guide" class="mega-item">
-              <span class="mega-item-icon">⚡</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Charging Guide</span>
-                <span class="mega-item-desc">Everything about EV charging.</span>
-              </span>
-            </a>
-            <a href="/insights/market-analysis" class="mega-item">
-              <span class="mega-item-icon">📊</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Market Analysis</span>
-                <span class="mega-item-desc">Sales data and market research.</span>
-              </span>
-            </a>
-            <a href="/insights/government-policies" class="mega-item">
+            <a href="index.html#guide" class="mega-item">
               <span class="mega-item-icon">🏛️</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Government Policies</span>
-                <span class="mega-item-desc">Subsidies, policies, regulations.</span>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div>
-          <p class="mega-col-title">Expert & Tech</p>
-          <div class="flex flex-col gap-1 mt-3">
-            <a href="/insights/expert-columns" class="mega-item">
-              <span class="mega-item-icon">🎓</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Expert Columns</span>
-                <span class="mega-item-desc">Opinions from EV specialists.</span>
-              </span>
-            </a>
-            <a href="/insights/tech-deep-dives" class="mega-item">
-              <span class="mega-item-icon">🔧</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Tech Deep Dives</span>
-                <span class="mega-item-desc">Deep technical explainers.</span>
-              </span>
-            </a>
-            <a href="/insights/buying-guides" class="mega-item">
-              <span class="mega-item-icon">🛡️</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Owner Guides</span>
-                <span class="mega-item-desc">Insurance, warranties, maintenance.</span>
-              </span>
-            </a>
-            <a href="/insights" class="mega-item">
-              <span class="mega-item-icon">🔍</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">View All Categories</span>
-                <span class="mega-item-desc">Browse the full insights hub.</span>
+                <span class="mega-item-desc">Regulatory shifts, emission guidelines, and subsidy updates.</span>
               </span>
             </a>
           </div>
@@ -648,20 +561,15 @@
           </div>
         </div>
 
-        <!-- Insights accordion -->
+        <!-- News accordion -->
         <div class="mobile-accordion">
-          <button class="mobile-accordion-trigger">INSIGHTS <svg viewBox="0 0 24 24" class="w-3 h-3 ml-auto stroke-current fill-none stroke-2 transition-transform duration-200" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <button class="mobile-accordion-trigger">NEWS <svg viewBox="0 0 24 24" class="w-3 h-3 ml-auto stroke-current fill-none stroke-2 transition-transform duration-200" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="mobile-accordion-body">
-            <a href="/insights/latest-news" class="mobile-sub-link" data-close-drawer>📰 Latest EV News</a>
-            <a href="/insights/upcoming-launches" class="mobile-sub-link" data-close-drawer>🚀 Upcoming Launches</a>
-            <a href="/insights/ev-comparisons" class="mobile-sub-link" data-close-drawer>⚖️ EV Comparisons</a>
-            <a href="/insights/buying-guides" class="mobile-sub-link" data-close-drawer>📋 Buying Guides</a>
-            <a href="/insights/charging-guide" class="mobile-sub-link" data-close-drawer>⚡ Charging Guide</a>
-            <a href="/insights/industry-updates" class="mobile-sub-link" data-close-drawer>🏭 Industry Updates</a>
-            <a href="/insights/market-analysis" class="mobile-sub-link" data-close-drawer>📊 Market Analysis</a>
-            <a href="/insights/government-policies" class="mobile-sub-link" data-close-drawer>🏛️ Government Policies</a>
-            <a href="/insights/expert-columns" class="mobile-sub-link" data-close-drawer>🎓 Expert Columns</a>
-            <a href="/insights/tech-deep-dives" class="mobile-sub-link" data-close-drawer>🔧 Tech Deep Dives</a>
+            <a href="index.html#news" class="mobile-sub-link" data-close-drawer>📰 Latest EV News</a>
+            <a href="index.html#upcoming" class="mobile-sub-link" data-close-drawer>🚀 Upcoming Launches</a>
+            <a href="index.html#reviews" class="mobile-sub-link" data-close-drawer>🎥 Reviews</a>
+            <a href="index.html#news" class="mobile-sub-link" data-close-drawer>📈 Industry Updates</a>
+            <a href="index.html#guide" class="mobile-sub-link" data-close-drawer>🏛️ Government Policies</a>
           </div>
         </div>
 
@@ -1003,71 +911,64 @@
           <!-- Brand Logo Interactive Grid -->
           <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-2">
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-16" data-brand="tata">
-              <img src="./LOGOS/TATA_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Tata logo">
+              <img src="assets/LOGOS/tata.svg" class="w-8 h-8 object-contain" alt="Tata logo">
               <span>Tata</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="mahindra">
-              <img src="./LOGOS/MAHINDRA_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Mahindra logo">
+              <img src="assets/LOGOS/mahindra.svg" class="w-8 h-8 object-contain" alt="Mahindra logo">
               <span>Mahindra</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="hyundai">
-              <img src="./LOGOS/HYUNDAI_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Hyundai logo">
+              <img src="assets/LOGOS/hyundai.svg" class="w-8 h-8 object-contain" alt="Hyundai logo">
               <span>Hyundai</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="mg">
-              <img src="./LOGOS/MG_LOGO.jpeg" class="w-8 h-8 object-contain" alt="MG logo">
+              <img src="assets/LOGOS/mg.svg" class="w-8 h-8 object-contain" alt="MG logo">
               <span>MG</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="kia">
-              <img src="./LOGOS/KIA_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Kia logo">
+              <img src="assets/LOGOS/kia.svg" class="w-8 h-8 object-contain" alt="Kia logo">
               <span>Kia</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="byd">
-              <img src="./LOGOS/BYD_LOGO.jpeg" class="w-8 h-8 object-contain" alt="BYD logo">
+              <img src="assets/LOGOS/byd.svg" class="w-8 h-8 object-contain" alt="BYD logo">
               <span>BYD</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="bmw">
-              <img src="./LOGOS/BMW_LOGO.jpeg" class="w-8 h-8 object-contain" alt="BMW logo">
+              <img src="assets/LOGOS/bmw.svg" class="w-8 h-8 object-contain" alt="BMW logo">
               <span>BMW</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="mercedes-benz">
-              <img src="./LOGOS/MERCEDES_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Mercedes logo">
+              <img src="assets/LOGOS/mercedes-benz.svg" class="w-8 h-8 object-contain" alt="Mercedes logo">
               <span>Mercedes</span>
             </button>
-            <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="citroen">
-              <img src="./LOGOS/CITROEN_logo.jpg" class="w-8 h-8 object-contain" alt="Citroën logo">
-              <span>Citroën</span>
+            <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="volvo">
+              <img src="https://logo.clearbit.com/volvocars.com" class="w-8 h-8 object-contain" alt="Volvo logo">
+              <span>Volvo</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="audi">
-              <img src="./LOGOS/AUDI_LOGO.JPG" class="w-8 h-8 object-contain" alt="Audi logo">
+              <img src="assets/LOGOS/audi.svg" class="w-8 h-8 object-contain" alt="Audi logo">
               <span>Audi</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="maruti-suzuki">
-              <img src="./LOGOS/maruti_suzuki_logo.jpeg" class="w-8 h-8 object-contain" alt="Maruti Suzuki logo">
+              <img src="assets/LOGOS/maruti-suzuki.svg" class="w-8 h-8 object-contain" alt="Maruti Suzuki logo">
               <span>Maruti</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="toyota">
-              <img src="./LOGOS/TOYOTA_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Toyota logo">
+              <img src="assets/LOGOS/toyota.svg" class="w-8 h-8 object-contain" alt="Toyota logo">
               <span>Toyota</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="honda">
-              <img src="./LOGOS/HONDA_LOGO.JPEG" class="w-8 h-8 object-contain" alt="Honda logo">
+              <img src="assets/LOGOS/honda.svg" class="w-8 h-8 object-contain" alt="Honda logo">
               <span>Honda</span>
             </button>
             <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="skoda">
-              <img src="./LOGOS/SKODA_LOGO.jpeg" class="w-8 h-8 object-contain" alt="Skoda logo">
+              <img src="assets/LOGOS/skoda.svg" class="w-8 h-8 object-contain" alt="Skoda logo">
               <span>Skoda</span>
             </button>
-            <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="vinfast">
-              <img src="./LOGOS/VINFAST_LOGO.jpeg" class="w-8 h-8 object-contain" alt="VinFast logo">
-              <span>VinFast</span>
-            </button>
-          </div>
-
-          <!-- View All Brands Button -->
-          <div class="mt-2 text-left">
-            <button id="btn-view-all-brands" class="px-5 py-2.5 border border-zinc-200 hover:border-black font-mono text-[9px] tracking-widest text-zinc-600 hover:text-black uppercase transition-all duration-300 btn-animate">
-              VIEW ALL BRANDS <span class="arrow">→</span>
+            <button class="brand-chip border border-zinc-200 hover:border-black bg-white font-mono text-[9px] tracking-wider uppercase transition-all text-zinc-700 hover:text-black shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center gap-1.5 h-20" data-brand="volkswagen">
+              <img src="https://logo.clearbit.com/volkswagen.com" class="w-8 h-8 object-contain" alt="Volkswagen logo">
+              <span>Volkswagen</span>
             </button>
           </div>
         </div>
@@ -1106,6 +1007,126 @@
         </button>
       </div>
 
+    </div>
+  </section>
+
+  <!-- Seamless Section Transition -->
+  <div class="section-divider"></div>
+
+  <!-- ===================================================
+       Section: Why Choose an EV?
+       =================================================== -->
+  <section id="why-ev" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left: Artwork -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-md aspect-square bg-zinc-50 border border-zinc-150 rounded-2xl overflow-hidden shadow-sm flex items-center justify-center group hover:border-black transition-all hover:scale-[1.01] duration-300">
+            <img src="WHY_BUY_EV.jpeg" alt="Why Choose EV Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
+          </div>
+        </div>
+        <!-- Right: Accordion -->
+        <div class="lg:col-span-7 flex flex-col gap-6 text-left">
+          <div>
+            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">THE FUTURE IS NOW</span>
+            <h2 class="text-3xl font-black tracking-tight uppercase">Why Choose an Electric Vehicle?</h2>
+            <p class="text-xs text-zinc-550 mt-2 font-mono leading-relaxed">Discover the key financial, environmental, and performance advantages of moving to clean energy.</p>
+          </div>
+          
+          <div class="flex flex-col border-t border-zinc-200" id="why-ev-accordion">
+            <!-- Accordion Item 1 -->
+            <div class="accordion-item border-b border-zinc-200">
+              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-zinc-400 font-mono text-xs">01</span>
+                  <span>Lower Running Cost</span>
+                </span>
+                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
+                  EVs cost significantly less per kilometer compared to petrol or diesel cars. Charging at home is highly economical, saving you thousands in monthly fuel bills and utility charges.
+                </p>
+              </div>
+            </div>
+            <!-- Accordion Item 2 -->
+            <div class="accordion-item border-b border-zinc-200">
+              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-zinc-400 font-mono text-xs">02</span>
+                  <span>Better Performance</span>
+                </span>
+                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
+                  Electric motors deliver instant torque, giving you quick and silent acceleration. The floor-mounted battery pack also provides a low center of gravity for superior high-speed stability and handling.
+                </p>
+              </div>
+            </div>
+            <!-- Accordion Item 3 -->
+            <div class="accordion-item border-b border-zinc-200">
+              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-zinc-400 font-mono text-xs">03</span>
+                  <span>Eco Friendly</span>
+                </span>
+                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
+                  With zero tailpipe emissions, EVs significantly reduce air pollution and greenhouse gases, helping create a cleaner, healthier, and quieter environment for future generations.
+                </p>
+              </div>
+            </div>
+            <!-- Accordion Item 4 -->
+            <div class="accordion-item border-b border-zinc-200">
+              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-zinc-400 font-mono text-xs">04</span>
+                  <span>Convenient Charging</span>
+                </span>
+                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
+                  Wake up to a fully charged car every single day by plugging it in overnight at home. Public fast charging networks are also expanding rapidly for quick highway top-ups.
+                </p>
+              </div>
+            </div>
+            <!-- Accordion Item 5 -->
+            <div class="accordion-item border-b border-zinc-200">
+              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-zinc-400 font-mono text-xs">05</span>
+                  <span>Lower Maintenance</span>
+                </span>
+                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
+                  With fewer moving parts (no engine block, pistons, gearbox, spark plugs, or catalytic converter), EVs require far less maintenance and have lower servicing costs than traditional petrol cars.
+                </p>
+              </div>
+            </div>
+            <!-- Accordion Item 6 -->
+            <div class="accordion-item border-b border-zinc-200">
+              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-zinc-400 font-mono text-xs">06</span>
+                  <span>Government Incentives</span>
+                </span>
+                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
+                  Take advantage of central and state-level EV incentives, including direct purchase subsidies, road tax exemptions, and registration fee waivers across major Indian states.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1649,123 +1670,6 @@
     </div>
   </section>
 
-  <!-- ===================================================
-       Section: Why Choose an EV?
-       =================================================== -->
-  <section id="why-ev" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Left: Artwork -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="relative w-full max-w-md aspect-square bg-zinc-50 border border-zinc-150 rounded-2xl overflow-hidden shadow-sm flex items-center justify-center group hover:border-black transition-all hover:scale-[1.01] duration-300">
-            <img src="WHY_BUY_EV.jpeg" alt="Why Choose EV Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
-          </div>
-        </div>
-        <!-- Right: Accordion -->
-        <div class="lg:col-span-7 flex flex-col gap-6 text-left">
-          <div>
-            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">THE FUTURE IS NOW</span>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Why Choose an Electric Vehicle?</h2>
-            <p class="text-xs text-zinc-550 mt-2 font-mono leading-relaxed">Discover the key financial, environmental, and performance advantages of moving to clean energy.</p>
-          </div>
-          
-          <div class="flex flex-col border-t border-zinc-200" id="why-ev-accordion">
-            <!-- Accordion Item 1 -->
-            <div class="accordion-item border-b border-zinc-200">
-              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-zinc-400 font-mono text-xs">01</span>
-                  <span>Lower Running Cost</span>
-                </span>
-                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
-              </button>
-              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
-                  EVs cost significantly less per kilometer compared to petrol or diesel cars. Charging at home is highly economical, saving you thousands in monthly fuel bills and utility charges.
-                </p>
-              </div>
-            </div>
-            <!-- Accordion Item 2 -->
-            <div class="accordion-item border-b border-zinc-200">
-              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-zinc-400 font-mono text-xs">02</span>
-                  <span>Better Performance</span>
-                </span>
-                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
-              </button>
-              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
-                  Electric motors deliver instant torque, giving you quick and silent acceleration. The floor-mounted battery pack also provides a low center of gravity for superior high-speed stability and handling.
-                </p>
-              </div>
-            </div>
-            <!-- Accordion Item 3 -->
-            <div class="accordion-item border-b border-zinc-200">
-              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-zinc-400 font-mono text-xs">03</span>
-                  <span>Eco Friendly</span>
-                </span>
-                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
-              </button>
-              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
-                  With zero tailpipe emissions, EVs significantly reduce air pollution and greenhouse gases, helping create a cleaner, healthier, and quieter environment for future generations.
-                </p>
-              </div>
-            </div>
-            <!-- Accordion Item 4 -->
-            <div class="accordion-item border-b border-zinc-200">
-              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-zinc-400 font-mono text-xs">04</span>
-                  <span>Convenient Charging</span>
-                </span>
-                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
-              </button>
-              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
-                  Wake up to a fully charged car every single day by plugging it in overnight at home. Public fast charging networks are also expanding rapidly for quick highway top-ups.
-                </p>
-              </div>
-            </div>
-            <!-- Accordion Item 5 -->
-            <div class="accordion-item border-b border-zinc-200">
-              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-zinc-400 font-mono text-xs">05</span>
-                  <span>Lower Maintenance</span>
-                </span>
-                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
-              </button>
-              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
-                  With fewer moving parts (no engine block, pistons, gearbox, spark plugs, or catalytic converter), EVs require far less maintenance and have lower servicing costs than traditional petrol cars.
-                </p>
-              </div>
-            </div>
-            <!-- Accordion Item 6 -->
-            <div class="accordion-item border-b border-zinc-200">
-              <button class="accordion-header w-full py-5 flex items-center justify-between font-bold text-sm tracking-wider uppercase text-zinc-800 hover:text-black transition-colors focus:outline-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-zinc-400 font-mono text-xs">06</span>
-                  <span>Government Incentives</span>
-                </span>
-                <span class="accordion-icon font-mono text-sm transition-transform duration-300">+</span>
-              </button>
-              <div class="accordion-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
-                <p class="pb-5 text-[11px] text-zinc-650 leading-relaxed font-mono">
-                  Take advantage of central and state-level EV incentives, including direct purchase subsidies, road tax exemptions, and registration fee waivers across major Indian states.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
   <!-- ===================================================
@@ -2035,7 +1939,7 @@
           <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Latest EV News</h2>
           <p class="text-xs text-zinc-655 max-w-sm mt-3">Up-to-date global and domestic electric automobile news coverage.</p>
         </div>
-        <a id="btn-view-all-news" href="/insights/latest-news" class="font-mono text-[10px] tracking-widest uppercase border-b border-black text-black pb-1 hover:text-zinc-500 hover:border-zinc-500 transition-colors mt-4 md:mt-0">
+        <a id="btn-view-all-news" href="index.html#/news/all" class="font-mono text-[10px] tracking-widest uppercase border-b border-black text-black pb-1 hover:text-zinc-500 hover:border-zinc-500 transition-colors mt-4 md:mt-0">
           VIEW ALL DISPATCHES <span class="arrow">→</span>
         </a>
       </div>
@@ -2403,60 +2307,78 @@
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
 
+  <!-- Section: Newsletter Subscription -->
+  <section id="newsletter" class="bg-zinc-50 py-20 px-6 lg:px-12 text-center text-black reveal-on-scroll">
+    <div class="max-w-2xl mx-auto flex flex-col items-center gap-6">
+      <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase">STAY INFORMED</span>
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Subscribe to Dispatch</h2>
+      <p class="text-xs text-zinc-650 max-w-sm leading-relaxed">
+        Register your secure email to receive vehicle launches, expert indices, and market updates.
+      </p>
+
+      <form id="newsletter-form" class="w-full flex flex-col sm:flex-row gap-3 mt-2">
+        <input type="email" placeholder="Type email address..." required class="flex-1 bg-white border border-zinc-250 text-xs p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-none placeholder-zinc-400">
+        <button type="submit" class="px-6 py-3 bg-black text-white hover:bg-zinc-800 transition-colors font-mono text-[10px] tracking-widest uppercase font-semibold">
+          SUBSCRIBE
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Seamless Section Transition -->
+  <div class="section-divider"></div>
+
   <!-- Footer Grid -->
-  <footer class="bg-black text-white py-16 px-6 lg:px-12 text-left relative z-10">
+  <footer class="bg-white py-16 px-6 lg:px-12 text-left relative z-10 text-black">
     <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-zinc-800 pb-12">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 border-b border-zinc-200 pb-12">
         
-        <!-- Col 1: Marketplace -->
-        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
+        <!-- Col 1: Brand details -->
+        <div class="col-span-2 flex flex-col gap-4">
+          <a href="index.html#" class="font-bold tracking-widest text-sm flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-black inline-block"></span>
+            EV CAR WALE
+          </a>
+          <p class="text-[11px] text-zinc-600 leading-relaxed max-w-xs">
+            India's smart electric vehicle marketplace. Calibrated for premium transparency, seamless comparison, and verified charging maps.
+          </p>
+        </div>
+
+        <!-- Col 2: Navigation link tree -->
+        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-600">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">MARKETPLACE</span>
-          <a href="index.html#popular-evs" class="hover:text-white transition-colors">Popular Electric Cars</a>
-          <a href="index.html#upcoming" class="hover:text-white transition-colors">Upcoming EVs</a>
-          <a href="index.html#compare" class="hover:text-white transition-colors">Compare EVs</a>
+          <a href="index.html#popular-evs" class="hover:text-black transition-colors">Popular Electric Cars</a>
+          <a href="index.html#upcoming" class="hover:text-black transition-colors">Upcoming EVs</a>
+          <a href="index.html#compare" class="hover:text-black transition-colors">Compare EVs</a>
         </div>
 
-        <!-- Col 2: Resources -->
-        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
+        <!-- Col 3: Resource link tree -->
+        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-600">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">RESOURCES</span>
-          <a href="index.html#news" class="hover:text-white transition-colors">Latest News</a>
-          <a href="index.html#reviews" class="hover:text-white transition-colors">Expert Reviews</a>
-          <a href="index.html#stations" class="hover:text-white transition-colors">Charging Stations</a>
+          <a href="index.html#news" class="hover:text-black transition-colors">Latest News</a>
+          <a href="index.html#reviews" class="hover:text-black transition-colors">Expert Reviews</a>
+          <a href="index.html#stations" class="hover:text-black transition-colors">Charging Stations</a>
         </div>
 
-        <!-- Col 3: Corporate -->
-        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
+        <!-- Col 4: Corporate info -->
+        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-600">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">CORPORATE</span>
-          <a href="index.html#" class="hover:text-white transition-colors">About Us</a>
-          <a href="index.html#" class="hover:text-white transition-colors">Contact Support</a>
-          <a href="index.html#" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="index.html#" class="hover:text-white transition-colors">Terms & Conditions</a>
-        </div>
-
-        <!-- Col 4: Newsletter -->
-        <div class="flex flex-col gap-3">
-          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1 font-mono">NEWSLETTER</span>
-          <span class="font-bold tracking-tight text-white text-sm font-mono">Subscribe to Dispatch</span>
-          <form id="newsletter-form" class="flex flex-col gap-2 mt-1">
-            <input type="email" placeholder="Type email address..." required class="bg-zinc-900 border border-zinc-700 text-xs p-2.5 text-white outline-none focus:border-white transition-all rounded-none placeholder-zinc-500 font-mono">
-            <button type="submit" class="px-4 py-2 bg-white text-black hover:bg-zinc-200 transition-colors font-mono text-[9px] tracking-widest uppercase font-semibold">
-              SUBSCRIBE
-            </button>
-          </form>
+          <a href="index.html#" class="hover:text-black transition-colors">About Us</a>
+          <a href="index.html#" class="hover:text-black transition-colors">Contact Support</a>
+          <a href="index.html#" class="hover:text-black transition-colors">Privacy Policy</a>
+          <a href="index.html#" class="hover:text-black transition-colors">Terms & Conditions</a>
         </div>
 
       </div>
 
       <!-- Bottom copyright & socials -->
       <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 font-mono text-[9px] text-zinc-500">
-        <div>
-          <span>© 2026 EV CAR WALE GROUP. NO COLOUR ACCENTS.</span>
-        </div>
+        <span>© 2026 EV CAR WALE GROUP. NO COLOUR ACCENTS.</span>
         
         <div class="flex gap-6">
-          <a href="index.html#" class="hover:text-white transition-colors">TWITTER</a>
-          <a href="index.html#" class="hover:text-white transition-colors">LINKEDIN</a>
-          <a href="index.html#" class="hover:text-white transition-colors">GITHUB</a>
+          <a href="index.html#" class="hover:text-black transition-colors">TWITTER</a>
+          <a href="index.html#" class="hover:text-black transition-colors">LINKEDIN</a>
+          <a href="index.html#" class="hover:text-black transition-colors">GITHUB</a>
         </div>
       </div>
     </div>

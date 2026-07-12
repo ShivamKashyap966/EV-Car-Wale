@@ -749,9 +749,9 @@ nav.nav-light-theme #login-nav-btn:hover {
 }
 .trip-toggle-btn:not(:last-child) { border-right: none; }
 .trip-toggle-btn.trip-active {
-  background: #000000;
-  color: #ffffff;
-  border-color: #000000;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
 }
 .trip-toggle-btn:hover:not(.trip-active) {
   border-color: #000000;
@@ -1616,12 +1616,13 @@ table:not(#home table) tbody tr:hover {
 .gallery-card:hover,
 .glass-card:hover,
 .brand-chip:hover,
-.budget-chip:hover {
+.budget-chip:hover,
+.btn-open-hub:hover {
   background-color: #ffffff !important;
   background: #ffffff !important;
-  border: 1.5px solid #22C55E !important; /* Green border on hover */
+  border: 1.5px solid #22C55E !important;
   transform: translateY(-4px) !important;
-  box-shadow: 0 0 30px rgba(34, 197, 94, 0.35) !important; /* Premium green glow */
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.35) !important;
 }
 
 /* Prevent text color changes inside card on hover */
