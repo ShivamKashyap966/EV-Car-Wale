@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EV Cost & Savings – EV Car Wale</title>
+  <meta name="description" content="Total cost of ownership comparison: EV vs petrol vs diesel vs hybrid. Running costs, subsidies, tax benefits, and break-even analysis for Indian buyers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../ai-assistant.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            purewhite: '#FFFFFF',
+            black: '#000000',
+            darkgray: '#1E1E1E',
+            medgray: '#555555',
+            lightgray: '#F5F5F5',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .hero-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+    }
+    @media (min-width: 768px) {
+      .hero-overlay {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+      }
+    }
+    .stat-number {
+      font-size: 2rem;
+      line-height: 1;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) {
+      .stat-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-black font-sans overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
+      <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
+        <span class="w-2.5 h-2.5 bg-black inline-block rounded-none group-hover:scale-125 transition-transform duration-300"></span>
+        EV CAR WALE
+      </a>
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <a href="../index.html" class="px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">HOME</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="../insights_images/ev_cost&savings.jpg" alt="EV Cost and Savings" class="w-full h-full object-cover">
+      <div class="hero-overlay absolute inset-0"></div>
+      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 w-full pt-20 pb-12 md:pt-28 md:pb-16">
+      <div class="max-w-2xl">
+        <span class="font-mono text-[10px] tracking-widest text-zinc-300 uppercase mb-4 inline-block border border-zinc-500/40 px-3 py-1">Market Analysis</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white mb-4">EV Cost &amp; Savings</h1>
+        <p class="text-base md:text-lg text-zinc-200 max-w-xl leading-relaxed mb-6">A comprehensive total cost of ownership breakdown: how much you save (or spend) by going electric in India.</p>
+        <div class="flex flex-wrap items-center gap-4 font-mono text-[10px] tracking-wider text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            9 min read
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            EV Car Wale Team
+          </span>
+          <span class="flex items-center gap-1.5">Updated July 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <article class="max-w-4xl mx-auto px-6 lg:px-12 py-12 md:py-16">
+    <div class="prose prose-zinc max-w-none">
+
+      <!-- Intro -->
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">The biggest question for any Indian car buyer considering an EV: does it actually save me money? The answer, as with most things in life, is "it depends." But a growing body of real-world data from Indian EV owners shows that for a typical urban commuter driving 15,000–20,000 km per year, the financial case for electric is compelling. This guide breaks down every cost component — from purchase price to resale value — so you can make an informed decision.</p>
+
+      <!-- Section 1: Purchase Price -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Purchase Price: The EV Premium
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Let's address the elephant in the room: EVs cost more upfront. A typical compact electric SUV in India (Tata Nexon EV, MG ZS EV, BYD Atto 3) commands a ₹3–5 lakh premium over its petrol equivalent. For premium EVs like the Kia EV6 or BMW i4, the premium widens to ₹10–20 lakh.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">However, this gap has been narrowing. The Tata Nexon EV Long Range starts at ₹16.49 lakh (ex-showroom) while the Nexon petrol top-end is around ₹13.20 lakh — a premium of ₹3.29 lakh. Two years ago, that gap was over ₹5 lakh. Battery costs have fallen 40% in India since 2022, and further reductions are expected as local cell manufacturing ramps up.</p>
+
+      <!-- Comparison Table: Fuel Costs per km -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-6 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Running Cost: Fuel Cost per km
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">This is where EVs shine brightest. Fuel costs per kilometre for each powertrain type, based on Indian fuel prices as of July 2026:</p>
+      <div class="overflow-x-auto mb-10">
+        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
+          <thead>
+            <tr class="bg-zinc-50 border-b border-zinc-200">
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Powertrain</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Fuel Price</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Efficiency</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Cost per km</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Annual Cost (15,000 km)</th>
+            </tr>
+          </thead>
+          <tbody class="text-zinc-600 text-[10px]">
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">EV (Home Charging)</td>
+              <td class="p-3">₹7.00/kWh</td>
+              <td class="p-3">6.5 km/kWh</td>
+              <td class="p-3 font-bold text-black">₹1.08/km</td>
+              <td class="p-3">₹16,150</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">EV (Public DC)</td>
+              <td class="p-3">₹18.00/kWh</td>
+              <td class="p-3">6.0 km/kWh</td>
+              <td class="p-3">₹3.00/km</td>
+              <td class="p-3">₹45,000</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">Petrol (Compact SUV)</td>
+              <td class="p-3">₹104/litre</td>
+              <td class="p-3">15 km/litre</td>
+              <td class="p-3">₹6.93/km</td>
+              <td class="p-3">₹1,04,000</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">Diesel (Compact SUV)</td>
+              <td class="p-3">₹93/litre</td>
+              <td class="p-3">18 km/litre</td>
+              <td class="p-3">₹5.17/km</td>
+              <td class="p-3">₹77,500</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-black">Hybrid (Compact SUV)</td>
+              <td class="p-3">₹104/litre</td>
+              <td class="p-3">22 km/litre</td>
+              <td class="p-3">₹4.73/km</td>
+              <td class="p-3">₹70,900</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 2: Maintenance Savings -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Maintenance: Fewer Moving Parts, Lower Bills
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">An electric vehicle has roughly 90% fewer moving parts than an internal combustion engine vehicle. No engine oil, no timing belts, no spark plugs, no exhaust system, no clutch, no gearbox. This translates directly into lower maintenance costs.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Based on data from Tata Motors and MG service centres:</p>
+      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">EV annual maintenance:</strong> ₹3,000–₹5,000 (inverter coolant check, cabin filter, brake fluid, tyre rotation)</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Petrol annual maintenance:</strong> ₹8,000–₹15,000 (oil change, filter replacement, belt inspection, more frequent brake pad changes)</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">5-year maintenance savings with EV:</strong> ₹40,000–₹60,000</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Brake pad life on EVs:</strong> 80% longer due to regenerative braking — most EVs go 80,000–1,00,000 km before needing pad replacement</span></li>
+      </ul>
+
+      <!-- Highlight Box: 5-Year TCO Comparison -->
+      <div class="border-l-4 border-black pl-4 bg-zinc-50 p-4 my-8">
+        <h3 class="text-sm font-bold tracking-tight text-black mb-2">5-Year TCO Comparison: Nexon EV vs Nexon Petrol</h3>
+        <p class="text-xs text-zinc-600 leading-relaxed mb-3">Based on 15,000 km/year driving, all costs in INR:</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-[10px] font-mono border-collapse">
+            <thead>
+              <tr class="border-b border-zinc-300">
+                <th class="text-left py-1.5 pr-3 font-bold text-black">Cost Component</th>
+                <th class="text-left py-1.5 pr-3 font-bold text-black">Nexon EV</th>
+                <th class="text-left py-1.5 pr-3 font-bold text-black">Nexon Petrol</th>
+                <th class="text-left py-1.5 font-bold text-black">Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-zinc-200">
+                <td class="py-1.5 pr-3">Ex-showroom Price</td>
+                <td class="py-1.5 pr-3">₹16,49,000</td>
+                <td class="py-1.5 pr-3">₹13,20,000</td>
+                <td class="py-1.5">+₹3,29,000</td>
+              </tr>
+              <tr class="border-b border-zinc-200">
+                <td class="py-1.5 pr-3">On-road (incl. RTO, insurance)</td>
+                <td class="py-1.5 pr-3">₹17,90,000</td>
+                <td class="py-1.5 pr-3">₹15,45,000</td>
+                <td class="py-1.5">+₹2,45,000</td>
+              </tr>
+              <tr class="border-b border-zinc-200">
+                <td class="py-1.5 pr-3">Fuel/Energy (5 yrs)</td>
+                <td class="py-1.5 pr-3">₹80,750</td>
+                <td class="py-1.5 pr-3">₹5,20,000</td>
+                <td class="py-1.5 font-bold text-black">−₹4,39,250</td>
+              </tr>
+              <tr class="border-b border-zinc-200">
+                <td class="py-1.5 pr-3">Maintenance (5 yrs)</td>
+                <td class="py-1.5 pr-3">₹20,000</td>
+                <td class="py-1.5 pr-3">₹60,000</td>
+                <td class="py-1.5 font-bold text-black">−₹40,000</td>
+              </tr>
+              <tr class="border-b border-zinc-200">
+                <td class="py-1.5 pr-3">Subsidies &amp; Tax Benefits</td>
+                <td class="py-1.5 pr-3">−₹1,50,000</td>
+                <td class="py-1.5 pr-3">₹0</td>
+                <td class="py-1.5 font-bold text-black">−₹1,50,000</td>
+              </tr>
+              <tr class="border-b border-zinc-200">
+                <td class="py-1.5 pr-3 font-bold text-black">Total 5-Year Cost</td>
+                <td class="py-1.5 pr-3 font-bold text-black">₹17,40,750</td>
+                <td class="py-1.5 pr-3 font-bold text-black">₹21,25,000</td>
+                <td class="py-1.5 font-bold text-black">−₹3,84,250</td>
+              </tr>
+              <tr>
+                <td class="py-1.5 pr-3 font-bold text-black">Monthly Cost</td>
+                <td class="py-1.5 pr-3 font-bold text-black">₹29,012</td>
+                <td class="py-1.5 pr-3 font-bold text-black">₹35,417</td>
+                <td class="py-1.5 font-bold text-black">−₹6,405/mo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-zinc-500 mt-3 italic">Assumes home charging at ₹7/kWh, petrol at ₹104/L, and FAME II/state subsidy of ₹1.5 lakh. Resale value not factored in (see section below).</p>
+      </div>
+
+      <!-- Section 3: State Subsidies -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        State Subsidies &amp; Tax Benefits
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The Indian government and multiple state governments offer significant financial incentives for EV buyers. The central FAME II (Faster Adoption and Manufacturing of Electric Vehicles) scheme provides up to ₹1.5 lakh subsidy for electric cars, though this is being phased out in favour of the new PM E-DRIVE scheme which offers similar benefits through a different mechanism.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">State-level incentives vary widely but can be substantial:</p>
+      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Delhi:</strong> Exemption from road tax and registration fees — saves ₹1–2.5 lakh depending on EV price.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Maharashtra:</strong> 100% road tax exemption + ₹5,000 subsidy per kWh of battery capacity (up to ₹1.5 lakh).</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Gujarat:</strong> ₹10,000 per kWh subsidy (max ₹1.5 lakh) + 100% road tax exemption.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Karnataka:</strong> 100% road tax exemption + 15% capital subsidy on EV purchase (up to ₹5 lakh for commercial EVs).</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Tamil Nadu:</strong> 100% road tax exemption + 15% EV purchase subsidy (capped at ₹1.5 lakh).</span></li>
+      </ul>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Additionally, income tax deduction of up to ₹1.5 lakh under Section 80EEB for interest paid on EV loans is available (until March 2027). This can save you another ₹45,000–₹50,000 in taxes over the loan tenure.</p>
+
+      <!-- Section 4: Insurance -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Insurance Costs
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">EV insurance in India costs 10–20% more than equivalent petrol cars due to the higher value of the battery pack and limited repair ecosystem. A comprehensive policy for a ₹16.5 lakh EV typically runs ₹25,000–₹35,000 per year, compared to ₹18,000–₹25,000 for a similar-priced petrol car.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">However, several insurers now offer EV-specific policies with battery coverage and lower deductibles. IRDAI has mandated that EV insurance premiums must decrease as battery costs fall and repair networks expand — expect the gap to narrow to 5–10% by 2028. Over 5 years, the extra insurance cost for an EV amounts to roughly ₹35,000–₹50,000.</p>
+
+      <!-- Section 5: Battery Replacement -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Battery Replacement &amp; Warranty
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Battery replacement cost is the single biggest financial concern for EV buyers. A replacement battery for a compact EV currently costs ₹3–5 lakh — roughly 25–30% of the car's ex-showroom price. However, several factors mitigate this risk:</p>
+      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Standard warranty:</strong> All major OEMs offer 8 years/1,60,000 km battery warranty, covering capacity degradation below 70%.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Real-world degradation:</strong> Indian data shows average degradation of 1.5–2% per year, meaning after 8 years the battery still has ~85% capacity.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Battery prices falling:</strong> Global battery pack prices have fallen from ₹15,000/kWh in 2020 to ₹8,500/kWh in 2026, projected to reach ₹5,000/kWh by 2030.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Second-life batteries:</strong> Used EV batteries are increasingly finding applications as stationary energy storage, reducing replacement costs through buyback programmes.</span></li>
+      </ul>
+
+      <!-- Info Card: Hidden Costs of EVs -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 mb-10">
+        <h3 class="text-sm font-bold tracking-tight text-black mb-3">Hidden Costs of EVs Every Buyer Should Know</h3>
+        <ul class="space-y-2 text-xs text-zinc-600">
+          <li class="flex gap-2"><span class="font-bold text-black shrink-0">1.</span> <span><strong class="text-black">Home charger installation:</strong> A 7.2 kW AC wall box costs ₹25,000–₹50,000 plus electrical work (₹5,000–₹15,000). Some OEMs include a free charger in the purchase price.</span></li>
+          <li class="flex gap-2"><span class="font-bold text-black shrink-0">2.</span> <span><strong class="text-black">Electricity tariff changes:</strong> Many state DISCOMs are introducing time-of-day tariffs and EV-specific rates that may increase charging costs during peak hours.</span></li>
+          <li class="flex gap-2"><span class="font-bold text-black shrink-0">3.</span> <span><strong class="text-black">Tyre wear:</strong> EVs are 300–400 kg heavier than equivalent ICE vehicles due to battery weight, causing 15–20% faster tyre wear. Premium tyres for EVs cost ₹8,000–₹15,000 per tyre.</span></li>
+          <li class="flex gap-2"><span class="font-bold text-black shrink-0">4.</span> <span><strong class="text-black">Depreciation on battery:</strong> While the car itself may depreciate, battery degradation is invisible until you try to sell the car — a degraded battery can reduce resale value significantly.</span></li>
+          <li class="flex gap-2"><span class="font-bold text-black shrink-0">5.</span> <span><strong class="text-black">Apartment charging fees:</strong> If you live in an apartment without a designated parking spot with electricity, you may need to pay monthly charges for using a common-area charger.</span></li>
+        </ul>
+      </div>
+
+      <!-- Section 6: Resale Value -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Resale Value Trends
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Resale value remains the weakest link in EV ownership economics. A 3-year-old EV in India typically retains 45–55% of its purchase price, compared to 55–65% for a petrol car. The reasons are well-documented: technology evolves rapidly (longer range, better batteries), battery health is hard to verify, and the second-hand EV market is still immature.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">However, the trend is improving. The launch of certified pre-owned EV programmes by Tata Motors and MG has stabilised prices. In 2026, a 3-year-old Nexon EV sells for ₹8–9.5 lakh versus ₹12–13.5 lakh ex-showroom — a depreciation of roughly ₹7 lakh. The comparable Nexon petrol: ₹7–8.5 lakh on a ₹13.2 lakh ex-showroom — a depreciation of ₹5.7 lakh. So the <strong class="text-black">additional depreciation cost of going electric is roughly ₹1–1.5 lakh over 3 years</strong>.</p>
+
+      <!-- Stats Card: Annual Savings -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-16 mb-6 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Average Annual Savings: EV vs Petrol
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">For a typical Indian commuter driving 18,000 km/year with home charging, here's the annual financial picture:</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 text-center">
+          <div class="stat-number text-black">₹87,850</div>
+          <div class="font-mono text-[10px] tracking-wider text-zinc-500 mt-1">Fuel Savings</div>
+          <div class="text-[9px] text-zinc-400 mt-0.5">vs petrol per year</div>
+        </div>
+        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 text-center">
+          <div class="stat-number text-black">₹8,000</div>
+          <div class="font-mono text-[10px] tracking-wider text-zinc-500 mt-1">Maintenance Savings</div>
+          <div class="text-[9px] text-zinc-400 mt-0.5">vs petrol per year</div>
+        </div>
+        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 text-center">
+          <div class="stat-number text-black">₹5–10k</div>
+          <div class="font-mono text-[10px] tracking-wider text-zinc-500 mt-1">Extra Insurance</div>
+          <div class="text-[9px] text-zinc-400 mt-0.5">vs petrol per year</div>
+        </div>
+        <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 text-center">
+          <div class="stat-number text-black">₹85,000+</div>
+          <div class="font-mono text-[10px] tracking-wider text-zinc-500 mt-1">Net Annual Savings</div>
+          <div class="text-[9px] text-zinc-400 mt-0.5">after all adjustments</div>
+        </div>
+      </div>
+
+      <!-- Section 7: Break-Even Analysis -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Break-Even Analysis
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The break-even point — the distance you need to drive before the EV's lower running costs offset its higher purchase price — is the most useful metric for any buyer. Based on current prices and running costs:</p>
+      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Compact EV vs Petrol (Nexon EV vs Nexon Petrol):</strong> Break-even at ~38,000 km — achievable in 2–2.5 years for a typical commuter.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Premium EV vs Petrol (Kia EV6 vs Kia Sportage):</strong> Break-even at ~65,000 km — roughly 3.5–4 years.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">EV vs Diesel (same model):</strong> Break-even at ~55,000 km — diesel is cheaper to run than petrol but has higher maintenance costs.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">EV vs Hybrid (same model):</strong> Break-even at ~70,000 km — hybrids offer excellent fuel economy but have much higher maintenance complexity.</span></li>
+      </ul>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">If you drive fewer than 10,000 km per year, the break-even period extends beyond 4–5 years, making the financial case less compelling. For high-mileage drivers (25,000+ km/year), the EV pays for itself in under 18 months.</p>
+
+      <!-- Lifetime Savings Calculator -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-16 mb-6 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Lifetime Savings by Driving Range
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Total savings over 8 years of ownership (typical car ownership period in India) across different annual driving distances:</p>
+      <div class="overflow-x-auto mb-10">
+        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
+          <thead>
+            <tr class="bg-zinc-50 border-b border-zinc-200">
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Annual Distance</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">8-Year Fuel Savings</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">8-Year Maintenance Savings</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Total Savings (Gross)</th>
+              <th class="text-left p-3 font-bold text-black text-[10px] tracking-wider">Net Savings (after premium, insurance, home charger)</th>
+            </tr>
+          </thead>
+          <tbody class="text-zinc-600 text-[10px]">
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">8,000 km (Low)</td>
+              <td class="p-3">₹3,74,400</td>
+              <td class="p-3">₹32,000</td>
+              <td class="p-3">₹4,06,400</td>
+              <td class="p-3">−₹18,600 net cost</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">15,000 km (Typical)</td>
+              <td class="p-3">₹7,02,000</td>
+              <td class="p-3">₹40,000</td>
+              <td class="p-3">₹7,42,000</td>
+              <td class="p-3 font-bold text-black">₹3,17,000 saved</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-3 font-medium text-black">22,000 km (High)</td>
+              <td class="p-3">₹10,29,600</td>
+              <td class="p-3">₹48,000</td>
+              <td class="p-3">₹10,77,600</td>
+              <td class="p-3 font-bold text-black">₹6,52,600 saved</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium text-black">30,000 km (Very High)</td>
+              <td class="p-3">₹14,04,000</td>
+              <td class="p-3">₹56,000</td>
+              <td class="p-3">₹14,60,000</td>
+              <td class="p-3 font-bold text-black">₹10,35,000 saved</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-zinc-500 mb-8 italic">Assumes: home charging at ₹7/kWh, petrol at ₹104/L, EV premium ₹3.29L, extra insurance ₹7,500/yr, home charger cost ₹40,000. Net savings subtract the upfront premium, extra insurance over 8 years, and home charger cost.</p>
+
+      <!-- Conclusion -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-16 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Conclusion
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The financial case for buying an EV in India in 2026 is stronger than ever — but it is not universal. For urban commuters driving 15,000+ km per year, an EV can save ₹3–10 lakh over 8 years of ownership. The key enablers are home charging access (saving ₹3/km vs petrol), government subsidies (₹1–2.5 lakh upfront), and falling battery costs.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The numbers are less favourable if you drive infrequently, rely entirely on public charging, or plan to sell the car within 3 years. In those scenarios, a hybrid or even a diesel car may offer better financial outcomes.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">What tilts the scales for most buyers is the combination of financial and non-financial benefits: the silent, smooth driving experience, zero tailpipe emissions, and the growing convenience of an expanding charging network. When you factor in that battery prices are projected to halve again by 2030, today's EV premium looks like a short-term cost for long-term savings.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed">Our recommendation: If you have home charging, drive 15,000+ km/year, and plan to keep the car for 5+ years — the case for electric is compelling. If not, wait for the next generation of more affordable EVs arriving in 2027–2028.</p>
+
+    </div>
+  </article>
+
+  <!-- Related Articles -->
+  <section class="border-t border-zinc-200 bg-zinc-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
+      <h2 class="text-lg font-bold tracking-tight text-black mb-8 flex items-center gap-3">
+        <span class="w-1 h-5 bg-black inline-block"></span>
+        Related Articles
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="companies-building-indias-network.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Market Analysis</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Companies Building India's EV Network</h3>
+          <p class="text-xs text-zinc-500">Key players powering India's charging infrastructure.</p>
+        </a>
+        <a href="../battery-health.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Knowledge Centre</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Battery Health Guide</h3>
+          <p class="text-xs text-zinc-500">Maximise your EV battery lifespan with practical tips.</p>
+        </a>
+        <a href="../index.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Guide</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">EV Buying Guide</h3>
+          <p class="text-xs text-zinc-500">Step-by-step assistance for your first EV purchase.</p>
+        </a>
+        <a href="../index.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Policy</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Government Subsidies</h3>
+          <p class="text-xs text-zinc-500">Central and state EV incentives explained.</p>
+        </a>
+      </div>
+      <div class="mt-10 text-center">
+        <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-300 hover:border-black font-mono text-[10px] tracking-wider text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate rounded-full">
+          BACK TO INSIGHTS
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-200 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 text-black">
+        <span class="w-2 h-2 bg-black inline-block"></span>
+        EV CAR WALE
+      </a>
+      <p class="font-mono text-[9px] text-zinc-400 tracking-wider">&copy; 2026 EV Car Wale. All rights reserved.</p>
+    </div>
+  </footer>
+
+<!-- AI Floating Assistant -->
+<div id="ai-overlay" class="ai-overlay"></div>
+<div class="ai-assistant-container">
+  <div class="ai-trigger" id="ai-trigger">
+    <div class="ai-avatar-wrapper ai-float-anim">
+      <div class="ai-avatar-glow"></div>
+      <img src="../ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
+    </div>
+    <div class="ai-label" id="ai-label">Ask EV AI</div>
+  </div>
+  <div class="ai-chat-window" id="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-left">
+        <img src="../ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
+        <div>
+          <div class="ai-chat-title">EV AI Assistant</div>
+          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
+        </div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
+    </div>
+    <div class="ai-chat-body" id="ai-chat-body">
+      <div class="ai-message ai-bot-message" style="white-space:pre-line">
+Hi! 👋 I'm your EV AI Assistant.
+
+Ask me anything about:
+
+• Electric Vehicles
+• Charging
+• Battery Health
+• EV Costs
+• Government Policies
+• EV Buying
+• Range
+• Comparisons
+• Charging Stations
+      </div>
+      <div class="ai-suggestions">
+        <button class="ai-chip">Best EV under ₹15 lakh</button>
+        <button class="ai-chip">Charging cost</button>
+        <button class="ai-chip">Battery lifespan</button>
+        <button class="ai-chip">Compare Tata vs MG</button>
+        <button class="ai-chip">Government subsidy</button>
+        <button class="ai-chip">Charging stations near me</button>
+      </div>
+    </div>
+    <div class="ai-chat-input-area">
+      <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
+      <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
+    </div>
+  </div>
+</div>
+<script src="../ai-assistant.js"></script>
+</body>
+</html>

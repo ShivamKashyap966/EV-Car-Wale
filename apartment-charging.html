@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartment Charging Guide – EV Car Wale</title>
+  <meta name="description" content="A comprehensive guide for Indian apartment dwellers on setting up EV charging at home, dealing with RWAs, and choosing the right charger.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            purewhite: '#FFFFFF',
+            black: '#000000',
+            darkgray: '#1E1E1E',
+            medgray: '#555555',
+            lightgray: '#F5F5F5',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ai-assistant.css">
+</head>
+<body class="bg-white text-black font-sans overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
+      <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
+        <span class="w-2.5 h-2.5 bg-black inline-block group-hover:scale-125 transition-transform duration-300"></span>
+        EV CAR WALE
+      </a>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors">HOME</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="everything_u_need/APARTMENT_CHARGING.jpeg" alt="Apartment EV Charging" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+    <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+      <span class="font-mono text-[9px] text-zinc-400 tracking-[0.3em] uppercase block mb-4">GUIDE</span>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4">Apartment Charging Guide</h1>
+      <p class="text-sm md:text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">Everything you need to know about setting up electric vehicle charging in Indian apartment complexes — from RWA approvals to installation.</p>
+      <div class="flex items-center justify-center gap-4 mt-6 font-mono text-[10px] text-zinc-400">
+        <span class="tracking-wider">8 MIN READ</span>
+        <span class="w-1 h-1 bg-zinc-600 rounded-full"></span>
+        <span class="tracking-wider">RESIDENTIAL CHARGING</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <article class="max-w-3xl mx-auto px-6 py-16 lg:py-24">
+
+    <!-- Intro -->
+    <p class="text-sm text-zinc-600 leading-relaxed mb-10">Owning an electric vehicle in India is exciting, but for the millions who live in apartment complexes and gated societies, the biggest question is: <strong class="text-black">how do I charge it at home?</strong> Unlike independent house owners who can install a charger in their garage with relative ease, apartment dwellers face a unique set of challenges — from convincing the Resident Welfare Association (RWA) to navigating electrical load calculations and choosing the right charger for limited parking spaces.</p>
+
+    <!-- Section 1: The Challenge -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">01</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">The Apartment Charging Challenge</h2>
+      <p class="text-sm text-zinc-600 leading-relaxed mb-4">Most Indian apartment buildings were not designed with EV charging in mind. Parking is often shared, designated spots may be far from your flat, and the building's existing electrical infrastructure may not support additional load. Add to this the need for RWA approval, and the process can feel overwhelming.</p>
+      <p class="text-sm text-zinc-600 leading-relaxed mb-4">However, the Indian government has recognised this challenge. Under the <strong class="text-black">Ministry of Housing and Urban Affairs (MoHUA) 2022 guidelines</strong>, RWAs cannot refuse EV charging installations without valid reasons. Additionally, many state governments have mandates requiring new apartment buildings to be EV-ready with dedicated charging infrastructure.</p>
+      <p class="text-sm text-zinc-600 leading-relaxed">The key is understanding the process, knowing your rights, and following the right steps. Let's break it down.</p>
+    </section>
+
+    <!-- Section 2: Types of Charging for Apartments -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">02</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Charging Options for Apartment Residents</h2>
+      <p class="text-sm text-zinc-600 leading-relaxed mb-6">Broadly, there are three approaches to charging your EV in an apartment:</p>
+
+      <div class="grid gap-4 mb-6">
+        <div class="border border-zinc-200 rounded-2xl p-5 hover:border-black transition-colors">
+          <h3 class="text-xs font-bold uppercase tracking-wider mb-2">1. Dedicated 15A Socket</h3>
+          <p class="text-[11px] text-zinc-600 leading-relaxed">The simplest approach — request a dedicated 15A power socket near your parking spot. Your EV's portable charger (granny charger) plugs into this. Charging speed is slow (2-3 km per hour), but it requires minimal infrastructure changes and costs very little. Ideal for overnight top-ups.</p>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl p-5 hover:border-black transition-colors">
+          <h3 class="text-xs font-bold uppercase tracking-wider mb-2">2. AC Wall-Box Charger</h3>
+          <p class="text-[11px] text-zinc-600 leading-relaxed">A 3.3 kW or 7.2 kW AC wall-box offers much faster charging (15-40 km per hour). Most EV manufacturers provide one with the car. Installation requires a dedicated meter and proper earthing. This is the recommended solution for most apartment owners. Many OEMs offer free installation within the first 500-1000 km of purchase.</p>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl p-5 hover:border-black transition-colors">
+          <h3 class="text-xs font-bold uppercase tracking-wider mb-2">3. Shared Community Charging</h3>
+          <p class="text-[11px] text-zinc-600 leading-relaxed">If individual chargers aren't feasible, your RWA can install shared charging points in the visitors' parking or common area. Several companies like Tata Power, ChargeZone, and Magenta offer end-to-end solutions for apartment complexes with smart load management and billing systems.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">03</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Step-by-Step Process</h2>
+
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <span class="text-xs font-bold text-zinc-400 mt-0.5 shrink-0 w-6">01</span>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider mb-1">Check Your Parking Situation</h3>
+            <p class="text-[11px] text-zinc-600 leading-relaxed">Is your parking spot dedicated or shared? How far is it from your meter room? Is there existing electrical infrastructure nearby? Take photos and note distances — this will help when discussing with your RWA and electrician.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-xs font-bold text-zinc-400 mt-0.5 shrink-0 w-6">02</span>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider mb-1">Discuss With Your RWA</h3>
+            <p class="text-[11px] text-zinc-600 leading-relaxed">Approach your RWA with a formal request letter. Highlight the MoHUA guidelines and state mandates that support EV charging installation. Offer to cover all costs including meter installation, wiring, and electricity consumption via a sub-meter. Use our RWA request letter generator on EV Car Wale to create a professional application.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-xs font-bold text-zinc-400 mt-0.5 shrink-0 w-6">03</span>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider mb-1">Get a Load Assessment</h3>
+            <p class="text-[11px] text-zinc-600 leading-relaxed">An authorised electrician or your car manufacturer's installation partner will assess the available load in your building's electrical panel. Most apartments have adequate headroom for a 3.3-7.2 kW charger, but a load calculation report is essential for safety and approval.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-xs font-bold text-zinc-400 mt-0.5 shrink-0 w-6">04</span>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider mb-1">Install a Dedicated Meter</h3>
+            <p class="text-[11px] text-zinc-600 leading-relaxed">Request your electricity discom (distribution company) for a separate EV tariff connection. Many states offer subsidised EV charging tariffs (as low as Rs 4-5 per unit). A dedicated meter also makes billing fair instead of dividing the cost among all residents.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-xs font-bold text-zinc-400 mt-0.5 shrink-0 w-6">05</span>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider mb-1">Install the Charger</h3>
+            <p class="text-[11px] text-zinc-600 leading-relaxed">With approvals in place, your OEM partner or a certified electrician will run armoured cable from your meter to the parking spot, install the wall-box, set up safety breakers (RCCB/MCB), and verify earthing. Always insist on a professional installation with proper grounding — EV chargers draw significant current for hours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips Box -->
+    <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 md:p-8 mb-14">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-base font-bold">💡</span>
+        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase">PRO TIPS</span>
+      </div>
+      <ul class="space-y-3 text-[11px] text-zinc-600 leading-relaxed">
+        <li class="flex gap-2"><span class="text-black shrink-0">→</span>Start the RWA conversation early — even before you take delivery of your EV. Approvals can take 2-6 weeks.</li>
+        <li class="flex gap-2"><span class="text-black shrink-0">→</span>Many Indian OEMs (Tata Motors, MG, Hyundai) include free home charger installation within the first year. Use this service.</li>
+        <li class="flex gap-2"><span class="text-black shrink-0">→</span>If your parking is in a basement, ensure the charger is at least IP54 rated for dust and moisture protection.</li>
+        <li class="flex gap-2"><span class="text-black shrink-0">→</span>Look for chargers with smart scheduling — charge during off-peak night hours when electricity is cheapest and grid load is low.</li>
+        <li class="flex gap-2"><span class="text-black shrink-0">→</span>Form an EV owners' group within your society — collective bargaining with installation partners can reduce per-unit costs significantly.</li>
+      </ul>
+    </div>
+
+    <!-- Section 4: Best Practices -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">04</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Best Practices for Apartment EV Charging</h2>
+      <ul class="space-y-3 text-sm text-zinc-600 leading-relaxed">
+        <li class="flex gap-3"><span class="text-black font-bold shrink-0">•</span><span><strong class="text-black">Safety first:</strong> Always use a certified electrician. Ensure the installation meets IS 17017 standards and includes an earth leakage protection device.</span></li>
+        <li class="flex gap-3"><span class="text-black font-bold shrink-0">•</span><span><strong class="text-black">Right cable gauge:</strong> Use armoured XLPE cable of appropriate gauge (4-6 sq mm for 3.3 kW, 6-10 sq mm for 7.2 kW) to minimise voltage drop over long runs.</span></li>
+        <li class="flex gap-3"><span class="text-black font-bold shrink-0">•</span><span><strong class="text-black">Cable management:</strong> Use overhead cable trays or covered conduits to prevent trip hazards and cable damage in parking areas.</span></li>
+        <li class="flex gap-3"><span class="text-black font-bold shrink-0">•</span><span><strong class="text-black">Load balancing:</strong> If multiple residents install chargers, consider a smart load management system that distributes available power without tripping the building's main breaker.</span></li>
+        <li class="flex gap-3"><span class="text-black font-bold shrink-0">•</span><span><strong class="text-black">Fire safety:</strong> Install a smoke detector and fire extinguisher rated for electrical fires (Class C or ABC) near the charging point.</span></li>
+        <li class="flex gap-3"><span class="text-black font-bold shrink-0">•</span><span><strong class="text-black">Document everything:</strong> Keep copies of RWA approval, load assessment report, installation certificate, and warranty documents for future reference and resale value.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Costs -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">05</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Estimated Costs</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs font-mono">
+          <thead>
+            <tr class="border-b border-zinc-200">
+              <th class="text-left py-3 pr-4 font-bold text-zinc-700">Item</th>
+              <th class="text-left py-3 pr-4 font-bold text-zinc-700">Estimated Cost (Rs)</th>
+              <th class="text-left py-3 font-bold text-zinc-700">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="text-zinc-600">
+            <tr class="border-b border-zinc-100">
+              <td class="py-3 pr-4">15A Socket Installation</td>
+              <td class="py-3 pr-4">2,000 – 5,000</td>
+              <td class="py-3">Basic wiring + socket</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="py-3 pr-4">AC Wall-Box (3.3 kW)</td>
+              <td class="py-3 pr-4">10,000 – 25,000</td>
+              <td class="py-3">Often free with car</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="py-3 pr-4">Dedicated EV Meter</td>
+              <td class="py-3 pr-4">2,500 – 7,000</td>
+              <td class="py-3">Discom charges vary</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="py-3 pr-4">Cabling (per 10m run)</td>
+              <td class="py-3 pr-4">3,000 – 8,000</td>
+              <td class="py-3">Armoured XLPE cable</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4">Installation Labour</td>
+              <td class="py-3 pr-4">3,000 – 10,000</td>
+              <td class="py-3">By OEM partner</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">06</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Frequently Asked Questions</h2>
+
+      <div class="flex flex-col gap-3" id="faq-accordion">
+        <div class="faq-item border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors">
+            <span>Can my RWA legally refuse EV charging installation?</span>
+            <svg class="faq-chevron w-3 h-3 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-[11px] text-zinc-600 leading-relaxed">Under MoHUA's 2022 Model Building Bye-Laws, RWAs cannot unreasonably deny EV charging installation. If your RWA refuses, you can file a complaint with the state urban development department. However, it's always better to resolve the issue amicably — offer to cover all costs and follow proper safety protocols.</div>
+          </div>
+        </div>
+        <div class="faq-item border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors">
+            <span>Is it safe to charge an EV in a basement parking lot?</span>
+            <svg class="faq-chevron w-3 h-3 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-[11px] text-zinc-600 leading-relaxed">Yes, as long as the charger and electrical components are properly installed with appropriate protection. Use IP54 or higher rated equipment for dust and moisture resistance. Ensure the basement has adequate ventilation and the charging equipment is mounted at least 0.5m above ground level to protect against potential water seepage.</div>
+          </div>
+        </div>
+        <div class="faq-item border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors">
+            <span>How much does it cost to charge an EV in an apartment?</span>
+            <svg class="faq-chevron w-3 h-3 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-[11px] text-zinc-600 leading-relaxed">With a dedicated EV tariff connection (Rs 4-5 per unit), a full charge for a car like the Tata Nexon EV (40.5 kWh usable) costs approximately Rs 160-200. For the MG ZS EV (50.3 kWh), expect Rs 200-250. Compare that to Rs 3,000-4,000 for a full petrol tank — the savings are substantial.</div>
+          </div>
+        </div>
+        <div class="faq-item border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors">
+            <span>Can I use a regular power socket for EV charging?</span>
+            <svg class="faq-chevron w-3 h-3 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-[11px] text-zinc-600 leading-relaxed">Not recommended for regular use. A standard 5A socket is not rated for the continuous high current (10-15A for 8-10 hours) that EV charging requires. It can overheat, cause fire hazards, or trip your building's MCB. Always use a dedicated 15A socket with proper earthing or, better, a professionally installed wall-box charger.</div>
+          </div>
+        </div>
+        <div class="faq-item border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors">
+            <span>How long does the installation process typically take?</span>
+            <svg class="faq-chevron w-3 h-3 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-[11px] text-zinc-600 leading-relaxed">From start to finish, the process typically takes 2-6 weeks. RWA approval takes the longest (1-3 weeks), followed by discom meter installation (1-2 weeks), and finally the charger installation itself (1-2 days with OEM partners). Plan ahead — start the process before you take delivery of your EV.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Articles -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">RELATED</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6">Related Articles</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="index.html#/learn/home-charging" class="group border border-zinc-200 rounded-2xl p-5 hover:border-black hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
+          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest">GUIDE</span>
+          <h3 class="text-xs font-bold mt-2 mb-1 group-hover:text-black transition-colors text-zinc-700">Charging at Home</h3>
+          <p class="text-[10px] text-zinc-500 leading-relaxed">Everything about setting up home charging infrastructure.</p>
+        </a>
+        <a href="index.html#/learn/fast-vs-slow" class="group border border-zinc-200 rounded-2xl p-5 hover:border-black hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
+          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest">GUIDE</span>
+          <h3 class="text-xs font-bold mt-2 mb-1 group-hover:text-black transition-colors text-zinc-700">Fast vs Slow Charging</h3>
+          <p class="text-[10px] text-zinc-500 leading-relaxed">Understand the difference between AC and DC charging speeds.</p>
+        </a>
+        <a href="index.html#/learn/battery-warranty" class="group border border-zinc-200 rounded-2xl p-5 hover:border-black hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
+          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest">GUIDE</span>
+          <h3 class="text-xs font-bold mt-2 mb-1 group-hover:text-black transition-colors text-zinc-700">Battery Warranty</h3>
+          <p class="text-[10px] text-zinc-500 leading-relaxed">Know what your EV battery warranty covers and how to maintain it.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Back to Insights -->
+    <div class="text-center">
+      <a href="index.html#insights" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-300 hover:border-black text-[11px] font-mono tracking-widest uppercase text-black hover:bg-black hover:text-white transition-all duration-300">
+        <span>←</span> Back to Insights
+      </a>
+    </div>
+
+  </article>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-16 px-6 lg:px-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-zinc-800 pb-12">
+        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
+          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">MARKETPLACE</span>
+          <a href="index.html#popular-evs" class="hover:text-white transition-colors">Popular Electric Cars</a>
+          <a href="index.html#upcoming" class="hover:text-white transition-colors">Upcoming EVs</a>
+          <a href="index.html#compare" class="hover:text-white transition-colors">Compare EVs</a>
+        </div>
+        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
+          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">RESOURCES</span>
+          <a href="index.html#news" class="hover:text-white transition-colors">Latest News</a>
+          <a href="index.html#reviews" class="hover:text-white transition-colors">Expert Reviews</a>
+          <a href="index.html#stations" class="hover:text-white transition-colors">Charging Stations</a>
+        </div>
+        <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
+          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">CORPORATE</span>
+          <a href="index.html#" class="hover:text-white transition-colors">About Us</a>
+          <a href="index.html#" class="hover:text-white transition-colors">Contact Support</a>
+          <a href="index.html#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="index.html#" class="hover:text-white transition-colors">Terms & Conditions</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1 font-mono">NEWSLETTER</span>
+          <span class="font-bold tracking-tight text-white text-sm font-mono">Subscribe to Dispatch</span>
+          <form id="newsletter-form" class="flex flex-col gap-2 mt-1">
+            <input type="email" placeholder="Type email address..." required class="bg-zinc-900 border border-zinc-700 text-xs p-2.5 text-white outline-none focus:border-white transition-all rounded-none placeholder-zinc-500 font-mono">
+            <button type="submit" class="px-4 py-2 bg-white text-black hover:bg-zinc-200 transition-colors font-mono text-[9px] tracking-widest uppercase font-semibold">SUBSCRIBE</button>
+          </form>
+        </div>
+      </div>
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 font-mono text-[9px] text-zinc-500">
+        <span>© 2026 EV CAR WALE GROUP. NO COLOUR ACCENTS.</span>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">TWITTER</a>
+          <a href="#" class="hover:text-white transition-colors">LINKEDIN</a>
+          <a href="#" class="hover:text-white transition-colors">GITHUB</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ Accordion JS -->
+  <script>
+    (function() {
+      var items = document.querySelectorAll('.faq-item');
+      items.forEach(function(item) {
+        var trigger = item.querySelector('.faq-trigger');
+        var content = item.querySelector('.faq-content');
+        var chevron = item.querySelector('.faq-chevron');
+        trigger.addEventListener('click', function() {
+          var isOpen = content.classList.contains('open');
+          // Close all
+          items.forEach(function(other) {
+            other.querySelector('.faq-content').classList.remove('open');
+            other.querySelector('.faq-content').style.maxHeight = '0';
+            other.querySelector('.faq-chevron').classList.remove('rotate-180');
+          });
+          if (!isOpen) {
+            content.classList.add('open');
+            content.style.maxHeight = content.scrollHeight + 'px';
+            chevron.classList.add('rotate-180');
+          }
+        });
+      });
+    })();
+  </script>
+
+<!-- AI Floating Assistant -->
+<div id="ai-overlay" class="ai-overlay"></div>
+<div class="ai-assistant-container">
+  <div class="ai-trigger" id="ai-trigger">
+    <div class="ai-avatar-wrapper ai-float-anim">
+      <div class="ai-avatar-glow"></div>
+      <img src="ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
+    </div>
+    <div class="ai-label" id="ai-label">Ask EV AI</div>
+  </div>
+  <div class="ai-chat-window" id="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-left">
+        <img src="ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
+        <div>
+          <div class="ai-chat-title">EV AI Assistant</div>
+          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
+        </div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
+    </div>
+    <div class="ai-chat-body" id="ai-chat-body">
+      <div class="ai-message ai-bot-message" style="white-space:pre-line">
+Hi! 👋 I'm your EV AI Assistant.
+
+Ask me anything about:
+
+• Electric Vehicles
+• Charging
+• Battery Health
+• EV Costs
+• Government Policies
+• EV Buying
+• Range
+• Comparisons
+• Charging Stations
+      </div>
+      <div class="ai-suggestions">
+        <button class="ai-chip">Best EV under ₹15 lakh</button>
+        <button class="ai-chip">Charging cost</button>
+        <button class="ai-chip">Battery lifespan</button>
+        <button class="ai-chip">Compare Tata vs MG</button>
+        <button class="ai-chip">Government subsidy</button>
+        <button class="ai-chip">Charging stations near me</button>
+      </div>
+    </div>
+    <div class="ai-chat-input-area">
+      <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
+      <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
+    </div>
+  </div>
+</div>
+<script src="ai-assistant.js"></script>
+</body>
+</html>

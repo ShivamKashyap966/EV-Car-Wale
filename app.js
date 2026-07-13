@@ -76,8 +76,8 @@ const EV_DATABASE = [
     features: 'Aero Lounge seats, 15.6-inch Grand View touch, Smart connection',
     dimensions: '4295 x 1850 x 1677 mm',
     image: 'MG_windsor_EV.jpeg',
-    sections: ['popular', 'launches'],
-    launchDate: '2 Days Ago'
+    sections: ['popular'],
+    
   },
   {
     id: 'ioniq-5',
@@ -95,7 +95,7 @@ const EV_DATABASE = [
     features: 'Dual screens, Relaxion seats, V2L, Premium Bose Sound',
     dimensions: '4635 x 1890 x 1605 mm',
     image: 'hyundai_ioniq5.jpeg',
-    sections: ['popular']
+    sections: ['latest']
   },
   {
     id: 'byd-seal',
@@ -114,7 +114,7 @@ const EV_DATABASE = [
     dimensions: '4800 x 1875 x 1460 mm',
     image: 'byd_seal.jpeg',
     sections: ['popular', 'launches'],
-    launchDate: '20 Days Ago'
+   
   },
   {
     id: 'ev6',
@@ -132,7 +132,7 @@ const EV_DATABASE = [
     features: 'Augmented reality HUD, Sunroof, Meridian Audio',
     dimensions: '4695 x 1890 x 1550 mm',
     image: 'kia_ev6.jpeg',
-    sections: ['popular']
+    sections: ['latest']
   },
   {
     id: 'harrier-ev',
@@ -150,8 +150,8 @@ const EV_DATABASE = [
     features: 'AWD option, V2L & V2V charging, 12.3-inch infotainment',
     dimensions: '4605 x 1922 x 1718 mm',
     image: 'tata_harrier_ev.jpg',
-    sections: ['popular', 'launches'],
-    launchDate: '5 Days Ago'
+    sections: ['popular'],
+    
   },
   {
     id: 'be6',
@@ -169,7 +169,7 @@ const EV_DATABASE = [
     features: 'Futuristic design, Digital cockpit, Advanced ADAS',
     dimensions: '4370 x 1900 x 1635 mm',
     image: 'mahindra-BE6.jpg',
-    sections: ['popular', 'launches'],
+    sections: ['popular'],
     launchDate: '22 Days Ago'
   },
   {
@@ -243,7 +243,7 @@ const EV_DATABASE = [
     dimensions: '4238 x 1820 x 1590 mm',
     image: 'vin_fast_vf6.jpeg',
     sections: ['launches'],
-    launchDate: '10 Days Ago'
+    
   },
   {
     id: 'kia-ev9',
@@ -262,7 +262,7 @@ const EV_DATABASE = [
     dimensions: '5010 x 1980 x 1755 mm',
     image: 'kia_ev9.jpeg',
     sections: ['launches', 'explore'],
-    launchDate: '18 Days Ago'
+    
   },
   {
     id: 'xev-9e',
@@ -281,7 +281,7 @@ const EV_DATABASE = [
     dimensions: '4790 x 1905 x 1690 mm',
     image: 'thar.e.jpeg',
     sections: ['launches'],
-    launchDate: '1 Month Ago'
+   
   },
   {
     id: 'citroen-ec3',
@@ -300,7 +300,7 @@ const EV_DATABASE = [
     dimensions: '3981 x 1733 x 1604 mm',
     image: 'Citroen_eC3.jpeg',
     sections: ['launches'],
-    launchDate: '25 Days Ago'
+    
   },
   {
     id: 'curvv-ev',
@@ -452,25 +452,6 @@ const EV_DATABASE = [
     launchDate: 'Expected Late 2027'
   },
   {
-    id: 'sierra-ev',
-    name: 'Sierra EV',
-    brand: 'tata',
-    priceVal: 25.00,
-    price: '₹25.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '60 kWh',
-    charging: '40 min (DC)',
-    speed: '160 km/h',
-    power: '200 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Signature split glass house, premium captain lounge, high-end upholstery',
-    dimensions: '4350 x 1850 x 1700 mm',
-    image: 'tata_sierra.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Late 2027'
-  },
-  {
     id: 'ex90',
     name: 'EX90',
     brand: 'volvo',
@@ -560,7 +541,670 @@ const EV_DATABASE = [
     dimensions: '4784 x 1938 x 1622 mm',
     image: 'porsche_maccan_EV.jpeg',
     sections: ['explore']
-  }
+  },
+ {
+  id: 'audi-q6-etron',
+  name: 'Audi Q6 e-tron',
+  brand: 'audi',
+  priceVal: 1.05,
+  price: '₹1.05 Crore',
+  rangeVal: 625,
+  range: '625 km',
+  battery: '100 kWh',
+  charging: '21 min (DC)',
+  speed: '210 km/h',
+  power: '388 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Virtual Cockpit, Matrix LED headlights, Quattro AWD',
+  dimensions: '4771 x 1939 x 1648 mm',
+  image: 'audi_q6_etron.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'audi-q8-etron',
+  name: 'Audi Q8 e-tron',
+  brand: 'audi',
+  priceVal: 1.15,
+  price: '₹1.15 Crore',
+  rangeVal: 600,
+  range: '600 km',
+  battery: '114 kWh',
+  charging: '31 min (DC)',
+  speed: '200 km/h',
+  power: '408 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Adaptive Air Suspension, Quattro AWD, Audi Virtual Cockpit',
+  dimensions: '4915 x 1937 x 1633 mm',
+  image: 'audi_q8_etron.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'bmw-ix',
+  name: 'BMW iX',
+  brand: 'bmw',
+  priceVal: 1.40,
+  price: '₹1.40 Crore',
+  rangeVal: 635,
+  range: '635 km',
+  battery: '111.5 kWh',
+  charging: '35 min (DC)',
+  speed: '200 km/h',
+  power: '523 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Curved Display, Air Suspension, Driving Assistant Professional',
+  dimensions: '4953 x 1967 x 1695 mm',
+  image: 'bmw_ix.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'bmw-ix1-lwb',
+  name: 'BMW iX1 LWB',
+  brand: 'bmw',
+  priceVal: 49.00,
+  price: '₹49.00 Lakh',
+  rangeVal: 531,
+  range: '531 km',
+  battery: '66.4 kWh',
+  charging: '29 min (DC)',
+  speed: '180 km/h',
+  power: '204 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Panoramic Sunroof, BMW Curved Display, ConnectedDrive',
+  dimensions: '4616 x 1845 x 1641 mm',
+  image: 'bmw_ix1_lwb.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'byd-sealion-7',
+  name: 'BYD Sealion 7',
+  brand: 'byd',
+  priceVal: 48.90,
+  price: '₹48.90 Lakh',
+  rangeVal: 567,
+  range: '567 km',
+  battery: '82.5 kWh',
+  charging: '24 min (DC)',
+  speed: '215 km/h',
+  power: '530 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Blade Battery, Rotating Touchscreen, AWD',
+  dimensions: '4830 x 1925 x 1620 mm',
+  image: 'byd_sealion7.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'byd-emax7',
+  name: 'BYD eMAX 7',
+  brand: 'byd',
+  priceVal: 26.90,
+  price: '₹26.90 Lakh',
+  rangeVal: 530,
+  range: '530 km',
+  battery: '71.8 kWh',
+  charging: '37 min (DC)',
+  speed: '180 km/h',
+  power: '204 hp',
+  safety: '5 Stars (ASEAN NCAP)',
+  features: '7-Seater MPV, Rotating Touchscreen, Blade Battery',
+  dimensions: '4710 x 1810 x 1690 mm',
+  image: 'byd_emax7.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'hyundai-creta-electric',
+  name: 'Hyundai Creta Electric',
+  brand: 'hyundai',
+  priceVal: 18.00,
+  price: '₹18.00 Lakh',
+  rangeVal: 473,
+  range: '473 km',
+  battery: '51.4 kWh',
+  charging: '58 min (DC)',
+  speed: '180 km/h',
+  power: '169 hp',
+  safety: 'Expected 5 Stars',
+  features: 'Level 2 ADAS, Dual 10.25-inch Displays, V2L',
+  dimensions: '4340 x 1790 x 1655 mm',
+  image: 'hyundai_creta_electric.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'kia-carens-clavis-ev',
+  name: 'Kia Carens Clavis EV',
+  brand: 'kia',
+  priceVal: 18.50,
+  price: '₹18.50 Lakh',
+  rangeVal: 490,
+  range: '490 km',
+  battery: '51.4 kWh',
+  charging: '58 min (DC)',
+  speed: '170 km/h',
+  power: '169 hp',
+  safety: 'Expected 5 Stars',
+  features: 'ADAS, Dual Displays, Ventilated Seats',
+  dimensions: '4550 x 1800 x 1708 mm',
+  image: 'kia_carens_clavis_ev.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mahindra-xev-7e',
+  name: 'Mahindra XEV 7e',
+  brand: 'mahindra',
+  priceVal: 21.90,
+  price: '₹21.90 Lakh (Expected)',
+  rangeVal: 650,
+  range: '650 km',
+  battery: '79 kWh',
+  charging: '20 min (DC)',
+  speed: '200 km/h',
+  power: '282 hp',
+  safety: 'Expected 5 Stars',
+  features: 'Level 2 ADAS, Panoramic Roof, Connected Car Tech',
+  dimensions: '4700 x 1900 x 1750 mm',
+  image: 'mahindra_xev7e.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mahindra-thar-e',
+  name: 'Mahindra Thar.e',
+  brand: 'mahindra',
+  priceVal: 25.00,
+  price: '₹25.00 Lakh (Expected)',
+  rangeVal: 500,
+  range: '500 km',
+  battery: '75 kWh',
+  charging: '30 min (DC)',
+  speed: '180 km/h',
+  power: '250 hp',
+  safety: 'Expected 5 Stars',
+  features: 'Electric 4x4, Off-road Modes, Digital Cockpit',
+  dimensions: '4300 x 1900 x 1850 mm',
+  image: 'mahindra_thare.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'maruti-e-vitara',
+  name: 'Maruti e Vitara',
+  brand: 'maruti',
+  priceVal: 18.00,
+  price: '₹18.00 Lakh (Expected)',
+  rangeVal: 500,
+  range: '500 km',
+  battery: '61 kWh',
+  charging: '30 min (DC)',
+  speed: '160 km/h',
+  power: '174 hp',
+  safety: 'Expected 5 Stars',
+  features: 'ADAS, Connected Car, Panoramic Sunroof',
+  dimensions: '4275 x 1800 x 1640 mm',
+  image: 'maruti_evitara.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mercedes-cla-electric',
+  name: 'Mercedes-Benz CLA Electric',
+  brand: 'mercedes',
+  priceVal: 65.00,
+  price: '₹65.00 Lakh (Expected)',
+  rangeVal: 792,
+  range: '792 km',
+  battery: '85 kWh',
+  charging: '22 min (DC)',
+  speed: '210 km/h',
+  power: '268 hp',
+  safety: 'Expected 5 Stars',
+  features: 'MBUX Superscreen, Level 2 ADAS, OTA Updates',
+  dimensions: '4723 x 1855 x 1468 mm',
+  image: 'mercedes_cla_electric.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mercedes-eqa',
+  name: 'Mercedes-Benz EQA',
+  brand: 'mercedes',
+  priceVal: 67.20,
+  price: '₹67.20 Lakh',
+  rangeVal: 560,
+  range: '560 km',
+  battery: '70.5 kWh',
+  charging: '30 min (DC)',
+  speed: '160 km/h',
+  power: '190 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'MBUX Infotainment, Panoramic Sunroof, ADAS',
+  dimensions: '4463 x 1834 x 1620 mm',
+  image: 'mercedes_eqa.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mercedes-eqe-suv',
+  name: 'Mercedes-Benz EQE SUV',
+  brand: 'mercedes',
+  priceVal: 1.39,
+  price: '₹1.39 Crore',
+  rangeVal: 550,
+  range: '550 km',
+  battery: '90.6 kWh',
+  charging: '32 min (DC)',
+  speed: '210 km/h',
+  power: '408 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Hyperscreen, Air Suspension, Burmester Audio',
+  dimensions: '4863 x 1940 x 1685 mm',
+  image: 'mercedes_eqe_suv.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mercedes-eqs-suv',
+  name: 'Mercedes-Benz EQS SUV',
+  brand: 'mercedes',
+  priceVal: 1.43,
+  price: '₹1.43 Crore',
+  rangeVal: 809,
+  range: '809 km',
+  battery: '122 kWh',
+  charging: '31 min (DC)',
+  speed: '210 km/h',
+  power: '544 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: '7-Seater, MBUX Hyperscreen, Air Suspension',
+  dimensions: '5125 x 1959 x 1718 mm',
+  image: 'mercedes_eqs_suv.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mercedes-g-class-electric',
+  name: 'Mercedes-Benz G-Class Electric',
+  brand: 'mercedes',
+  priceVal: 3.00,
+  price: '₹3.00 Crore',
+  rangeVal: 473,
+  range: '473 km',
+  battery: '116 kWh',
+  charging: '32 min (DC)',
+  speed: '180 km/h',
+  power: '579 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'G-Turn, 4 Electric Motors, Off-road Crawl Mode',
+  dimensions: '4624 x 1931 x 1986 mm',
+  image: 'mercedes_g580_eq.jpg',
+  sections: ['explore']
+},
+{
+  id: 'mg-cyberster',
+  name: 'MG Cyberster',
+  brand: 'mg',
+  priceVal: 80.00,
+  price: '₹80.00 Lakh',
+  rangeVal: 580,
+  range: '580 km',
+  battery: '77 kWh',
+  charging: '38 min (DC)',
+  speed: '200 km/h',
+  power: '510 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Convertible Roadster, Scissor Doors, Bose Audio',
+  dimensions: '4535 x 1913 x 1329 mm',
+  image: 'MG_Cyberster.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'mg-m9',
+  name: 'MG M9',
+  brand: 'mg',
+  priceVal: 69.90,
+  price: '₹69.90 Lakh',
+  rangeVal: 430,
+  range: '430 km',
+  battery: '90 kWh',
+  charging: '30 min (DC)',
+  speed: '180 km/h',
+  power: '245 hp',
+  safety: 'Expected 5 Stars',
+  features: 'Luxury MPV, Ottoman Seats, Dual Sunroof',
+  dimensions: '5270 x 2000 x 1840 mm',
+  image: 'MG_M9.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'mg-zs-ev',
+  name: 'MG ZS EV',
+  brand: 'mg',
+  priceVal: 18.98,
+  price: '₹18.98 Lakh',
+  rangeVal: 461,
+  range: '461 km',
+  battery: '50.3 kWh',
+  charging: '60 min (DC)',
+  speed: '175 km/h',
+  power: '176 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Panoramic Sunroof, ADAS, 10.1-inch Touchscreen',
+  dimensions: '4323 x 1809 x 1649 mm',
+  image: 'MG_ZS_EV.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'nissan-ariya',
+  name: 'Nissan Ariya',
+  brand: 'nissan',
+  priceVal: 50.00,
+  price: '₹50.00 Lakh (Expected)',
+  rangeVal: 529,
+  range: '529 km',
+  battery: '87 kWh',
+  charging: '35 min (DC)',
+  speed: '200 km/h',
+  power: '242 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'ProPILOT Assist, Dual Displays, e-4ORCE AWD',
+  dimensions: '4595 x 1850 x 1660 mm',
+  image: 'Nissan_Ariya.WEBP',
+  sections: ['explore']
+},
+
+{
+  id: 'nissan-leaf',
+  name: 'Nissan Leaf',
+  brand: 'nissan',
+  priceVal: 30.00,
+  price: '₹30.00 Lakh (Expected)',
+  rangeVal: 385,
+  range: '385 km',
+  battery: '62 kWh',
+  charging: '45 min (DC)',
+  speed: '157 km/h',
+  power: '214 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'ProPILOT Assist, e-Pedal, 360° Camera',
+  dimensions: '4490 x 1788 x 1540 mm',
+  image: 'nissan_leaf.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'porsche-cayenne-electric',
+  name: 'Porsche Cayenne Electric',
+  brand: 'porsche',
+  priceVal: 2.00,
+  price: '₹2.00 Crore (Expected)',
+  rangeVal: 700,
+  range: '700 km',
+  battery: '100 kWh',
+  charging: '18 min (DC)',
+  speed: '250 km/h',
+  power: '600 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Porsche Active Suspension, AWD, Premium Interior',
+  dimensions: '4930 x 1983 x 1698 mm',
+  image: 'PORSCHE_CAYENNE.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'porsche-taycan',
+  name: 'Porsche Taycan',
+  brand: 'porsche',
+  priceVal: 1.70,
+  price: '₹1.70 Crore',
+  rangeVal: 642,
+  range: '642 km',
+  battery: '105 kWh',
+  charging: '18 min (DC)',
+  speed: '260 km/h',
+  power: '408 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: '800V Charging, Adaptive Air Suspension, Sport Chrono',
+  dimensions: '4963 x 1966 x 1381 mm',
+  image: 'PORSCHE_TAYCAN.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'renault-kwid-ev',
+  name: 'Renault Kwid EV',
+  brand: 'renault',
+  priceVal: 8.00,
+  price: '₹8.00 Lakh (Expected)',
+  rangeVal: 220,
+  range: '220 km',
+  battery: '27 kWh',
+  charging: '40 min (DC)',
+  speed: '125 km/h',
+  power: '65 hp',
+  safety: 'Expected 3 Stars',
+  features: 'Compact Hatchback, Digital Cluster, Fast Charging',
+  dimensions: '3734 x 1579 x 1515 mm',
+  image: 'renault_kwid_ev.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'skoda-elroq',
+  name: 'Skoda Elroq',
+  brand: 'skoda',
+  priceVal: 35.00,
+  price: '₹35.00 Lakh (Expected)',
+  rangeVal: 560,
+  range: '560 km',
+  battery: '77 kWh',
+  charging: '28 min (DC)',
+  speed: '180 km/h',
+  power: '286 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Digital Cockpit, Matrix LED, Travel Assist',
+  dimensions: '4488 x 1884 x 1625 mm',
+  image: 'Skoda_Elroq.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'skoda-enyaq',
+  name: 'Skoda Enyaq',
+  brand: 'skoda',
+  priceVal: 65.00,
+  price: '₹65.00 Lakh (Expected)',
+  rangeVal: 587,
+  range: '587 km',
+  battery: '82 kWh',
+  charging: '28 min (DC)',
+  speed: '180 km/h',
+  power: '286 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Head-up Display, Matrix LEDs, Canton Audio',
+  dimensions: '4649 x 1879 x 1616 mm',
+  image: 'Skoda_Enyaq.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'tata-sierra-ev',
+  name: 'Tata Sierra EV',
+  brand: 'tata',
+  priceVal: 25.00,
+  price: '₹25.00 Lakh (Expected)',
+  rangeVal: 550,
+  range: '550 km',
+  battery: '60 kWh',
+  charging: '30 min (DC)',
+  speed: '180 km/h',
+  power: '170 hp',
+  safety: 'Expected 5 Stars',
+  features: 'Panoramic Sunroof, ADAS, Connected Car Tech',
+  dimensions: '4300 x 1820 x 1675 mm',
+  image: 'tata_sierra_ev.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'tata-tigor-ev',
+  name: 'Tata Tigor EV',
+  brand: 'tata',
+  priceVal: 12.49,
+  price: '₹12.49 Lakh',
+  rangeVal: 315,
+  range: '315 km',
+  battery: '26 kWh',
+  charging: '59 min (DC)',
+  speed: '120 km/h',
+  power: '74 hp',
+  safety: '4 Stars (Global NCAP)',
+  features: 'Ziptron Technology, Connected Car, Auto Climate Control',
+  dimensions: '3993 x 1677 x 1532 mm',
+  image: 'tata_tigor_ev.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'toyota-urban-cruiser-ev',
+  name: 'Toyota Urban Cruiser EV',
+  brand: 'toyota',
+  priceVal: 18.00,
+  price: '₹18.00 Lakh (Expected)',
+  rangeVal: 500,
+  range: '500 km',
+  battery: '61 kWh',
+  charging: '30 min (DC)',
+  speed: '160 km/h',
+  power: '174 hp',
+  safety: 'Expected 5 Stars',
+  features: 'ADAS, Connected Car, Panoramic Sunroof',
+  dimensions: '4275 x 1800 x 1640 mm',
+  image: 'Toyota_Urban_Cruiser_Ebella.jpg',
+  sections: ['explore']
+},
+
+{
+  id: 'vinfast-vf3',
+  name: 'VinFast VF 3',
+  brand: 'vinfast',
+  priceVal: 10.00,
+  price: '₹10.00 Lakh (Expected)',
+  rangeVal: 215,
+  range: '215 km',
+  battery: '18.6 kWh',
+  charging: '36 min (DC)',
+  speed: '100 km/h',
+  power: '43 hp',
+  safety: 'Expected 4 Stars',
+  features: 'Mini SUV, Connected Car, Compact Design',
+  dimensions: '3190 x 1679 x 1652 mm',
+  image: 'vin_fast_vf3.jpeg',
+  sections: ['explore']
+},
+
+{
+  id: 'vinfast-vf7',
+  name: 'VinFast VF 7',
+  brand: 'vinfast',
+  priceVal: 35.00,
+  price: '₹35.00 Lakh (Expected)',
+  rangeVal: 450,
+  range: '450 km',
+  battery: '75.3 kWh',
+  charging: '30 min (DC)',
+  speed: '175 km/h',
+  power: '349 hp',
+  safety: 'Expected 5 Stars',
+  features: 'Panoramic Roof, Level 2 ADAS, HUD',
+  dimensions: '4545 x 1890 x 1636 mm',
+  image: 'vin_fast_vf7.jpeg',
+  sections: ['explore']
+},
+
+{
+  id: 'vinfast-vf-mpv7',
+  name: 'VinFast VF MPV7',
+  brand: 'vinfast',
+  priceVal: 28.00,
+  price: '₹28.00 Lakh (Expected)',
+  rangeVal: 450,
+  range: '450 km',
+  battery: '75 kWh',
+  charging: '30 min (DC)',
+  speed: '170 km/h',
+  power: '201 hp',
+  safety: 'Expected 5 Stars',
+  features: '7-Seater MPV, Panoramic Roof, ADAS',
+  dimensions: '4850 x 1900 x 1760 mm',
+  image: 'VinFast_VF_MPV7.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'volvo-ec40',
+  name: 'Volvo EC40',
+  brand: 'volvo',
+  priceVal: 59.00,
+  price: '₹59.00 Lakh',
+  rangeVal: 530,
+  range: '530 km',
+  battery: '82 kWh',
+  charging: '28 min (DC)',
+  speed: '180 km/h',
+  power: '408 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Pilot Assist, Google Built-in, Panoramic Roof',
+  dimensions: '4440 x 1873 x 1591 mm',
+  image: 'volvo_EC40.WEBP',
+  sections: ['explore']
+},
+
+{
+  id: 'volvo-ex30',
+  name: 'Volvo EX30',
+  brand: 'volvo',
+  priceVal: 50.00,
+  price: '₹50.00 Lakh (Expected)',
+  rangeVal: 476,
+  range: '476 km',
+  battery: '69 kWh',
+  charging: '26 min (DC)',
+  speed: '180 km/h',
+  power: '428 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Google Built-in, Harman Kardon Audio, Pilot Assist',
+  dimensions: '4233 x 1837 x 1549 mm',
+  image: 'VOLVO_EX30.JPG',
+  sections: ['explore']
+},
+
+{
+  id: 'volvo-ex40',
+  name: 'Volvo EX40',
+  brand: 'volvo',
+  priceVal: 57.90,
+  price: '₹57.90 Lakh',
+  rangeVal: 530,
+  range: '530 km',
+  battery: '82 kWh',
+  charging: '28 min (DC)',
+  speed: '180 km/h',
+  power: '408 hp',
+  safety: '5 Stars (Euro NCAP)',
+  features: 'Google Built-in, 360° Camera, Pilot Assist',
+  dimensions: '4440 x 1873 x 1651 mm',
+  image: 'VOLVO_EX40.JPG',
+  sections: ['explore']
+}, 
 ];
 
 // --- State-Wise Tax & EV Policy Database ---
@@ -1125,10 +1769,6 @@ const LEARN_DATABASE = {
     title: 'Charging at Home',
     content: '<p>Setting up home charging is the most convenient and cost-effective way to keep your EV charged. Most EVs come with a portable charging cable that can plug into a standard 15A socket, but for faster charging, installing a dedicated AC wallbox is recommended.</p><h3>Standard 15A Socket Charging</h3><p>A standard 15A socket (the larger plug point found behind refrigerators and air conditioners) can delivers 2-3 kW of power. This charges most EV batteries from empty to full in 10-15 hours. It is perfectly adequate for overnight charging if your daily commute is under 80 km.</p><h3>AC Wallbox Installation</h3><p>A 7.2 kW AC wallbox is the gold standard for home charging. It charges 3-4 times faster than a standard socket, taking most EVs from 0-100% in 4-6 hours. Installation requires a dedicated 40A MCB in your electrical panel and proper earthing.</p><p>Many manufacturers offer free wallbox installation with vehicle purchase. The installation cost typically ranges from ₹3,000-8,000 depending on the distance from your meter box to the parking spot.</p><h3>Cost of Home Charging</h3><p>At residential electricity rates of ₹6-9 per kWh, home charging costs approximately ₹1-1.5 per km. This is 85-90% cheaper than petrol (₹8-9 per km). If you have solar panels, your running cost can drop to virtually zero.</p>'
   },
-  'apartment-charging': {
-    title: 'Apartment Charging',
-    content: '<p>Living in an apartment or gated society does not mean you cannot own an EV. Here is a step-by-step guide to getting charging set up in your apartment complex.</p><h3>Step 1: Check Your Parking Situation</h3><p>If you have a designated reserved parking spot, you are eligible for a personal charger installation. If you have common/unreserved parking, you will need to work with your society to designate EV charging spots.</p><h3>Step 2: Submit a Formal Request</h3><p>Write a formal application to your Resident Welfare Association (RWA) or apartment management committee. The Electricity Act 2003 and Model Building Bye-Laws 2016 mandate that RWAs cannot unreasonably refuse EV charger installation.</p><h3>Step 3: Electrical Assessment</h3><p>Your society\'s electrical infrastructure must have sufficient sanctioned load. Most modern apartments with 15-20 kW per flat allocation can support a 7.2 kW EV charger without upgrading the main supply.</p><h3>Step 4: Installation & Metering</h3><p>A licensed electrician will run a dedicated wire from your meter box to your parking spot. Individual metering ensures you pay for your own charging electricity, not the society common area bill.</p><h3>Legal Protections</h3><p>The Maharashtra Electricity Regulatory Commission (MERC) and similar state bodies have issued directives that RWAs must approve EV charger installations within 15 days of application. Unreasonable denial can be appealed to the State Electricity Regulatory Commission.</p>'
-  },
   'fast-vs-slow': {
     title: 'Fast vs Slow Charging',
     content: '<p>Understanding the difference between AC and DC charging is essential for efficient EV ownership. Here is a detailed comparison.</p><h3>AC Charging (Slow)</h3><p>Alternating Current from the grid is converted to Direct Current by the car\'s onboard charger. Speeds range from 2 kW (standard socket) to 22 kW (three-phase wallbox). AC charging is gentle on the battery, generates less heat, and contributes to longer battery life. Best for overnight and workplace charging.</p><h3>DC Fast Charging</h3><p>Direct Current is supplied directly to the battery, bypassing the onboard charger entirely. Speeds range from 50 kW to 350 kW. DC fast charging can add 200-300 km of range in just 15-30 minutes, making it ideal for highway road trips.</p><h3>Battery Impact</h3><p>While DC fast charging is convenient, frequent use (multiple times per week) can accelerate battery degradation by 2-5% over the vehicle\'s lifetime compared to exclusive AC charging. Most manufacturers recommend using DC fast charging only for long trips and relying on AC charging for daily needs.</p><h3>Cost Comparison</h3><p>AC home charging: ₹1-1.5/km. DC fast charging: ₹2.5-4.5/km. While still cheaper than petrol, DC charging costs 2-3x more than home AC charging due to infrastructure and electricity surcharges.</p>'
@@ -1145,13 +1785,79 @@ const LEARN_DATABASE = {
     title: 'EV Running Cost Analysis',
     content: '<p>One of the biggest advantages of EV ownership is the dramatically lower running cost compared to petrol or diesel vehicles. Here is a detailed breakdown.</p><h3>Electricity Cost</h3><p>At residential rates of ₹6-9 per kWh, an EV costs approximately ₹1-1.5 per km to run. A 40 kWh battery (typical for a compact EV) costs ₹240-360 to fully charge, providing 250-350 km of real-world range.</p><h3>Petrol Comparison</h3><p>A petrol car achieving 15 kmpl at ₹105 per litre costs approximately ₹7 per km. This means an EV saves you 80-85% on fuel costs compared to petrol. Over 15,000 km per year, the savings amount to ₹75,000-90,000 annually.</p><h3>Maintenance Savings</h3><p>EVs have no engine oil, timing belts, spark plugs, air filters, or exhaust systems to maintain. Annual maintenance costs for an EV are typically 40-50% lower than an equivalent petrol vehicle. A typical EV service costs ₹2,000-4,000 versus ₹5,000-10,000 for a petrol car.</p><h3>Total Cost of Ownership</h3><p>Over 5 years/75,000 km, an EV typically saves ₹3-5 lakh in fuel and maintenance costs compared to a petrol vehicle. Even with the higher upfront purchase price (₹1-3 lakh premium), the total cost of ownership is often lower for an EV, especially for high-mileage users.</p>'
   },
-  'trip-planning': {
-    title: 'EV Road Trip Planning',
-    content: '<p>Planning a long-distance road trip in an EV requires a different approach than a petrol car. Here are tips and strategies for stress-free EV road trips.</p><h3>Route Planning</h3><p>Use apps like PlugShare, Tata Power EZ Charge, or Statiq to identify DC fast chargers along your route. Plan charging stops every 200-250 km (for most EVs). Always have a backup charging location in case your primary stop is occupied or out of service.</p><h3>Driving Style for Maximum Range</h3><p>Use Eco mode on highways to maximize range. Maintain a steady speed of 80-90 km/h for optimal efficiency. Use regenerative braking to recover energy when approaching exits or traffic. Pre-condition the cabin while plugged in to save battery for driving.</p><h3>Charging Strategy</h3><p>Charge from 10% to 80% at DC fast chargers for the fastest charging speeds (charging slows down significantly after 80%). A typical 10-80% session takes 25-40 minutes depending on the car and charger. Plan meals and rest breaks around charging stops.</p><h3>What to Carry</h3><p>Always carry your portable charging cable (3-pin plug) as backup. Download charging apps for the networks along your route. Keep a list of emergency charging contacts. Consider carrying a tire inflator and basic toolkit.</p>'
+};
+
+// Alias mapping for old → new slugs (backward compatibility)
+const LEARN_SLUG_ALIASES = {
+  'charging-at-home': 'home-charging',
+  'government-subsidies': 'subsidies'
+};
+
+// --- Learn Database (expanded) ---
+Object.assign(LEARN_DATABASE, {
+  'everything-about-evs': {
+    title: 'Everything About EVs',
+    content: '<p>Electric vehicles (EVs) are rapidly transforming the automotive landscape in India. This comprehensive guide covers everything you need to know about EVs — from how they work to why they are the future of mobility.</p><h3>How EVs Work</h3><p>Unlike conventional vehicles that run on internal combustion engines, EVs are powered by one or more electric motors using energy stored in rechargeable battery packs. When you press the accelerator, the battery sends electricity to the motor, which turns the wheels instantly. There is no clutch, no gearbox, and no engine idling.</p><h3>Types of EVs</h3><p><strong>BEV (Battery Electric Vehicle):</strong> Runs entirely on battery power. No petrol engine, no tailpipe emissions. Examples: Tata Nexon EV, MG ZS EV, Hyundai Kona Electric.</p><p><strong>Hybrid EVs (HEV/PHEV):</strong> Combine a petrol engine with an electric motor. HEVs charge the battery through regenerative braking. PHEVs can be plugged in to charge. Examples: Toyota Hyryder (HEV), Volvo XC90 Recharge (PHEV).</p><h3>Key EV Advantages</h3><p>Lower running cost (85% cheaper than petrol), instant torque for quick acceleration, zero tailpipe emissions, silent operation, fewer moving parts requiring less maintenance, and access to EV-specific incentives like road tax exemptions and subsidies.</p><h3>Charging Basics</h3><p>EVs can be charged at home using a standard 15A socket (slow) or a dedicated AC wallbox (faster). For highway travel, DC fast chargers can add 200-300 km of range in 25-40 minutes. Public charging infrastructure in India is expanding rapidly with over 12,000 stations across the country.</p>'
   },
-  'real-range': {
-    title: 'Real World Range Explained',
-    content: '<p>The range quoted by manufacturers (ARAI certified) is always higher than what you will achieve in real-world driving. Here is why and how to estimate your actual range.</p><h3>Why Range Differs</h3><p>ARAI test cycles are conducted in controlled laboratory conditions with optimal temperatures, smooth driving patterns, and no accessories. Real-world conditions include: traffic, aggressive acceleration, AC/heater usage, highway speeds, elevation changes, and weather conditions.</p><h3>Typical Real-World Reduction</h3><p>Most EVs achieve 70-85% of their claimed ARAI range in mixed driving conditions. For example, a car with 465 km ARAI range typically delivers 350-400 km in real-world city driving and 300-350 km on highways at 100-120 km/h.</p><h3>Factors That Reduce Range</h3><p>High-speed driving (120+ km/h): reduces range by 15-25%. AC usage on high: reduces range by 10-15%. Cold weather: reduces range by 15-30% (less relevant for India). Heavy loads: reduces range by 5-10%. Stop-and-go traffic: surprisingly efficient due to regenerative braking recovery.</p><h3>How to Maximize Real Range</h3><p>Drive smoothly with gentle acceleration. Use Eco mode on highways. Set AC to 24°C on low/medium fan speed. Maintain tire pressure at recommended levels. Reduce payload when possible. Use regenerative braking to recover energy in city traffic.</p>'
+  'ev-buying-guide': {
+    title: 'EV Buying Guide',
+    content: '<p>Buying your first EV is exciting but requires careful consideration. This step-by-step guide walks you through the entire purchase process.</p><h3>Step 1: Assess Your Needs</h3><p>Determine your daily commute distance, whether you have access to home charging, your budget, and must-have features. Most Indians drive under 50 km daily, making even entry-level EVs with 200+ km range more than sufficient.</p><h3>Step 2: Set a Budget</h3><p>EV prices in India range from ₹8 lakh (entry-level) to ₹2.5 crore (luxury). Factor in the upfront cost minus FAME-III subsidy (up to ₹3.5 lakh) and state incentives (road tax exemption saves ₹30,000-2 lakh). Consider TCO (Total Cost of Ownership) rather than just the showroom price.</p><h3>Step 3: Choose the Right Model</h3><p>Compare range, charging speed, boot space, ground clearance, features, and warranty. Test drive shortlisted models. Pay attention to real-world range rather than ARAI certified figures. Check for service center availability in your city.</p><h3>Step 4: Financing</h3><p>Apply for an EV-specific loan which offers 0.5-1% lower interest rates than conventional car loans. Use the EMI calculator to plan your monthly payments. Claim Section 80EEB tax deduction on up to ₹1.5 lakh of interest paid.</p><h3>Step 5: Home Charging Setup</h3><p>Before delivery, arrange for a home charging installation. Most manufacturers include a free AC wallbox with installation. If you live in an apartment, start the RWA approval process early.</p>'
+  },
+  'learn-ev': {
+    title: 'Learn EV',
+    content: '<p>This comprehensive guide takes you from EV basics to advanced concepts, helping you understand electric vehicle technology thoroughly.</p><h3>EV Components</h3><p>The main components of an electric vehicle are: the battery pack (stores energy), the electric motor (converts electricity to motion), the onboard charger (converts AC to DC), the inverter (converts DC to AC for the motor), and the BMS or Battery Management System (monitors and protects the battery).</p><h3>How an EV Drives</h3><p>When you press the accelerator, the ECU (Electronic Control Unit) signals the inverter to draw power from the battery and send it to the motor. The motor creates rotational force (torque) instantly, providing smooth and quick acceleration without gear shifts.</p><h3>Battery Technology</h3><p>Most modern EVs use Lithium-ion batteries, which offer high energy density and long cycle life. Battery capacity is measured in kWh — larger numbers mean more range. Typical capacities range from 21 kWh (compact EVs) to 100 kWh (luxury EVs).</p><h3>Charging Levels</h3><p>Level 1: Standard 15A socket (2-3 kW). Level 2: AC wallbox (7-22 kW). Level 3: DC fast charging (50-350 kW). Higher kW means faster charging, but frequent DC fast charging can accelerate battery degradation.</p><h3>EV Maintenance</h3><p>EVs have 80% fewer moving parts than petrol cars. No oil changes, no timing belts, no spark plugs. Main maintenance items are: tire rotation, brake fluid replacement, cabin air filter, and coolant (for battery thermal management). Annual service costs 40-50% less than a petrol car.</p>'
+  },
+  'ev-terminology': {
+    title: 'EV Terminology',
+    content: '<p>EV terminology can be confusing for newcomers. This glossary explains the most common terms you will encounter.</p><h3>Battery & Charging Terms</h3><p><strong>kWh (Kilowatt-hour):</strong> A unit of energy used to measure battery capacity. A 40 kWh battery can deliver 40 kW of power for one hour.</p><p><strong>kW (Kilowatt):</strong> A unit of power used to measure charging speed and motor output. A 50 kW charger delivers 50 kWh of energy per hour.</p><p><strong>CCS2:</strong> Combined Charging System Type 2 — the standard charging connector for EVs in India. Supports both AC and DC charging through a single port.</p><p><strong>AC vs DC:</strong> Alternating Current (from the grid) must be converted to Direct Current (battery storage) by the car\'s onboard charger. DC fast charging bypasses the onboard charger, supplying DC directly to the battery.</p><h3>Performance Terms</h3><p><strong>Torque (Nm):</strong> Rotational force produced by the motor. EVs produce maximum torque instantly, providing quick acceleration from a standstill.</p><p><strong>Range (km):</strong> Distance an EV can travel on a full charge. ARAI range is tested in lab conditions; real-world range is typically 70-85% of ARAI figures.</p><p><strong>Regenerative Braking:</strong> Captures kinetic energy during deceleration and converts it back to electricity to recharge the battery.</p><h3>Safety & Features</h3><p><strong>ADAS:</strong> Advanced Driver Assistance Systems — safety features like automatic emergency braking, lane keeping, and adaptive cruise control.</p><p><strong>IP Rating:</strong> Ingress Protection rating for battery and motor. Most EVs have IP67 rating (dust tight and waterproof up to 1 meter depth).</p>'
+  },
+  'battery-chemistry': {
+    title: 'Battery Chemistry',
+    content: '<p>Understanding battery chemistry helps you make informed decisions about EV ownership. Here is what you need to know about the different battery types used in EVs.</p><h3>Lithium-ion (Li-ion) Batteries</h3><p>All modern EVs use lithium-ion batteries due to their high energy density and long cycle life. Within the lithium-ion family, there are several popular chemistries with different characteristics.</p><h3>LFP (Lithium Iron Phosphate)</h3><p>LFP batteries use iron and phosphate instead of cobalt and nickel. They are safer (lower fire risk), have longer cycle life (2,000-3,000+ charge cycles), and are more affordable. The trade-off is lower energy density, meaning they weigh more for the same capacity. Popular in: Tata Nexon EV, MG ZS EV (newer models).</p><h3>NMC (Nickel Manganese Cobalt)</h3><p>NMC batteries offer higher energy density, meaning more range in less weight. They perform better in cold weather but have shorter cycle life and contain cobalt, which raises ethical and cost concerns. Popular in: Hyundai Ioniq 5, Kia EV6, BMW i4.</p><h3>Solid-State Batteries (Future)</h3><p>Solid-state batteries replace the liquid electrolyte with a solid material, promising 2x the energy density, faster charging, and improved safety. Commercial deployment is expected from 2027-2030. Toyota and Nissan are leading solid-state development.</p>'
+  },
+  'lfp-vs-nmc': {
+    title: 'LFP vs NMC Battery Pack',
+    content: '<p>Choosing between LFP and NMC battery chemistry is one of the most important decisions when buying an EV. Here is a detailed comparison.</p><h3>LFP (Lithium Iron Phosphate)</h3><p><strong>Advantages:</strong> Safer — highly resistant to thermal runaway (less fire risk). Longer lifespan — 3,000+ charge cycles (10+ years of daily use). No cobalt — ethical sourcing, lower cost. Better high-temperature performance. Can be charged to 100% regularly without significant degradation.</p><p><strong>Disadvantages:</strong> Lower energy density (heavier for same capacity). Reduced cold-weather performance. Lower voltage plateau makes precise SoC estimation harder.</p><h3>NMC (Nickel Manganese Cobalt)</h3><p><strong>Advantages:</strong> Higher energy density (more range, lighter weight). Better cold-weather performance. Higher discharge rate (better for performance EVs).</p><p><strong>Disadvantages:</strong> More expensive. Shorter cycle life (1,500-2,000 cycles). Contains cobalt (ethical and supply chain concerns). Higher risk of thermal runaway. Best charged only to 80% for daily use to preserve battery health.</p><h3>Which Should You Choose?</h3><p>For most Indian buyers, LFP is the better choice due to our warm climate, the importance of long battery life in a hot country, lower cost, and the ability to charge to 100% daily. NMC is preferred for long-range EVs and performance vehicles where weight and cold-weather performance matter.</p>'
+  },
+  'ac-vs-dc': {
+    title: 'AC vs DC Charging',
+    content: '<p>Understanding the difference between AC and DC charging is fundamental to EV ownership. Each has its ideal use cases.</p><h3>AC Charging (Alternating Current)</h3><p>AC is the type of electricity supplied by the grid. When you plug into a home socket or AC wallbox, the car\'s onboard charger converts AC to DC to charge the battery. This conversion limits the speed — typical AC charging speeds are 2-22 kW. A full charge takes 4-12 hours depending on the battery size and charger power.</p><p>AC charging is ideal for overnight charging at home or 6-8 hour charging at work. It is gentler on the battery, generates less heat, and costs less (residential electricity rates are lower than DC charger tariffs).</p><h3>DC Charging (Direct Current)</h3><p>DC fast chargers supply DC electricity directly to the battery, bypassing the car\'s onboard charger. This allows much higher power levels — 50 kW to 350 kW. A 10% to 80% charge typically takes 20-45 minutes depending on the car and charger capability.</p><p>DC charging is essential for highway travel and road trips when you need to add range quickly. However, frequent DC fast charging can accelerate battery degradation over time.</p><h3>Connector Types</h3><p>India uses the CCS2 (Combined Charging System Type 2) standard for both AC and DC charging through a single multi-pin connector. CHAdeMO was used by older Nissan Leaf models but is being phased out in India.</p>'
+  },
+  'v2l': {
+    title: 'Vehicle-to-Load (V2L)',
+    content: '<p>V2L (Vehicle-to-Load) is a feature that lets you use your EV\'s battery as a mobile power source. It transforms your car into a giant portable power bank.</p><h3>How V2L Works</h3><p>V2L uses a bidirectional inverter in the vehicle to convert DC from the battery into standard AC electricity (230V, 50Hz in India). A special V2L adapter plugs into the car\'s charging port, giving you one or more standard 3-pin sockets to plug appliances directly into your car.</p><h3>Power Output</h3><p>Most V2L systems provide 1.5-3.5 kW of power, enough to run: laptop chargers (60-100W), LED TVs (100-200W), fans (50-75W), small refrigerators (200-400W), power tools (500-1500W), and even some medical equipment.</p><h3>Use Cases</h3><p>V2L is incredibly useful for: camping (power lights, cookers, speakers), outdoor events, emergency backup during power cuts, construction sites, tailgate parties, and powering equipment at remote locations.</p><h3>Battery Impact</h3><p>Using V2L draws power from the same battery used for driving. A 40 kWh battery with V2L at 2 kW can power a refrigerator + fans + lights for over 24 hours. The impact on battery health is minimal since the discharge rate is very gentle compared to driving.</p>'
+  },
+  'battery-health': {
+    title: 'Battery Health',
+    content: '<p>Maximizing your EV battery\'s lifespan ensures long-term performance and preserves resale value. Here are expert tips for maintaining battery health.</p><h3>Optimal Charging Habits</h3><p>For LFP batteries: charging to 100% daily is fine and even recommended for proper BMS calibration. For NMC batteries: keep daily charging between 20-80% to reduce stress on the cells. For both chemistries: avoid letting the battery drop below 10% regularly.</p><h3>Temperature Management</h3><p>Heat is the biggest enemy of battery health. Park in shade whenever possible. Use scheduled charging to charge during cooler night hours. If your EV has battery preconditioning, use it before DC fast charging in extreme temperatures.</p><h3>DC Fast Charging Frequency</h3><p>While convenient, regular DC fast charging can accelerate degradation. Use DC fast charging primarily for road trips. For daily charging, rely on AC home or workplace charging. Studies show that exclusive DC fast charging can cause 2-5% additional degradation over 1,00,000 km compared to AC charging.</p><h3>Battery Calibration</h3><p>Every 1-2 months, let the battery discharge to below 10% and then charge to 100% to let the BMS recalibrate the state of charge estimation. This ensures your range display remains accurate.</p><h3>Warranty Protection</h3><p>Most manufacturers warrant the battery for 8 years or 1,60,000 km, guaranteeing at least 70% capacity retention. Following the above best practices will help ensure your battery stays well within this threshold.</p>'
+  },
+  'regenerative-braking': {
+    title: 'Regenerative Braking',
+    content: '<p>Regenerative braking is one of the most innovative features of electric vehicles. It captures energy that would otherwise be wasted during braking and feeds it back into the battery.</p><h3>How It Works</h3><p>When you lift your foot off the accelerator or press the brake pedal in an EV, the electric motor reverses its role and acts as a generator. The motor\'s resistance slows the vehicle while converting kinetic energy into electrical energy, which is sent back to the battery.</p><h3>Driving with One Pedal</h3><p>Many EVs offer adjustable levels of regenerative braking, from mild (coasts like a petrol car) to strong (decelerates rapidly, allowing one-pedal driving). In strong regen mode, you can handle most driving situations using only the accelerator pedal — press to go, release to slow down.</p><h3>Efficiency Gains</h3><p>Regenerative braking can recover 15-30% of the energy that would otherwise be lost as heat during braking. In city driving with frequent stop-start traffic, this can extend your range by 10-20% compared to highway driving where regenerative opportunities are fewer.</p><h3>Real Benefits</h3><p>Beyond energy recovery, regen braking reduces wear on brake pads (they can last 1,00,000+ km), provides smoother deceleration, and gives the driver more control in slippery conditions by reducing the need for hydraulic brake application.</p>'
+  },
+  'highway-charging': {
+    title: 'Highway Charging Strategies',
+    content: '<p>Planning charging stops for highway travel requires strategy to minimize total trip time while ensuring you never run out of charge.</p><h3>Pre-Trip Planning</h3><p>Use EV trip planning apps (PlugShare, Tata Power EZ Charge, Statiq) to identify DC fast chargers along your route. Mark primary and backup charging locations. Check charger status (available, in use, out of service) before departing.</p><h3>Optimal Charging Windows</h3><p>DC fast charging is fastest between 10% and 80% state of charge. Above 80%, charging speed drops dramatically (sometimes to 20-30 kW). Plan each charging stop to arrive at 5-15% SoC and leave at 60-80% SoC to minimize total charging time.</p><h3>Charge While You Eat</h3><p>Time your charging stops with meals and breaks. A 30-40 minute charging session aligns perfectly with a lunch break at a highway restaurant that has a charger. Many highway charging stations in India are located at or near food establishments.</p><h3>Backup Plans</h3><p>Always have a Plan B. If your primary charging stop is occupied or broken, know the next closest charger. Carry your portable 3-pin charging cable as an emergency backup (even 2-3 km of range per hour can get you to a working charger in extreme situations).</p><h3>Battery Preconditioning</h3><p>Some EVs can preheat or precool the battery before arriving at a DC fast charger. This ensures the battery is at optimal temperature for the fastest charging speed. Enable this feature in your car\'s navigation when routing to a charger.</p>'
+  },
+  'ground-clearance': {
+    title: 'Ground Clearance Explained',
+    content: '<p>Ground clearance is an important consideration when buying an EV, especially for Indian road conditions. Here is everything you need to know.</p><h3>What is Ground Clearance?</h3><p>Ground clearance is the distance between the lowest point of the vehicle\'s underbody and the road surface. It is measured with the vehicle unladen (no passengers or cargo) on a flat surface. For EVs, the lowest point is typically the battery pack enclosure mounted underneath the floor.</p><h3>Why It Matters for EVs</h3><p>EVs have their heavy battery packs mounted on the floor, which naturally lowers the centre of gravity. While this improves handling and stability, it means the battery pack can be the lowest point of the car. Bumps, speed breakers, and uneven roads can potentially scrape the battery housing if ground clearance is insufficient.</p><h3>Typical EV Ground Clearance</h3><p>Compact EVs: 160-180 mm (e.g., Tata Nexon EV: 190 mm). Sedans: 140-165 mm (e.g., Hyundai Ioniq 6: 141 mm). SUVs: 180-220 mm (e.g., MG ZS EV: 180 mm). Premium SUVs: 170-210 mm (e.g., Hyundai Ioniq 5: 180 mm, Kia EV6: 178 mm). For context, most Indian speed breakers are designed for vehicles with at least 160 mm clearance.</p><h3>Battery Protection</h3><p>All modern EV battery packs are housed in rugged metal enclosures with impact protection and IP67 water/dust resistance. Manufacturers test batteries against bottom impacts and puncture resistance. Still, it is wise to avoid deep potholes and sharp objects on the road.</p><h3>Tips for Low Clearance EVs</h3><p>Approach speed breakers at an angle (one wheel at a time). Load the vehicle evenly to avoid sagging. Consider aftermarket spring assisters if you regularly drive with heavy loads. Know your car\'s clearance and plan routes accordingly.</p>'
+  },
+  'charging-etiquette': {
+    title: 'Charging Etiquette',
+    content: '<p>As EV adoption grows in India, proper charging etiquette ensures a positive experience for all EV owners sharing public charging infrastructure.</p><h3>Move Your EV When Charging is Complete</h3><p>Once your EV reaches the desired state of charge (typically 80% for DC fast charging), move it to a regular parking spot if there are other EVs waiting. Many charging apps show real-time availability and queue status. Being considerate prevents charging congestion.</p><h3>Don\'t ICE the Charging Spot</h3><p>ICE stands for Internal Combustion Engine — parking a non-EV in an EV charging spot is called ICE-ing. Even if you drive an EV, parking in a charging spot without plugging in (or after charging is complete) is considered poor etiquette. Charging spots are for charging, not regular parking.</p><h3>Handle Cables with Care</h3><p>Charging cables are expensive and delicate. Plug and unplug gently. Do not yank the cable. Coil it back neatly after use. Report damaged cables or chargers to the network operator through the app.</p><h3>Queue Management</h3><p>If there is a queue, note who arrived before you. Most charging apps show current occupancy and wait times. Be prepared to wait 15-30 minutes during peak travel times. If there are multiple stalls, coordinate with other EV owners to share if your cars can charge at different power levels.</p><h3>Charging Network Etiquette</h3><p>Create accounts on major charging networks (Tata Power EZ, ChargeZone, Statiq, Jio-bp) before your trip. Keep sufficient balance in your wallet. Check charger status before driving to it. Rate and review chargers to help fellow EV owners.</p>'
+  }
+});
+
+// --- Resources Database ---
+const RESOURCES_DATABASE = {
+  'faqs': {
+    title: 'FAQs',
+    content: '<p>Find quick answers to the most frequently asked questions about electric vehicles in India.</p><h3>General Questions</h3><p><strong>Q: Are EVs really cheaper to run than petrol cars?</strong> A: Yes. EVs cost approximately ₹1-1.5 per km to run, compared to ₹8-9 per km for petrol cars. Over 15,000 km per year, an EV saves you ₹75,000-90,000 in fuel costs.</p><p><strong>Q: How long does it take to charge an EV?</strong> A: From empty to full: 10-15 hours on a standard 15A socket, 4-6 hours on a 7.2 kW AC wallbox, and 25-45 minutes on a DC fast charger (10% to 80%).</p><p><strong>Q: What is the real-world range of EVs?</strong> A: Most EVs achieve 70-85% of their ARAI certified range in real-world driving. For example, a car with 465 km ARAI range delivers 350-400 km in mixed driving conditions.</p><p><strong>Q: Can I install a charger in my apartment?</strong> A: Yes. Under the Electricity Act 2003, RWAs cannot unreasonably refuse EV charger installation. Submit a formal request and they must respond within 15 days.</p><p><strong>Q: What government subsidies are available?</strong> A: FAME-III provides up to ₹3.5 lakh subsidy for passenger EVs. Most states offer 100% road tax exemption. Section 80EEB provides tax deduction on up to ₹1.5 lakh of EV loan interest.</p>'
+  },
+  'apartment-noc-letter': {
+    title: 'Apartment NOC Letter Template',
+    content: '<p>Getting approval from your Resident Welfare Association (RWA) or apartment management is an important step toward installing an EV charger at your parking spot. Use the template below to submit a formal request.</p><h3>Sample Application Letter</h3><pre style="background:#f4f4f5;padding:16px;font-size:11px;line-height:1.7;white-space:pre-wrap;border-radius:8px;font-family:monospace;">Date: [Insert Date]\n\nTo,\nThe Secretary / Managing Committee,\n[Name of RWA / Apartment Name]\n[Address]\n\nSubject: Request for Permission to Install EV Charger at Parking Spot No. [Number]\n\nDear Sir/Madam,\n\nI am a resident of [Apartment Name], Flat No. [Number], Tower/Wing [Name], and the owner of parking spot no. [Number]. I have recently purchased/am planning to purchase an electric vehicle (make: [EV Model], registration no.: [Number]).\n\nI request permission to install a 7.2 kW EV charging unit at my designated parking spot. The installation will be carried out by an authorized/licensed electrician with proper safety measures, including:\n\n1. Dedicated 40A MCB from my meter box\n2. Proper earthing as per ISI standards\n3. Weatherproof enclosure for the charging unit\n4. Individual metering to ensure electricity costs are billed to my flat\n\nAs per the Electricity Act 2003 and [State] Electricity Regulatory Commission guidelines, EV charger installations are to be facilitated by RWAs and management associations. I kindly request your approval at the earliest.\n\nThank you for your support in promoting green mobility.\n\nYours faithfully,\n[Your Name]\n[Flat Number & Tower]\n[Contact Number]\n[Email ID]\n\nEnclosures:\n1. Copy of vehicle registration\n2. Layout plan showing parking spot and charger location\n3. Electrician\'s safety certificate</pre><h3>Tips for Getting Approval</h3><p>Include a layout diagram showing the proposed wiring route from your meter box to the parking spot. Offer to bear all installation and metering costs. Reference the Electricity Act 2003 and your state\'s EV policy for legal backing. Join with other EV-owning residents to make a joint request — RWAs respond better to group requests.</p>'
   }
 };
 
@@ -1188,7 +1894,7 @@ const BLOG_DATABASE = [
 
 // --- Brand Logo Mapping ---
 const BRAND_LOGO_MAP = {
-  'audi': 'AUDI_LOGO.JPG',
+  'audi': 'lAUDI_LOGO.JPG',
   'bmw': 'BMW_LOGO.jpeg',
   'byd': 'BYD_LOGO.jpeg',
   'citroen': 'CITROEN_logo.jpg',
@@ -1217,7 +1923,7 @@ const BRAND_LOGO_MAP = {
   'rolls-royce': 'ROLLS_ROYCE.JPG',
 };
 function getBrandLogoUrl(brandId) {
-  return './LOGOS/' + (BRAND_LOGO_MAP[brandId] || brandId.toUpperCase() + '_LOGO.jpeg');
+  return '/LOGOS/' + (BRAND_LOGO_MAP[brandId] || brandId.toUpperCase() + '_LOGO.jpeg');
 }
 function getBrandInitials(name) {
   return name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
@@ -1308,6 +2014,97 @@ const INSIGHTS_CATEGORIES = [
   { key: 'expert-columns', label: 'Expert Columns', icon: '🎓', desc: 'Analysis and opinions from EV experts' },
   { key: 'tech-deep-dives', label: 'Tech Deep Dives', icon: '🔧', desc: 'In-depth technical explanations of EV technology' }
 ];
+
+// Alias mapping for insight slugs (menu → canonical)
+const INSIGHTS_SLUG_ALIASES = {
+  'latest-ev-news': 'latest-news',
+  'ev-charging-explained': 'charging-guide',
+  'ev-guides': 'buying-guides'
+};
+
+// Additional insights categories (with placeholder articles)
+Object.assign(INSIGHTS_DATABASE, {
+  'ev-infrastructure-india': [
+    { id: 'infra-1', title: 'India\'s EV Charging Network: Complete Overview', subtitle: 'From highways to cities, mapping India\'s charging infrastructure', excerpt: 'A comprehensive look at the current state of EV charging infrastructure across India, including major networks, coverage gaps, and future expansion plans.', date: 'Oct 2026', author: 'Infra Desk', readTime: '7 min read', tag: 'Infrastructure', image: '', content: '<p>India\'s EV charging infrastructure has grown exponentially, with over 12,000 public charging stations operational as of 2026. Here\'s a complete overview of the current landscape.</p><h3>Major Networks</h3><p>Tata Power EZ Charging leads with 1,000+ DC chargers across 200+ cities. Jio-bp Pulse operates 500+ chargers focused on highway corridors. Zeon Charging has 300+ chargers in 50+ cities. ChargeZone specializes in highway charging with chargers every 50-80 km on major routes.</p><h3>Highway Coverage</h3><p>The Golden Quadrilateral is now 85% covered with DC fast chargers at 50 km intervals. Major corridors like Delhi-Mumbai, Bangalore-Chennai, and Mumbai-Pune have multiple charging options. The government\'s target is 100% highway coverage by 2028.</p><h3>Urban Charging</h3><p>Metro cities have good charging density with 15-25 stations per 100 sq km. Tier 2 cities are catching up rapidly. Apartment charging remains a challenge, but model bylaws now mandate EV-ready parking in new buildings.</p><h3>Future Plans</h3><p>By 2028, India aims to have 50,000 public charging stations. The FAME-III scheme allocates ₹2,000 crore specifically for charging infrastructure. Battery swapping stations are also being deployed for two and three-wheelers.</p>' }
+  ],
+  'where-electricity-comes-from': [
+    { id: 'electricity-1', title: 'Where Does India\'s Electricity Come From?', subtitle: 'Understanding the grid: sources of electricity for EV charging', excerpt: 'A detailed look at India\'s electricity generation mix and how it impacts the environmental benefits of EV ownership.', date: 'Oct 2026', author: 'Energy Desk', readTime: '5 min read', tag: 'Energy', image: '', content: '<p>Understanding where your EV\'s electricity comes from is important for calculating true environmental impact. Here\'s a breakdown of India\'s electricity generation mix.</p><h3>Current Mix (2026)</h3><p>India\'s grid electricity comes from: Coal (48%), Solar (18%), Wind (12%), Hydro (10%), Natural Gas (6%), Nuclear (3%), and Other Renewables (3%). The share of renewables has been growing rapidly, up from 23% in 2022 to 46% in 2026.</p><h3>EV Environmental Impact</h3><p>Even with the current grid mix, an EV produces 40-50% fewer lifecycle emissions than a comparable petrol vehicle. As the grid gets cleaner (targeting 70% renewable by 2030), this benefit will increase to 80-90%.</p><h3>Time-of-Use Charging</h3><p>Charging during daytime when solar generation peaks (10 AM to 3 PM) maximizes the use of renewable energy. Many utilities offer lower tariffs during these periods. Night charging relies more on coal and wind power.</p><h3>Home Solar + EV</h3><p>Combining rooftop solar with an EV is the most environmentally impactful combination. A typical 5 kW solar system generates enough electricity to power both a home and an EV, effectively making your car run on 100% renewable energy.</p>' }
+  ],
+  'renewable-energy-and-evs': [
+    { id: 'renewable-1', title: 'Renewable Energy and EVs: The Perfect Pair', subtitle: 'How combining solar power with EVs transforms transportation', excerpt: 'Exploring the synergies between renewable energy adoption and electric vehicle ownership in India.', date: 'Oct 2026', author: 'Energy Desk', readTime: '6 min read', tag: 'Energy', image: '', content: '<p>Electric vehicles and renewable energy form a virtuous cycle—each makes the other more viable and impactful.</p><h3>Solar-Powered EVs</h3><p>Installing rooftop solar panels (5-7 kW) can generate enough electricity to power both a household and an EV. At current solar installation costs (₹40,000-60,000 per kW), the payback period is 4-6 years when including EV charging savings.</p><h3>Grid Balancing</h3><p>EV batteries can serve as distributed storage for renewable energy. With V2G (Vehicle-to-Grid) technology, EV owners can sell excess solar power back to the grid during peak demand and charge their cars when renewable generation is high.</p><h3>Government Initiatives</h3><p>The PM Surya Ghar Yojana provides up to ₹78,000 subsidy for residential solar installations. Combined with EV incentives, the total benefit can offset 30-40% of the combined system cost.</p><h3>Environmental Impact</h3><p>An EV charged entirely from solar power eliminates approximately 4-5 tonnes of CO2 emissions annually compared to a petrol car. This is equivalent to planting 200 trees per year.</p>' }
+  ],
+  'companies-building-indias-network': [
+    { id: 'companies-1', title: 'Companies Building India\'s EV Charging Network', subtitle: 'The key players driving India\'s charging infrastructure growth', excerpt: 'A comprehensive look at the companies and startups building India\'s EV charging infrastructure network.', date: 'Oct 2026', author: 'Industry Desk', readTime: '8 min read', tag: 'Infrastructure', image: '', content: '<p>India\'s EV charging network is being built by a diverse mix of public sector companies, private corporations, and innovative startups. Here\'s who is driving the growth.</p><h3>Public Sector</h3><p><strong>EESL (Energy Efficiency Services Ltd):</strong> Installing chargers at government buildings, railway stations, and metro stations across the country. Focus on interoperability and standardized pricing.</p><p><strong>NTPC:</strong> India\'s largest power utility is setting up charging stations at its facilities and partnering with state discoms for grid-connected charging hubs.</p><p><strong>PGCIL:</strong> Focusing on highway corridor electrification along national highways with high-power (150 kW+) DC chargers.</p><h3>Private Players</h3><p><strong>Tata Power:</strong> India\'s largest private charging network with 1,000+ DC chargers. Strong presence in malls, hotels, and office complexes.</p><p><strong>Jio-bp Pulse:</strong> Joint venture between Reliance and bp operating 500+ stations with integrated convenience stores.</p><p><strong>Zeon Charging:</strong> Independent network with 300+ chargers known for high uptime and customer service.</p><p><strong>ChargeZone:</strong> Focused exclusively on highway charging with a network spanning 15,000+ km of highways.</p><p><strong>Startups:</strong> Companies like Statiq, Volttic, Electreefi, and PlugNGo are innovating with battery swapping, ultra-fast charging, and renewable-integrated charging hubs.</p>' }
+  ],
+  'ev-cost-and-savings': [
+    { id: 'cost-1', title: 'EV Cost & Savings: Complete Financial Analysis', subtitle: 'A comprehensive breakdown of EV ownership costs compared to petrol vehicles', excerpt: 'Detailed analysis of the total cost of EV ownership in India, including purchase price, running costs, maintenance, and long-term savings.', date: 'Oct 2026', author: 'Cost Desk', readTime: '8 min read', tag: 'Analysis', image: '', content: '<p>Understanding the true cost of EV ownership is crucial for making an informed purchase decision. Here\'s a complete financial analysis.</p><h3>Upfront Costs</h3><p>EVs in India cost ₹1-5 lakh more than comparable petrol models. However, FAME-III subsidies (up to ₹3.5 lakh), state incentives (road tax exemption saves ₹30,000-2 lakh), and registration fee waivers (₹10,000-30,000) significantly reduce the premium.</p><h3>Running Cost Comparison</h3><p>Home charging: ₹1-1.5/km vs Petrol: ₹8-9/km. Savings: 80-85%. At 15,000 km/year, you save ₹75,000-90,000 annually on fuel alone. Over 5 years: ₹3.75-4.5 lakh in fuel savings.</p><h3>Maintenance Savings</h3><p>EVs have 80% fewer moving parts. Annual maintenance: ₹2,000-4,000 vs ₹5,000-10,000 for petrol cars. No oil changes, timing belts, or exhaust system repairs. 5-year maintenance savings: ₹20,000-40,000.</p><h3>Total 5-Year Cost of Ownership</h3><p>For a typical compact EV (₹15 lakh on-road): 5-year TCO including depreciation, financing, electricity, maintenance, and insurance is approximately ₹18-20 lakh. An equivalent petrol car (₹12.5 lakh on-road) would cost ₹24-27 lakh over 5 years. Net EV savings: ₹4-7 lakh over 5 years.</p><h3>Tax Benefits</h3><p>Section 80EEB: Deduction up to ₹1.5 lakh/year on EV loan interest (saves ₹46,800/year in 30% tax bracket). Some employers offer EV leasing through salary restructuring for additional tax savings.</p>' }
+  ]
+});
+
+// Add new category metadata
+INSIGHTS_CATEGORIES.push(
+  { key: 'ev-infrastructure-india', label: 'EV Infrastructure in India', icon: '🔌', desc: 'Charging network and infrastructure developments' },
+  { key: 'where-electricity-comes-from', label: 'Where Does Electricity Come From?', icon: '⚡', desc: 'Understanding the grid and energy sources' },
+  { key: 'renewable-energy-and-evs', label: 'Renewable Energy and EVs', icon: '☀️', desc: 'Synergies between solar power and electric vehicles' },
+  { key: 'companies-building-indias-network', label: 'Companies Building India\'s Network', icon: '🏗️', desc: 'Key players in India\'s charging infrastructure' },
+  { key: 'ev-cost-and-savings', label: 'EV Cost & Savings', icon: '💰', desc: 'Total cost of ownership and financial analysis' }
+);
+
+// --- About Pages Database ---
+const ABOUT_DATABASE = {
+  'about': {
+    title: 'About EV Car Wale',
+    content: '<p>EV Car Wale is India\'s leading smart electric vehicle marketplace, dedicated to accelerating the country\'s transition to electric mobility. Our platform provides comprehensive information, tools, and resources to help consumers make informed EV purchase decisions.</p><p>Founded with a vision to make EV adoption simple and transparent, we offer detailed vehicle comparisons, pricing analysis, range calculators, and educational content covering every aspect of electric vehicle ownership.</p><p>From our comprehensive EV database to our interactive planning tools, everything on EV Car Wale is designed with one goal: to make your EV journey seamless and informed.</p>'
+  },
+  'about/mission': {
+    title: 'Our Mission',
+    content: '<p>Our mission is to accelerate India\'s transition to sustainable electric mobility by providing the most comprehensive, accurate, and accessible EV information platform in the country.</p><p>We believe that the right information at the right time can transform how people think about transportation. By demystifying EV technology, clarifying costs, and simplifying the buying process, we aim to remove the barriers that prevent consumers from embracing electric vehicles.</p><p>We are committed to: providing unbiased, data-driven EV comparisons; making complex EV concepts accessible to everyone; supporting the growth of India\'s EV ecosystem; and contributing to a cleaner, greener future for India.</p>'
+  },
+  'about/why-ev-car-wale': {
+    title: 'Why Choose EV Car Wale',
+    content: '<p>EV Car Wale stands out as India\'s most comprehensive EV platform. Here\'s what makes us different.</p><p><strong>Complete EV Database:</strong> We maintain the most up-to-date database of every EV available in India, with detailed specifications, real-world range estimates, and pricing information.</p><p><strong>Smart Planning Tools:</strong> Our EV Trip Planner, EMI Calculator, and Range Calculator help you make informed decisions about your EV purchase and usage.</p><p><strong>Expert Educational Content:</strong> From beginner guides to deep technical explainers, our content library covers everything you need to know about EVs.</p><p><strong>Unbiased Information:</strong> We provide objective, data-driven comparisons and analysis to help you find the perfect EV for your needs and budget.</p><p><strong>Community Focus:</strong> We\'re building India\'s largest EV enthusiast community, sharing real-world experiences and practical advice.</p>'
+  },
+  'about/team': {
+    title: 'Our Team',
+    content: '<p>EV Car Wale is built by a passionate team of automotive enthusiasts, technology experts, and clean energy advocates committed to driving India\'s EV revolution.</p><p>Our team combines deep expertise in the automotive industry, software engineering, data science, and content creation to deliver the most comprehensive EV platform in India.</p><p>We are researchers, engineers, writers, and designers united by a common goal: making EV adoption simple, transparent, and accessible for every Indian consumer.</p><p><strong>Content coming soon:</strong> Detailed team profiles and individual contributor bios are being prepared and will be added shortly.</p>'
+  },
+  'contact': {
+    title: 'Contact Us',
+    content: '<p>We\'d love to hear from you! Whether you have a question about our platform, want to report an issue, or are interested in partnering with us, here\'s how you can reach us.</p><p><strong>Email:</strong> support@evcarwale.com</p><p><strong>Phone:</strong> +91-XXX-XXX-XXXX (Available Monday-Friday, 10 AM - 6 PM IST)</p><p><strong>Address:</strong> EV Car Wale, India</p><p>For press and media inquiries, please email us at press@evcarwale.com. For partnership opportunities, reach out to partnerships@evcarwale.com.</p><p>We aim to respond to all inquiries within 24-48 business hours.</p>'
+  },
+  'feedback': {
+    title: 'Feedback',
+    content: '<p>Your feedback helps us improve. We value every suggestion, comment, and idea from our users.</p><p>Please share your thoughts on: How can we make EV Car Wale more useful? What features would you like to see? Is there any information you\'re having trouble finding? How has your EV ownership experience been?</p><p>Send your feedback to: feedback@evcarwale.com. We read every message and incorporate user suggestions into our development roadmap.</p><p>Thank you for helping us build a better platform for India\'s EV community.</p>'
+  },
+  'help': {
+    title: 'Help Centre',
+    content: '<p>Welcome to the EV Car Wale Help Centre. Find answers to common questions and learn how to make the most of our platform.</p><p><strong>Getting Started:</strong> Browse our EV database to explore available models. Use filters to narrow down by brand, budget, range, and features. Compare multiple EVs side by side with our comparison tool.</p><p><strong>Planning a Purchase:</strong> Use the EMI Calculator to estimate monthly payments. Check the EV Trip Planner to understand range and charging needs.</p><p><strong>Educational Resources:</strong> Visit our Learning Centre for comprehensive guides on EV technology, charging, and ownership. Use the Jargon Buster to understand technical terms.</p><p><strong>Need more help?</strong> Contact us at support@evcarwale.com and we\'ll get back to you within 24 hours.</p>'
+  },
+  'faqs': {
+    title: 'FAQs',
+    content: '<p>Find answers to frequently asked questions about electric vehicles and the EV Car Wale platform.</p><p><strong>What is an EV?</strong> An electric vehicle (EV) is a vehicle powered by one or more electric motors using energy stored in rechargeable batteries. Unlike petrol or diesel vehicles, EVs produce zero tailpipe emissions.</p><p><strong>How much does it cost to charge an EV?</strong> Home charging costs approximately ₹1-1.5 per km, while DC fast charging costs ₹2.5-4.5 per km. This is significantly cheaper than petrol (₹8-9 per km).</p><p><strong>What is the EV range?</strong> Most modern EVs offer 250-500 km of real-world range, sufficient for daily commuting and most inter-city travel. Range depends on driving style, AC usage, and road conditions.</p><p><strong>How long does charging take?</strong> Home AC charging: 4-12 hours (full charge). DC fast charging: 25-45 minutes (10% to 80%). The exact time depends on battery size and charger power.</p><p><strong>Are EVs suitable for Indian roads?</strong> Yes, modern EVs are designed and tested for Indian conditions. Many offer high ground clearance, robust battery cooling systems, and dust/water resistance (IP67 rating).</p>'
+  },
+  'privacy-policy': {
+    title: 'Privacy Policy',
+    content: '<p>Your privacy is important to us. This Privacy Policy outlines how EV Car Wale collects, uses, and protects your personal information.</p><p><strong>Information We Collect:</strong> We collect information you provide directly, such as your name, email address, and preferences when you subscribe to our newsletter or contact us. We also collect anonymous usage data through cookies to improve our platform.</p><p><strong>How We Use Your Information:</strong> To personalize your experience, improve our platform, send periodic emails (if you\'ve opted in), and respond to your inquiries. We do not sell your personal information to third parties.</p><p><strong>Data Security:</strong> We implement industry-standard security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.</p><p><strong>Cookies:</strong> We use cookies to enhance your browsing experience. You can choose to disable cookies in your browser settings, though this may affect some platform features.</p><p><strong>Third-Party Links:</strong> Our platform may contain links to third-party websites. We are not responsible for their privacy practices.</p><p><strong>Updates:</strong> We may update this policy periodically. Changes will be posted on this page with an updated effective date.</p><p><strong>Contact:</strong> For privacy-related inquiries, contact us at privacy@evcarwale.com.</p>'
+  },
+  'terms-and-conditions': {
+    title: 'Terms & Conditions',
+    content: '<p>These Terms & Conditions govern your use of the EV Car Wale platform. By accessing or using our website, you agree to these terms.</p><p><strong>Use of Platform:</strong> You agree to use EV Car Wale for lawful purposes only. You may not use our platform for any illegal or unauthorized purpose.</p><p><strong>Intellectual Property:</strong> All content, trademarks, and data on this platform, including but not limited to text, graphics, logos, and software, are the property of EV Car Wale unless otherwise stated.</p><p><strong>Accuracy of Information:</strong> While we strive to provide accurate and up-to-date information, we make no warranties about the completeness, reliability, or accuracy of the information on our platform. Vehicle specifications and pricing may change without notice.</p><p><strong>Limitation of Liability:</strong> EV Car Wale shall not be liable for any damages arising from the use of or inability to use our platform or the information provided.</p><p><strong>Changes to Terms:</strong> We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting on this page.</p>'
+  },
+  'disclaimer': {
+    title: 'Disclaimer',
+    content: '<p>The information provided on EV Car Wale is for general informational purposes only. While we make every effort to ensure accuracy, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the information on our platform.</p><p><strong>Vehicle Data:</strong> EV specifications, pricing, features, and availability are subject to change by manufacturers without notice. We recommend verifying all information with authorized dealers before making a purchase decision.</p><p><strong>Financial Information:</strong> Calculated costs, savings estimates, and financial projections are for illustrative purposes only. Actual costs may vary based on driving habits, electricity tariffs, vehicle condition, and other factors.</p><p><strong>External Links:</strong> Our platform may contain links to external websites. We are not responsible for the content, accuracy, or practices of these websites.</p><p><strong>No Professional Advice:</strong> The content on EV Car Wale does not constitute professional automotive, financial, or legal advice. Consult qualified professionals for advice tailored to your specific situation.</p>'
+  },
+  'cookie-policy': {
+    title: 'Cookie Policy',
+    content: '<p>EV Car Wale uses cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and understand where our audience comes from.</p><p><strong>What Are Cookies?</strong> Cookies are small text files stored on your device by your web browser. They help websites remember your preferences and provide a personalized experience.</p><p><strong>How We Use Cookies:</strong> Essential cookies: Required for the basic functioning of our platform. Analytics cookies: Help us understand how visitors interact with our site. Preference cookies: Remember your settings and preferences.</p><p><strong>Managing Cookies:</strong> You can control and manage cookies in your browser settings. You can choose to block all cookies, but this may affect the functionality of our platform.</p><p><strong>Third-Party Cookies:</strong> We may use third-party services (such as analytics providers) that place their own cookies. These are governed by the respective third-party privacy policies.</p><p><strong>Updates:</strong> We may update this Cookie Policy from time to time. Any changes will be posted on this page.</p>'
+  },
+  'copyright': {
+    title: 'Copyright Notice',
+    content: '<p>Copyright © 2026 EV Car Wale. All rights reserved.</p><p>All content, design, text, graphics, logos, icons, images, audio clips, and software on this website are the property of EV Car Wale or its content suppliers and are protected by Indian and international copyright laws.</p><p>You may not reproduce, distribute, modify, transmit, reuse, repost, or use any content from this website for public or commercial purposes without the express written permission of EV Car Wale.</p><p><strong>Permitted Use:</strong> You may view, download, and print pages from this website for personal, non-commercial use only, provided you do not modify the content and retain all copyright and proprietary notices.</p><p><strong>Trademarks:</strong> All trademarks, service marks, and trade names used on this website are the property of their respective owners.</p><p>For permission requests, contact: legal@evcarwale.com</p>'
+  }
+};
 
 // --- Charging Stations Database ---
 const STATIONS_DATABASE = [
@@ -1445,6 +2242,28 @@ window.addEventListener('DOMContentLoaded', runPreloader);
 
 
 // --- Active Filters Setup ---
+const BODY_TYPE_MAP = {
+  'nexon-ev':'SUV','xuv400':'SUV','punch-ev':'SUV','windsor-ev':'SUV',
+  'ioniq-5':'SUV','byd-seal':'Sedan','ev6':'SUV','harrier-ev':'SUV',
+  'be6':'SUV','bmw-i4':'Sedan','etron-gt':'Sedan','mercedes-eqs':'Sedan',
+  'vinfast-vf6':'SUV','kia-ev9':'SUV','xev-9e':'SUV','citroen-ec3':'Hatchback',
+  'curvv-ev':'SUV','tiago-ev':'Hatchback','byd-atto3':'SUV','elevate-ev':'SUV',
+  'ioniq-6':'Sedan','syros-ev':'SUV','be07':'SUV','avinya-ev':'MUV',
+  'ex90':'SUV','comet-ev':'Hatchback','toyota-bz4x':'SUV','bmw-i7':'Luxury',
+  'macan-ev':'SUV','audi-q6-etron':'SUV','audi-q8-etron':'SUV','bmw-ix':'SUV',
+  'bmw-ix1-lwb':'SUV','byd-sealion-7':'SUV','byd-emax7':'MUV',
+  'hyundai-creta-electric':'SUV','kia-carens-clavis-ev':'MUV',
+  'mahindra-xev-7e':'SUV','mahindra-thar-e':'SUV','maruti-e-vitara':'SUV',
+  'mercedes-cla-electric':'Luxury','mercedes-eqa':'SUV','mercedes-eqe-suv':'SUV',
+  'mercedes-eqs-suv':'SUV','mercedes-g-class-electric':'SUV',
+  'mg-cyberster':'Convertible','mg-m9':'MUV','mg-zs-ev':'SUV',
+  'nissan-ariya':'SUV','nissan-leaf':'Hatchback','porsche-cayenne-electric':'SUV',
+  'porsche-taycan':'Luxury','renault-kwid-ev':'Hatchback','skoda-elroq':'SUV',
+  'skoda-enyaq':'SUV','tata-sierra-ev':'SUV','tata-tigor-ev':'Sedan',
+  'toyota-urban-cruiser-ev':'SUV','vinfast-vf3':'Hatchback','vinfast-vf7':'SUV',
+  'vinfast-vf-mpv7':'MUV','volvo-ec40':'SUV','volvo-ex30':'SUV','volvo-ex40':'SUV'
+};
+let activeBodyType = null;
 let activeBrand = null;
 let activeBudget = null;
 let activeRecentlyViewed = false;
@@ -1465,7 +2284,7 @@ const carCarouselViewport = document.getElementById('car-carousel-viewport');
 const brandChips = document.querySelectorAll('.brand-chip');
 const budgetChips = document.querySelectorAll('.budget-chip');
 const filterResetContainer = document.getElementById('filter-reset-container');
-const wishlistBadge = document.getElementById('wishlist-badge');
+const wishlistBadge = document.getElementById('wishlist-badge') || { textContent: 0, classList: { remove() {}, add() {} } };
 
 function getSpecGridHtml(car) {
   if (car.sections.includes('upcoming')) {
@@ -1508,7 +2327,7 @@ function createCarCardHtml(car, extraClasses = '') {
       <div class="h-40 bg-zinc-50 flex items-center justify-center mb-4 relative overflow-hidden select-none border border-zinc-100">
         <!-- Skeleton Shimmer -->
         <div class="absolute inset-0 skeleton-shimmer"></div>
-        <img src="${car.image}" alt="${car.name}" class="w-full h-full object-contain relative z-10 transition-transform duration-500" onload="this.previousElementSibling.classList.add('hidden')">
+       <img src="public/car_images/${car.brand.toUpperCase()}/${car.image}" alt="${car.name}" class="w-full h-full object-contain">
       </div>
 
       <div>
@@ -1569,10 +2388,13 @@ function renderAllCarousels() {
         if (searchBudget === '50' && (car.priceVal < 20 || car.priceVal > 50)) return false;
         if (searchBudget === 'above' && car.priceVal <= 50) return false;
       }
+      const searchBody = document.getElementById('search-car-body')?.value;
+      if (searchBody && searchBody !== 'all' && BODY_TYPE_MAP[car.id] !== searchBody) return false;
       return true;
     });
     
-    if (activeBrand || activeBudget || activeRecentlyViewed || nameSearch || searchBrand !== 'all' || searchBudget !== 'all') {
+    const searchBody = document.getElementById('search-car-body')?.value;
+    if (activeBrand || activeBudget || activeRecentlyViewed || nameSearch || searchBrand !== 'all' || searchBudget !== 'all' || (searchBody && searchBody !== 'all')) {
       filterResetContainer.classList.remove('hidden');
     } else {
       filterResetContainer.classList.add('hidden');
@@ -1666,6 +2488,8 @@ document.getElementById('filter-reset-btn').addEventListener('click', () => {
   document.getElementById('search-car-name').value = '';
   document.getElementById('search-car-brand').value = 'all';
   document.getElementById('search-car-budget').value = 'all';
+  const bodyReset = document.getElementById('search-car-body');
+  if (bodyReset) bodyReset.value = 'all';
   
   renderAllCarousels();
 });
@@ -2108,10 +2932,13 @@ document.getElementById('form-test-drive').addEventListener('submit', (e) => {
 });
 
 // Search icon in nav
-document.getElementById('search-nav-btn').addEventListener('click', () => {
-  modalSearch.classList.remove('opacity-0', 'pointer-events-none');
-  document.getElementById('global-search-input').focus();
+// Login navigation
+document.querySelectorAll('#login-nav-btn, #login-nav-btn-mobile').forEach(btn => {
+  btn.addEventListener('click', () => {
+    navigateTo('/login');
+  });
 });
+
 
 document.getElementById('global-search-input').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
@@ -2187,27 +3014,79 @@ document.getElementById('newsletter-form').addEventListener('submit', (e) => {
 });
 
 
+// --- Language Selector Module ---
+(function initLanguageSelector() {
+  const btn = document.getElementById('lang-selector-btn');
+  const dropdown = document.getElementById('lang-dropdown');
+  const currentLabel = document.getElementById('lang-current');
+  const options = document.querySelectorAll('.lang-option');
+  if (!btn || !dropdown || !currentLabel) return;
+
+  const LANG_KEY = 'evcarwale_language';
+  const saved = localStorage.getItem(LANG_KEY);
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      currentLabel.textContent = parsed.text || 'English';
+      options.forEach(opt => {
+        if (opt.dataset.lang === parsed.lang) {
+          opt.classList.add('text-black', 'font-bold');
+        }
+      });
+    } catch (e) {}
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = !dropdown.classList.contains('invisible');
+    dropdown.classList.toggle('opacity-0', isOpen);
+    dropdown.classList.toggle('invisible', isOpen);
+    dropdown.classList.toggle('translate-y-1', isOpen);
+    btn.querySelector('.lang-caret').classList.toggle('rotate-180', !isOpen);
+  });
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const lang = opt.dataset.lang;
+      const text = opt.textContent.trim();
+      currentLabel.textContent = text;
+      options.forEach(o => o.classList.remove('text-black', 'font-bold'));
+      opt.classList.add('text-black', 'font-bold');
+      localStorage.setItem(LANG_KEY, JSON.stringify({ lang, text }));
+      dropdown.classList.add('opacity-0', 'invisible', 'translate-y-1');
+      btn.querySelector('.lang-caret').classList.remove('rotate-180');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (!dropdown.classList.contains('invisible')) {
+      dropdown.classList.add('opacity-0', 'invisible', 'translate-y-1');
+      btn.querySelector('.lang-caret').classList.remove('rotate-180');
+    }
+  });
+})();
+
 // --- FAQ Accordion toggle Module ---
-document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+document.querySelectorAll('#faq-accordion .accordion-trigger').forEach(trigger => {
   trigger.addEventListener('click', () => {
     const content = trigger.nextElementSibling;
     const parent = trigger.parentElement;
-    const icon = trigger.querySelector('.acc-icon');
     
     // Close other panels
-    document.querySelectorAll('.accordion-content').forEach(c => {
-      if (c !== content) {
-        c.style.maxHeight = null;
-        c.parentElement.querySelector('.acc-icon').textContent = '+';
+    document.querySelectorAll('#faq-accordion .accordion-item').forEach(item => {
+      if (item !== parent) {
+        item.classList.remove('open');
+        const otherContent = item.querySelector('.accordion-content');
+        if (otherContent) otherContent.style.maxHeight = null;
       }
     });
     
-    if (content.style.maxHeight) {
+    if (parent.classList.contains('open')) {
+      parent.classList.remove('open');
       content.style.maxHeight = null;
-      icon.textContent = '+';
     } else {
+      parent.classList.add('open');
       content.style.maxHeight = content.scrollHeight + 'px';
-      icon.textContent = '-';
     }
   });
 });
@@ -2429,7 +3308,19 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
       return;
     }
 
-    if (!href || !href.startsWith('#')) return;
+    if (!href) return;
+    
+    // Path-based SPA navigation
+    if (href.startsWith('/')) {
+      e.preventDefault();
+      closeMegaPanels();
+      closeMobileDrawer();
+      activeRecentlyViewed = false;
+      navigateTo(href);
+      return;
+    }
+    
+    if (!href.startsWith('#')) return;
     
     e.preventDefault();
     closeMegaPanels();
@@ -2656,9 +3547,13 @@ function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
       </div>
     `;
     
-    // Bind back button
+    // Bind back button — use browser history navigation
     document.getElementById('btn-subpage-back').addEventListener('click', () => {
-      navigateTo(backPath);
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        navigateTo('/');
+      }
     });
     
     // Scroll to top
@@ -2715,9 +3610,31 @@ function handleRouting() {
     route = path;
   } else if (hash.startsWith('#/blog/')) {
     route = hash.substring(1);
+  } else if (path.startsWith('/resources/')) {
+    route = path;
+  } else if (hash.startsWith('#/resources/')) {
+    route = hash.substring(1);
+  } else if (path === '/login' || path === '/signup' || path === '/forgot-password') {
+    route = path;
+  } else if (hash === '#/login' || hash === '#/signup' || hash === '#/forgot-password') {
+    route = hash.substring(1);
   } else if (path.startsWith('/ev/')) {
     route = path;
   } else if (hash.startsWith('#/ev/')) {
+    route = hash.substring(1);
+  } else if (path === '/about' || path.startsWith('/about/') ||
+             path.startsWith('/contact') || path === '/feedback' ||
+             path === '/help' || path === '/faqs' ||
+             path === '/privacy-policy' || path === '/terms-and-conditions' ||
+             path === '/disclaimer' || path === '/cookie-policy' ||
+             path === '/copyright') {
+    route = path;
+  } else if (hash === '#/about' || hash.startsWith('#/about/') ||
+             hash.startsWith('#/contact') || hash === '#/feedback' ||
+             hash === '#/help' || hash === '#/faqs' ||
+             hash === '#/privacy-policy' || hash === '#/terms-and-conditions' ||
+             hash === '#/disclaimer' || hash === '#/cookie-policy' ||
+             hash === '#/copyright') {
     route = hash.substring(1);
   }
   
@@ -2784,16 +3701,30 @@ function handleRouting() {
     return;
   } else if (route.startsWith('/insights/')) {
     const parts = route.substring(10).split('/');
-    const categoryKey = parts[0] || 'latest-news';
+    let categoryKey = parts[0] || 'latest-news';
     const articleId = parts[1] || null;
+    if (categoryKey === 'blogs') {
+      renderAllBlogsPage();
+      return;
+    }
+    const resolvedKey = INSIGHTS_SLUG_ALIASES[categoryKey] || categoryKey;
     if (articleId) {
-      const article = INSIGHTS_DATABASE[categoryKey]?.find(a => a.id === articleId);
+      const article = INSIGHTS_DATABASE[resolvedKey]?.find(a => a.id === articleId);
       if (article) {
-        renderInsightArticlePage(categoryKey, article);
+        renderInsightArticlePage(resolvedKey, article);
         return;
       }
+      renderInsightCategoryPage(resolvedKey);
+      return;
     }
-    renderInsightCategoryPage(categoryKey);
+    const articles = INSIGHTS_DATABASE[resolvedKey];
+    if (articles && articles.length > 0) {
+      renderInsightArticlePage(resolvedKey, articles[0]);
+      return;
+    }
+    const STANDALONE_SLUG_MAP = {'where-electricity-comes-from':'where-does-electricity-come-from','ev-cost-and-savings':'ev-cost-savings'};
+    const slug = STANDALONE_SLUG_MAP[categoryKey] || categoryKey;
+    window.location.href = '/insights/' + slug + '.html';
     return;
   } else if (route.startsWith('/ev/')) {
     const slug = route.substring(4);
@@ -2802,11 +3733,19 @@ function handleRouting() {
       renderCarDetailsPage(car);
       return;
     }
+  } else if (route.startsWith('/resources/')) {
+    const slug = route.substring(11);
+    const article = RESOURCES_DATABASE[slug];
+    if (article) {
+      renderResourcePage(slug, article);
+      return;
+    }
   } else if (route.startsWith('/learn/')) {
     const slug = route.substring(7);
-    const article = LEARN_DATABASE[slug];
+    const resolvedSlug = LEARN_SLUG_ALIASES[slug] || slug;
+    const article = LEARN_DATABASE[resolvedSlug];
     if (article) {
-      renderLearnArticlePage(slug, article);
+      renderLearnArticlePage(resolvedSlug, article);
       return;
     }
   } else if (route.startsWith('/blog/')) {
@@ -2814,6 +3753,26 @@ function handleRouting() {
     const article = BLOG_DATABASE.find(b => b.slug === slug || b.id === slug);
     if (article) {
       renderBlogArticlePage(article);
+      return;
+    }
+  } else if (route === '/login') {
+    renderLoginPage();
+    return;
+  } else if (route === '/signup') {
+    renderSignupPage();
+    return;
+  } else if (route === '/forgot-password') {
+    renderForgotPasswordPage();
+    return;
+  } else if (route === '/about' || route.startsWith('/about/') ||
+             route === '/contact' || route.startsWith('/contact') ||
+             route === '/feedback' || route === '/help' || route === '/faqs' ||
+             route === '/privacy-policy' || route === '/terms-and-conditions' ||
+             route === '/disclaimer' || route === '/cookie-policy' || route === '/copyright') {
+    const pageKey = route.replace(/^\//, '');
+    const page = ABOUT_DATABASE[pageKey];
+    if (page) {
+      renderStaticPage(pageKey, page);
       return;
     }
   }
@@ -2827,7 +3786,7 @@ function restoreHomepage() {
   
   // Clear hash if we are on the main landing page and it contains car details route
   const hash = window.location.hash;
-  if (hash.includes('/cars/') || hash.includes('/view-all/') || hash.includes('/news/') || hash.includes('/guide/') || hash.includes('/reviews/') || hash.includes('/brand/') || hash.includes('/brands/') || hash.includes('/insights/')) {
+  if (hash.includes('/cars/') || hash.includes('/view-all/') || hash.includes('/news/') || hash.includes('/guide/') || hash.includes('/reviews/') || hash.includes('/brand/') || hash.includes('/brands/') || hash.includes('/insights/') || hash.includes('/learn/') || hash.includes('/blog/') || hash.includes('/ev/') || hash.includes('/resources/') || hash === '#/login' || hash === '#/signup' || hash === '#/forgot-password') {
     try {
       history.pushState(null, '', '/');
     } catch (e) {
@@ -2923,6 +3882,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (nameSearchEl) nameSearchEl.addEventListener('input', renderAllCarousels);
   if (brandSearchEl) brandSearchEl.addEventListener('change', renderAllCarousels);
   if (budgetSearchEl) budgetSearchEl.addEventListener('change', renderAllCarousels);
+  const bodySearchEl = document.getElementById('search-car-body');
+  if (bodySearchEl) bodySearchEl.addEventListener('change', renderAllCarousels);
   
   // Initialize automatic word-highlighting observer for "Electric"
   if (typeof initElectricHighlightObserver === 'function') initElectricHighlightObserver();
@@ -2998,13 +3959,23 @@ function renderViewAllPage(section) {
     cardsHtml += createCarCardHtml(car, 'w-full');
   });
   
+  const allBodyTypes = ['All','SUV','Sedan','Hatchback','MUV','Coupe','Convertible','Pickup','Luxury'];
+  let bodyFilterOpts = allBodyTypes.map(t => `<option value="${t}">${t}</option>`).join('');
   const contentHtml = `
     <div class="flex flex-col gap-6 pt-6">
-      <div>
-        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">GRID INDEX / ${sectionCars.length} VEHICLES</span>
-        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">${title}</h2>
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">GRID INDEX / ${sectionCars.length} VEHICLES</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">${title}</h2>
+        </div>
+        <div class="flex flex-col gap-1 text-left sm:text-right">
+          <label for="viewall-body-filter" class="font-mono text-[9px] text-black uppercase tracking-widest">Body Type</label>
+          <select id="viewall-body-filter" class="border border-zinc-200 text-xs p-2 text-zinc-800 outline-none focus:border-black transition-all rounded-none cursor-pointer bg-white min-w-[140px]">
+            ${bodyFilterOpts}
+          </select>
+        </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" id="viewall-cars-grid">
         ${cardsHtml}
       </div>
     </div>
@@ -3012,6 +3983,22 @@ function renderViewAllPage(section) {
   
   renderSubpage(title, breadcrumbs, contentHtml, '/');
   attachCardEvents();
+  setTimeout(function() {
+    var filterEl = document.getElementById('viewall-body-filter');
+    if (filterEl) {
+      filterEl.addEventListener('change', function() {
+        var val = this.value;
+        var grid = document.getElementById('viewall-cars-grid');
+        if (!grid) return;
+        var filtered = val === 'All' ? sectionCars : sectionCars.filter(function(c) { return BODY_TYPE_MAP[c.id] === val; });
+        grid.innerHTML = '';
+        filtered.forEach(function(car) {
+          grid.innerHTML += createCarCardHtml(car, 'w-full');
+        });
+        attachCardEvents();
+      });
+    }
+  }, 50);
 }
 
 function renderViewAllBrandsPage() {
@@ -3040,6 +4027,7 @@ function renderViewAllBrandsPage() {
     const brandCars = EV_DATABASE.filter(car => car.brand.toLowerCase() === brandId.toLowerCase());
     const count = brandCars.length;
     const logoUrl = getBrandLogoUrl(brandId);
+    console.log(brandId, logoUrl);
     const initials = getBrandInitials(brandName);
     brandsHtml += `
       <a href="/brand/${brandId}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white hover:shadow-[0_8px_30px_rgba(34,197,94,0.12)] hover:-translate-y-1 transition-all p-3 flex flex-col items-center gap-2 group rounded-xl text-center" style="border-radius:18px">
@@ -3657,6 +4645,32 @@ function renderInsightArticlePage(categoryKey, article) {
   renderSubpage(article.title, breadcrumbs, contentHtml, `/insights/${categoryKey}`);
 }
 
+function renderAllBlogsPage() {
+  const title = 'Blogs';
+  const breadcrumbs = ['BLOGS'];
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6">
+      <div>
+        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">INSIGHTS / ${BLOG_DATABASE.length} ARTICLES</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">EV Blogs</h2>
+        <p class="text-xs text-zinc-500 font-mono mt-1">In-depth articles, stories, and perspectives from the EV world.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+        ${BLOG_DATABASE.map(blog => `
+          <a href="/blog/${blog.slug}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all p-6 flex flex-col gap-3 group rounded-xl" style="border-radius:18px">
+            <div>
+              <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-800 group-hover:text-black">${blog.title}</h3>
+              <p class="font-mono text-[9px] text-zinc-500 mt-0.5">${blog.excerpt}</p>
+              <span class="font-mono text-[8px] text-zinc-400 mt-1 block">${blog.date} · ${blog.author}</span>
+            </div>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+}
+
 function renderAllInsightsPage() {
   const title = 'EV Insights Hub';
   const breadcrumbs = ['INSIGHTS', 'ALL CATEGORIES'];
@@ -3694,10 +4708,547 @@ function renderAllInsightsPage() {
 
 // --- Learn Article Page ---
 function renderLearnArticlePage(slug, article) {
+  // Ordered list for prev/next navigation
+  const learnOrder = ['regenerative-braking', 'lfp-vs-nmc', 'ac-vs-dc', 'v2l', 'ground-clearance', 'battery-health', 'charging-etiquette', 'highway-charging'];
+  const currentIdx = learnOrder.indexOf(slug);
+  const prevSlug = currentIdx > 0 ? learnOrder[currentIdx - 1] : null;
+  const nextSlug = currentIdx < learnOrder.length - 1 ? learnOrder[currentIdx + 1] : null;
+  const prevArticle = prevSlug ? LEARN_DATABASE[prevSlug] : null;
+  const nextArticle = nextSlug ? LEARN_DATABASE[nextSlug] : null;
+
+  // Extract key points (h3 headings) from content
+  const keyPoints = [];
+  const h3Regex = /<h3>(.*?)<\/h3>/g;
+  let match;
+  while ((match = h3Regex.exec(article.content)) !== null) {
+    keyPoints.push(match[1]);
+  }
+
+  // Related articles (2 before and after in order, excluding current)
+  const relatedSlugs = [];
+  for (let i = 0; i < learnOrder.length && relatedSlugs.length < 4; i++) {
+    if (learnOrder[i] !== slug) relatedSlugs.push(learnOrder[i]);
+  }
+
   const breadcrumbs = ['LEARN', article.title];
   const contentHtml = `
     <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
-      <a href="/#buying-portal" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Educational Portal</a>
+      <!-- Breadcrumb -->
+      <a href="/#knowledge-hub" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Learn Electric Vehicles</a>
+
+      <!-- Hero / Image Placeholder -->
+      <div class="w-full h-48 md:h-64 bg-gradient-to-br from-zinc-100 via-zinc-50 to-white border border-zinc-200 rounded-xl flex items-center justify-center overflow-hidden">
+        <div class="text-center">
+          <span class="text-5xl opacity-20 block">⚡</span>
+          <span class="font-mono text-[8px] text-zinc-300 uppercase tracking-widest mt-2 block">${article.title}</span>
+        </div>
+      </div>
+
+      <!-- Title & Intro -->
+      <div>
+        <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">LEARN / ${article.title}</span>
+        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
+        <p class="text-xs text-zinc-500 font-mono mt-2 leading-relaxed">${keyPoints.length > 0 ? keyPoints.slice(0, 2).join(' — ') : 'Detailed educational content about ' + article.title + '.'}</p>
+      </div>
+
+      <!-- Key Points / Highlights -->
+      ${keyPoints.length > 0 ? `
+      <div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5">
+        <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-3">KEY POINTS</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          ${keyPoints.map((point, i) => `
+            <div class="flex items-start gap-2 font-mono text-[10px] text-zinc-700">
+              <span class="w-4 h-4 bg-black text-white rounded-full flex items-center justify-center text-[7px] font-bold flex-shrink-0 mt-0.5">${i + 1}</span>
+              <span>${point}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      ` : ''}
+
+      <!-- Detailed Content -->
+      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
+        ${article.content}
+      </div>
+
+      <!-- Related Articles -->
+      <div class="border-t border-zinc-200 pt-6 mt-2">
+        <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block mb-3">RELATED ARTICLES</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          ${relatedSlugs.slice(0, 4).map(relSlug => {
+            const relArticle = LEARN_DATABASE[relSlug];
+            if (!relArticle) return '';
+            return `
+              <a href="/learn/${relSlug}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all p-4 rounded-xl group">
+                <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider group-hover:text-black">${relArticle.title}</span>
+                <p class="font-mono text-[8px] text-zinc-400 mt-1">Learn more →</p>
+              </a>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Previous / Next Navigation -->
+      <div class="grid grid-cols-2 gap-3 border-t border-zinc-200 pt-6 mt-2">
+        <div>
+          ${prevArticle ? `
+            <a href="/learn/${prevSlug}" class="flex flex-col gap-1 border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all p-4 rounded-xl group text-left">
+              <span class="font-mono text-[7px] text-zinc-400 uppercase tracking-widest">← PREVIOUS</span>
+              <span class="font-mono text-[10px] text-zinc-700 group-hover:text-black">${prevArticle.title}</span>
+            </a>
+          ` : '<div></div>'}
+        </div>
+        <div>
+          ${nextArticle ? `
+            <a href="/learn/${nextSlug}" class="flex flex-col gap-1 border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all p-4 rounded-xl group text-right">
+              <span class="font-mono text-[7px] text-zinc-400 uppercase tracking-widest">NEXT →</span>
+              <span class="font-mono text-[10px] text-zinc-700 group-hover:text-black">${nextArticle.title}</span>
+            </a>
+          ` : '<div></div>'}
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <div class="border-t border-zinc-200 pt-6 mt-2 text-center">
+        <a href="/#knowledge-hub" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Learn Electric Vehicles</a>
+      </div>
+    </div>
+  `;
+  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
+}
+
+// --- Login Page ---
+function renderLoginPage() {
+  const contentHtml = `
+    <div class="min-h-screen flex items-center justify-center px-6 py-12">
+      <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-zinc-200 bg-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.06)]">
+        <!-- Left: Image -->
+        <div class="hidden md:block relative min-h-[500px] overflow-hidden">
+          <img src="login_illustration.png" alt="EV Car Wale" class="w-full h-full absolute inset-0 object-cover">
+        </div>
+        <!-- Right: Form -->
+        <div class="p-8 md:p-12 flex flex-col justify-center">
+          <div class="max-w-sm mx-auto w-full">
+            <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
+            <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Welcome</h1>
+            <p class="text-xs text-zinc-500 font-mono mt-1 mb-8">Sign in to continue exploring EV Car Wale.</p>
+            <form id="login-form" class="flex flex-col gap-5" novalidate>
+              <div class="flex flex-col gap-1.5">
+                <label for="login-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
+                <input type="email" id="login-email" placeholder="you@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300" required>
+                <span class="font-mono text-[9px] text-red-500 hidden" id="login-email-error"></span>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label for="login-password" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Password</label>
+                <div class="relative">
+                  <input type="password" id="login-password" placeholder="••••••••" class="w-full px-4 py-3 pr-10 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300" required>
+                  <button type="button" id="toggle-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-black transition-colors">
+                    <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </button>
+                </div>
+                <span class="font-mono text-[9px] text-red-500 hidden" id="login-password-error"></span>
+              </div>
+              <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="login-remember" class="w-3.5 h-3.5 rounded border-zinc-300 text-black focus:ring-black">
+                  <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Remember Me</span>
+                </label>
+                <a href="/forgot-password" class="font-mono text-[9px] text-zinc-600 hover:text-black uppercase tracking-wider transition-colors">Forgot Password?</a>
+              </div>
+              <button type="submit" class="w-full py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors btn-animate">Login</button>
+              <div class="flex items-center gap-3">
+                <span class="flex-1 h-px bg-zinc-200"></span>
+                <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-wider">OR</span>
+                <span class="flex-1 h-px bg-zinc-200"></span>
+              </div>
+              <button type="button" id="google-login-btn" class="w-full py-3 border border-zinc-200 rounded-xl font-mono text-[10px] text-zinc-700 hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2">
+                <svg viewBox="0 0 24 24" class="w-4 h-4"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Continue with Google
+              </button>
+              <p class="text-center font-mono text-[9px] text-zinc-500">
+                Don't have an account? <a href="/signup" class="text-black font-bold hover:underline">Sign Up</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  renderSubpage('Login', ['LOGIN'], contentHtml, '/');
+  setupLoginForm();
+}
+
+function renderSignupPage() {
+  const contentHtml = `
+    <div class="min-h-screen flex items-center justify-center px-6 py-12">
+      <div class="w-full max-w-md mx-auto">
+        <div class="text-center mb-8">
+          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
+          <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Create Account</h1>
+          <p class="text-xs text-zinc-500 font-mono mt-1">Sign up to explore EV Car Wale.</p>
+        </div>
+        <div class="border border-zinc-200 bg-white rounded-2xl p-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.06)]">
+          <form class="flex flex-col gap-5">
+            <div class="flex flex-col gap-1.5">
+              <label for="signup-name" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Full Name</label>
+              <input type="text" id="signup-name" placeholder="John Doe" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for="signup-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
+              <input type="email" id="signup-email" placeholder="you@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for="signup-password" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Password</label>
+              <input type="password" id="signup-password" placeholder="••••••••" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
+            </div>
+            <button type="submit" class="w-full py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors btn-animate">Create Account</button>
+            <div class="flex items-center gap-3">
+              <span class="flex-1 h-px bg-zinc-200"></span>
+              <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-wider">OR</span>
+              <span class="flex-1 h-px bg-zinc-200"></span>
+            </div>
+            <button type="button" class="w-full py-3 border border-zinc-200 rounded-xl font-mono text-[10px] text-zinc-700 hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2">
+              <svg viewBox="0 0 24 24" class="w-4 h-4"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Continue with Google
+            </button>
+            <p class="text-center font-mono text-[9px] text-zinc-500">
+              Already have an account? <a href="/login" class="text-black font-bold hover:underline">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  `;
+  renderSubpage('Sign Up', ['SIGNUP'], contentHtml, '/');
+}
+
+function renderForgotPasswordPage() {
+  const contentHtml = `
+    <div class="min-h-screen flex items-center justify-center px-6 py-12">
+      <div class="w-full max-w-md mx-auto">
+        <div class="text-center mb-8">
+          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
+          <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Reset Password</h1>
+          <p class="text-xs text-zinc-500 font-mono mt-1">Enter your email and we'll send you a reset link.</p>
+        </div>
+        <div class="border border-zinc-200 bg-white rounded-2xl p-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.06)]">
+          <form class="flex flex-col gap-5">
+            <div class="flex flex-col gap-1.5">
+              <label for="reset-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
+              <input type="email" id="reset-email" placeholder="you@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
+            </div>
+            <button type="submit" class="w-full py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors btn-animate">Send Reset Link</button>
+            <p class="text-center font-mono text-[9px] text-zinc-500">
+              Remember your password? <a href="/login" class="text-black font-bold hover:underline">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  `;
+  renderSubpage('Reset Password', ['FORGOT PASSWORD'], contentHtml, '/');
+}
+
+function setupLoginForm() {
+  const form = document.getElementById('login-form');
+  if (!form) return;
+  const emailInput = document.getElementById('login-email');
+  const passwordInput = document.getElementById('login-password');
+  const emailError = document.getElementById('login-email-error');
+  const passwordError = document.getElementById('login-password-error');
+  const toggleBtn = document.getElementById('toggle-password');
+
+  if (toggleBtn && passwordInput) {
+    toggleBtn.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      toggleBtn.innerHTML = isPassword
+        ? '<svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+        : '<svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    emailError.classList.add('hidden');
+    passwordError.classList.add('hidden');
+
+    if (!email) {
+      emailError.textContent = 'Email is required.';
+      emailError.classList.remove('hidden');
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailError.textContent = 'Please enter a valid email address.';
+      emailError.classList.remove('hidden');
+      valid = false;
+    }
+    if (!password) {
+      passwordError.textContent = 'Password is required.';
+      passwordError.classList.remove('hidden');
+      valid = false;
+    }
+
+    if (valid) {
+      showLoggedInUI();
+      navigateTo('/');
+    }
+  });
+
+  const googleBtn = document.getElementById('google-login-btn');
+  if (googleBtn) {
+    googleBtn.addEventListener('click', () => {
+      showLoggedInUI();
+      navigateTo('/');
+    });
+  }
+}
+
+function showLoggedInUI() {
+  const loginBtn = document.getElementById('login-nav-btn');
+  const profileContainer = document.getElementById('profile-container');
+  const loginBtnMobile = document.getElementById('login-nav-btn-mobile');
+  const profileContainerMobile = document.getElementById('profile-container-mobile');
+
+  if (loginBtn) loginBtn.classList.add('hidden');
+  if (profileContainer) profileContainer.classList.remove('hidden');
+  if (loginBtnMobile) loginBtnMobile.classList.add('hidden');
+  if (profileContainerMobile) profileContainerMobile.classList.remove('hidden');
+}
+
+// --- Static Page Renderer ---
+function renderStaticPage(pageKey, page) {
+  const breadcrumbs = [page.title];
+  let contentHtml = '';
+  if (pageKey === 'feedback') {
+    contentHtml = buildFeedbackFormHtml();
+  } else {
+    contentHtml = buildPremiumAboutHtml(pageKey, page);
+  }
+  renderSubpage(page.title, breadcrumbs, contentHtml, '/');
+  if (pageKey === 'feedback') {
+    setTimeout(bindFeedbackForm, 50);
+  }
+}
+
+function buildPremiumAboutHtml(pageKey, page) {
+  const paragraphs = page.content.split('</p>').filter(p => p.trim());
+  const parsed = paragraphs.map(p => {
+    const clean = p.replace(/<\/?p>/g, '').trim();
+    return clean;
+  }).filter(p => p);
+
+  const icons = {
+    'about': ['🏠', '⚡', '🎯'],
+    'about/mission': ['🎯', '🌱', '🤝'],
+    'about/why-ev-car-wale': ['⭐', '📊', '🛠️', '📚', '🌍'],
+    'about/team': ['👥', '💡', '🔬', '🎨'],
+    'contact': ['📧', '📞', '📍', '🏢'],
+    'help': ['📖', '💻', '📱', '🎓', '✉️'],
+    'faqs': ['❓', '💰', '🔋', '⏱️', '🛣️'],
+    'privacy-policy': ['🔒', '📋', '🛡️', '🍪'],
+    'terms-and-conditions': ['📝', '⚖️', 'ℹ️', '🔄'],
+    'disclaimer': ['⚠️', '🚗', '💰', '🔗', '📋'],
+    'cookie-policy': ['🍪', '❓', '📊', '⚙️', '🔄'],
+    'copyright': ['©️', '📄', '™️']
+  };
+  const pageIcons = icons[pageKey] || ['📄'];
+
+  let sections = '';
+  parsed.forEach((text, i) => {
+    const icon = pageIcons[i % pageIcons.length];
+    const boldMatch = text.match(/<strong>(.*?)<\/strong>/);
+    if (boldMatch) {
+      const titleText = boldMatch[1];
+      const rest = text.replace(/<strong>.*?<\/strong>/, '').replace(/<\/?[^>]+(>|$)/g, '').trim();
+      sections += `
+        <div class="border border-zinc-200 bg-white p-6 md:p-8 rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all">
+          <div class="flex items-start gap-4">
+            <span class="text-2xl flex-shrink-0 mt-0.5">${icon}</span>
+            <div>
+              <h3 class="text-base font-bold text-black mb-2">${titleText}</h3>
+              <p class="text-sm text-zinc-600 leading-relaxed">${rest}</p>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      sections += `
+        <div class="border border-zinc-200 bg-white p-6 md:p-8 rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all">
+          <div class="flex items-start gap-4">
+            <span class="text-2xl flex-shrink-0 mt-0.5">${icon}</span>
+            <p class="text-sm text-zinc-600 leading-relaxed">${text.replace(/<\/?[^>]+(>|$)/g, '')}</p>
+          </div>
+        </div>`;
+    }
+  });
+
+  return `
+    <div class="flex flex-col gap-8 pt-6">
+      <div class="relative overflow-hidden bg-zinc-900 text-white p-8 md:p-12 rounded-xl">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-500/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="relative z-10">
+          <a href="/" class="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 hover:text-white uppercase tracking-wider transition-colors mb-6">← Back to Home</a>
+          <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight text-white">${page.title}</h1>
+          <div class="w-12 h-1 bg-green-500 mt-4"></div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 max-w-4xl mx-auto w-full">
+        ${sections}
+      </div>
+      <div class="border-t border-zinc-200 pt-8 mt-4 max-w-4xl mx-auto w-full">
+        <a href="/" class="inline-flex items-center gap-2 border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-6 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg">← Back to Home</a>
+      </div>
+    </div>`;
+}
+
+function buildFeedbackFormHtml() {
+  return `
+    <div class="flex flex-col gap-8 pt-6">
+      <div class="relative overflow-hidden bg-zinc-900 text-white p-8 md:p-12 rounded-xl">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-500/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="relative z-10">
+          <a href="/" class="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 hover:text-white uppercase tracking-wider transition-colors mb-6">← Back to Home</a>
+          <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight text-white">Feedback</h1>
+          <p class="text-sm text-zinc-400 mt-3 max-w-xl">We value your feedback. Help us improve EV Car Wale.</p>
+          <div class="w-12 h-1 bg-green-500 mt-4"></div>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto w-full">
+        <div class="border border-zinc-200 bg-white p-6 md:p-10 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+          <div id="feedback-form-container">
+            <div class="flex flex-col gap-6">
+              <div class="text-center">
+                <h3 class="text-lg font-bold text-black">Rate Your Experience</h3>
+                <p class="text-xs text-zinc-500 mt-1">Tap a star to rate</p>
+                <div class="flex items-center justify-center gap-1.5 mt-4" id="star-rating">
+                  ${[1,2,3,4,5].map(i => `<button class="star-btn text-3xl text-zinc-200 hover:text-yellow-400 transition-colors focus:outline-none" data-value="${i}">★</button>`).join('')}
+                </div>
+                <div class="text-[10px] font-mono text-zinc-400 mt-2" id="rating-label">Select a rating</div>
+              </div>
+              <div class="border-t border-zinc-100 pt-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-1.5">
+                    <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">Your Name</label>
+                    <input type="text" id="feedback-name" class="border border-zinc-200 text-sm p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-lg bg-zinc-50" placeholder="Enter your name">
+                  </div>
+                  <div class="flex flex-col gap-1.5">
+                    <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">Email Address</label>
+                    <input type="email" id="feedback-email" class="border border-zinc-200 text-sm p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-lg bg-zinc-50" placeholder="Enter your email">
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1.5 mt-4">
+                  <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">Subject</label>
+                  <input type="text" id="feedback-subject" class="border border-zinc-200 text-sm p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-lg bg-zinc-50" placeholder="What is this about?">
+                </div>
+                <div class="flex flex-col gap-1.5 mt-4">
+                  <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">Category</label>
+                  <select id="feedback-category" class="border border-zinc-200 text-sm p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-lg bg-zinc-50 cursor-pointer">
+                    <option value="">Select a category</option>
+                    <option value="general">General Feedback</option>
+                    <option value="bug">Bug Report</option>
+                    <option value="feature">Feature Request</option>
+                    <option value="content">Content Issue</option>
+                    <option value="ux">User Experience</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-1.5 mt-4">
+                  <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">Your Feedback</label>
+                  <textarea id="feedback-message" rows="5" class="border border-zinc-200 text-sm p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-lg bg-zinc-50 resize-none" placeholder="Tell us what you think..."></textarea>
+                </div>
+                <button id="feedback-submit-btn" class="w-full mt-6 py-3.5 bg-black text-white font-mono text-[10px] uppercase tracking-widest hover:bg-zinc-800 transition-all rounded-lg">Submit Feedback</button>
+              </div>
+            </div>
+          </div>
+          <div id="feedback-success" class="hidden text-center py-12">
+            <span class="text-5xl block mb-4">✅</span>
+            <h3 class="text-xl font-bold text-black">Thank You!</h3>
+            <p class="text-sm text-zinc-500 mt-2 max-w-md mx-auto">Your feedback has been submitted successfully. We appreciate you helping us improve EV Car Wale.</p>
+            <a href="/" class="inline-block mt-6 border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-6 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function bindFeedbackForm() {
+  var stars = document.querySelectorAll('.star-btn');
+  var ratingLabel = document.getElementById('rating-label');
+  var selectedRating = 0;
+  var labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+  stars.forEach(function(btn, index) {
+    btn.addEventListener('click', function() {
+      selectedRating = parseInt(this.getAttribute('data-value'));
+      stars.forEach(function(s, i) {
+        if (i < selectedRating) {
+          s.classList.add('text-yellow-400');
+          s.classList.remove('text-zinc-200');
+        } else {
+          s.classList.remove('text-yellow-400');
+          s.classList.add('text-zinc-200');
+        }
+      });
+      if (ratingLabel) ratingLabel.textContent = labels[selectedRating] || 'Selected';
+    });
+    btn.addEventListener('mouseenter', function() {
+      var val = parseInt(this.getAttribute('data-value'));
+      stars.forEach(function(s, i) {
+        if (i < val) {
+          s.classList.add('text-yellow-300');
+          s.classList.remove('text-zinc-200');
+        } else {
+          if (!s.classList.contains('text-yellow-400')) {
+            s.classList.remove('text-yellow-300');
+            s.classList.add('text-zinc-200');
+          }
+        }
+      });
+    });
+    btn.addEventListener('mouseleave', function() {
+      stars.forEach(function(s, i) {
+        if (i < selectedRating) {
+          s.classList.add('text-yellow-400');
+          s.classList.remove('text-zinc-200');
+          s.classList.remove('text-yellow-300');
+        } else {
+          s.classList.remove('text-yellow-400');
+          s.classList.remove('text-yellow-300');
+          s.classList.add('text-zinc-200');
+        }
+      });
+    });
+  });
+
+  var submitBtn = document.getElementById('feedback-submit-btn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function() {
+      var name = document.getElementById('feedback-name');
+      var email = document.getElementById('feedback-email');
+      var message = document.getElementById('feedback-message');
+      if (selectedRating === 0) { ratingLabel.textContent = 'Please select a rating'; return; }
+      if (!name || !name.value.trim()) { name.focus(); return; }
+      if (!message || !message.value.trim()) { message.focus(); return; }
+      var formContainer = document.getElementById('feedback-form-container');
+      var successContainer = document.getElementById('feedback-success');
+      if (formContainer) formContainer.classList.add('hidden');
+      if (successContainer) successContainer.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
+function renderResourcePage(slug, article) {
+  const breadcrumbs = ['RESOURCES', article.title];
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
+      <a href="/" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Home</a>
       <div>
         <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
       </div>
@@ -3705,7 +5256,7 @@ function renderLearnArticlePage(slug, article) {
         ${article.content}
       </div>
       <div class="border-t border-zinc-200 pt-6 mt-6">
-        <a href="/#buying-portal" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Guides</a>
+        <a href="/" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Home</a>
       </div>
     </div>
   `;
@@ -5678,7 +7229,7 @@ function initEducationalModals() {
     card.addEventListener('click', (e) => {
       e.preventDefault();
       const hubKey = card.getAttribute('data-hub-key');
-      navigateTo('/hub/' + hubKey);
+      navigateTo('/learn/' + hubKey);
     });
   });
 }

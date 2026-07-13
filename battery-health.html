@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battery Health Guide – EV Car Wale</title>
+  <meta name="description" content="Learn how to maximize your EV battery lifespan with our comprehensive battery health guide for Indian EV owners.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ai-assistant.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            purewhite: '#FFFFFF',
+            black: '#000000',
+            darkgray: '#1E1E1E',
+            medgray: '#555555',
+            lightgray: '#F5F5F5',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .faq-question {
+      cursor: pointer;
+      user-select: none;
+    }
+    .faq-question.open + .faq-answer {
+      max-height: 300px;
+      padding-bottom: 16px;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding-bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-chevron {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-question.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+    .hero-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+    }
+    @media (min-width: 768px) {
+      .hero-overlay {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-black font-sans overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
+      <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
+        <span class="w-2.5 h-2.5 bg-black inline-block rounded-none group-hover:scale-125 transition-transform duration-300"></span>
+        EV CAR WALE
+      </a>
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <a href="index.html" class="px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">HOME</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="Learn_Electric_Vehicles/BATTERY_HEALTH copy.jpeg" alt="EV Battery Health" class="w-full h-full object-cover">
+      <div class="hero-overlay absolute inset-0"></div>
+      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 w-full pt-20 pb-12 md:pt-28 md:pb-16">
+      <div class="max-w-2xl">
+        <span class="font-mono text-[10px] tracking-widest text-zinc-300 uppercase mb-4 inline-block border border-zinc-500/40 px-3 py-1">Knowledge Centre</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white mb-4">Battery Health Guide</h1>
+        <p class="text-base md:text-lg text-zinc-200 max-w-xl leading-relaxed mb-6">Maximise the lifespan of your electric vehicle's battery with practical tips tailored for Indian driving conditions.</p>
+        <div class="flex flex-wrap items-center gap-4 font-mono text-[10px] tracking-wider text-zinc-400">
+          <span class="flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            8 min read
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            EV Car Wale Team
+          </span>
+          <span class="flex items-center gap-1.5">Updated July 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <article class="max-w-4xl mx-auto px-6 lg:px-12 py-12 md:py-16">
+    <div class="prose prose-zinc max-w-none">
+
+      <!-- Intro -->
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Your EV's battery is its most valuable component — accounting for nearly 40–50% of the vehicle's cost. For Indian EV owners, factors like extreme heat, voltage fluctuations, and varied charging infrastructure make battery care especially important. This guide covers everything you need to know to keep your battery healthy for years to come.</p>
+
+      <!-- Section 1 -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        How EV Batteries Work
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Electric vehicles use lithium-ion battery packs — the same technology powering your smartphone, but scaled up significantly. These batteries store energy in cells grouped into modules, managed by a sophisticated <span class="jargon-term" data-tooltip="Battery Management System — the electronic brain that monitors voltage, temperature, and state of charge to keep the battery safe and efficient.">BMS</span> (Battery Management System).</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Each charge cycle — a full discharge from 100% to 0% and back to 100% — slightly degrades the battery's maximum capacity. Most modern EV batteries are designed to retain at least 70–80% of their original capacity after 8–10 years or 1,50,000 km, whichever comes first.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">In India, popular EVs like the Tata Nexon EV, MG ZS EV, and BYD Atto 3 use different battery chemistries, each with unique care requirements.</p>
+
+      <!-- Section 2 -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Factors Affecting Battery Health
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Several factors influence how quickly your EV battery degrades:</p>
+      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">1.</span> <span><strong class="text-black">High Temperatures:</strong> Indian summers can push battery temps above 45°C, accelerating chemical degradation. Prolonged exposure to heat is the #1 enemy of battery life.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">2.</span> <span><strong class="text-black">Frequent Fast Charging:</strong> While convenient, repeated DC fast charging generates more heat and stress than slow AC charging, gradually reducing capacity.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">3.</span> <span><strong class="text-black">Depth of Discharge:</strong> Regularly draining the battery to near 0% or charging to 100% puts more strain on cells compared to staying in the 20–80% range.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">4.</span> <span><strong class="text-black">Storage at Extreme States of Charge:</strong> Parking for long periods with a full or empty battery accelerates capacity loss.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">5.</span> <span><strong class="text-black">Age &amp; Mileage:</strong> Even with perfect care, batteries naturally degrade over time due to chemical aging.</span></li>
+      </ul>
+
+      <!-- Tips Card -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 md:p-8 mb-10">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl shrink-0 mt-0.5">💡</span>
+          <div>
+            <h3 class="text-sm font-bold tracking-tight text-black mb-2">Pro Tip for Indian Owners</h3>
+            <p class="text-sm text-zinc-600 leading-relaxed">If you live in a city like Delhi, Chennai, or Ahmedabad where summer temperatures regularly exceed 40°C, try to park in shaded areas or covered parking whenever possible. Many new EVs come with <strong class="text-black">thermal management systems</strong> that actively cool the battery, but reducing ambient heat exposure makes their job easier and extends battery life.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Optimal Charging Habits
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">How you charge your EV matters more than most owners realise. Here are best practices backed by battery research:</p>
+      <div class="grid gap-6 mb-8">
+        <div class="border border-zinc-200 rounded-2xl p-5">
+          <h4 class="text-sm font-bold text-black mb-1">Keep It Between 20% and 80%</h4>
+          <p class="text-sm text-zinc-600">Lithium-ion batteries are happiest when kept between 20% and 80% state of charge. Charging to 100% regularly or letting it drop to 0% increases stress on the cells. For daily commuting, set your charge limit to 80–90%.</p>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl p-5">
+          <h4 class="text-sm font-bold text-black mb-1">Prefer AC Charging for Daily Use</h4>
+          <p class="text-sm text-zinc-600">Slow AC charging (3.3 kW or 7.2 kW) is gentler on the battery than DC fast charging. Use a home wall charger for your daily top-ups and reserve DC fast charging for long trips. Most Indian EVs spend 80% of their charging time on AC — which is ideal.</p>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl p-5">
+          <h4 class="text-sm font-bold text-black mb-1">Avoid Charging Immediately After Driving</h4>
+          <p class="text-sm text-zinc-600">Let the battery cool down for 15–30 minutes after a drive before plugging in, especially in hot weather. Charging a hot battery accelerates degradation.</p>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Temperature Management
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">India's diverse climate — from the scorching plains of Rajasthan to the humid coasts of Kerala — presents unique challenges for EV battery health.</p>
+      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🌡️</span> <span><strong class="text-black">Hot Climates:</strong> Use scheduled charging to finish charging just before you leave, so the battery doesn't sit at a high state of charge while hot. Park in shade or use a car cover.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">❄️</span> <span><strong class="text-black">Cold Climates:</strong> While less common in India, hill stations like Shimla or Manali can see near-freezing temps. Cold batteries have reduced range — precondition the battery if your EV supports it.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🌧️</span> <span><strong class="text-black">Monsoon Precautions:</strong> EV batteries are well-sealed and waterproof (IP67 rated), but avoid driving through deep waterlogged roads where water could damage charging ports or connectors.</span></li>
+      </ul>
+
+      <!-- Section 5 -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Software &amp; BMS
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Modern EVs rely heavily on software to manage battery health. The Battery Management System (BMS) monitors individual cell voltages, temperatures, and charge states to ensure safe operation.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Manufacturers like Tata Motors and MG regularly release over-the-air (<span class="jargon-term" data-tooltip="Over-the-Air — software updates delivered wirelessly, just like your phone gets system updates.">OTA</span>) software updates that can improve battery management algorithms, charging curves, and thermal strategies. Always keep your EV's software up to date.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Some EVs offer a "Battery Care Mode" or "Long Life Mode" that caps charging to 80% automatically — use this feature if available.</p>
+
+      <!-- Comparison Table -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-6 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        LFP vs NMC Battery Comparison
+      </h2>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Two battery chemistries dominate the Indian EV market. Here's how they compare for battery health and longevity:</p>
+      <div class="overflow-x-auto mb-10">
+        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
+          <thead>
+            <tr class="bg-zinc-50 border-b border-zinc-200">
+              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Parameter</th>
+              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">LFP (Lithium Iron Phosphate)</th>
+              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">NMC (Nickel Manganese Cobalt)</th>
+            </tr>
+          </thead>
+          <tbody class="text-zinc-600">
+            <tr class="border-b border-zinc-100">
+              <td class="p-4 font-medium text-black">Cycle Life</td>
+              <td class="p-4">3,000–5,000 cycles</td>
+              <td class="p-4">1,000–2,000 cycles</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-4 font-medium text-black">Energy Density</td>
+              <td class="p-4">Lower (heavier, bulkier)</td>
+              <td class="p-4">Higher (lighter, compact)</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-4 font-medium text-black">Thermal Stability</td>
+              <td class="p-4">Excellent — very safe</td>
+              <td class="p-4">Good — requires active cooling</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-4 font-medium text-black">Cost</td>
+              <td class="p-4">Lower</td>
+              <td class="p-4">Higher</td>
+            </tr>
+            <tr class="border-b border-zinc-100">
+              <td class="p-4 font-medium text-black">Best For</td>
+              <td class="p-4">Daily commuting, hot climates</td>
+              <td class="p-4">Long range, performance EVs</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-medium text-black">Examples in India</td>
+              <td class="p-4">Tata Nexon EV, MG Comet EV</td>
+              <td class="p-4">BYD Atto 3, Kia EV6, BMW i4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Best Practices Section -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Best Practices for Indian EV Owners
+      </h2>
+      <ol class="space-y-4 mb-10 text-sm md:text-base text-zinc-600 list-decimal pl-5">
+        <li class="pl-2"><strong class="text-black">Charge to 80% for daily use</strong> — reserve 100% only for long road trips.</li>
+        <li class="pl-2"><strong class="text-black">Use a dedicated home charger</strong> — a 7.2 kW AC wall box is ideal for Indian homes with a proper earth connection.</li>
+        <li class="pl-2"><strong class="text-black">Avoid extreme states of charge</strong> — don't let the battery sit below 10% or above 90% for extended periods.</li>
+        <li class="pl-2"><strong class="text-black">Park in the shade</strong> — use covered parking, car covers, or reflective sun shades to reduce cabin and battery temperatures.</li>
+        <li class="pl-2"><strong class="text-black">Update your EV's software</strong> — OTA updates often include BMS improvements that can extend battery life.</li>
+        <li class="pl-2"><strong class="text-black">Precondition the battery</strong> — if your EV supports it, use navigation to a fast charger to precondition the battery for optimal charging speed and health.</li>
+        <li class="pl-2"><strong class="text-black">Monitor battery health annually</strong> — get a professional <span class="jargon-term" data-tooltip="State of Health — a measure of the battery's current capacity compared to its original capacity, expressed as a percentage.">SOH</span> (State of Health) check at your service centre each year.</li>
+        <li class="pl-2"><strong class="text-black">Avoid frequent DC fast charging</strong> — limit fast charging to once or twice a week if possible.</li>
+      </ol>
+
+      <!-- FAQ Section -->
+      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-16 mb-6 flex items-center gap-3">
+        <span class="w-1 h-6 bg-black inline-block"></span>
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-3 mb-12">
+        <div class="border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-left bg-white hover:bg-zinc-50 transition-colors">
+            <span class="text-sm font-bold text-black pr-4">Is it bad to charge my EV to 100% every day?</span>
+            <svg class="faq-chevron w-4 h-4 shrink-0 text-zinc-400 stroke-current fill-none stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer px-5 text-sm text-zinc-600 leading-relaxed">
+            For daily use, it's better to charge to 80–90%. Charging to 100% regularly accelerates battery degradation. Save 100% charges for when you need maximum range for a long trip.
+          </div>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-left bg-white hover:bg-zinc-50 transition-colors">
+            <span class="text-sm font-bold text-black pr-4">Does fast charging damage the battery?</span>
+            <svg class="faq-chevron w-4 h-4 shrink-0 text-zinc-400 stroke-current fill-none stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer px-5 text-sm text-zinc-600 leading-relaxed">
+            Frequent DC fast charging generates more heat and can accelerate degradation over time. Occasional fast charging (for road trips) is fine. For daily use, stick to AC home charging to maximise battery lifespan.
+          </div>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-left bg-white hover:bg-zinc-50 transition-colors">
+            <span class="text-sm font-bold text-black pr-4">How long do EV batteries last in India?</span>
+            <svg class="faq-chevron w-4 h-4 shrink-0 text-zinc-400 stroke-current fill-none stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer px-5 text-sm text-zinc-600 leading-relaxed">
+            Most EV batteries in India are warrantied for 8 years or 1,50,000 km. With proper care, they typically retain 70–80% capacity after this period. LFP batteries (like in Tata Nexon EV) can last even longer — up to 5,000 charge cycles.
+          </div>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-left bg-white hover:bg-zinc-50 transition-colors">
+            <span class="text-sm font-bold text-black pr-4">What is the ideal charging routine for Indian conditions?</span>
+            <svg class="faq-chevron w-4 h-4 shrink-0 text-zinc-400 stroke-current fill-none stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer px-5 text-sm text-zinc-600 leading-relaxed">
+            Charge overnight using a 7.2 kW AC wall charger. Set the charge limit to 80% (or 90% if you need extra range). Avoid charging immediately after driving — let the battery cool down for 15–30 minutes. In summer, use scheduled charging to finish right before you leave.
+          </div>
+        </div>
+        <div class="border border-zinc-200 rounded-2xl overflow-hidden">
+          <button class="faq-question w-full flex items-center justify-between p-5 text-left bg-white hover:bg-zinc-50 transition-colors">
+            <span class="text-sm font-bold text-black pr-4">Does regenerative braking affect battery health?</span>
+            <svg class="faq-chevron w-4 h-4 shrink-0 text-zinc-400 stroke-current fill-none stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer px-5 text-sm text-zinc-600 leading-relaxed">
+            Regenerative braking is actually good for battery health. It gently recycles energy back into the battery during deceleration, reducing wear on friction brakes and improving overall efficiency without causing significant battery stress.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Related Articles -->
+  <section class="border-t border-zinc-200 bg-zinc-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
+      <h2 class="text-lg font-bold tracking-tight text-black mb-8 flex items-center gap-3">
+        <span class="w-1 h-5 bg-black inline-block"></span>
+        Related Articles
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="index.html#/learn/battery-warranty" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Warranty</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Battery Warranty Explained</h3>
+          <p class="text-xs text-zinc-500">Understand what's covered and what's not in Indian EV battery warranties.</p>
+        </a>
+        <a href="index.html#/learn/lfp-vs-nmc" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Chemistry</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">LFP vs NMC Batteries</h3>
+          <p class="text-xs text-zinc-500">Compare the two most common EV battery chemistries in India.</p>
+        </a>
+        <a href="index.html#/learn/regenerative-braking" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Efficiency</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Regenerative Braking</h3>
+          <p class="text-xs text-zinc-500">Learn how regen works and how to use it effectively.</p>
+        </a>
+        <a href="index.html#/learn/charging-at-home" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Charging</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Charging at Home</h3>
+          <p class="text-xs text-zinc-500">Set up the perfect home charging station for your EV.</p>
+        </a>
+      </div>
+      <div class="mt-10 text-center">
+        <a href="index.html#/learn" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-300 hover:border-black font-mono text-[10px] tracking-wider text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate rounded-full">
+          BACK TO INSIGHTS
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-200 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 text-black">
+        <span class="w-2 h-2 bg-black inline-block"></span>
+        EV CAR WALE
+      </a>
+      <p class="font-mono text-[9px] text-zinc-400 tracking-wider">&copy; 2026 EV Car Wale. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var isOpen = this.classList.contains('open');
+        document.querySelectorAll('.faq-question.open').forEach(function(b) {
+          b.classList.remove('open');
+        });
+        if (!isOpen) {
+          this.classList.add('open');
+        }
+      });
+    });
+  </script>
+
+<!-- AI Floating Assistant -->
+<div id="ai-overlay" class="ai-overlay"></div>
+<div class="ai-assistant-container">
+  <div class="ai-trigger" id="ai-trigger">
+    <div class="ai-avatar-wrapper ai-float-anim">
+      <div class="ai-avatar-glow"></div>
+      <img src="ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
+    </div>
+    <div class="ai-label" id="ai-label">Ask EV AI</div>
+  </div>
+  <div class="ai-chat-window" id="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-left">
+        <img src="ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
+        <div>
+          <div class="ai-chat-title">EV AI Assistant</div>
+          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
+        </div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
+    </div>
+    <div class="ai-chat-body" id="ai-chat-body">
+      <div class="ai-message ai-bot-message" style="white-space:pre-line">
+Hi! 👋 I'm your EV AI Assistant.
+
+Ask me anything about:
+
+• Electric Vehicles
+• Charging
+• Battery Health
+• EV Costs
+• Government Policies
+• EV Buying
+• Range
+• Comparisons
+• Charging Stations
+      </div>
+      <div class="ai-suggestions">
+        <button class="ai-chip">Best EV under ₹15 lakh</button>
+        <button class="ai-chip">Charging cost</button>
+        <button class="ai-chip">Battery lifespan</button>
+        <button class="ai-chip">Compare Tata vs MG</button>
+        <button class="ai-chip">Government subsidy</button>
+        <button class="ai-chip">Charging stations near me</button>
+      </div>
+    </div>
+    <div class="ai-chat-input-area">
+      <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
+      <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
+    </div>
+  </div>
+</div>
+<script src="ai-assistant.js"></script>
+</body>
+</html>

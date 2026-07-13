@@ -109,13 +109,28 @@
             <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </button>
-        <!-- Wishlist -->
-        <a id="wishlist-nav-btn" href="index.html#popular-evs" class="p-1.5 text-zinc-600 hover:text-black transition-colors relative btn-animate" aria-label="Wishlist">
-          <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[2]" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-          </svg>
-          <span id="wishlist-badge" class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-black text-white font-mono text-[8px] font-bold rounded-full flex items-center justify-center scale-0 transition-transform">0</span>
-        </a>
+        <!-- Language Selector -->
+        <div class="relative lang-selector">
+          <button id="lang-selector-btn" class="flex items-center gap-1.5 text-zinc-600 hover:text-black transition-colors font-mono text-[10px] tracking-wider btn-animate" aria-label="Select Language">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-[2]" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="lang-current">English</span>
+            <svg class="w-2.5 h-2.5 stroke-current fill-none stroke-2 transition-transform duration-200 lang-caret" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div id="lang-dropdown" class="absolute right-0 top-full mt-1.5 bg-white border border-zinc-200 rounded-xl shadow-lg py-1 min-w-[160px] opacity-0 invisible translate-y-1 transition-all duration-200 z-50">
+            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="en">English</button>
+            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="hi">हिन्दी (Hindi)</button>
+            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="kn">ಕನ್ನಡ (Kannada)</button>
+            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="ta">தமிழ் (Tamil)</button>
+            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="te">తెలుగు (Telugu)</button>
+            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="ml">മലയാളം (Malayalam)</button>
+          </div>
+        </div>
         <!-- Auth CTA -->
         <button id="login-nav-btn" class="hidden md:block px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">
           LOGIN
@@ -1022,7 +1037,7 @@
         <!-- Left: Artwork -->
         <div class="lg:col-span-5 flex justify-center">
           <div class="relative w-full max-w-md aspect-square bg-zinc-50 border border-zinc-150 rounded-2xl overflow-hidden shadow-sm flex items-center justify-center group hover:border-black transition-all hover:scale-[1.01] duration-300">
-            <img src="WHY_BUY_EV.jpeg" alt="Why Choose EV Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
+            <img src="whychoose__ev_illustration.jpeg" alt="Why Choose EV Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
           </div>
         </div>
         <!-- Right: Accordion -->
