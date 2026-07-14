@@ -18,17 +18,48 @@ function getBrandFolder(brand) {
 }
 
 function getModelFolder(brand, model) {
+  try {
+    const brandFolder = getBrandFolder(brand);
+    const brandPath = path.join(CAR_IMAGES_DIR, brandFolder);
+    if (fs.existsSync(brandPath)) {
+      const subdirs = fs.readdirSync(brandPath).filter(f => {
+        return fs.statSync(path.join(brandPath, f)).isDirectory();
+      });
+      
+      const cleanModel = model.toLowerCase().replace(/_ev/g, '').replace(/ev/g, '').replace(/\s+/g, '').replace(/[-_]/g, '').trim();
+      
+      for (const dir of subdirs) {
+        const cleanDir = dir.toLowerCase()
+          .replace(/_colours/i, '')
+          .replace(/colours/i, '')
+          .replace(/_colors/i, '')
+          .replace(/colors/i, '')
+          .replace(/_ev/g, '')
+          .replace(/ev/g, '')
+          .replace(/\s+/g, '')
+          .replace(/[-_]/g, '')
+          .trim();
+          
+        if (cleanDir.includes(cleanModel) || cleanModel.includes(cleanDir)) {
+          return dir;
+        }
+      }
+    }
+  } catch (e) {
+    // ignore, fallback
+  }
+
   let modelFolder = model.toLowerCase().trim();
   const lowerBrand = brand.toLowerCase().trim();
   if (lowerBrand === 'tata') {
-    if (modelFolder.includes('punch')) return 'tata_punch';
-    if (modelFolder.includes('nexon')) return 'tata_nexon_ev';
-    if (modelFolder.includes('harrier')) return 'tata_harrier_ev';
-    if (modelFolder.includes('tiago')) return 'tata_tiago_EV';
-    if (modelFolder.includes('tigor')) return 'TATA_TIGOR';
-    if (modelFolder.includes('sierra')) return 'tata_sierra';
-    if (modelFolder.includes('avinya')) return 'tata_avinya_ev';
-    if (modelFolder.includes('curvv')) return 'tata_curve_ev';
+    if (modelFolder.includes('punch')) return 'tata_punch_COLOURS';
+    if (modelFolder.includes('nexon')) return 'tata_nexon_COLOURS';
+    if (modelFolder.includes('harrier')) return 'tata_harrier_evCOLOURS';
+    if (modelFolder.includes('tiago')) return 'tata_tiago_EV_COLOURS';
+    if (modelFolder.includes('tigor')) return 'TATA_TIGOR_COLOURS';
+    if (modelFolder.includes('sierra')) return 'tata_sierra_COLOURS';
+    if (modelFolder.includes('avinya')) return 'tata_avinya_ev_COLOURS';
+    if (modelFolder.includes('curvv')) return 'tata_curve_evCOLOURS';
   }
   return modelFolder.replace(/\s+/g, '_').replace(/-/g, '_');
 }
@@ -36,6 +67,13 @@ function getModelFolder(brand, model) {
 function filenameToColorName(filename) {
   let name = filename.replace(/\.(jpg|jpeg|webp|png)$/i, '');
   name = name.trim();
+  if (name.includes('1776')) return 'Glacier White';
+  if (name.includes('1811')) return 'Snow White';
+  if (name.includes('1812')) return 'Cosmos Black';
+  if (name.includes('1813')) return 'Delan Gray';
+  if (name.includes('1814')) return 'Emperor Red';
+  if (name.includes('1815')) return 'Dome Blue';
+  
   name = name.replace(/[-_]/g, ' ');
   name = name.replace(/\s+/g, ' ');
   return name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');

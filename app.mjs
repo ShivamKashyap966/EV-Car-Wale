@@ -5846,7 +5846,7 @@ const GUIDE_HUB_IMAGES = {
   'running-cost': 'everything_u_need/    RUNNING_COST.jpeg',
   'trip-planning': 'everything_u_need/    TRIP_PLANNING.jpeg',
   'real-range': 'everything_u_need/    REAL_WORLD_RANGE.jpeg',
-  'regen-braking': 'Learn_Electric_Vehicles/    REGENERATIVE_BRAKING copy.jpeg',
+  'regen-braking': 'Learn_Electric_Vehicles/REGENERATIVE_BRAKING copy.jpeg',
   'lfp-nmc': 'Learn_Electric_Vehicles/    LFP_VS_NMC_BATTERY copy.jpeg',
   'ac-dc': 'Learn_Electric_Vehicles/    AC_VS_DC_CHARGING copy.jpeg',
   'v2l': 'Learn_Electric_Vehicles/    VEHICLE_TO_LOAD_V2L copy.jpeg',
@@ -6585,15 +6585,6 @@ async function renderCarDetailsPage(car) {
       `;
     });
 
-    let variantsTabsHtml = '';
-    car.variants.forEach((v, idx) => {
-      variantsTabsHtml += `
-        <button class="variant-tab-btn flex-1 py-3 px-4 text-center border font-mono text-[10px] tracking-wider transition-all duration-300 uppercase ${idx === activeVariantIdx ? 'bg-black text-white border-black font-bold' : 'bg-white border-zinc-200 text-zinc-650 hover:border-zinc-500'}" data-idx="${idx}">
-          ${v.name}<br><span class="text-[9px] font-semibold mt-1 inline-block">${v.price}</span>
-        </button>
-      `;
-    });
-
     let specsHtml = `
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">
@@ -6828,17 +6819,6 @@ async function renderCarDetailsPage(car) {
                 </button>
               </div>
             </div>
-
-            <!-- Variants Switcher Panel -->
-            <div class="border-t border-zinc-150 pt-5">
-              <h4 class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest mb-3">SELECT VARIANT SPECIFICATION</h4>
-              <div class="flex flex-col md:flex-row gap-2">
-                ${variantsTabsHtml}
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- 2. Variants & Complete Specifications -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-150 pt-10">
           <div class="lg:col-span-4 text-left">
@@ -7249,14 +7229,6 @@ async function renderCarDetailsPage(car) {
       toggleWishlist(car.id);
       alert(`${car.name.toUpperCase()} ACCESSED IN WISHLIST LOG.`);
       updateDetailsUI();
-    });
-
-    // Variant tab buttons click
-    document.querySelectorAll('.variant-tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeVariantIdx = parseInt(btn.getAttribute('data-idx'));
-        updateDetailsUI();
-      });
     });
 
     // Related cards View Details click

@@ -113,35 +113,29 @@
         </div>
 
       </div><!-- /mega-menu-links -->
-
-      <!-- Right Actions -->
-      <div class="flex items-center gap-3 flex-shrink-0">
+      <div class="ml-auto flex items-center gap-2 "></div>
         <!-- Language Selector -->
-        <div class="relative lang-selector">
-          <button id="lang-selector-btn" class="flex items-center gap-1.5 text-zinc-600 hover:text-black transition-colors font-mono text-[10px] tracking-wider btn-animate" aria-label="Select Language">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-[2]" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span id="lang-current">English</span>
-            <svg class="w-2.5 h-2.5 stroke-current fill-none stroke-2 transition-transform duration-200 lang-caret" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
+        <div id="google_translate_element" class="notranslate"></div>
+        <div class="custom-lang-dropdown">
+          <button id="custom-lang-btn" class="btn-animate px-3">
+            <span id="custom-lang-label">SELECT LANGUAGE</span>
+            <span class="arrow">▼</span>
           </button>
-          <div id="lang-dropdown" class="absolute right-0 top-full mt-0.5 min-w-[160px] opacity-0 invisible translate-y-1 transition-all duration-200 z-50">
-            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="en">English</button>
-            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="hi">हिन्दी (Hindi)</button>
-            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="kn">ಕನ್ನಡ (Kannada)</button>
-            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="ta">தமிழ் (Tamil)</button>
-            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="te">తెలుగు (Telugu)</button>
-            <button class="lang-option w-full text-left px-4 py-2 font-mono text-[10px] text-zinc-700 hover:text-black hover:bg-zinc-50 transition-colors" data-lang="ml">മലയാളം (Malayalam)</button>
+          <div id="custom-lang-menu" class="custom-lang-menu">
+            <div class="lang-option" data-lang="en">English</div>
+            <div class="lang-option" data-lang="hi">Hindi</div>
+            <div class="lang-option" data-lang="kn">Kannada</div>
+            <div class="lang-option" data-lang="ml">Malayalam</div>
+            <div class="lang-option" data-lang="te">Telugu</div>
+            <div class="lang-option" data-lang="te">Tamil</div>
           </div>
         </div>
-        <!-- Auth CTA -->
+
         <button id="login-nav-btn" class="hidden md:block px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">
           LOGIN
         </button>
+        </div>
+
         <!-- Profile Avatar (shown after login) -->
         <a id="profile-container" class="hidden" href="profile.html">
           <div class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center hover:bg-zinc-700 transition-colors cursor-pointer" aria-label="Profile">
@@ -257,26 +251,20 @@
     <span class="mega-item-desc">Locate DC fast chargers.</span>
   </span>
  </a>
- <a href="index.html#faq" class="mega-item">
-  <span class="mega-item-icon">🏢</span>
-  <span class="mega-item-body">
-    <span class="mega-item-title">Apartment Charging Guide</span>
-    <span class="mega-item-desc">Get society NOC and home charging setup.</span>
-  </span>
- </a>
+  
           </div>
         </div>
         <div>
           <p class="mega-col-title">Utilities</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="index.html#popular-evs" class="mega-item">
-              <span class="mega-item-icon">🛣️</span>
+            <a href="apartment-charging.html" class="mega-item">
+              <span class="mega-item-icon">🏢</span>
               <span class="mega-item-body">
-                <span class="mega-item-title">Highway Readiness Checker</span>
-                <span class="mega-item-desc">Identify EVs suited for long distance highway travel.</span>
+                <span class="mega-item-title">Apartment Charging Guide</span>
+                <span class="mega-item-desc">Get society NOC and home charging setup.</span>
               </span>
             </a>
-            <a href="index.html#faq" class="mega-item">
+            <a href="battery-health.html" class="mega-item">
               <span class="mega-item-icon">🔋</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Battery Health Guide</span>
@@ -419,13 +407,6 @@
         <div>
           <p class="mega-col-title">Resources</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="/resources/faqs" class="mega-item">
-              <span class="mega-item-icon">❓</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">FAQs</span>
-                <span class="mega-item-desc">Quick answers to frequently asked EV questions.</span>
-              </span>
-            </a>
             <a href="/resources/apartment-noc-letter" class="mega-item">
               <span class="mega-item-icon">📄</span>
               <span class="mega-item-body">
@@ -678,12 +659,11 @@
             <a href="index.html#trip-planner" class="mobile-sub-link" data-close-drawer>🗺️ EV Trip Planner</a>
             <a href="index.html#emi" class="mobile-sub-link" data-close-drawer>🏦 EMI Calculator</a>
             <a href="index.html#petrol-savings" class="mobile-sub-link" data-close-drawer>⛽ Petrol vs EV Savings Calculator</a>
-            <a href="index.html#popular-evs" class="mobile-sub-link" data-close-drawer>🎯 Real World Range Calculator</a>
-            <a href="index.html#compare" class="mobile-sub-link" data-close-drawer>💸 On-Road Price Calculator</a>
+            <a href="index.html#popular-evs" class="mobile-sub-link" data-close-drawer>💸 On-Road Price Calculator</a>
             <a href="index.html#stations" class="mobile-sub-link" data-close-drawer>🔌 Charging Stations</a>
-            <a href="index.html#faq" class="mobile-sub-link" data-close-drawer>🏢 Apartment Charging Guide</a>
+            <a href="apartment-charging.html" class="mobile-sub-link" data-close-drawer>🏢 Apartment Charging Guide</a>
             <a href="index.html#popular-evs" class="mobile-sub-link" data-close-drawer>🛣️ Highway Readiness Checker</a>
-            <a href="index.html#faq" class="mobile-sub-link" data-close-drawer>🔋 Battery Health Guide</a>
+            <a href="battery-health.html" class="mobile-sub-link" data-close-drawer>🔋 Battery Health Guide</a>
           </div>
         </div>
 
@@ -710,7 +690,6 @@
             <a href="/learn/regenerative-braking" class="mobile-sub-link" data-close-drawer>♻️ Regenerative Braking</a>
             <a href="/learn/highway-charging" class="mobile-sub-link" data-close-drawer>🛣️ Highway Charging</a>
             <div class="px-1 py-2 mt-2 font-mono text-[8px] text-zinc-400 uppercase tracking-wider border-t border-zinc-100">Resources</div>
-            <a href="/resources/faqs" class="mobile-sub-link" data-close-drawer>❓ FAQs</a>
             <a href="/resources/apartment-noc-letter" class="mobile-sub-link" data-close-drawer>📄 Apartment NOC Letter Template</a>
           </div>
         </div>
@@ -2698,8 +2677,170 @@ Ask me anything about:
   </div>
 </div>
 <script src="ai-assistant.js"></script>
+<!-- Google Translate Widget -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,kn,te,ml,ta',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+
+  <script>
+    function hideGoogleBanner() {
+      document.body.style.top = '0px';
+      document.body.style.position = 'static';
+      document.querySelectorAll('iframe.VIpgJd-ZVi9od-ORHb-OEVmcd, iframe[id=":2.container"]').forEach(function (f) {
+        f.style.display = 'none';
+        f.style.visibility = 'hidden';
+        f.style.height = '0';
+      });
+    }
+    var bannerCheck = setInterval(hideGoogleBanner, 300);
+    setTimeout(function () { clearInterval(bannerCheck); }, 5000);
+    new MutationObserver(hideGoogleBanner).observe(document.body, { childList: true, subtree: true });
+  </script>
+
+  <script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+  <!-- JavaScript Link -->
+  <script src="app.js"></script><!-- Google Translate Widget -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,kn,te,ml,ta',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+
+  <script>
+    function hideGoogleBanner() {
+      document.body.style.top = '0px';
+      document.body.style.position = 'static';
+      document.querySelectorAll('iframe.VIpgJd-ZVi9od-ORHb-OEVmcd, iframe[id=":2.container"]').forEach(function (f) {
+        f.style.display = 'none';
+        f.style.visibility = 'hidden';
+        f.style.height = '0';
+      });
+    }
+    var bannerCheck = setInterval(hideGoogleBanner, 300);
+    setTimeout(function () { clearInterval(bannerCheck); }, 5000);
+    new MutationObserver(hideGoogleBanner).observe(document.body, { childList: true, subtree: true });
+  </script>
+
+  <script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
 
   <!-- JavaScript Link -->
   <script src="app.js"></script>
+
+  <!-- Force custom styling on Google Translate widget -->
+  <script>
+    function forceTranslateStyles() {
+      var el = document.querySelector('#google_translate_element .goog-te-gadget-simple');
+      if (el) {
+        el.style.setProperty('background-color', 'transparent', 'important');
+        el.style.setProperty('border', '1px solid #d4d4d8', 'important');
+        el.style.setProperty('border-radius', '20px', 'important');
+        el.style.setProperty('padding', '6px 12px', 'important');
+        el.style.setProperty('font-size', '11px', 'important');
+        el.style.setProperty('font-family', "'Inter', sans-serif", 'important');
+        el.style.setProperty('letter-spacing', '0.05em', 'important');
+        el.style.setProperty('text-transform', 'uppercase', 'important');
+        el.style.setProperty('cursor', 'pointer', 'important');
+        el.style.setProperty('display', 'inline-flex', 'important');
+        el.style.setProperty('align-items', 'center', 'important');
+        el.style.setProperty('white-space', 'nowrap', 'important');
+
+        var icon = el.querySelector('.goog-te-gadget-icon');
+        if (icon) icon.style.setProperty('display', 'none', 'important');
+
+        var dividers = el.querySelectorAll('span[style*="border-left"]');
+        dividers.forEach(function (d) {
+          d.style.setProperty('border-left', 'none', 'important');
+          d.style.setProperty('display', 'none', 'important');
+        });
+
+        var spans = el.querySelectorAll('a, a span');
+        spans.forEach(function (s) {
+          s.style.setProperty('font-family', "'Inter', sans-serif", 'important');
+          s.style.setProperty('color', '#000000', 'important');
+        });
+      }
+    }
+
+    var translateObserver = new MutationObserver(forceTranslateStyles);
+    var translateContainer = document.getElementById('google_translate_element');
+    if (translateContainer) {
+      translateObserver.observe(translateContainer, { childList: true, subtree: true });
+    }
+
+    var translateStyleInterval = setInterval(forceTranslateStyles, 300);
+    setTimeout(function () { clearInterval(translateStyleInterval); }, 8000);
+
+    document.addEventListener('mouseover', function (e) {
+      var target = e.target.closest('#google_translate_element .goog-te-gadget-simple');
+      if (target) {
+        target.style.setProperty('border-color', '#22C55E', 'important');
+        target.style.setProperty('background-color', '#000000', 'important');
+        target.style.setProperty('box-shadow', '0 0 15px rgba(34, 197, 94, 0.4)', 'important');
+
+        var spans = target.querySelectorAll('a, a span');
+        spans.forEach(function (s) {
+          s.style.setProperty('color', '#ffffff', 'important');
+        });
+      }
+    });
+
+    document.addEventListener('mouseout', function (e) {
+      var target = e.target.closest('#google_translate_element .goog-te-gadget-simple');
+      if (target) {
+        target.style.setProperty('background-color', 'transparent', 'important');
+        target.style.setProperty('border-color', '#d4d4d8', 'important');
+        target.style.setProperty('box-shadow', 'none', 'important');
+
+        var spans = target.querySelectorAll('a, a span');
+        spans.forEach(function (s) {
+          s.style.setProperty('color', '#000000', 'important');
+        });
+      }
+    });
+  </script>
+  <script>
+    function changeLanguage(langCode) {
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
+        document.getElementById('custom-lang-label').textContent = langCode.toUpperCase();
+        document.getElementById('custom-lang-menu').classList.remove('open');
+      } else {
+        setTimeout(function () { changeLanguage(langCode); }, 200);
+      }
+    }
+
+    document.getElementById('custom-lang-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      document.getElementById('custom-lang-menu').classList.toggle('open');
+    });
+
+    document.querySelectorAll('.lang-option').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        changeLanguage(this.getAttribute('data-lang'));
+      });
+    });
+
+    document.addEventListener('click', function () {
+      document.getElementById('custom-lang-menu').classList.remove('open');
+    });
+  </script>
 </body>
 </html>
