@@ -17,9 +17,12 @@
     "cors": "^2.8.5",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "firebase": "^12.15.0",
     "firebase-admin": "^13.6.0",
-    "graphql-request": "^7.4.0"
+    "graphql-request": "^7.4.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
     "light-my-request": "^6.6.0"

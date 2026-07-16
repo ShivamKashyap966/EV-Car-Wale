@@ -185,8 +185,8 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 /* Vehicle Images Parallax & Hover Zoom */
 .car-card img, .upcoming-card img, .launch-card img {
-  opacity: 0;
-  transform: translateY(var(--scroll-translate-y, 0px)) scale(0.92);
+  opacity: 1;
+  transform: translateY(var(--scroll-translate-y, 0px)) scale(1);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 .revealed .stagger-card img {

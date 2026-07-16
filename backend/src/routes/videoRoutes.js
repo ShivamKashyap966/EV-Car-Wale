@@ -53,17 +53,69 @@ router.get('/', async (req, res) => {
     const items = searchResponse.data.items || [];
     
     // Whitelisted preferred Indian automotive channels (case-insensitive)
-    const whitelistedChannels = [
-      'powerdrift', 'autocar india', 'carwale', 'zigwheels', 'motoroctane', 
-      'faisal khan', 'dds', 'evo india', 'trakin auto', 'overdrive'
-    ];
+   const whitelistedChannels = [
+   "motoroctane",
+   "powerdrift",
+   "autocar india",
+   "carwale",
+   "zigwheels",
+   "evo india",
+   "overdrive",
+   "trakin auto",
+   "faisal khan",
+   "dds",
+   "namaste car",
+   "motoroids",
+   "91wheels",
+   "car blog india",
+   "ask carguru",
+   "team-bhp"
+   ];
     
     // Keywords to strictly exclude (scooters, bikes, cycles, etc.)
     const excludeKeywords = [
-      'scooter', 'scooters', 'bike', 'bikes', 'motorcycle', 'motorcycles', 
-      'bicycle', 'bicycles', 'cycle', 'cycles', 'ola s1', 'ather', 
-      'iqube', 'chetak', 'two-wheeler', '2-wheeler', 'truck', 'bus', 'buses'
-    ];
+   "scooter",
+   "scooters",
+   "bike",
+   "bikes",
+   "motorcycle",
+   "motorcycles",
+   "bicycle",
+   "bicycles",
+   "cycle",
+   "cycles",
+   "ola s1",
+   "ather",
+   "chetak",
+   "iqube",
+   "vida",
+   "river indie",
+   "revolt",
+   "ultraviolette",
+   "tork",
+   "oben",
+   "hop electric",
+   "ampere",
+   "hero electric",
+   "okinawa",
+   "joy e-bike",
+   "e-bike",
+   "electric bike",
+   "electric scooter",
+   "two-wheeler",
+   "2-wheeler",
+   "truck",
+   "trucks",
+   "bus",
+   "buses",
+   "tractor",
+   "tractors",
+   "auto rickshaw",
+   "rickshaw",
+   "three wheeler",
+   "3 wheeler",
+   "cargo"
+  ];
 
     // Filter items
     const filteredItems = items.filter(item => {
@@ -80,11 +132,40 @@ router.get('/', async (req, res) => {
       // Check if it's from a whitelisted channel or directly reviews a passenger car in India
       const isTrustedChannel = whitelistedChannels.some(ch => channel.includes(ch));
       const hasCarModel = [
-        'nexon', 'punch', 'curvv', 'harrier', 'windsor', 'zs ev', 'creta', 
-        'evitara', 'be 6', 'xev 9e', 'atto 3', 'byd seal', 'ev6', 'ev9', 
-        'ex30', 'taycan', 'eqs', 'eqa', 'eqe', 'e-tron', 'etron', 'i4', 
-        'ix', 'comet', 'sealion'
-      ].some(model => combinedText.includes(model));
+     "nexon ev",
+     "curvv ev",
+     "harrier ev",
+     "mahindra be 6",
+     "mahindra xev 9e",
+     "mg windsor",
+     "mg comet",
+     "mg zs ev",
+     "hyundai creta electric",
+     "hyundai kona",
+     "ioniq 5",
+     "byd atto 3",
+     "byd seal",
+     "byd sealion 7",
+     "kia ev6",
+     "kia ev9",
+     "volvo ex40",
+     "volvo ec40",
+     "bmw ix",
+     "bmw i4",
+     "mercedes eqs",
+     "mercedes eqa",
+     "audi q8 e-tron",
+     "audi q6 e-tron",
+     "punch ev",
+     "tiago ev",
+     "tigor ev",
+     "citroen ec3",
+     "tata avinya",
+     "vinfast",
+     "leaf",
+     "eqe",
+     "eqb"
+    ];
 
       return isTrustedChannel || hasCarModel;
     });
@@ -119,7 +200,11 @@ router.get('/', async (req, res) => {
         title: item.snippet.title || 'Untitled EV Video',
         channelName: item.snippet.channelTitle || 'YouTube Creator',
         published: item.snippet.publishedAt || new Date().toISOString(),
-        thumbnail: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url || '/car_outline.jpg',
+        thumbnail:
+        item.snippet?.thumbnails?.maxres?.url ||
+        item.snippet?.thumbnails?.high?.url ||
+        item.snippet?.thumbnails?.medium?.url ||
+       item.snippet?.thumbnails?.default?.url,
         duration: durations[videoId] || '0:00',
         url: `https://www.youtube.com/watch?v=${videoId}`
       };

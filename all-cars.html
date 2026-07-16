@@ -59,6 +59,8 @@
       font-size: 10px;
     }
   </style>
+  <link rel="icon" type="image/png" href="/tab_logo.png">
+  <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
 </head>
 <body class="bg-white text-black font-sans overflow-x-hidden">
 
@@ -66,8 +68,7 @@
   <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
       <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
-        <span class="w-2.5 h-2.5 bg-black inline-block rounded-none group-hover:scale-125 transition-transform duration-300"></span>
-        EV CAR WALE
+        <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
       </a>
       <div class="flex items-center gap-4">
         <a href="index.html" class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors">HOME</a>
@@ -114,7 +115,7 @@
     </div>
 
     <!-- Car Grid -->
-    <div id="car-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <div id="car-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-5">
     </div>
 
     <!-- No Results -->
@@ -206,14 +207,120 @@
       renault:'Renault',skoda:'Skoda',maruti:'Maruti Suzuki'
     };
 
+    const S3_IMAGE_MAPPING = {
+      "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON .png",
+      "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+      "audi-q6-e-tron": "car_images/AUDI/    Audi Q6 e-tron.JPG",
+      "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
+      "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
+      "be6": "car_images/mahindra/mahindra-BE6.jpg",
+      "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
+      "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
+      "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
+      "bmw-ix": "car_images/BMW/    BMW iX.JPG",
+      "bmw-ix1": "car_images/BMW/    BMW iX1 LWB.JPG",
+      "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
+      "byd-emax-7": "car_images/BYD/ BYD_eMAX_7.JPG",
+      "byd-seal": "car_images/BYD/byd_seal.jpeg",
+      "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
+      "byd-sealion-7": "car_images/BYD/    BYD SEALION 7.JPG",
+      "comet-ev": "car_images/MG/mg_comet_ev.webp",
+      "creta-ev": "car_images/hyundai/Hyundai_Creta _Electric.JPG",
+      "curvv-ev": "car_images/tata/CURVE.jpeg",
+      "cyberster": "car_images/MG/MG_Cyberster.JPG",
+      "d-max-ev": "car_images/ISUZU/D-MAX-EV.webp",
+      "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
+      "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
+      "fronx-ev": "car_images/MARUTI_SUZUKI/fronx_ev.jpeg",
+      "gv60": "car_images/GENESIS/GV60.jpeg",
+      "harrier-ev": "car_images/tata/HARRIER.webp",
+      "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
+      "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
+      "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
+      "jimny-ev": "car_images/MARUTI_SUZUKI/jimny.jpeg",
+      "kia-carens-clavis-ev": "car_images/KIA/    Kia Carens Clavis EV.WEBP",
+      "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
+      "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
+      "lexus-es": "car_images/LEXUS/ES.webp",
+      "lotus-eletre": "car_images/LOTUS/ELETRE.jpeg",
+      "lotus-emeya": "car_images/LOTUS/EMEYA.webp",
+      "luce": "car_images/ferrari/LUCE.jpeg",
+      "m9-ev": "car_images/MG/MG_M9.jpg",
+      "maruti-e-vitara": "car_images/MARUTI_SUZUKI/maruti_evitara.jpeg",
+      "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
+      "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.webp",
+      "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz _CLA.JPG",
+      "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
+      "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz _EQS_SUV.JPG",
+      "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.webp",
+      "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.JPG",
+      "mini-countryman-c": "car_images/MINI /COUNTRYMAN-C.webp",
+      "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.webp",
+      "nexon-ev": "car_images/tata/NEXON.jpeg",
+      "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.WEBP",
+      "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
+      "pmv-eas-e": "car_images/PMV/EAS-E.webp",
+      "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.JPG",
+      "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+      "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+      "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
+      "punch-ev": "car_images/tata/PUNCH.jpeg",
+      "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
+      "rolls-royce-shadow": "car_outline.jpg",
+      "rolls-royce-spectre": "car_images/ROLLS_ROYCE/SPECTRE.jpeg",
+      "ryde": "car_images/BLINQ/RYDE.jpeg",
+      "sierra-ev": "car_images/tata/SIERRA.jpeg",
+      "skoda-elroq": "car_images/SKODA/Skoda_Elroq.JPG",
+      "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
+      "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
+      "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
+      "tesla-model-y": "car_images/TESLA/MODEL-Ywebp.webp",
+      "thar-e": "car_images/mahindra/thar.e.jpeg",
+      "tiago-ev": "car_images/tata/TIAGO.jpeg",
+      "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
+      "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpg",
+      "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/EVA-colours/white.jpeg",
+      "vinfast-vf-mpv7": "car_images/VINFAST/    VinFast VF MPV7.JPG",
+      "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
+      "vinfast-vf6": "car_images/VINFAST/    VinFast VF 6.WEBP",
+      "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
+      "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
+      "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.JPG",
+      "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
+      "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+      "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
+      "xev-9e": "car_images/mahindra/mahindra_XEV_9e.jpeg",
+      "xev-9s": "car_images/mahindra/    Mahindra XEV 9s.jpg",
+      "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
+      "xuv-3xo-ev": "car_images/mahindra/3X0.JPG",
+      "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
+      "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
+      "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
+      "zs-ev": "car_images/MG/MG ZS EV.JPG",
+    };
+
     function getBrandDisplay(brand) {
       return brandNameMap[brand] || brand.charAt(0).toUpperCase() + brand.slice(1);
     }
 
-    function getImageUrl(car) {
-      const brandUpper = car.brand.toUpperCase();
-      if (brandUpper === 'MERCEDES' || brandUpper === 'MERCEDES-BENZ') return 'car_images/MERCEDES_BENZ/' + car.image;
-      return 'car_images/' + brandUpper + '/' + car.image;
+    function getS3ImageUrl(relativePath) {
+      if (!relativePath) return 'car_outline.jpg';
+      if (relativePath === 'car_outline.jpg') {
+        return 'car_outline.jpg';
+      }
+      if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+        return relativePath;
+      }
+      let cleanPath = relativePath.trim();
+      if (cleanPath.startsWith('/')) {
+        cleanPath = cleanPath.substring(1);
+      }
+      if (cleanPath.startsWith('public/')) {
+        cleanPath = cleanPath.substring(7);
+      }
+      // Hardcode fallback domain as in app.js since we are running server.js
+      const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
+      return `${s3BaseUrl}/${cleanPath}`;
     }
 
     function renderCars(cars) {
@@ -228,21 +335,27 @@
       }
       noResults.classList.add('hidden');
       count.textContent = cars.length + ' vehicle' + (cars.length !== 1 ? 's' : '');
-      grid.innerHTML = cars.map(car => `
-        <div class="car-card border border-zinc-200 bg-white p-5 flex flex-col justify-between relative group">
-          <div class="h-36 bg-zinc-50 flex items-center justify-center mb-4 relative overflow-hidden border border-zinc-100">
+      grid.innerHTML = cars.map(car => {
+        const displayBrand = getBrandDisplay(car.brand);
+        let displayName = car.name;
+        if (displayName.toLowerCase().startsWith(displayBrand.toLowerCase())) {
+          displayName = displayName.substring(displayBrand.length).trim();
+        }
+        return `
+        <div class="car-card border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card cursor-pointer">
+          <div class="h-40 bg-white flex items-center justify-center mb-4 relative overflow-hidden border border-zinc-100 p-2">
             <div class="absolute inset-0 skeleton-shimmer"></div>
-            <img src="${getImageUrl(car)}" alt="${car.name}" class="w-full h-full object-contain relative z-10" loading="lazy" onerror="this.closest('.car-card').style.display='none'">
+            <img src="${getS3ImageUrl(car.image)}" alt="${car.name}" class="w-full h-full object-contain relative z-10" loading="lazy" onload="if (this.previousElementSibling) this.previousElementSibling.style.display='none';" onerror="if (this.previousElementSibling) this.previousElementSibling.style.display='none'; this.src='/car_outline.jpg';">
           </div>
           <div>
-            <div class="flex justify-between items-start">
-              <div class="min-w-0 flex-1">
-                <span class="font-mono text-[9px] text-zinc-500 uppercase">${getBrandDisplay(car.brand)}</span>
-                <h3 class="text-base font-bold mt-0.5 text-black truncate">${car.name}</h3>
+            <div class="flex justify-between items-start text-black">
+              <div>
+                <span class="font-mono text-[9px] text-zinc-500 uppercase">${displayBrand}</span>
+                <h3 class="text-lg font-bold mt-0.5 text-black truncate">${displayName}</h3>
               </div>
-              <span class="font-mono text-xs font-bold text-black flex-shrink-0 ml-2">${car.price}</span>
+              <span class="font-mono text-sm font-bold text-black">${car.price}</span>
             </div>
-            <div class="grid grid-cols-2 gap-y-1.5 gap-x-3 my-3 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono">
+            <div class="grid grid-cols-2 gap-y-1.5 gap-x-4 my-3 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono">
               <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
               <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
               <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
@@ -251,7 +364,8 @@
           </div>
           <a href="index.html#/cars/${car.id}" class="block w-full py-2.5 border border-zinc-200 hover:border-black text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all text-center">VIEW DETAILS</a>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function filterAndSort() {
@@ -299,6 +413,30 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      const uniqueCars = [];
+      const seenIds = new Set();
+      EV_DATABASE.forEach(car => {
+        if (!seenIds.has(car.id)) {
+          seenIds.add(car.id);
+          uniqueCars.push(car);
+        }
+      });
+
+      // Overwrite global EV_DATABASE with deduplicated and S3-mapped version
+      window.EV_DATABASE = uniqueCars.map(car => {
+        if (S3_IMAGE_MAPPING[car.id]) {
+          car.image = S3_IMAGE_MAPPING[car.id];
+        } else {
+          // Fallback: prepend car_images/ and brand folder if not already containing it
+          const brandUpper = car.brand.toUpperCase();
+          const brandFolder = (brandUpper === 'MERCEDES' || brandUpper === 'MERCEDES-BENZ') ? 'MERCEDES_BENZ' : brandUpper;
+          if (!car.image.startsWith('car_images/')) {
+            car.image = `car_images/${brandFolder}/${car.image}`;
+          }
+        }
+        return car;
+      });
+
       initBrandFilter();
       renderCars(EV_DATABASE);
       document.getElementById('search-input').addEventListener('input', filterAndSort);

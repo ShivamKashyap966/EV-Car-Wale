@@ -29,6 +29,8 @@
   </script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="ai-assistant.css">
+  <link rel="icon" type="image/png" href="/tab_logo.png">
+  <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
 </head>
 <body class="bg-white text-black font-sans overflow-x-hidden">
 
@@ -36,7 +38,7 @@
   <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
       <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
-        <span class="w-2.5 h-2.5 bg-black inline-block rounded-none group-hover:scale-125 transition-transform duration-300"></span>
+        <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
         EV CAR WALE
       </a>
       <div class="flex items-center gap-4">
@@ -47,7 +49,7 @@
 
   <!-- Page Content -->
   <div class="max-w-6xl mx-auto px-6 py-10 lg:py-14">
-    <div class="flex flex-col lg:flex-row gap-8">
+    <div id="profile-page-wrapper" class="flex flex-col lg:flex-row gap-8 hidden">
 
       <!-- Left Sidebar -->
       <aside class="lg:w-64 flex-shrink-0">
@@ -90,6 +92,14 @@
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
               </svg>
               Profile Settings
+            </button>
+            <button class="profile-nav-item text-red-500 hover:text-red-700" id="btn-logout">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              Logout
             </button>
           </nav>
         </div>
@@ -193,10 +203,41 @@
     </div>
   </div>
 
+  <script src="auth-helper.js"></script>
   <script>
+    // Verify user session using backend OAuth /api/auth/me
+    async function verifyAuth() {
+      try {
+        const response = await fetch('/api/auth/me');
+        const data = await response.json();
+        if (data.loggedIn && data.user) {
+          // User is authenticated
+          const sidebarProfileImg = document.querySelector('aside .rounded-full');
+          const sidebarName = document.querySelector('aside p.font-bold');
+          if (sidebarProfileImg && data.user.picture) {
+            sidebarProfileImg.innerHTML = `<img src="${data.user.picture}" alt="${data.user.name}" class="w-full h-full rounded-full object-cover" onerror="this.src='/car_outline.jpg';">`;
+          }
+          if (sidebarName && data.user.name) {
+            sidebarName.textContent = data.user.name;
+          }
+          // Reveal profile layout once auth is confirmed
+          const wrapper = document.getElementById('profile-page-wrapper');
+          if (wrapper) wrapper.classList.remove('hidden');
+        } else {
+          // Redirect to login if unauthenticated
+          window.location.href = 'index.html#/login';
+        }
+      } catch (err) {
+        console.error('Session check failed:', err);
+        window.location.href = 'index.html#/login';
+      }
+    }
+    verifyAuth();
+
     // Sidebar navigation switching
     document.querySelectorAll('.profile-nav-item').forEach(btn => {
       btn.addEventListener('click', () => {
+        if (btn.id === 'btn-logout') return;
         document.querySelectorAll('.profile-nav-item').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         document.querySelectorAll('.profile-section').forEach(s => s.classList.add('hidden'));
@@ -204,6 +245,18 @@
         if (section) section.classList.remove('hidden');
       });
     });
+
+    // Handle logout button click
+    const logoutBtn = document.getElementById('btn-logout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', (event) => {
+        if (typeof window.performLogout === 'function') {
+          window.performLogout(event);
+        } else {
+          window.location.href = '/auth/logout';
+        }
+      });
+    }
   </script>
 <!-- AI Floating Assistant -->
 <div id="ai-overlay" class="ai-overlay"></div>

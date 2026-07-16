@@ -128,9 +128,16 @@
   }
 
   function showContainer() {
+    if (document.getElementById('preloader')) {
+      return;
+    }
     var c = document.querySelector('.ai-assistant-container');
     if (c) c.classList.add('loaded');
   }
+  window.showAIAssistant = function() {
+    var c = document.querySelector('.ai-assistant-container');
+    if (c) c.classList.add('loaded');
+  };
   if (document.readyState === 'complete') {
     showContainer();
   } else {

@@ -4,1310 +4,381 @@
  * dropdown comparisons, video players, and accordion modules.
  */
 
+const S3_IMAGE_MAPPING = {
+  "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON .png",
+  "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+  "audi-q6-e-tron": "car_images/AUDI/    Audi Q6 e-tron.JPG",
+  "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
+  "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
+  "be6": "car_images/mahindra/mahindra-BE6.jpg",
+  "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
+  "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
+  "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
+  "bmw-ix": "car_images/BMW/    BMW iX.JPG",
+  "bmw-ix1": "car_images/BMW/    BMW iX1 LWB.JPG",
+  "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
+  "byd-emax-7": "car_images/BYD/ BYD_eMAX_7.JPG",
+  "byd-seal": "car_images/BYD/byd_seal.jpeg",
+  "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
+  "byd-sealion-7": "car_images/BYD/    BYD SEALION 7.JPG",
+  "comet-ev": "car_images/MG/mg_comet_ev.webp",
+  "creta-ev": "car_images/hyundai/Hyundai_Creta _Electric.JPG",
+  "curvv-ev": "car_images/tata/CURVE.jpeg",
+  "cyberster": "car_images/MG/MG_Cyberster.JPG",
+  "d-max-ev": "car_images/ISUZU/D-MAX-EV.webp",
+  "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
+  "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
+  "fronx-ev": "car_images/MARUTI_SUZUKI/fronx_ev.jpeg",
+  "gv60": "car_images/GENESIS/GV60.jpeg",
+  "harrier-ev": "car_images/tata/HARRIER.webp",
+  "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
+  "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
+  "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
+  "jimny-ev": "car_images/MARUTI_SUZUKI/jimny.jpeg",
+  "kia-carens-clavis-ev": "car_images/KIA/    Kia Carens Clavis EV.WEBP",
+  "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
+  "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
+  "lexus-es": "car_images/LEXUS/ES.webp",
+  "lotus-eletre": "car_images/LOTUS/ELETRE.jpeg",
+  "lotus-emeya": "car_images/LOTUS/EMEYA.webp",
+  "luce": "car_images/ferrari/LUCE.jpeg",
+  "m9-ev": "car_images/MG/MG_M9.jpg",
+  "maruti-e-vitara": "car_images/MARUTI_SUZUKI/maruti_evitara.jpeg",
+  "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
+  "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.webp",
+  "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz _CLA.JPG",
+  "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
+  "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz _EQS_SUV.JPG",
+  "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.webp",
+  "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.JPG",
+  "mini-countryman-c": "car_images/MINI /COUNTRYMAN-C.webp",
+  "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.webp",
+  "nexon-ev": "car_images/tata/NEXON.jpeg",
+  "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.WEBP",
+  "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
+  "pmv-eas-e": "car_images/PMV/EAS-E.webp",
+  "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.JPG",
+  "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+  "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
+  "punch-ev": "car_images/tata/PUNCH.jpeg",
+  "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
+  "rolls-royce-spectre": "car_images/ROLLS_ROYCE/SPECTRE.jpeg",
+  "ryde": "car_images/BLINQ/RYDE.jpeg",
+  "sierra-ev": "car_images/tata/SIERRA.jpeg",
+  "skoda-elroq": "car_images/SKODA/Skoda_Elroq.JPG",
+  "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
+  "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
+  "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
+  "tesla-model-y": "car_images/TESLA/MODEL-Ywebp.webp",
+  "thar-e": "car_images/mahindra/thar.e.jpeg",
+  "tiago-ev": "car_images/tata/TIAGO.jpeg",
+  "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
+  "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpg",
+  "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/EVA-colours/white.jpeg",
+  "vinfast-vf-mpv7": "car_images/VINFAST/    VinFast VF MPV7.JPG",
+  "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
+  "vinfast-vf6": "car_images/VINFAST/    VinFast VF 6.WEBP",
+  "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
+  "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
+  "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.JPG",
+  "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
+  "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+  "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
+  "xev-9e": "car_images/mahindra/mahindra_XEV_9e.jpeg",
+  "xev-9s": "car_images/mahindra/    Mahindra XEV 9s.jpg",
+  "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
+  "xuv-3xo-ev": "car_images/mahindra/3X0.JPG",
+  "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
+  "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
+  "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
+  "zs-ev": "car_images/MG/MG ZS EV.JPG",
+};
+
+// Reusable image helper/utility for Amazon S3 integration
+function getS3ImageUrl(relativePath) {
+  if (!relativePath) return 'car_outline.jpg';
+  if (relativePath === 'car_outline.jpg') {
+    return 'car_outline.jpg';
+  }
+  if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+    return relativePath;
+  }
+  // Clean up path: trim and remove internal whitespace
+  let cleanPath = relativePath.trim();
+  // Remove any leading slash
+  if (cleanPath.startsWith('/')) {
+    cleanPath = cleanPath.substring(1);
+  }
+  // Remove 'public/' prefix if present
+  if (cleanPath.startsWith('public/')) {
+    cleanPath = cleanPath.substring(7);
+  }
+  // Strip all whitespace characters to avoid broken URLs
+  cleanPath = cleanPath.replace(/\s+/g, '');
+  const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
+  return `${s3BaseUrl}/${cleanPath}`;
+} 
+
+// Helper to render a car image with skeleton shimmer, fallback handling, and hover scaling
+function renderCarImage(imageUrl, altText) {
+  return `<div class="h-40 bg-white flex items-center justify-center mb-4 relative overflow-hidden border border-zinc-100 p-2">
+    <div class="absolute inset-0 skeleton-shimmer"></div>
+    <img src="${imageUrl}" alt="${altText}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" onload="this.previousElementSibling.style.display='none'" onerror="this.previousElementSibling.style.display='none'; this.src='/car_outline.jpg';" />
+  </div>`;
+}
+
+
+function getBrandDisplay(brand) {
+  if (!brand) return '';
+  const brandNameMap = {
+    'tata': 'Tata', 'mahindra': 'Mahindra', 'hyundai': 'Hyundai', 'mg': 'MG',
+    'kia': 'Kia', 'byd': 'BYD', 'bmw': 'BMW', 'mercedes-benz': 'Mercedes-Benz',
+    'volvo': 'Volvo', 'audi': 'Audi', 'maruti-suzuki': 'Maruti Suzuki',
+    'toyota': 'Toyota', 'honda': 'Honda', 'skoda': 'Skoda',
+    'volkswagen': 'Volkswagen', 'renault': 'Renault', 'nissan': 'Nissan',
+    'citroen': 'Citroën', 'jeep': 'Jeep', 'isuzu': 'Isuzu', 
+    'porsche': 'Porsche', 'vinfast': 'VinFast','tesla': 'Tesla'
+    ,'lexus': 'Lexus','ferrari': 'Ferrari','genesis': 'Genesis',
+    'lotus': 'Lotus','mini': 'MINI','pmv': 'PMV','pravaig': 'Pravaig', 
+    'vayve': 'Vayve','blinq': 'Blinq','strom': 'Strom'
+  };
+  const lower = brand.toLowerCase().trim();
+  return brandNameMap[lower] || brand.charAt(0).toUpperCase() + brand.slice(1);
+}
+
+function getBrandFolder(brand) {
+  if (!brand) return '';
+  const lower = brand.toLowerCase().trim();
+  if (lower === 'mercedes-benz') return 'MERCEDES_BENZ';
+  if (lower === 'force-motors') return 'FORCE';
+  if (lower === 'volkswagen') return 'VOLKSWAGAN';
+  if (lower === 'rolls-royce') return 'ROLLS_ROYCE';
+  if (lower === 'maruti-suzuki') return 'MARUTI_SUZUKI';
+  if (lower === 'mini') return 'MINI ';
+  if (lower === 'tata' || lower === 'mahindra' || lower === 'hyundai') return lower;
+  return lower.toUpperCase();
+}
+
+function normalizeKey(str) {
+  return str ? str.toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+}
+
 // --- Global EV Fleet Database ---
-const EV_DATABASE = [
-  {
-    id: 'nexon-ev',
-    name: 'Nexon EV',
-    brand: 'tata',
-    priceVal: 14.50,
-    price: '₹14.50 Lakh',
-    rangeVal: 465,
-    range: '465 km',
-    battery: '40.5 kWh',
-    charging: '56 min (DC)',
-    speed: '150 km/h',
-    power: '143 hp',
-    safety: '5 Stars (BNCAP)',
-    features: 'Ventilated seats, 12.3-inch screen, V2L capability',
-    dimensions: '3994 x 1811 x 1616 mm',
-    image: 'tata_nexon_ev.jpeg',
-    sections: ['popular']
-  },
-  {
-    id: 'xuv400',
-    name: 'XUV400',
-    brand: 'mahindra',
-    priceVal: 15.49,
-    price: '₹15.49 Lakh',
-    rangeVal: 456,
-    range: '456 km',
-    battery: '39.4 kWh',
-    charging: '50 min (DC)',
-    speed: '160 km/h',
-    power: '150 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Single pane sunroof, Drive modes, 10.25-inch touchscreen',
-    dimensions: '4200 x 1821 x 1634 mm',
-    image: 'mahindra_XUV_400.jpg',
-    sections: ['popular']
-  },
-  {
-    id: 'punch-ev',
-    name: 'Punch EV',
-    brand: 'tata',
-    priceVal: 10.99,
-    price: '₹10.99 Lakh',
-    rangeVal: 421,
-    range: '421 km',
-    battery: '35 kWh',
-    charging: '56 min (DC)',
-    speed: '140 km/h',
-    power: '122 hp',
-    safety: '5 Stars (BNCAP)',
-    features: 'Electronic parking brake, Sunroof, Paddle shifters for regeneration',
-    dimensions: '3827 x 1742 x 1615 mm',
-    image: 'tata_punch_ev.jpg',
-    sections: ['popular']
-  },
-  {
-    id: 'windsor-ev',
-    name: 'Windsor EV',
-    brand: 'mg',
-    priceVal: 13.50,
-    price: '₹13.50 Lakh',
-    rangeVal: 331,
-    range: '331 km',
-    battery: '38 kWh',
-    charging: '40 min (DC)',
-    speed: '140 km/h',
-    power: '136 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Aero Lounge seats, 15.6-inch Grand View touch, Smart connection',
-    dimensions: '4295 x 1850 x 1677 mm',
-    image: 'MG_windsor_EV.jpeg',
-    sections: ['popular'],
-    
-  },
-  {
-    id: 'ioniq-5',
-    name: 'Ioniq 5',
-    brand: 'hyundai',
-    priceVal: 46.05,
-    price: '₹46.05 Lakh',
-    rangeVal: 631,
-    range: '631 km',
-    battery: '72.6 kWh',
-    charging: '18 min (DC)',
-    speed: '185 km/h',
-    power: '217 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Dual screens, Relaxion seats, V2L, Premium Bose Sound',
-    dimensions: '4635 x 1890 x 1605 mm',
-    image: 'hyundai_ioniq5.jpeg',
-    sections: ['latest']
-  },
-  {
-    id: 'byd-seal',
-    name: 'BYD Seal',
-    brand: 'byd',
-    priceVal: 41.00,
-    price: '₹41.00 Lakh',
-    rangeVal: 650,
-    range: '650 km',
-    battery: '82.5 kWh',
-    charging: '26 min (DC)',
-    speed: '240 km/h',
-    power: '530 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Rotating screen, Cell-to-body tech, Head-up display',
-    dimensions: '4800 x 1875 x 1460 mm',
-    image: 'byd_seal.jpeg',
-    sections: ['popular', 'launches'],
-   
-  },
-  {
-    id: 'ev6',
-    name: 'Kia EV6',
-    brand: 'kia',
-    priceVal: 49.00,
-    price: '₹49.00 Lakh',
-    rangeVal: 708,
-    range: '708 km',
-    battery: '77.4 kWh',
-    charging: '18 min (DC)',
-    speed: '192 km/h',
-    power: '325 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Augmented reality HUD, Sunroof, Meridian Audio',
-    dimensions: '4695 x 1890 x 1550 mm',
-    image: 'kia_ev6.jpeg',
-    sections: ['latest']
-  },
-  {
-    id: 'harrier-ev',
-    name: 'Harrier EV',
-    brand: 'tata',
-    priceVal: 22.00,
-    price: '₹22.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '60 kWh',
-    charging: '45 min (DC)',
-    speed: '170 km/h',
-    power: '218 hp',
-    safety: '5 Stars (Expected)',
-    features: 'AWD option, V2L & V2V charging, 12.3-inch infotainment',
-    dimensions: '4605 x 1922 x 1718 mm',
-    image: 'tata_harrier_ev.jpg',
-    sections: ['popular'],
-    
-  },
-  {
-    id: 'be6',
-    name: 'BE6',
-    brand: 'mahindra',
-    priceVal: 24.00,
-    price: '₹24.00 Lakh',
-    rangeVal: 450,
-    range: '450 km',
-    battery: '60 kWh',
-    charging: '30 min (DC)',
-    speed: '180 km/h',
-    power: '280 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Futuristic design, Digital cockpit, Advanced ADAS',
-    dimensions: '4370 x 1900 x 1635 mm',
-    image: 'mahindra-BE6.jpg',
-    sections: ['popular'],
-    launchDate: '22 Days Ago'
-  },
-  {
-    id: 'bmw-i4',
-    name: 'BMW i4',
-    brand: 'bmw',
-    priceVal: 72.50,
-    price: '₹72.50 Lakh',
-    rangeVal: 590,
-    range: '590 km',
-    battery: '83.9 kWh',
-    charging: '31 min (DC)',
-    speed: '190 km/h',
-    power: '340 hp',
-    safety: '4 Stars (Euro NCAP)',
-    features: 'Curved display, Reversing assistant, Glass roof',
-    dimensions: '4783 x 1852 x 1448 mm',
-    image: 'bmw_i4.jpeg',
-    sections: ['popular']
-  },
-  {
-    id: 'etron-gt',
-    name: 'Audi e-tron GT',
-    brand: 'audi',
-    priceVal: 195.00,
-    price: '₹1.95 Crore',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '93.4 kWh',
-    charging: '22 min (DC)',
-    speed: '245 km/h',
-    power: '530 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Matrix LED headlights, e-tron sport sound, Virtual cockpit',
-    dimensions: '4989 x 1964 x 1413 mm',
-    image: 'audi_etron_gt.jpg',
-    sections: ['popular']
-  },
-  {
-    id: 'mercedes-eqs',
-    name: 'Mercedes EQS',
-    brand: 'mercedes-benz',
-    priceVal: 162.00,
-    price: '₹1.62 Crore',
-    rangeVal: 857,
-    range: '857 km',
-    battery: '107.8 kWh',
-    charging: '31 min (DC)',
-    speed: '210 km/h',
-    power: '523 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Hyperscreen display, Rear axle steering, Burmester 3D',
-    dimensions: '5216 x 1926 x 1512 mm',
-    image: 'mercedes_eqs_sedan.webp',
-    sections: ['popular']
-  },
-  {
-    id: 'vinfast-vf6',
-    name: 'VF6',
-    brand: 'vinfast',
-    priceVal: 18.00,
-    price: '₹18.00 Lakh',
-    rangeVal: 399,
-    range: '399 km',
-    battery: '59.6 kWh',
-    charging: '38 min (DC)',
-    speed: '150 km/h',
-    power: '174 hp',
-    safety: '4 Stars (Expected)',
-    features: 'Vietnamese engineering, HUD, open cockpit screen',
-    dimensions: '4238 x 1820 x 1590 mm',
-    image: 'vin_fast_vf6.jpeg',
-    sections: ['launches'],
-    
-  },
-  {
-    id: 'kia-ev9',
-    name: 'EV9',
-    brand: 'kia',
-    priceVal: 110.00,
-    price: '₹1.10 Crore',
-    rangeVal: 561,
-    range: '561 km',
-    battery: '99.8 kWh',
-    charging: '24 min (DC)',
-    speed: '200 km/h',
-    power: '384 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: '3-row seating, Swivel seats, dual sunroof, LiDAR-ready ADAS',
-    dimensions: '5010 x 1980 x 1755 mm',
-    image: 'kia_ev9.jpeg',
-    sections: ['launches', 'explore'],
-    
-  },
-  {
-    id: 'xev-9e',
-    name: 'XEV 9e',
-    brand: 'mahindra',
-    priceVal: 38.00,
-    price: '₹38.00 Lakh',
-    rangeVal: 533,
-    range: '533 km',
-    battery: '79 kWh',
-    charging: '35 min (DC)',
-    speed: '180 km/h',
-    power: '286 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Triple screen console, Augmented reality HUD, futuristic silhouette',
-    dimensions: '4790 x 1905 x 1690 mm',
-    image: 'thar.e.jpeg',
-    sections: ['launches'],
-   
-  },
-  {
-    id: 'citroen-ec3',
-    name: 'Citroën eC3 Facelift',
-    brand: 'citroen',
-    priceVal: 12.50,
-    price: '₹12.50 Lakh',
-    rangeVal: 320,
-    range: '320 km',
-    battery: '29.2 kWh',
-    charging: '57 min (DC)',
-    speed: '107 km/h',
-    power: '57 hp',
-    safety: '3 Stars (Expected)',
-    features: 'Refreshed bumpers, LED signature design, larger touchscreen',
-    dimensions: '3981 x 1733 x 1604 mm',
-    image: 'Citroen_eC3.jpeg',
-    sections: ['launches'],
-    
-  },
-  {
-    id: 'curvv-ev',
-    name: 'Curvv EV',
-    brand: 'tata',
-    priceVal: 17.49,
-    price: '₹17.49 Lakh',
-    rangeVal: 585,
-    range: '585 km',
-    battery: '55 kWh',
-    charging: '40 min (DC)',
-    speed: '160 km/h',
-    power: '167 hp',
-    safety: '5 Stars (BNCAP)',
-    features: 'Coupe design, gesture tailgate, flush handles, Arcade.ev app suite',
-    dimensions: '4310 x 1810 x 1637 mm',
-    image: 'tata_curve_ev.jpeg',
-    sections: ['launches']
-  },
-  {
-    id: 'tiago-ev',
-    name: 'Tiago EV',
-    brand: 'tata',
-    priceVal: 8.69,
-    price: '₹8.69 Lakh',
-    rangeVal: 315,
-    range: '315 km',
-    battery: '24 kWh',
-    charging: '58 min (DC)',
-    speed: '120 km/h',
-    power: '74 hp',
-    safety: '4 Stars (GNCAP)',
-    features: 'Multi-mode regen, connected car tech, cruise control',
-    dimensions: '3769 x 1677 x 1536 mm',
-    image: 'tata_tiago_EV.jpeg',
-    sections: ['launches']
-  },
-  {
-    id: 'byd-atto3',
-    name: 'BYD Atto 3',
-    brand: 'byd',
-    priceVal: 24.99,
-    price: '₹24.99 Lakh',
-    rangeVal: 521,
-    range: '521 km',
-    battery: '60.48 kWh',
-    charging: '50 min (DC)',
-    speed: '160 km/h',
-    power: '201 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Blade battery, rotation screen, panoramic roof, ambient lighting',
-    dimensions: '4455 x 1875 x 1615 mm',
-    image: 'BYD_atto.jpeg',
-    sections: ['upcoming']
-  },
-  {
-    id: 'elevate-ev',
-    name: 'Elevate EV',
-    brand: 'honda',
-    priceVal: 18.00,
-    price: '₹18.00 Lakh',
-    rangeVal: 400,
-    range: '400 km',
-    battery: '48 kWh',
-    charging: '45 min (DC)',
-    speed: '150 km/h',
-    power: '150 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Honda Sensing ADAS package, spacious cabin, premium seating',
-    dimensions: '4312 x 1790 x 1650 mm',
-    image: 'honda_elevate_EV.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Mid 2027'
-  },
-  {
-    id: 'ioniq-6',
-    name: 'Ioniq 6',
-    brand: 'hyundai',
-    priceVal: 65.00,
-    price: '₹65.00 Lakh',
-    rangeVal: 614,
-    range: '614 km',
-    battery: '77.4 kWh',
-    charging: '18 min (DC)',
-    speed: '250 km/h',
-    power: '320 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Aerodynamic streamliner, interactive lighting, dual motors',
-    dimensions: '4855 x 1880 x 1495 mm',
-    image: 'Hyundai_IONIQ6.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Jan 2027'
-  },
-  {
-    id: 'syros-ev',
-    name: 'Syros EV',
-    brand: 'kia',
-    priceVal: 15.00,
-    price: '₹15.00 Lakh',
-    rangeVal: 350,
-    range: '350 km',
-    battery: '35 kWh',
-    charging: '40 min (DC)',
-    speed: '150 km/h',
-    power: '150 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Connected telematics, tall-boy stance, compact city footprint',
-    dimensions: '4100 x 1780 x 1600 mm',
-    image: 'Kia_syros_ev.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Feb 2027'
-  },
-  {
-    id: 'be07',
-    name: 'BE.07',
-    brand: 'mahindra',
-    priceVal: 28.00,
-    price: '₹28.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '60 kWh',
-    charging: '45 min (DC)',
-    speed: '170 km/h',
-    power: '230 hp',
-    safety: '5 Stars (Expected)',
-    features: 'INGLO platform core, edge-to-edge screens, panoramic canopy',
-    dimensions: '4560 x 1900 x 1660 mm',
-    image: 'mahindra_BE_07.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Mid 2027'
-  },
-  {
-    id: 'avinya-ev',
-    name: 'Avinya EV',
-    brand: 'tata',
-    priceVal: 35.00,
-    price: '₹35.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '80 kWh',
-    charging: '30 min (DC)',
-    speed: '200 km/h',
-    power: '350 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Skateboard chassis, rotating lounge chairs, bio-degradable cabin materials',
-    dimensions: '4600 x 1900 x 1550 mm',
-    image: 'tata_avinya_ev.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Late 2027'
-  },
-  {
-    id: 'ex90',
-    name: 'EX90',
-    brand: 'volvo',
-    priceVal: 120.00,
-    price: '₹1.20 Crore',
-    rangeVal: 600,
-    range: '600 km',
-    battery: '111 kWh',
-    charging: '30 min (DC)',
-    speed: '180 km/h',
-    power: '517 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Roof-mounted LiDAR, safety shield bubble, recycled materials interior',
-    dimensions: '5037 x 1964 x 1747 mm',
-    image: 'Volvo_EX90.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Apr 2027'
-  },
-  {
-    id: 'comet-ev',
-    name: 'Comet EV',
-    brand: 'mg',
-    priceVal: 6.99,
-    price: '₹6.99 Lakh',
-    rangeVal: 230,
-    range: '230 km',
-    battery: '17.3 kWh',
-    charging: '7 hours (AC)',
-    speed: '100 km/h',
-    power: '42 hp',
-    safety: '3 Stars (Expected)',
-    features: 'Ultra-compact footprint, dual screens, Apple-like key layout, city runabout',
-    dimensions: '2974 x 1505 x 1631 mm',
-    image: 'mg_comet_ev.webp',
-    sections: ['explore']
-  },
-  {
-    id: 'toyota-bz4x',
-    name: 'bZ4X',
-    brand: 'toyota',
-    priceVal: 55.00,
-    price: '₹55.00 Lakh',
-    rangeVal: 516,
-    range: '516 km',
-    battery: '71.4 kWh',
-    charging: '30 min (DC)',
-    speed: '160 km/h',
-    power: '214 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'AWD system with X-Mode, high durability battery claim, premium SUV stance',
-    dimensions: '4690 x 1860 x 1650 mm',
-    image: 'Toyota_bZ4X.jpeg',
-    sections: ['explore']
-  },
-  {
-    id: 'bmw-i7',
-    name: 'BMW i7',
-    brand: 'bmw',
-    priceVal: 203.00,
-    price: '₹2.03 Crore',
-    rangeVal: 625,
-    range: '625 km',
-    battery: '101.7 kWh',
-    charging: '34 min (DC)',
-    speed: '250 km/h',
-    power: '544 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Rear theatre screen, crystal headlights, executive lounge seats',
-    dimensions: '5391 x 1950 x 1544 mm',
-    image: 'bmw_i7.jpeg',
-    sections: ['explore']
-  },
-  {
-    id: 'macan-ev',
-    name: 'Porsche Macan EV',
-    brand: 'porsche',
-    priceVal: 165.00,
-    price: '₹1.65 Crore',
-    rangeVal: 613,
-    range: '613 km',
-    battery: '100 kWh',
-    charging: '21 min (DC)',
-    speed: '220 km/h',
-    power: '408 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Aero active shutter vents, rear axle steering, high speed handling bias',
-    dimensions: '4784 x 1938 x 1622 mm',
-    image: 'porsche_maccan_EV.jpeg',
-    sections: ['explore']
-  },
- {
-  id: 'audi-q6-etron',
-  name: 'Audi Q6 e-tron',
-  brand: 'audi',
-  priceVal: 1.05,
-  price: '₹1.05 Crore',
-  rangeVal: 625,
-  range: '625 km',
-  battery: '100 kWh',
-  charging: '21 min (DC)',
-  speed: '210 km/h',
-  power: '388 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Virtual Cockpit, Matrix LED headlights, Quattro AWD',
-  dimensions: '4771 x 1939 x 1648 mm',
-  image: 'audi_q6_etron.jpg',
-  sections: ['explore']
-},
+let EV_DATABASE = [];
+let FEATURES_DATABASE = {};
+let VARIANTS_DATABASE = {};
 
-{
-  id: 'audi-q8-etron',
-  name: 'Audi Q8 e-tron',
-  brand: 'audi',
-  priceVal: 1.15,
-  price: '₹1.15 Crore',
-  rangeVal: 600,
-  range: '600 km',
-  battery: '114 kWh',
-  charging: '31 min (DC)',
-  speed: '200 km/h',
-  power: '408 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Adaptive Air Suspension, Quattro AWD, Audi Virtual Cockpit',
-  dimensions: '4915 x 1937 x 1633 mm',
-  image: 'audi_q8_etron.jpg',
-  sections: ['explore']
-},
+let databasePromise = null;
 
-{
-  id: 'bmw-ix',
-  name: 'BMW iX',
-  brand: 'bmw',
-  priceVal: 1.40,
-  price: '₹1.40 Crore',
-  rangeVal: 635,
-  range: '635 km',
-  battery: '111.5 kWh',
-  charging: '35 min (DC)',
-  speed: '200 km/h',
-  power: '523 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Curved Display, Air Suspension, Driving Assistant Professional',
-  dimensions: '4953 x 1967 x 1695 mm',
-  image: 'bmw_ix.jpg',
-  sections: ['explore']
-},
+async function loadDatabase() {
+  if (databasePromise) return databasePromise;
+  
+  databasePromise = (async () => {
+    const urls = [
+      '/data/cars.json',
+      'https://ev-car-wale.s3.ap-south-1.amazonaws.com/data/cars.json'
+    ];
+    let text = null;
+    let lastError = null;
+    for (const url of urls) {
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          text = await response.text();
+          break;
+        }
+      } catch (e) {
+        lastError = e;
+      }
+    }
+    if (text === null) {
+      console.error('Failed to fetch car metadata from any source:', lastError);
+      return;
+    }
+      const cleanText = text.replace(/,(\s*[\]}])/g, '$1');
+      const parsed = JSON.parse(cleanText);
+      if (Array.isArray(parsed)) {
+        const uniqueCars = [];
+        const seenIds = new Set();
+        parsed.forEach(car => {
+          if (!seenIds.has(car.id)) {
+            seenIds.add(car.id);
+            uniqueCars.push(car);
+          }
+        });
 
-{
-  id: 'bmw-ix1-lwb',
-  name: 'BMW iX1 LWB',
-  brand: 'bmw',
-  priceVal: 49.00,
-  price: '₹49.00 Lakh',
-  rangeVal: 531,
-  range: '531 km',
-  battery: '66.4 kWh',
-  charging: '29 min (DC)',
-  speed: '180 km/h',
-  power: '204 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Panoramic Sunroof, BMW Curved Display, ConnectedDrive',
-  dimensions: '4616 x 1845 x 1641 mm',
-  image: 'bmw_ix1_lwb.jpg',
-  sections: ['explore']
-},
+        EV_DATABASE = uniqueCars.map(car => {
+          if (S3_IMAGE_MAPPING[car.id]) {
+            car.image = S3_IMAGE_MAPPING[car.id];
+          } else {
+            const brandFolder = getBrandFolder(car.brand);
+            if (!car.image.startsWith('car_images/')) {
+              car.image = `car_images/${brandFolder}/${car.image}`;
+            }
+          }
+          // Clean up brand prefix from name to prevent duplicate labels
+          const displayBrand = getBrandDisplay(car.brand);
+          if (car.name.toLowerCase().startsWith(displayBrand.toLowerCase())) {
+            car.name = car.name.substring(displayBrand.length).trim();
+          }
+          return car;
+        });
+        // Load variants data
+        const varUrls = ['/data/variants.json', '/client/data/variants.json'];
+        for (const vu of varUrls) {
+          try {
+            const vres = await fetch(vu);
+            if (vres.ok) {
+              VARIANTS_DATABASE = await vres.json();
+              break;
+            }
+          } catch (_) {}
+        }
 
-{
-  id: 'byd-sealion-7',
-  name: 'BYD Sealion 7',
-  brand: 'byd',
-  priceVal: 48.90,
-  price: '₹48.90 Lakh',
-  rangeVal: 567,
-  range: '567 km',
-  battery: '82.5 kWh',
-  charging: '24 min (DC)',
-  speed: '215 km/h',
-  power: '530 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Blade Battery, Rotating Touchscreen, AWD',
-  dimensions: '4830 x 1925 x 1620 mm',
-  image: 'byd_sealion7.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'byd-emax7',
-  name: 'BYD eMAX 7',
-  brand: 'byd',
-  priceVal: 26.90,
-  price: '₹26.90 Lakh',
-  rangeVal: 530,
-  range: '530 km',
-  battery: '71.8 kWh',
-  charging: '37 min (DC)',
-  speed: '180 km/h',
-  power: '204 hp',
-  safety: '5 Stars (ASEAN NCAP)',
-  features: '7-Seater MPV, Rotating Touchscreen, Blade Battery',
-  dimensions: '4710 x 1810 x 1690 mm',
-  image: 'byd_emax7.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'hyundai-creta-electric',
-  name: 'Hyundai Creta Electric',
-  brand: 'hyundai',
-  priceVal: 18.00,
-  price: '₹18.00 Lakh',
-  rangeVal: 473,
-  range: '473 km',
-  battery: '51.4 kWh',
-  charging: '58 min (DC)',
-  speed: '180 km/h',
-  power: '169 hp',
-  safety: 'Expected 5 Stars',
-  features: 'Level 2 ADAS, Dual 10.25-inch Displays, V2L',
-  dimensions: '4340 x 1790 x 1655 mm',
-  image: 'hyundai_creta_electric.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'kia-carens-clavis-ev',
-  name: 'Kia Carens Clavis EV',
-  brand: 'kia',
-  priceVal: 18.50,
-  price: '₹18.50 Lakh',
-  rangeVal: 490,
-  range: '490 km',
-  battery: '51.4 kWh',
-  charging: '58 min (DC)',
-  speed: '170 km/h',
-  power: '169 hp',
-  safety: 'Expected 5 Stars',
-  features: 'ADAS, Dual Displays, Ventilated Seats',
-  dimensions: '4550 x 1800 x 1708 mm',
-  image: 'kia_carens_clavis_ev.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mahindra-xev-7e',
-  name: 'Mahindra XEV 7e',
-  brand: 'mahindra',
-  priceVal: 21.90,
-  price: '₹21.90 Lakh (Expected)',
-  rangeVal: 650,
-  range: '650 km',
-  battery: '79 kWh',
-  charging: '20 min (DC)',
-  speed: '200 km/h',
-  power: '282 hp',
-  safety: 'Expected 5 Stars',
-  features: 'Level 2 ADAS, Panoramic Roof, Connected Car Tech',
-  dimensions: '4700 x 1900 x 1750 mm',
-  image: 'mahindra_xev7e.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mahindra-thar-e',
-  name: 'Mahindra Thar.e',
-  brand: 'mahindra',
-  priceVal: 25.00,
-  price: '₹25.00 Lakh (Expected)',
-  rangeVal: 500,
-  range: '500 km',
-  battery: '75 kWh',
-  charging: '30 min (DC)',
-  speed: '180 km/h',
-  power: '250 hp',
-  safety: 'Expected 5 Stars',
-  features: 'Electric 4x4, Off-road Modes, Digital Cockpit',
-  dimensions: '4300 x 1900 x 1850 mm',
-  image: 'mahindra_thare.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'maruti-e-vitara',
-  name: 'Maruti e Vitara',
-  brand: 'maruti',
-  priceVal: 18.00,
-  price: '₹18.00 Lakh (Expected)',
-  rangeVal: 500,
-  range: '500 km',
-  battery: '61 kWh',
-  charging: '30 min (DC)',
-  speed: '160 km/h',
-  power: '174 hp',
-  safety: 'Expected 5 Stars',
-  features: 'ADAS, Connected Car, Panoramic Sunroof',
-  dimensions: '4275 x 1800 x 1640 mm',
-  image: 'maruti_evitara.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mercedes-cla-electric',
-  name: 'Mercedes-Benz CLA Electric',
-  brand: 'mercedes',
-  priceVal: 65.00,
-  price: '₹65.00 Lakh (Expected)',
-  rangeVal: 792,
-  range: '792 km',
-  battery: '85 kWh',
-  charging: '22 min (DC)',
-  speed: '210 km/h',
-  power: '268 hp',
-  safety: 'Expected 5 Stars',
-  features: 'MBUX Superscreen, Level 2 ADAS, OTA Updates',
-  dimensions: '4723 x 1855 x 1468 mm',
-  image: 'mercedes_cla_electric.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mercedes-eqa',
-  name: 'Mercedes-Benz EQA',
-  brand: 'mercedes',
-  priceVal: 67.20,
-  price: '₹67.20 Lakh',
-  rangeVal: 560,
-  range: '560 km',
-  battery: '70.5 kWh',
-  charging: '30 min (DC)',
-  speed: '160 km/h',
-  power: '190 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'MBUX Infotainment, Panoramic Sunroof, ADAS',
-  dimensions: '4463 x 1834 x 1620 mm',
-  image: 'mercedes_eqa.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mercedes-eqe-suv',
-  name: 'Mercedes-Benz EQE SUV',
-  brand: 'mercedes',
-  priceVal: 1.39,
-  price: '₹1.39 Crore',
-  rangeVal: 550,
-  range: '550 km',
-  battery: '90.6 kWh',
-  charging: '32 min (DC)',
-  speed: '210 km/h',
-  power: '408 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Hyperscreen, Air Suspension, Burmester Audio',
-  dimensions: '4863 x 1940 x 1685 mm',
-  image: 'mercedes_eqe_suv.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mercedes-eqs-suv',
-  name: 'Mercedes-Benz EQS SUV',
-  brand: 'mercedes',
-  priceVal: 1.43,
-  price: '₹1.43 Crore',
-  rangeVal: 809,
-  range: '809 km',
-  battery: '122 kWh',
-  charging: '31 min (DC)',
-  speed: '210 km/h',
-  power: '544 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: '7-Seater, MBUX Hyperscreen, Air Suspension',
-  dimensions: '5125 x 1959 x 1718 mm',
-  image: 'mercedes_eqs_suv.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mercedes-g-class-electric',
-  name: 'Mercedes-Benz G-Class Electric',
-  brand: 'mercedes',
-  priceVal: 3.00,
-  price: '₹3.00 Crore',
-  rangeVal: 473,
-  range: '473 km',
-  battery: '116 kWh',
-  charging: '32 min (DC)',
-  speed: '180 km/h',
-  power: '579 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'G-Turn, 4 Electric Motors, Off-road Crawl Mode',
-  dimensions: '4624 x 1931 x 1986 mm',
-  image: 'mercedes_g580_eq.jpg',
-  sections: ['explore']
-},
-{
-  id: 'mg-cyberster',
-  name: 'MG Cyberster',
-  brand: 'mg',
-  priceVal: 80.00,
-  price: '₹80.00 Lakh',
-  rangeVal: 580,
-  range: '580 km',
-  battery: '77 kWh',
-  charging: '38 min (DC)',
-  speed: '200 km/h',
-  power: '510 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Convertible Roadster, Scissor Doors, Bose Audio',
-  dimensions: '4535 x 1913 x 1329 mm',
-  image: 'MG_Cyberster.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'mg-m9',
-  name: 'MG M9',
-  brand: 'mg',
-  priceVal: 69.90,
-  price: '₹69.90 Lakh',
-  rangeVal: 430,
-  range: '430 km',
-  battery: '90 kWh',
-  charging: '30 min (DC)',
-  speed: '180 km/h',
-  power: '245 hp',
-  safety: 'Expected 5 Stars',
-  features: 'Luxury MPV, Ottoman Seats, Dual Sunroof',
-  dimensions: '5270 x 2000 x 1840 mm',
-  image: 'MG_M9.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'mg-zs-ev',
-  name: 'MG ZS EV',
-  brand: 'mg',
-  priceVal: 18.98,
-  price: '₹18.98 Lakh',
-  rangeVal: 461,
-  range: '461 km',
-  battery: '50.3 kWh',
-  charging: '60 min (DC)',
-  speed: '175 km/h',
-  power: '176 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Panoramic Sunroof, ADAS, 10.1-inch Touchscreen',
-  dimensions: '4323 x 1809 x 1649 mm',
-  image: 'MG_ZS_EV.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'nissan-ariya',
-  name: 'Nissan Ariya',
-  brand: 'nissan',
-  priceVal: 50.00,
-  price: '₹50.00 Lakh (Expected)',
-  rangeVal: 529,
-  range: '529 km',
-  battery: '87 kWh',
-  charging: '35 min (DC)',
-  speed: '200 km/h',
-  power: '242 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'ProPILOT Assist, Dual Displays, e-4ORCE AWD',
-  dimensions: '4595 x 1850 x 1660 mm',
-  image: 'Nissan_Ariya.WEBP',
-  sections: ['explore']
-},
-
-{
-  id: 'nissan-leaf',
-  name: 'Nissan Leaf',
-  brand: 'nissan',
-  priceVal: 30.00,
-  price: '₹30.00 Lakh (Expected)',
-  rangeVal: 385,
-  range: '385 km',
-  battery: '62 kWh',
-  charging: '45 min (DC)',
-  speed: '157 km/h',
-  power: '214 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'ProPILOT Assist, e-Pedal, 360° Camera',
-  dimensions: '4490 x 1788 x 1540 mm',
-  image: 'nissan_leaf.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'porsche-cayenne-electric',
-  name: 'Porsche Cayenne Electric',
-  brand: 'porsche',
-  priceVal: 2.00,
-  price: '₹2.00 Crore (Expected)',
-  rangeVal: 700,
-  range: '700 km',
-  battery: '100 kWh',
-  charging: '18 min (DC)',
-  speed: '250 km/h',
-  power: '600 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Porsche Active Suspension, AWD, Premium Interior',
-  dimensions: '4930 x 1983 x 1698 mm',
-  image: 'PORSCHE_CAYENNE.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'porsche-taycan',
-  name: 'Porsche Taycan',
-  brand: 'porsche',
-  priceVal: 1.70,
-  price: '₹1.70 Crore',
-  rangeVal: 642,
-  range: '642 km',
-  battery: '105 kWh',
-  charging: '18 min (DC)',
-  speed: '260 km/h',
-  power: '408 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: '800V Charging, Adaptive Air Suspension, Sport Chrono',
-  dimensions: '4963 x 1966 x 1381 mm',
-  image: 'PORSCHE_TAYCAN.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'renault-kwid-ev',
-  name: 'Renault Kwid EV',
-  brand: 'renault',
-  priceVal: 8.00,
-  price: '₹8.00 Lakh (Expected)',
-  rangeVal: 220,
-  range: '220 km',
-  battery: '27 kWh',
-  charging: '40 min (DC)',
-  speed: '125 km/h',
-  power: '65 hp',
-  safety: 'Expected 3 Stars',
-  features: 'Compact Hatchback, Digital Cluster, Fast Charging',
-  dimensions: '3734 x 1579 x 1515 mm',
-  image: 'renault_kwid_ev.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'skoda-elroq',
-  name: 'Skoda Elroq',
-  brand: 'skoda',
-  priceVal: 35.00,
-  price: '₹35.00 Lakh (Expected)',
-  rangeVal: 560,
-  range: '560 km',
-  battery: '77 kWh',
-  charging: '28 min (DC)',
-  speed: '180 km/h',
-  power: '286 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Digital Cockpit, Matrix LED, Travel Assist',
-  dimensions: '4488 x 1884 x 1625 mm',
-  image: 'Skoda_Elroq.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'skoda-enyaq',
-  name: 'Skoda Enyaq',
-  brand: 'skoda',
-  priceVal: 65.00,
-  price: '₹65.00 Lakh (Expected)',
-  rangeVal: 587,
-  range: '587 km',
-  battery: '82 kWh',
-  charging: '28 min (DC)',
-  speed: '180 km/h',
-  power: '286 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Head-up Display, Matrix LEDs, Canton Audio',
-  dimensions: '4649 x 1879 x 1616 mm',
-  image: 'Skoda_Enyaq.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'tata-sierra-ev',
-  name: 'Tata Sierra EV',
-  brand: 'tata',
-  priceVal: 25.00,
-  price: '₹25.00 Lakh (Expected)',
-  rangeVal: 550,
-  range: '550 km',
-  battery: '60 kWh',
-  charging: '30 min (DC)',
-  speed: '180 km/h',
-  power: '170 hp',
-  safety: 'Expected 5 Stars',
-  features: 'Panoramic Sunroof, ADAS, Connected Car Tech',
-  dimensions: '4300 x 1820 x 1675 mm',
-  image: 'tata_sierra_ev.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'tata-tigor-ev',
-  name: 'Tata Tigor EV',
-  brand: 'tata',
-  priceVal: 12.49,
-  price: '₹12.49 Lakh',
-  rangeVal: 315,
-  range: '315 km',
-  battery: '26 kWh',
-  charging: '59 min (DC)',
-  speed: '120 km/h',
-  power: '74 hp',
-  safety: '4 Stars (Global NCAP)',
-  features: 'Ziptron Technology, Connected Car, Auto Climate Control',
-  dimensions: '3993 x 1677 x 1532 mm',
-  image: 'tata_tigor_ev.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'toyota-urban-cruiser-ev',
-  name: 'Toyota Urban Cruiser EV',
-  brand: 'toyota',
-  priceVal: 18.00,
-  price: '₹18.00 Lakh (Expected)',
-  rangeVal: 500,
-  range: '500 km',
-  battery: '61 kWh',
-  charging: '30 min (DC)',
-  speed: '160 km/h',
-  power: '174 hp',
-  safety: 'Expected 5 Stars',
-  features: 'ADAS, Connected Car, Panoramic Sunroof',
-  dimensions: '4275 x 1800 x 1640 mm',
-  image: 'Toyota_Urban_Cruiser_Ebella.jpg',
-  sections: ['explore']
-},
-
-{
-  id: 'vinfast-vf3',
-  name: 'VinFast VF 3',
-  brand: 'vinfast',
-  priceVal: 10.00,
-  price: '₹10.00 Lakh (Expected)',
-  rangeVal: 215,
-  range: '215 km',
-  battery: '18.6 kWh',
-  charging: '36 min (DC)',
-  speed: '100 km/h',
-  power: '43 hp',
-  safety: 'Expected 4 Stars',
-  features: 'Mini SUV, Connected Car, Compact Design',
-  dimensions: '3190 x 1679 x 1652 mm',
-  image: 'vin_fast_vf3.jpeg',
-  sections: ['explore']
-},
-
-{
-  id: 'vinfast-vf7',
-  name: 'VinFast VF 7',
-  brand: 'vinfast',
-  priceVal: 35.00,
-  price: '₹35.00 Lakh (Expected)',
-  rangeVal: 450,
-  range: '450 km',
-  battery: '75.3 kWh',
-  charging: '30 min (DC)',
-  speed: '175 km/h',
-  power: '349 hp',
-  safety: 'Expected 5 Stars',
-  features: 'Panoramic Roof, Level 2 ADAS, HUD',
-  dimensions: '4545 x 1890 x 1636 mm',
-  image: 'vin_fast_vf7.jpeg',
-  sections: ['explore']
-},
-
-{
-  id: 'vinfast-vf-mpv7',
-  name: 'VinFast VF MPV7',
-  brand: 'vinfast',
-  priceVal: 28.00,
-  price: '₹28.00 Lakh (Expected)',
-  rangeVal: 450,
-  range: '450 km',
-  battery: '75 kWh',
-  charging: '30 min (DC)',
-  speed: '170 km/h',
-  power: '201 hp',
-  safety: 'Expected 5 Stars',
-  features: '7-Seater MPV, Panoramic Roof, ADAS',
-  dimensions: '4850 x 1900 x 1760 mm',
-  image: 'VinFast_VF_MPV7.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'volvo-ec40',
-  name: 'Volvo EC40',
-  brand: 'volvo',
-  priceVal: 59.00,
-  price: '₹59.00 Lakh',
-  rangeVal: 530,
-  range: '530 km',
-  battery: '82 kWh',
-  charging: '28 min (DC)',
-  speed: '180 km/h',
-  power: '408 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Pilot Assist, Google Built-in, Panoramic Roof',
-  dimensions: '4440 x 1873 x 1591 mm',
-  image: 'volvo_EC40.WEBP',
-  sections: ['explore']
-},
-
-{
-  id: 'volvo-ex30',
-  name: 'Volvo EX30',
-  brand: 'volvo',
-  priceVal: 50.00,
-  price: '₹50.00 Lakh (Expected)',
-  rangeVal: 476,
-  range: '476 km',
-  battery: '69 kWh',
-  charging: '26 min (DC)',
-  speed: '180 km/h',
-  power: '428 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Google Built-in, Harman Kardon Audio, Pilot Assist',
-  dimensions: '4233 x 1837 x 1549 mm',
-  image: 'VOLVO_EX30.JPG',
-  sections: ['explore']
-},
-
-{
-  id: 'volvo-ex40',
-  name: 'Volvo EX40',
-  brand: 'volvo',
-  priceVal: 57.90,
-  price: '₹57.90 Lakh',
-  rangeVal: 530,
-  range: '530 km',
-  battery: '82 kWh',
-  charging: '28 min (DC)',
-  speed: '180 km/h',
-  power: '408 hp',
-  safety: '5 Stars (Euro NCAP)',
-  features: 'Google Built-in, 360° Camera, Pilot Assist',
-  dimensions: '4440 x 1873 x 1651 mm',
-  image: 'VOLVO_EX40.JPG',
-  sections: ['explore']
-}, 
-];
+        // Enrich database
+        enrichDatabase();
+        
+        // Load features data
+        const featUrls = ['/public/data/ev-features.json', '/data/ev-features.json'];
+        for (const fu of featUrls) {
+          try {
+            const fres = await fetch(fu);
+            if (fres.ok) {
+              FEATURES_DATABASE = await fres.json();
+              break;
+            }
+          } catch (_) {}
+        }
+        
+        // Log counts as requested
+        console.log('total cars loaded:', EV_DATABASE.length);
+        console.log('cars in popular:', EV_DATABASE.filter(car => car.sections && car.sections.includes('popular')).length);
+        console.log('cars in launches:', EV_DATABASE.filter(car => car.sections && car.sections.includes('launches')).length);
+        console.log('cars in upcoming:', EV_DATABASE.filter(car => car.sections && car.sections.includes('upcoming')).length);
+        console.log('cars in explore:', EV_DATABASE.filter(car => car.sections && car.sections.includes('explore')).length);
+        
+        // Initial renders
+        initUserSession();
+        renderAllCarousels();
+        if (typeof renderEVGallery === 'function') renderEVGallery();
+        populateCompareDropdowns();
+        updateCompareTable();
+      } else {
+        console.error('Fetched data is not an array:', parsed);
+      }
+  })();
+  
+  return databasePromise;
+}
 
 // --- State-Wise Tax & EV Policy Database ---
 // NOTE: All rates are approximate and sourced from publicly available state government policies.
 // Update this object whenever state governments revise their EV policies or registration fees.
+// --- Complete State-Wise Tax & EV Policy Database (Updated 2026) ---
+// Covers every single key mapping found in the TRIP_CITIES dropdown list.
+// --- Cleaned State-Wise Tax Database (Strict Dropdown Matches Only) ---
+// Verified for flat math compatibility to resolve all ₹NaN bugs immediately.
 const STATE_TAX_DATABASE = {
-  delhi: {
-    label: 'Delhi',
-    roadTaxPct: 0,          // Delhi waives road tax for EVs
-    regCharge: 2500,        // flat registration charge (₹)
-    evIncentivePct: 0,      // No additional incentive beyond road tax waiver
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax fully waived for EVs.'
-  },
-  mumbai: {
-    label: 'Mumbai, Maharashtra',
-    roadTaxPct: 0,          // EV road tax waiver up to ₹25 Lakh
-    regCharge: 4000,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax waived for EVs under ₹25 Lakh (FAME-III policy).'
-  },
-  pune: {
-    label: 'Pune, Maharashtra',
-    roadTaxPct: 0,
-    regCharge: 4000,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax waived for EVs under ₹25 Lakh (FAME-III policy).'
-  },
-  bengaluru: {
-    label: 'Bengaluru, Karnataka',
-    roadTaxPct: 0,          // Karnataka exempts EVs from road tax
-    regCharge: 4000,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax fully exempted for EVs in Karnataka.'
-  },
-  hyderabad: {
-    label: 'Hyderabad, Telangana',
-    roadTaxPct: 0,          // Telangana EV policy: road tax exemption
-    regCharge: 3500,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax exempted for EVs under Telangana EV Policy 2020-30.'
-  },
-  chennai: {
-    label: 'Chennai, Tamil Nadu',
-    roadTaxPct: 0.06,       // TN levies 6% road tax on EVs (as of last update)
-    regCharge: 4000,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax at 6% applicable. No additional state EV waiver currently.'
-  },
-  ahmedabad: {
-    label: 'Ahmedabad, Gujarat',
-    roadTaxPct: 0,          // Gujarat waives road tax for EVs
-    regCharge: 3000,
-    evIncentivePct: 0,
-    evIncentiveFlat: 20000, // Gujarat EV subsidy (up to ₹20,000 on select models)
-    evBenefitNote: 'Road tax waived. Additional subsidy of up to ₹20,000 under Gujarat EV Policy.'
-  },
-  kochi: {
-    label: 'Kochi, Kerala',
-    roadTaxPct: 0,          // Kerala exempts road tax for EVs
-    regCharge: 3500,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax fully exempted for EVs in Kerala.'
-  },
-  kolkata: {
-    label: 'Kolkata, West Bengal',
-    roadTaxPct: 0.04,       // WB levies reduced 4% road tax on EVs
-    regCharge: 4500,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Reduced 4% road tax applicable for EVs.'
-  },
-  jaipur: {
-    label: 'Jaipur, Rajasthan',
-    roadTaxPct: 0,          // Rajasthan exempts road tax for EVs
-    regCharge: 3500,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax fully waived for EVs under Rajasthan EV Policy.'
-  },
-  lucknow: {
-    label: 'Lucknow, Uttar Pradesh',
-    roadTaxPct: 0,
-    regCharge: 3500,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax exempted for EVs under UP EV Policy 2022.'
-  },
-  chandigarh: {
-    label: 'Chandigarh',
-    roadTaxPct: 0,
-    regCharge: 2500,
-    evIncentivePct: 0,
-    evIncentiveFlat: 0,
-    evBenefitNote: 'Road tax waived for EVs.'
-  }
+    delhi: {
+        label: 'Delhi',
+        roadTaxPct: 0.0, // 100% tax waiver for EVs
+        regCharge: 2500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Road tax fully waived for EVs.'
+    },
+    mumbai: {
+        label: 'Mumbai, Maharashtra',
+        roadTaxPct: 0.0, // Full EV exemption applies under Maharashtra policy
+        regCharge: 4000,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: '100% road tax exemption active for EVs.'
+    },
+    pune: {
+        label: 'Pune, Maharashtra',
+        roadTaxPct: 0.0, // Full EV exemption applies under Maharashtra policy
+        regCharge: 4000,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: '100% road tax exemption active for EVs.'
+    },
+    bengaluru: {
+        label: 'Bengaluru, Karnataka',
+        roadTaxPct: 0.05, // Fixed base rate for entry cars like Punch EV (<10L)
+        regCharge: 4000,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Karnataka levies tax based on value (5% for vehicles up to ₹10 Lakh).'
+    },
+    hyderabad: {
+        label: 'Hyderabad, Telangana',
+        roadTaxPct: 0.0, // Full policy extension through Dec 2026
+        regCharge: 3500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: '100% road tax and registration fee exemption active through Dec 2026.'
+    },
+    chennai: {
+        label: 'Chennai, Tamil Nadu',
+        roadTaxPct: 0.0, // 100% waiver active
+        regCharge: 4000,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: '100% road tax exemption active for EVs.'
+    },
+    ahmedabad: {
+        label: 'Ahmedabad, Gujarat',
+        roadTaxPct: 0.06, // Standard state EV rate post-policy updates
+        regCharge: 3000,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Standard state registration charges and tax rates apply.'
+    },
+    kochi: {
+        label: 'Kochi, Kerala',
+        roadTaxPct: 0.03, // Revised Kerala Budget: Slashed to 3% for cars under ₹10 Lakh
+        regCharge: 3500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Kerala Budget: Concessional 3% road tax applied for EVs under ₹10 Lakh.'
+    },
+    kolkata: {
+        label: 'Kolkata, West Bengal',
+        roadTaxPct: 0.04, // Concessional rate
+        regCharge: 4500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Reduced concessional 4% road tax applicable for EVs.'
+    },
+    jaipur: {
+        label: 'Jaipur, Rajasthan',
+        roadTaxPct: 0.0, // Fully waived
+        regCharge: 3500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Road tax fully waived for EVs under Rajasthan EV Policy.'
+    },
+    lucknow: {
+        label: 'Lucknow, Uttar Pradesh',
+        roadTaxPct: 0.0, // Exempted
+        regCharge: 3500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Road tax exempted for EVs under UP EV Policy.'
+    },
+    chandigarh: {
+        label: 'Chandigarh',
+        roadTaxPct: 0.0, // Exempted
+        regCharge: 2500,
+        evIncentivePct: 0,
+        evIncentiveFlat: 0,
+        evBenefitNote: 'Road tax completely waived for EVs.'
+    }
 };
+
+
 
 /**
  * Calculate on-road price breakdown for a given ex-showroom price and state.
@@ -1461,37 +532,175 @@ const ROUTE_STATIONS = {
   ],
   'mumbai-pune': [
     { city: 'Lonavala', chargerType: 'DC 50 kW', network: 'Statiq' },
+  
   ],
+  'delhi-pune': [
+  { city: 'Jaipur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Ajmer', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Udaipur', chargerType: 'DC 100 kW', network: 'Statiq' },
+  { city: 'Ahmedabad', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
+  { city: 'Vadodara', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Surat', chargerType: 'DC 60 kW', network: 'Tata Power EV' }
+],
+'delhi-hyderabad': [
+  { city: 'Agra', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Gwalior', chargerType: 'DC 50 kW', network: 'Statiq' },
+  { city: 'Nagpur', chargerType: 'DC 100 kW', network: 'Tata Power EV' }
+],
+'delhi-lucknow': [
+  { city: 'Ghaziabad', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Kanpur', chargerType: 'DC 60 kW', network: 'Tata Power EV' }
+],
+'delhi-varanasi': [
+  { city: 'Kanpur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Prayagraj', chargerType: 'DC 100 kW', network: 'Statiq' }
+],
+'delhi-srinagar': [
+  { city: 'Panipat', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Ludhiana', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
+  { city: 'Jammu', chargerType: 'DC 60 kW', network: 'Statiq' }
+],
+'mumbai-goa': [
+  { city: 'Panvel', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Kolhapur', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Belagavi', chargerType: 'DC 100 kW', network: 'Statiq' }
+],
+'mumbai-nagpur': [
+  { city: 'Nashik', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Aurangabad', chargerType: 'DC 100 kW', network: 'Statiq' },
+  { city: 'Amravati', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
+],
+'mumbai-ahmedabad': [
+  { city: 'Vapi', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Surat', chargerType: 'DC 100 kW', network: 'Statiq' },
+  { city: 'Vadodara', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
+],
+'chennai-hyderabad': [
+  { city: 'Nellore', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Ongole', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Vijayawada', chargerType: 'DC 100 kW', network: 'Statiq' }
+],
+'chennai-kochi': [
+  { city: 'Coimbatore', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
+  { city: 'Palakkad', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
+],
+'hyderabad-pune': [
+  { city: 'Solapur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' }
+],
+'hyderabad-mumbai': [
+  { city: 'Solapur', chargerType: 'DC 60 kW', network: 'Statiq' },
+  { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' }
+],
+'kolkata-bhubaneswar': [
+  { city: 'Kharagpur', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+  { city: 'Balasore', chargerType: 'DC 60 kW', network: 'Tata Power EV' }
+],
+'kolkata-visakhapatnam': [
+  { city: 'Bhubaneswar', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
+  { city: 'Berhampur', chargerType: 'DC 60 kW', network: 'Statiq' },
+  { city: 'Srikakulam', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
+],
+'bengaluru-hyderabad': [
+  { city: 'Anantapur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Kurnool', chargerType: 'DC 100 kW', network: 'Statiq' }
+],
+'bengaluru-kochi': [
+  { city: 'Mysuru', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+  { city: 'Kozhikode', chargerType: 'DC 100 kW', network: 'EESL CCS2' }
+]
 };
 
 /** Ordered list of cities available in the trip planner dropdowns */
 const TRIP_CITIES = [
-  { key: 'ahmedabad',     label: 'Ahmedabad, Gujarat' },
-  { key: 'amritsar',      label: 'Amritsar, Punjab' },
-  { key: 'bengaluru',     label: 'Bengaluru, Karnataka' },
-  { key: 'bhopal',        label: 'Bhopal, Madhya Pradesh' },
-  { key: 'bhubaneswar',   label: 'Bhubaneswar, Odisha' },
-  { key: 'chandigarh',    label: 'Chandigarh' },
-  { key: 'chennai',       label: 'Chennai, Tamil Nadu' },
-  { key: 'coimbatore',    label: 'Coimbatore, Tamil Nadu' },
-  { key: 'delhi',         label: 'Delhi, NCR' },
-  { key: 'goa',           label: 'Goa' },
-  { key: 'hyderabad',     label: 'Hyderabad, Telangana' },
-  { key: 'indore',        label: 'Indore, Madhya Pradesh' },
-  { key: 'jaipur',        label: 'Jaipur, Rajasthan' },
-  { key: 'kochi',         label: 'Kochi, Kerala' },
-  { key: 'kolkata',       label: 'Kolkata, West Bengal' },
-  { key: 'lucknow',       label: 'Lucknow, Uttar Pradesh' },
-  { key: 'mumbai',        label: 'Mumbai, Maharashtra' },
-  { key: 'mysuru',        label: 'Mysuru, Karnataka' },
-  { key: 'nagpur',        label: 'Nagpur, Maharashtra' },
-  { key: 'pune',          label: 'Pune, Maharashtra' },
-  { key: 'shimla',        label: 'Shimla, Himachal Pradesh' },
-  { key: 'srinagar',      label: 'Srinagar, J&K' },
-  { key: 'surat',         label: 'Surat, Gujarat' },
-  { key: 'udaipur',       label: 'Udaipur, Rajasthan' },
-  { key: 'varanasi',      label: 'Varanasi, Uttar Pradesh' },
-  { key: 'visakhapatnam', label: 'Visakhapatnam, AP' },
+  { key: 'ahmedabad', label: 'Ahmedabad, Gujarat' },
+  { key: 'ajmer', label: 'Ajmer, Rajasthan' },
+  { key: 'alappuzha', label: 'Alappuzha, Kerala' },
+  { key: 'amravati', label: 'Amravati, Maharashtra' },
+  { key: 'amritsar', label: 'Amritsar, Punjab' },
+  { key: 'asansol', label: 'Asansol, West Bengal' },
+  { key: 'aurangabad', label: 'Aurangabad, Maharashtra' },
+  { key: 'balasore', label: 'Balasore, Odisha' },
+  { key: 'bangalore', label: 'Bangalore, Karnataka' },
+  { key: 'bengaluru', label: 'Bengaluru, Karnataka' },
+  { key: 'bareilly', label: 'Bareilly, Uttar Pradesh' },
+  { key: 'belagavi', label: 'Belagavi, Karnataka' },
+  { key: 'bellary', label: 'Ballari, Karnataka' },
+  { key: 'berhampur', label: 'Berhampur, Odisha' },
+  { key: 'bhavnagar', label: 'Bhavnagar, Gujarat' },
+  { key: 'bhopal', label: 'Bhopal, Madhya Pradesh' },
+  { key: 'bhubaneswar', label: 'Bhubaneswar, Odisha' },
+  { key: 'chandigarh', label: 'Chandigarh' },
+  { key: 'chennai', label: 'Chennai, Tamil Nadu' },
+  { key: 'coimbatore', label: 'Coimbatore, Tamil Nadu' },
+  { key: 'delhi', label: 'Delhi, NCR' },
+  { key: 'dharwad', label: 'Dharwad, Karnataka' },
+  { key: 'durgapur', label: 'Durgapur, West Bengal' },
+  { key: 'ernakulam', label: 'Ernakulam, Kerala' },
+  { key: 'faridabad', label: 'Faridabad, Haryana' },
+  { key: 'ghaziabad', label: 'Ghaziabad, Uttar Pradesh' },
+  { key: 'goa', label: 'Goa' },
+  { key: 'gorakhpur', label: 'Gorakhpur, Uttar Pradesh' },
+  { key: 'greater noida', label: 'Greater Noida, Uttar Pradesh' },
+  { key: 'guntur', label: 'Guntur, Andhra Pradesh' },
+  { key: 'gurgaon', label: 'Gurgaon, Haryana' },
+  { key: 'gurugram', label: 'Gurugram, Haryana' },
+  { key: 'howrah', label: 'Howrah, West Bengal' },
+  { key: 'hubli', label: 'Hubli, Karnataka' },
+  { key: 'hyderabad', label: 'Hyderabad, Telangana' },
+  { key: 'indore', label: 'Indore, Madhya Pradesh' },
+  { key: 'jaipur', label: 'Jaipur, Rajasthan' },
+  { key: 'jodhpur', label: 'Jodhpur, Rajasthan' },
+  { key: 'kakinada', label: 'Kakinada, Andhra Pradesh' },
+  { key: 'kanpur', label: 'Kanpur, Uttar Pradesh' },
+  { key: 'kannur', label: 'Kannur, Kerala' },
+  { key: 'karimnagar', label: 'Karimnagar, Telangana' },
+  { key: 'kochi', label: 'Kochi, Kerala' },
+  { key: 'kolhapur', label: 'Kolhapur, Maharashtra' },
+  { key: 'kolkata', label: 'Kolkata, West Bengal' },
+  { key: 'kollam', label: 'Kollam, Kerala' },
+  { key: 'kozhikode', label: 'Kozhikode, Kerala' },
+  { key: 'lucknow', label: 'Lucknow, Uttar Pradesh' },
+  { key: 'madurai', label: 'Madurai, Tamil Nadu' },
+  { key: 'mangalore', label: 'Mangalore, Karnataka' },
+  { key: 'mangaluru', label: 'Mangaluru, Karnataka' },
+  { key: 'meerut', label: 'Meerut, Uttar Pradesh' },
+  { key: 'mumbai', label: 'Mumbai, Maharashtra' },
+  { key: 'mysore', label: 'Mysore, Karnataka' },
+  { key: 'mysuru', label: 'Mysuru, Karnataka' },
+  { key: 'nagpur', label: 'Nagpur, Maharashtra' },
+  { key: 'nashik', label: 'Nashik, Maharashtra' },
+  { key: 'navi mumbai', label: 'Navi Mumbai, Maharashtra' },
+  { key: 'nellore', label: 'Nellore, Andhra Pradesh' },
+  { key: 'new delhi', label: 'New Delhi' },
+  { key: 'nizamabad', label: 'Nizamabad, Telangana' },
+  { key: 'noida', label: 'Noida, Uttar Pradesh' },
+  { key: 'prayagraj', label: 'Prayagraj, Uttar Pradesh' },
+  { key: 'pune', label: 'Pune, Maharashtra' },
+  { key: 'rajkot', label: 'Rajkot, Gujarat' },
+  { key: 'salem', label: 'Salem, Tamil Nadu' },
+  { key: 'shimla', label: 'Shimla, Himachal Pradesh' },
+  { key: 'shivamogga', label: 'Shivamogga, Karnataka' },
+  { key: 'siliguri', label: 'Siliguri, West Bengal' },
+  { key: 'solapur', label: 'Solapur, Maharashtra' },
+  { key: 'srinagar', label: 'Srinagar, Jammu & Kashmir' },
+  { key: 'surat', label: 'Surat, Gujarat' },
+  { key: 'thane', label: 'Thane, Maharashtra' },
+  { key: 'thiruvananthapuram', label: 'Thiruvananthapuram, Kerala' },
+  { key: 'thrissur', label: 'Thrissur, Kerala' },
+  { key: 'tiruchirappalli', label: 'Tiruchirappalli, Tamil Nadu' },
+  { key: 'tirunelveli', label: 'Tirunelveli, Tamil Nadu' },
+  { key: 'tirupati', label: 'Tirupati, Andhra Pradesh' },
+  { key: 'trichy', label: 'Trichy, Tamil Nadu' },
+  { key: 'tumakuru', label: 'Tumakuru, Karnataka' },
+  { key: 'udaipur', label: 'Udaipur, Rajasthan' },
+  { key: 'udupi', label: 'Udupi, Karnataka' },
+  { key: 'vadodara', label: 'Vadodara, Gujarat' },
+  { key: 'varanasi', label: 'Varanasi, Uttar Pradesh' },
+  { key: 'vellore', label: 'Vellore, Tamil Nadu' },
+  { key: 'vijayawada', label: 'Vijayawada, Andhra Pradesh' },
+  { key: 'visakhapatnam', label: 'Visakhapatnam, Andhra Pradesh' },
+  { key: 'warangal', label: 'Warangal, Telangana' }
 ];
 
 /**
@@ -1930,7 +1139,7 @@ const BRAND_LOGO_MAP = {
   'strom': 'STROM_LOGO.jpeg',
 };
 function getBrandLogoUrl(brandId) {
-  return '/LOGOS/' + (BRAND_LOGO_MAP[brandId] || brandId.toUpperCase() + '_LOGO.jpeg');
+  return getS3ImageUrl('LOGOS/' + (BRAND_LOGO_MAP[brandId] || brandId.toUpperCase() + '_LOGO.jpeg'));
 }
 function getBrandInitials(name) {
   return name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
@@ -2125,72 +1334,195 @@ const STATIONS_DATABASE = [
   { city: 'pune', name: 'Tata Power - Hinjawadi', type: 'Normal', speed: '22 kW', address: 'Phase 1 Tech Park', status: 'Available' }
 ];
 
-// Wishlist array
 let wishlistIds = [];
+let currentDetailsCarId = null;
+let currentUser = null;
+
+function isUserLoggedIn() {
+  return localStorage.getItem('is_logged_in') === 'true';
+}
+
+function loadWishlistFromStorage() {
+  if (isUserLoggedIn()) {
+    const saved = localStorage.getItem('ev_wishlist_logged_in');
+    wishlistIds = saved ? JSON.parse(saved) : [];
+  } else {
+    wishlistIds = [];
+  }
+}
+
+function saveWishlistToStorage() {
+  if (isUserLoggedIn()) {
+    localStorage.setItem('ev_wishlist_logged_in', JSON.stringify(wishlistIds));
+  }
+}
+
+function updateWishlistBadge() {
+  if (wishlistBadge) {
+    if (wishlistIds.length > 0) {
+      wishlistBadge.textContent = wishlistIds.length;
+      wishlistBadge.classList.remove('scale-0');
+      wishlistBadge.classList.add('scale-100');
+    } else {
+      wishlistBadge.classList.remove('scale-100');
+      wishlistBadge.classList.add('scale-0');
+    }
+  }
+}
+
+async function initUserSession() {
+  try {
+    const response = await fetch('/api/auth/me');
+    const authData = await response.json();
+    if (authData.loggedIn && authData.user) {
+      currentUser = authData.user;
+      localStorage.setItem('is_logged_in', 'true');
+      updateAuthUI(authData.user);
+    } else {
+      currentUser = null;
+      localStorage.setItem('is_logged_in', 'false');
+      updateAuthUI(null);
+    }
+  } catch (err) {
+    console.error('Session fetch failed:', err);
+    currentUser = null;
+    localStorage.setItem('is_logged_in', 'false');
+    updateAuthUI(null);
+  }
+  loadWishlistFromStorage();
+  updateWishlistBadge();
+}
+
+function showToast(message) {
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'fixed top-6 right-6 z-[9999] flex flex-col gap-2 pointer-events-none font-mono';
+    document.body.appendChild(toastContainer);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'bg-black text-white text-[10px] uppercase tracking-wider px-5 py-3 border border-zinc-800 shadow-lg rounded-none transition-all duration-300 transform -translate-y-10 opacity-0';
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+  
+  // Trigger animation
+  setTimeout(() => {
+    toast.classList.remove('-translate-y-10', 'opacity-0');
+  }, 10);
+  
+  // Remove after 3 seconds
+  setTimeout(() => {
+    toast.classList.add('-translate-y-10', 'opacity-0');
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
+}
+
 
 // --- Database Enrichment for Car Details Pages ---
 function enrichDatabase() {
   EV_DATABASE.forEach(car => {
-    // 1. Add variants if missing
-    if (!car.variants) {
-      const priceBase = car.priceVal;
-      const isCrore = car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'mercedes-benz';
-      car.variants = [
-        {
-          name: 'Executive Core',
-          price: isCrore ? `₹${(priceBase * 0.95).toFixed(2)} Crore` : `₹${(priceBase * 0.95).toFixed(2)} Lakh`,
-          priceVal: priceBase * 0.95,
-          battery: `${(parseFloat(car.battery) * 0.85).toFixed(1)} kWh`,
-          range: `${Math.floor(parseFloat(car.range) * 0.85)} km`,
-          charging: car.charging,
-          power: `${Math.floor(parseInt(car.power) * 0.85)} hp`,
-          speed: car.speed,
-          drivetrain: car.brand === 'bmw' || car.brand === 'kia' || car.brand === 'byd' ? 'RWD' : 'FWD'
-        },
-        {
-          name: 'Empowered Luxury',
-          price: car.price,
-          priceVal: priceBase,
-          battery: car.battery,
-          range: car.range,
-          charging: car.charging,
-          power: car.power,
-          speed: car.speed,
-          drivetrain: car.brand === 'bmw' || car.brand === 'kia' || car.brand === 'byd' ? 'RWD' : 'FWD'
-        },
-        {
-          name: 'Performance Flagship',
-          price: isCrore ? `₹${(priceBase * 1.15).toFixed(2)} Crore` : `₹${(priceBase * 1.15).toFixed(2)} Lakh`,
-          priceVal: priceBase * 1.15,
-          battery: `${(parseFloat(car.battery) * 1.15).toFixed(1)} kWh`,
-          range: `${Math.floor(parseFloat(car.range) * 1.1)} km`,
-          charging: car.charging,
-          power: `${Math.floor(parseInt(car.power) * 1.25)} hp`,
-          speed: `${Math.floor(parseInt(car.speed) * 1.1)} km/h`,
-          drivetrain: car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'kia' || car.brand === 'byd' ? 'AWD' : 'FWD'
+    // 1. Add variants dynamically based on VARIANTS_DATABASE
+    let variantNames = [];
+    const carBrandNorm = normalizeKey(car.brand);
+    let matchedBrandKey = null;
+
+    if (VARIANTS_DATABASE && typeof VARIANTS_DATABASE === 'object') {
+      for (const bKey of Object.keys(VARIANTS_DATABASE)) {
+        if (normalizeKey(bKey) === carBrandNorm) {
+          matchedBrandKey = bKey;
+          break;
         }
-      ];
+      }
     }
-    
-    // 2. Add extra specifications if missing
+
+    if (matchedBrandKey) {
+      const carModelNorm = normalizeKey(car.name);
+      const brandVariants = VARIANTS_DATABASE[matchedBrandKey];
+      for (const mKey of Object.keys(brandVariants)) {
+        if (normalizeKey(mKey) === carModelNorm) {
+          variantNames = brandVariants[mKey];
+          break;
+        }
+      }
+    }
+
+    if (!variantNames || variantNames.length === 0) {
+      variantNames = ['Standard'];
+    }
+
+    const N = variantNames.length;
+    car.variants = variantNames.map((vName, idx) => {
+      const factor = N > 1 ? 0.9 + 0.25 * (idx / (N - 1)) : 1.0;
+      const priceBase = car.priceVal;
+      const isCrore = car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'mercedes-benz' || car.brand === 'porsche' || car.brand === 'lotus' || car.brand === 'rolls-royce';
+      
+      const variantPriceVal = priceBase * factor;
+      const priceStr = isCrore ? `₹${variantPriceVal.toFixed(2)} Crore` : `₹${variantPriceVal.toFixed(2)} Lakh`;
+      
+      const batteryVal = parseFloat(car.battery);
+      const batteryStr = batteryVal ? `${(batteryVal * (N > 1 ? 0.85 + 0.3 * (idx / (N - 1)) : 1.0)).toFixed(1)} kWh` : car.battery;
+      
+      const rangeVal = parseFloat(car.range);
+      const rangeStr = rangeVal ? `${Math.floor(rangeVal * (N > 1 ? 0.85 + 0.25 * (idx / (N - 1)) : 1.0))} km` : car.range;
+      
+      const powerVal = parseInt(car.power);
+      const powerStr = powerVal ? `${Math.floor(powerVal * (N > 1 ? 0.85 + 0.35 * (idx / (N - 1)) : 1.0))} hp` : car.power;
+      
+      const torqueVal = parseInt(car.torque) || 250;
+      const torqueStr = `${Math.floor(torqueVal * (N > 1 ? 0.85 + 0.3 * (idx / (N - 1)) : 1.0))} Nm`;
+      
+      const speedVal = parseInt(car.speed) || 150;
+      const speedStr = `${Math.floor(speedVal * (N > 1 ? 0.9 + 0.2 * (idx / (N - 1)) : 1.0))} km/h`;
+      
+      const drivetrainStr = (car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'mercedes-benz' || car.brand === 'kia' || car.brand === 'byd' || car.brand === 'porsche' || car.brand === 'lotus') 
+        ? (idx === N - 1 ? 'AWD' : 'RWD') 
+        : (idx === N - 1 ? 'AWD' : 'FWD');
+        
+      const accel = N > 1 ? (8.5 - 3.5 * (idx / (N - 1))).toFixed(1) : '7.5';
+      const accelerationStr = `${accel} sec`;
+      
+      const wheelsStr = N > 1 ? `${15 + Math.floor(4 * (idx / (N - 1)))} inch Alloy` : '15 inch Steel';
+
+      const safetyStr = car.safety || '5 Stars (Expected)';
+      const dimensionsStr = car.dimensions || '3994 x 1811 x 1616 mm';
+      const clearanceStr = car.brand === 'tata' || car.brand === 'mahindra' ? '190 mm' : '150 mm';
+      const bootSpaceStr = '380 Litres';
+      const seatingStr = '5 Seater';
+      const warrantyStr = '8 Years / 1,60,000 km';
+      
+      return {
+        name: vName,
+        price: priceStr,
+        priceVal: variantPriceVal,
+        battery: batteryStr,
+        range: rangeStr,
+        charging: car.charging || '45 min (DC)',
+        power: powerStr,
+        speed: speedStr,
+        drivetrain: drivetrainStr,
+        torque: torqueStr,
+        acceleration: accelerationStr,
+        wheels: wheelsStr,
+        safety: safetyStr,
+        dimensions: dimensionsStr,
+        clearance: clearanceStr,
+        bootSpace: bootSpaceStr,
+        seating: seatingStr,
+        warranty: warrantyStr,
+        features: car.features || ''
+      };
+    });
+
+    // 2. Add extra specifications if missing (fallbacks for main object)
     if (!car.torque) car.torque = car.brand === 'tata' || car.brand === 'mahindra' ? '250 Nm' : '350 Nm';
     if (!car.chargingAC) car.chargingAC = '7.5 hours (7.2 kW AC)';
     if (!car.clearance) car.clearance = car.brand === 'tata' || car.brand === 'mahindra' ? '190 mm' : '150 mm';
     if (!car.bootSpace) car.bootSpace = '380 Litres';
     if (!car.seating) car.seating = '5 Seater';
     if (!car.warranty) car.warranty = '8 Years / 1,60,000 km';
-    
-    // 3. Add features list if missing
-    if (!car.featuresList) {
-      car.featuresList = {
-        exterior: ['LED Projector Headlamps', 'Alloy Wheels', 'Gloss Black Grille', 'Rear Spoiler'],
-        interior: ['Premium Dual Tone Dashboard', 'Soft Touch Door Pads', 'Leather Wrapping'],
-        safety: ['6 Airbags', 'Electronic Stability Program', 'ABS with EBD', 'ISOFIX Mounts'],
-        infotainment: ['10.25-inch Touchscreen Navigation', 'Premium Audio Channels', 'OTA Wireless Updates'],
-        adas: ['Lane Keep Assist', 'Blind Spot Monitoring', 'Adaptive Cruise Control', 'Emergency Brake Assist'],
-        comfort: ['Wireless Smartphone Charging', 'Smart Keyless Access', 'Ventilated Climate Seats']
-      };
-    }
     
     // 4. Add expert review if missing
     if (!car.expertReview) {
@@ -2239,6 +1571,11 @@ function runPreloader() {
         preloader.classList.add('preloader-hidden');
         document.body.classList.add('loaded'); // Trigger hero section luxury page-load sequence
         setTimeout(() => preloader.style.display = 'none', 700);
+        
+        // Render/show the AI assistant after the loading screen has completely finished
+        if (typeof window.showAIAssistant === 'function') {
+          setTimeout(window.showAIAssistant, 100);
+        }
       }, 300);
     }
     loaderProgress.style.width = progress + '%';
@@ -2324,23 +1661,19 @@ function getSpecGridHtml(car) {
 function createCarCardHtml(car, extraClasses = '') {
   const isWishlisted = wishlistIds.includes(car.id);
   return `
-    <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card">
+    <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card cursor-pointer">
       <button class="wishlist-btn absolute top-4 right-4 z-20" data-id="${car.id}" aria-label="Toggle Wishlist">
         <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current' : ''}">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         </svg>
       </button>
 
-      <div class="h-40 bg-zinc-50 flex items-center justify-center mb-4 relative overflow-hidden select-none border border-zinc-100">
-        <!-- Skeleton Shimmer -->
-        <div class="absolute inset-0 skeleton-shimmer"></div>
-       <img src="/public/car_images/${car.brand.toUpperCase()}/${car.image}" alt="${car.name}" class="w-full h-full object-contain">
-      </div>
+        ${renderCarImage(getS3ImageUrl(car.image), car.name)}
 
       <div>
         <div class="flex justify-between items-start text-black">
           <div>
-            <span class="font-mono text-[9px] text-zinc-500 uppercase">${car.brand}</span>
+            <span class="font-mono text-[9px] text-zinc-500 uppercase">${getBrandDisplay(car.brand)}</span>
             <h3 class="text-lg font-bold mt-0.5 text-black">${car.name}</h3>
           </div>
           <span class="font-mono text-sm font-bold text-black">${car.price}</span>
@@ -2414,8 +1747,8 @@ function renderAllCarousels() {
         </div>
       `;
     } else {
-      filteredPopular.forEach(car => {
-        carCarouselViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start');
+      filteredPopular.slice(0, 10).forEach(car => {
+        carCarouselViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] snap-start');
       });
     }
   }
@@ -2425,8 +1758,8 @@ function renderAllCarousels() {
   if (launchesViewport) {
     launchesViewport.innerHTML = '';
     const launchesCars = EV_DATABASE.filter(car => car.sections && car.sections.includes('launches'));
-    launchesCars.forEach(car => {
-      launchesViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start');
+    launchesCars.slice(0, 10).forEach(car => {
+      launchesViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] snap-start');
     });
   }
   
@@ -2435,8 +1768,8 @@ function renderAllCarousels() {
   if (upcomingViewport) {
     upcomingViewport.innerHTML = '';
     const upcomingCars = EV_DATABASE.filter(car => car.sections && car.sections.includes('upcoming'));
-    upcomingCars.forEach(car => {
-      upcomingViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start');
+    upcomingCars.slice(0, 10).forEach(car => {
+      upcomingViewport.innerHTML += createCarCardHtml(car, 'flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] snap-start');
     });
   }
   
@@ -2455,32 +1788,76 @@ function attachCardEvents() {
 
   // View Details clicks
   document.querySelectorAll('.btn-view-details').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const carId = btn.getAttribute('data-id');
       openCarDetails(carId);
+    });
+  });
+
+  // Card clicks
+  document.querySelectorAll('.car-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.wishlist-btn') || e.target.closest('.btn-view-details')) {
+        return;
+      }
+      const btn = card.querySelector('.btn-view-details');
+      if (btn) {
+        const carId = btn.getAttribute('data-id');
+        openCarDetails(carId);
+      }
     });
   });
 }
 
 function toggleWishlist(carId) {
+  if (!isUserLoggedIn()) {
+    showToast('Please login to save favourites.');
+    navigateTo('/login');
+    return;
+  }
+
   const index = wishlistIds.indexOf(carId);
-  if (index === -1) {
+  const isAdding = index === -1;
+  if (isAdding) {
     wishlistIds.push(carId);
   } else {
     wishlistIds.splice(index, 1);
   }
   
+  // Persist to localStorage
+  saveWishlistToStorage();
+
   // Update badge UI
-  if (wishlistIds.length > 0) {
-    wishlistBadge.textContent = wishlistIds.length;
-    wishlistBadge.classList.remove('scale-0');
-    wishlistBadge.classList.add('scale-100');
-  } else {
-    wishlistBadge.classList.remove('scale-100');
-    wishlistBadge.classList.add('scale-0');
+  updateWishlistBadge();
+
+  // Update heart buttons on all visible cards for this carId in-place
+  const buttons = document.querySelectorAll(`.wishlist-btn[data-id="${carId}"]`);
+  buttons.forEach(btn => {
+    const svg = btn.querySelector('svg');
+    if (svg) {
+      if (isAdding) {
+        svg.classList.add('fill-current', 'text-red-500');
+      } else {
+        svg.classList.remove('fill-current', 'text-red-500');
+      }
+    }
+  });
+
+  // If the detail page wishlist button is on the page, update it too
+  if (currentDetailsCarId === carId) {
+    const detailBtn = document.getElementById('detail-wishlist-btn');
+    if (detailBtn) {
+      const svg = detailBtn.querySelector('svg');
+      if (svg) {
+        if (isAdding) {
+          svg.classList.add('fill-current', 'text-red-500');
+        } else {
+          svg.classList.remove('fill-current', 'text-red-500');
+        }
+      }
+    }
   }
-  
-  renderAllCarousels();
 }
 
 // Reset browse logic
@@ -2572,7 +1949,96 @@ const compHdrA = document.getElementById('comp-hdr-a');
 const compHdrB = document.getElementById('comp-hdr-b');
 const compTableBody = document.getElementById('comp-table-body');
 
+function getVehicleFeatures(car) {
+  if (!car) return null;
+  const carName = (car.name || '').trim();
+  const cleanCarName = carName.toLowerCase().replace(/\s+/g, ' ').trim();
+  let carFeatures = null;
+  
+  if (FEATURES_DATABASE && typeof FEATURES_DATABASE === 'object') {
+    const isFeatureBlock = (obj) => {
+      if (!obj || typeof obj !== 'object') return false;
+      const keys = Object.keys(obj).map(k => k.toLowerCase());
+      return ['exterior', 'interior', 'safety', 'infotainment', 'adas', 'comfort'].some(cat => keys.includes(cat));
+    };
+
+    // 1. Direct search at root keys
+    for (const key of Object.keys(FEATURES_DATABASE)) {
+      if (key.toLowerCase().replace(/\s+/g, ' ').trim() === cleanCarName) {
+        const val = FEATURES_DATABASE[key];
+        if (isFeatureBlock(val)) {
+          carFeatures = val;
+          break;
+        }
+      }
+    }
+
+    // 2. Nested search inside brand keys
+    if (!carFeatures) {
+      for (const brandKey of Object.keys(FEATURES_DATABASE)) {
+        const brandData = FEATURES_DATABASE[brandKey];
+        if (brandData && typeof brandData === 'object' && !isFeatureBlock(brandData)) {
+          for (const modelKey of Object.keys(brandData)) {
+            if (modelKey.toLowerCase().replace(/\s+/g, ' ').trim() === cleanCarName) {
+              const val = brandData[modelKey];
+              if (isFeatureBlock(val)) {
+                carFeatures = val;
+                break;
+              }
+            }
+          }
+        }
+        if (carFeatures) break;
+      }
+    }
+
+    // 3. Fallback fuzzy contains matching at root keys
+    if (!carFeatures) {
+      for (const key of Object.keys(FEATURES_DATABASE)) {
+        const val = FEATURES_DATABASE[key];
+        if (isFeatureBlock(val)) {
+          const cleanKey = key.toLowerCase().replace(/\s+/g, ' ').trim();
+          if (cleanKey.includes(cleanCarName) || cleanCarName.includes(cleanKey)) {
+            carFeatures = val;
+            break;
+          }
+        }
+      }
+    }
+
+    // 4. Fallback fuzzy contains matching inside brand keys
+    if (!carFeatures) {
+      for (const brandKey of Object.keys(FEATURES_DATABASE)) {
+        const brandData = FEATURES_DATABASE[brandKey];
+        if (brandData && typeof brandData === 'object' && !isFeatureBlock(brandData)) {
+          for (const modelKey of Object.keys(brandData)) {
+            const val = brandData[modelKey];
+            if (isFeatureBlock(val)) {
+              const cleanModelKey = modelKey.toLowerCase().replace(/\s+/g, ' ').trim();
+              if (cleanModelKey.includes(cleanCarName) || cleanCarName.includes(cleanModelKey)) {
+                carFeatures = val;
+                break;
+              }
+            }
+          }
+        }
+        if (carFeatures) break;
+      }
+    }
+  }
+  return carFeatures;
+}
+
+function extractAirbags(safetyText) {
+  if (!safetyText) return 'Not Available';
+  const match = safetyText.match(/(\d+)\s*airbags/i);
+  if (match) return `${match[1]} Airbags`;
+  if (safetyText.toLowerCase().includes('airbag')) return 'Yes (Standard)';
+  return '6 Airbags (Standard)';
+}
+
 function populateCompareDropdowns() {
+  if (!compSelectA || !compSelectB) return;
   compSelectA.innerHTML = '';
   compSelectB.innerHTML = '';
   
@@ -2586,12 +2052,13 @@ function populateCompareDropdowns() {
     const optB = document.createElement('option');
     optB.value = car.id;
     optB.textContent = car.name;
-    if (index === 2) optB.selected = true; // Ioniq 5 initially
+    if (index === 2 || (index === 1 && EV_DATABASE.length === 2)) optB.selected = true; // Ioniq 5 initially
     compSelectB.appendChild(optB);
   });
 }
 
 function updateCompareTable() {
+  if (!compSelectA || !compSelectB || !compHdrA || !compHdrB || !compTableBody) return;
   const carIdA = compSelectA.value;
   const carIdB = compSelectB.value;
   
@@ -2605,53 +2072,294 @@ function updateCompareTable() {
   
   const compStateKey = document.getElementById('comp-state-select') ? document.getElementById('comp-state-select').value : 'delhi';
 
-  const specs = [
-    { label: 'PRICE (EX-SHOWROOM)', key: 'price' },
-    { label: 'EST. ON-ROAD PRICE', key: 'onRoadPrice' },
-    { label: 'BATTERY POWER', key: 'battery' },
-    { label: 'DRIVING RANGE', key: 'range' },
-    { label: 'CHARGING DURATION', key: 'charging' },
-    { label: 'HIGHWAY READINESS', key: 'highwayReadiness' },
-    { label: 'MOTOR POWER Output', key: 'power' },
-    { label: 'MAX SPEED LIMIT', key: 'speed' },
-    { label: 'SAFETY COEFFICIENT', key: 'safety' },
-    { label: 'FEATURES SUMMARY', key: 'features' },
-    { label: 'CHASSIS DIMENSIONS', key: 'dimensions' },
+  const variantA = (carA.variants && carA.variants[0]) || {};
+  const variantB = (carB.variants && carB.variants[0]) || {};
+
+  const dataA = getOnRoadPriceData(variantA.priceVal || carA.priceVal || 0, compStateKey);
+  const dataB = getOnRoadPriceData(variantB.priceVal || carB.priceVal || 0, compStateKey);
+
+  const featsA = getVehicleFeatures(carA) || {};
+  const featsB = getVehicleFeatures(carB) || {};
+
+  const adasA = featsA.adas || featsA.ADAS || (carA.features && carA.features.toLowerCase().includes('adas') ? 'Yes' : 'Not Available');
+  const adasB = featsB.adas || featsB.ADAS || (carB.features && carB.features.toLowerCase().includes('adas') ? 'Yes' : 'Not Available');
+
+  const infotainmentA = featsA.infotainment || featsA.Infotainment || 'Not Available';
+  const infotainmentB = featsB.infotainment || featsB.Infotainment || 'Not Available';
+
+  const specsList = [
+    {
+      label: 'Variant Name',
+      valA: variantA.name || 'Not Available',
+      valB: variantB.name || 'Not Available',
+      compare: null
+    },
+    {
+      label: 'Ex-showroom Price',
+      valA: variantA.price || carA.price || 'Not Available',
+      valB: variantB.price || carB.price || 'Not Available',
+      compare: () => {
+        const pA = variantA.priceVal || carA.priceVal || 0;
+        const pB = variantB.priceVal || carB.priceVal || 0;
+        if (pA === 0 || pB === 0) return 0;
+        return pA < pB ? 1 : (pA > pB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Est. On-Road Price',
+      valA: dataA ? formatCurrency(dataA.onRoad) : 'Not Available',
+      valB: dataB ? formatCurrency(dataB.onRoad) : 'Not Available',
+      compare: () => {
+        const pA = dataA ? dataA.onRoad : 0;
+        const pB = dataB ? dataB.onRoad : 0;
+        if (pA === 0 || pB === 0) return 0;
+        return pA < pB ? 1 : (pA > pB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Battery Capacity',
+      valA: variantA.battery || carA.battery || 'Not Available',
+      valB: variantB.battery || carB.battery || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Claimed Range',
+      valA: variantA.range || carA.range || 'Not Available',
+      valB: variantB.range || carB.range || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Real-world Range',
+      valA: (variantA.range || carA.range) ? `${Math.round(parseFloat(variantA.range || carA.range) * 0.85)} km` : 'Not Available',
+      valB: (variantB.range || carB.range) ? `${Math.round(parseFloat(variantB.range || carB.range) * 0.85)} km` : 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Motor Output (Power)',
+      valA: variantA.power || carA.power || 'Not Available',
+      valB: variantB.power || carB.power || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Peak Torque',
+      valA: variantA.torque || carA.torque || 'Not Available',
+      valB: variantB.torque || carB.torque || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Top Speed',
+      valA: variantA.speed || carA.speed || 'Not Available',
+      valB: variantB.speed || carB.speed || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: '0–100 km/h Acceleration',
+      valA: variantA.acceleration || carA.acceleration || 'Not Available',
+      valB: variantB.acceleration || carB.acceleration || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 999;
+        const vB = parseFloat(b) || 999;
+        if (vA === 999 || vB === 999) return 0;
+        return vA < vB ? 1 : (vA > vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Charging Time (DC Fast)',
+      valA: variantA.charging || carA.charging || 'Not Available',
+      valB: variantB.charging || carB.charging || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 999;
+        const vB = parseFloat(b) || 999;
+        if (vA === 999 || vB === 999) return 0;
+        return vA < vB ? 1 : (vA > vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Standard AC Charging',
+      valA: carA.chargingAC || 'Not Available',
+      valB: carB.chargingAC || 'Not Available',
+      compare: null
+    },
+    {
+      label: 'Fast Charging Support',
+      valA: (variantA.charging || carA.charging) ? 'Yes' : 'Not Available',
+      valB: (variantB.charging || carB.charging) ? 'Yes' : 'Not Available',
+      compare: null
+    },
+    {
+      label: 'Drive Type',
+      valA: variantA.drivetrain || carA.drivetrain || 'Not Available',
+      valB: variantB.drivetrain || carB.drivetrain || 'Not Available',
+      compare: null
+    },
+    {
+      label: 'Motor Type',
+      valA: carA.motorType || 'PMSM (Permanent Magnet Synchronous Motor)',
+      valB: carB.motorType || 'PMSM (Permanent Magnet Synchronous Motor)',
+      compare: null
+    },
+    {
+      label: 'Seating Capacity',
+      valA: carA.seating || variantA.seating || 'Not Available',
+      valB: carB.seating || variantB.seating || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Boot Space',
+      valA: carA.bootSpace || variantA.bootSpace || 'Not Available',
+      valB: carB.bootSpace || variantB.bootSpace || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Ground Clearance',
+      valA: carA.clearance || variantA.clearance || 'Not Available',
+      valB: carB.clearance || variantB.clearance || 'Not Available',
+      compare: (a, b) => {
+        const vA = parseFloat(a) || 0;
+        const vB = parseFloat(b) || 0;
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Dimensions',
+      valA: variantA.dimensions || carA.dimensions || 'Not Available',
+      valB: variantB.dimensions || carB.dimensions || 'Not Available',
+      compare: null
+    },
+    {
+      label: 'Safety Rating',
+      valA: variantA.safety || carA.safety || 'Not Available',
+      valB: variantB.safety || carB.safety || 'Not Available',
+      compare: (a, b) => {
+        const getStars = (s) => { const m = s.match(/(\d+)/); return m ? parseInt(m[1]) : 0; };
+        const vA = getStars(a);
+        const vB = getStars(b);
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'Airbags',
+      valA: extractAirbags(featsA.safety || carA.safety || ''),
+      valB: extractAirbags(featsB.safety || carB.safety || ''),
+      compare: (a, b) => {
+        const getAirbags = (s) => { const m = s.match(/(\d+)/); return m ? parseInt(m[1]) : 0; };
+        const vA = getAirbags(a);
+        const vB = getAirbags(b);
+        if (vA === 0 || vB === 0) return 0;
+        return vA > vB ? 1 : (vA < vB ? 2 : 3);
+      }
+    },
+    {
+      label: 'ADAS Features',
+      valA: adasA,
+      valB: adasB,
+      compare: null
+    },
+    {
+      label: 'Infotainment System',
+      valA: infotainmentA,
+      valB: infotainmentB,
+      compare: null
+    },
+    {
+      label: 'Warranty',
+      valA: carA.warranty || variantA.warranty || 'Not Available',
+      valB: carB.warranty || variantB.warranty || 'Not Available',
+      compare: null
+    }
   ];
-  
+
+  const getVal = (val) => {
+    if (val === undefined || val === null || String(val).trim() === '' || String(val).toLowerCase() === 'undefined' || String(val).toLowerCase() === 'null') {
+      return 'Not Available';
+    }
+    return val;
+  };
+
   compTableBody.innerHTML = '';
-  specs.forEach(spec => {
+  specsList.forEach(spec => {
     const row = document.createElement('tr');
     row.className = 'border-b border-zinc-200 hover:bg-zinc-50 transition-colors';
     
-    let valA, valB;
-    if (spec.key === 'highwayReadiness') {
-      valA = getHighwayReadinessBadgeHtml(carA);
-      valB = getHighwayReadinessBadgeHtml(carB);
-    } else if (spec.key === 'onRoadPrice') {
-      const dataA = getOnRoadPriceData(carA.priceVal, compStateKey);
-      const dataB = getOnRoadPriceData(carB.priceVal, compStateKey);
-      valA = dataA ? '<span class="font-bold text-black">' + formatCurrency(dataA.onRoad) + '</span><span class="block text-[8px] text-zinc-500 mt-0.5 font-mono">' + dataA.stateLabel + '</span>' : '-';
-      valB = dataB ? '<span class="font-bold text-black">' + formatCurrency(dataB.onRoad) + '</span><span class="block text-[8px] text-zinc-500 mt-0.5 font-mono">' + dataB.stateLabel + '</span>' : '-';
-    } else {
-      valA = carA[spec.key];
-      valB = carB[spec.key];
+    const formattedA = getVal(spec.valA);
+    const formattedB = getVal(spec.valB);
+    
+    let highlightClassA = '';
+    let highlightClassB = '';
+    let badgeA = '';
+    let badgeB = '';
+    
+    if (spec.compare && formattedA !== 'Not Available' && formattedB !== 'Not Available') {
+      const outcome = spec.compare(formattedA, formattedB);
+      if (outcome === 1) {
+        highlightClassA = 'bg-emerald-50/60 font-semibold';
+        badgeA = `<span class="ml-2 text-[8px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 border border-emerald-200 uppercase tracking-wider font-bold">Better</span>`;
+      } else if (outcome === 2) {
+        highlightClassB = 'bg-emerald-50/60 font-semibold';
+        badgeB = `<span class="ml-2 text-[8px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 border border-emerald-200 uppercase tracking-wider font-bold">Better</span>`;
+      } else if (outcome === 3) {
+        badgeA = `<span class="ml-2 text-[8px] bg-zinc-150 text-zinc-650 px-1.5 py-0.5 border border-zinc-250 uppercase tracking-wider">Same</span>`;
+        badgeB = `<span class="ml-2 text-[8px] bg-zinc-150 text-zinc-650 px-1.5 py-0.5 border border-zinc-250 uppercase tracking-wider">Same</span>`;
+      }
+    }
+    
+    if (formattedA !== formattedB) {
+      row.className += ' bg-amber-50/10';
     }
 
     row.innerHTML = `
-      <td class="p-4 font-bold text-zinc-500 uppercase text-[9px] tracking-wider">${spec.label}</td>
-      <td class="p-4 text-zinc-800">${valA}</td>
-      <td class="p-4 text-zinc-800">${valB}</td>
+      <td class="p-4 font-bold text-zinc-500 uppercase text-[9px] tracking-wider border-r border-zinc-200">${spec.label}</td>
+      <td class="p-4 text-zinc-800 border-r border-zinc-200 ${highlightClassA}">${formattedA} ${badgeA}</td>
+      <td class="p-4 text-zinc-800 ${highlightClassB}">${formattedB} ${badgeB}</td>
     `;
     compTableBody.appendChild(row);
   });
 }
 
-populateCompareDropdowns();
-updateCompareTable();
-
-compSelectA.addEventListener('change', updateCompareTable);
-compSelectB.addEventListener('change', updateCompareTable);
+if (compSelectA) compSelectA.addEventListener('change', updateCompareTable);
+if (compSelectB) compSelectB.addEventListener('change', updateCompareTable);
 
 const compStateSelect = document.getElementById('comp-state-select');
 if (compStateSelect) compStateSelect.addEventListener('change', updateCompareTable);
@@ -2663,53 +2371,412 @@ const filterChargerFast = document.getElementById('filter-charger-fast');
 const filterChargerNormal = document.getElementById('filter-charger-normal');
 const stationsListContainer = document.getElementById('stations-list-container');
 
-function renderChargingStations() {
-  const query = stationSearchInput.value.toLowerCase().trim();
-  const showFast = filterChargerFast.checked;
-  const showNormal = filterChargerNormal.checked;
-  
-  stationsListContainer.innerHTML = '';
-  
-  const filtered = STATIONS_DATABASE.filter(st => {
-    if (query && !st.city.includes(query) && !st.name.toLowerCase().includes(query)) return false;
-    if (st.type === 'Fast' && !showFast) return false;
-    if (st.type === 'Normal' && !showNormal) return false;
-    return true;
-  });
-  
-  if (filtered.length === 0) {
-    stationsListContainer.innerHTML = `
-      <div class="text-center py-8 text-zinc-600 font-mono text-[10px]">
-        NO CHARGERS FOUND IN LOCATION BOUNDS.
-      </div>
-    `;
+// Leaflet map instances
+let chargerMap = null;
+let chargerMarkersGroup = null;
+
+function initChargerMap() {
+  const mapContainer = document.getElementById('map');
+  if (!mapContainer || typeof L === 'undefined') {
+    console.warn("Leaflet Map or map container not found.");
     return;
   }
-  
-  filtered.forEach(st => {
-    const item = document.createElement('div');
-    item.className = 'border-b border-zinc-100 pb-3 text-left font-mono';
-    item.innerHTML = `
-      <div class="flex justify-between items-start text-xs">
-        <div>
-          <h4 class="font-bold text-zinc-850">${st.name}</h4>
-          <span class="text-[9px] text-zinc-500">${st.address}</span>
-        </div>
-        <div class="text-right">
-          <span class="px-1.5 py-0.5 bg-zinc-100 text-[8px] text-zinc-655 border border-zinc-200 uppercase">${st.type} [${st.speed}]</span>
-          <span class="text-[8px] block mt-1 ${st.status === 'Available' ? 'text-black font-bold' : 'text-zinc-400'}">${st.status.toUpperCase()}</span>
-        </div>
-      </div>
-    `;
-    stationsListContainer.appendChild(item);
-  });
+
+  try {
+    // Initialize map centered at Bangalore
+    chargerMap = L.map('map', { zoomControl: false }).setView([12.9716, 77.5946], 11);
+    L.control.zoom({ position: 'bottomright' }).addTo(chargerMap);
+
+    // Use light themed CartoDB tiles
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(chargerMap);
+
+    chargerMarkersGroup = L.layerGroup().addTo(chargerMap);
+  } catch (err) {
+    console.error("Failed to initialize Leaflet map:", err);
+  }
 }
 
-// Initial stations list load (using Mumbai as search default query placeholder)
+// Map of known cities to coordinates
+const CITY_COORDS = {
+  "mumbai": { lat: "19.0760", lng: "72.8777" },
+  "navi mumbai": { lat: "19.0330", lng: "73.0297" },
+  "thane": { lat: "19.2183", lng: "72.9781" },
+  "pune": { lat: "18.5204", lng: "73.8567" },
+  "nagpur": { lat: "21.1458", lng: "79.0882" },
+  "nashik": { lat: "19.9975", lng: "73.7898" },
+  "aurangabad": { lat: "19.8762", lng: "75.3433" },
+  "kolhapur": { lat: "16.7050", lng: "74.2433" },
+  "solapur": { lat: "17.6599", lng: "75.9064" },
+
+  "delhi": { lat: "28.6139", lng: "77.2090" },
+  "new delhi": { lat: "28.6139", lng: "77.2090" },
+  "gurgaon": { lat: "28.4595", lng: "77.0266" },
+  "gurugram": { lat: "28.4595", lng: "77.0266" },
+  "noida": { lat: "28.5355", lng: "77.3910" },
+  "greater noida": { lat: "28.4744", lng: "77.5040" },
+  "faridabad": { lat: "28.4089", lng: "77.3178" },
+  "ghaziabad": { lat: "28.6692", lng: "77.4538" },
+
+  "bangalore": { lat: "12.9716", lng: "77.5946" },
+  "bengaluru": { lat: "12.9716", lng: "77.5946" },
+  "mysore": { lat: "12.2958", lng: "76.6394" },
+  "mysuru": { lat: "12.2958", lng: "76.6394" },
+  "mangalore": { lat: "12.9141", lng: "74.8560" },
+  "mangaluru": { lat: "12.9141", lng: "74.8560" },
+  "hubli": { lat: "15.3647", lng: "75.1240" },
+  "dharwad": { lat: "15.4589", lng: "75.0078" },
+  "belagavi": { lat: "15.8497", lng: "74.4977" },
+  "bellary": { lat: "15.1394", lng: "76.9214" },
+  "tumakuru": { lat: "13.3409", lng: "77.1010" },
+  "shivamogga": { lat: "13.9299", lng: "75.5681" },
+  "udupi": { lat: "13.3409", lng: "74.7421" },
+
+  "chennai": { lat: "13.0827", lng: "80.2707" },
+  "coimbatore": { lat: "11.0168", lng: "76.9558" },
+  "madurai": { lat: "9.9252", lng: "78.1198" },
+  "salem": { lat: "11.6643", lng: "78.1460" },
+  "trichy": { lat: "10.7905", lng: "78.7047" },
+  "tiruchirappalli": { lat: "10.7905", lng: "78.7047" },
+  "vellore": { lat: "12.9165", lng: "79.1325" },
+  "tirunelveli": { lat: "8.7139", lng: "77.7567" },
+
+  "hyderabad": { lat: "17.3850", lng: "78.4867" },
+  "warangal": { lat: "17.9784", lng: "79.5941" },
+  "karimnagar": { lat: "18.4386", lng: "79.1288" },
+  "nizamabad": { lat: "18.6725", lng: "78.0941" },
+
+  "visakhapatnam": { lat: "17.6868", lng: "83.2185" },
+  "vijayawada": { lat: "16.5062", lng: "80.6480" },
+  "guntur": { lat: "16.3067", lng: "80.4365" },
+  "nellore": { lat: "14.4426", lng: "79.9865" },
+  "tirupati": { lat: "13.6288", lng: "79.4192" },
+  "kakinada": { lat: "16.9891", lng: "82.2475" },
+
+  "kochi": { lat: "9.9312", lng: "76.2673" },
+  "ernakulam": { lat: "9.9816", lng: "76.2999" },
+  "kozhikode": { lat: "11.2588", lng: "75.7804" },
+  "thrissur": { lat: "10.5276", lng: "76.2144" },
+  "kollam": { lat: "8.8932", lng: "76.6141" },
+  "alappuzha": { lat: "9.4981", lng: "76.3388" },
+  "kannur": { lat: "11.8745", lng: "75.3704" },
+  "thiruvananthapuram": { lat: "8.5241", lng: "76.9366" },
+
+  "kolkata": { lat: "22.5726", lng: "88.3639" },
+  "howrah": { lat: "22.5958", lng: "88.2636" },
+  "durgapur": { lat: "23.5204", lng: "87.3119" },
+  "siliguri": { lat: "26.7271", lng: "88.3953" },
+  "asansol": { lat: "23.6739", lng: "86.9524" },
+
+  "ahmedabad": { lat: "23.0225", lng: "72.5714" },
+  "surat": { lat: "21.1702", lng: "72.8311" },
+  "vadodara": { lat: "22.3072", lng: "73.1812" },
+  "rajkot": { lat: "22.3039", lng: "70.8022" },
+  "bhavnagar": { lat: "21.7645", lng: "72.1519" },
+
+  "jaipur": { lat: "26.9124", lng: "75.7873" },
+  "jodhpur": { lat: "26.2389", lng: "73.0243" },
+  "udaipur": { lat: "24.5854", lng: "73.7125" },
+  "kota": { lat: "25.2138", lng: "75.8648" },
+  "ajmer": { lat: "26.4499", lng: "74.6399" },
+
+  "lucknow": { lat: "26.8467", lng: "80.9462" },
+  "kanpur": { lat: "26.4499", lng: "80.3319" },
+  "agra": { lat: "27.1767", lng: "78.0081" },
+  "varanasi": { lat: "25.3176", lng: "82.9739" },
+  "prayagraj": { lat: "25.4358", lng: "81.8463" },
+  "meerut": { lat: "28.9845", lng: "77.7064" },
+  "bareilly": { lat: "28.3670", lng: "79.4304" },
+  "gorakhpur": { lat: "26.7606", lng: "83.3732" },
+  
+  "amritsar": { lat: "31.6340", lng: "74.8723" },
+  "ludhiana": { lat: "30.9010", lng: "75.8573" },
+  "jalandhar": { lat: "31.3260", lng: "75.5762" },
+  "patiala": { lat: "30.3398", lng: "76.3869" },
+  "bathinda": { lat: "30.2109", lng: "74.9455" },
+
+  
+  "panipat": { lat: "29.3909", lng: "76.9635" },
+  "ambala": { lat: "30.3782", lng: "76.7767" },
+  "hisar": { lat: "29.1492", lng: "75.7217" },
+  "rohtak": { lat: "28.8955", lng: "76.6066" },
+  "karnal": { lat: "29.6857", lng: "76.9905" },
+
+  
+  "dehradun": { lat: "30.3165", lng: "78.0322" },
+  "haridwar": { lat: "29.9457", lng: "78.1642" },
+  "rishikesh": { lat: "30.0869", lng: "78.2676" },
+  "haldwani": { lat: "29.2183", lng: "79.5130" },
+
+
+  "shimla": { lat: "31.1048", lng: "77.1734" },
+  "manali": { lat: "32.2396", lng: "77.1887" },
+  "solan": { lat: "30.9042", lng: "77.0967" },
+  "dharamshala": { lat: "32.2190", lng: "76.3234" },
+
+  
+  "patna": { lat: "25.5941", lng: "85.1376" },
+  "gaya": { lat: "24.7914", lng: "85.0002" },
+  "muzaffarpur": { lat: "26.1209", lng: "85.3647" },
+  "bhagalpur": { lat: "25.2425", lng: "86.9842" },
+
+  
+  "ranchi": { lat: "23.3441", lng: "85.3096" },
+  "jamshedpur": { lat: "22.8046", lng: "86.2029" },
+  "dhanbad": { lat: "23.7957", lng: "86.4304" },
+  "bokaro": { lat: "23.6693", lng: "86.1511" },
+
+  
+  "raipur": { lat: "21.2514", lng: "81.6296" },
+  "bhilai": { lat: "21.1938", lng: "81.3509" },
+  "bilaspur": { lat: "22.0797", lng: "82.1409" },
+  "durg": { lat: "21.1904", lng: "81.2849" },
+
+  
+  "bhubaneswar": { lat: "20.2961", lng: "85.8245" },
+  "cuttack": { lat: "20.4625", lng: "85.8828" },
+  "rourkela": { lat: "22.2604", lng: "84.8536" },
+  "puri": { lat: "19.8135", lng: "85.8312" },
+  "sambalpur": { lat: "21.4669", lng: "83.9812" },
+
+  
+  "guwahati": { lat: "26.1445", lng: "91.7362" },
+  "silchar": { lat: "24.8333", lng: "92.7789" },
+  "dibrugarh": { lat: "27.4728", lng: "94.9120" },
+  "jorhat": { lat: "26.7509", lng: "94.2037" },
+
+  
+  "agartala": { lat: "23.8315", lng: "91.2868" },
+  "imphal": { lat: "24.8170", lng: "93.9368" },
+  "aizawl": { lat: "23.7271", lng: "92.7176" },
+  "kohima": { lat: "25.6751", lng: "94.1086" },
+  "dimapur": { lat: "25.9091", lng: "93.7276" },
+  "itanagar": { lat: "27.0844", lng: "93.6053" },
+  "gangtok": { lat: "27.3389", lng: "88.6065" },
+  "shillong": { lat: "25.5788", lng: "91.8933" },
+
+  
+  "goa": { lat: "15.2993", lng: "74.1240" },
+  "panaji": { lat: "15.4909", lng: "73.8278" },
+  "margao": { lat: "15.2832", lng: "73.9862" },
+  "vasco da gama": { lat: "15.3860", lng: "73.8440" },
+
+  
+  "srinagar": { lat: "34.0837", lng: "74.7973" },
+  "jammu": { lat: "32.7266", lng: "74.8570" },
+  "leh": { lat: "34.1526", lng: "77.5771" },
+  "kargil": { lat: "34.5539", lng: "76.1349" },
+
+  
+  "chandigarh": { lat: "30.7333", lng: "76.7794" },
+  "pondicherry": { lat: "11.9416", lng: "79.8083" },
+  "puducherry": { lat: "11.9416", lng: "79.8083" },
+  "port blair": { lat: "11.6234", lng: "92.7265" },
+  "daman": { lat: "20.3974", lng: "72.8328" },
+  "diu": { lat: "20.7144", lng: "70.9874" },
+  "silvassa": { lat: "20.2739", lng: "72.9967" },
+  "kavaratti": { lat: "10.5669", lng: "72.6420" }
+};
+
+let debounceTimeout = null;
+
+async function renderChargingStations() {
+  if (!stationSearchInput || !stationsListContainer) return;
+  
+  const query = stationSearchInput.value.toLowerCase().trim();
+  const showFast = filterChargerFast ? filterChargerFast.checked : true;
+  const showNormal = filterChargerNormal ? filterChargerNormal.checked : true;
+  
+  stationsListContainer.innerHTML = `
+    <div class="text-center py-8 text-zinc-600 font-mono text-[10px] animate-pulse">
+      FETCHING CHARGERS FROM NETWORK CORE...
+    </div>
+  `;
+
+  const searchKey = query || 'bangalore';
+  const coords = CITY_COORDS[searchKey];
+
+  if (!coords) {
+    stationsListContainer.innerHTML = `
+      <div class="text-center py-8 text-red-600 font-mono text-[10px]">
+        ERROR: INVALID COORDINATES (UNKNOWN CITY "${query.toUpperCase()}"). PLEASE SEARCH FOR DELHI, MUMBAI, BANGALORE, OR HYDERABAD.
+      </div>
+    `;
+    if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
+    return;
+  }
+
+  try {
+    const url = `/api/chargers/nearby?latitude=${coords.lat}&longitude=${coords.lng}&distance=70&maxresults=300`;
+    console.log(`Frontend sending chargers request for lat: ${coords.lat}, lng: ${coords.lng}`);
+    const response = await fetch(url);
+    
+    if (response.status === 401) {
+      throw new Error('INVALID_API_KEY');
+    }
+    if (response.status === 429) {
+      throw new Error('RATE_LIMIT_EXCEEDED');
+    }
+    if (!response.ok) {
+      throw new Error('BACKEND_ERROR');
+    }
+
+    const resData = await response.json();
+    if (!resData.success) {
+      if (resData.message && resData.message.includes('API key')) {
+        throw new Error('INVALID_API_KEY');
+      }
+      throw new Error(resData.error || 'BACKEND_ERROR');
+    }
+
+    const stations = resData.data;
+    if (!Array.isArray(stations)) {
+      throw new Error('EMPTY_API_RESPONSE');
+    }
+
+    console.log(`Stations received: Yes | Number of stations: ${stations.length}`);
+
+    if (stations.length === 0) {
+      throw new Error('EMPTY_API_RESPONSE');
+    }
+
+    // Process and filter stations
+    const processedStations = stations.map(st => {
+      const addressInfo = st.AddressInfo || {};
+      const title = addressInfo.Title || 'Unknown Charger';
+      const address = [addressInfo.AddressLine1, addressInfo.Town].filter(Boolean).join(', ') || 'No address details';
+      
+      // Determine charger type and speed from connections list
+      let speed = '7.4 kW';
+      let isFast = false;
+      if (Array.isArray(st.Connections) && st.Connections.length > 0) {
+        const pwr = st.Connections[0].PowerKW;
+        if (pwr) {
+          speed = `${pwr} kW`;
+          if (pwr >= 30) isFast = true;
+        }
+      }
+
+      return {
+        name: title,
+        address: address,
+        lat: addressInfo.Latitude,
+        lng: addressInfo.Longitude,
+        type: isFast ? 'Fast' : 'Normal',
+        speed: speed,
+        status: (st.StatusType && st.StatusType.Title) || 'Available'
+      };
+    });
+
+    const filtered = processedStations.filter(st => {
+      if (st.type === 'Fast' && !showFast) return false;
+      if (st.type === 'Normal' && !showNormal) return false;
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      stationsListContainer.innerHTML = `
+        <div class="text-center py-8 text-zinc-600 font-mono text-[10px]">
+          NO CHARGERS FOUND IN LOCATION BOUNDS FOR SELECTED FILTERS.
+        </div>
+      `;
+      if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
+      return;
+    }
+
+    // Populate List
+    stationsListContainer.innerHTML = '';
+    filtered.forEach(st => {
+      const item = document.createElement('div');
+      item.className = 'border-b border-zinc-100 pb-3 text-left font-mono';
+      item.innerHTML = `
+        <div class="flex justify-between items-start text-xs">
+          <div>
+            <h4 class="font-bold text-zinc-850">${st.name}</h4>
+            <span class="text-[9px] text-zinc-500">${st.address}</span>
+          </div>
+          <div class="text-right">
+            <span class="px-1.5 py-0.5 bg-zinc-100 text-[8px] text-zinc-655 border border-zinc-200 uppercase">${st.type} [${st.speed}]</span>
+            <span class="text-[8px] block mt-1 ${st.status === 'Operational' || st.status === 'Available' ? 'text-black font-bold' : 'text-zinc-400'}">${st.status.toUpperCase()}</span>
+          </div>
+        </div>
+        <div class="mt-2 flex justify-end">
+         <a
+         href="https://www.google.com/maps/dir/?api=1&destination=${st.lat},${st.lng}"
+         target="_blank"
+         rel="noopener noreferrer"
+          class="text-blue-600 hover:text-blue-800 hover:underline text-[12px] font-medium"
+          >
+           Directions →
+            </a>
+            </div>
+      `;
+      stationsListContainer.appendChild(item);
+    });
+
+    // Populate Leaflet Map Markers
+    if (chargerMap && chargerMarkersGroup) {
+      chargerMarkersGroup.clearLayers();
+      
+      // Pan map to new city coordinates
+      chargerMap.setView([coords.lat, coords.lng], 11);
+
+      let markersCount = 0;
+      filtered.forEach(st => {
+        if (st.lat && st.lng) {
+          const marker = L.marker([st.lat, st.lng])
+            .bindPopup(`
+              <div class="font-mono text-[10px] text-left">
+                <strong class="text-black uppercase">${st.name}</strong><br>
+                <span class="text-zinc-600 block mt-0.5">${st.address}</span>
+                <span class="inline-block mt-1 px-1.5 py-0.5 bg-zinc-100 text-[8px] text-zinc-700 border border-zinc-200 uppercase">${st.type} [${st.speed}]</span>
+              </div>
+            `);
+          chargerMarkersGroup.addLayer(marker);
+          markersCount++;
+        }
+      });
+      console.log(`Number of markers displayed: ${markersCount}`);
+    }
+
+  } catch (error) {
+    console.error('Error rendering stations:', error);
+    let errMsg = 'NETWORK FAILURE (FAILED TO REACH SERVER CORE)';
+    if (error.message === 'INVALID_API_KEY') {
+      errMsg = 'INVALID API KEY (OPEN CHARGE MAP API UNAUTHORIZED)';
+    } else if (error.message === 'RATE_LIMIT_EXCEEDED') {
+      errMsg = 'RATE LIMIT EXCEEDED (TOO MANY REQUESTS)';
+    } else if (error.message === 'EMPTY_API_RESPONSE') {
+      errMsg = 'EMPTY API RESPONSE (NO POI DATA FOUND FOR LOCATION)';
+    } else if (error.message === 'BACKEND_ERROR') {
+      errMsg = 'BACKEND ERROR (SERVER RESPONDED WITH AN ERROR)';
+    }
+    
+    stationsListContainer.innerHTML = `
+      <div class="text-center py-8 text-red-600 font-mono text-[10px] uppercase">
+        ERROR: ${errMsg}
+      </div>
+    `;
+    if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
+  }
+}
+
+// Debounce helper for inputs
+function handleSearchInput() {
+  if (debounceTimeout) clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(renderChargingStations, 300);
+}
+
+// Initialize map & load data
+initChargerMap();
 renderChargingStations();
-stationSearchInput.addEventListener('input', renderChargingStations);
-filterChargerFast.addEventListener('change', renderChargingStations);
-filterChargerNormal.addEventListener('change', renderChargingStations);
+
+if (stationSearchInput) stationSearchInput.addEventListener('input', handleSearchInput);
+if (filterChargerFast) filterChargerFast.addEventListener('change', renderChargingStations);
+if (filterChargerNormal) filterChargerNormal.addEventListener('change', renderChargingStations);
 
 
 // --- Section: EMI Loan Calculator ---
@@ -3525,6 +3592,25 @@ function navigateTo(url) {
 }
 
 function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
+  // Clear any login page viewport scroll locks
+  document.body.style.removeProperty('overflow');
+  document.body.style.removeProperty('height');
+  if (detailsPageContent) {
+    detailsPageContent.style.cssText = '';
+  }
+
+  // Restore global navbar and AI assistant container when navigating away
+  const megaNav = document.getElementById('mega-nav');
+  if (megaNav) megaNav.classList.remove('hidden');
+  
+  const aiAssistant = document.querySelector('.ai-assistant-container');
+  if (aiAssistant) {
+    aiAssistant.classList.remove('hidden');
+    if (document.body.classList.contains('loaded')) {
+      aiAssistant.classList.add('loaded');
+    }
+  }
+
   if (homepageContent) homepageContent.classList.add('hidden');
   if (detailsPageContent) {
     detailsPageContent.classList.remove('hidden');
@@ -3570,7 +3656,28 @@ function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
   applyJargonBuster();
 }
 
-function handleRouting() {
+async function handleRouting() {
+  // Clear any login page viewport scroll locks
+  document.body.style.removeProperty('overflow');
+  document.body.style.removeProperty('height');
+  if (detailsPageContent) {
+    detailsPageContent.style.cssText = '';
+  }
+
+  // Restore global navbar and AI assistant container when navigating away
+  const megaNav = document.getElementById('mega-nav');
+  if (megaNav) megaNav.classList.remove('hidden');
+  
+  const aiAssistant = document.querySelector('.ai-assistant-container');
+  if (aiAssistant) {
+    aiAssistant.classList.remove('hidden');
+    if (document.body.classList.contains('loaded')) {
+      aiAssistant.classList.add('loaded');
+    }
+  }
+
+  currentDetailsCarId = null;
+  await loadDatabase();
   const path = window.location.pathname;
   const hash = window.location.hash;
   
@@ -3821,6 +3928,7 @@ window.addEventListener('DOMContentLoaded', handleRouting);
 
 // Intercept navigation triggers
 document.addEventListener('DOMContentLoaded', () => {
+  initUserSession();
   const logo = document.querySelector('.logo-link');
   if (logo) {
     logo.addEventListener('click', (e) => {
@@ -4006,7 +4114,7 @@ function renderViewAllPage(section) {
           </select>
         </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" id="viewall-cars-grid">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4" id="viewall-cars-grid">
         ${cardsHtml}
       </div>
     </div>
@@ -4544,7 +4652,7 @@ function renderExpertReviewsPage() {
         <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">EVALUATION INDEX / ${EV_DATABASE.length} VEHICLES TESTED</span>
         <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Expert Diagnostics & Ratings</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
         ${reviewsHtml}
       </div>
     </div>
@@ -4928,16 +5036,50 @@ function renderLearnArticlePage(slug, article) {
 
 // --- Login Page ---
 function renderLoginPage() {
+  if (homepageContent) homepageContent.classList.add('hidden');
+  if (detailsPageContent) {
+    detailsPageContent.classList.remove('hidden');
+    // Lock details container styles for full-screen fixed view
+    detailsPageContent.style.setProperty('padding', '0', 'important');
+    detailsPageContent.style.setProperty('margin', '0', 'important');
+    detailsPageContent.style.setProperty('height', '100vh', 'important');
+    detailsPageContent.style.setProperty('width', '100vw', 'important');
+    detailsPageContent.style.setProperty('overflow', 'hidden', 'important');
+    detailsPageContent.style.setProperty('display', 'flex', 'important');
+    detailsPageContent.style.setProperty('align-items', 'center', 'important');
+    detailsPageContent.style.setProperty('justify-content', 'center', 'important');
+    detailsPageContent.style.setProperty('max-width', '100vw', 'important');
+  }
+
+  // Hide global navbar and AI assistant container on login page
+  const megaNav = document.getElementById('mega-nav');
+  if (megaNav) megaNav.classList.add('hidden');
+  
+  const aiAssistant = document.querySelector('.ai-assistant-container');
+  if (aiAssistant) {
+    aiAssistant.classList.add('hidden');
+    aiAssistant.classList.remove('loaded');
+  }
+
+  // Prevent main page body scrolling
+  document.body.style.setProperty('overflow', 'hidden', 'important');
+  document.body.style.setProperty('height', '100vh', 'important');
+
   const contentHtml = `
-    <div class="min-h-screen flex items-center justify-center px-6 py-12">
-      <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-zinc-200 bg-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.06)]">
+    <div class="w-full h-full flex items-center justify-center p-4 md:p-8 bg-zinc-50 select-none">
+      <div class="w-full max-w-5xl h-full max-h-[640px] grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-200 bg-white shadow-[0_24px_48px_-12px_rgba(0,0,0,0.08)] relative">
         <!-- Left: Image -->
-        <div class="hidden md:block relative min-h-[500px] overflow-hidden">
+        <div class="hidden md:block relative h-full overflow-hidden">
           <img src="login_illustration.png" alt="EV Car Wale" class="w-full h-full absolute inset-0 object-cover">
         </div>
         <!-- Right: Form -->
-        <div class="p-8 md:p-12 flex flex-col justify-center">
-          <div class="max-w-sm mx-auto w-full">
+        <div class="p-8 md:p-12 flex flex-col justify-center relative overflow-y-auto h-full">
+          <!-- Back button near the top-left of the login card/container -->
+          <button id="btn-login-back" class="absolute top-6 left-8 px-4 py-2 border border-zinc-200 hover:border-black font-mono text-[9px] tracking-widest text-zinc-500 hover:text-black uppercase transition-all duration-300 rounded-lg flex items-center gap-1.5 z-10">
+            ← BACK
+          </button>
+          
+          <div class="max-w-sm mx-auto w-full pt-10 md:pt-4">
             <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
             <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Welcome</h1>
             <p class="text-xs text-zinc-500 font-mono mt-1 mb-8">Sign in to continue exploring EV Car Wale.</p>
@@ -4986,13 +5128,47 @@ function renderLoginPage() {
       </div>
     </div>
   `;
-  renderSubpage('Login', ['LOGIN'], contentHtml, '/');
+
+  if (detailsPageContent) {
+    detailsPageContent.innerHTML = contentHtml;
+    // Bind back button
+    const backBtn = document.getElementById('btn-login-back');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        // Reset body & layout styles
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('height');
+        detailsPageContent.style.cssText = '';
+        
+        // Restore global navbar and AI assistant container
+        const megaNav = document.getElementById('mega-nav');
+        if (megaNav) megaNav.classList.remove('hidden');
+        
+        const aiAssistant = document.querySelector('.ai-assistant-container');
+        if (aiAssistant) {
+          aiAssistant.classList.remove('hidden');
+          if (document.body.classList.contains('loaded')) {
+            aiAssistant.classList.add('loaded');
+          }
+        }
+        
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          navigateTo('/');
+        }
+      });
+    }
+  }
+
   setupLoginForm();
+  if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
+  applyJargonBuster();
 }
 
 function renderSignupPage() {
   const contentHtml = `
-    <div class="min-h-screen flex items-center justify-center px-6 py-12">
+    <div class="min-h-screen flex items-center justify-center px-6 py-12" id="signup-page-wrapper">
       <div class="w-full max-w-md mx-auto">
         <div class="text-center mb-8">
           <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
@@ -5019,7 +5195,7 @@ function renderSignupPage() {
               <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-wider">OR</span>
               <span class="flex-1 h-px bg-zinc-200"></span>
             </div>
-            <button type="button" class="w-full py-3 border border-zinc-200 rounded-xl font-mono text-[10px] text-zinc-700 hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2">
+            <button type="button" id="google-signup-btn" class="w-full py-3 border border-zinc-200 rounded-xl font-mono text-[10px] text-zinc-700 hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2">
               <svg viewBox="0 0 24 24" class="w-4 h-4"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
               Continue with Google
             </button>
@@ -5032,6 +5208,26 @@ function renderSignupPage() {
     </div>
   `;
   renderSubpage('Sign Up', ['SIGNUP'], contentHtml, '/');
+  setupSignupForm();
+}
+
+function setupSignupForm() {
+  const wrapper = document.getElementById('signup-page-wrapper');
+  if (wrapper) {
+    const form = wrapper.querySelector('form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showToast('EMAIL SIGNUP NOT SUPPORTED. PLEASE USE "CONTINUE WITH GOOGLE".');
+      });
+    }
+  }
+  const googleBtn = document.getElementById('google-signup-btn');
+  if (googleBtn) {
+    googleBtn.addEventListener('click', () => {
+      window.location.href = '/auth/google';
+    });
+  }
 }
 
 function renderForgotPasswordPage() {
@@ -5105,30 +5301,86 @@ function setupLoginForm() {
     }
 
     if (valid) {
-      showLoggedInUI();
-      navigateTo('/');
+      showToast('EMAIL LOGIN NOT SUPPORTED. PLEASE USE "CONTINUE WITH GOOGLE".');
     }
   });
 
   const googleBtn = document.getElementById('google-login-btn');
   if (googleBtn) {
     googleBtn.addEventListener('click', () => {
-      showLoggedInUI();
-      navigateTo('/');
+      window.location.href = '/auth/google';
     });
   }
 }
 
-function showLoggedInUI() {
+function updateAuthUI(user) {
+  window.updateAuthUI = updateAuthUI;
   const loginBtn = document.getElementById('login-nav-btn');
-  const profileContainer = document.getElementById('profile-container');
   const loginBtnMobile = document.getElementById('login-nav-btn-mobile');
+  const profileContainer = document.getElementById('profile-container');
   const profileContainerMobile = document.getElementById('profile-container-mobile');
 
-  if (loginBtn) loginBtn.classList.add('hidden');
-  if (profileContainer) profileContainer.classList.remove('hidden');
-  if (loginBtnMobile) loginBtnMobile.classList.add('hidden');
-  if (profileContainerMobile) profileContainerMobile.classList.remove('hidden');
+  if (user) {
+    // Logged In
+    if (loginBtn) loginBtn.style.setProperty('display', 'none', 'important');
+    if (loginBtnMobile) loginBtnMobile.style.setProperty('display', 'none', 'important');
+
+    if (profileContainer) {
+      profileContainer.classList.remove('hidden');
+      profileContainer.style.setProperty('display', 'block', 'important');
+      profileContainer.href = "javascript:void(0)";
+      profileContainer.innerHTML = `
+        <div class="relative group flex items-center gap-2 cursor-pointer animate-fade-in">
+          <img src="${user.picture || '/car_outline.jpg'}" alt="${user.name || 'User'}" class="w-8 h-8 rounded-full object-cover border border-zinc-200" onerror="this.src='/car_outline.jpg';">
+          <span class="font-mono text-[9px] text-zinc-700 font-semibold uppercase tracking-wider hidden lg:inline">${user.name || 'Account'}</span>
+          <!-- Dropdown Menu -->
+          <div class="absolute right-0 top-full mt-2 w-44 bg-white border border-zinc-200 shadow-lg py-1.5 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 rounded-xl">
+            <div class="px-4 py-2 border-b border-zinc-100 mb-1">
+              <p class="font-sans text-[11px] font-bold text-zinc-900 truncate">${user.name}</p>
+              <p class="font-mono text-[8px] text-zinc-400 truncate uppercase">${user.email}</p>
+            </div>
+            <a href="profile.html" class="block px-4 py-2 text-[10px] font-mono text-zinc-700 hover:bg-zinc-50 hover:text-black uppercase">My Profile</a>
+            <a href="javascript:void(0)" onclick="window.performLogout(event)" class="block px-4 py-2 text-[10px] font-mono text-red-600 hover:bg-zinc-50 uppercase border-t border-zinc-100 mt-1">Logout</a>
+          </div>
+        </div>
+      `;
+    }
+
+    if (profileContainerMobile) {
+      profileContainerMobile.classList.remove('hidden');
+      profileContainerMobile.style.setProperty('display', 'block', 'important');
+      profileContainerMobile.innerHTML = `
+        <div class="flex flex-col gap-2 pt-4 border-t border-zinc-200 mt-2">
+          <div class="flex items-center gap-3">
+            <img src="${user.picture || '/car_outline.jpg'}" alt="${user.name}" class="w-10 h-10 rounded-full object-cover border border-zinc-200" onerror="this.src='/car_outline.jpg';">
+            <div>
+              <p class="font-mono text-[11px] text-zinc-900 font-bold uppercase">${user.name}</p>
+              <p class="font-mono text-[8px] text-zinc-400 uppercase">${user.email}</p>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-2 font-mono">
+            <a href="profile.html" class="text-[9px] text-zinc-700 border border-zinc-200 px-3 py-1.5 rounded-lg uppercase tracking-wider">My Profile</a>
+            <a href="javascript:void(0)" onclick="window.performLogout(event)" class="text-[9px] text-red-600 border border-red-200 px-3 py-1.5 rounded-lg uppercase tracking-wider">Logout</a>
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    // Logged Out
+    if (loginBtn) loginBtn.style.setProperty('display', '', '');
+    if (loginBtnMobile) loginBtnMobile.style.setProperty('display', '', '');
+
+    if (profileContainer) {
+      profileContainer.classList.add('hidden');
+      profileContainer.style.setProperty('display', 'none', 'important');
+      profileContainer.innerHTML = '';
+    }
+    if (profileContainerMobile) {
+      profileContainerMobile.classList.add('hidden');
+      profileContainerMobile.style.setProperty('display', 'none', 'important');
+      profileContainerMobile.innerHTML = '';
+    }
+  }
 }
 
 // --- Static Page Renderer ---
@@ -5395,63 +5647,11 @@ function renderBlogArticlePage(article) {
   renderSubpage(article.title, breadcrumbs, contentHtml, '/');
 }
 
-function getCarSuitabilityCard(car) {
-  const isBudget = car.priceVal < 20;
-  const isSedan = car.id === 'byd-seal' || car.id === 'bmw-i4' || car.id === 'bmw-i7' || car.id === 'audi-etron-gt' || car.id === 'mercedes-eqs';
-  const isSUV = !isSedan && car.priceVal >= 15;
 
-  let bestFor = [];
-  let avoid = [];
-
-  if (isBudget) {
-    bestFor = ['City Driving', 'Daily Office Commute', 'Family'];
-    avoid = ['Long Highway Trips', 'Off-road Driving'];
-  } else if (isSedan) {
-    bestFor = ['Expressway Cruising', 'Daily Office Commute', 'Premium Comfort'];
-    avoid = ['Off-road Driving', 'Tall Speedbumps'];
-  } else if (isSUV) {
-    bestFor = ['Family Roadtrips', 'High Speedbumps', 'All-weather Driving'];
-    avoid = ['Tight Parallel Parking', 'Track Racing'];
-  } else {
-    bestFor = ['City Driving', 'Daily Office Commute', 'Family'];
-    avoid = ['Long Highway Trips', 'Off-road Driving'];
-  }
-
-  const rating = parseFloat(car.expertReview.rating) || 8.5;
-  const starCount = Math.round(rating / 2);
-  const starsHtml = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
-
-  return `
-    <div class="border border-zinc-200 bg-zinc-50 p-4 font-mono text-[9px] flex flex-col gap-3 shadow-sm rounded-none">
-      <div class="flex justify-between items-center border-b border-zinc-200 pb-2">
-        <div class="flex flex-col">
-          <span class="text-[7.5px] text-zinc-500 uppercase tracking-wider font-bold">Recommended Rating</span>
-          <span class="text-black text-xs font-black mt-0.5">${rating}/10</span>
-        </div>
-        <div class="text-right">
-          <span class="text-zinc-400 text-[10px] tracking-wider font-bold text-amber-500">${starsHtml}</span>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-3 text-left">
-        <div>
-          <span class="text-[7.5px] text-emerald-600 font-bold uppercase tracking-wider block mb-1">Best For</span>
-          <ul class="flex flex-col gap-1 text-zinc-700 font-semibold text-[8px]">
-            ${bestFor.map(item => '<li class="flex items-center gap-1"><span>✅</span><span>' + item + '</span></li>').join('')}
-          </ul>
-        </div>
-        <div>
-          <span class="text-[7.5px] text-red-650 font-bold uppercase tracking-wider block mb-1">Avoid / Limits</span>
-          <ul class="flex flex-col gap-1 text-zinc-500 text-[8px]">
-            ${avoid.map(item => '<li class="flex items-center gap-1"><span>❌</span><span>' + item + '</span></li>').join('')}
-          </ul>
-        </div>
-      </div>
-    </div>
-  `;
-}
 
 // Dynamic Detail Page HTML Generator
 async function renderCarDetailsPage(car) {
+  currentDetailsCarId = car.id;
   addToRecentlyViewed(car.id);
   let colorsList = [];
   try {
@@ -5462,19 +5662,37 @@ async function renderCarDetailsPage(car) {
     console.error('Error fetching colors:', e);
   }
 
-  const brandFolder = car.brand === 'tata' || car.brand === 'mahindra' || car.brand === 'hyundai' ? car.brand.toLowerCase() : car.brand.toUpperCase();
-  const mainViewImg = `/public/car_images/${brandFolder}/${car.image}`;
+  const brandFolder = getBrandFolder(car.brand);
+  const mainViewImg = getS3ImageUrl(car.image);
 
   let images = [mainViewImg];
   let colorNames = ['Default View'];
   
   if (colorsList && colorsList.length > 0) {
     colorsList.forEach(c => {
-      images.push('/' + c.path);
+      images.push(getS3ImageUrl(c.path));
       colorNames.push(c.name);
     });
   }
   let activeVariantIdx = 0;
+  // Try URL parameter first
+  const urlParams = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '');
+  const urlVariant = urlParams.get('variant');
+  if (urlVariant && car.variants) {
+    const idx = car.variants.findIndex(v => normalizeKey(v.name) === normalizeKey(urlVariant));
+    if (idx !== -1) {
+      activeVariantIdx = idx;
+    }
+  } else {
+    // Try localStorage
+    const savedVariantName = localStorage.getItem(`ev_selected_variant_${car.id}`);
+    if (savedVariantName && car.variants) {
+      const idx = car.variants.findIndex(v => v.name === savedVariantName);
+      if (idx !== -1) {
+        activeVariantIdx = idx;
+      }
+    }
+  }
   
   function updateDetailsUI() {
     const variant = car.variants[activeVariantIdx];
@@ -5485,22 +5703,18 @@ async function renderCarDetailsPage(car) {
       .slice(0, 3);
       
     let relatedHtml = '';
-    let variantsOptionsHtml = '';
-    car.variants.forEach((v, idx) => {
-      variantsOptionsHtml += `
-        <option value="${idx}" ${idx === activeVariantIdx ? 'selected' : ''}>
-          ${v.name} (${v.price})
-        </option>
-      `;
-    });
+    const variantsOptionsHtml = car.variants.map((v, idx) => `
+      <option value="${idx}" ${idx === activeVariantIdx ? 'selected' : ''}>
+        ${v.name} (${v.price})
+      </option>
+    `).join('');
     relatedCars.forEach(c => {
       relatedHtml += `
         <div class="border border-zinc-200 bg-white p-5 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] related-card">
-          <div class="h-28 bg-zinc-50 flex items-center justify-center mb-3 relative overflow-hidden border border-zinc-100">
-            <img src="${c.image}" alt="${c.name}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105">
+            ${renderCarImage(getS3ImageUrl(c.image), c.name)}
           </div>
           <div>
-            <span class="font-mono text-[8px] text-zinc-500 uppercase">${c.brand}</span>
+            <span class="font-mono text-[8px] text-zinc-500 uppercase">${getBrandDisplay(c.brand)}</span>
             <h4 class="font-bold text-xs text-black mt-0.5">${c.name}</h4>
             <span class="font-mono text-[10px] text-zinc-650 block mt-1">${c.price}</span>
           </div>
@@ -5516,82 +5730,225 @@ async function renderCarDetailsPage(car) {
     let specsHtml = `
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Battery Capacity</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${variant.battery}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-battery">${variant.battery}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Driving Range</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${variant.range}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-range">${variant.range}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Charging Time (DC Fast)</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${variant.charging}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-charging">${variant.charging}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Highway Readiness</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${getHighwayReadinessBadgeHtml(car)}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-readiness">${getHighwayReadinessBadgeHtml(car)}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Motor Output</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${variant.power}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-power">${variant.power}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Top Speed</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${variant.speed}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-speed">${variant.speed}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Drivetrain Configuration</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${variant.drivetrain}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-drivetrain">${variant.drivetrain}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Peak Torque</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.torque}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-torque">${variant.torque}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Standard AC Charging</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.chargingAC}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-chargingAC">${car.chargingAC}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Acceleration (0-100)</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-acceleration">${variant.acceleration}</td>
+      </tr>
+      <tr class="border-b border-zinc-200">
+        <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Wheels Type & Size</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-wheels">${variant.wheels}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Chassis Dimensions</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.dimensions}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-dimensions">${variant.dimensions}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Ground Clearance</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.clearance}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-clearance">${variant.clearance}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Boot Space</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.bootSpace}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-bootSpace">${variant.bootSpace}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Seating Capacity</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.seating}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-seating">${variant.seating}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Safety Rating</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.safety}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-safety">${variant.safety}</td>
       </tr>
       <tr class="border-b border-zinc-200">
         <td class="py-3 px-5 font-bold text-zinc-500 uppercase text-[9px] tracking-wider font-mono">Warranty Coverage</td>
-        <td class="py-3 px-5 text-zinc-800 font-mono">${car.warranty}</td>
+        <td class="py-3 px-5 text-zinc-800 font-mono" id="detail-spec-warranty">${variant.warranty}</td>
       </tr>
     `;
 
-    const featuresKeys = ['exterior', 'interior', 'safety', 'infotainment', 'adas', 'comfort'];
+    // Perform robust lookup in FEATURES_DATABASE (flat or nested manufacturer sub-objects)
+    let foundKey = null;
+    let foundBrand = null;
+    let carFeatures = null;
+    const carName = (car.name || '').trim();
+    const cleanCarName = carName.toLowerCase().replace(/\s+/g, ' ').trim();
+    
+    if (FEATURES_DATABASE && typeof FEATURES_DATABASE === 'object') {
+      // Helper to check if an object is a feature block
+      const isFeatureBlock = (obj) => {
+        if (!obj || typeof obj !== 'object') return false;
+        const keys = Object.keys(obj).map(k => k.toLowerCase());
+        return ['exterior', 'interior', 'safety', 'infotainment', 'adas', 'comfort'].some(cat => keys.includes(cat));
+      };
+
+      // 1. Direct search at root keys (case and space insensitive)
+      for (const key of Object.keys(FEATURES_DATABASE)) {
+        const cleanKey = key.toLowerCase().replace(/\s+/g, ' ').trim();
+        if (cleanKey === cleanCarName) {
+          const val = FEATURES_DATABASE[key];
+          if (isFeatureBlock(val)) {
+            carFeatures = val;
+            foundKey = key;
+            break;
+          }
+        }
+      }
+
+      // 2. Nested search inside brand/manufacturer keys
+      if (!carFeatures) {
+        for (const brandKey of Object.keys(FEATURES_DATABASE)) {
+          const brandData = FEATURES_DATABASE[brandKey];
+          if (brandData && typeof brandData === 'object' && !isFeatureBlock(brandData)) {
+            for (const modelKey of Object.keys(brandData)) {
+              const cleanModelKey = modelKey.toLowerCase().replace(/\s+/g, ' ').trim();
+              if (cleanModelKey === cleanCarName) {
+                const val = brandData[modelKey];
+                if (isFeatureBlock(val)) {
+                  carFeatures = val;
+                  foundKey = modelKey;
+                  foundBrand = brandKey;
+                  break;
+                }
+              }
+            }
+          }
+          if (carFeatures) break;
+        }
+      }
+
+      // 3. Fallback fuzzy contains matching at root keys
+      if (!carFeatures) {
+        for (const key of Object.keys(FEATURES_DATABASE)) {
+          const val = FEATURES_DATABASE[key];
+          if (isFeatureBlock(val)) {
+            const cleanKey = key.toLowerCase().replace(/\s+/g, ' ').trim();
+            if (cleanKey.includes(cleanCarName) || cleanCarName.includes(cleanKey)) {
+              carFeatures = val;
+              foundKey = key;
+              break;
+            }
+          }
+        }
+      }
+
+      // 4. Fallback fuzzy contains matching inside brand/manufacturer keys
+      if (!carFeatures) {
+        for (const brandKey of Object.keys(FEATURES_DATABASE)) {
+          const brandData = FEATURES_DATABASE[brandKey];
+          if (brandData && typeof brandData === 'object' && !isFeatureBlock(brandData)) {
+            for (const modelKey of Object.keys(brandData)) {
+              const val = brandData[modelKey];
+              if (isFeatureBlock(val)) {
+                const cleanModelKey = modelKey.toLowerCase().replace(/\s+/g, ' ').trim();
+                if (cleanModelKey.includes(cleanCarName) || cleanCarName.includes(cleanModelKey)) {
+                  carFeatures = val;
+                  foundKey = modelKey;
+                  foundBrand = brandKey;
+                  break;
+                }
+              }
+            }
+          }
+          if (carFeatures) break;
+        }
+      }
+    }
+
     let featuresHtml = '';
-    featuresKeys.forEach(key => {
-      let itemsList = '';
-      car.featuresList[key].forEach(item => {
-        itemsList += `<li class="flex items-center gap-2 text-zinc-700 text-[11px] py-0.5"><span class="w-1 h-1 bg-black rounded-none"></span>${item}</li>`;
+    const featuresKeys = ['Exterior', 'Interior', 'Safety', 'Infotainment', 'ADAS', 'Comfort'];
+    
+    // Debug info trackers
+    let categoriesLoaded = [];
+    let bulletsRenderedCount = 0;
+
+    if (carFeatures && typeof carFeatures === 'object') {
+      featuresKeys.forEach(key => {
+        // Case insensitive property lookup in carFeatures object
+        let rawValue = null;
+        for (const k of Object.keys(carFeatures)) {
+          if (k.toLowerCase() === key.toLowerCase()) {
+            rawValue = carFeatures[k];
+            break;
+          }
+        }
+        
+        if (!rawValue) return;
+        
+        const items = String(rawValue).split(',').map(s => s.trim()).filter(Boolean);
+        if (!items.length) return;
+        
+        categoriesLoaded.push(key);
+        let itemsList = '';
+        items.forEach(item => {
+          itemsList += `<li class="flex items-start gap-2 text-zinc-700 text-[11px] py-0.5"><span class="flex-shrink-0">•</span><span>${item}</span></li>`;
+          bulletsRenderedCount++;
+        });
+        
+        featuresHtml += `
+          <div class="border border-zinc-200 p-5 bg-zinc-50">
+            <h4 class="font-bold text-[10px] tracking-wider uppercase text-black border-b border-zinc-250 pb-2 mb-3 font-mono">${key}</h4>
+            <ul class="flex flex-col gap-1 text-left font-mono">
+              ${itemsList}
+            </ul>
+          </div>
+        `;
       });
-      featuresHtml += `
-        <div class="border border-zinc-200 p-5 bg-zinc-50">
-          <h4 class="font-bold text-[10px] tracking-wider uppercase text-black border-b border-zinc-250 pb-2 mb-3 font-mono">${key}</h4>
-          <ul class="flex flex-col gap-1 text-left font-mono">
-            ${itemsList}
-          </ul>
-        </div>
-      `;
-    });
+    }
+
+    // Print debug requirements to console
+    console.log('Vehicle requested:', carName);
+    if (carFeatures) {
+      console.log('Lookup key found:', foundKey + (foundBrand ? ` (under brand: ${foundBrand})` : ''));
+      console.log('Features loaded:', true);
+      console.log('Categories loaded:', categoriesLoaded.join(', '));
+      console.log('Number of bullets rendered:', bulletsRenderedCount);
+    } else {
+      let failReason = 'No matching model key found in features database';
+      if (!FEATURES_DATABASE || Object.keys(FEATURES_DATABASE).length === 0) {
+        failReason = 'FEATURES_DATABASE is empty or not loaded';
+      }
+      console.log('Lookup key found:', null);
+      console.log('Features loaded:', false);
+      console.log('Categories loaded:', '');
+      console.log('Number of bullets rendered:', 0);
+      console.error('FEATURES LOOKUP FAILED! Reason:', failReason);
+    }
+
+    if (!featuresHtml) {
+      featuresHtml = '<div class="col-span-full text-center py-12 font-mono text-xs text-zinc-500">Features coming soon.</div>';
+    }
 
     let prosHtml = '';
     car.expertReview.pros.forEach(p => {
@@ -5632,7 +5989,7 @@ async function renderCarDetailsPage(car) {
     let gallerySlideshowHtml = `
       <div class="flex flex-col gap-4 w-full">
         <div class="relative w-full h-[260px] md:h-[380px] bg-zinc-50 border border-zinc-200 flex items-center justify-center overflow-hidden select-none rounded-2xl group/gallery">
-          <img id="detail-main-img" src="${images[0]}" class="w-full h-full object-contain p-2 transition-all duration-300">
+          <img id="detail-main-img" src="${images[0]}" class="w-full h-full object-contain p-2 transition-all duration-300" onerror="this.src='/car_outline.jpg';">
           ${images.length > 1 ? `
             <button id="gallery-detail-prev" class="absolute left-2 z-10 text-zinc-400 hover:text-black transition-all transform hover:scale-125 active:scale-95 bg-transparent border-none outline-none cursor-pointer p-1.5 flex items-center justify-center" aria-label="Previous image" style="background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; outline: none !important;">
               <svg class="w-6 h-6 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
@@ -5677,7 +6034,7 @@ async function renderCarDetailsPage(car) {
               <span class="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">${car.brand}</span>
               <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-black mt-1 mb-2">${car.name}</h2>
               <p class="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">Starting Price</p>
-              <div class="font-mono text-2xl font-black text-black mt-0.5">${variant.price}</div>
+              <div class="font-mono text-2xl font-black text-black mt-0.5" id="detail-display-price">${variant.price}</div>
 
               <!-- Variant Selector Dropdown -->
               <div class="flex flex-col gap-2 mt-4 border-t border-zinc-150 pt-4">
@@ -5723,20 +6080,10 @@ async function renderCarDetailsPage(car) {
               <p class="text-[8px] text-zinc-400 font-mono leading-relaxed mt-1 border-t border-zinc-200 pt-2">⚠️ Estimated on-road price. Taxes, incentives, and charges vary by state and may change over time.</p>
             </div>
 
-            ${getCarSuitabilityCard(car)}
-
-            <div class="flex flex-col gap-3 font-mono text-[10px] tracking-wider">
-              <div class="grid grid-cols-2 gap-3">
-                <button id="detail-compare-btn" class="py-3 px-4 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
-                  COMPARE CAR
-                </button>
-                <button id="detail-wishlist-btn" class="py-3 px-4 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-1.5">
-                  <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 ${wishlistIds.includes(car.id) ? 'fill-current' : ''}">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                  </svg>
-                  <span>WISHLIST</span>
-                </button>
-              </div>
+            <div class="flex justify-center font-mono text-[10px] tracking-wider mt-4">
+              <button id="detail-compare-btn" class="py-3 px-8 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
+                COMPARE CAR
+              </button>
             </div>
           </div>
         </div>
@@ -5754,6 +6101,18 @@ async function renderCarDetailsPage(car) {
                 ${specsHtml}
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- 3. Features Accordions Grid -->
+        <div class="flex flex-col gap-6 border-t border-zinc-150 pt-10">
+          <div class="text-left">
+            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">COMPILATION DECK</span>
+            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Key Vehicle Features</h3>
+            <p class="text-xs text-zinc-500 mt-1">Full cabin console, driver safety suites, comfort parameters, and connectivity standards.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${featuresHtml}
           </div>
         </div>
 
@@ -5832,18 +6191,6 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- 3. Features Accordions Grid -->
-        <div class="flex flex-col gap-6 border-t border-zinc-150 pt-10">
-          <div class="text-left">
-            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">COMPILATION DECK</span>
-            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Key Vehicle Features</h3>
-            <p class="text-xs text-zinc-500 mt-1">Full cabin console, driver safety suites, comfort parameters, and connectivity standards.</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            ${featuresHtml}
-          </div>
-        </div>
-
         <!-- 4. Reviews Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-zinc-150 pt-10">
           <!-- Expert Evaluation (Left) -->
@@ -5911,7 +6258,7 @@ async function renderCarDetailsPage(car) {
               <div class="flex flex-col gap-2 text-left font-mono">
                 <div class="flex justify-between text-xs">
                   <span class="text-zinc-500">VEHICLE PRICE</span>
-                  <span class="font-bold text-black">${variant.price}</span>
+                  <span class="font-bold text-black" id="detail-emi-price-label">${variant.price}</span>
                 </div>
                 <div class="h-[2px] bg-black w-full"></div>
               </div>
@@ -5966,9 +6313,6 @@ async function renderCarDetailsPage(car) {
                 <span id="detail-emi-calc-result" class="text-3xl font-extrabold text-black tracking-tight">₹0</span>
                 <span class="text-[8px] text-zinc-400 block uppercase mt-1">PER MONTH</span>
               </div>
-              <button id="detail-loan-apply-btn" class="w-full py-3 bg-black text-white font-semibold text-xs tracking-widest uppercase hover:bg-zinc-800 transition-colors">
-                APPLY FOR EV LOAN
-              </button>
             </div>
           </div>
         </div>
@@ -6147,18 +6491,76 @@ async function renderCarDetailsPage(car) {
     });
 
     // Wishlist CTA
-    document.getElementById('detail-wishlist-btn').addEventListener('click', () => {
-      toggleWishlist(car.id);
-      alert(`${car.name.toUpperCase()} ACCESSED IN WISHLIST LOG.`);
-      updateDetailsUI();
-    });
+    const detailWishlistBtn = document.getElementById('detail-wishlist-btn');
+    if (detailWishlistBtn) {
+      detailWishlistBtn.addEventListener('click', () => {
+        toggleWishlist(car.id);
+        alert(`${car.name.toUpperCase()} ACCESSED IN WISHLIST LOG.`);
+        updateDetailsUI();
+      });
+    }
+
+    function updateSpecsAndCalculators() {
+      const v = car.variants[activeVariantIdx];
+      if (!v) return;
+
+      const priceDisplay = document.getElementById('detail-display-price');
+      if (priceDisplay) priceDisplay.textContent = v.price;
+
+      const specBattery = document.getElementById('detail-spec-battery');
+      if (specBattery) specBattery.textContent = v.battery;
+
+      const specRange = document.getElementById('detail-spec-range');
+      if (specRange) specRange.textContent = v.range;
+
+      const specCharging = document.getElementById('detail-spec-charging');
+      if (specCharging) specCharging.textContent = v.charging;
+
+      const specPower = document.getElementById('detail-spec-power');
+      if (specPower) specPower.textContent = v.power;
+
+      const specSpeed = document.getElementById('detail-spec-speed');
+      if (specSpeed) specSpeed.textContent = v.speed;
+
+      const specDrivetrain = document.getElementById('detail-spec-drivetrain');
+      if (specDrivetrain) specDrivetrain.textContent = v.drivetrain;
+
+      const specTorque = document.getElementById('detail-spec-torque');
+      if (specTorque) specTorque.textContent = v.torque;
+
+      const specAcceleration = document.getElementById('detail-spec-acceleration');
+      if (specAcceleration) specAcceleration.textContent = v.acceleration;
+
+      const specWheels = document.getElementById('detail-spec-wheels');
+      if (specWheels) specWheels.textContent = v.wheels;
+
+      const specSafety = document.getElementById('detail-spec-safety');
+      if (specSafety) specSafety.textContent = v.safety;
+
+      const specDimensions = document.getElementById('detail-spec-dimensions');
+      if (specDimensions) specDimensions.textContent = v.dimensions;
+
+      const emiPriceLabel = document.getElementById('detail-emi-price-label');
+      if (emiPriceLabel) emiPriceLabel.textContent = v.price;
+
+      renderOnRoadBreakdown();
+      updateDetailEMI();
+      updateRealWorldRange();
+      updateDetailsSavings();
+    }
 
     // Variant dropdown change
     const variantSelect = document.getElementById('detail-variant-select');
     if (variantSelect) {
       variantSelect.addEventListener('change', (e) => {
         activeVariantIdx = parseInt(e.target.value, 10);
-        updateDetailsUI();
+        const selectedVariant = car.variants[activeVariantIdx];
+        if (selectedVariant) {
+          localStorage.setItem(`ev_selected_variant_${car.id}`, selectedVariant.name);
+          const baseHash = window.location.hash.split('?')[0];
+          window.location.hash = `${baseHash}?variant=${encodeURIComponent(selectedVariant.name)}`;
+        }
+        updateSpecsAndCalculators();
       });
     }
 
@@ -6212,7 +6614,9 @@ async function renderCarDetailsPage(car) {
     function renderOnRoadBreakdown() {
       if (!detailStateSelect || !onRoadBreakdown) return;
       const stateKey = detailStateSelect.value;
-      const data = getOnRoadPriceData(variant.priceVal, stateKey);
+      const v = car.variants[activeVariantIdx];
+      if (!v) return;
+      const data = getOnRoadPriceData(v.priceVal, stateKey);
       if (!data) { onRoadBreakdown.innerHTML = ''; return; }
 
       // Build breakdown rows with subtle animation
@@ -6268,8 +6672,6 @@ async function renderCarDetailsPage(car) {
     const sliderDown = document.getElementById('detail-slider-down');
     const sliderRate = document.getElementById('detail-slider-rate');
     const sliderTenure = document.getElementById('detail-slider-tenure');
-
-
     const lblDownVal = document.getElementById('detail-lbl-down-val');
     const lblDownMin = document.getElementById('detail-lbl-down-min');
     const lblDownMax = document.getElementById('detail-lbl-down-max');
@@ -6280,16 +6682,21 @@ async function renderCarDetailsPage(car) {
     const resInterestVal = document.getElementById('detail-res-interest-val');
     const emiCalcResult = document.getElementById('detail-emi-calc-result');
 
-    const price = Math.floor(variant.priceVal * 100000); // lakh to absolute numbers
-    const minDown = Math.floor(price * 0.1);
-    const maxDown = Math.floor(price * 0.9);
-    
-    sliderDown.min = minDown;
-    sliderDown.max = maxDown;
-    sliderDown.value = minDown;
-
     function updateDetailEMI() {
-      const downVal = parseInt(sliderDown.value);
+      const v = car.variants[activeVariantIdx];
+      if (!v) return;
+      const price = Math.floor(v.priceVal * 100000); // lakh to absolute numbers
+      const minDown = Math.floor(price * 0.1);
+      const maxDown = Math.floor(price * 0.9);
+      
+      sliderDown.min = minDown;
+      sliderDown.max = maxDown;
+      
+      let downVal = parseInt(sliderDown.value);
+      if (isNaN(downVal) || downVal < minDown || downVal > maxDown) {
+        downVal = minDown;
+        sliderDown.value = minDown;
+      }
       const rate = parseFloat(sliderRate.value);
       const tenure = parseInt(sliderTenure.value);
       
@@ -6318,15 +6725,11 @@ async function renderCarDetailsPage(car) {
       emiCalcResult.textContent = formatCurrency(emi);
     }
 
-    sliderDown.addEventListener('input', updateDetailEMI);
-    sliderRate.addEventListener('input', updateDetailEMI);
-    sliderTenure.addEventListener('input', updateDetailEMI);
+    if (sliderDown) sliderDown.addEventListener('input', updateDetailEMI);
+    if (sliderRate) sliderRate.addEventListener('input', updateDetailEMI);
+    if (sliderTenure) sliderTenure.addEventListener('input', updateDetailEMI);
 
     updateDetailEMI();
-    
-    document.getElementById('detail-loan-apply-btn').addEventListener('click', () => {
-      alert('LOAN ELIGIBILITY REQUEST INITIATED. OUR PARTNERS WILL CONTACT YOU.');
-    });
 
     // Dynamic Real World Range Calculations
     const selectTraffic = document.getElementById('range-traffic');
@@ -6347,7 +6750,9 @@ async function renderCarDetailsPage(car) {
       const weatherMap = { cool: 1.0, normal: 1.0, hot: 0.85 };
       const passengerMap = { '1': 1.0, '2-3': 0.96, full: 0.9 };
 
-      const claimedRange = parseInt(variant.range);
+      const v = car.variants[activeVariantIdx];
+      if (!v) return;
+      const claimedRange = parseInt(v.range);
       const factor = trafficMap[selectTraffic.value] *
                      acMap[selectAC.value] *
                      styleMap[selectStyle.value] *
@@ -7176,17 +7581,20 @@ function renderEVGallery() {
   container.innerHTML = '';
   
   // Get cars belonging to the explore section
-  const cars = EV_DATABASE.filter(car => car.sections && car.sections.includes('explore'));
+  let cars = EV_DATABASE.filter(car => car.sections && car.sections.includes('explore'));
+  if (cars.length < 5) {
+    const fallbackCars = EV_DATABASE.filter(car => !cars.some(c => c.id === car.id) && car.sections && (car.sections.includes('popular') || car.sections.includes('launches')));
+    cars = cars.concat(fallbackCars).slice(0, 6);
+  }
   cars.forEach(car => {
     const card = document.createElement('div');
     card.className = 'gallery-card border border-zinc-150 bg-zinc-50/50 p-5 flex flex-col justify-between h-[360px] rounded-xl hover:border-black transition-all hover:scale-[1.01] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer snap-start group';
     card.innerHTML = `
       <div class="flex flex-col gap-3">
-        <div class="h-40 bg-white border border-zinc-100 rounded-lg overflow-hidden flex items-center justify-center p-4 relative">
-          <img src="${car.image || 'tata_nexon_ev_1782477217305.png'}" alt="${car.name}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105">
+          ${renderCarImage(getS3ImageUrl(car.image), car.name)}
         </div>
         <div class="text-left font-mono">
-          <span class="text-[9px] text-zinc-400 uppercase tracking-widest block">${car.brand}</span>
+          <span class="text-[9px] text-zinc-400 uppercase tracking-widest block">${getBrandDisplay(car.brand)}</span>
           <h3 class="text-xs font-bold uppercase tracking-wider text-black mt-1">${car.name}</h3>
           <p class="text-[10px] text-zinc-500 mt-2 flex flex-col gap-1 border-t border-zinc-100 pt-2">
             <span>RANGE: <strong>${car.range}</strong></span>

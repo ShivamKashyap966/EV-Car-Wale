@@ -1,646 +1,25 @@
+import { getNearbyStations } from './chargingService.js';
+
 import { auth, googleProvider } from "./firebase.js";
 import { signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
 import { BLOGS_DATABASE, fetchBlogBySlug, fetchDailyBlogs } from "./blogsDatabase.js";
+let variantsData = {};
+
+fetch("data/variants.json")
+
+  .then(response => response.json())
+
+  .then(data => {
+
+    variantsData = data;
+
+  });
+
 /**
  * app.js - EV Car Wale Marketplace Core Logic
  * Handles interactive state machines, data filtering, math calculators,
  * dropdown comparisons, video players, and accordion modules.
  */
-
-// --- Global EV Fleet Database ---
-const EV_DATABASE = [
-  {
-    id: 'nexon-ev',
-    name: 'Nexon EV',
-    brand: 'tata',
-    priceVal: 14.50,
-    price: '₹14.50 Lakh',
-    rangeVal: 465,
-    range: '465 km',
-    battery: '40.5 kWh',
-    charging: '56 min (DC)',
-    speed: '150 km/h',
-    power: '143 hp',
-    safety: '5 Stars (BNCAP)',
-    features: 'Ventilated seats, 12.3-inch screen, V2L capability',
-    dimensions: '3994 x 1811 x 1616 mm',
-    image: 'tata_nexon_ev.jpeg',
-    sections: ['popular']
-  },
-  {
-    id: 'xuv400',
-    name: 'XUV400',
-    brand: 'mahindra',
-    priceVal: 15.49,
-    price: '₹15.49 Lakh',
-    rangeVal: 456,
-    range: '456 km',
-    battery: '39.4 kWh',
-    charging: '50 min (DC)',
-    speed: '160 km/h',
-    power: '150 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Single pane sunroof, Drive modes, 10.25-inch touchscreen',
-    dimensions: '4200 x 1821 x 1634 mm',
-    image: 'mahindra_XUV_400.jpg',
-    sections: ['popular']
-  },
-  {
-    id: 'punch-ev',
-    name: 'Punch EV',
-    brand: 'tata',
-    priceVal: 10.99,
-    price: '₹10.99 Lakh',
-    rangeVal: 421,
-    range: '421 km',
-    battery: '35 kWh',
-    charging: '56 min (DC)',
-    speed: '140 km/h',
-    power: '122 hp',
-    safety: '5 Stars (BNCAP)',
-    features: 'Electronic parking brake, Sunroof, Paddle shifters for regeneration',
-    dimensions: '3827 x 1742 x 1615 mm',
-    image: 'tata_punch_ev.jpg',
-    sections: ['popular']
-  },
-  {
-    id: 'windsor-ev',
-    name: 'Windsor EV',
-    brand: 'mg',
-    priceVal: 13.50,
-    price: '₹13.50 Lakh',
-    rangeVal: 331,
-    range: '331 km',
-    battery: '38 kWh',
-    charging: '40 min (DC)',
-    speed: '140 km/h',
-    power: '136 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Aero Lounge seats, 15.6-inch Grand View touch, Smart connection',
-    dimensions: '4295 x 1850 x 1677 mm',
-    image: 'MG_windsor_EV.jpeg',
-    sections: ['popular', 'launches'],
-    launchDate: '2 Days Ago'
-  },
-  {
-    id: 'ioniq-5',
-    name: 'Ioniq 5',
-    brand: 'hyundai',
-    priceVal: 46.05,
-    price: '₹46.05 Lakh',
-    rangeVal: 631,
-    range: '631 km',
-    battery: '72.6 kWh',
-    charging: '18 min (DC)',
-    speed: '185 km/h',
-    power: '217 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Dual screens, Relaxion seats, V2L, Premium Bose Sound',
-    dimensions: '4635 x 1890 x 1605 mm',
-    image: 'hyundai_ioniq5.jpeg',
-    sections: ['popular']
-  },
-  {
-    id: 'byd-seal',
-    name: 'BYD Seal',
-    brand: 'byd',
-    priceVal: 41.00,
-    price: '₹41.00 Lakh',
-    rangeVal: 650,
-    range: '650 km',
-    battery: '82.5 kWh',
-    charging: '26 min (DC)',
-    speed: '240 km/h',
-    power: '530 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Rotating screen, Cell-to-body tech, Head-up display',
-    dimensions: '4800 x 1875 x 1460 mm',
-    image: 'byd_seal.jpeg',
-    sections: ['popular', 'launches'],
-    launchDate: '20 Days Ago'
-  },
-  {
-    id: 'ev6',
-    name: 'Kia EV6',
-    brand: 'kia',
-    priceVal: 49.00,
-    price: '₹49.00 Lakh',
-    rangeVal: 708,
-    range: '708 km',
-    battery: '77.4 kWh',
-    charging: '18 min (DC)',
-    speed: '192 km/h',
-    power: '325 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Augmented reality HUD, Sunroof, Meridian Audio',
-    dimensions: '4695 x 1890 x 1550 mm',
-    image: 'kia_ev6.jpeg',
-    sections: ['popular']
-  },
-  {
-    id: 'harrier-ev',
-    name: 'Harrier EV',
-    brand: 'tata',
-    priceVal: 22.00,
-    price: '₹22.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '60 kWh',
-    charging: '45 min (DC)',
-    speed: '170 km/h',
-    power: '218 hp',
-    safety: '5 Stars (Expected)',
-    features: 'AWD option, V2L & V2V charging, 12.3-inch infotainment',
-    dimensions: '4605 x 1922 x 1718 mm',
-    image: 'tata_harrier_ev.jpg',
-    sections: ['popular', 'launches'],
-    launchDate: '5 Days Ago'
-  },
-  {
-    id: 'be6',
-    name: 'BE6',
-    brand: 'mahindra',
-    priceVal: 24.00,
-    price: '₹24.00 Lakh',
-    rangeVal: 450,
-    range: '450 km',
-    battery: '60 kWh',
-    charging: '30 min (DC)',
-    speed: '180 km/h',
-    power: '280 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Futuristic design, Digital cockpit, Advanced ADAS',
-    dimensions: '4370 x 1900 x 1635 mm',
-    image: 'mahindra-BE6.jpg',
-    sections: ['popular', 'launches'],
-    launchDate: '22 Days Ago'
-  },
-  {
-    id: 'bmw-i4',
-    name: 'BMW i4',
-    brand: 'bmw',
-    priceVal: 72.50,
-    price: '₹72.50 Lakh',
-    rangeVal: 590,
-    range: '590 km',
-    battery: '83.9 kWh',
-    charging: '31 min (DC)',
-    speed: '190 km/h',
-    power: '340 hp',
-    safety: '4 Stars (Euro NCAP)',
-    features: 'Curved display, Reversing assistant, Glass roof',
-    dimensions: '4783 x 1852 x 1448 mm',
-    image: 'bmw_i4.jpeg',
-    sections: ['popular']
-  },
-  {
-    id: 'etron-gt',
-    name: 'Audi e-tron GT',
-    brand: 'audi',
-    priceVal: 195.00,
-    price: '₹1.95 Crore',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '93.4 kWh',
-    charging: '22 min (DC)',
-    speed: '245 km/h',
-    power: '530 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Matrix LED headlights, e-tron sport sound, Virtual cockpit',
-    dimensions: '4989 x 1964 x 1413 mm',
-    image: 'audi_etron_gt.jpg',
-    sections: ['popular']
-  },
-  {
-    id: 'mercedes-eqs',
-    name: 'Mercedes EQS',
-    brand: 'mercedes-benz',
-    priceVal: 162.00,
-    price: '₹1.62 Crore',
-    rangeVal: 857,
-    range: '857 km',
-    battery: '107.8 kWh',
-    charging: '31 min (DC)',
-    speed: '210 km/h',
-    power: '523 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Hyperscreen display, Rear axle steering, Burmester 3D',
-    dimensions: '5216 x 1926 x 1512 mm',
-    image: 'mercedes_eqs_sedan.webp',
-    sections: ['popular']
-  },
-  {
-    id: 'vinfast-vf6',
-    name: 'VF6',
-    brand: 'vinfast',
-    priceVal: 18.00,
-    price: '₹18.00 Lakh',
-    rangeVal: 399,
-    range: '399 km',
-    battery: '59.6 kWh',
-    charging: '38 min (DC)',
-    speed: '150 km/h',
-    power: '174 hp',
-    safety: '4 Stars (Expected)',
-    features: 'Vietnamese engineering, HUD, open cockpit screen',
-    dimensions: '4238 x 1820 x 1590 mm',
-    image: 'vin_fast_vf6.jpeg',
-    sections: ['launches'],
-    launchDate: '10 Days Ago'
-  },
-  {
-    id: 'vinfast-vf3',
-    name: 'VF3',
-    brand: 'vinfast',
-    priceVal: 8.00,
-    price: '₹8.00 Lakh',
-    rangeVal: 210,
-    range: '210 km',
-    battery: '18.4 kWh',
-    charging: '36 min (DC)',
-    speed: '100 km/h',
-    power: '44 hp',
-    safety: '3 Stars (Expected)',
-    features: 'Ultra-compact dimensions, rugged styling, digital instrument cluster',
-    dimensions: '3190 x 1679 x 1622 mm',
-    image: 'vin_fast_vf3.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Mid 2026'
-  },
-  {
-    id: 'vinfast-vf7',
-    name: 'VF7',
-    brand: 'vinfast',
-    priceVal: 28.00,
-    price: '₹28.00 Lakh',
-    rangeVal: 450,
-    range: '450 km',
-    battery: '75.3 kWh',
-    charging: '30 min (DC)',
-    speed: '175 km/h',
-    power: '348 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Aero styling, panoramic glass roof, active driver assistance package',
-    dimensions: '4545 x 1890 x 1635 mm',
-    image: 'vin_fast_vf7.jpeg',
-    sections: ['launches'],
-    launchDate: 'Launched Recently'
-  },
-  {
-    id: 'maruti-suzuki-evx',
-    name: 'eVX',
-    brand: 'maruti-suzuki',
-    priceVal: 22.00,
-    price: '₹22.00 Lakh',
-    rangeVal: 550,
-    range: '550 km',
-    battery: '60 kWh',
-    charging: '30 min (DC)',
-    speed: '160 km/h',
-    power: '138 hp',
-    safety: '5 Stars Expected (Bharat NCAP)',
-    features: 'All-wheel drive option, modern minimal cockpit, advanced ADAS suite',
-    dimensions: '4300 x 1800 x 1600 mm',
-    image: 'maruti_suzuki_evx.jpg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Early 2027'
-  },
-  {
-    id: 'kia-ev9',
-    name: 'EV9',
-    brand: 'kia',
-    priceVal: 110.00,
-    price: '₹1.10 Crore',
-    rangeVal: 561,
-    range: '561 km',
-    battery: '99.8 kWh',
-    charging: '24 min (DC)',
-    speed: '200 km/h',
-    power: '384 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: '3-row seating, Swivel seats, dual sunroof, LiDAR-ready ADAS',
-    dimensions: '5010 x 1980 x 1755 mm',
-    image: 'kia_ev9.jpeg',
-    sections: ['launches', 'explore'],
-    launchDate: '18 Days Ago'
-  },
-  {
-    id: 'xev-9e',
-    name: 'XEV 9e',
-    brand: 'mahindra',
-    priceVal: 38.00,
-    price: '₹38.00 Lakh',
-    rangeVal: 533,
-    range: '533 km',
-    battery: '79 kWh',
-    charging: '35 min (DC)',
-    speed: '180 km/h',
-    power: '286 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Triple screen console, Augmented reality HUD, futuristic silhouette',
-    dimensions: '4790 x 1905 x 1690 mm',
-    image: 'mahindra_XEV_9e.jpeg',
-    sections: ['launches'],
-    launchDate: '1 Month Ago'
-  },
-  {
-    id: 'thar-e',
-    name: 'Thar.e',
-    brand: 'mahindra',
-    priceVal: 25.00,
-    price: '₹25.00 Lakh',
-    rangeVal: 450,
-    range: '450 km',
-    battery: '60 kWh',
-    charging: '45 min (DC)',
-    speed: '160 km/h',
-    power: '250 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Rugged off-road capability, modular design, waterproof interior',
-    dimensions: '4350 x 1880 x 1850 mm',
-    image: 'thar.e.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Late 2026'
-  },
-  {
-    id: 'citroen-ec3',
-    name: 'Citroën eC3 Facelift',
-    brand: 'citroen',
-    priceVal: 12.50,
-    price: '₹12.50 Lakh',
-    rangeVal: 320,
-    range: '320 km',
-    battery: '29.2 kWh',
-    charging: '57 min (DC)',
-    speed: '107 km/h',
-    power: '57 hp',
-    safety: '3 Stars (Expected)',
-    features: 'Refreshed bumpers, LED signature design, larger touchscreen',
-    dimensions: '3981 x 1733 x 1604 mm',
-    image: 'Citroen_eC3.jpeg',
-    sections: ['launches'],
-    launchDate: '25 Days Ago'
-  },
-  {
-    id: 'curvv-ev',
-    name: 'Curvv EV',
-    brand: 'tata',
-    priceVal: 17.49,
-    price: '₹17.49 Lakh',
-    rangeVal: 585,
-    range: '585 km',
-    battery: '55 kWh',
-    charging: '40 min (DC)',
-    speed: '160 km/h',
-    power: '167 hp',
-    safety: '5 Stars (BNCAP)',
-    features: 'Coupe design, gesture tailgate, flush handles, Arcade.ev app suite',
-    dimensions: '4310 x 1810 x 1637 mm',
-    image: 'tata_curve_ev.jpeg',
-    sections: ['launches']
-  },
-  {
-    id: 'tiago-ev',
-    name: 'Tiago EV',
-    brand: 'tata',
-    priceVal: 8.69,
-    price: '₹8.69 Lakh',
-    rangeVal: 315,
-    range: '315 km',
-    battery: '24 kWh',
-    charging: '58 min (DC)',
-    speed: '120 km/h',
-    power: '74 hp',
-    safety: '4 Stars (GNCAP)',
-    features: 'Multi-mode regen, connected car tech, cruise control',
-    dimensions: '3769 x 1677 x 1536 mm',
-    image: 'tata_tiago_EV.jpeg',
-    sections: ['launches']
-  },
-  {
-    id: 'byd-atto3',
-    name: 'BYD Atto 3',
-    brand: 'byd',
-    priceVal: 24.99,
-    price: '₹24.99 Lakh',
-    rangeVal: 521,
-    range: '521 km',
-    battery: '60.48 kWh',
-    charging: '50 min (DC)',
-    speed: '160 km/h',
-    power: '201 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Blade battery, rotation screen, panoramic roof, ambient lighting',
-    dimensions: '4455 x 1875 x 1615 mm',
-    image: 'BYD_atto.jpeg',
-    sections: ['upcoming']
-  },
-  {
-    id: 'elevate-ev',
-    name: 'Elevate EV',
-    brand: 'honda',
-    priceVal: 18.00,
-    price: '₹18.00 Lakh',
-    rangeVal: 400,
-    range: '400 km',
-    battery: '48 kWh',
-    charging: '45 min (DC)',
-    speed: '150 km/h',
-    power: '150 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Honda Sensing ADAS package, spacious cabin, premium seating',
-    dimensions: '4312 x 1790 x 1650 mm',
-    image: 'honda_elevate_EV.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Mid 2027'
-  },
-  {
-    id: 'ioniq-6',
-    name: 'Ioniq 6',
-    brand: 'hyundai',
-    priceVal: 65.00,
-    price: '₹65.00 Lakh',
-    rangeVal: 614,
-    range: '614 km',
-    battery: '77.4 kWh',
-    charging: '18 min (DC)',
-    speed: '250 km/h',
-    power: '320 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Aerodynamic streamliner, interactive lighting, dual motors',
-    dimensions: '4855 x 1880 x 1495 mm',
-    image: 'Hyundai_IONIQ6.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Jan 2027'
-  },
-  {
-    id: 'syros-ev',
-    name: 'Syros EV',
-    brand: 'kia',
-    priceVal: 15.00,
-    price: '₹15.00 Lakh',
-    rangeVal: 350,
-    range: '350 km',
-    battery: '35 kWh',
-    charging: '40 min (DC)',
-    speed: '150 km/h',
-    power: '150 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Connected telematics, tall-boy stance, compact city footprint',
-    dimensions: '4100 x 1780 x 1600 mm',
-    image: 'Kia_syros_ev.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Feb 2027'
-  },
-  {
-    id: 'be07',
-    name: 'BE.07',
-    brand: 'mahindra',
-    priceVal: 28.00,
-    price: '₹28.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '60 kWh',
-    charging: '45 min (DC)',
-    speed: '170 km/h',
-    power: '230 hp',
-    safety: '5 Stars (Expected)',
-    features: 'INGLO platform core, edge-to-edge screens, panoramic canopy',
-    dimensions: '4560 x 1900 x 1660 mm',
-    image: 'mahindra_BE_07.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Mid 2027'
-  },
-  {
-    id: 'avinya-ev',
-    name: 'Avinya EV',
-    brand: 'tata',
-    priceVal: 35.00,
-    price: '₹35.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '80 kWh',
-    charging: '30 min (DC)',
-    speed: '200 km/h',
-    power: '350 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Skateboard chassis, rotating lounge chairs, bio-degradable cabin materials',
-    dimensions: '4600 x 1900 x 1550 mm',
-    image: 'tata_avinya_ev.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Late 2027'
-  },
-  {
-    id: 'sierra-ev',
-    name: 'Sierra EV',
-    brand: 'tata',
-    priceVal: 25.00,
-    price: '₹25.00 Lakh',
-    rangeVal: 500,
-    range: '500 km',
-    battery: '60 kWh',
-    charging: '40 min (DC)',
-    speed: '160 km/h',
-    power: '200 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Signature split glass house, premium captain lounge, high-end upholstery',
-    dimensions: '4350 x 1850 x 1700 mm',
-    image: 'tata_sierra.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Late 2027'
-  },
-  {
-    id: 'ex90',
-    name: 'EX90',
-    brand: 'volvo',
-    priceVal: 120.00,
-    price: '₹1.20 Crore',
-    rangeVal: 600,
-    range: '600 km',
-    battery: '111 kWh',
-    charging: '30 min (DC)',
-    speed: '180 km/h',
-    power: '517 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Roof-mounted LiDAR, safety shield bubble, recycled materials interior',
-    dimensions: '5037 x 1964 x 1747 mm',
-    image: 'Volvo_EX90.jpeg',
-    sections: ['upcoming'],
-    launchDate: 'Expected Apr 2027'
-  },
-  {
-    id: 'comet-ev',
-    name: 'Comet EV',
-    brand: 'mg',
-    priceVal: 6.99,
-    price: '₹6.99 Lakh',
-    rangeVal: 230,
-    range: '230 km',
-    battery: '17.3 kWh',
-    charging: '7 hours (AC)',
-    speed: '100 km/h',
-    power: '42 hp',
-    safety: '3 Stars (Expected)',
-    features: 'Ultra-compact footprint, dual screens, Apple-like key layout, city runabout',
-    dimensions: '2974 x 1505 x 1631 mm',
-    image: 'mg_comet_ev.webp',
-    sections: ['explore']
-  },
-  {
-    id: 'toyota-bz4x',
-    name: 'bZ4X',
-    brand: 'toyota',
-    priceVal: 55.00,
-    price: '₹55.00 Lakh',
-    rangeVal: 516,
-    range: '516 km',
-    battery: '71.4 kWh',
-    charging: '30 min (DC)',
-    speed: '160 km/h',
-    power: '214 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'AWD system with X-Mode, high durability battery claim, premium SUV stance',
-    dimensions: '4690 x 1860 x 1650 mm',
-    image: 'Toyota_bZ4X.jpeg',
-    sections: ['explore']
-  },
-  {
-    id: 'bmw-i7',
-    name: 'BMW i7',
-    brand: 'bmw',
-    priceVal: 203.00,
-    price: '₹2.03 Crore',
-    rangeVal: 625,
-    range: '625 km',
-    battery: '101.7 kWh',
-    charging: '34 min (DC)',
-    speed: '250 km/h',
-    power: '544 hp',
-    safety: '5 Stars (Euro NCAP)',
-    features: 'Rear theatre screen, crystal headlights, executive lounge seats',
-    dimensions: '5391 x 1950 x 1544 mm',
-    image: 'bmw_i7.jpeg',
-    sections: ['explore']
-  },
-  {
-    id: 'macan-ev',
-    name: 'Porsche Macan EV',
-    brand: 'porsche',
-    priceVal: 165.00,
-    price: '₹1.65 Crore',
-    rangeVal: 613,
-    range: '613 km',
-    battery: '100 kWh',
-    charging: '21 min (DC)',
-    speed: '220 km/h',
-    power: '408 hp',
-    safety: '5 Stars (Expected)',
-    features: 'Aero active shutter vents, rear axle steering, high speed handling bias',
-    dimensions: '4784 x 1938 x 1622 mm',
-    image: 'porsche_maccan_EV.jpeg',
-    sections: ['explore']
-  }
-];
 
 // --- State-Wise Tax & EV Policy Database ---
 // NOTE: All rates are approximate and sourced from publicly available state government policies.
@@ -1819,6 +1198,8 @@ function updateCompareTable() {
 }
 
 if (compSelectA && compSelectB) {
+  console.log("EV_DATABASE:", EV_DATABASE);
+ console.log("Cars count:", EV_DATABASE.length);
   populateCompareDropdowns();
   updateCompareTable();
   compSelectA.addEventListener('change', updateCompareTable);
@@ -3050,6 +2431,8 @@ function toggleMainLayout(view) {
     if (megaNav) megaNav.style.display = '';
     if (footer) footer.style.display = '';
     if (homepageContent) homepageContent.classList.remove('hidden');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   } else if (view === 'details') {
     if (megaNav) megaNav.style.display = '';
     if (footer) footer.style.display = '';
@@ -3058,6 +2441,8 @@ function toggleMainLayout(view) {
     if (megaNav) megaNav.style.display = 'none';
     if (footer) footer.style.display = 'none';
     if (loginPageContent) loginPageContent.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
   } else if (view === 'dashboard') {
     if (megaNav) megaNav.style.display = '';
     if (footer) footer.style.display = '';
@@ -3392,7 +2777,7 @@ function renderLoginPage() {
   
   if (loginPageContent) {
     loginPageContent.innerHTML = `
-      <div class="min-h-screen w-full flex overflow-hidden font-sans bg-zinc-50">
+      <div class="h-screen w-full flex overflow-hidden font-sans bg-zinc-50">
         <!-- Left Side: EV Showcase (Desktop only) -->
         <div class="hidden lg:flex lg:w-1/2 bg-white relative items-center justify-center p-8 border-r border-zinc-200">
           <div class="w-full h-full flex items-center justify-center">
@@ -3401,7 +2786,7 @@ function renderLoginPage() {
         </div>
 
         <!-- Right Side: Login / Register Form -->
-        <div class="w-full lg:w-1/2 flex flex-col justify-between p-8 md:p-16 bg-white relative">
+        <div class="w-full lg:w-1/2 flex flex-col justify-between p-4 md:p-6 bg-white relative">
           <!-- Top Bar: Logo & Close -->
           <div class="flex items-center justify-between w-full">
             <a href="#/" class="logo-link font-bold tracking-widest text-sm flex items-center gap-2 group text-black">
@@ -3414,7 +2799,7 @@ function renderLoginPage() {
           </div>
 
           <!-- Center Card: Form -->
-          <div id="auth-main-card" class="w-full max-w-md mx-auto my-auto py-8 flex flex-col gap-8">
+          <div id="auth-main-card" class="w-full max-w-md mx-auto my-0 py-4 flex flex-col gap-4">
             <div class="flex flex-col gap-2">
               <h1 id="auth-title" class="text-2xl md:text-3xl font-black text-black tracking-tight uppercase">LOGIN OR SIGN UP</h1>
               <p id="auth-subtitle" class="text-xs text-zinc-500 font-mono">Sign in to EV CAR WALE using your email or Google account.</p>
@@ -3476,7 +2861,11 @@ function renderLoginPage() {
             </div>
 
             <!-- Google login -->
-            <button class="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-zinc-250 hover:border-black text-xs font-mono text-zinc-800 hover:text-black rounded-lg transition-all duration-300 bg-white hover:bg-zinc-50 google-login-btn">
+            <button
+              id="google-login-btn"
+              type="button"
+              class="w-full flex items-center justify-center ..."
+           >
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -3627,6 +3016,13 @@ function renderLoginPage() {
     }
 
     // Bind form submit for Email-based authentication
+    const googleBtn = loginPageContent.querySelector('#google-login-btn');
+
+    if (googleBtn) {
+    googleBtn.addEventListener('click', () => {
+        window.location.href = 'http://localhost:8081/auth/google';
+    });
+   }
     const form = loginPageContent.querySelector('#login-form');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -3674,12 +3070,13 @@ function renderLoginPage() {
       
       setTimeout(() => {
         userSession = {
-          name: isSignUp ? nameInput.value.trim() : 'Tanisha',
-          phone: '+91 98765 43210',
+          name: nameInput.value.trim(),
+          phone: phoneInput.value.trim(),
           email: emailVal,
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150&q=80'
+          avatar: ""
         };
         localStorage.setItem('ev_user_session', JSON.stringify(userSession));
+        syncAuthenticatedUser(userSession);
         
         // Hide loading
         spinner.classList.add('hidden');
@@ -6808,10 +6205,10 @@ async function renderCarDetailsPage(car) {
 
             <div class="flex flex-col gap-3 font-mono text-[10px] tracking-wider">
               <div class="grid grid-cols-2 gap-3">
-                <button id="detail-compare-btn" class="py-3 px-4 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
+                <button id="detail-compare-btn" class="py-9 px-15 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
                   COMPARE CAR
                 </button>
-                <button id="detail-wishlist-btn" class="py-3 px-4 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-1.5">
+                <button id="detail-wishlist-btn" class="py-9 px-15 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-1.5">
                   <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 ${wishlistIds.includes(car.id) ? 'fill-current' : ''}">
                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                   </svg>
