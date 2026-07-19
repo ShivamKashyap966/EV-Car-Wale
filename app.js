@@ -286,6 +286,7 @@ async function loadDatabase() {
         renderAllCarousels();
         populateCompareDropdowns();
         updateCompareTable();
+        initTripPlanner();
       } else {
         console.error('Fetched data is not an array:', parsed);
       }
@@ -1447,12 +1448,59 @@ function getUserFromLocal() {
   }
 }
 
-function loadWishlistFromStorage() {
-  if (isUserLoggedIn()) {
-    const saved = localStorage.getItem('ev_wishlist_logged_in');
-    wishlistIds = saved ? JSON.parse(saved) : [];
-  } else {
+async function loadWishlistFromStorage() {
+  try {
+    const wishlist = await window.WishlistService.getWishlist();
+    wishlistIds = wishlist.map(c => c.id);
+  } catch (err) {
+    console.error('Failed to load wishlist:', err);
     wishlistIds = [];
+  }
+  updateWishlistBadge();
+  updateAllWishlistIcons();
+}
+
+window.addEventListener('storage', (e) => {
+  const key = window.WishlistService.getLocalStorageKey();
+  if (e.key === key || !e.key) {
+    try {
+      const saved = localStorage.getItem(key);
+      const wishlist = saved ? JSON.parse(saved) : [];
+      wishlistIds = wishlist.map(c => c.id);
+      updateWishlistBadge();
+      updateAllWishlistIcons();
+    } catch (err) {
+      console.error('Error syncing wishlist state:', err);
+    }
+  }
+});
+
+function updateAllWishlistIcons() {
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    const carId = btn.getAttribute('data-id');
+    const svg = btn.querySelector('svg');
+    if (svg) {
+      if (wishlistIds.includes(carId)) {
+        svg.classList.add('fill-current', 'text-red-500');
+      } else {
+        svg.classList.remove('fill-current', 'text-red-500');
+      }
+    }
+  });
+
+  // Also update detail page wishlist button if active
+  if (currentDetailsCarId) {
+    const detailBtn = document.getElementById('detail-wishlist-btn');
+    if (detailBtn) {
+      const svg = detailBtn.querySelector('svg');
+      if (svg) {
+        if (wishlistIds.includes(currentDetailsCarId)) {
+          svg.classList.add('fill-current', 'text-red-500');
+        } else {
+          svg.classList.remove('fill-current', 'text-red-500');
+        }
+      }
+    }
   }
 }
 
@@ -1792,7 +1840,7 @@ function createCarCardHtml(car, extraClasses = '') {
   return `
     <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card cursor-pointer">
       <button class="wishlist-btn absolute top-4 right-4 z-20" data-id="${car.id}" aria-label="Toggle Wishlist">
-        <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current' : ''}">
+        <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current text-red-500' : ''}">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         </svg>
       </button>
@@ -1939,23 +1987,20 @@ function attachCardEvents() {
   });
 }
 
-function toggleWishlist(carId) {
-  if (!isUserLoggedIn()) {
-    showToast('Please login to save favourites.');
-    navigateTo('/login');
-    return;
-  }
-
+async function toggleWishlist(carId) {
   const index = wishlistIds.indexOf(carId);
   const isAdding = index === -1;
+  
   if (isAdding) {
     wishlistIds.push(carId);
+    const carObj = EV_DATABASE.find(c => c.id === carId);
+    await window.WishlistService.addWishlist(carObj || { id: carId });
+    showToast('Added to Shortlisted Vehicles ❤️');
   } else {
     wishlistIds.splice(index, 1);
+    await window.WishlistService.removeWishlist(carId);
+    showToast('Removed from Shortlisted Vehicles');
   }
-  
-  // Persist to localStorage
-  saveWishlistToStorage();
 
   // Update badge UI
   updateWishlistBadge();
@@ -1967,8 +2012,11 @@ function toggleWishlist(carId) {
     if (svg) {
       if (isAdding) {
         svg.classList.add('fill-current', 'text-red-500');
+        svg.classList.remove('heart-beat');
+        void svg.offsetWidth; // Force reflow
+        svg.classList.add('heart-beat');
       } else {
-        svg.classList.remove('fill-current', 'text-red-500');
+        svg.classList.remove('fill-current', 'text-red-500', 'heart-beat');
       }
     }
   });
@@ -1981,8 +2029,11 @@ function toggleWishlist(carId) {
       if (svg) {
         if (isAdding) {
           svg.classList.add('fill-current', 'text-red-500');
+          svg.classList.remove('heart-beat');
+          void svg.offsetWidth; // Force reflow
+          svg.classList.add('heart-beat');
         } else {
-          svg.classList.remove('fill-current', 'text-red-500');
+          svg.classList.remove('fill-current', 'text-red-500', 'heart-beat');
         }
       }
     }
@@ -4637,7 +4688,7 @@ function renderViewAllPage(section) {
     cardsHtml += createCarCardHtml(car, 'w-full');
   });
   
-  const allBodyTypes = ['All','SUV','Sedan','Hatchback','MUV','Coupe','Convertible','Pickup','Luxury'];
+  const allBodyTypes = ['All','SUV','Sedan','Hatchback','Luxury'];
   let bodyFilterOpts = allBodyTypes.map(t => `<option value="${t}">${t}</option>`).join('');
   const contentHtml = `
     <div class="flex flex-col gap-6 pt-6 revealed">
@@ -6808,6 +6859,7 @@ async function renderCarDetailsPage(car) {
   
   function updateDetailsUI() {
     const variant = car.variants[activeVariantIdx];
+    const isWishlisted = wishlistIds.includes(car.id);
     
     // Related cars matching pricing proximity
     const relatedCars = EV_DATABASE.filter(c => c.id !== car.id)
@@ -7204,9 +7256,15 @@ async function renderCarDetailsPage(car) {
               <p class="text-[8px] text-zinc-400 font-mono leading-relaxed mt-1 border-t border-zinc-200 pt-2">⚠️ Estimated on-road price. Taxes, incentives, and charges vary by state and may change over time.</p>
             </div>
 
-            <div class="flex justify-center font-mono text-[10px] tracking-wider mt-4">
+            <div class="flex justify-center items-center gap-4 font-mono text-[10px] tracking-wider mt-4">
               <button id="detail-compare-btn" class="py-3 px-8 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
                 COMPARE CAR
+              </button>
+              <button id="detail-wishlist-btn" class="wishlist-btn py-3 px-8 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-2" style="width: auto !important; height: auto !important;">
+                <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current text-red-500' : ''}">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                SHORTLIST
               </button>
             </div>
           </div>
@@ -7619,7 +7677,6 @@ async function renderCarDetailsPage(car) {
     if (detailWishlistBtn) {
       detailWishlistBtn.addEventListener('click', () => {
         toggleWishlist(car.id);
-        alert(`${car.name.toUpperCase()} ACCESSED IN WISHLIST LOG.`);
         updateDetailsUI();
       });
     }
@@ -8373,14 +8430,45 @@ function initTripPlanner() {
   var styleGroup    = document.getElementById('trip-style-group');
 
   if (!vehicleSelect || !fromSelect || !toSelect || !planBtn) return;
+  // Guard against re-initialization
+  if (vehicleSelect.options.length > 0) return;
 
-  // Populate vehicle dropdown from EV_DATABASE
-  EV_DATABASE.forEach(function(car) {
-    var opt = document.createElement('option');
-    opt.value = car.id;
-    opt.textContent = car.name;
-    vehicleSelect.appendChild(opt);
-  });
+  // Placeholder option
+  var placeholderOpt = document.createElement('option');
+  placeholderOpt.value = '';
+  placeholderOpt.textContent = '— Select a vehicle —';
+  placeholderOpt.disabled = true;
+  placeholderOpt.selected = true;
+  vehicleSelect.appendChild(placeholderOpt);
+
+  // Populate vehicle dropdown from shared EV_DATABASE
+  if (!EV_DATABASE || EV_DATABASE.length === 0) {
+    var emptyOpt = document.createElement('option');
+    emptyOpt.textContent = 'No vehicles available';
+    emptyOpt.disabled = true;
+    vehicleSelect.appendChild(emptyOpt);
+  } else {
+    // Create a sorted copy: Brand → Model name
+    var sorted = EV_DATABASE.slice().sort(function(a, b) {
+      var brandA = (getBrandDisplay(a.brand) || '').toLowerCase();
+      var brandB = (getBrandDisplay(b.brand) || '').toLowerCase();
+      if (brandA !== brandB) return brandA < brandB ? -1 : 1;
+      var nameA = (a.name || '').toLowerCase();
+      var nameB = (b.name || '').toLowerCase();
+      return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+    });
+    sorted.forEach(function(car) {
+      var opt = document.createElement('option');
+      opt.value = car.id;
+      var brandDisplay = getBrandDisplay(car.brand);
+      if (brandDisplay) {
+        opt.textContent = brandDisplay + ' ' + car.name;
+      } else {
+        opt.textContent = car.name;
+      }
+      vehicleSelect.appendChild(opt);
+    });
+  }
 
   // Populate city dropdowns
   TRIP_CITIES.forEach(function(city) {
@@ -8655,9 +8743,6 @@ window.removeEventListener('scroll', handleScrollDividerEvent);
 window.removeEventListener('resize', handleScrollDividerEvent);
 window.addEventListener('scroll', handleScrollDividerEvent, { passive: true });
 window.addEventListener('resize', handleScrollDividerEvent, { passive: true });
-
-// Boot the trip planner
-initTripPlanner();
 
 // ===================================================
 // NEW CODE: PREMIUM EDUCATIONAL HOMEPAGE SECTIONS

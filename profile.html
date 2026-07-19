@@ -113,15 +113,17 @@
             <h1 class="text-xl lg:text-2xl font-black tracking-tight text-black">Shortlisted Vehicles</h1>
             <p class="text-xs text-zinc-400 font-mono mt-1">Vehicles you have marked as favourites.</p>
           </div>
-          <div class="border border-zinc-200 rounded-2xl p-10 text-center">
-            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-zinc-100 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-zinc-300 fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
+          <div id="shortlisted-content-container">
+            <div class="border border-zinc-200 rounded-2xl p-10 text-center">
+              <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-zinc-100 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-zinc-300 fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <p class="font-mono text-[10px] text-zinc-400">No shortlisted vehicles yet.</p>
+              <p class="font-mono text-[9px] text-zinc-300 mt-1">Browse EVs and save your favourites.</p>
+              <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
             </div>
-            <p class="font-mono text-[10px] text-zinc-400">No shortlisted vehicles yet.</p>
-            <p class="font-mono text-[9px] text-zinc-300 mt-1">Browse EVs and save your favourites.</p>
-            <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
           </div>
         </div>
 
@@ -205,6 +207,249 @@
 
   <script src="auth-helper.js"></script>
   <script>
+    let shortlistedIds = [];
+    let allCars = [];
+
+    function getBrandDisplay(brand) {
+      const names = {
+        'tata': 'Tata',
+        'mahindra': 'Mahindra',
+        'mg': 'MG',
+        'byd': 'BYD',
+        'hyundai': 'Hyundai',
+        'bmw': 'BMW',
+        'audi': 'Audi',
+        'citroen': 'Citroën',
+        'kia': 'Kia',
+        'renault': 'Renault',
+        'skoda': 'Skoda',
+        'toyota': 'Toyota',
+        'vinfast': 'VinFast',
+        'volkswagen': 'Volkswagen',
+        'porsche': 'Porsche',
+        'mercedes-benz': 'Mercedes-Benz',
+        'volvo': 'Volvo',
+        'lotus': 'Lotus',
+        'rolls-royce': 'Rolls-Royce'
+      };
+      return names[brand.toLowerCase()] || brand;
+    }
+
+    function getBrandFolder(brand) {
+      const mapping = {
+        'tata': 'tata',
+        'mg': 'MG',
+        'byd': 'BYD',
+        'hyundai': 'hyundai',
+        'mahindra': 'mahindra',
+        'bmw': 'BMW',
+        'kia': 'kia',
+        'audi': 'audi',
+        'citroen': 'Citroen',
+        'volkswagen': 'volkswagen',
+        'toyota': 'toyota',
+        'porsche': 'porsche',
+        'mercedes-benz': 'mercedes-benz',
+        'volvo': 'volvo',
+        'rolls-royce': 'rolls-royce',
+        'lotus': 'lotus'
+      };
+      return mapping[brand.toLowerCase()] || brand;
+    }
+
+    const S3_IMAGE_MAPPING = {
+      "nexon-ev": "car_images/tata/tata_nexon_ev.jpeg",
+      "punch-ev": "car_images/tata/tata_punch_ev.jpg",
+      "tiago-ev": "car_images/tata/tata_tiago_ev.jpg",
+      "curvv-ev": "car_images/tata/tata_curvv_ev.png",
+      "sierra-ev": "car_images/tata/tata_sierra_ev.png",
+      "xev-9e": "car_images/mahindra/Mahindra_XEV_9e.jpg",
+      "be-6": "car_images/mahindra/Mahindra_BE_6.jpg",
+      "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
+      "windsor-ev": "car_images/MG/MG_Windsor_EV.jpeg",
+      "comet-ev": "car_images/MG/MG_Comet_EV.jpeg",
+      "zs-ev": "car_images/MG/MG ZS EV.JPG",
+      "seal": "car_images/BYD/BYD_Seal.jpg",
+      "atto-3": "car_images/BYD/BYD_Atto_3.jpg",
+      "ioniq-5": "car_images/hyundai/Hyundai_Ioniq_5.jpg",
+      "creta-ev": "car_images/hyundai/Hyundai_Creta_EV.png",
+      "ix1": "car_images/BMW/BMW_iX1.jpeg",
+      "i7": "car_images/BMW/BMW_i7.jpg",
+      "q8-etron": "car_images/audi/Audi_Q8_e-tron.jpg",
+      "ec3": "car_images/Citroen/Citroen_eC3.jpg",
+      "ev6": "car_images/kia/kia_ev6.jpg",
+      "zoe-ev": "car_images/renault/zoe.jpg",
+      "enyaq-iv": "car_images/skoda/enyaq.jpg",
+      "bz4x-ev": "car_images/toyota/bz4x.jpg",
+      "vf-6": "car_images/vinfast/vf6.jpg",
+      "id4": "car_images/volkswagen/id4.jpg"
+    };
+
+    function getS3ImageUrl(car) {
+      let relativePath = car.image;
+      if (S3_IMAGE_MAPPING[car.id]) {
+        relativePath = S3_IMAGE_MAPPING[car.id];
+      } else {
+        const brandFolder = getBrandFolder(car.brand);
+        if (!relativePath.startsWith('car_images/')) {
+          relativePath = `car_images/${brandFolder}/${relativePath}`;
+        }
+      }
+      if (!relativePath) return '/car_outline.jpg';
+      if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+        return relativePath;
+      }
+      let cleanPath = relativePath.trim();
+      if (cleanPath.startsWith('/')) {
+        cleanPath = cleanPath.substring(1);
+      }
+      if (cleanPath.startsWith('public/')) {
+        cleanPath = cleanPath.substring(7);
+      }
+      const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
+      const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
+      return `${s3BaseUrl}/${encodedPath}`;
+    }
+
+    function showToast(message) {
+      let toastContainer = document.getElementById('toast-container');
+      if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.className = 'fixed top-6 right-6 z-[9999] flex flex-col gap-2 pointer-events-none font-mono';
+        document.body.appendChild(toastContainer);
+      }
+      const toast = document.createElement('div');
+      toast.className = 'bg-black text-white text-[10px] uppercase tracking-wider px-5 py-3 border border-zinc-800 shadow-lg rounded-none transition-all duration-300 transform -translate-y-10 opacity-0';
+      toast.textContent = message;
+      toastContainer.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('-translate-y-10', 'opacity-0');
+      }, 10);
+      
+      setTimeout(() => {
+        toast.classList.add('-translate-y-10', 'opacity-0');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
+    }
+
+    async function loadShortlistData() {
+      try {
+        const wishlist = await window.WishlistService.getWishlist();
+        shortlistedIds = wishlist.map(c => c.id);
+        allCars = wishlist;
+        renderShortlist();
+      } catch (err) {
+        console.error('Failed to load shortlisted vehicles data:', err);
+      }
+    }
+
+    function renderShortlist() {
+      const container = document.getElementById('shortlisted-content-container');
+      if (!container) return;
+
+      const shortlistedCars = allCars;
+
+      if (shortlistedCars.length === 0) {
+        container.innerHTML = `
+          <div class="border border-zinc-200 rounded-2xl p-10 text-center">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-zinc-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-zinc-300 fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <p class="font-mono text-[10px] text-zinc-400">No shortlisted vehicles yet.</p>
+            <p class="font-mono text-[9px] text-zinc-300 mt-1">Browse EVs and save your favourites.</p>
+            <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
+          </div>
+        `;
+        return;
+      }
+
+      let gridHtml = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+
+      shortlistedCars.forEach(car => {
+        const imgUrl = getS3ImageUrl(car);
+        const displayBrand = getBrandDisplay(car.brand);
+        
+        let cleanedName = car.name;
+        if (cleanedName.toLowerCase().startsWith(displayBrand.toLowerCase())) {
+          cleanedName = cleanedName.substring(displayBrand.length).trim();
+        }
+
+        gridHtml += `
+          <div class="car-card border border-zinc-200 bg-white p-6 flex flex-col gap-4 relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] cursor-pointer rounded-2xl" data-car-id="${car.id}">
+            <div class="flex justify-between items-center w-full">
+              <button class="wishlist-btn" data-id="${car.id}" aria-label="Remove from Shortlist">
+                <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current text-red-500">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </button>
+              <span class="font-mono text-sm font-bold text-black notranslate">${car.price}</span>
+            </div>
+            
+            <div class="flex flex-col gap-1 text-left">
+              <span class="font-mono text-[9px] text-zinc-500 uppercase notranslate">${displayBrand}</span>
+              <h3 class="text-lg font-bold text-black notranslate">${cleanedName}</h3>
+            </div>
+            
+            <div class="flex flex-col gap-1 my-1 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono text-left">
+              <div>Range: ${car.range}</div>
+              <div>Battery: ${car.battery}</div>
+            </div>
+            
+            <a href="index.html#/cars/${car.id}" class="w-full py-2.5 border border-zinc-200 hover:border-black text-center text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all notranslate mt-1">
+              VIEW DETAILS
+            </a>
+          </div>
+        `;
+      });
+
+      gridHtml += `</div>`;
+      container.innerHTML = gridHtml;
+
+      // Add event listeners to remove buttons
+      container.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const carId = btn.getAttribute('data-id');
+          await removeFromShortlist(carId);
+        });
+      });
+
+      // Add click event listeners to card body to navigate to details
+      container.querySelectorAll('.car-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.wishlist-btn') || e.target.tagName.toLowerCase() === 'a') {
+            return;
+          }
+          const carId = card.getAttribute('data-car-id');
+          window.location.href = `index.html#/cars/${carId}`;
+        });
+      });
+    }
+
+    async function removeFromShortlist(carId) {
+      try {
+        await window.WishlistService.removeWishlist(carId);
+        await loadShortlistData();
+        showToast('Removed from Shortlisted Vehicles');
+      } catch (err) {
+        console.error('Failed to remove from shortlist:', err);
+      }
+    }
+
+    window.addEventListener('storage', (e) => {
+      const key = window.WishlistService.getLocalStorageKey();
+      if (e.key === key || !e.key) {
+        loadShortlistData();
+      }
+    });
+
     // Verify user session using backend OAuth /api/auth/me
     async function verifyAuth() {
       try {
@@ -223,6 +468,9 @@
           // Reveal profile layout once auth is confirmed
           const wrapper = document.getElementById('profile-page-wrapper');
           if (wrapper) wrapper.classList.remove('hidden');
+          
+          // Load shortlisted vehicles data
+          loadShortlistData();
         } else {
           // Redirect to login if unauthenticated
           window.location.href = 'index.html#/login';

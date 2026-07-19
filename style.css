@@ -279,8 +279,8 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 /* Flip active wishlist icon style in hovered card */
 .car-card:hover .wishlist-btn svg.fill-current {
-  fill: #ffffff !important;
-  color: #ffffff !important;
+  fill: #ef4444 !important;
+  color: #ef4444 !important;
 }
 
 /* Review list-disc bullets coloring */
@@ -1537,12 +1537,12 @@ textarea,
   color: #ffffff !important;
 }
 .car-card:hover .wishlist-btn svg.fill-current {
-  fill: #000000 !important;
-  color: #000000 !important;
+  fill: #ef4444 !important;
+  color: #ef4444 !important;
 }
 .car-card:hover .wishlist-btn:hover svg.fill-current {
-  fill: #ffffff !important;
-  color: #ffffff !important;
+  fill: #ef4444 !important;
+  color: #ef4444 !important;
 }
 
 /* Action CTAs hover colors override inside hovered card */
@@ -1806,6 +1806,18 @@ button:hover,
   fill: #ef4444 !important; /* solid red */
   stroke: #ef4444 !important;
   color: #ef4444 !important;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1.15); }
+  75% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.heart-beat {
+  animation: heartBeat 0.4s ease-out !important;
 }
 
 /* Form inputs focus: Green border, Green glow */

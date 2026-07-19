@@ -5,7 +5,17 @@ async function optionalAuth(req, res, next) {
   const authHeader = req.headers.authorization || '';
   const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : '';
 
-  if (!token) return next();
+  if (!token) {
+    if (req.isAuthenticated && req.isAuthenticated() && req.user) {
+      req.firebaseUser = {
+        uid: req.user.id || req.user.email,
+        name: req.user.name,
+        email: req.user.email,
+        picture: req.user.picture
+      };
+    }
+    return next();
+  }
 
   const admin = getFirebaseAdmin();
   if (!admin) return next(new ApiError(503, 'Firebase Admin is not configured on the server.'));
