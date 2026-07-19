@@ -16,6 +16,7 @@ async function performLogout(event) {
 
   // 2. Clear all frontend authentication state
   localStorage.removeItem('is_logged_in');
+  localStorage.removeItem('evcarwale_auth_user');
   localStorage.removeItem('ev_wishlist_logged_in');
   sessionStorage.clear();
 

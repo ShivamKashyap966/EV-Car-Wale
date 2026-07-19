@@ -13,6 +13,7 @@ const chargerRoutes = require('./chargerRoutes');
 const newsRoutes = require('./newsRoutes');
 const videoRoutes = require('./videoRoutes');
 const carImageRoutes = require('./carImageRoutes');
+const translateRoutes = require('./translateRoutes');
 const { createChatController } = require('../controllers/chatController');
 
 function apiRoutes(options = {}) {
@@ -29,12 +30,12 @@ function apiRoutes(options = {}) {
   router.use('/news', newsRoutes);
   router.use('/videos', videoRoutes);
   router.use('/car-images', carImageRoutes);
+  router.use('/translate', translateRoutes);
   router.use('/', leadRoutes);
   router.use('/chargers', chargerRoutes);
   router.use('/payments', placeholderRoutes('Payments'));
   router.use('/notifications', placeholderRoutes('Notifications'));
   router.use('/admin', placeholderRoutes('Admin Dashboard'));
-
   router.post('/chat', createChatController(options.aiServicePath));
 
   return router;

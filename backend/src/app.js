@@ -138,6 +138,10 @@ function createApp(options = {}) {
   app.use(express.static(path.join(frontendRoot, 'public')));
   app.use(express.static(frontendRoot));
 
+  app.get('/videos', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'videos.html'));
+  });
+
   app.get(/^(?!\/api).*$/, (req, res) => {
     res.sendFile(path.join(frontendRoot, 'index.html'));
   });

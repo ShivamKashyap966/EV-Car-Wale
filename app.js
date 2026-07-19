@@ -5,17 +5,18 @@
  */
 
 const S3_IMAGE_MAPPING = {
+  // NOTE: Values may contain inconsistent whitespace; they will be normalized at runtime.
   "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON .png",
   "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
-  "audi-q6-e-tron": "car_images/AUDI/    Audi Q6 e-tron.JPG",
+  "audi-q6-e-tron": "car_images/AUDI/Audi Q6 e-tron.JPG",
   "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
   "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
   "be6": "car_images/mahindra/mahindra-BE6.jpg",
   "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
   "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
   "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
-  "bmw-ix": "car_images/BMW/    BMW iX.JPG",
-  "bmw-ix1": "car_images/BMW/    BMW iX1 LWB.JPG",
+  "bmw-ix": "car_images/BMW/BMW iX.JPG",
+  "bmw-ix1": "car_images/BMW/BMW iX1 LWB.JPG",
   "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
   "byd-emax-7": "car_images/BYD/ BYD_eMAX_7.JPG",
   "byd-seal": "car_images/BYD/byd_seal.jpeg",
@@ -35,7 +36,7 @@ const S3_IMAGE_MAPPING = {
   "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
   "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
   "jimny-ev": "car_images/MARUTI_SUZUKI/jimny.jpeg",
-  "kia-carens-clavis-ev": "car_images/KIA/    Kia Carens Clavis EV.WEBP",
+  "kia-carens-clavis-ev": "car_images/KIA/Kia Carens Clavis EV.WEBP",
   "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
   "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
   "lexus-es": "car_images/LEXUS/ES.webp",
@@ -76,9 +77,9 @@ const S3_IMAGE_MAPPING = {
   "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
   "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpg",
   "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/EVA-colours/white.jpeg",
-  "vinfast-vf-mpv7": "car_images/VINFAST/    VinFast VF MPV7.JPG",
+  "vinfast-vf-mpv7": "car_images/VINFAST/VinFast VF MPV7.JPG",
   "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
-  "vinfast-vf6": "car_images/VINFAST/    VinFast VF 6.WEBP",
+  "vinfast-vf6": "car_images/VINFAST/VinFast VF 6.WEBP",
   "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
   "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
   "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.JPG",
@@ -86,7 +87,7 @@ const S3_IMAGE_MAPPING = {
   "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
   "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
   "xev-9e": "car_images/mahindra/mahindra_XEV_9e.jpeg",
-  "xev-9s": "car_images/mahindra/    Mahindra XEV 9s.jpg",
+  "xev-9s": "car_images/mahindra/Mahindra_XEV_9s.jpg",
   "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
   "xuv-3xo-ev": "car_images/mahindra/3X0.JPG",
   "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
@@ -97,14 +98,14 @@ const S3_IMAGE_MAPPING = {
 
 // Reusable image helper/utility for Amazon S3 integration
 function getS3ImageUrl(relativePath) {
-  if (!relativePath) return 'car_outline.jpg';
+  if (!relativePath) return '/car_outline.jpg';
   if (relativePath === 'car_outline.jpg') {
-    return 'car_outline.jpg';
+    return '/car_outline.jpg';
   }
   if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
     return relativePath;
   }
-  // Clean up path: trim and remove internal whitespace
+  // Clean up path: trim whitespace and remove leading slash if present
   let cleanPath = relativePath.trim();
   // Remove any leading slash
   if (cleanPath.startsWith('/')) {
@@ -114,18 +115,28 @@ function getS3ImageUrl(relativePath) {
   if (cleanPath.startsWith('public/')) {
     cleanPath = cleanPath.substring(7);
   }
-  // Strip all whitespace characters to avoid broken URLs
-  cleanPath = cleanPath.replace(/\s+/g, '');
+  // Encode each path segment to safely handle spaces and special characters
+  const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
   const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
-  return `${s3BaseUrl}/${cleanPath}`;
-} 
+  const finalUrl = `${s3BaseUrl}/${encodedPath}`;
+  console.log('getS3ImageUrl - input:', relativePath, 'cleanPath:', cleanPath, 'encodedPath:', encodedPath, 'finalUrl:', finalUrl);
+  return finalUrl;
+}
 
 // Helper to render a car image with skeleton shimmer, fallback handling, and hover scaling
 function renderCarImage(imageUrl, altText) {
   return `<div class="h-40 bg-white flex items-center justify-center mb-4 relative overflow-hidden border border-zinc-100 p-2">
     <div class="absolute inset-0 skeleton-shimmer"></div>
-    <img src="${imageUrl}" alt="${altText}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" onload="this.previousElementSibling.style.display='none'" onerror="this.previousElementSibling.style.display='none'; this.src='/car_outline.jpg';" />
+    <img src="${imageUrl}" alt="${altText}" class="car-image w-full h-full transition-transform duration-500 group-hover:scale-105" onload="this.previousElementSibling.style.display='none'" onerror="handleImageError(this)" />
   </div>`;
+}
+
+// Fallback handler for broken images – replaces a failing src with the generic placeholder.
+function handleImageError(imgElement) {
+  // Prevent infinite recursion if the placeholder also fails.
+  imgElement.onerror = null;
+  imgElement.src = '/car_outline.jpg';
+  console.warn('Image failed to load, replaced with placeholder:', imgElement);
 }
 
 
@@ -162,6 +173,18 @@ function getBrandFolder(brand) {
 
 function normalizeKey(str) {
   return str ? str.toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+}
+
+// Normalize mapping values: trim spaces, collapse multiple spaces, remove spaces before dot
+function normalizeMappingValue(val) {
+  if (!val) return val;
+  // Collapse multiple whitespace to single space and trim
+  let cleaned = val.replace(/\s+/g, ' ').trim();
+  // Remove space before file extension dot
+  cleaned = cleaned.replace(/\s+\./g, '.');
+  // Remove spaces around path separators
+  cleaned = cleaned.replace(/\/\s+/g, '/').replace(/\s+\//g, '/');
+  return cleaned;
 }
 
 // --- Global EV Fleet Database ---
@@ -261,7 +284,6 @@ async function loadDatabase() {
         // Initial renders
         initUserSession();
         renderAllCarousels();
-        if (typeof renderEVGallery === 'function') renderEVGallery();
         populateCompareDropdowns();
         updateCompareTable();
       } else {
@@ -861,6 +883,61 @@ const NEWS_DATABASE = [
   }
 ];
 
+let newsCache = null;
+let newsPromise = null;
+
+async function loadNews() {
+  if (newsCache) return newsCache;
+  if (newsPromise) return newsPromise;
+  newsPromise = fetchNewsFromAPI();
+  return newsPromise;
+}
+
+async function fetchNewsFromAPI() {
+  try {
+    const res = await fetch('/api/news');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data && data.length > 0) {
+      newsCache = data;
+      return newsCache;
+    }
+    return null;
+  } catch (err) {
+    console.warn('Failed to load live news:', err.message);
+    return null;
+  } finally {
+    newsPromise = null;
+  }
+}
+
+var EV_FALLBACK_IMAGES = [
+  '/ev_hero.png',
+  'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=338&fit=crop',
+  'https://images.unsplash.com/photo-1619767886558-efdc7b9af2f2?w=600&h=338&fit=crop',
+  'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600&h=338&fit=crop',
+  'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&h=338&fit=crop'
+];
+
+var EV_NEWS_FALLBACK_IMG = EV_FALLBACK_IMAGES[0];
+
+function getNewsImageHtml(imageUrl, alt, fallbackIdx) {
+  var idx = Math.abs(fallbackIdx || 0);
+  var src = imageUrl || EV_FALLBACK_IMAGES[idx % EV_FALLBACK_IMAGES.length];
+  var fallbackUrl = EV_FALLBACK_IMAGES[(idx + 1) % EV_FALLBACK_IMAGES.length];
+  return '<img src="' + src + '" alt="' + alt + '" loading="lazy" class="w-full h-full object-cover" onerror="this.onerror=null;this.src=\'' + fallbackUrl + '\'" />';
+}
+
+function formatNewsDate(dateStr) {
+  if (!dateStr) return '';
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch (e) {
+    return dateStr;
+  }
+}
+
 const GUIDE_DATABASE = [
   {
     id: 'guide-1',
@@ -1037,8 +1114,8 @@ Object.assign(LEARN_DATABASE, {
     content: '<p>V2L (Vehicle-to-Load) is a feature that lets you use your EV\'s battery as a mobile power source. It transforms your car into a giant portable power bank.</p><h3>How V2L Works</h3><p>V2L uses a bidirectional inverter in the vehicle to convert DC from the battery into standard AC electricity (230V, 50Hz in India). A special V2L adapter plugs into the car\'s charging port, giving you one or more standard 3-pin sockets to plug appliances directly into your car.</p><h3>Power Output</h3><p>Most V2L systems provide 1.5-3.5 kW of power, enough to run: laptop chargers (60-100W), LED TVs (100-200W), fans (50-75W), small refrigerators (200-400W), power tools (500-1500W), and even some medical equipment.</p><h3>Use Cases</h3><p>V2L is incredibly useful for: camping (power lights, cookers, speakers), outdoor events, emergency backup during power cuts, construction sites, tailgate parties, and powering equipment at remote locations.</p><h3>Battery Impact</h3><p>Using V2L draws power from the same battery used for driving. A 40 kWh battery with V2L at 2 kW can power a refrigerator + fans + lights for over 24 hours. The impact on battery health is minimal since the discharge rate is very gentle compared to driving.</p>'
   },
   'battery-health': {
-    title: 'Battery Health',
-    content: '<p>Maximizing your EV battery\'s lifespan ensures long-term performance and preserves resale value. Here are expert tips for maintaining battery health.</p><h3>Optimal Charging Habits</h3><p>For LFP batteries: charging to 100% daily is fine and even recommended for proper BMS calibration. For NMC batteries: keep daily charging between 20-80% to reduce stress on the cells. For both chemistries: avoid letting the battery drop below 10% regularly.</p><h3>Temperature Management</h3><p>Heat is the biggest enemy of battery health. Park in shade whenever possible. Use scheduled charging to charge during cooler night hours. If your EV has battery preconditioning, use it before DC fast charging in extreme temperatures.</p><h3>DC Fast Charging Frequency</h3><p>While convenient, regular DC fast charging can accelerate degradation. Use DC fast charging primarily for road trips. For daily charging, rely on AC home or workplace charging. Studies show that exclusive DC fast charging can cause 2-5% additional degradation over 1,00,000 km compared to AC charging.</p><h3>Battery Calibration</h3><p>Every 1-2 months, let the battery discharge to below 10% and then charge to 100% to let the BMS recalibrate the state of charge estimation. This ensures your range display remains accurate.</p><h3>Warranty Protection</h3><p>Most manufacturers warrant the battery for 8 years or 1,60,000 km, guaranteeing at least 70% capacity retention. Following the above best practices will help ensure your battery stays well within this threshold.</p>'
+    title: 'Battery Health Guide',
+    content: '<div class="border-b border-zinc-200 pb-6 mb-6"><span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block mb-3">BATTERY ENGINEERING / HEALTH & MAINTENANCE</span><h1 class="text-3xl md:text-5xl font-black tracking-tight text-black leading-tight mb-4">EV Battery Health Guide</h1><p class="text-sm text-zinc-600 font-mono leading-relaxed max-w-2xl">Maximising your EV battery\'s lifespan ensures long-term performance, preserves resale value, and reduces your total cost of ownership. This guide covers everything from optimal charging habits to maintenance best practices.</p><div class="flex flex-wrap gap-3 mt-4"><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">📖 12 min read</span><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">📅 Updated June 2026</span><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">🔋 Beginner Friendly</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8"><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><span class="text-xl">⚡</span><span class="font-bold text-xs uppercase tracking-wide">Optimal Charging Habits</span></div><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">For LFP batteries, charging to 100% daily is fine and helps BMS calibration. For NMC batteries, keep daily charging between 20-80% to reduce cell stress. Never let the battery drop below 10% regularly.</p></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><span class="text-xl">🌡️</span><span class="font-bold text-xs uppercase tracking-wide">Temperature Management</span></div><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Heat accelerates chemical degradation. Park in shade, use scheduled charging during cooler night hours, and precondition the battery before DC fast charging in extreme temperatures.</p></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><span class="text-xl">🔌</span><span class="font-bold text-xs uppercase tracking-wide">Fast vs Slow Charging</span></div><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">AC slow charging is gentler and generates less heat. DC fast charging is convenient for road trips but frequent use can accelerate degradation by 2-5% over 1,00,000 km.</p></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><span class="text-xl">📊</span><span class="font-bold text-xs uppercase tracking-wide">State of Health (SOH)</span></div><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">SOH measures current battery capacity relative to new. A new battery starts at 100% and naturally declines to 80-90% after 8-10 years. Modern EVs lose only 1-2% capacity per year.</p></div></div><h3>Best Practices for Long Battery Life</h3><p>Following these proven practices will maximise your battery\'s usable life and preserve the vehicle\'s resale value over many years of ownership.</p><div class="border-l-2 border-emerald-500 pl-4 my-4 bg-emerald-50/30 py-3 pr-2 rounded-r-lg"><span class="text-emerald-700 font-bold uppercase text-[9px] tracking-wider block mb-1">💡 Tip</span><p class="text-xs leading-relaxed text-zinc-700 font-mono">The single most impactful habit: keep your battery between 20% and 80% for daily use. This alone can reduce degradation by up to 50%.</p></div><ul class="space-y-3 text-xs font-mono my-4"><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">1</span><div><strong class="text-black">Maintain 20–80% State of Charge</strong><br><span class="text-zinc-500">For daily commuting, keep the battery between 20% and 80%. This avoids extreme voltage stress at high and low charge levels.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">2</span><div><strong class="text-black">Use Scheduled Charging</strong><br><span class="text-zinc-500">Program your EV to finish charging just before departure. This minimises time spent at high state of charge, which accelerates degradation.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">3</span><div><strong class="text-black">Limit DC Fast Charging</strong><br><span class="text-zinc-500">Reserve DC fast charging for road trips. For daily top-ups, use AC home or workplace charging — it generates less heat and is gentler on cells.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">4</span><div><strong class="text-black">Park in Shade</strong><br><span class="text-zinc-500">In India\'s hot climate, parking in direct sunlight raises battery temperature significantly. Always prefer shaded or covered parking.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">5</span><div><strong class="text-black">Update BMS Firmware</strong><br><span class="text-zinc-500">Manufacturers release battery management system updates that optimise charging curves and thermal management. Keep your EV\'s software current.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">6</span><div><strong class="text-black">Monthly Calibration</strong><br><span class="text-zinc-500">Every 1-2 months, discharge below 10% and charge to 100% to let the BMS recalibrate State of Charge estimation. Keeps your range display accurate.</span></div></li></ul><div class="border border-zinc-200 bg-amber-50/40 rounded-xl p-5 my-6 border-l-4 border-l-amber-500"><div class="flex items-start gap-3"><span class="text-lg flex-shrink-0 mt-0.5">⚠️</span><div><span class="font-bold text-xs uppercase tracking-wide block mb-1">Important: Chemistry Matters</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">LFP and NMC batteries have different optimal charging profiles. Always check your owner\'s manual to confirm which chemistry your EV uses and follow the manufacturer\'s specific charging recommendations.</p></div></div></div><h3>Understanding Battery Degradation</h3><p>Battery degradation is the gradual loss of capacity that all lithium-ion batteries experience. Two primary mechanisms drive this process: <strong>cycle aging</strong> (capacity loss from charge/discharge cycles) and <strong>calendar aging</strong> (capacity loss from time and temperature, even when idle).</p><p>Calendar aging is actually the dominant factor for most EV owners. A battery stored at 100% charge in a hot garage degrades faster than one cycled daily between 20-80% in moderate temperatures. This is why parking conditions often matter more than charging frequency.</p><div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6"><div class="border border-zinc-200 rounded-xl p-5 bg-white"><span class="font-bold text-[10px] uppercase tracking-wide block mb-2 text-emerald-600">LFP Batteries</span><ul class="space-y-1.5 text-[11px] text-zinc-600 font-mono"><li>• 3,000+ charge cycles</li><li>• 80-85% capacity after 10,00,000 km</li><li>• Can be charged to 100% daily</li><li>• Better heat tolerance</li></ul></div><div class="border border-zinc-200 rounded-xl p-5 bg-white"><span class="font-bold text-[10px] uppercase tracking-wide block mb-2 text-blue-600">NMC Batteries</span><ul class="space-y-1.5 text-[11px] text-zinc-600 font-mono"><li>• 1,500-2,000 charge cycles</li><li>• 70-80% capacity after 5,00,000 km</li><li>• Best charged to 80% daily</li><li>• Higher energy density, lighter</li></ul></div></div><h3>State of Health (SOH) — The Key Metric</h3><p>State of Health (SOH) represents your battery\'s current usable capacity as a percentage of its original capacity. A battery at 90% SOH can store 90% of the energy it could when new. This is the single most important indicator of your battery\'s condition.</p><p>Most EV dashboards display SOH indirectly through the range display. For an exact reading, use a dedicated OBD-II scanner or check the manufacturer\'s app. In India, manufacturers typically warrant the battery to maintain at least 70% SOH for 8 years or 1,60,000 km.</p><div class="key-takeaways-card"><div class="key-takeaways-title">✅ Monthly Maintenance Checklist</div><ul class="key-takeaways-list space-y-2 text-xs font-mono"><li>✓ Check tyre pressure — under-inflated tyres increase rolling resistance and battery draw</li><li>✓ Clean battery cooling vents — blocked vents cause thermal stress during fast charging</li><li>✓ Avoid frequent 0-100% cycles — partial charges (20-80%) are healthier for daily use</li><li>✓ Prioritise AC charging — limit DC fast charging to once or twice per week maximum</li><li>✓ Park indoors or in shade — reduce calendar aging from heat exposure</li><li>✓ Annual BMS diagnostic — request a full battery health report during yearly service</li></ul></div><h3>Frequently Asked Questions</h3><div class="flex flex-col gap-3 my-6"><div class="accordion-item border border-zinc-200 bg-white rounded-xl overflow-hidden"><button class="accordion-btn w-full text-left font-bold text-xs uppercase tracking-wider text-black font-mono flex items-center justify-between p-4 hover:bg-zinc-50 transition-colors"><span>How fast do EV batteries degrade in India\'s climate?</span><span class="accordion-icon text-zinc-400 font-mono text-base">+</span></button><div class="accordion-content"><div class="px-4 pb-4"><div class="pt-3 border-t border-zinc-100"><p class="text-[11px] text-zinc-650 leading-relaxed font-mono">In India\'s warm climate, proper battery care is even more important. With good practices — shade parking, AC charging, 20-80% usage — expect 1-2% annual degradation. Without care, degradation can accelerate to 3-4% per year, significantly reducing range over the vehicle\'s lifetime.</p></div></div></div></div><div class="accordion-item border border-zinc-200 bg-white rounded-xl overflow-hidden"><button class="accordion-btn w-full text-left font-bold text-xs uppercase tracking-wider text-black font-mono flex items-center justify-between p-4 hover:bg-zinc-50 transition-colors"><span>Should I charge my EV to 100% every night?</span><span class="accordion-icon text-zinc-400 font-mono text-base">+</span></button><div class="accordion-content"><div class="px-4 pb-4"><div class="pt-3 border-t border-zinc-100"><p class="text-[11px] text-zinc-650 leading-relaxed font-mono">For <strong>LFP batteries</strong>: yes — charging to 100% daily is safe and recommended for BMS calibration. For <strong>NMC batteries</strong>: charge to 80% for daily use and only charge to 100% before long trips. Check your vehicle manual to confirm your battery chemistry.</p></div></div></div></div><div class="accordion-item border border-zinc-200 bg-white rounded-xl overflow-hidden"><button class="accordion-btn w-full text-left font-bold text-xs uppercase tracking-wider text-black font-mono flex items-center justify-between p-4 hover:bg-zinc-50 transition-colors"><span>Is it bad to use DC fast charging every day?</span><span class="accordion-icon text-zinc-400 font-mono text-base">+</span></button><div class="accordion-content"><div class="px-4 pb-4"><div class="pt-3 border-t border-zinc-100"><p class="text-[11px] text-zinc-650 leading-relaxed font-mono">Yes. Exclusive DC fast charging can cause 2-5% additional degradation over 1,00,000 km compared to AC charging. The high heat generated during rapid charging stresses cell chemistry. Use DC fast charging primarily for highway trips and rely on AC charging for daily needs.</p></div></div></div></div><div class="accordion-item border border-zinc-200 bg-white rounded-xl overflow-hidden"><button class="accordion-btn w-full text-left font-bold text-xs uppercase tracking-wider text-black font-mono flex items-center justify-between p-4 hover:bg-zinc-50 transition-colors"><span>What happens when battery SOH drops below 70%?</span><span class="accordion-icon text-zinc-400 font-mono text-base">+</span></button><div class="accordion-content"><div class="px-4 pb-4"><div class="pt-3 border-t border-zinc-100"><p class="text-[11px] text-zinc-650 leading-relaxed font-mono">Under warranty (8 years / 1,60,000 km), the manufacturer must repair or replace the battery if SOH falls below 70%. Post-warranty, a battery at 60-70% SOH can still be used for daily commuting with reduced range. Replacement costs continue to decrease as battery technology improves.</p></div></div></div></div></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-6 my-6"><div class="flex items-start gap-4"><span class="text-2xl flex-shrink-0">📋</span><div><span class="font-bold text-sm uppercase tracking-wide block mb-2">Summary</span><p class="text-xs text-zinc-600 leading-relaxed font-mono">Battery health is determined by how you charge, where you park, and how often you use DC fast charging. By maintaining 20-80% charge for daily use, parking in shade, using AC charging as your primary method, and keeping BMS firmware updated, you can ensure your EV battery delivers reliable performance for 10+ years while retaining strong resale value.</p></div></div></div>'
   },
   'regenerative-braking': {
     title: 'Regenerative Braking',
@@ -1286,7 +1363,7 @@ const ABOUT_DATABASE = {
   },
   'contact': {
     title: 'Contact Us',
-    content: '<p>We\'d love to hear from you! Whether you have a question about our platform, want to report an issue, or are interested in partnering with us, here\'s how you can reach us.</p><p><strong>Email:</strong> support@evcarwale.com</p><p><strong>Phone:</strong> +91-XXX-XXX-XXXX (Available Monday-Friday, 10 AM - 6 PM IST)</p><p><strong>Address:</strong> EV Car Wale, India</p><p>For press and media inquiries, please email us at press@evcarwale.com. For partnership opportunities, reach out to partnerships@evcarwale.com.</p><p>We aim to respond to all inquiries within 24-48 business hours.</p>'
+    content: '<p>We\'d love to hear from you! Whether you have a question about our platform, want to report an issue, or are interested in partnering with us, here\'s how you can reach us.</p><p><strong>Email:</strong> support@evcarwale.com</p><p><strong>Phone:</strong> +91-894-971-4475 (Available Monday-Friday, 10 AM - 6 PM IST)</p><p><strong>Address:</strong> EV Car Wale, India</p><p>For press and media inquiries, please email us at press@evcarwale.com. For partnership opportunities, reach out to partnerships@evcarwale.com.</p><p>We aim to respond to all inquiries within 24-48 business hours.</p>'
   },
   'feedback': {
     title: 'Feedback',
@@ -1338,8 +1415,36 @@ let wishlistIds = [];
 let currentDetailsCarId = null;
 let currentUser = null;
 
+const AUTH_CACHE_KEY = 'evcarwale_auth_user';
+
 function isUserLoggedIn() {
   return localStorage.getItem('is_logged_in') === 'true';
+}
+
+function saveUserToLocal(user) {
+  if (user && user.name) {
+    localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify({
+      name: user.name,
+      email: user.email || '',
+      picture: user.picture || ''
+    }));
+    localStorage.setItem('is_logged_in', 'true');
+  } else {
+    localStorage.removeItem(AUTH_CACHE_KEY);
+    localStorage.setItem('is_logged_in', 'false');
+  }
+}
+
+function getUserFromLocal() {
+  try {
+    const raw = localStorage.getItem(AUTH_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.name) return parsed;
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 function loadWishlistFromStorage() {
@@ -1371,23 +1476,33 @@ function updateWishlistBadge() {
 }
 
 async function initUserSession() {
+  // Show cached profile immediately so UI is instant on refresh/navigation
+  const cached = getUserFromLocal();
+  if (cached) {
+    currentUser = cached;
+    updateAuthUI(cached);
+  }
+
   try {
     const response = await fetch('/api/auth/me');
     const authData = await response.json();
     if (authData.loggedIn && authData.user) {
       currentUser = authData.user;
-      localStorage.setItem('is_logged_in', 'true');
+      saveUserToLocal(authData.user);
       updateAuthUI(authData.user);
     } else {
       currentUser = null;
-      localStorage.setItem('is_logged_in', 'false');
+      saveUserToLocal(null);
       updateAuthUI(null);
     }
   } catch (err) {
     console.error('Session fetch failed:', err);
-    currentUser = null;
-    localStorage.setItem('is_logged_in', 'false');
-    updateAuthUI(null);
+    if (!cached) {
+      currentUser = null;
+      saveUserToLocal(null);
+      updateAuthUI(null);
+    }
+    // If cached exists, keep showing it (graceful degradation)
   }
   loadWishlistFromStorage();
   updateWishlistBadge();
@@ -1555,32 +1670,46 @@ function enrichDatabase() {
 }
 enrichDatabase();
 
-// --- Preloader Engine ---
+// Preloader setup
 const preloader = document.getElementById('preloader');
-const loaderProgress = document.getElementById('loader-progress');
-const loaderPercent = document.getElementById('loader-percent');
+const loadingText = document.getElementById('loading-text');
+const loaderLogo = document.getElementById('loader-logo');
 
 function runPreloader() {
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += Math.floor(Math.random() * 15) + 5;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(interval);
-      setTimeout(() => {
-        preloader.classList.add('preloader-hidden');
-        document.body.classList.add('loaded'); // Trigger hero section luxury page-load sequence
-        setTimeout(() => preloader.style.display = 'none', 700);
-        
-        // Render/show the AI assistant after the loading screen has completely finished
-        if (typeof window.showAIAssistant === 'function') {
-          setTimeout(window.showAIAssistant, 100);
-        }
-      }, 300);
+  if (!preloader) return;
+
+  // Animate LOADING dots immediately (1–4 dots)
+  var dotCount = 0;
+  var dotInterval = setInterval(function() {
+    dotCount = (dotCount % 4) + 1;
+    var text = 'LOADING';
+    for (var i = 0; i < dotCount; i++) text += '.';
+    if (loadingText) loadingText.textContent = text;
+  }, 400);
+
+  // 5s — fade in logo + tagline with scale
+  setTimeout(function() {
+    if (loaderLogo) loaderLogo.classList.add('reveal');
+  }, 5000);
+
+  // 6s — fade out everything
+  setTimeout(function() {
+    clearInterval(dotInterval);
+
+    var video = document.getElementById('preloader-video');
+    if (video) video.pause();
+
+    preloader.classList.add('preloader-hidden');
+    document.body.classList.add('loaded');
+
+    setTimeout(function() {
+      preloader.style.display = 'none';
+    }, 1000);
+
+    if (typeof window.showAIAssistant === 'function') {
+      setTimeout(window.showAIAssistant, 100);
     }
-    loaderProgress.style.width = progress + '%';
-    loaderPercent.textContent = progress + '%';
-  }, 40);
+  }, 6000);
 }
 window.addEventListener('DOMContentLoaded', runPreloader);
 
@@ -1633,27 +1762,27 @@ const wishlistBadge = document.getElementById('wishlist-badge') || { textContent
 function getSpecGridHtml(car) {
   if (car.sections.includes('upcoming')) {
     return `
-      <div>EXPECTED: <span class="text-zinc-800 font-bold">${car.launchDate || 'Soon'}</span></div>
-      <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
-      <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
-      <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
-      <div class="col-span-2 truncate text-zinc-500" title="${car.features}">${car.features}</div>
+      <div><span class="notranslate-label">EXPECTED</span><span class="notranslate">: ${car.launchDate || 'Soon'}</span></div>
+      <div><span class="notranslate-label">RANGE</span><span class="notranslate">: ${car.range}</span></div>
+      <div><span class="notranslate-label">BATTERY</span><span class="notranslate">: ${car.battery}</span></div>
+      <div><span class="notranslate-label">DC CHARGE</span><span class="notranslate">: ${car.charging}</span></div>
+      <div class="col-span-2 truncate text-zinc-500 notranslate" title="${car.features}">${car.features}</div>
     `;
   } else if (car.sections.includes('launches')) {
     return `
-      <div>LAUNCHED: <span class="text-zinc-800 font-bold">${car.launchDate || 'Recently'}</span></div>
-      <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
-      <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
-      <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
-      <div class="col-span-2 truncate text-zinc-500" title="${car.features}">${car.features}</div>
+      <div><span class="notranslate-label">LAUNCHED</span><span class="notranslate">: ${car.launchDate || 'Recently'}</span></div>
+      <div><span class="notranslate-label">RANGE</span><span class="notranslate">: ${car.range}</span></div>
+      <div><span class="notranslate-label">BATTERY</span><span class="notranslate">: ${car.battery}</span></div>
+      <div><span class="notranslate-label">DC CHARGE</span><span class="notranslate">: ${car.charging}</span></div>
+      <div class="col-span-2 truncate text-zinc-500 notranslate" title="${car.features}">${car.features}</div>
     `;
   } else {
     return `
-      <div>RANGE: <span class="text-zinc-800 font-bold">${car.range}</span></div>
-      <div>BATTERY: <span class="text-zinc-800">${car.battery}</span></div>
-      <div>DC CHARGE: <span class="text-zinc-800">${car.charging}</span></div>
-      <div>TOP SPEED: <span class="text-zinc-800">${car.speed}</span></div>
-      <div class="col-span-2 truncate text-zinc-500" title="${car.features}">${car.features}</div>
+      <div><span class="notranslate-label">RANGE</span><span class="notranslate">: ${car.range}</span></div>
+      <div><span class="notranslate-label">BATTERY</span><span class="notranslate">: ${car.battery}</span></div>
+      <div><span class="notranslate-label">DC CHARGE</span><span class="notranslate">: ${car.charging}</span></div>
+      <div><span class="notranslate-label">TOP SPEED</span><span class="notranslate">: ${car.speed}</span></div>
+      <div class="col-span-2 truncate text-zinc-500 notranslate" title="${car.features}">${car.features}</div>
     `;
   }
 }
@@ -1673,10 +1802,10 @@ function createCarCardHtml(car, extraClasses = '') {
       <div>
         <div class="flex justify-between items-start text-black">
           <div>
-            <span class="font-mono text-[9px] text-zinc-500 uppercase">${getBrandDisplay(car.brand)}</span>
-            <h3 class="text-lg font-bold mt-0.5 text-black">${car.name}</h3>
+            <span class="font-mono text-[9px] text-zinc-500 uppercase notranslate">${getBrandDisplay(car.brand)}</span>
+            <h3 class="text-lg font-bold mt-0.5 text-black notranslate">${car.name}</h3>
           </div>
-          <span class="font-mono text-sm font-bold text-black">${car.price}</span>
+          <span class="font-mono text-sm font-bold text-black notranslate">${car.price}</span>
         </div>
         
         <!-- Spec Grid -->
@@ -1685,7 +1814,7 @@ function createCarCardHtml(car, extraClasses = '') {
         </div>
       </div>
 
-      <button class="w-full py-2.5 border border-zinc-200 hover:border-black text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all btn-view-details" data-id="${car.id}">
+      <button class="w-full py-2.5 border border-zinc-200 hover:border-black text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all btn-view-details notranslate" data-id="${car.id}">
         VIEW DETAILS
       </button>
     </div>
@@ -1902,10 +2031,22 @@ budgetChips.forEach(chip => {
   });
 });
 
-// Search submit button click
+// Search submit button click — brand → brand page, else → search page
 document.getElementById('search-submit-btn').addEventListener('click', () => {
-  renderAllCarousels();
-  document.getElementById('popular-evs').scrollIntoView({ behavior: 'smooth' });
+  const name = document.getElementById('search-car-name').value.trim();
+  const brand = document.getElementById('search-car-brand').value;
+  const budget = document.getElementById('search-car-budget').value;
+  const body = document.getElementById('search-car-body').value;
+  const p = new URLSearchParams();
+  if (name) p.set('name', name);
+  if (budget && budget !== 'all') p.set('budget', budget);
+  if (body && body !== 'all') p.set('body', body);
+  const qs = p.toString();
+  if (brand && brand !== 'all') {
+    navigateTo('/brand/' + brand + (qs ? '?' + qs : ''));
+  } else {
+    navigateTo('/search' + (qs ? '?' + qs : ''));
+  }
 });
 
 // Initial carousels load
@@ -3017,10 +3158,9 @@ document.querySelectorAll('#login-nav-btn, #login-nav-btn-mobile').forEach(btn =
 document.getElementById('global-search-input').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     const val = e.target.value.trim();
-    document.getElementById('search-car-name').value = val;
     closeAllModals();
-    renderAllCarousels();
-    document.getElementById('popular-evs').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('search-car-name').value = val;
+    navigateTo('/search' + (val ? '?name=' + encodeURIComponent(val) : ''));
   }
 });
 
@@ -3093,51 +3233,389 @@ document.getElementById('newsletter-form').addEventListener('submit', (e) => {
   const btn = document.getElementById('lang-selector-btn');
   const dropdown = document.getElementById('lang-dropdown');
   const currentLabel = document.getElementById('lang-current');
-  const options = document.querySelectorAll('.lang-option');
-  if (!btn || !dropdown || !currentLabel) return;
+  const options = document.querySelectorAll('#lang-dropdown .lang-option');
 
-  const LANG_KEY = 'evcarwale_language';
-  const saved = localStorage.getItem(LANG_KEY);
-  if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      currentLabel.textContent = parsed.text || 'English';
-      options.forEach(opt => {
-        if (opt.dataset.lang === parsed.lang) {
-          opt.classList.add('text-black', 'font-bold');
-        }
-      });
-    } catch (e) {}
+  if (btn && dropdown) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !dropdown.classList.contains('invisible');
+      dropdown.classList.toggle('opacity-0', isOpen);
+      dropdown.classList.toggle('invisible', isOpen);
+      dropdown.classList.toggle('translate-y-1', isOpen);
+      btn.querySelector('.lang-caret').classList.toggle('rotate-180', !isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      if (!dropdown.classList.contains('invisible')) {
+        dropdown.classList.add('opacity-0', 'invisible', 'translate-y-1');
+        btn.querySelector('.lang-caret').classList.remove('rotate-180');
+      }
+    });
   }
 
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = !dropdown.classList.contains('invisible');
-    dropdown.classList.toggle('opacity-0', isOpen);
-    dropdown.classList.toggle('invisible', isOpen);
-    dropdown.classList.toggle('translate-y-1', isOpen);
-    btn.querySelector('.lang-caret').classList.toggle('rotate-180', !isOpen);
-  });
+  // Brand names to skip when they appear as text content
+  const BRAND_NAMES = ['tata', 'mg', 'hyundai', 'kia', 'mahindra', 'byton', 'bmw', 'mercedes', 'audi', 'tesla',
+    'nissan', 'renault', 'porsche', 'volvo', 'jaguar', 'mini', 'byd', 'mitsubishi', 'skoda', 'volkswagen',
+    'toyota', 'honda', 'suzuki', 'maruti', 'lectric'];
 
-  options.forEach(opt => {
-    opt.addEventListener('click', () => {
-      const lang = opt.dataset.lang;
-      const text = opt.textContent.trim();
-      currentLabel.textContent = text;
-      options.forEach(o => o.classList.remove('text-black', 'font-bold'));
-      opt.classList.add('text-black', 'font-bold');
-      localStorage.setItem(LANG_KEY, JSON.stringify({ lang, text }));
-      dropdown.classList.add('opacity-0', 'invisible', 'translate-y-1');
-      btn.querySelector('.lang-caret').classList.remove('rotate-180');
-    });
-  });
+  // Hook up TranslationEngine
+  const TranslationEngine = {
+    currentLanguage: 'en',
+    isTranslating: false,
+    pendingTranslation: false,
+    observer: null,
+    _translationCache: {},
+    _observerPaused: false,
 
-  document.addEventListener('click', () => {
-    if (!dropdown.classList.contains('invisible')) {
-      dropdown.classList.add('opacity-0', 'invisible', 'translate-y-1');
-      btn.querySelector('.lang-caret').classList.remove('rotate-180');
+    init() {
+      const saved = localStorage.getItem('evcarwale_language');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.lang) {
+            this.currentLanguage = parsed.lang;
+          }
+        } catch (e) {
+          if (typeof saved === 'string') {
+            this.currentLanguage = saved;
+          }
+        }
+      }
+
+      this.updateLanguageUI(this.currentLanguage);
+      this.setupObserver();
+
+      if (this.currentLanguage !== 'en') {
+        this.translatePage();
+      }
+    },
+
+    updateLanguageUI(lang) {
+      const text = this.getLangName(lang);
+      
+      const customLabel = document.getElementById('custom-lang-label');
+      if (customLabel) {
+        customLabel.textContent = lang.toUpperCase();
+      }
+      const customOptions = document.querySelectorAll('#custom-lang-menu .lang-option');
+      customOptions.forEach(opt => {
+        if (opt.getAttribute('data-lang') === lang) {
+          opt.classList.add('text-black', 'font-bold');
+        } else {
+          opt.classList.remove('text-black', 'font-bold');
+        }
+      });
+
+      if (currentLabel) {
+        currentLabel.textContent = text;
+      }
+      if (options) {
+        options.forEach(opt => {
+          if (opt.dataset.lang === lang) {
+            opt.classList.add('text-black', 'font-bold');
+          } else {
+            opt.classList.remove('text-black', 'font-bold');
+          }
+        });
+      }
+    },
+
+    setupObserver() {
+      if (this.observer) return;
+      
+      this.observer = new MutationObserver((mutations) => {
+        if (this.currentLanguage === 'en') return;
+        if (this._observerPaused) return;
+        
+        if (this.isTranslating) {
+          this.pendingTranslation = true;
+          return;
+        }
+
+        let shouldTranslate = false;
+        for (const mutation of mutations) {
+          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+            shouldTranslate = true;
+            break;
+          }
+          if (mutation.type === 'characterData') {
+            const node = mutation.target;
+            if (node.nodeType === Node.TEXT_NODE) {
+              const val = node.textContent.trim();
+              if (val && val !== node._translatedText && !node._isTranslating) {
+                shouldTranslate = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if (shouldTranslate) {
+          if (this._debounceTimeout) clearTimeout(this._debounceTimeout);
+          this._debounceTimeout = setTimeout(() => {
+            this.translatePage();
+          }, 300);
+        }
+      });
+
+      this.observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true
+      });
+    },
+
+    _isBrandText(text) {
+      const lower = text.toLowerCase().trim();
+      for (const brand of BRAND_NAMES) {
+        if (lower === brand || lower.startsWith(brand + ' ') || lower.endsWith(' ' + brand) || lower.includes(' ' + brand + ' ')) {
+          return true;
+        }
+      }
+      return false;
+    },
+
+    async translatePage() {
+      if (this.currentLanguage === 'en') return;
+      if (this.isTranslating) return;
+
+      this.isTranslating = true;
+      this._observerPaused = true;
+      const customLabel = document.getElementById('custom-lang-label');
+      if (customLabel) {
+        customLabel.textContent = '...';
+      }
+
+      try {
+        const textNodes = [];
+        const textsToTranslate = [];
+
+        const walk = (node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const tagName = node.tagName.toUpperCase();
+            if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'CODE', 'PRE', 'INPUT', 'TEXTAREA', 'SELECT', 'OPTION'].includes(tagName)) {
+              return;
+            }
+            if (node.classList && (node.classList.contains('notranslate') || node.closest('.notranslate'))) {
+              return;
+            }
+          }
+
+          if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent.trim();
+            if (text.length > 1 && isNaN(text) && !text.match(/^[\d\s\-\+\:\,\.\/\(\)₹€$%]+$/)) {
+              if (this._isBrandText(text)) return;
+              if (!node._originalText) {
+                node._originalText = node.textContent;
+              }
+              if (node.textContent !== node._translatedText || node._translatedLang !== this.currentLanguage) {
+                textNodes.push(node);
+                textsToTranslate.push(node._originalText);
+              }
+            }
+            return;
+          }
+
+          for (let child = node.firstChild; child; child = child.nextSibling) {
+            walk.call(this, child);
+          }
+        };
+
+        walk.call(this, document.body);
+
+        if (textsToTranslate.length === 0) {
+          if (customLabel) {
+            customLabel.textContent = this.currentLanguage.toUpperCase();
+          }
+          return;
+        }
+
+        // Deduplicate: send unique texts only, then map back
+        const uniqueMap = new Map();
+        const originalToIdx = new Array(textsToTranslate.length);
+        for (let i = 0; i < textsToTranslate.length; i++) {
+          const t = textsToTranslate[i];
+          if (!uniqueMap.has(t)) {
+            uniqueMap.set(t, { index: uniqueMap.size, translation: null });
+          }
+          originalToIdx[i] = uniqueMap.get(t).index;
+        }
+        const uniqueTexts = [...uniqueMap.keys()];
+
+        // Check cache for each unique text
+        const uncachedTexts = [];
+        const uncachedUniqueIndices = [];
+        for (const [text, entry] of uniqueMap) {
+          const cacheKey = text + '::' + this.currentLanguage;
+          if (this._translationCache[cacheKey]) {
+            entry.translation = this._translationCache[cacheKey];
+          } else {
+            uncachedTexts.push(text);
+            uncachedUniqueIndices.push(entry.index);
+          }
+        }
+
+        if (uncachedTexts.length > 0) {
+          const BATCH_SIZE = 30;
+          const batchPromises = [];
+          for (let i = 0; i < uncachedTexts.length; i += BATCH_SIZE) {
+            const batchTexts = uncachedTexts.slice(i, i + BATCH_SIZE);
+            const batchUniqueIndices = uncachedUniqueIndices.slice(i, i + BATCH_SIZE);
+            batchPromises.push(
+              (async () => {
+                const response = await fetch('/api/translate', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    texts: batchTexts,
+                    targetLanguage: this.currentLanguage
+                  })
+                });
+                if (!response.ok) {
+                  let errorText = 'Translation API failed';
+                  try {
+                    const errData = await response.json();
+                    if (errData && errData.error) errorText = errData.error;
+                  } catch (_) {}
+                  throw new Error(errorText);
+                }
+                const data = await response.json();
+                if (data.translations && Array.isArray(data.translations)) {
+                  for (let j = 0; j < data.translations.length; j++) {
+                    const text = batchTexts[j];
+                    const translated = data.translations[j];
+                    uniqueMap.get(text).translation = translated;
+                    this._translationCache[text + '::' + this.currentLanguage] = translated;
+                  }
+                }
+              })()
+            );
+          }
+          await Promise.all(batchPromises);
+        }
+
+        const translations = textsToTranslate.map((t) => {
+          const entry = uniqueMap.get(t);
+          return entry.translation || t;
+        });
+
+        for (let i = 0; i < textNodes.length; i++) {
+          const node = textNodes[i];
+          const translation = translations[i];
+          if (translation) {
+            node._isTranslating = true;
+            const original = node.textContent;
+            const leadingSpace = original.match(/^\s*/)[0];
+            const trailingSpace = original.match(/\s*$/)[0];
+            node.textContent = leadingSpace + translation.trim() + trailingSpace;
+            node._translatedText = node.textContent;
+            node._translatedLang = this.currentLanguage;
+            node._isTranslating = false;
+          }
+        }
+
+        if (customLabel) {
+          customLabel.textContent = this.currentLanguage.toUpperCase();
+        }
+
+      } catch (e) {
+        console.error('Translation error:', e);
+        if (customLabel) {
+          customLabel.textContent = 'ERR';
+          setTimeout(() => {
+            if (customLabel.textContent === 'ERR') {
+              customLabel.textContent = this.currentLanguage.toUpperCase();
+            }
+          }, 2000);
+        }
+      } finally {
+        this.isTranslating = false;
+        this._observerPaused = false;
+        if (this.pendingTranslation) {
+          this.pendingTranslation = false;
+          setTimeout(() => this.translatePage(), 100);
+        }
+      }
+    },
+
+    async setLanguage(lang) {
+      if (lang === this.currentLanguage) return;
+
+      if (lang === 'en') {
+        this._observerPaused = true;
+        this.currentLanguage = 'en';
+        localStorage.setItem('evcarwale_language', JSON.stringify({ lang: 'en', text: 'English' }));
+        this.updateLanguageUI('en');
+
+        const walkAndRestore = (node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            if (node._originalText && node.textContent !== node._originalText) {
+              node.textContent = node._originalText;
+              node._translatedText = undefined;
+              node._translatedLang = undefined;
+            }
+            return;
+          }
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const tagName = node.tagName?.toUpperCase();
+            if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME', 'CODE', 'PRE'].includes(tagName)) return;
+          }
+
+          for (let child = node.firstChild; child; child = child.nextSibling) {
+            walkAndRestore(child);
+          }
+        };
+        walkAndRestore(document.body);
+        
+        this._observerPaused = false;
+      } else {
+        this.currentLanguage = lang;
+        localStorage.setItem('evcarwale_language', JSON.stringify({ lang: lang, text: this.getLangName(lang) }));
+        this.updateLanguageUI(lang);
+        await this.translatePage();
+      }
+    },
+
+    getLangName(lang) {
+      const names = {
+        en: 'English',
+        hi: 'Hindi',
+        kn: 'Kannada',
+        ml: 'Malayalam',
+        te: 'Telugu',
+        ta: 'Tamil'
+      };
+      return names[lang] || lang;
     }
-  });
+  };
+
+  window.TranslationEngine = TranslationEngine;
+
+  // Initialize engine and wire selectors
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      TranslationEngine.init();
+      wireSelectors();
+    });
+  } else {
+    TranslationEngine.init();
+    wireSelectors();
+  }
+
+  function wireSelectors() {
+    if (options) {
+      options.forEach(opt => {
+        opt.addEventListener('click', () => {
+          const lang = opt.dataset.lang;
+          TranslationEngine.setLanguage(lang);
+          if (dropdown) {
+            dropdown.classList.add('opacity-0', 'invisible', 'translate-y-1');
+            btn.querySelector('.lang-caret').classList.remove('rotate-180');
+          }
+        });
+      });
+    }
+  }
 })();
 
 // --- FAQ Accordion toggle Module ---
@@ -3384,9 +3862,38 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
 
     if (!href) return;
     
+    // Handle /#section-id links — scroll to homepage section
+    if (href.startsWith('/#')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMegaPanels();
+      closeMobileDrawer();
+      activeRecentlyViewed = false;
+      renderAllCarousels();
+      const targetId = href.substring(2);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        const isSubpage = !detailsPageContent.classList.contains('hidden');
+        if (isSubpage) {
+          navigateTo('/');
+          setTimeout(() => {
+            const tEl = document.getElementById(targetId);
+            if (tEl) tEl.scrollIntoView({ behavior: 'smooth' });
+          }, 120);
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        updateActiveNavTrigger(targetId);
+      } else {
+        navigateTo('/');
+      }
+      return;
+    }
+    
     // Path-based SPA navigation
     if (href.startsWith('/')) {
       e.preventDefault();
+      e.stopPropagation();
       closeMegaPanels();
       closeMobileDrawer();
       activeRecentlyViewed = false;
@@ -3397,6 +3904,7 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
     if (!href.startsWith('#')) return;
     
     e.preventDefault();
+    e.stopPropagation();
     closeMegaPanels();
     closeMobileDrawer();
     
@@ -3624,7 +4132,7 @@ function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
     detailsPageContent.innerHTML = `
       <div class="max-w-6xl mx-auto flex flex-col gap-8 text-left">
         <!-- Back & Breadcrumbs Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-zinc-150 pb-4 mt-6 gap-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-zinc-150 pb-4 mt-0 gap-4">
           <button id="btn-subpage-back" class="px-5 py-2.5 border border-zinc-200 hover:border-black font-mono text-[9px] tracking-widest text-zinc-655 hover:text-black uppercase transition-all duration-300 self-start">
             ← BACK
           </button>
@@ -3692,9 +4200,9 @@ async function handleRouting() {
     route = path;
   } else if (hash.startsWith('#/view-all/')) {
     route = hash.substring(1);
-  } else if (path.startsWith('/news/')) {
+  } else if (path === '/news' || path.startsWith('/news/')) {
     route = path;
-  } else if (hash.startsWith('#/news/')) {
+  } else if (hash === '#/news' || hash.startsWith('#/news/')) {
     route = hash.substring(1);
   } else if (path.startsWith('/guide/')) {
     route = path;
@@ -3715,6 +4223,10 @@ async function handleRouting() {
   } else if (path.startsWith('/insights/') || path === '/insights') {
     route = path;
   } else if (hash.startsWith('#/insights/') || hash === '#/insights') {
+    route = hash.substring(1);
+  } else if (path.startsWith('/hub/')) {
+    route = path;
+  } else if (hash.startsWith('#/hub/')) {
     route = hash.substring(1);
   } else if (path.startsWith('/learn/')) {
     route = path;
@@ -3762,7 +4274,7 @@ async function handleRouting() {
     }
   } else if (route.startsWith('/view-all/')) {
     const section = route.substring(10);
-    if (['popular', 'launches', 'upcoming'].includes(section)) {
+    if (['popular', 'launches', 'upcoming', 'all'].includes(section)) {
       renderViewAllPage(section);
       return;
     }
@@ -3770,13 +4282,24 @@ async function handleRouting() {
       renderViewAllBrandsPage();
       return;
     }
+  } else if (route === '/news') {
+    await loadNews();
+    renderNewsPage();
+    return;
   } else if (route.startsWith('/news/')) {
     const id = route.substring(6);
     if (id === 'all') {
+      await loadNews();
       renderAllNewsPage();
       return;
     } else {
-      const article = NEWS_DATABASE.find(a => a.id === id);
+      let article = NEWS_DATABASE.find(a => a.id === id);
+      if (!article && newsCache) {
+        const idx = parseInt(id.replace('news-api-', ''), 10);
+        if (!isNaN(idx) && newsCache[idx]) {
+          article = newsCache[idx];
+        }
+      }
       if (article) {
         renderNewsArticlePage(article);
         return;
@@ -3851,6 +4374,9 @@ async function handleRouting() {
       renderCarDetailsPage(car);
       return;
     }
+  } else if (route === '/search') {
+    renderSearchResultsPage();
+    return;
   } else if (route.startsWith('/resources/')) {
     const slug = route.substring(11);
     const article = RESOURCES_DATABASE[slug];
@@ -3959,12 +4485,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnViewAllBrands) {
     btnViewAllBrands.addEventListener('click', () => navigateTo('/view-all/brands'));
   }
+
+  document.querySelectorAll('a[href="all-cars.html"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      navigateTo('/view-all/all');
+    });
+  });
   
   const btnViewAllNews = document.getElementById('btn-view-all-news');
   if (btnViewAllNews) {
     btnViewAllNews.addEventListener('click', (e) => {
       e.preventDefault();
-      navigateTo('/insights/latest-news');
+      navigateTo('/news');
     });
   }
   
@@ -3990,19 +4523,10 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize new premium educational features
   if (typeof initWhyEVAccordion === 'function') initWhyEVAccordion();
-  if (typeof renderEVGallery === 'function') renderEVGallery();
   if (typeof initEducationalModals === 'function') initEducationalModals();
   if (typeof initRevealObservers === 'function') initRevealObservers();
   
-  // Bind instant search event listeners
-  const nameSearchEl = document.getElementById('search-car-name');
-  const brandSearchEl = document.getElementById('search-car-brand');
-  const budgetSearchEl = document.getElementById('search-car-budget');
-  if (nameSearchEl) nameSearchEl.addEventListener('input', renderAllCarousels);
-  if (brandSearchEl) brandSearchEl.addEventListener('change', renderAllCarousels);
-  if (budgetSearchEl) budgetSearchEl.addEventListener('change', renderAllCarousels);
-  const bodySearchEl = document.getElementById('search-car-body');
-  if (bodySearchEl) bodySearchEl.addEventListener('change', renderAllCarousels);
+  // Instant search listeners removed — search now navigates to /search page
   
   // Initialize automatic word-highlighting observer for "Electric"
   if (typeof initElectricHighlightObserver === 'function') initElectricHighlightObserver();
@@ -4022,37 +4546,49 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function renderNewsAndGuides() {
+async function renderNewsAndGuides() {
   const newsContainer = document.getElementById('news-grid-container');
   if (newsContainer) {
+    newsContainer.innerHTML = '<div class="col-span-full text-center py-8 text-zinc-400 font-mono text-xs">Loading news...</div>';
+    let articles = await loadNews();
+    if (!articles || articles.length === 0) {
+      articles = NEWS_DATABASE;
+    }
     newsContainer.innerHTML = '';
-    NEWS_DATABASE.forEach(article => {
-      newsContainer.innerHTML += `
-        <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card news-card">
-          <div>
-            <div class="h-28 bg-zinc-100/50 border border-zinc-150 flex items-center justify-center mb-4 text-zinc-500 font-mono text-[8px]">
-              IMAGE_PLACEHOLDER // ${article.id.toUpperCase()}
-            </div>
-            <div class="flex justify-between items-center text-[8px] text-zinc-500 font-mono mb-2">
-              <span>${article.topic.toUpperCase()}</span>
-              <span>${article.date.toUpperCase()}</span>
-            </div>
-            <h3 class="text-base font-bold leading-snug group-hover:text-zinc-700 transition-colors mb-2">${article.title}</h3>
-            <p class="text-[11px] text-zinc-650 leading-normal">${article.summary}</p>
-          </div>
-          <button class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors self-end btn-read-news-more" data-id="${article.id}">
-            Read More
-          </button>
-        </div>
-      `;
+    articles.slice(0, 3).forEach((article, index) => {
+      const id = article.id || 'news-api-' + index;
+      const topic = (article.category || article.topic || '').toUpperCase();
+      const date = formatNewsDate(article.published || article.date || '');
+      const title = article.title || '';
+      const summary = article.description || article.summary || '';
+      const externalUrl = article.url || '';
+      newsContainer.innerHTML +=
+        '<div class="border border-zinc-200 bg-white p-6 flex flex-col group hover:border-black hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] stagger-card news-card rounded-xl">' +
+          '<div class="flex flex-col flex-1">' +
+            '<div class="aspect-[16/9] bg-zinc-50 border border-zinc-100 flex items-center justify-center mb-4 overflow-hidden rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">' +
+              getNewsImageHtml(article.image || '', title, index) +
+            '</div>' +
+            '<div class="flex justify-between items-center text-[8px] text-zinc-400 font-mono mb-2.5">' +
+              '<span class="bg-zinc-100 px-2 py-0.5 rounded">' + topic + '</span>' +
+              '<span>' + date.toUpperCase() + '</span>' +
+            '</div>' +
+            '<h3 class="text-[15px] font-bold leading-snug text-zinc-800 group-hover:text-black transition-colors mb-2 line-clamp-2">' + title + '</h3>' +
+            '<p class="text-[11px] text-zinc-500 leading-relaxed line-clamp-3 flex-1">' + summary + '</p>' +
+          '</div>' +
+          '<button class="font-mono text-[10px] tracking-wider text-zinc-400 hover:text-black transition-colors self-end mt-4 btn-read-news-more" data-id="' + id + '" data-url="' + externalUrl + '">Read More <span class="inline-block transition-transform group-hover:translate-x-0.5">\u2192</span></button>' +
+        '</div>';
     });
     
-    // Bind clicks
     document.querySelectorAll('.btn-read-news-more').forEach(btn => {
       btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-id');
-        const mappedId = id === 'news-1' ? 'in-news-1' : id === 'news-2' ? 'in-news-2' : 'in-news-3';
-        navigateTo(`/insights/latest-news/${mappedId}`);
+        const url = btn.getAttribute('data-url');
+        if (url) {
+          window.open(url, '_blank', 'noopener');
+        } else {
+          const id = btn.getAttribute('data-id');
+          const mappedId = id === 'news-1' ? 'in-news-1' : id === 'news-2' ? 'in-news-2' : 'in-news-3';
+          navigateTo(`/insights/latest-news/${mappedId}`);
+        }
       });
     });
   }
@@ -4061,18 +4597,15 @@ function renderNewsAndGuides() {
   if (guideContainer) {
     guideContainer.innerHTML = '';
     GUIDE_DATABASE.forEach(chapter => {
-      guideContainer.innerHTML += `
-        <div class="border border-zinc-200 p-6 flex flex-col justify-between h-[240px] group hover:border-black transition-all bg-zinc-50 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card guide-card">
-          <div>
-            <span class="font-mono text-[9px] text-zinc-500">${chapter.chapter.toUpperCase()}</span>
-            <h3 class="text-base font-bold mt-1 mb-2">${chapter.title}</h3>
-            <p class="text-[11px] text-zinc-655 leading-normal">${chapter.summary}</p>
-          </div>
-          <a href="#/guide/${chapter.id}" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-widest self-start">
-            Learn More <span class="arrow">→</span>
-          </a>
-        </div>
-      `;
+      guideContainer.innerHTML +=
+        '<div class="border border-zinc-200 p-6 flex flex-col justify-between h-[240px] group hover:border-black transition-all bg-zinc-50 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card guide-card">' +
+          '<div>' +
+            '<span class="font-mono text-[9px] text-zinc-500">' + chapter.chapter.toUpperCase() + '</span>' +
+            '<h3 class="text-base font-bold mt-1 mb-2">' + chapter.title + '</h3>' +
+            '<p class="text-[11px] text-zinc-655 leading-normal">' + chapter.summary + '</p>' +
+          '</div>' +
+          '<a href="#/guide/' + chapter.id + '" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-widest self-start">Learn More <span class="arrow">\u2192</span></a>' +
+        '</div>';
     });
   }
 }
@@ -4081,18 +4614,24 @@ function renderViewAllPage(section) {
   const sectionNames = {
     popular: 'Popular Electric Cars',
     launches: 'Latest EV Launches',
-    upcoming: 'Upcoming Electric Cars'
+    upcoming: 'Upcoming Electric Cars',
+    all: 'All Electric Cars'
   };
-  const title = sectionNames[section];
+  const title = sectionNames[section] || 'Electric Cars';
   const breadcrumbs = ['MARKETPLACE', title];
   
-  const sectionCars = EV_DATABASE.filter(car => {
-    if (!car.sections) return false;
-    if (section === 'launches') {
-      return car.sections.includes('launches') || car.sections.includes('latest');
-    }
-    return car.sections.includes(section);
-  });
+  let sectionCars;
+  if (section === 'all') {
+    sectionCars = EV_DATABASE;
+  } else {
+    sectionCars = EV_DATABASE.filter(car => {
+      if (!car.sections) return false;
+      if (section === 'launches') {
+        return car.sections.includes('launches') || car.sections.includes('latest');
+      }
+      return car.sections.includes(section);
+    });
+  }
   let cardsHtml = '';
   sectionCars.forEach(car => {
     cardsHtml += createCarCardHtml(car, 'w-full');
@@ -4138,6 +4677,152 @@ function renderViewAllPage(section) {
       });
     }
   }, 50);
+}
+
+function renderSearchResultsPage() {
+  const params = new URLSearchParams(window.location.search);
+  const searchName = (params.get('name') || '').toLowerCase().trim();
+  const searchBrand = params.get('brand') || 'all';
+  const searchBudget = params.get('budget') || 'all';
+  const searchBody = params.get('body') || 'all';
+
+  let results = [...EV_DATABASE];
+
+  if (searchName) {
+    results = results.filter(car => {
+      const n = searchName;
+      const matchesName = car.name.toLowerCase().includes(n);
+      const matchesBrand = car.brand.toLowerCase().includes(n);
+      const numVal = parseFloat(n);
+      const matchesBudget = !isNaN(numVal) && car.priceVal <= numVal;
+      const matchesRange = !isNaN(numVal) && car.rangeVal >= numVal;
+      return matchesName || matchesBrand || matchesBudget || matchesRange;
+    });
+  }
+  if (searchBrand !== 'all') {
+    results = results.filter(car => car.brand.toLowerCase() === searchBrand.toLowerCase());
+  }
+  if (searchBudget !== 'all') {
+    results = results.filter(car => {
+      if (searchBudget === '20') return car.priceVal < 20;
+      if (searchBudget === '50') return car.priceVal >= 20 && car.priceVal <= 50;
+      if (searchBudget === 'above') return car.priceVal > 50;
+      return true;
+    });
+  }
+  if (searchBody !== 'all') {
+    results = results.filter(car => BODY_TYPE_MAP[car.id] === searchBody);
+  }
+
+  let sortBy = params.get('sort') || 'price-asc';
+  results.sort((a, b) => {
+    if (sortBy === 'price-desc') return (b.priceVal || 0) - (a.priceVal || 0);
+    if (sortBy === 'range-desc') return (b.rangeVal || 0) - (a.rangeVal || 0);
+    if (sortBy === 'name-asc') return (a.name || '').localeCompare(b.name || '');
+    return (a.priceVal || 0) - (b.priceVal || 0);
+  });
+
+  const totalCount = results.length;
+  const pageSize = 12;
+  let currentPage = parseInt(params.get('page') || '1', 10);
+  if (currentPage < 1) currentPage = 1;
+  const totalPages = Math.ceil(totalCount / pageSize) || 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+  const startIdx = (currentPage - 1) * pageSize;
+  const pageCars = results.slice(startIdx, startIdx + pageSize);
+
+  const breadcrumbs = ['SEARCH'];
+
+  function getLabel(val, type) {
+    if (type === 'brand') {
+      const map = { tata:'Tata', mahindra:'Mahindra', hyundai:'Hyundai', mg:'MG', kia:'Kia', byd:'BYD', bmw:'BMW', 'mercedes-benz':'Mercedes-Benz', volvo:'Volvo', audi:'Audi', 'maruti-suzuki':'Maruti Suzuki', toyota:'Toyota', honda:'Honda', skoda:'Skoda', volkswagen:'Volkswagen', renault:'Renault', nissan:'Nissan', citroen:'Citroën', jeep:'Jeep', 'force-motors':'Force Motors', isuzu:'Isuzu', porsche:'Porsche', vinfast:'VinFast', tesla:'Tesla', lexus:'Lexus' };
+      return map[val] || val;
+    }
+    if (type === 'budget') {
+      if (val === '20') return 'Under ₹20 Lakhs';
+      if (val === '50') return '₹20–50 Lakhs';
+      if (val === 'above') return 'Above ₹50 Lakhs';
+    }
+    return val;
+  }
+
+  let filterChipsHtml = '';
+  if (searchName) filterChipsHtml += `<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-zinc-100 border border-zinc-200 font-mono text-[9px] text-zinc-600 rounded-full">NAME: ${searchName.toUpperCase()}</span>`;
+  if (searchBrand !== 'all') filterChipsHtml += `<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-zinc-100 border border-zinc-200 font-mono text-[9px] text-zinc-600 rounded-full">BRAND: ${getLabel(searchBrand, 'brand').toUpperCase()}</span>`;
+  if (searchBudget !== 'all') filterChipsHtml += `<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-zinc-100 border border-zinc-200 font-mono text-[9px] text-zinc-600 rounded-full">BUDGET: ${getLabel(searchBudget, 'budget').toUpperCase()}</span>`;
+  if (searchBody !== 'all') filterChipsHtml += `<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-zinc-100 border border-zinc-200 font-mono text-[9px] text-zinc-600 rounded-full">BODY: ${searchBody.toUpperCase()}</span>`;
+
+  function buildUrl(overrides) {
+    const p = new URLSearchParams();
+    if (searchName) p.set('name', searchName);
+    if (searchBrand !== 'all') p.set('brand', searchBrand);
+    if (searchBudget !== 'all') p.set('budget', searchBudget);
+    if (searchBody !== 'all') p.set('body', searchBody);
+    if (sortBy !== 'price-asc') p.set('sort', sortBy);
+    if (overrides) {
+      if (overrides.page) { if (overrides.page > 1) p.set('page', overrides.page); else p.delete('page'); }
+      if (overrides.sort) { p.set('sort', overrides.sort); p.delete('page'); }
+    }
+    const qs = p.toString();
+    return '/search' + (qs ? '?' + qs : '');
+  }
+
+  let cardsHtml = '';
+  pageCars.forEach(car => {
+    cardsHtml += createCarCardHtml(car, 'w-full');
+  });
+
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 revealed">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">SEARCH / ${totalCount} ${totalCount === 1 ? 'RESULT' : 'RESULTS'}</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Search Results</h2>
+          ${filterChipsHtml ? `<div class="flex flex-wrap gap-2 mt-3">${filterChipsHtml}</div>` : ''}
+        </div>
+        <div class="flex items-center gap-3 font-mono text-[10px]">
+          <label for="search-sort-select" class="text-zinc-500 uppercase tracking-wider">Sort</label>
+          <select id="search-sort-select" class="border border-zinc-200 text-xs px-3 py-2 outline-none focus:border-black transition-colors rounded-lg cursor-pointer bg-white">
+            <option value="price-asc" ${sortBy === 'price-asc' ? 'selected' : ''}>Price: Low to High</option>
+            <option value="price-desc" ${sortBy === 'price-desc' ? 'selected' : ''}>Price: High to Low</option>
+            <option value="range-desc" ${sortBy === 'range-desc' ? 'selected' : ''}>Range: High to Low</option>
+            <option value="name-asc" ${sortBy === 'name-asc' ? 'selected' : ''}>Name: A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="search-cars-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
+        ${totalCount > 0 ? cardsHtml : `
+        <div class="col-span-full py-20 text-center flex flex-col items-center gap-3">
+          <span class="text-3xl text-zinc-200 font-mono font-bold">:(</span>
+          <p class="font-mono text-xs text-zinc-400 max-w-md">No electric vehicles match your search criteria. Try adjusting the filters or search term.</p>
+        </div>
+        `}
+      </div>
+
+      ${totalPages > 1 ? `
+      <div class="flex justify-center items-center gap-4 mt-6 font-mono text-[10px]">
+        ${currentPage > 1 ? `<a href="${buildUrl({ page: currentPage - 1 })}" class="px-4 py-2 border border-zinc-200 hover:border-black rounded transition-all">← PREV</a>` : '<span class="px-4 py-2 border border-zinc-100 text-zinc-300 rounded cursor-default">← PREV</span>'}
+        <span class="text-zinc-500">PAGE ${currentPage} OF ${totalPages}</span>
+        ${currentPage < totalPages ? `<a href="${buildUrl({ page: currentPage + 1 })}" class="px-4 py-2 border border-zinc-200 hover:border-black rounded transition-all">NEXT →</a>` : '<span class="px-4 py-2 border border-zinc-100 text-zinc-300 rounded cursor-default">NEXT →</span>'}
+      </div>
+      ` : ''}
+    </div>
+  `;
+
+  renderSubpage('Search Results', breadcrumbs, contentHtml, '/');
+
+  const sortEl = document.getElementById('search-sort-select');
+  if (sortEl) {
+    sortEl.addEventListener('change', (e) => {
+      sortBy = e.target.value;
+      navigateTo(buildUrl({ sort: sortBy }));
+    });
+  }
+
+  attachCardEvents();
+  const grid = document.getElementById('search-cars-grid');
+  if (grid) grid.classList.add('revealed');
 }
 
 function renderViewAllBrandsPage() {
@@ -4238,46 +4923,53 @@ function renderAllNewsPage() {
   const title = 'Latest EV News';
   const breadcrumbs = ['RESOURCES', 'LATEST NEWS'];
   
+  let articles = (newsCache && newsCache.length > 0) ? newsCache : NEWS_DATABASE;
   let newsHtml = '';
-  NEWS_DATABASE.forEach(article => {
-    newsHtml += `
-      <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] news-card">
-        <div>
-          <div class="h-28 bg-zinc-100/50 border border-zinc-150 flex items-center justify-center mb-4 text-zinc-500 font-mono text-[8px]">
-            IMAGE_PLACEHOLDER // ${article.id.toUpperCase()}
-          </div>
-          <div class="flex justify-between items-center text-[8px] text-zinc-500 font-mono mb-2">
-            <span>${article.topic.toUpperCase()}</span>
-            <span>${article.date.toUpperCase()}</span>
-          </div>
-          <h3 class="text-base font-bold leading-snug group-hover:text-zinc-700 transition-colors mb-2">${article.title}</h3>
-          <p class="text-[11px] text-zinc-650 leading-normal">${article.summary}</p>
-        </div>
-        <button class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors self-end btn-read-news-more" data-id="${article.id}">
-          Read More
-        </button>
-      </div>
-    `;
-  });
-  
-  const contentHtml = `
-    <div class="flex flex-col gap-6 pt-6">
-      <div>
-        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">JOURNAL INDEX / ${NEWS_DATABASE.length} DISPATCHES</span>
-        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Latest EV News Dispatches</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-        ${newsHtml}
-      </div>
-    </div>
-  `;
+  articles.forEach((article, index) => {
+    const id = article.id || 'news-api-' + index;
+    const topic = (article.category || article.topic || '').toUpperCase();
+    const date = formatNewsDate(article.published || article.date || '');
+    const summary = article.description || article.summary || '';
+    const externalUrl = article.url || '';
+    newsHtml +=
+      '<div class="border border-zinc-200 bg-white p-6 flex flex-col group hover:border-black hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] news-card rounded-xl">' +
+        '<div class="flex flex-col flex-1">' +
+          '<div class="aspect-[16/9] bg-zinc-50 border border-zinc-100 flex items-center justify-center mb-4 overflow-hidden rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">' +
+            getNewsImageHtml(article.image || '', article.title, index) +
+          '</div>' +
+          '<div class="flex justify-between items-center text-[8px] text-zinc-400 font-mono mb-2.5">' +
+            '<span class="bg-zinc-100 px-2 py-0.5 rounded">' + topic + '</span>' +
+            '<span>' + date.toUpperCase() + '</span>' +
+          '</div>' +
+          '<h3 class="text-[15px] font-bold leading-snug text-zinc-800 group-hover:text-black transition-colors mb-2 line-clamp-2">' + article.title + '</h3>' +
+          '<p class="text-[11px] text-zinc-500 leading-relaxed line-clamp-3 flex-1">' + summary + '</p>' +
+        '</div>' +
+        '<button class="font-mono text-[10px] tracking-wider text-zinc-400 hover:text-black transition-colors self-end mt-4 btn-read-news-more" data-id="' + id + '" data-url="' + externalUrl + '">Read More <span class="inline-block transition-transform group-hover:translate-x-0.5">\u2192</span></button>' +
+      '</div>';
+    });
+
+  const contentHtml =
+    '<div class="flex flex-col gap-6 pt-6">' +
+      '<div>' +
+        '<span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">JOURNAL INDEX / ' + articles.length + ' DISPATCHES</span>' +
+        '<h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Latest EV News Dispatches</h2>' +
+      '</div>' +
+      '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">' +
+        newsHtml +
+      '</div>' +
+    '</div>';
   
   renderSubpage(title, breadcrumbs, contentHtml, '/');
   
   document.querySelectorAll('.btn-read-news-more').forEach(btn => {
     btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-id');
-      navigateTo(`/news/${id}`);
+      const url = btn.getAttribute('data-url');
+      if (url) {
+        window.open(url, '_blank', 'noopener');
+      } else {
+        const id = btn.getAttribute('data-id');
+        navigateTo(`/news/${id}`);
+      }
     });
   });
 }
@@ -4286,22 +4978,193 @@ function renderNewsArticlePage(article) {
   const title = article.title;
   const breadcrumbs = ['RESOURCES', 'LATEST NEWS', 'ARTICLE'];
   
-  const contentHtml = `
-    <div class="max-w-3xl mx-auto flex flex-col gap-6 pt-6 font-mono text-zinc-800">
-      <div class="flex justify-between items-center text-[9px] text-zinc-500 uppercase tracking-widest border-b border-zinc-100 pb-2">
-        <span>${article.topic}</span>
-        <span>${article.date}</span>
+  const isApiArticle = !!article.url && !article.content;
+  
+  let contentHtml;
+  if (isApiArticle) {
+    const category = (article.category || '').toUpperCase();
+    const date = formatNewsDate(article.published || '');
+    const imageUrl = article.image || '';
+    const imageHtml = imageUrl
+      ? `<img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" />`
+      : `IMAGE_PLACEHOLDER`;
+    contentHtml = `
+      <div class="max-w-3xl mx-auto flex flex-col gap-6 pt-6 font-mono text-zinc-800">
+        <div class="flex justify-between items-center text-[9px] text-zinc-500 uppercase tracking-widest border-b border-zinc-100 pb-2">
+          <span>${category}</span>
+          <span>${date.toUpperCase()}</span>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-black text-black leading-tight">${article.title}</h1>
+        <div class="h-64 bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-400 text-xs select-none overflow-hidden">
+          ${imageHtml}
+        </div>
+        <p class="text-sm leading-relaxed text-zinc-700 font-semibold border-l-2 border-black pl-4 my-2">${article.description || ''}</p>
+        <div class="border-t border-zinc-100 pt-4 mt-2 flex justify-center">
+          <a href="${article.url}" target="_blank" rel="noopener" class="inline-block border border-black text-black px-8 py-3 text-xs font-mono tracking-widest uppercase hover:bg-black hover:text-white transition-all">Read Full Article &#8599;</a>
+        </div>
       </div>
-      <h1 class="text-2xl md:text-4xl font-black text-black leading-tight">${article.title}</h1>
-      <div class="h-64 bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-400 text-xs select-none">
-        IMAGE_PLACEHOLDER // ${article.id.toUpperCase()}
+    `;
+  } else {
+    contentHtml = `
+      <div class="max-w-3xl mx-auto flex flex-col gap-6 pt-6 font-mono text-zinc-800">
+        <div class="flex justify-between items-center text-[9px] text-zinc-500 uppercase tracking-widest border-b border-zinc-100 pb-2">
+          <span>${article.topic}</span>
+          <span>${article.date}</span>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-black text-black leading-tight">${article.title}</h1>
+        <div class="h-64 bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-400 text-xs select-none">
+          IMAGE_PLACEHOLDER // ${article.id ? article.id.toUpperCase() : ''}
+        </div>
+        <p class="text-sm leading-relaxed text-zinc-700 font-semibold border-l-2 border-black pl-4 my-2">${article.summary}</p>
+        <p class="text-sm leading-relaxed text-black mt-4">${article.content}</p>
       </div>
-      <p class="text-sm leading-relaxed text-zinc-700 font-semibold border-l-2 border-black pl-4 my-2">${article.summary}</p>
-      <p class="text-sm leading-relaxed text-black mt-4">${article.content}</p>
-    </div>
-  `;
+    `;
+  }
   
   renderSubpage(title, breadcrumbs, contentHtml, '/news/all');
+}
+
+function renderNewsPage() {
+  var allArticles = (newsCache && newsCache.length > 0) ? newsCache : NEWS_DATABASE;
+  var currentPage = 1;
+  var perPage = 9;
+  var searchTerm = '';
+  var activeFilter = 'all';
+
+  function getFilteredArticles() {
+    var list = allArticles.filter(function(a) {
+      if (activeFilter !== 'all' && a.category !== activeFilter) return false;
+      if (searchTerm) {
+        var q = searchTerm.toLowerCase();
+        var t = (a.title || '').toLowerCase();
+        var d = (a.description || '').toLowerCase();
+        if (t.indexOf(q) === -1 && d.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    return list;
+  }
+
+  function render() {
+    var filtered = getFilteredArticles();
+    var totalPages = Math.ceil(filtered.length / perPage) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    var start = (currentPage - 1) * perPage;
+    var pageItems = filtered.slice(start, start + perPage);
+
+    var cardsHtml = '';
+    pageItems.forEach(function(article, idx) {
+      var topic = (article.category || '').toUpperCase();
+      var date = formatNewsDate(article.published || '');
+      var id = 'news-page-' + start + '-' + idx;
+      cardsHtml +=
+        '<div class="border border-zinc-200 bg-white p-6 flex flex-col group hover:border-black hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] news-card rounded-xl">' +
+          '<div class="flex flex-col flex-1">' +
+            '<div class="aspect-[16/9] bg-zinc-50 border border-zinc-100 flex items-center justify-center mb-4 overflow-hidden rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">' +
+              getNewsImageHtml(article.image || '', article.title, start + idx) +
+            '</div>' +
+            '<div class="flex justify-between items-center text-[8px] text-zinc-400 font-mono mb-2.5">' +
+              '<span class="bg-zinc-100 px-2 py-0.5 rounded">' + topic + '</span>' +
+              '<span>' + (date ? date.toUpperCase() : '') + '</span>' +
+            '</div>' +
+            '<h3 class="text-[15px] font-bold leading-snug text-zinc-800 group-hover:text-black transition-colors mb-2 line-clamp-2">' + (article.title || '') + '</h3>' +
+            '<p class="text-[11px] text-zinc-500 leading-relaxed line-clamp-3 flex-1">' + (article.description || '') + '</p>' +
+          '</div>' +
+          '<button class="font-mono text-[10px] tracking-wider text-zinc-400 hover:text-black transition-colors self-end mt-4 btn-news-page-open" data-url="' + (article.url || '') + '">Read More <span class="inline-block transition-transform group-hover:translate-x-0.5">\u2192</span></button>' +
+        '</div>';
+    });
+
+    if (!cardsHtml) {
+      cardsHtml = '<div class="col-span-full text-center py-20"><p class="text-zinc-400 font-mono text-xs">No articles match your criteria.</p></div>';
+    }
+
+    var filterOptions = ['all', 'infrastructure', 'buying', 'latest'];
+    var filterLabels = { all: 'All', infrastructure: 'Infrastructure', buying: 'Buying & Launches', latest: 'Latest' };
+    var filterBtnsHtml = '';
+    filterOptions.forEach(function(f) {
+      var activeClass = f === activeFilter ? 'bg-black text-white border-black' : 'bg-white text-zinc-500 border-zinc-200 hover:border-zinc-400';
+      filterBtnsHtml += '<button class="px-4 py-2 text-[10px] font-mono tracking-wider uppercase border transition-all ' + activeClass + ' btn-news-filter" data-filter="' + f + '">' + filterLabels[f] + '</button>';
+    });
+
+    var paginationHtml = '';
+    if (totalPages > 1) {
+      paginationHtml += '<div class="flex items-center justify-center gap-3 mt-10 font-mono text-xs">';
+      paginationHtml += '<button class="px-4 py-2 border border-zinc-200 text-zinc-500 hover:border-black hover:text-black transition-all btn-news-page-prev" ' + (currentPage <= 1 ? 'disabled style="opacity:0.3;cursor:default;"' : '') + '>Previous</button>';
+      for (var p = 1; p <= totalPages; p++) {
+        var activeP = p === currentPage ? 'bg-black text-white border-black' : 'bg-white text-zinc-500 border-zinc-200 hover:border-zinc-400';
+        paginationHtml += '<button class="px-3 py-1.5 border transition-all ' + activeP + ' btn-news-page-num" data-page="' + p + '">' + p + '</button>';
+      }
+      paginationHtml += '<button class="px-4 py-2 border border-zinc-200 text-zinc-500 hover:border-black hover:text-black transition-all btn-news-page-next" ' + (currentPage >= totalPages ? 'disabled style="opacity:0.3;cursor:default;"' : '') + '>Next</button>';
+      paginationHtml += '</div>';
+    }
+
+    var contentHtml =
+      '<div class="flex flex-col gap-6 pt-6">' +
+        '<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">' +
+          '<div>' +
+            '<span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">JOURNAL / ' + filtered.length + ' ARTICLES</span>' +
+            '<h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">Latest EV News</h2>' +
+          '</div>' +
+          '<div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">' +
+            '<div class="flex flex-wrap gap-1.5">' + filterBtnsHtml + '</div>' +
+            '<input type="text" placeholder="Search news by title\u2026" class="border border-zinc-200 text-xs p-2 text-zinc-800 outline-none focus:border-black transition-all rounded-none bg-white min-w-[180px] font-mono" id="news-search-input" value="' + searchTerm + '" />' +
+          '</div>' +
+        '</div>' +
+        '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2" id="news-page-grid">' +
+          cardsHtml +
+        '</div>' +
+        paginationHtml +
+      '</div>';
+
+    renderSubpage('Latest EV News', ['RESOURCES', 'LATEST NEWS'], contentHtml, '/');
+
+    document.querySelectorAll('.btn-news-filter').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activeFilter = this.getAttribute('data-filter');
+        currentPage = 1;
+        render();
+      });
+    });
+
+    var searchInput = document.getElementById('news-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        searchTerm = this.value;
+        currentPage = 1;
+        render();
+      });
+    }
+
+    document.querySelectorAll('.btn-news-page-open').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var url = this.getAttribute('data-url');
+        if (url) window.open(url, '_blank', 'noopener');
+      });
+    });
+
+    document.querySelectorAll('.btn-news-page-num').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        currentPage = parseInt(this.getAttribute('data-page'), 10);
+        render();
+      });
+    });
+
+    var prevBtn = document.querySelector('.btn-news-page-prev');
+    if (prevBtn && !prevBtn.hasAttribute('disabled')) {
+      prevBtn.addEventListener('click', function() {
+        if (currentPage > 1) { currentPage--; render(); }
+      });
+    }
+
+    var nextBtn = document.querySelector('.btn-news-page-next');
+    if (nextBtn && !nextBtn.hasAttribute('disabled')) {
+      nextBtn.addEventListener('click', function() {
+        if (currentPage < totalPages) { currentPage++; render(); }
+      });
+    }
+  }
+
+  render();
 }
 
 function renderGuideArticlePage(chapter) {
@@ -4456,6 +5319,30 @@ function renderHubArticlePage(key) {
         { q: 'Is it dangerous if the bottom of my EV scrapes?', a: 'EVs have extremely tough armor plates protecting the battery, but severe impact should always be inspected by a professional.' }
       ]
     },
+    'apartment-charging': {
+      features: [
+        'RWA NOC Process: Formal application to society management with safety documentation and layout plans.',
+        'Dedicated Meter Installation: Separate electricity meter for the charger ensures accurate billing.',
+        'Weatherproof Enclosure: Outdoor-rated charging unit with IP55+ protection for parking area installation.',
+        'Load Assessment: Professional electrical audit to determine if your existing sanction load can support a 7.2 kW charger.',
+        'Smart Charger Compatibility: Wi-Fi enabled chargers with scheduling, usage tracking, and remote monitoring via mobile app.'
+      ],
+      benefits: [
+        'Convenient overnight charging at home eliminates dependency on public charging infrastructure.',
+        'Substantial cost savings — home charging at ₹6-9/kWh costs 85% less than petrol per kilometre.',
+        'Increases property value — homes with EV charging capability command higher resale value.',
+        'Shared charger models reduce per-unit installation costs in multi-parking layouts.',
+        'Government subsidies and tax benefits available for home EV charger installations.'
+      ],
+      faqs: [
+        { q: 'Can my RWA deny permission for EV charger installation?', a: 'Under the Electricity Act 2003 and relevant state regulations, RWAs cannot unreasonably refuse. They must respond within 15 days and can only deny on valid technical safety grounds.' },
+        { q: 'How much does it cost to install a home EV charger?', a: 'A standard 7.2 kW AC wallbox installation costs ₹15,000-40,000 including the charger unit, MCB, cabling, and labour. Many manufacturers offer free installation with new EV purchases.' },
+        { q: 'Do I need to upgrade my electricity meter?', a: 'Most homes with a 15-30A sanctioned load can support a 7.2 kW charger. If your load is below 15A, you may need to request a load increase from your electricity distribution company (₹2,000-5,000).' },
+        { q: 'Can I share a charger with neighbours in my apartment?', a: 'Yes, shared charger models are becoming popular in apartment complexes. A single 7.2 kW unit can be split between 2-3 parking spots with scheduled access via a mobile app or RFID cards.' },
+        { q: 'Is it safe to install a charger in an open parking area?', a: 'Yes, modern EV chargers are built with IP55+ weatherproof ratings, making them safe for outdoor installation. Ensure the unit is mounted on a sturdy pole or wall with proper cable management.' }
+      ],
+      extendedHtml: `<h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">What is Apartment EV Charging?</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">Apartment EV charging refers to the process of installing and operating electric vehicle charging stations within multi-owner residential complexes such as apartments, housing societies, and gated communities. Unlike standalone homes where the owner has full control over electrical infrastructure, apartment charging requires coordination with the Resident Welfare Association (RWA), building management, and often the local electricity distribution company.</p><div class="border-l-2 border-black pl-4 my-5 bg-zinc-50/50 py-3 pr-2 rounded-r-lg"><span class="text-zinc-500 font-bold uppercase text-[9px] tracking-wider block mb-1">💡 Key Insight</span><p class="text-xs leading-relaxed text-zinc-700 italic font-medium">Over 65% of urban Indian households live in apartments or gated communities. Accessible home charging is therefore one of the most critical factors for mass EV adoption in India.</p></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Why Charging in Apartments is Different</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">Charging an EV in an apartment building presents unique challenges that do not apply to independent homes:</p><ul class="space-y-2 text-xs font-mono mb-4"><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Shared Electrical Infrastructure:</strong> The building\'s main electrical panel and meter may not have spare capacity for additional high-power loads.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Common Parking Areas:</strong> Parking spots are often designated but not directly connected to individual flat meters, requiring sub-metering solutions.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>RWA Approvals:</strong> Any structural or electrical modification to common areas requires formal approval from the building\'s managing committee.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Cable Routing:</strong> Running wiring from individual meter boxes to basement or ground-floor parking spots often requires cable trays, conduits, or trenching.</span></li></ul><div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6"><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🏢</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">High-Rise Apartments</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Typically have basement parking with existing electrical infrastructure. Cable routing from upper floors to basement is the main challenge. Requires vertical cable trays or dedicated conduits.</p></div><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🏘️</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Walk-Up Buildings</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Usually 3-5 storeys with open or ground-floor parking. Easier cable routing but may lack dedicated parking spots. Meter boxes are often on ground floor, simplifying connections.</p></div><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🌳</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Gated Communities</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Large developments with individual villas/townhouses and common amenities. Each unit may have its own meter, making installation straightforward. RWA manages common area charger installations.</p></div><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🏗️</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">New Constructions</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Increasingly include EV charging readiness as a standard feature. Pre-wired conduits, dedicated meter slots, and charger-ready parking spots reduce installation complexity significantly.</p></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Society Approval & NOC Process</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">The Resident Welfare Association (RWA) or apartment managing committee is the first point of contact for EV charger installation. Under the Electricity Act 2003 and various state electricity regulatory commission guidelines, RWAs are required to facilitate EV charger installations and cannot unreasonably deny permission.</p><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5 my-5"><span class="font-bold text-[10px] uppercase tracking-wide block mb-3">📋 Step-by-Step NOC Process</span><ol class="space-y-2.5 text-xs font-mono"><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">1</span><div><strong>Submit Formal Application:</strong> Write a letter to the RWA secretary requesting permission for EV charger installation at your designated parking spot. Include your vehicle details, proposed charger specifications, and installer credentials.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">2</span><div><strong>Provide Layout Plan:</strong> Attach a simple diagram showing the wiring route from your meter box to the parking spot, the charger mounting location, and planned safety measures.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">3</span><div><strong>Safety Documentation:</strong> Include the electrician\'s safety certificate, charger BIS certification, and a commitment to follow all electrical safety standards.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">4</span><div><strong>Metering Proposal:</strong> Confirm that the charger will have a dedicated sub-meter (or be connected to your existing flat meter) so electricity costs are billed to you, not the society.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">5</span><div><strong>Follow Up:</strong> The RWA must respond within 15 days as per most state regulations. If permission is not granted within this period, you may escalate to the local electricity regulatory commission.</div></li></ol></div><div class="border border-zinc-200 bg-emerald-50/40 rounded-xl p-5 my-6 border-l-4 border-l-emerald-500"><div class="flex items-start gap-3"><span class="text-lg flex-shrink-0 mt-0.5">✅</span><div><span class="font-bold text-xs uppercase tracking-wide block mb-1">Pro Tip: RWA Presentation</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Prepare a short presentation for your RWA meeting that covers safety features, installation timeline, and the legal framework supporting EV charger installation. Many RWAs are more receptive when they understand the regulations and safety standards involved.</p></div></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Private Charger Installation</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">Once RWA approval is secured, the actual installation process involves several technical steps. A standard 7.2 kW AC wallbox is the most common choice for apartment charging, offering a full charge in 4-6 hours overnight.</p><div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-5"><div class="border border-zinc-200 rounded-xl p-4 bg-white"><span class="text-lg block mb-2">🔌</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Charger Unit</span><p class="text-[10px] text-zinc-600 font-mono leading-relaxed">7.2 kW AC wallbox with Type 2 socket, IP55 weatherproof rating, and smart features (Wi-Fi, scheduling, app control).</p></div><div class="border border-zinc-200 rounded-xl p-4 bg-white"><span class="text-lg block mb-2">⚡</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Electrical Work</span><p class="text-[10px] text-zinc-600 font-mono leading-relaxed">Dedicated 40A MCB, 6 sq mm armoured cable from meter box to charger, proper earthing (earth resistance below 1 ohm).</p></div><div class="border border-zinc-200 rounded-xl p-4 bg-white"><span class="text-lg block mb-2">📡</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Smart Metering</span><p class="text-[10px] text-zinc-600 font-mono leading-relaxed">Individual sub-meter for accurate billing. Wi-Fi connectivity for remote monitoring, usage tracking, and charge scheduling.</p></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Shared Charging Solutions</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">For apartment complexes where multiple residents own EVs, shared charging solutions offer significant cost advantages. A single 7.2 kW or 22 kW charger can serve 2-4 parking spots through scheduled access or load-sharing technology.</p><ul class="space-y-2 text-xs font-mono mb-4"><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Load Sharing:</strong> Two chargers connected to a single circuit that intelligently splits available power between vehicles. When one car finishes charging, the other gets full power.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>RFID Access Control:</strong> Each resident gets an RFID tag that activates the charger and bills their individual account. Usage logs prevent disputes.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>App-Based Scheduling:</strong> Residents book charging slots through a mobile app. The system automatically releases the slot if the resident doesn\'t plug in within 30 minutes.</span></li></ul><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Cost Breakdown</h3><div class="overflow-x-auto my-5"><table class="w-full text-[10px] font-mono border-collapse"><thead><tr class="border-b border-zinc-200"><th class="text-left py-2 px-3 font-bold uppercase tracking-wider text-zinc-600">Item</th><th class="text-left py-2 px-3 font-bold uppercase tracking-wider text-zinc-600">Estimated Cost (₹)</th></tr></thead><tbody><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">7.2 kW AC Wallbox Charger</td><td class="py-2 px-3 text-zinc-700">8,000 - 25,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Electrical Cabling & MCB</td><td class="py-2 px-3 text-zinc-700">3,000 - 8,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Installation Labour</td><td class="py-2 px-3 text-zinc-700">2,000 - 5,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Sub-Meter Installation</td><td class="py-2 px-3 text-zinc-700">1,500 - 3,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Load Increase (if needed)</td><td class="py-2 px-3 text-zinc-700">2,000 - 5,000</td></tr><tr class="bg-zinc-50"><td class="py-2 px-3 font-bold text-zinc-800">Total (Typical)</td><td class="py-2 px-3 font-bold text-zinc-800">₹15,000 - ₹40,000</td></tr></tbody></table></div><div class="border border-zinc-200 bg-amber-50/40 rounded-xl p-5 my-6 border-l-4 border-l-amber-500"><div class="flex items-start gap-3"><span class="text-lg flex-shrink-0 mt-0.5">⚠️</span><div><span class="font-bold text-xs uppercase tracking-wide block mb-1">Common Installation Mistakes</span><ul class="space-y-1 text-[11px] text-zinc-600 font-mono"><li>• Using undersized cabling — always use 6 sq mm minimum for 7.2 kW installations</li><li>• Skipping earth leakage protection — mandatory for outdoor EV charger installations</li><li>• Not checking load capacity — overloading the building\'s main panel can cause tripping</li><li>• Poor cable management — exposed cables are a tripping hazard and degrade in sunlight</li></ul></div></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Government Guidelines & Support</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">The Government of India has implemented several measures to facilitate apartment EV charging:</p><ul class="space-y-2 text-xs font-mono mb-4"><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Electricity Act 2003:</strong> RWAs and apartment management associations are obligated to facilitate EV charger installations and cannot deny permission without valid technical reasons.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>FAME III Subsidy:</strong> Central government provides subsidies for EV charging infrastructure, including home chargers in apartment complexes.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>State EV Policies:</strong> Many states offer additional incentives, including subsidized electricity tariffs for EV charging during off-peak hours and reduced connection charges.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Bureau of Indian Standards:</strong> All EV chargers must comply with IS 17017 safety standards. Always verify BIS certification before purchasing a charger.</span></li></ul><div class="key-takeaways-card"><div class="key-takeaways-title">✅ Pre-Installation Checklist</div><ul class="key-takeaways-list space-y-2 text-xs font-mono"><li>✓ Confirm parking spot ownership or long-term allocation</li><li>✓ Check existing electrical sanction load (minimum 15A recommended)</li><li>✓ Submit formal RWA application with safety documentation</li><li>✓ Obtain written NOC from managing committee</li><li>✓ Engage a licensed electrician for site survey</li><li>✓ Choose BIS-certified charger with appropriate IP rating</li><li>✓ Plan cable routing path (minimise exposed wiring)</li><li>✓ Arrange for dedicated sub-meter installation</li><li>✓ Verify earth resistance (below 1 ohm)</li><li>✓ Test charger operation before closing installation</li></ul></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-6 my-6"><div class="flex items-start gap-4"><span class="text-2xl flex-shrink-0">📋</span><div><span class="font-bold text-sm uppercase tracking-wide block mb-2">Conclusion</span><p class="text-xs text-zinc-600 leading-relaxed font-mono">Installing an EV charger in an apartment requires careful planning, proper approvals, and attention to electrical safety standards. However, with supportive government regulations, decreasing charger costs, and the immense convenience of home charging, the effort is well worth it. By following the guidelines outlined in this article — from NOC application to installation best practices — you can successfully set up reliable, safe, and cost-effective EV charging at your apartment.</p></div></div></div>`
+    },
     'battery-health': {
       features: [
         'SOH (State of Health): Percentage representing current battery capacity relative to new.',
@@ -4534,12 +5421,12 @@ function renderHubArticlePage(key) {
   let faqsHtml = '';
   details.faqs.forEach(faq => {
     faqsHtml += `
-      <div class="accordion-item border border-zinc-200 bg-white rounded-xl p-4 flex flex-col gap-2">
-        <button class="w-full text-left font-bold text-xs uppercase tracking-wider text-black font-mono flex items-center justify-between">
+      <div class="accordion-item border border-zinc-200 bg-white rounded-xl overflow-hidden">
+        <button class="accordion-btn w-full text-left font-bold text-xs uppercase tracking-wider text-black font-mono flex items-center justify-between p-4 hover:bg-zinc-50 transition-colors">
           <span>${faq.q}</span>
-          <span class="text-zinc-400 font-mono">+</span>
+          <span class="accordion-icon text-zinc-400 font-mono text-base">+</span>
         </button>
-        <p class="text-[11px] text-zinc-650 leading-relaxed font-mono mt-1 pt-2 border-t border-zinc-100">${faq.a}</p>
+        <div class="accordion-content"><div class="px-4 pb-4"><div class="pt-3 border-t border-zinc-100"><p class="text-[11px] text-zinc-650 leading-relaxed font-mono">${faq.a}</p></div></div></div>
       </div>
     `;
   });
@@ -4587,10 +5474,14 @@ function renderHubArticlePage(key) {
           ${faqsHtml}
         </div>
       </div>
+      ${details.extendedHtml || ''}
     </div>
   `;
   
   renderSubpage(title, breadcrumbs, contentHtml, '/');
+  if (typeof initAccordion === 'function') {
+    setTimeout(initAccordion, 50);
+  }
 }
 
 function renderExpertReviewsPage() {
@@ -4831,30 +5722,202 @@ function renderInsightArticlePage(categoryKey, article) {
   renderSubpage(article.title, breadcrumbs, contentHtml, `/insights/${categoryKey}`);
 }
 
+let blogsCache = null;
+let blogsSearchQuery = '';
+
 function renderAllBlogsPage() {
   const title = 'Blogs';
   const breadcrumbs = ['BLOGS'];
   const contentHtml = `
     <div class="flex flex-col gap-6 pt-6">
-      <div>
-        <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">INSIGHTS / ${BLOG_DATABASE.length} ARTICLES</span>
-        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">EV Blogs</h2>
-        <p class="text-xs text-zinc-500 font-mono mt-1">In-depth articles, stories, and perspectives from the EV world.</p>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest" id="blogs-count-label">INSIGHTS / LOADING...</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-black mt-1">EV Blogs</h2>
+          <p class="text-xs text-zinc-500 font-mono mt-1">In-depth articles, stories, and perspectives from the EV world.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-64">
+            <input type="text" id="blogs-search-input" placeholder="Search blogs..." class="w-full px-4 py-2 font-mono text-[10px] border border-zinc-200 focus:border-black outline-none transition-all rounded-lg" style="border-radius:20px" />
+            <button id="btn-clear-blogs-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-black font-mono text-[10px]">CLEAR</button>
+          </div>
+        </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
-        ${BLOG_DATABASE.map(blog => `
-          <a href="/blog/${blog.slug}" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all p-6 flex flex-col gap-3 group rounded-xl" style="border-radius:18px">
-            <div>
-              <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-800 group-hover:text-black">${blog.title}</h3>
-              <p class="font-mono text-[9px] text-zinc-500 mt-0.5">${blog.excerpt}</p>
-              <span class="font-mono text-[8px] text-zinc-400 mt-1 block">${blog.date} · ${blog.author}</span>
-            </div>
-          </a>
-        `).join('')}
+
+      <div id="blogs-grid" class="flex flex-col gap-4 mt-2">
+        <div class="border border-zinc-200 bg-white p-5 rounded-xl skeleton-card flex flex-col gap-3">
+          <div class="h-3 bg-zinc-100 rounded w-16 animate-pulse"></div>
+          <div class="h-5 bg-zinc-100 rounded w-3/4 animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-full animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-2/3 animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-24 animate-pulse mt-1"></div>
+        </div>
+        <div class="border border-zinc-200 bg-white p-5 rounded-xl skeleton-card flex flex-col gap-3">
+          <div class="h-3 bg-zinc-100 rounded w-16 animate-pulse"></div>
+          <div class="h-5 bg-zinc-100 rounded w-3/4 animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-full animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-2/3 animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-24 animate-pulse mt-1"></div>
+        </div>
+        <div class="border border-zinc-200 bg-white p-5 rounded-xl skeleton-card flex flex-col gap-3">
+          <div class="h-3 bg-zinc-100 rounded w-16 animate-pulse"></div>
+          <div class="h-5 bg-zinc-100 rounded w-3/4 animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-full animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-2/3 animate-pulse"></div>
+          <div class="h-3 bg-zinc-100 rounded w-24 animate-pulse mt-1"></div>
+        </div>
       </div>
     </div>
   `;
   renderSubpage(title, breadcrumbs, contentHtml, '/');
+  loadBlogsData();
+}
+
+async function loadBlogsData() {
+  const grid = document.getElementById('blogs-grid');
+  const countLabel = document.getElementById('blogs-count-label');
+  const searchInput = document.getElementById('blogs-search-input');
+  const clearBtn = document.getElementById('btn-clear-blogs-search');
+
+  if (!grid) { console.debug('[Blogs] grid element not found'); return; }
+  console.debug('[Blogs] grid element found, loading data...');
+
+  // Restore search query value to input if it exists
+  if (searchInput) {
+    searchInput.value = blogsSearchQuery;
+    if (blogsSearchQuery) {
+      if (clearBtn) clearBtn.classList.remove('hidden');
+    }
+  }
+
+  try {
+    if (!blogsCache) {
+      console.debug('[Blogs] Fetching from /api/blogs...');
+      const response = await fetch('/api/blogs');
+      if (!response.ok) throw new Error('Failed to fetch blogs');
+      const resData = await response.json();
+      console.debug('[Blogs] API response:', { success: resData.success, count: resData.count, isArray: Array.isArray(resData.data) });
+      if (resData.success && Array.isArray(resData.data)) {
+        blogsCache = resData.data;
+        console.debug('[Blogs] blogsCache populated with', blogsCache.length, 'blogs');
+      } else {
+        throw new Error(resData.error || 'Invalid data structure');
+      }
+    }
+
+    displayBlogs();
+
+  } catch (err) {
+    console.error('[Blogs] Error loading blogs:', err);
+    if (grid) {
+      grid.innerHTML = `
+        <div class="py-20 text-center flex flex-col items-center gap-4">
+          <p class="font-mono text-xs text-red-500">Failed to load EV Blogs. Please check your connection.</p>
+          <button id="btn-retry-blogs" class="px-5 py-2.5 border border-black font-mono text-[9px] uppercase tracking-widest hover:bg-black hover:text-white transition-all">Retry Loading</button>
+        </div>
+      `;
+      const retryBtn = document.getElementById('btn-retry-blogs');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', () => {
+          blogsCache = null;
+          renderAllBlogsPage();
+        });
+      }
+    }
+  }
+
+  // Wire search events
+  if (searchInput) {
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+      blogsSearchQuery = e.target.value;
+      if (clearBtn) {
+        if (blogsSearchQuery) {
+          clearBtn.classList.remove('hidden');
+        } else {
+          clearBtn.classList.add('hidden');
+        }
+      }
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        displayBlogs();
+      }, 300);
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      blogsSearchQuery = '';
+      if (searchInput) searchInput.value = '';
+      clearBtn.classList.add('hidden');
+      displayBlogs();
+    });
+  }
+
+  function displayBlogs() {
+    if (!blogsCache || !grid) {
+      console.debug('[Blogs] displayBlogs skipped:', { blogsCache: !!blogsCache, grid: !!grid });
+      return;
+    }
+
+    console.debug('[Blogs] displayBlogs running, blogsCache length:', blogsCache.length, 'search:', blogsSearchQuery);
+
+    let filtered = [...blogsCache];
+    if (blogsSearchQuery) {
+      const q = blogsSearchQuery.toLowerCase();
+      filtered = filtered.filter(blog => {
+        const title = (blog.title || '').toLowerCase();
+        const summary = (blog.summary || '').toLowerCase();
+        const source = (blog.source || '').toLowerCase();
+        const author = (blog.author || '').toLowerCase();
+        return title.includes(q) || summary.includes(q) || source.includes(q) || author.includes(q);
+      });
+    }
+    console.debug('[Blogs] filtered length:', filtered.length);
+
+    if (countLabel) {
+      countLabel.textContent = `INSIGHTS / ${filtered.length} ARTICLES`;
+    }
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="py-20 text-center font-mono text-xs text-zinc-500">
+          No articles found matching "${blogsSearchQuery}".
+        </div>
+      `;
+      return;
+    }
+
+    var cardsHtml = filtered.map((blog, idx) => `
+      <div class="border border-zinc-200 bg-white p-5 flex flex-col gap-2.5 group hover:border-black hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all shadow-[0_1px_6px_rgba(0,0,0,0.03)] rounded-xl stagger-card btn-blog-card-click" data-index="${idx}">
+        <div class="flex items-center gap-3 text-[9px] text-zinc-400 font-mono">
+          <span class="bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded uppercase tracking-wider">${(blog.source || 'EV UPDATE').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+          <span>${((blog.date || '').toUpperCase())}</span>
+        </div>
+        <h3 class="text-[15px] font-bold leading-snug text-zinc-800 group-hover:text-black transition-colors">${(blog.title || 'Untitled EV Article').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h3>
+        <p class="text-[12px] text-zinc-500 leading-relaxed line-clamp-2">${(blog.summary || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+        <div class="flex items-center justify-between mt-1 pt-2.5 border-t border-zinc-100">
+          <span class="text-[8px] text-zinc-400 font-mono">BY ${(blog.author || 'EV CAR WALE').toUpperCase().replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+          <button class="font-mono text-[9px] uppercase tracking-wider text-[#22C55E] group-hover:text-black transition-colors flex items-center gap-1 select-none">
+            READ BLOG <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+          </button>
+        </div>
+      </div>
+    `).join('');
+    grid.innerHTML = cardsHtml;
+    grid.classList.add('revealed');
+    console.debug('[Blogs] cards rendered:', filtered.length);
+
+    grid.querySelectorAll('.btn-blog-card-click').forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-index'), 10);
+        const blog = filtered[idx];
+        if (blog && blog.link) {
+          window.open(blog.link, '_blank', 'noopener');
+        }
+      });
+    });
+  }
 }
 
 function renderAllInsightsPage() {
@@ -4909,6 +5972,7 @@ function renderLearnArticlePage(slug, article) {
     'lfp-vs-nmc',
     'ac-vs-dc',
     'v2l',
+    'apartment-charging',
     'battery-health',
     'regenerative-braking',
     'highway-charging',
@@ -4948,25 +6012,20 @@ function renderLearnArticlePage(slug, article) {
   }
 
   const breadcrumbs = ['LEARN', article.title];
+  const isBatteryHealth = (slug === 'battery-health');
   const contentHtml = `
     <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
       <!-- Breadcrumb -->
       <a href="/#knowledge-hub" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Learn Electric Vehicles</a>
 
-      <!-- Hero / Image Placeholder -->
-      <div class="w-full h-48 md:h-64 bg-gradient-to-br from-zinc-100 via-zinc-50 to-white border border-zinc-200 rounded-xl flex items-center justify-center overflow-hidden">
-        <div class="text-center">
-          <span class="text-5xl opacity-20 block">⚡</span>
-          <span class="font-mono text-[8px] text-zinc-300 uppercase tracking-widest mt-2 block">${article.title}</span>
-        </div>
-      </div>
-
+      ${isBatteryHealth ? '' : `
       <!-- Title & Intro -->
       <div>
         <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">LEARN / ${article.title}</span>
         <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
         <p class="text-xs text-zinc-500 font-mono mt-2 leading-relaxed">${keyPoints.length > 0 ? keyPoints.slice(0, 2).join(' — ') : 'Detailed educational content about ' + article.title + '.'}</p>
       </div>
+      `}
 
       <!-- Key Points / Highlights -->
       ${keyPoints.length > 0 ? `
@@ -5032,6 +6091,51 @@ function renderLearnArticlePage(slug, article) {
     </div>
   `;
   renderSubpage(article.title, breadcrumbs, contentHtml, '/');
+  if (typeof initAccordion === 'function') {
+    setTimeout(initAccordion, 50);
+  }
+}
+
+function initAccordion() {
+  document.querySelectorAll('.accordion-item').forEach(item => {
+    const btn = item.querySelector('.accordion-btn');
+    const content = item.querySelector('.accordion-content');
+    if (!btn || !content) return;
+    content.style.maxHeight = '0';
+    content.style.overflow = 'hidden';
+    content.style.transition = 'max-height 0.3s ease';
+    btn.setAttribute('role', 'button');
+    btn.setAttribute('tabindex', '0');
+    function toggleAccordion() {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.accordion-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.accordion-content').style.maxHeight = '0';
+          const icon = openItem.querySelector('.accordion-icon');
+          if (icon) icon.textContent = '+';
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('open');
+        content.style.maxHeight = '0';
+        const icon = btn.querySelector('.accordion-icon');
+        if (icon) icon.textContent = '+';
+      } else {
+        item.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        const icon = btn.querySelector('.accordion-icon');
+        if (icon) icon.textContent = '−';
+      }
+    }
+    btn.addEventListener('click', toggleAccordion);
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleAccordion();
+      }
+    });
+  });
 }
 
 // --- Login Page ---
@@ -5070,7 +6174,7 @@ function renderLoginPage() {
       <div class="w-full max-w-5xl h-full max-h-[640px] grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-200 bg-white shadow-[0_24px_48px_-12px_rgba(0,0,0,0.08)] relative">
         <!-- Left: Image -->
         <div class="hidden md:block relative h-full overflow-hidden">
-          <img src="login_illustration.png" alt="EV Car Wale" class="w-full h-full absolute inset-0 object-cover">
+          <img src="/login_illustration.png" alt="EV Car Wale" class="w-full h-full absolute inset-0 object-cover">
         </div>
         <!-- Right: Form -->
         <div class="p-8 md:p-12 flex flex-col justify-center relative overflow-y-auto h-full">
@@ -5339,7 +6443,7 @@ function updateAuthUI(user) {
               <p class="font-sans text-[11px] font-bold text-zinc-900 truncate">${user.name}</p>
               <p class="font-mono text-[8px] text-zinc-400 truncate uppercase">${user.email}</p>
             </div>
-            <a href="profile.html" class="block px-4 py-2 text-[10px] font-mono text-zinc-700 hover:bg-zinc-50 hover:text-black uppercase">My Profile</a>
+            <a href="/profile.html" class="block px-4 py-2 text-[10px] font-mono text-zinc-700 hover:bg-zinc-50 hover:text-black uppercase">My Profile</a>
             <a href="javascript:void(0)" onclick="window.performLogout(event)" class="block px-4 py-2 text-[10px] font-mono text-red-600 hover:bg-zinc-50 uppercase border-t border-zinc-100 mt-1">Logout</a>
           </div>
         </div>
@@ -5653,6 +6757,14 @@ function renderBlogArticlePage(article) {
 async function renderCarDetailsPage(car) {
   currentDetailsCarId = car.id;
   addToRecentlyViewed(car.id);
+  // Track activity for Profile -> My Activity
+  try {
+    var act = JSON.parse(localStorage.getItem('ev_activity') || '[]');
+    act = act.filter(function(e) { return e.id !== car.id; });
+    act.unshift({ id: car.id, time: new Date().toISOString() });
+    if (act.length > 10) act = act.slice(0, 10);
+    localStorage.setItem('ev_activity', JSON.stringify(act));
+  } catch (e) {}
   let colorsList = [];
   try {
     const res = await fetch(`/api/car-images/list?brand=${car.brand}&model=${car.name}`);
@@ -5709,18 +6821,30 @@ async function renderCarDetailsPage(car) {
       </option>
     `).join('');
     relatedCars.forEach(c => {
+      const imgUrl = getS3ImageUrl(c.image);
       relatedHtml += `
-        <div class="border border-zinc-200 bg-white p-5 flex flex-col justify-between h-[360px] group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] related-card">
-            ${renderCarImage(getS3ImageUrl(c.image), c.name)}
+        <div class="border border-zinc-200 bg-white rounded-xl overflow-hidden flex flex-col">
+          <div class="h-40 bg-white flex items-center justify-center p-4 border-b border-zinc-100">
+            <img src="${imgUrl}" alt="${c.name}" class="w-full h-full object-contain" onerror="this.src='/car_outline.jpg'">
           </div>
-          <div>
-            <span class="font-mono text-[8px] text-zinc-500 uppercase">${getBrandDisplay(c.brand)}</span>
-            <h4 class="font-bold text-xs text-black mt-0.5">${c.name}</h4>
-            <span class="font-mono text-[10px] text-zinc-650 block mt-1">${c.price}</span>
+          <div class="flex flex-col flex-1 p-4">
+            <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">${getBrandDisplay(c.brand)}</span>
+            <div class="flex items-center justify-between mt-1">
+              <h4 class="font-bold text-sm text-black">${c.name}</h4>
+              <span class="font-mono text-[11px] text-zinc-700 font-semibold">${c.price}</span>
+            </div>
+            <div class="flex items-center gap-2 mt-2 text-[9px] font-mono text-zinc-500">
+              <span>${c.range || ''}</span>
+              <span class="text-zinc-300">|</span>
+              <span>${c.battery || ''}</span>
+              <span class="text-zinc-300">|</span>
+              <span>${c.charging || ''}</span>
+            </div>
+            <p class="text-[10px] text-zinc-500 mt-2 leading-relaxed flex-1">${c.features ? c.features.split(',').slice(0,2).join(', ') : ''}</p>
+            <button class="w-full mt-3 py-2.5 border border-zinc-200 hover:bg-black hover:text-white hover:border-black text-[9px] font-mono tracking-widest uppercase transition-colors rounded-lg" data-id="${c.id}" data-related-view>
+              VIEW DETAILS
+            </button>
           </div>
-          <button class="w-full mt-3 py-2 border border-zinc-200 hover:border-black text-[9px] font-mono tracking-widest uppercase transition-colors btn-related-view" data-id="${c.id}">
-            VIEW DETAILS
-          </button>
         </div>
       `;
     });
@@ -6565,7 +7689,7 @@ async function renderCarDetailsPage(car) {
     }
 
     // Related cards View Details click
-    document.querySelectorAll('.btn-related-view').forEach(btn => {
+    document.querySelectorAll('[data-related-view]').forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-id');
         navigateTo(`/cars/${targetId}`);
@@ -7575,66 +8699,6 @@ function initWhyEVAccordion() {
   }
 }
 
-function renderEVGallery() {
-  const container = document.getElementById('gallery-viewport');
-  if (!container) return;
-  container.innerHTML = '';
-  
-  // Get cars belonging to the explore section
-  let cars = EV_DATABASE.filter(car => car.sections && car.sections.includes('explore'));
-  if (cars.length < 5) {
-    const fallbackCars = EV_DATABASE.filter(car => !cars.some(c => c.id === car.id) && car.sections && (car.sections.includes('popular') || car.sections.includes('launches')));
-    cars = cars.concat(fallbackCars).slice(0, 6);
-  }
-  cars.forEach(car => {
-    const card = document.createElement('div');
-    card.className = 'gallery-card border border-zinc-150 bg-zinc-50/50 p-5 flex flex-col justify-between h-[360px] rounded-xl hover:border-black transition-all hover:scale-[1.01] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer snap-start group';
-    card.innerHTML = `
-      <div class="flex flex-col gap-3">
-          ${renderCarImage(getS3ImageUrl(car.image), car.name)}
-        </div>
-        <div class="text-left font-mono">
-          <span class="text-[9px] text-zinc-400 uppercase tracking-widest block">${getBrandDisplay(car.brand)}</span>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-black mt-1">${car.name}</h3>
-          <p class="text-[10px] text-zinc-500 mt-2 flex flex-col gap-1 border-t border-zinc-100 pt-2">
-            <span>RANGE: <strong>${car.range}</strong></span>
-            <span>BATTERY: <strong>${car.battery}</strong></span>
-            <span>PRICE: <strong>${car.price}</strong></span>
-          </p>
-        </div>
-      </div>
-      <button class="w-full py-2 bg-black hover:bg-zinc-800 text-white font-mono text-[9px] uppercase tracking-widest transition-colors mt-4 opacity-80 group-hover:opacity-100">
-        Quick View
-      </button>
-    `;
-    
-    // Handle click anywhere on card or quick view button
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-      navigateTo(`/cars/${car.id}`);
-    });
-    
-    container.appendChild(card);
-  });
-  
-  // Bind scroll controls
-  const btnPrev = document.getElementById('gallery-prev');
-  const btnNext = document.getElementById('gallery-next');
-  if (btnPrev && btnNext) {
-    // Clean old listeners to prevent stacking
-    const newPrev = btnPrev.cloneNode(true);
-    const newNext = btnNext.cloneNode(true);
-    btnPrev.parentNode.replaceChild(newPrev, btnPrev);
-    btnNext.parentNode.replaceChild(newNext, btnNext);
-    
-    newPrev.addEventListener('click', () => {
-      container.scrollBy({ left: -300, behavior: 'smooth' });
-    });
-    newNext.addEventListener('click', () => {
-      container.scrollBy({ left: 300, behavior: 'smooth' });
-    });
-  }
-}
 
 const guideExplanations = {
   'home-charging': {
@@ -7700,6 +8764,11 @@ const hubExplanations = {
     explanation: 'V2L is a feature that allows your EV to act as a mobile power bank. It provides 230V AC power from the charging port, letting you plug in and run standard home appliances (up to 3kW+) like laptops, power tools, electric kettles, or even charge another electric vehicle.',
     analogy: 'V2L turns your electric car into a heavy-duty portable generator that can power your campsite or your house during a blackout.'
   },
+  'apartment-charging': {
+    title: 'Apartment Complex Charging',
+    explanation: 'Securing a charger in a multi-owner residential block (apartment/society) requires coordination with the Resident Welfare Association (RWA) or building manager. Under current norms in many states, RWAs must provide a No Objection Certificate (NOC) for installing EV chargers at individual designated parking spots. The installation requires a dedicated meter, proper earthing, and a weatherproof enclosure for the charging unit.',
+    analogy: 'Installing a charger in an apartment is like getting permission to add a dedicated split air conditioner line; it requires building safety clearance and wiring checks.'
+  },
   'clearance': {
     title: 'EV Ground Clearance Challenges',
     explanation: 'Ground clearance is the distance between the lowest point of the vehicle chassis and the road. EVs often have lower ground clearance due to the floor-mounted battery pack. In India, a ground clearance of 170-190mm is ideal to protect the battery casing from high speed breakers and water-logged roads.',
@@ -7728,7 +8797,12 @@ function initEducationalModals() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const guideId = btn.getAttribute('data-guide-id');
-      navigateTo('/learn/' + guideId);
+      const resolvedSlug = LEARN_SLUG_ALIASES[guideId] || guideId;
+      if (LEARN_DATABASE[resolvedSlug]) {
+        navigateTo('/learn/' + guideId);
+      } else {
+        navigateTo('/hub/' + guideId);
+      }
     });
   });
   
@@ -7737,13 +8811,17 @@ function initEducationalModals() {
     card.addEventListener('click', (e) => {
       e.preventDefault();
       const hubKey = card.getAttribute('data-hub-key');
-      navigateTo('/learn/' + hubKey);
+      const resolvedSlug = LEARN_SLUG_ALIASES[hubKey] || hubKey;
+      if (LEARN_DATABASE[resolvedSlug]) {
+        navigateTo('/learn/' + hubKey);
+      } else {
+        navigateTo('/hub/' + hubKey);
+      }
     });
   });
 }
 
 function initRevealObservers() {
-  // Observers for reveal-on-scroll elements
   const revealElements = document.querySelectorAll('.reveal-on-scroll');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -7751,13 +8829,9 @@ function initRevealObservers() {
         entry.target.classList.add('reveal-active');
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
-  
-  // Staggered reveals for battery care cards
+
   const batteryCards = document.querySelectorAll('.battery-tip-card');
   const batteryObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -7772,23 +8846,17 @@ function initRevealObservers() {
   }, { threshold: 0.1 });
   const batteryGrid = document.getElementById('battery-tips-grid');
   if (batteryGrid) batteryObserver.observe(batteryGrid);
-  
-  // Staggered reveals for Pros vs Considerations columns
+
   const proCards = document.querySelectorAll('#pros-column .glass-card');
   const conCards = document.querySelectorAll('#cons-column .glass-card');
-  
   const columnObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         proCards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.add('reveal-active');
-          }, index * 80);
+          setTimeout(() => { card.classList.add('reveal-active'); }, index * 80);
         });
         conCards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.add('reveal-active');
-          }, index * 80);
+          setTimeout(() => { card.classList.add('reveal-active'); }, index * 80);
         });
       }
     });
@@ -7810,6 +8878,7 @@ function renderBrandPage(brandId) {
     'volvo': 'Volvo',
     'audi': 'Audi',
     'maruti-suzuki': 'Maruti Suzuki',
+    'maruti_suzuki': 'Maruti Suzuki',
     'toyota': 'Toyota',
     'honda': 'Honda',
     'skoda': 'Skoda',
@@ -7826,17 +8895,35 @@ function renderBrandPage(brandId) {
     'jaguar': 'Jaguar',
    'range-rover': 'Range Rover',
    'lexus': 'Lexus',
+   'blink': 'Blink',
+   'genesis': 'Genesis',
+   'ferrari': 'Ferrari',
+   'lotus': 'Lotus',
+   'mini': 'MINI',
+   'pmv': 'PMV',
+   'pravaig': 'Pravaig',
+   'rolls_royce': 'Rolls-Royce',
+   'strom_motors': 'Strom Motors',
+   'vayve_mobility': 'Vayve Mobility',
   };
 
   const brandName = brandNameMap[brandId.toLowerCase()] || brandId.toUpperCase();
   const breadcrumbs = ['MANUFACTURERS', brandName];
   
-  let searchQuery = '';
+  const brandParams = new URLSearchParams(window.location.search);
+  let searchQuery = brandParams.get('name') || '';
+  let budgetFilter = brandParams.get('budget') || '';
+  let bodyFilter = brandParams.get('body') || '';
   let sortBy = 'name-asc';
   let typeFilter = 'all';
 
+  function normalizeBrandId(id) {
+    return id.toLowerCase().replace(/[_-]/g, '');
+  }
+  const normalizedBrandKey = normalizeBrandId(brandId);
+
   function generateBrandContentHtml() {
-    const brandCars = EV_DATABASE.filter(car => car.brand.toLowerCase() === brandId.toLowerCase());
+    const brandCars = EV_DATABASE.filter(car => normalizeBrandId(car.brand) === normalizedBrandKey);
     const logoUrl = getBrandLogoUrl(brandId);
     const initials = getBrandInitials(brandName);
     
@@ -7844,12 +8931,20 @@ function renderBrandPage(brandId) {
       const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             car.features.toLowerCase().includes(searchQuery.toLowerCase());
       
+      let matchesBudget = true;
+      if (budgetFilter === '20') matchesBudget = car.priceVal < 20;
+      else if (budgetFilter === '50') matchesBudget = car.priceVal >= 20 && car.priceVal <= 50;
+      else if (budgetFilter === 'above') matchesBudget = car.priceVal > 50;
+
+      let matchesBody = true;
+      if (bodyFilter && bodyFilter !== 'all') matchesBody = BODY_TYPE_MAP[car.id] === bodyFilter;
+
       const isUpcoming = car.sections && car.sections.includes('upcoming');
       const matchesType = typeFilter === 'all' || 
                           (typeFilter === 'available' && !isUpcoming) || 
                           (typeFilter === 'upcoming' && isUpcoming);
       
-      return matchesSearch && matchesType;
+      return matchesSearch && matchesType && matchesBudget && matchesBody;
     });
 
     filteredCars.sort((a, b) => {
@@ -7993,23 +9088,33 @@ function renderBrandPage(brandId) {
     }
 
     attachCardEvents();
+    const brandContainer = document.getElementById('brand-vehicles-container');
+    if (brandContainer) brandContainer.classList.add('revealed');
   }
 
   function updateBrandListOnly() {
     const container = document.getElementById('brand-vehicles-container');
     if (container) {
-      const brandCars = EV_DATABASE.filter(car => car.brand.toLowerCase() === brandId.toLowerCase());
+      const brandCars = EV_DATABASE.filter(car => normalizeBrandId(car.brand) === normalizedBrandKey);
       
       const filteredCars = brandCars.filter(car => {
         const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                               car.features.toLowerCase().includes(searchQuery.toLowerCase());
         
+        let matchesBudget = true;
+        if (budgetFilter === '20') matchesBudget = car.priceVal < 20;
+        else if (budgetFilter === '50') matchesBudget = car.priceVal >= 20 && car.priceVal <= 50;
+        else if (budgetFilter === 'above') matchesBudget = car.priceVal > 50;
+
+        let matchesBody = true;
+        if (bodyFilter && bodyFilter !== 'all') matchesBody = BODY_TYPE_MAP[car.id] === bodyFilter;
+
         const isUpcoming = car.sections && car.sections.includes('upcoming');
         const matchesType = typeFilter === 'all' || 
                             (typeFilter === 'available' && !isUpcoming) || 
                             (typeFilter === 'upcoming' && isUpcoming);
         
-        return matchesSearch && matchesType;
+        return matchesSearch && matchesType && matchesBudget && matchesBody;
       });
 
       filteredCars.sort((a, b) => {
@@ -8066,6 +9171,7 @@ function renderBrandPage(brandId) {
           </div>
         ` : ''}
       `;
+      container.classList.add('revealed');
       attachCardEvents();
     }
   }

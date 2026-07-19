@@ -2,14 +2,30 @@ const { asyncHandler } = require('../utils/asyncHandler');
 const blogRepository = require('../repositories/blogRepository');
 const { isDataStoreConfigured, emptyListResponse } = require('../utils/dataState');
 
-const listBlogs = asyncHandler(async (req, res) => {
-  if (!isDataStoreConfigured()) return emptyListResponse(res);
+const { fetchAndParseAllBlogs } = require('../services/blogFetcherService');
 
-  const blogs = await blogRepository.listBlogs({
-    category: req.query.category,
-    search: req.query.search
-  });
-  res.json({ success: true, count: blogs.length, data: blogs });
+const listBlogs = asyncHandler(async (req, res) => {
+  try {
+    const blogs = await fetchAndParseAllBlogs();
+    
+    // Apply filters if provided
+    let filtered = [...blogs];
+    
+    if (req.query.search) {
+      const q = String(req.query.search).toLowerCase();
+      filtered = filtered.filter(blog => 
+        blog.title.toLowerCase().includes(q) || 
+        blog.summary.toLowerCase().includes(q) || 
+        blog.source.toLowerCase().includes(q) ||
+        blog.author.toLowerCase().includes(q)
+      );
+    }
+    
+    res.json({ success: true, count: filtered.length, data: filtered });
+  } catch (err) {
+    console.error('Failed to list dynamic blogs:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch dynamic blogs' });
+  }
 });
 
 const getBlogBySlug = asyncHandler(async (req, res) => {

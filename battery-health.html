@@ -56,7 +56,7 @@
   <!-- Hero Section -->
   <section class="relative h-[50vh] min-h-[380px] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
-      <img src="Learn_Electric_Vehicles/BATTERY_HEALTH copy.jpeg" alt="EV Battery Health" class="w-full h-full object-cover">
+      <img src="Learn_Electric_Vehicles/BATTERY_HEALTH.jpeg" alt="EV Battery Health" class="w-full h-full object-cover">
       <div class="absolute inset-0 bg-black/60"></div>
     </div>
     <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
@@ -481,6 +481,18 @@
     </div>
   </footer>
 
+  <!-- Video Section -->
+  <section id="battery-videos" class="bg-white text-black py-24 px-6 lg:px-12 relative">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-left mb-16">
+        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">VIDEO GUIDES</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-black">Battery Health Videos</h2>
+        <p class="text-xs text-zinc-650 max-w-sm mt-3">Expert tips to maximize your EV battery lifespan.</p>
+      </div>
+      <div id="battery-videos-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
   <!-- FAQ Accordion JS -->
   <script>
     (function() {
@@ -560,5 +572,13 @@ Ask me anything about:
   </div>
 </div>
 <script src="ai-assistant.js"></script>
+<script src="videoIntegration.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.VideoIntegration) {
+      VideoIntegration.loadVideos('battery-videos-grid', 'battery health');
+    }
+  });
+</script>
 </body>
 </html>

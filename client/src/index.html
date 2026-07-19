@@ -139,6 +139,17 @@
         <button id="login-nav-btn" class="hidden md:block px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">
           LOGIN
         </button>
+
+        <!-- Profile Avatar (shown after login) -->
+        <a id="profile-container" class="hidden" href="profile.html">
+          <div class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center hover:bg-zinc-700 transition-colors cursor-pointer" aria-label="Profile">
+            <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+        </a>
+
         <!-- Hamburger (mobile) -->
         <button id="mega-hamburger" class="xl:hidden flex flex-col gap-[5px] p-2 group" aria-label="Menu" aria-expanded="false">
           <span class="block w-5 h-[1.5px] bg-black transition-all duration-300 origin-center group-[.open]:rotate-45 group-[.open]:translate-y-[6.5px]"></span>
@@ -606,6 +617,18 @@
 
         <div class="pt-4 border-t border-zinc-200 mt-2">
           <button id="login-nav-btn-mobile" class="w-full py-3 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300">LOGIN</button>
+        </div>
+        <!-- Mobile Profile (shown after login) -->
+        <div id="profile-container-mobile" class="hidden pt-4 border-t border-zinc-200 mt-2">
+          <a href="profile.html" class="flex items-center gap-3 py-3 hover:opacity-80 transition-opacity">
+            <div class="w-10 h-10 rounded-full bg-zinc-800 text-white flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="font-mono text-[11px] text-zinc-700 font-medium">My Account</span>
+          </a>
         </div>
       </div>
     </div>
@@ -1179,38 +1202,6 @@
         <button id="btn-view-all-popular" class="px-6 py-3 border border-zinc-200 hover:border-black hover:bg-black hover:text-white text-zinc-500 font-mono text-[9px] uppercase tracking-widest transition-all btn-animate">
           View All →
         </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
-  <!-- ===================================================
-       Section: Explore Electric Cars (Gallery)
-       =================================================== -->
-  <section id="ev-gallery" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <!-- Header with navigation arrows -->
-      <div class="flex justify-between items-end mb-10">
-        <div class="text-left">
-          <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">CURATED MARKETPLACE</span>
-          <h2 class="text-3xl font-black tracking-tight uppercase">Explore Electric Cars</h2>
-          <p class="text-xs text-zinc-550 mt-1 font-mono leading-relaxed">Browse premium electric vehicles currently available for purchase in India.</p>
-        </div>
-        <div class="flex gap-2">
-          <button id="gallery-prev" class="p-2 border border-zinc-200 hover:border-black text-zinc-500 hover:text-black transition-colors rounded-none focus:outline-none" aria-label="Previous Gallery Slide">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-          </button>
-          <button id="gallery-next" class="p-2 border border-zinc-200 hover:border-black text-zinc-500 hover:text-black transition-colors rounded-none focus:outline-none" aria-label="Next Gallery Slide">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Horizontal scrolling container -->
-      <div id="gallery-viewport" class="overflow-x-auto overflow-y-hidden custom-scrollbar pt-3 pb-6 flex gap-6 scroll-smooth snap-x snap-mandatory">
-        <!-- Populated dynamically by JS -->
       </div>
     </div>
   </section>
@@ -2378,10 +2369,10 @@
         <!-- Col 4: Corporate info -->
         <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-600">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">CORPORATE</span>
-          <a href="index.html#" class="hover:text-black transition-colors">About Us</a>
-          <a href="index.html#" class="hover:text-black transition-colors">Contact Support</a>
-          <a href="index.html#" class="hover:text-black transition-colors">Privacy Policy</a>
-          <a href="index.html#" class="hover:text-black transition-colors">Terms & Conditions</a>
+          <a href="/about" class="hover:text-black transition-colors">About Us</a>
+          <a href="/contact" class="hover:text-black transition-colors">Contact Support</a>
+          <a href="/privacy-policy" class="hover:text-black transition-colors">Privacy Policy</a>
+          <a href="/terms-and-conditions" class="hover:text-black transition-colors">Terms & Conditions</a>
         </div>
 
       </div>

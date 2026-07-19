@@ -38,24 +38,39 @@
   </script>
   
   <!-- CSS Link -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ai-assistant.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/ai-assistant.css">
+  <link rel="preload" as="image" href="/ev_hero.png" fetchpriority="high">
+  <link rel="preload" href="/loading%20screen.mov" as="video" type="video/quicktime">
+  <link rel="preconnect" href="https://logo.clearbit.com">
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="icon" type="image/png" href="/tab_logo.png">
   <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
 </head>
 <body class="bg-white text-black font-sans overflow-x-hidden selection-none">
+  <script>if(sessionStorage.getItem('evcwSkipPreloader')){sessionStorage.removeItem('evcwSkipPreloader');document.write('<style>#preloader{display:none!important}</style>')}</script>
 
   <!-- Preloader Screen -->
-  <div id="preloader" class="fixed inset-0 bg-black text-white z-50 flex flex-col items-center justify-center transition-all duration-700">
-    <div class="flex flex-col items-center gap-4">
-      <div class="font-bold tracking-widest text-lg flex items-center gap-2">
-        <span class="w-3 h-3 bg-white inline-block rounded-none animate-pulse"></span>
-        EV CAR WALE
+  <div id="preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden" style="background:#000000;">
+    <div class="flex flex-col items-center px-6" style="width:min(82vw,680px);">
+      <!-- Glowing logo (hidden until 5s) -->
+      <div id="loader-logo" style="margin-bottom:0px; opacity:0; transform:scale(0.92); transition:opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);">
+        <div style="display:flex; align-items:baseline; gap:7px; justify-content:center;">
+          <span style="font-family:'ARIEL',sans-serif; font-size:clamp(22px,5.5vw,48px); font-weight:800; letter-spacing:0.12em; color:#ffffff;">EV</span>
+          <span id="glow-text" style="font-family:'ARIEL',sans-serif; font-size:clamp(22px,5.5vw,48px); font-weight:800; letter-spacing:0.12em; color:#39FF14; text-shadow:0 0 10px rgba(57,255,20,0.5), 0 0 25px rgba(57,255,20,0.2); animation:glowPulse 2s ease-in-out infinite;">Car Wale</span>
+        </div>
+        <div style="margin-top:0px; text-align:center;">
+          <span style="font-family:'ARIEL',sans-serif; font-size:clamp(13px,3.2vw,28px); font-weight:500; letter-spacing:0.5px; color:rgba(255,255,255,0.88);">Smart Choices. Sustainable Future.</span>
+        </div>
       </div>
-      <div class="w-32 h-[1px] bg-zinc-800 relative overflow-hidden">
-        <div id="loader-progress" class="absolute h-full bg-white top-0 left-0 transition-all duration-100" style="width: 0%"></div>
+      <!-- Car video -->
+      <div id="car-container" class="relative flex items-center justify-center" style="width:100%; max-width:567px;">
+        <video id="preloader-video" src="/loading%20screen.mov" preload="auto" autoplay loop muted playsinline class="w-full h-auto" style="border-radius:10px; will-change:transform; box-shadow:0 4px 30px rgba(0,0,0,0.3);"></video>
       </div>
-      <span id="loader-percent" class="font-mono text-[10px] text-zinc-500 tracking-wider">0%</span>
+      <!-- LOADING text -->
+      <div style="margin-top:0px; text-align:center;">
+        
+      </div>
     </div>
   </div>
 
@@ -118,8 +133,8 @@
 
       </div><!-- /mega-menu-links -->
       <div class="ml-auto flex items-center gap-4">
-        <!-- Language Selector -->
-        <div id="google_translate_element" class="notranslate"></div>
+        <!-- Language -->
+        <div id="google_translate_element" class="notranslate" style="display:none"></div>
         <div class="custom-lang-dropdown">
           <button id="custom-lang-btn" class="btn-animate px-3">
             <span id="custom-lang-label">LANGUAGE</span>
@@ -131,7 +146,7 @@
             <div class="lang-option" data-lang="kn">Kannada</div>
             <div class="lang-option" data-lang="ml">Malayalam</div>
             <div class="lang-option" data-lang="te">Telugu</div>
-            <div class="lang-option" data-lang="te">Tamil</div>
+            <div class="lang-option" data-lang="ta">Tamil</div>
           </div>
         </div>
 
@@ -430,13 +445,6 @@
         <div>
           <p class="mega-col-title">Market & News</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="/insights/latest-ev-news" class="mega-item">
-              <span class="mega-item-icon">📰</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Latest EV News</span>
-                <span class="mega-item-desc">Breaking updates from the Indian EV industry.</span>
-              </span>
-            </a>
             <a href="/insights/blogs" class="mega-item">
               <span class="mega-item-icon">📝</span>
               <span class="mega-item-body">
@@ -761,7 +769,7 @@
   <header id="home" class="relative min-h-screen w-full flex flex-col justify-between pt-28 pb-0 px-6 lg:px-12 overflow-hidden z-10">
     <!-- Cinematic Background Image -->
     <div class="absolute inset-0 z-0 select-none hero-fade-in">
-      <img id="hero-bg-img" src="ev_hero.png" alt="Cinematic EV Background" class="w-full h-full object-cover opacity-95 transition-transform duration-100 ease-out">
+      <img id="hero-bg-img" src="/ev_hero.png" alt="Cinematic EV Background" class="w-full h-full object-cover opacity-95 transition-transform duration-100 ease-out">
       <!-- Subtle top darkening for contrast -->
       <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/25 to-transparent"></div>
       <!-- Radial vignette to darken edges and center dramatic highlights on the car -->
@@ -1232,38 +1240,6 @@
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
 
-  <!-- ===================================================
-       Section: Explore Electric Cars (Gallery)
-       =================================================== -->
-  <section id="ev-gallery" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <!-- Header with navigation arrows -->
-      <div class="flex justify-between items-end mb-10">
-        <div class="text-left">
-          <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">CURATED MARKETPLACE</span>
-          <h2 class="text-3xl font-black tracking-tight uppercase">Explore Electric Cars</h2>
-          <p class="text-xs text-zinc-550 mt-1 font-mono leading-relaxed">Browse premium electric vehicles currently available for purchase in India.</p>
-        </div>
-        <div class="flex gap-2">
-          <button id="gallery-prev" class="p-2 border border-zinc-200 hover:border-black text-zinc-500 hover:text-black transition-colors rounded-none focus:outline-none" aria-label="Previous Gallery Slide">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-          </button>
-          <button id="gallery-next" class="p-2 border border-zinc-200 hover:border-black text-zinc-500 hover:text-black transition-colors rounded-none focus:outline-none" aria-label="Next Gallery Slide">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Horizontal scrolling container -->
-      <div id="gallery-viewport" class="overflow-x-auto overflow-y-hidden custom-scrollbar pt-3 pb-6 flex gap-6 scroll-smooth snap-x snap-mandatory">
-        <!-- Populated dynamically by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
   <!-- Section 3: Upcoming Electric Cars -->
   <section id="upcoming" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
     <div class="max-w-6xl mx-auto">
@@ -1464,7 +1440,7 @@
         <!-- Left: Illustration -->
         <div class="lg:col-span-5 flex justify-center">
           <div class="relative w-full max-w-md aspect-square bg-zinc-50 border border-zinc-150 rounded-2xl overflow-hidden shadow-sm flex items-center justify-center group hover:border-black transition-all hover:scale-[1.01] duration-300">
-            <img src="battery_care_illustration.jpeg" alt="Battery Care Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
+            <img src="/battery_care_illustration.jpeg" alt="Battery Care Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
           </div>
         </div>
         <!-- Right: Tips -->
@@ -1740,7 +1716,7 @@
         <!-- Left: Artwork -->
         <div class="lg:col-span-5 flex justify-center">
           <div class="relative w-full max-w-md aspect-square bg-zinc-50 border border-zinc-150 rounded-2xl overflow-hidden shadow-sm flex items-center justify-center group hover:border-black transition-all hover:scale-[1.01] duration-300">
-            <img src="whychoose__ev_illustration.jpeg" alt="Why Choose EV Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
+            <img src="/whychoose__ev_illustration.jpeg" alt="Why Choose EV Illustration" class="w-full h-full object-cover opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
           </div>
         </div>
         <!-- Right: Accordion -->
@@ -2044,7 +2020,7 @@
         <!-- Center Column: Car Cutaway Illustration -->
         <div class="lg:col-span-4 flex justify-center py-6 lg:py-0">
           <div class="relative w-full max-w-[280px] aspect-square flex items-center justify-center group hover:scale-[1.01] transition-all duration-300">
-            <img src="why_ev_illustration.jpeg" alt="Car Cutaway Illustration" class="w-full h-full object-cover rounded-2xl border border-zinc-150 shadow-sm opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
+            <img src="/why_ev_illustration.jpeg" alt="Car Cutaway Illustration" class="w-full h-full object-cover rounded-2xl border border-zinc-150 shadow-sm opacity-90 transition-all duration-300 group-hover:scale-105 floating-artwork">
           </div>
         </div>
         
@@ -2117,8 +2093,8 @@
           <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Latest EV News</h2>
           <p class="text-xs text-zinc-655 max-w-sm mt-3">Up-to-date global and domestic electric automobile news coverage.</p>
         </div>
-        <a id="btn-view-all-news" href="/insights/latest-news" class="font-mono text-[10px] tracking-widest uppercase border-b border-black text-black pb-1 hover:text-zinc-500 hover:border-zinc-500 transition-colors mt-4 md:mt-0">
-          VIEW ALL DISPATCHES <span class="arrow">→</span>
+        <a id="btn-view-all-news" href="/news" class="font-mono text-[10px] tracking-widest uppercase border-b border-black text-black pb-1 hover:text-zinc-500 hover:border-zinc-500 transition-colors mt-4 md:mt-0">
+          View All News <span class="arrow">→</span>
         </a>
       </div>
 
@@ -2265,50 +2241,8 @@
         <p class="text-xs text-zinc-650 max-w-sm mt-3">Watch reviews, comparisons, and expert drive walkarounds.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Video 1 -->
-        <div class="border border-zinc-200 bg-white p-4 flex flex-col gap-3 group cursor-pointer hover:border-black transition-all btn-video-play shadow-[0_4px_12px_rgba(0,0,0,0.02)] stagger-card video-card" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Hyundai Ioniq 5 Deep Review">
-          <div class="h-36 bg-zinc-50 border border-zinc-100 relative flex items-center justify-center overflow-hidden">
-            <!-- Play icon overlay -->
-            <div class="w-10 h-10 rounded-full border border-zinc-300 bg-white/90 flex items-center justify-center text-black scale-90 group-hover:scale-100 transition-transform duration-300 shadow">
-              ▶
-            </div>
-            <span class="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/85 text-[8px] font-mono tracking-wider rounded text-white">12:35 MIN</span>
-          </div>
-          <div class="flex flex-col gap-1 text-left font-mono">
-            <span class="text-[8px] text-zinc-500 uppercase">EXPERT REVIEW</span>
-            <h3 class="text-xs font-bold text-zinc-700 group-hover:text-black transition-colors">Hyundai Ioniq 5: Surgical Laboratory Testing</h3>
-          </div>
-        </div>
-
-        <!-- Video 2 -->
-        <div class="border border-zinc-200 bg-white p-4 flex flex-col gap-3 group cursor-pointer hover:border-black transition-all btn-video-play shadow-[0_4px_12px_rgba(0,0,0,0.02)] stagger-card video-card" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Premium EV Comparison Walkaround">
-          <div class="h-36 bg-zinc-50 border border-zinc-100 relative flex items-center justify-center overflow-hidden">
-            <div class="w-10 h-10 rounded-full border border-zinc-300 bg-white/90 flex items-center justify-center text-black scale-90 group-hover:scale-100 transition-transform duration-300 shadow">
-              ▶
-            </div>
-            <span class="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/85 text-[8px] font-mono tracking-wider rounded text-white">18:40 MIN</span>
-          </div>
-          <div class="flex flex-col gap-1 text-left font-mono">
-            <span class="text-[8px] text-zinc-500 uppercase">COMPARATIVE ROADRUN</span>
-            <h3 class="text-xs font-bold text-zinc-700 group-hover:text-black transition-colors">Nexon EV vs BYD Atto 3: Range Exhaustion Test</h3>
-          </div>
-        </div>
-
-        <!-- Video 3 -->
-        <div class="border border-zinc-200 bg-white p-4 flex flex-col gap-3 group cursor-pointer hover:border-black transition-all btn-video-play shadow-[0_4px_12px_rgba(0,0,0,0.02)] stagger-card video-card" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Porsche Taycan EV Fast Lap">
-          <div class="h-36 bg-zinc-50 border border-zinc-100 relative flex items-center justify-center overflow-hidden">
-            <div class="w-10 h-10 rounded-full border border-zinc-300 bg-white/90 flex items-center justify-center text-black scale-90 group-hover:scale-100 transition-transform duration-300 shadow">
-              ▶
-            </div>
-            <span class="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/85 text-[8px] font-mono tracking-wider rounded text-white">09:15 MIN</span>
-          </div>
-          <div class="flex flex-col gap-1 text-left font-mono">
-            <span class="text-[8px] text-zinc-500 uppercase">LAUNCH WALKROUND</span>
-            <h3 class="text-xs font-bold text-zinc-700 group-hover:text-black transition-colors">Porsche Macan EV: Aero Coefficient Walkaround</h3>
-          </div>
-        </div>
-      </div>
+      <div id="featured-videos-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      <div id="view-all-videos-container" class="flex justify-center mt-12"></div>
     </div>
   </section>
 
@@ -2505,10 +2439,10 @@
         <!-- Col 3: Corporate -->
         <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">CORPORATE</span>
-          <a href="index.html#" class="hover:text-white transition-colors">About Us</a>
-          <a href="index.html#" class="hover:text-white transition-colors">Contact Support</a>
-          <a href="index.html#" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="index.html#" class="hover:text-white transition-colors">Terms & Conditions</a>
+          <a href="/about" class="hover:text-white transition-colors">About Us</a>
+          <a href="/contact" class="hover:text-white transition-colors">Contact Support</a>
+          <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="/terms-and-conditions" class="hover:text-white transition-colors">Terms & Conditions</a>
         </div>
 
         <!-- Col 4: Newsletter -->
@@ -2659,14 +2593,14 @@
   <div class="ai-trigger" id="ai-trigger">
     <div class="ai-avatar-wrapper ai-float-anim">
       <div class="ai-avatar-glow"></div>
-      <img src="ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
+      <img src="/ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
     </div>
     <div class="ai-label" id="ai-label">Ask EV AI</div>
   </div>
   <div class="ai-chat-window" id="ai-chat-window">
     <div class="ai-chat-header">
       <div class="ai-chat-header-left">
-        <img src="ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
+        <img src="/ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
         <div>
           <div class="ai-chat-title">EV AI Assistant</div>
           <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
@@ -2705,124 +2639,51 @@ Ask me anything about:
     </div>
   </div>
 </div>
-<script src="ai-assistant.js"></script>
-<!-- Google Translate Widget -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,hi,kn,te,ml,ta',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-      }, 'google_translate_element');
-    }
-  </script>
-
+<script src="/ai-assistant.js"></script>
+<script src="/auth-helper.js"></script>
+  <script src="/app.js"></script>
+  <script src="/videoIntegration.js"></script>
   <script>
-    function hideGoogleBanner() {
-      document.body.style.top = '0px';
-      document.body.style.position = 'static';
-      document.querySelectorAll('iframe.VIpgJd-ZVi9od-ORHb-OEVmcd, iframe[id=":2.container"]').forEach(function (f) {
-        f.style.display = 'none';
-        f.style.visibility = 'hidden';
-        f.style.height = '0';
-      });
-    }
-    var bannerCheck = setInterval(hideGoogleBanner, 300);
-    setTimeout(function () { clearInterval(bannerCheck); }, 5000);
-    new MutationObserver(hideGoogleBanner).observe(document.body, { childList: true, subtree: true });
-  </script>
-
-  <script type="text/javascript"
-    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-    </script>
-  <!-- JavaScript Link -->
-  <script src="auth-helper.js"></script>
-  <script src="app.js"></script><!-- Google Translate Widget -->
-
-
-  <!-- Force custom styling on Google Translate widget -->
-  <script>
-    function forceTranslateStyles() {
-      var el = document.querySelector('#google_translate_element .goog-te-gadget-simple');
-      if (el) {
-        el.style.setProperty('background-color', 'transparent', 'important');
-        el.style.setProperty('border', '1px solid #d4d4d8', 'important');
-        el.style.setProperty('border-radius', '20px', 'important');
-        el.style.setProperty('padding', '6px 12px', 'important');
-        el.style.setProperty('font-size', '11px', 'important');
-        el.style.setProperty('font-family', "'Inter', sans-serif", 'important');
-        el.style.setProperty('letter-spacing', '0.05em', 'important');
-        el.style.setProperty('text-transform', 'uppercase', 'important');
-        el.style.setProperty('cursor', 'pointer', 'important');
-        el.style.setProperty('display', 'inline-flex', 'important');
-        el.style.setProperty('align-items', 'center', 'important');
-        el.style.setProperty('white-space', 'nowrap', 'important');
-
-        var icon = el.querySelector('.goog-te-gadget-icon');
-        if (icon) icon.style.setProperty('display', 'none', 'important');
-
-        var dividers = el.querySelectorAll('span[style*="border-left"]');
-        dividers.forEach(function (d) {
-          d.style.setProperty('border-left', 'none', 'important');
-          d.style.setProperty('display', 'none', 'important');
-        });
-
-        var spans = el.querySelectorAll('a, a span');
-        spans.forEach(function (s) {
-          s.style.setProperty('font-family', "'Inter', sans-serif", 'important');
-          s.style.setProperty('color', '#000000', 'important');
-        });
-      }
-    }
-
-    var translateObserver = new MutationObserver(forceTranslateStyles);
-    var translateContainer = document.getElementById('google_translate_element');
-    if (translateContainer) {
-      translateObserver.observe(translateContainer, { childList: true, subtree: true });
-    }
-
-    var translateStyleInterval = setInterval(forceTranslateStyles, 300);
-    setTimeout(function () { clearInterval(translateStyleInterval); }, 8000);
-
-    document.addEventListener('mouseover', function (e) {
-      var target = e.target.closest('#google_translate_element .goog-te-gadget-simple');
-      if (target) {
-        target.style.setProperty('border-color', '#22C55E', 'important');
-        target.style.setProperty('background-color', '#000000', 'important');
-        target.style.setProperty('box-shadow', '0 0 15px rgba(34, 197, 94, 0.4)', 'important');
-
-        var spans = target.querySelectorAll('a, a span');
-        spans.forEach(function (s) {
-          s.style.setProperty('color', '#ffffff', 'important');
-        });
-      }
-    });
-
-    document.addEventListener('mouseout', function (e) {
-      var target = e.target.closest('#google_translate_element .goog-te-gadget-simple');
-      if (target) {
-        target.style.setProperty('background-color', 'transparent', 'important');
-        target.style.setProperty('border-color', '#d4d4d8', 'important');
-        target.style.setProperty('box-shadow', 'none', 'important');
-
-        var spans = target.querySelectorAll('a, a span');
-        spans.forEach(function (s) {
-          s.style.setProperty('color', '#000000', 'important');
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.VideoIntegration) {
+        VideoIntegration.loadVideos('featured-videos-grid', '', {
+          skeletonCount: 3,
+          limit: 3,
+          onAfterRender: function () {
+            var container = document.getElementById('view-all-videos-container');
+            if (!container || container.querySelector('a')) return;
+            var link = document.createElement('a');
+            link.href = '/videos.html';
+            link.className = 'inline-flex items-center gap-2 px-8 py-4 font-mono text-[11px] tracking-[0.2em] uppercase border-2 border-[#22C55E] text-[#22C55E] hover:bg-[#22C55E] hover:text-white rounded-full transition-all duration-300 group';
+            link.innerHTML = 'View All Videos <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>';
+            container.appendChild(link);
+          }
         });
       }
     });
   </script>
   <script>
     function changeLanguage(langCode) {
-      var select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = langCode;
-        select.dispatchEvent(new Event('change'));
-        document.getElementById('custom-lang-label').textContent = langCode.toUpperCase();
-        document.getElementById('custom-lang-menu').classList.remove('open');
+      document.getElementById('custom-lang-label').textContent = langCode.toUpperCase();
+      document.getElementById('custom-lang-menu').classList.remove('open');
+      
+      // Clear Google Translate cookie to avoid conflicts
+      document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'googtrans=; path=/; domain=' + window.location.hostname + '; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'googtrans=; path=/; domain=.' + window.location.hostname + '; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      const hostParts = window.location.hostname.split('.');
+      if (hostParts.length > 2) {
+        const rootDomain = hostParts.slice(-2).join('.');
+        document.cookie = 'googtrans=; path=/; domain=' + rootDomain + '; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+        document.cookie = 'googtrans=; path=/; domain=.' + rootDomain + '; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      }
+
+      if (window.TranslationEngine) {
+        window.TranslationEngine.setLanguage(langCode);
       } else {
-        setTimeout(function () { changeLanguage(langCode); }, 200);
+        localStorage.setItem('evcarwale_language', JSON.stringify({ lang: langCode, text: langCode.toUpperCase() }));
+        sessionStorage.setItem('evcwSkipPreloader', '1');
+        location.reload();
       }
     }
 

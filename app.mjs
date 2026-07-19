@@ -4678,7 +4678,7 @@ function initializeAppDOM() {
           userSession = {
             name: user.displayName || 'User',
             email: user.email,
-            phone: user.phoneNumber || '+91 98765 43210',
+            phone: user.phoneNumber || '+91 XXX XXX XXXX',
             avatar: user.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150&q=80'
           };
           localStorage.setItem('ev_user_session', JSON.stringify(userSession));

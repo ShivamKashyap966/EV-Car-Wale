@@ -165,8 +165,8 @@ function processAndCategorize(rawArticles) {
 
       return {
         title: item.title || 'Untitled EV News',
-        description: item.description || '',
-        image: item.image && item.image !== 'None' ? item.image : '',
+        description: item.description || item.title || 'Latest electric vehicle industry update.',
+        image: item.image && item.image !== 'None' && item.image !== 'null' ? item.image : '',
         source: sourceName,
         published: item.published || new Date().toISOString(),
         url: item.url || '#',

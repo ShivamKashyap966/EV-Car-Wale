@@ -26,10 +26,15 @@ function parseISO8601Duration(duration) {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+let topicCache = {};
+
 router.get('/', async (req, res) => {
-  // Check cache validity
-  if (videosCache.data && (Date.now() - videosCache.timestamp < CACHE_DURATION)) {
-    return res.json(videosCache.data);
+  const topic = (req.query.topic || '').trim();
+
+  // Per-topic cache check
+  const cacheEntry = topicCache[topic];
+  if (cacheEntry && (Date.now() - cacheEntry.timestamp < CACHE_DURATION)) {
+    return res.json(cacheEntry.data);
   }
 
   try {
@@ -38,11 +43,17 @@ router.get('/', async (req, res) => {
       console.warn("WARNING: YOUTUBE_API_KEY is not defined in environment.");
     }
 
+    // Build search query — use topic to refine results, otherwise generic EV search
+    let searchQuery = 'electric car OR EV car OR electric vehicle India';
+    if (topic) {
+      searchQuery += ` ${topic}`;
+    }
+
     // 1. Search for EV-related videos in India
     const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',
-        q: 'electric car review India',
+        q: searchQuery,
         type: 'video',
         maxResults: 25, // Query more results to allow for strict filtering
         key: apiKey
@@ -210,7 +221,12 @@ router.get('/', async (req, res) => {
       };
     });
 
-    // Update cache
+    // Update per-topic cache
+    topicCache[topic] = {
+      data: processed,
+      timestamp: Date.now()
+    };
+    // Also update shared cache for backwards compatibility
     videosCache.data = processed;
     videosCache.timestamp = Date.now();
 
@@ -219,9 +235,10 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error('Error fetching live videos from YouTube API:', error.message);
 
-    if (videosCache.data) {
+    const stale = topicCache[topic] || (videosCache.data ? { data: videosCache.data } : null);
+    if (stale) {
       console.log('Serving stale videos cache due to API failure.');
-      return res.json(videosCache.data);
+      return res.json(stale.data);
     }
 
     res.status(500).json({ error: 'Unable to load latest EV videos.' });
