@@ -1,295 +1,158 @@
 const express = require('express');
 const axios = require('axios');
+const { XMLParser } = require('fast-xml-parser');
 
 const router = express.Router();
 
-// 30-minute in-memory cache for news
-let newsCache = {
-  data: null,
-  timestamp: 0
-};
-const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: '@_',
+  textNodeName: '#text'
+});
 
-// Helper to assign a single unique category based on strict priority:
-// Infrastructure > Buying & Launches > Latest
-function assignCategory(item) {
-  const title = (item.title || '').toLowerCase();
-  const description = (item.description || '').toLowerCase();
-  const text = title + ' ' + description;
+let topicNewsCache = {};
+const CACHE_DURATION = 15 * 60 * 1000;
 
-  // Priority 1: Infrastructure
-  const infraKeywords = [
-    'charging station', 'charging stations', 'charging infrastructure', 'fast charger', 
-    'fast chargers', 'ultra-fast charger', 'ultra-fast chargers', 'public charging', 
-    'home charging', 'charging corridor', 'charging corridors', 'battery swapping', 
-    'grid infrastructure', 'grid upgrade', 'grid upgrades', 'government ev infrastructure', 
-    'renewable energy', 'charging company', 'charging companies', 'ocpp', 
-    'open charge map', 'charging investment', 'charging investments', 'statiq', 
-    'chargezone', 'zeon', 'tata power', 'bpcl', 'hpcl', 'shell recharge'
-  ];
-  if (infraKeywords.some(kw => text.includes(kw))) {
-    return 'infrastructure';
-  }
-
-  // Priority 2: Buying & Launches
-  const buyingKeywords = [
-    'new ev car launch', 'new ev launch', 'upcoming ev', 'ev car review', 'ev car buying guide', 
-    'best ev car', 'price update', 'price updates', 'variant', 'variants', 'range', 
-    'charging speed', 'safety', 'comparison', 'comparisons', 'delivery', 'deliveries', 
-    'booking', 'bookings', 'test drive', 'test drives', 'facelift', 'facelifts', 
-    'upcoming car', 'upcoming cars', 'booking open', 'bookings open', 'variant launch'
-  ];
-  if (buyingKeywords.some(kw => text.includes(kw))) {
-    return 'buying';
-  }
-
-  // Priority 3: Latest (fallback)
-  return 'latest';
+function extractImageFromDesc(desc) {
+  if (!desc) return '';
+  var m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (m && m[1]) return m[1];
+  return '';
 }
 
-// Helper scoring function to filter and prioritize EV car news with >= 80% relevance
-function scoreArticle(item) {
-  const title = (item.title || '').toLowerCase();
-  const description = (item.description || '').toLowerCase();
-  const text = title + ' ' + description;
-
-  // 1. Exclude keywords check (boundary checks)
-  const excludeRegex = /\b(sports|cricket|football|hockey|tennis|olympics|celebrities|celebrity|movies|movie|politics|elections|election|stock market|share market|mutual funds|cryptocurrency|crypto|ipl|general business|stock|stocks|shares|mutual fund)\b/i;
-  if (excludeRegex.test(text)) {
-    return 0; // Rejected immediately
-  }
-
-  // Reject general batteries (battery companies unless directly related to EV vehicles)
-  const batteryCos = /\b(exide|amara raja|panasonic|catl|lg energy|samsung sdi|exide industries)\b/i;
-  if (batteryCos.test(text)) {
-    const hasEvContext = /\b(ev|electric vehicle|electric car|electric cars|lithium-ion battery|solid-state battery)\b/i.test(text) ||
-                         /\b(tata|mahindra|mg|byd|hyundai|kia|bmw|mercedes|volvo|audi|porsche|vinfast|tesla|skoda|volkswagen)\b/i.test(text);
-    if (!hasEvContext) {
-      return 0;
-    }
-  }
-
-  // Exclude non-passenger EV vehicles (electric bikes, electric scooters, trucks, buses, commercial vehicles, petrol/diesel/hybrid/cng/3w/3ws/2w/2ws/three-wheeler/two-wheeler)
-  const excludeVehicles = /\b(scooter|scooters|bike|bikes|motorcycle|motorcycles|bicycle|bicycles|cycle|cycles|2-wheeler|two-wheeler|3-wheeler|three-wheeler|truck|trucks|bus|buses|commercial vehicle|commercial vehicles|ebike|escooter|electric bike|electric scooter|electric cycle|petrol|diesel|hybrid|cng|3w|3ws|2w|2ws|three-wheeler|three-wheelers|two-wheelers)\b/i;
-  if (excludeVehicles.test(text)) {
-    return 0;
-  }
-
-  // 2. Score calculation based on Allowed Keywords & Brands
-  const allowedEVKeywords = [
-    'electric vehicle', 'electric vehicle', 'electric car', 'electric cars', 'electric suv', 'electric suvs', 
-    'ev', 'evs', 'ev industry', 'ev battery', 'battery technology', 'battery tech', 'lithium battery', 
-    'solid-state battery', 'charging station', 'charging stations', 'charging infrastructure', 'ev charging', 
-    'fast charging', 'government ev policy', 'fame', 'pm e-drive', 'ev subsidy', 'subsidies', 'road tax', 
-    'charging corridor', 'charging corridors', 'battery swapping', 'grid upgrade', 'grid upgrades'
-  ];
-
-  const prioritizedBrands = [
-    'tata', 'mahindra', 'mg', 'byd', 'hyundai', 'kia', 'bmw', 'mercedes', 'volvo', 'audi', 
-    'porsche', 'vinfast', 'tesla', 'skoda', 'volkswagen'
-  ];
-
-  let score = 0;
-  let matchesCount = 0;
-
-  allowedEVKeywords.forEach(kw => {
-    let kwMatched = false;
-    if (title.includes(kw)) {
-      score += 80;
-      kwMatched = true;
-    } else if (description.includes(kw)) {
-      score += 50;
-      kwMatched = true;
-    }
-    if (kwMatched) {
-      matchesCount++;
-      if (matchesCount > 1) {
-        score += 15;
-      }
-    }
-  });
-
-  prioritizedBrands.forEach(brand => {
-    if (text.includes(brand)) {
-      score += 25;
-    }
-  });
-
-  const isCarOrInfra = /\b(car|cars|suv|suvs|sedan|sedans|hatchback|hatchbacks|charging|charger|chargers|infrastructure|swapping)\b/i.test(text);
-  if (isCarOrInfra) {
-    score += 15;
-  }
-
-  const hasTitleMatch = allowedEVKeywords.some(kw => title.includes(kw)) || prioritizedBrands.some(brand => title.includes(brand));
-  if (hasTitleMatch) {
-    score += 10;
-  }
-
-  return Math.min(score, 100);
+function stripHtml(str) {
+  if (!str) return '';
+  return str.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim();
 }
 
-// Processes, scores, deduplicates, categorizes, and sorts the list of articles
-function processAndCategorize(rawArticles) {
-  // Deduplicate strictly by Title, Source, and URL
-  const seenUrls = new Set();
-  const seenTitles = new Set();
-  
-  let uniqueArticles = [];
-  rawArticles.forEach(item => {
-    if (!item.url || !item.title) return;
-    const url = item.url.trim();
-    const title = item.title.trim().toLowerCase();
-    
-    if (seenUrls.has(url) || seenTitles.has(title)) {
-      return;
-    }
-    seenUrls.add(url);
-    seenTitles.add(title);
-    uniqueArticles.push(item);
-  });
-
-  // Score, filter out non-car EV news, and assign category
-  let processed = uniqueArticles
-    .map(item => {
-      const score = scoreArticle(item);
-      const category = assignCategory(item);
-      
-      let sourceName = 'Unknown Source';
-      if (item.author) {
-        sourceName = item.author.trim();
-      } else if (item.url) {
-        try {
-          sourceName = new URL(item.url).hostname.replace('www.', '');
-        } catch (e) {}
+async function fetchGoogleNewsRss(query) {
+  try {
+    var url = 'https://news.google.com/rss/search?q=' + encodeURIComponent(query) + '&hl=en-IN&gl=IN';
+    var resp = await axios.get(url, { timeout: 10000, headers: { 'User-Agent': 'Mozilla/5.0' } });
+    var raw = parser.parse(resp.data);
+    if (!raw || !raw.rss || !raw.rss.channel || !raw.rss.channel.item) return [];
+    var items = raw.rss.channel.item;
+    if (!Array.isArray(items)) items = [items];
+    return items.map(function(item) {
+      var title = item.title || '';
+      var link = item.link || '';
+      var pubDate = item.pubDate || '';
+      var source = item.source ? (item.source['#text'] || item.source || '') : '';
+      var desc = item.description || '';
+      if (!source && item['dc:creator']) source = item['dc:creator'];
+      var img = '';
+      if (item['media:content']) {
+        img = item['media:content']['@_url'] || '';
       }
-
+      if (!img) img = extractImageFromDesc(desc);
       return {
-        title: item.title || 'Untitled EV News',
-        description: item.description || item.title || 'Latest electric vehicle industry update.',
-        image: item.image && item.image !== 'None' && item.image !== 'null' ? item.image : '',
-        source: sourceName,
-        published: item.published || new Date().toISOString(),
-        url: item.url || '#',
-        score: score,
-        category: category
+        title: title,
+        description: stripHtml(desc).substring(0, 250),
+        image: img,
+        source: source || 'Google News',
+        published: pubDate,
+        url: link
       };
-    })
-    .filter(item => item.score >= 80); // Only keep articles with relevance >= 80%
-
-  // Sort by score first, then by publish date desc
-  processed.sort((a, b) => b.score - a.score || new Date(b.published) - new Date(a.published));
-  
-  return processed;
+    });
+  } catch (e) {
+    console.warn('Google News RSS fetch failed for "' + query + '":', e.message);
+    return [];
+  }
 }
+
+const TOPIC_NEWS_CONFIGS = {
+  'ev-infrastructure-india': {
+    queries: ['EV Infrastructure India', 'EV charging infrastructure India', 'India EV charging stations', 'Electric vehicle infrastructure India', 'DC fast charging India'],
+    keywords: ['charging', 'infrastructure', 'charging station', 'charging network', 'ev charging', 'fast charger', 'public charging', 'battery swapping']
+  },
+  'government-policies': {
+    queries: ['Government EV policy India', 'FAME subsidy scheme India', 'PM E-Drive India', 'EV subsidies India', 'EV regulations India'],
+    keywords: ['government', 'policy', 'fame', 'subsidy', 'pm e-drive', 'incentive', 'regulation', 'ev policy', 'tax']
+  },
+  'ev-charging-explained': {
+    queries: ['EV charging India guide', 'AC DC charging EV', 'home charging India', 'CCS2 charger India', 'fast charging explained India'],
+    keywords: ['charging', 'fast charging', 'home charging', 'public charging', 'charger', 'ev charging', 'charging station']
+  },
+  'where-electricity-comes-from': {
+    queries: ['electricity generation India', 'renewable energy India', 'solar power India', 'wind energy India', 'power grid India'],
+    keywords: ['electricity', 'solar', 'wind', 'renewable', 'grid', 'power', 'energy']
+  },
+  'renewable-energy-evs': {
+    queries: ['renewable energy EV India', 'solar EV charging India', 'green energy mobility India', 'sustainable mobility India'],
+    keywords: ['solar', 'renewable', 'green energy', 'clean energy', 'sustainable', 'carbon', 'net zero']
+  },
+  'ev-guides': {
+    queries: ['EV buying guide India', 'first EV guide India', 'home charging guide India', 'EV battery guide India', 'beginner EV India'],
+    keywords: ['guide', 'buying', 'beginner', 'tips', 'how to', 'ev ownership', 'ev maintenance']
+  },
+  'companies-building-indias-network': {
+    queries: ['Tata Power EV charging India', 'Statiq charging network India', 'ChargeZone EV India', 'Jio-bp pulse charging', 'Kazam EV India', 'Zeon charging India', 'Bolt Earth charging'],
+    keywords: ['tata power', 'statiq', 'chargezone', 'jio-bp', 'kazam', 'zeon', 'bolt.earth', 'bpcl', 'hpcl', 'charging network']
+  },
+  'ev-cost-savings': {
+    queries: ['EV running cost India', 'petrol vs EV cost India', 'EV charging cost India', 'EV maintenance cost India', 'EV ownership cost India'],
+    keywords: ['cost', 'saving', 'price', 'running cost', 'maintenance', 'ev vs', 'cheaper', 'save money']
+  },
+  'market-analysis': {
+    queries: ['EV sales India', 'EV market share India', 'electric car sales India', 'EV industry growth India', 'EV quarterly report India'],
+    keywords: ['sales', 'market', 'growth', 'industry', 'adoption', 'registration', 'report', 'demand']
+  }
+};
 
 router.get('/', async (req, res) => {
-  // Check cache validity
-  if (newsCache.data && (Date.now() - newsCache.timestamp < CACHE_DURATION)) {
-    return res.json(newsCache.data);
+  var allResults = [];
+  var seenUrls = new Set();
+  var seenTitles = new Set();
+  for (var q of ['electric vehicle India', 'EV car India', 'electric car India']) {
+    var articles = await fetchGoogleNewsRss(q);
+    articles.forEach(function(a) {
+      if (!a.url || !a.title) return;
+      var u = a.url.trim().toLowerCase();
+      var t = a.title.trim().toLowerCase();
+      if (seenUrls.has(u) || seenTitles.has(t)) return;
+      seenUrls.add(u); seenTitles.add(t);
+      allResults.push(a);
+    });
+    if (allResults.length >= 30) break;
   }
+  allResults.sort(function(a, b) { return new Date(b.published) - new Date(a.published); });
+  res.json(allResults.slice(0, 30));
+});
 
+router.get('/infrastructure', async (req, res) => {
+  var topic = req.query.topic || 'ev-infrastructure-india';
+  var config = TOPIC_NEWS_CONFIGS[topic] || TOPIC_NEWS_CONFIGS['ev-infrastructure-india'];
+  var cacheKey = 'topic_' + topic;
+  var cacheEntry = topicNewsCache[cacheKey];
+  if (cacheEntry && (Date.now() - cacheEntry.timestamp < CACHE_DURATION)) {
+    return res.json(cacheEntry.data);
+  }
   try {
-    const apiKey = process.env.CURRENT_NEWS_API_KEY;
-    if (!apiKey) {
-      console.warn("WARNING: CURRENT_NEWS_API_KEY is not defined in environment.");
-    }
-
-    let allRawNews = [];
-    let processed = [];
-    let pageNum = 1;
-
-    // Fetch additional pages if fewer than 20 EV articles are found (up to page 5)
-    while (processed.length < 20 && pageNum <= 5) {
-      const initialQueries = [
-        'electric vehicle',
-        'EV charging India',
-        'electric car India'
-      ];
-
-      const initialPromises = initialQueries.map(q => 
-        axios.get('https://api.currentsapi.services/v1/search', {
-          params: { keywords: q, language: 'en', apiKey: apiKey, page_number: pageNum },
-          timeout: 8000
-        }).catch(err => {
-          console.warn(`Fetch failed for query "${q}" page ${pageNum}:`, err.message);
-          return { data: { news: [] } };
-        })
-      );
-
-      const initialResults = await Promise.all(initialPromises);
-      let newArticlesFound = false;
-      initialResults.forEach(res => {
-        if (res && res.data && res.data.news && res.data.news.length > 0) {
-          allRawNews.push(...res.data.news);
-          newArticlesFound = true;
-        }
+    var allArticles = [];
+    var seenUrls = new Set();
+    var seenTitles = new Set();
+    for (var q of config.queries) {
+      if (allArticles.length >= 25) break;
+      var articles = await fetchGoogleNewsRss(q);
+      articles.forEach(function(a) {
+        if (!a.url || !a.title) return;
+        var u = a.url.trim().toLowerCase();
+        var t = a.title.trim().toLowerCase();
+        var text = t + ' ' + (a.description || '').toLowerCase();
+        if (seenUrls.has(u) || seenTitles.has(t)) return;
+        if (!config.keywords.some(function(k) { return text.includes(k); })) return;
+        seenUrls.add(u); seenTitles.add(t);
+        allArticles.push(a);
       });
-
-      processed = processAndCategorize(allRawNews);
-      if (!newArticlesFound) {
-        break;
-      }
-      pageNum++;
     }
-
-    // Categories Check
-    let infraList = processed.filter(a => a.category === 'infrastructure');
-    let buyingList = processed.filter(a => a.category === 'buying');
-    let latestList = processed.filter(a => a.category === 'latest');
-
-    // Backup queries list to fetch incrementally if any category has fewer than 6 articles
-    const backupQueries = [
-      'Tata EV',
-      'Mahindra EV',
-      'MG Windsor EV',
-      'Statiq EV charging',
-      'EV launch India',
-      'electric SUV India',
-      'Tata Harrier EV',
-      'Tata Curvv EV',
-      'BYD Seal India'
-    ];
-
-    let queryIndex = 0;
-    while (
-      (infraList.length < 6 || buyingList.length < 6 || latestList.length < 6) &&
-      queryIndex < backupQueries.length
-    ) {
-      const q = backupQueries[queryIndex++];
-      console.log(`Category count low (infra: ${infraList.length}, buying: ${buyingList.length}, latest: ${latestList.length}). Fetching backup: "${q}"...`);
-      try {
-        const response = await axios.get('https://api.currentsapi.services/v1/search', {
-          params: { keywords: q, language: 'en', apiKey: apiKey },
-          timeout: 8000
-        });
-        if (response.data && response.data.news) {
-          allRawNews.push(...response.data.news);
-          processed = processAndCategorize(allRawNews);
-          
-          infraList = processed.filter(a => a.category === 'infrastructure');
-          buyingList = processed.filter(a => a.category === 'buying');
-          latestList = processed.filter(a => a.category === 'latest');
-        }
-      } catch (err) {
-        console.warn(`Backup fetch failed for query "${q}":`, err.message);
-      }
-    }
-
-    // Update cache
-    newsCache.data = processed;
-    newsCache.timestamp = Date.now();
-
-    res.json(processed);
-
+    allArticles.sort(function(a, b) { return new Date(b.published) - new Date(a.published); });
+    topicNewsCache[cacheKey] = { data: allArticles, timestamp: Date.now() };
+    res.json(allArticles);
   } catch (error) {
-    console.error('Error fetching live news:', error.message);
-    
-    if (newsCache.data) {
-      console.log('Serving stale news cache due to API failure.');
-      return res.json(newsCache.data);
-    }
-
-    res.status(500).json({ error: 'Unable to load latest EV news.' });
+    console.error('Error fetching news for topic', topic + ':', error.message);
+    var stale = topicNewsCache[cacheKey];
+    if (stale) return res.json(stale.data);
+    res.json([]);
   }
 });
 

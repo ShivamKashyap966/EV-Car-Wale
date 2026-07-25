@@ -9,7 +9,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,6 +18,7 @@
   <!-- Leaflet Map CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Google Maps JavaScript API (Places + Geocoding) -->
   <script>
     tailwind.config = {
       theme: {
@@ -30,7 +31,9 @@
             lightgray: '#F5F5F5',
           },
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Poppins', 'sans-serif'],
+            mono: ['Poppins', 'sans-serif'],
+            serif: ['Poppins', 'sans-serif'],
           }
         }
       }
@@ -41,36 +44,22 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/ai-assistant.css">
   <link rel="preload" as="image" href="/ev_hero.png" fetchpriority="high">
-  <link rel="preload" href="/loading%20screen.mov" as="video" type="video/quicktime">
+  <link rel="preload" href="/loading-screen.gif" as="image" fetchpriority="high">
   <link rel="preconnect" href="https://logo.clearbit.com">
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="icon" type="image/png" href="/tab_logo.png">
   <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
 </head>
 <body class="bg-white text-black font-sans overflow-x-hidden selection-none">
-  <script>if(sessionStorage.getItem('evcwSkipPreloader')){sessionStorage.removeItem('evcwSkipPreloader');document.write('<style>#preloader{display:none!important}</style>')}</script>
 
-  <!-- Preloader Screen -->
-  <div id="preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden" style="background:#000000;">
-    <div class="flex flex-col items-center px-6" style="width:min(82vw,680px);">
-      <!-- Glowing logo (hidden until 5s) -->
-      <div id="loader-logo" style="margin-bottom:0px; opacity:0; transform:scale(0.92); transition:opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);">
-        <div style="display:flex; align-items:baseline; gap:7px; justify-content:center;">
-          <span style="font-family:'ARIEL',sans-serif; font-size:clamp(22px,5.5vw,48px); font-weight:800; letter-spacing:0.12em; color:#ffffff;">EV</span>
-          <span id="glow-text" style="font-family:'ARIEL',sans-serif; font-size:clamp(22px,5.5vw,48px); font-weight:800; letter-spacing:0.12em; color:#39FF14; text-shadow:0 0 10px rgba(57,255,20,0.5), 0 0 25px rgba(57,255,20,0.2); animation:glowPulse 2s ease-in-out infinite;">Car Wale</span>
-        </div>
-        <div style="margin-top:0px; text-align:center;">
-          <span style="font-family:'ARIEL',sans-serif; font-size:clamp(13px,3.2vw,28px); font-weight:500; letter-spacing:0.5px; color:rgba(255,255,255,0.88);">Smart Choices. Sustainable Future.</span>
-        </div>
-      </div>
-      <!-- Car video -->
-      <div id="car-container" class="relative flex items-center justify-center" style="width:100%; max-width:567px;">
-        <video id="preloader-video" src="/loading%20screen.mov" preload="auto" autoplay loop muted playsinline class="w-full h-auto" style="border-radius:10px; will-change:transform; box-shadow:0 4px 30px rgba(0,0,0,0.3);"></video>
-      </div>
-      <!-- LOADING text -->
-      <div style="margin-top:0px; text-align:center;">
-        
-      </div>
+
+  <div id="preloader">
+    <div class="loader-brand-group">
+      <div id="loader-brand"><span class="brand-ev">EV</span> <span class="brand-name">Car Wale</span></div>
+      <p id="loader-tagline">Smart Choices. Sustainable Future.</p>
+    </div>
+    <div class="loader-car-area">
+      <img id="preloader-gif" src="/loading-screen.gif" alt="Loading...">
     </div>
   </div>
 
@@ -79,11 +68,11 @@
        White bg | Black text | Thin border | Smooth dropdowns
        Inspired by Tesla / Apple / Rivian premium automotive
        ===================================================== -->
-  <nav id="mega-nav" class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+  <nav id="mega-nav" class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
     <div class="w-full flex items-center justify-between h-16 px-4">
 
       <!-- Logo -->
-      <a href="index.html#" class="logo-link font-bold tracking-widest text-sm flex items-center gap-4[] group text-black flex-shrink-0">
+      <a href="/" class="logo-link font-bold tracking-widest text-sm flex items-center gap-4[] group text-black flex-shrink-0">
         <img src="/nav%20bar%20logo.png" alt="Logo" class="h-20 w-auto object-contain flex-shrink-0" style="height: 64px;">
       </a>
 
@@ -91,7 +80,7 @@
       <div id="mega-menu-links" class="hidden xl:flex items-center h-full ml-20">
 
         <!-- HOME -->
-        <a href="index.html#home" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group" data-section="home">
+        <a href="/" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group" data-section="home">
           HOME
           <span class="mega-active-bar"></span>
         </a>
@@ -135,18 +124,18 @@
       <div class="ml-auto flex items-center gap-4">
         <!-- Language -->
         <div id="google_translate_element" class="notranslate" style="display:none"></div>
-        <div class="custom-lang-dropdown">
-          <button id="custom-lang-btn" class="btn-animate px-3">
-            <span id="custom-lang-label">LANGUAGE</span>
-            <span class="arrow">▼</span>
+        <div class="custom-lang-dropdown notranslate">
+          <button id="custom-lang-btn" class="btn-animate px-3 notranslate">
+            <span id="custom-lang-label" class="notranslate">English</span>
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
-          <div id="custom-lang-menu" class="custom-lang-menu">
-            <div class="lang-option" data-lang="en">English</div>
-            <div class="lang-option" data-lang="hi">Hindi</div>
-            <div class="lang-option" data-lang="kn">Kannada</div>
-            <div class="lang-option" data-lang="ml">Malayalam</div>
-            <div class="lang-option" data-lang="te">Telugu</div>
-            <div class="lang-option" data-lang="ta">Tamil</div>
+          <div id="custom-lang-menu" class="notranslate">
+            <div class="lang-option notranslate" data-lang="en">English</div>
+            <div class="lang-option notranslate" data-lang="hi">हिन्दी</div>
+            <div class="lang-option notranslate" data-lang="kn">ಕನ್ನಡ</div>
+            <div class="lang-option notranslate" data-lang="ml">മലയാളം</div>
+            <div class="lang-option notranslate" data-lang="te">తెలుగు</div>
+            <div class="lang-option notranslate" data-lang="ta">தமிழ்</div>
           </div>
         </div>
 
@@ -155,7 +144,7 @@
         </button>
 
         <!-- Profile Avatar (shown after login) -->
-        <a id="profile-container" class="hidden" href="profile.html">
+        <a id="profile-container" class="hidden" href="/profile">
           <div class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center hover:bg-zinc-700 transition-colors cursor-pointer" aria-label="Profile">
             <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -224,14 +213,14 @@
         <div>
           <p class="mega-col-title">Quick Actions</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="all-cars.html" class="mega-item">
+            <a href="/all-cars" class="mega-item">
               <span class="mega-item-icon">📋</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">View All Cars</span>
                 <span class="mega-item-desc">Explore the complete EV database for India.</span>
               </span>
             </a>
-            <a href="index.html#compare" class="mega-item">
+            <a href="/compare" class="mega-item">
               <span class="mega-item-icon">⚖️</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Compare Cars</span>
@@ -248,7 +237,7 @@
       <div class="px-8 py-8 grid grid-cols-2 gap-10">
         <div>
           <p class="mega-col-title">Calculators</p>
-          <div class="flex flex-col gap-1 mt-3">
+           <div class="flex flex-col gap-1 mt-3">
             <a href="index.html#trip-planner" class="mega-item">
   <span class="mega-item-icon">🗺️</span>
   <span class="mega-item-body">
@@ -256,14 +245,28 @@
     <span class="mega-item-desc">Plan routes, charging stops, costs.</span>
   </span>
   </a>
- <a href="index.html#emi" class="mega-item">
-  <span class="mega-item-icon">🏦</span>
+ <a href="/charging-time-calculator" class="mega-item">
+  <span class="mega-item-icon">⏱️</span>
   <span class="mega-item-body">
-    <span class="mega-item-title">EMI Calculator</span>
-    <span class="mega-item-desc">Calculate monthly loan repayments.</span>
+    <span class="mega-item-title">EV Charging Time Calculator</span>
+    <span class="mega-item-desc">Estimate charging duration for any EV.</span>
   </span>
  </a>
- <a href="index.html#stations" class="mega-item">
+ <a href="/emi-calculator" class="mega-item">
+  <span class="mega-item-icon">💰</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">EMI Calculator</span>
+    <span class="mega-item-desc">Calculate monthly EV loan installments.</span>
+  </span>
+ </a>
+ <a href="/petrol-savings" class="mega-item">
+  <span class="mega-item-icon">⛽</span>
+  <span class="mega-item-body">
+    <span class="mega-item-title">Petrol Savings Calculator</span>
+    <span class="mega-item-desc">Compare petrol vs EV running costs.</span>
+  </span>
+ </a>
+ <a href="/charging-stations" class="mega-item">
   <span class="mega-item-icon">🔌</span>
   <span class="mega-item-body">
     <span class="mega-item-title">Charging Stations</span>
@@ -276,14 +279,14 @@
         <div>
           <p class="mega-col-title">Utilities</p>
           <div class="flex flex-col gap-1 mt-3">
-            <a href="apartment-charging.html" class="mega-item">
+            <a href="/apartment-charging" class="mega-item">
               <span class="mega-item-icon">🏢</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Apartment Charging Guide</span>
                 <span class="mega-item-desc">Get society NOC and home charging setup.</span>
               </span>
             </a>
-            <a href="battery-health.html" class="mega-item">
+            <a href="/battery-health" class="mega-item">
               <span class="mega-item-icon">🔋</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Battery Health Guide</span>
@@ -485,24 +488,17 @@
                 <span class="mega-item-desc">Understanding the grid and energy sources.</span>
               </span>
             </a>
-            <a href="/insights/renewable-energy-and-evs" class="mega-item">
+            <a href="/insights/renewable-energy-evs" class="mega-item">
               <span class="mega-item-icon">☀️</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">Renewable Energy and EVs</span>
                 <span class="mega-item-desc">Synergies between solar and electric vehicles.</span>
               </span>
             </a>
-            <a href="/insights/ev-guides" class="mega-item">
-              <span class="mega-item-icon">📋</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">EV Guides</span>
-                <span class="mega-item-desc">Step-by-step EV purchase guides.</span>
-              </span>
-            </a>
           </div>
         </div>
         <div>
-          <p class="mega-col-title">Market Analysis</p>
+          <p class="mega-col-title">Companies</p>
           <div class="flex flex-col gap-1 mt-3">
             <a href="/insights/companies-building-indias-network" class="mega-item">
               <span class="mega-item-icon">🏗️</span>
@@ -511,25 +507,11 @@
                 <span class="mega-item-desc">Key players in India's charging infrastructure.</span>
               </span>
             </a>
-            <a href="/insights/ev-cost-and-savings" class="mega-item">
+            <a href="/insights/ev-cost-savings" class="mega-item">
               <span class="mega-item-icon">💰</span>
               <span class="mega-item-body">
                 <span class="mega-item-title">EV Cost & Savings</span>
                 <span class="mega-item-desc">Total cost of ownership and financial analysis.</span>
-              </span>
-            </a>
-            <a href="/insights/market-analysis" class="mega-item">
-              <span class="mega-item-icon">📊</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">Market Analysis</span>
-                <span class="mega-item-desc">Sales data and market research.</span>
-              </span>
-            </a>
-            <a href="/insights" class="mega-item">
-              <span class="mega-item-icon">🔍</span>
-              <span class="mega-item-body">
-                <span class="mega-item-title">View All Categories</span>
-                <span class="mega-item-desc">Browse the full insights hub.</span>
               </span>
             </a>
           </div>
@@ -646,7 +628,7 @@
     <div id="mega-mobile-drawer" class="xl:hidden fixed inset-0 top-16 bg-white z-35 overflow-y-auto transform translate-x-full transition-transform duration-300 ease-in-out border-t border-zinc-200" style="z-index:39">
       <div class="p-6 flex flex-col gap-0">
 
-        <a href="index.html#home" class="mobile-nav-link" data-close-drawer>HOME</a>
+        <a href="/" class="mobile-nav-link" data-close-drawer>HOME</a>
 
         <!-- Discover EVs accordion -->
         <div class="mobile-accordion">
@@ -657,8 +639,8 @@
             <a href="index.html#upcoming" class="mobile-sub-link" data-close-drawer>🔮 Upcoming Electric Cars</a>
             <a href="index.html#browse" class="mobile-sub-link" data-close-drawer>🏷️ Browse by Brand</a>
             <a href="index.html#browse" class="mobile-sub-link" data-close-drawer>💰 Browse by Budget</a>
-            <a href="all-cars.html" class="mobile-sub-link" data-close-drawer>📋 View All Cars</a>
-            <a href="index.html#compare" class="mobile-sub-link" data-close-drawer>⚖️ Compare Cars</a>
+            <a href="/all-cars" class="mobile-sub-link" data-close-drawer>📋 View All Cars</a>
+            <a href="/compare" class="mobile-sub-link" data-close-drawer>⚖️ Compare Cars</a>
             
             <a href="index.html#popular-evs" class="mobile-sub-link" data-close-drawer>🕒 Recently Viewed</a>
           </div>
@@ -669,13 +651,14 @@
           <button class="mobile-accordion-trigger">TOOLS <svg viewBox="0 0 24 24" class="w-3 h-3 ml-auto stroke-current fill-none stroke-2 transition-transform duration-200" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="mobile-accordion-body">
             <a href="index.html#trip-planner" class="mobile-sub-link" data-close-drawer>🗺️ EV Trip Planner</a>
-            <a href="index.html#emi" class="mobile-sub-link" data-close-drawer>🏦 EMI Calculator</a>
-            <a href="index.html#petrol-savings" class="mobile-sub-link" data-close-drawer>⛽ Petrol vs EV Savings Calculator</a>
+            <a href="/charging-time-calculator" class="mobile-sub-link" data-close-drawer>⏱️ EV Charging Time Calculator</a>
+            <a href="/emi-calculator" class="mobile-sub-link" data-close-drawer>💰 EMI Calculator</a>
+            <a href="/petrol-savings" class="mobile-sub-link" data-close-drawer>⛽ Petrol Savings Calculator</a>
             <a href="index.html#popular-evs" class="mobile-sub-link" data-close-drawer>💸 On-Road Price Calculator</a>
-            <a href="index.html#stations" class="mobile-sub-link" data-close-drawer>🔌 Charging Stations</a>
-            <a href="apartment-charging.html" class="mobile-sub-link" data-close-drawer>🏢 Apartment Charging Guide</a>
+            <a href="/charging-stations" class="mobile-sub-link" data-close-drawer>🔌 Charging Stations</a>
+            <a href="/apartment-charging" class="mobile-sub-link" data-close-drawer>🏢 Apartment Charging Guide</a>
             <a href="index.html#popular-evs" class="mobile-sub-link" data-close-drawer>🛣️ Highway Readiness Checker</a>
-            <a href="battery-health.html" class="mobile-sub-link" data-close-drawer>🔋 Battery Health Guide</a>
+            <a href="/battery-health" class="mobile-sub-link" data-close-drawer>🔋 Battery Health Guide</a>
           </div>
         </div>
 
@@ -716,11 +699,9 @@
             <a href="/insights/government-policies" class="mobile-sub-link" data-close-drawer>🏛️ Government Policies</a>
             <a href="/insights/ev-charging-explained" class="mobile-sub-link" data-close-drawer>⚡ EV Charging Explained</a>
             <a href="/insights/where-electricity-comes-from" class="mobile-sub-link" data-close-drawer>🏭 Where Does Electricity Come From?</a>
-            <a href="/insights/renewable-energy-and-evs" class="mobile-sub-link" data-close-drawer>☀️ Renewable Energy and EVs</a>
-            <a href="/insights/ev-guides" class="mobile-sub-link" data-close-drawer>📋 EV Guides</a>
+            <a href="/insights/renewable-energy-evs" class="mobile-sub-link" data-close-drawer>☀️ Renewable Energy and EVs</a>
             <a href="/insights/companies-building-indias-network" class="mobile-sub-link" data-close-drawer>🏗️ Companies Building India's Network</a>
-            <a href="/insights/ev-cost-and-savings" class="mobile-sub-link" data-close-drawer>💰 EV Cost & Savings</a>
-            <a href="/insights/market-analysis" class="mobile-sub-link" data-close-drawer>📊 Market Analysis</a>
+            <a href="/insights/ev-cost-savings" class="mobile-sub-link" data-close-drawer>💰 EV Cost & Savings</a>
           </div>
         </div>
 
@@ -748,7 +729,7 @@
         </div>
         <!-- Mobile Profile (shown after login) -->
         <div id="profile-container-mobile" class="hidden pt-4 border-t border-zinc-200 mt-2">
-          <a href="profile.html" class="flex items-center gap-3 py-3 hover:opacity-80 transition-opacity">
+          <a href="/profile" class="flex items-center gap-3 py-3 hover:opacity-80 transition-opacity">
             <div class="w-10 h-10 rounded-full bg-zinc-800 text-white flex items-center justify-center">
               <svg viewBox="0 0 24 24" class="w-5 h-5 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -882,19 +863,22 @@
         <a href="index.html#popular-evs" class="px-6 py-2.5 border border-zinc-800 hover:border-white font-mono text-[10px] tracking-wider text-zinc-300 hover:text-white transition-all btn-animate">
           POPULAR ELECTRIC CARS
         </a>
-        <a href="index.html#compare" class="px-6 py-2.5 border border-zinc-800 hover:border-white font-mono text-[10px] tracking-wider text-zinc-300 hover:text-white transition-all btn-animate">
+        <a href="/compare" class="px-6 py-2.5 border border-zinc-800 hover:border-white font-mono text-[10px] tracking-wider text-zinc-300 hover:text-white transition-all btn-animate">
           COMPARE CARS
+        </a>
+        <a href="/charging-time-calculator" class="px-6 py-2.5 border border-zinc-800 hover:border-white font-mono text-[10px] tracking-wider text-zinc-300 hover:text-white transition-all btn-animate">
+          ⚡ EV CHARGING TIME
         </a>
       </div>
     </div>
 
     <!-- Floating Quick Actions Panel -->
     <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto w-full pt-6 border-t border-zinc-800/60 font-mono">
-      <a href="index.html#stations" class="flex flex-col p-4 bg-zinc-900/40 border border-zinc-850 hover:border-white/50 transition-all hover:-translate-y-1 hero-card-animate">
+      <a href="/charging-stations" class="flex flex-col p-4 bg-zinc-900/40 border border-zinc-850 hover:border-white/50 transition-all hover:-translate-y-1 hero-card-animate">
         <span class="text-[8px] text-zinc-500 tracking-wider">01 / FAST POWER</span>
         <span class="text-xs text-zinc-200 mt-1">Locate Chargers</span>
       </a>
-      <a href="index.html#emi" class="flex flex-col p-4 bg-zinc-900/40 border border-zinc-850 hover:border-white/50 transition-all hover:-translate-y-1 hero-card-animate">
+      <a href="/emi-calculator" class="flex flex-col p-4 bg-zinc-900/40 border border-zinc-850 hover:border-white/50 transition-all hover:-translate-y-1 hero-card-animate">
         <span class="text-[8px] text-zinc-500 tracking-wider">02 / TAX RATES</span>
         <span class="text-xs text-zinc-200 mt-1">Calculate EMI</span>
       </a>
@@ -1322,130 +1306,6 @@
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
 
-  <!-- Section: Compare Cars Tool -->
-  <section id="compare" class="bg-white text-black py-24 px-6 lg:px-12 relative reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">DIFFERENCE METRIC</span>
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Compare Cars</h2>
-        <p class="text-xs text-zinc-650 max-w-sm mx-auto mt-3">Select two electric vehicles side-by-side to compare technical variables.</p>
-      </div>
-
-      <!-- Compare Interface -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        <!-- Selection Dropdowns (Left) -->
-        <div class="lg:col-span-4 bg-zinc-50 border border-zinc-200 p-6 flex flex-col gap-6 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-          <h3 class="font-mono text-[10px] uppercase tracking-widest text-zinc-500">Select Comparison Matrix</h3>
-          
-          <div class="flex flex-col gap-2">
-            <label for="comp-select-a" class="font-mono text-[8px] text-zinc-500 uppercase tracking-wider">VEHICLE A</label>
-            <select id="comp-select-a" class="bg-white border border-zinc-200 text-xs p-3 text-zinc-800 outline-none focus:border-black transition-all cursor-pointer">
-              <!-- Options injected dynamically by JS -->
-            </select>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label for="comp-select-b" class="font-mono text-[8px] text-zinc-500 uppercase tracking-wider">VEHICLE B</label>
-            <select id="comp-select-b" class="bg-white border border-zinc-200 text-xs p-3 text-zinc-800 outline-none focus:border-black transition-all cursor-pointer">
-              <!-- Options injected dynamically by JS -->
-            </select>
-          </div>
-          
-          <div class="flex flex-col gap-2">
-            <label for="comp-state-select" class="font-mono text-[8px] text-zinc-500 uppercase tracking-wider">State / City (On-Road Price)</label>
-            <select id="comp-state-select" class="bg-white border border-zinc-200 text-xs p-3 text-zinc-800 outline-none focus:border-black transition-all cursor-pointer">
-              <option value="delhi">Delhi</option>
-              <option value="mumbai">Mumbai, Maharashtra</option>
-              <option value="pune">Pune, Maharashtra</option>
-              <option value="bengaluru">Bengaluru, Karnataka</option>
-              <option value="hyderabad">Hyderabad, Telangana</option>
-              <option value="chennai">Chennai, Tamil Nadu</option>
-              <option value="ahmedabad">Ahmedabad, Gujarat</option>
-              <option value="kochi">Kochi, Kerala</option>
-              <option value="kolkata">Kolkata, West Bengal</option>
-              <option value="jaipur">Jaipur, Rajasthan</option>
-              <option value="lucknow">Lucknow, Uttar Pradesh</option>
-              <option value="chandigarh">Chandigarh</option>
-            </select>
-          </div>
-          
-          <div class="text-[9px] text-zinc-500 font-mono tracking-widest uppercase border-t border-zinc-200 pt-4">
-            SPECIFICATION METRIC CALIBRATION
-          </div>
-        </div>
-
-        <!-- Comparative Spec Table (Right) -->
-        <div class="lg:col-span-8 bg-zinc-50/50 border border-zinc-200 overflow-x-auto shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-          <table class="w-full text-left font-mono text-xs text-zinc-650 select-none">
-            <thead>
-              <tr class="border-b border-zinc-200 bg-zinc-100/80">
-                <th class="p-4 uppercase text-[9px] tracking-wider text-zinc-500">SPECIFICATION</th>
-                <th id="comp-hdr-a" class="p-4 uppercase text-[10px] tracking-wider font-bold text-black">-</th>
-                <th id="comp-hdr-b" class="p-4 uppercase text-[10px] tracking-wider font-bold text-black">-</th>
-              </tr>
-            </thead>
-            <tbody id="comp-table-body">
-              <!-- Rows injected dynamically by JS -->
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
-  <!-- Section: EV Charging Stations Finder -->
-  <section id="stations" class="bg-white text-black py-24 px-6 lg:px-12 reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-left mb-16">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">INFRASTRUCTURE CORE</span>
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">EV Charging Stations</h2>
-        <p class="text-xs text-zinc-650 max-w-sm mt-3">Find real-time status indices of nearby fast and normal charging ports.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        
-        <!-- Left: Stations Query & list -->
-        <div class="lg:col-span-5 border border-zinc-200 bg-zinc-50 p-6 flex flex-col gap-6 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-          <div class="flex flex-col gap-2">
-            <label for="station-search-input" class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">Search City / Zipcode</label>
-            <input type="text" id="station-search-input" placeholder="Type city (e.g. Mumbai, Delhi)..." class="bg-white border border-zinc-200 text-xs p-3 text-zinc-800 outline-none focus:border-black transition-all rounded-none placeholder-zinc-400">
-          </div>
-
-          <!-- Type Filters -->
-          <div class="flex items-center gap-6 select-none font-mono text-[9px] tracking-wider text-zinc-655">
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" id="filter-charger-fast" checked class="accent-black w-4 h-4 cursor-pointer">
-              <span>FAST CHARGER (DC)</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" id="filter-charger-normal" checked class="accent-black w-4 h-4 cursor-pointer">
-              <span>NORMAL CHARGER (AC)</span>
-            </label>
-          </div>
-
-          <!-- Active Stations List (Dynamic) -->
-          <div id="stations-list-container" class="h-64 overflow-y-auto border border-zinc-200 bg-white p-4 flex flex-col gap-3 custom-scrollbar">
-            <!-- Dynamic elements go here -->
-          </div>
-        </div>
-
-        <!-- Right: Map Preview Layout -->
-        <div class="lg:col-span-7 border border-zinc-200 bg-zinc-50 relative min-h-[300px] flex items-center justify-center overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-          <div id="map" class="w-full h-full absolute inset-0"></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
   <!-- ===================================================
        Section: EV Battery Care
        =================================================== -->
@@ -1523,200 +1383,6 @@
 
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
-
-  <!-- Section: EMI Loan Calculator -->
-  <section id="emi" class="bg-white text-black py-24 px-6 lg:px-12 relative reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">FINANCIAL MODEL</span>
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">EMI Calculator</h2>
-        <p class="text-xs text-zinc-650 max-w-sm mx-auto mt-3">Formulate monthly installment values based on interest indexes.</p>
-      </div>
-
-      <!-- Calculator grid layout -->
-      <div class="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-zinc-50 border border-zinc-200 p-8 shadow-[0_8px_30px_rgba(0,0,0,0.05)]">
-        
-        <!-- Left: Sliders inputs -->
-        <div class="md:col-span-7 flex flex-col gap-6">
-          
-          <!-- Slide 1: Price -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">VEHICLE PRICE</span>
-              <span id="lbl-price-val" class="font-bold text-black">₹46,00,000</span>
-            </div>
-            <input type="range" id="slider-price" min="1000000" max="15000000" step="100000" value="4600000" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>₹10 Lakh</span>
-              <span>₹1.5 Crore</span>
-            </div>
-          </div>
-
-          <!-- Slide 2: Down Payment -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">DOWN PAYMENT</span>
-              <span id="lbl-down-val" class="font-bold text-black">₹9,20,000</span>
-            </div>
-            <input type="range" id="slider-down" min="200000" max="13500000" step="50000" value="920000" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span id="lbl-down-min">₹2 Lakh</span>
-              <span id="lbl-down-max">₹1.35 Crore</span>
-            </div>
-          </div>
-
-          <!-- Slide 3: Interest Rate -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">INTEREST RATE (P.A.)</span>
-              <span id="lbl-rate-val" class="font-bold text-black">9.5%</span>
-            </div>
-            <input type="range" id="slider-rate" min="7" max="15" step="0.1" value="9.5" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>7.0%</span>
-              <span>15.0%</span>
-            </div>
-          </div>
-
-          <!-- Slide 4: Tenure Period -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">LOAN PERIOD</span>
-              <span id="lbl-tenure-val" class="font-bold text-black">5 Years</span>
-            </div>
-            <input type="range" id="slider-tenure" min="1" max="7" step="1" value="5" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>1 Year</span>
-              <span>7 Years</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Right: Results output panel -->
-        <div class="md:col-span-5 border-t md:border-t-0 md:border-l border-zinc-200 p-6 flex flex-col justify-between items-center text-center font-mono">
-          <div class="w-full">
-            <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-4 text-left">CALCULATED PRINCIPAL OUTLINE</span>
-            <div class="flex flex-col gap-4 text-left text-xs text-zinc-500 mb-6">
-              <div>LOAN AMOUNT:<br><span id="res-loan-amt" class="text-black font-bold">₹36,80,000</span></div>
-              <div>INTEREST RATIO:<br><span id="res-interest-ratio" class="text-black font-bold">9.5%</span></div>
-            </div>
-          </div>
-
-          <div class="my-6">
-            <span class="text-[9px] text-zinc-500 uppercase tracking-widest block mb-1">Estimated Monthly EMI</span>
-            <span id="emi-calc-result" class="text-3xl md:text-4xl font-extrabold text-black tracking-tight">₹77,320</span>
-            <span class="text-[9px] text-zinc-500 block uppercase tracking-widest mt-1">PER MONTH</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
-  <!-- Section: Petrol Savings Calculator -->
-  <section id="petrol-savings" class="bg-white text-black py-24 px-6 lg:px-12 reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">EFFICIENCY METRIC</span>
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Petrol Savings Calculator</h2>
-        <p class="text-xs text-zinc-650 max-w-sm mx-auto mt-3">See how much you can save by switching from a petrol car to an electric vehicle.</p>
-      </div>
-
-      <div class="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch bg-zinc-50 border border-zinc-200 p-8 shadow-sm">
-        <!-- Sliders / Inputs (Left) -->
-        <div class="md:col-span-7 flex flex-col gap-6">
-          <!-- Select EV Dropdown (Homepage only) -->
-          <div class="flex flex-col gap-1 text-left font-mono">
-            <label for="savings-select-ev" class="text-zinc-500 text-[8px] uppercase tracking-wider font-bold">Select EV Model</label>
-            <select id="savings-select-ev" class="bg-white border border-zinc-200 p-2.5 text-xs text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-              <!-- Dynamically populated via JS -->
-            </select>
-          </div>
-
-          <!-- Daily Distance Slider -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">DAILY DISTANCE</span>
-              <span id="lbl-savings-distance" class="font-bold text-black">50 km</span>
-            </div>
-            <input type="range" id="slider-savings-distance" min="10" max="200" step="5" value="50" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>10 km</span>
-              <span>200 km</span>
-            </div>
-          </div>
-
-          <!-- Petrol Price Slider -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">PETROL PRICE (PER LITRE)</span>
-              <span id="lbl-savings-petrol-price" class="font-bold text-black">₹100</span>
-            </div>
-            <input type="range" id="slider-savings-petrol-price" min="80" max="150" step="1" value="100" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>₹80</span>
-              <span>₹150</span>
-            </div>
-          </div>
-
-          <!-- Electricity Tariff Slider -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">ELECTRICITY TARIFF (PER KWH)</span>
-              <span id="lbl-savings-tariff" class="font-bold text-black">₹8</span>
-            </div>
-            <input type="range" id="slider-savings-tariff" min="3" max="15" step="0.5" value="8" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>₹3</span>
-              <span>₹15</span>
-            </div>
-          </div>
-
-          <!-- Ownership Period Slider -->
-          <div class="flex flex-col gap-2 text-left font-mono">
-            <div class="flex justify-between text-xs">
-              <span class="text-zinc-500">OWNERSHIP PERIOD</span>
-              <span id="lbl-savings-period" class="font-bold text-black">5 Years</span>
-            </div>
-            <input type="range" id="slider-savings-period" min="1" max="10" step="1" value="5" class="w-full accent-black h-[2px] bg-zinc-200 cursor-pointer">
-            <div class="flex justify-between text-[9px] text-zinc-400">
-              <span>1 Year</span>
-              <span>10 Years</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Output / Highlights (Right) -->
-        <div class="md:col-span-5 border-t md:border-t-0 md:border-l border-zinc-200 p-6 flex flex-col justify-between font-mono">
-          <div class="flex flex-col gap-4 text-left text-xs text-zinc-500">
-            <div>MONTHLY PETROL COST:<br><span id="res-savings-petrol-cost" class="text-black font-bold">₹0</span></div>
-            <div>MONTHLY EV CHARGING COST:<br><span id="res-savings-ev-cost" class="text-black font-bold">₹0</span></div>
-            <div class="border-t border-zinc-200 pt-3">
-              MONTHLY SAVINGS:<br><span id="res-savings-monthly" class="text-black font-bold">₹0</span>
-            </div>
-            <div>
-              ANNUAL SAVINGS:<br><span id="res-savings-annual" class="text-black font-bold">₹0</span>
-            </div>
-          </div>
-
-          <!-- Highlight Card with subtle green accent -->
-          <div class="my-6 p-5 bg-emerald-50/50 border border-emerald-500/20 text-center relative overflow-hidden rounded-none shadow-[0_2px_10px_rgba(16,185,129,0.03)]">
-            <span class="text-[8px] text-emerald-600 font-bold uppercase tracking-widest block mb-2">Projected Savings</span>
-            <span id="res-savings-total" class="text-3xl font-extrabold text-emerald-700 tracking-tight" data-val="0">₹0</span>
-            <span id="lbl-savings-total-duration" class="text-[8px] text-emerald-550 block uppercase tracking-widest mt-1">OVER 5 YEARS</span>
-          </div>
-
-          <p class="text-[9px] text-zinc-500 italic text-center">
-            "Choosing this EV could save you thousands in fuel over time."
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===================================================
        Section: Why Choose an EV?
@@ -1837,124 +1503,216 @@
 
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
+
   <!-- ===================================================
-       Section: EV Buying Guide Info Cards
+       Section: Trusted by EV Buyers Across India
        =================================================== -->
-  <section id="buying-portal" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
+  <section id="testimonials" class="bg-white text-black py-24 px-6 lg:px-12 overflow-hidden reveal-on-scroll">
     <div class="max-w-6xl mx-auto">
-      <div class="text-left mb-10">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">EDUCATIONAL PORTAL</span>
-        <h2 class="text-3xl font-black tracking-tight uppercase">Everything You Need Before Buying an EV</h2>
-        <p class="text-xs text-zinc-550 mt-1 font-mono leading-relaxed">Deep-dive into essential chapters covering battery parameters, cost computations, and infrastructural setup.</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card 1 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">🔌</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Charging at Home</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Learn about setting up a standard 15A socket or a dedicated AC wallbox charger in your residential garage.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="home-charging">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 2 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">🏢</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Apartment Charging</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Discover step-by-step instructions on securing permissions and wiring from your residential society (RWA).</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="apartment-charging">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 3 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">⚡</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Fast vs Slow</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Understand the power profiles, speed differences, and cell impacts of AC slow charging vs high-output DC fast chargers.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="fast-vs-slow">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 4 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">🛡️</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Battery Warranty</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Find out what standard 8-year/1,60,000 km EV battery warranties cover, degradation clauses, and replacement rules.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="battery-warranty">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 5 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">🏛️</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">State Subsidies</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Explore state-wise road tax exemptions, registration waivers, and direct bank transfer purchase incentives across India.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="subsidies">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 6 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">💰</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Running Cost</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Compute detailed per-km cost benchmarks comparing residential electricity tariffs to current petrol and diesel prices.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="running-cost">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 7 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">🗺️</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Trip Planning</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Tips on driving style settings (Eco vs Sport), AC adjustments, and scheduling charging stops along major highway corridors.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="trip-planning">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-        <!-- Card 8 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[250px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] group">
-          <div>
-            <div class="w-10 h-10 border border-zinc-200 flex items-center justify-center mb-4 text-black group-hover:border-black transition-colors bg-white font-mono text-lg rounded-lg">📈</div>
-            <h3 class="text-xs font-bold uppercase tracking-wider mb-2">Real World Range</h3>
-            <p class="text-[10px] text-zinc-500 font-mono leading-relaxed">Understand the difference between claimed range and real-world range, and how temperature, load, and speed affect battery depletion.</p>
-          </div>
-          <button class="font-mono text-[9px] tracking-wider text-zinc-600 hover:text-black transition-colors self-start flex items-center gap-1 btn-read-guide" data-guide-id="real-range">
-            Read More <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
-  <!-- Section: EV Buying Guide -->
-  <section id="guide" class="bg-white text-black py-24 px-6 lg:px-12 reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-left mb-16">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">EDUCATION RESOURCE</span>
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">EV Buying Guide</h2>
-        <p class="text-xs text-zinc-650 max-w-sm mt-3">Essential knowledge briefs to optimize your electric vehicle transition.</p>
+      <div class="text-left mb-14">
+        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">SOCIAL PROOF</span>
+        <h2 class="text-3xl font-black tracking-tight uppercase">Trusted by EV Buyers Across India</h2>
+        <p class="text-xs text-zinc-550 mt-2 font-mono leading-relaxed max-w-2xl">Real experiences from professionals, families, students, and daily commuters exploring electric mobility.</p>
       </div>
 
-      <div id="guide-grid-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Buying guide chapters injected dynamically via JS -->
+      <div class="testimonial-carousel">
+        <div class="testimonial-glow"></div>
+        <div class="testimonial-track" id="testimonial-track">
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#4f46e5;">AP</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Arjun Patel</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Business Owner · Ahmedabad</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Charging infrastructure helped me confidently switch to an EV. The savings on my daily commute have been life-changing for my business."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">BYD Atto 3</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#059669;">PS</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Priya Sharma</span>
+                <span class="text-[10px] text-zinc-500 font-mono">School Teacher · Pune</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"My daily commute costs have dropped by 80% since switching. The Nexon EV is perfect for my family's needs and weekend getaways."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Tata Nexon EV</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#d97706;">RV</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Rahul Verma</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Software Engineer · Bangalore</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"The instant torque and silent drive make every journey a pleasure. My MG ZS EV handles Bangalore traffic like a dream."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">MG ZS EV</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#dc2626;">AG</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Ananya Gupta</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Architect · Mumbai</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"The design and technology of the Ioniq 5 are years ahead of petrol cars. It matches my aesthetic sensibilities perfectly."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Hyundai Ioniq 5</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#7c3aed;">VS</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Vikram Singh</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Fleet Manager · Delhi</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Our fleet operating costs have reduced significantly with the XUV400. The low maintenance and fuel savings are remarkable."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Mahindra XUV400</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#0891b2;">SR</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Sneha Reddy</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Homemaker · Hyderabad</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Perfect for school runs and grocery trips. So easy to drive and park. My Punch EV has made daily life so much simpler."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Tata Punch EV</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#c026d3;">AJ</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Amit Joshi</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Doctor · Jaipur</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"The range is excellent. I drive 80 km daily without any anxiety. The Kia EV6 has exceeded all my expectations."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Kia EV6</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#0d9488;">DN</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Deepika Nair</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Marketing Executive · Kochi</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"My first EV and I'm never going back to petrol. The ëC3 is stylish, affordable, and perfect for city driving."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Citroën ëC3</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#f97316;">KM</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Karan Malhotra</span>
+                <span class="text-[10px] text-zinc-500 font-mono">College Student · Chandigarh</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Perfect city car. Parking is a breeze and charging costs almost nothing. The Comet EV is ideal for students on a budget."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">MG Comet EV</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#6366f1;">MI</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Meera Iyer</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Yoga Instructor · Goa</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Smooth, quiet, and powerful. The BYD Seal matches my sustainable lifestyle perfectly. Best purchase I've ever made."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">BYD Seal</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#a21caf;">RD</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Rohan Deshmukh</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Restaurant Owner · Pune</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Best decision for our delivery fleet. Customers love the eco-friendly approach. The Tiago EV is incredibly cost-effective."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Tata Tiago EV</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#14b8a6;">SA</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Sunita Agarwal</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Bank Manager · Kolkata</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"The savings on fuel alone covers my EMI. Financially brilliant decision. The Kona Electric has been incredibly reliable."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Hyundai Kona Electric</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#b45309;">AK</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Aditya Kapoor</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Graphic Designer · Bangalore</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Luxury and sustainability finally come together. The XC40 Recharge is a masterpiece of Scandinavian design and electric performance."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Volvo XC40 Recharge</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#1d4ed8;">NR</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Nandini Rajan</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Journalist · Chennai</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"The performance is incredible. 0 to 60 in under 5 seconds in an SUV! The BE6 has completely changed how I think about Indian cars."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">Mahindra BE6</span>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="flex items-center gap-3">
+              <div class="testimonial-avatar" style="background:#0284c7;">FA</div>
+              <div class="flex flex-col">
+                <span class="font-bold text-[13px] text-zinc-800">Farhan Ali</span>
+                <span class="text-[10px] text-zinc-500 font-mono">Architect · Lucknow</span>
+              </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Every drive feels like the future. The build quality is phenomenal and the i4 handles like a true BMW should."</p>
+            <span class="text-[10px] text-zinc-400 font-mono">BMW i4</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2118,131 +1876,6 @@
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>
 
-  <!-- Section: Expert Reviews & Customer Feedback -->
-  <section id="reviews" class="bg-white text-black py-24 px-6 lg:px-12 relative reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
-        <!-- Left: Expert Review Column -->
-        <div class="lg:col-span-6 flex flex-col gap-6">
-          <div class="text-left">
-            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-2">LAB EVALUATION</span>
-            <div class="flex justify-between items-end mb-2">
-              <h2 class="text-3xl font-extrabold tracking-tight text-black">Expert Reviews</h2>
-              <a id="btn-view-all-expert-reviews" href="index.html#/reviews/expert" class="font-mono text-[9px] tracking-widest uppercase border-b border-black text-black pb-1 hover:text-zinc-500 hover:border-zinc-500 transition-colors">VIEW ALL →</a>
-            </div>
-            <p class="text-xs text-zinc-650 mt-2">Comprehensive mechanical diagnostic summary from our testing lab.</p>
-          </div>
-
-          <!-- Expert review scorecard -->
-          <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col gap-6 shadow-[0_4px_12px_rgba(0,0,0,0.02)] stagger-card review-card">
-            <div class="flex items-center justify-between border-b border-zinc-200 pb-4">
-              <div>
-                <h3 class="text-lg font-bold text-black">Hyundai Ioniq 5</h3>
-                <span class="font-mono text-[9px] text-zinc-500 uppercase">EVALUATED BY EV CAR WALE LABS</span>
-              </div>
-              <div class="text-right">
-                <span class="text-2xl font-bold tracking-tight text-black">4.8 / 5</span>
-                <span class="text-[8px] text-zinc-500 block uppercase">EXPERT RATING</span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 text-xs">
-              <div class="flex flex-col gap-2">
-                <span class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">PROS</span>
-                <ul class="list-disc pl-4 text-zinc-700 flex flex-col gap-1">
-                  <li>800V charging speed</li>
-                  <li>Ultra-spacious cabin</li>
-                  <li>Retro-futurism look</li>
-                </ul>
-              </div>
-              <div class="flex flex-col gap-2">
-                <span class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">CONS</span>
-                <ul class="list-disc pl-4 text-zinc-500 flex flex-col gap-1">
-                  <li>Limited rear view width</li>
-                  <li>Lacks rear wiper</li>
-                  <li>Brake feel is soft</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="border-t border-zinc-200 pt-4 text-xs">
-              <span class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">FINAL VERDICT</span>
-              <p class="text-zinc-700 italic mt-1 text-[11px] leading-relaxed">
-                "An outstanding luxury vehicle offering futuristic engineering, remarkable cabin comfort, and class-leading fast-charging infrastructure compatibility. Highly recommended."
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Customer Reviews Column -->
-        <div class="lg:col-span-6 flex flex-col gap-6">
-          <div class="text-left">
-            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-2">OWNERSHIP VOICE</span>
-            <div class="flex justify-between items-end mb-2">
-              <h2 class="text-3xl font-extrabold tracking-tight text-black">Customer Reviews</h2>
-              <a id="btn-view-all-customer-reviews" href="index.html#/reviews/customer" class="font-mono text-[9px] tracking-widest uppercase border-b border-black text-black pb-1 hover:text-zinc-500 hover:border-zinc-500 transition-colors">VIEW ALL →</a>
-            </div>
-            <p class="text-xs text-zinc-650 mt-2">Verified reports from electric vehicle owners across India.</p>
-          </div>
-
-          <!-- Customer review list -->
-          <div class="flex flex-col gap-4">
-            <!-- Review 1 -->
-            <div class="border border-zinc-200 bg-zinc-50 p-5 flex flex-col gap-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)] stagger-card review-card">
-              <div class="flex justify-between items-center text-xs">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-none bg-zinc-200 flex items-center justify-center font-mono text-[9px] text-zinc-600">
-                    AD
-                  </div>
-                  <div>
-                    <h4 class="font-bold text-black">Aniruddh D.</h4>
-                    <span class="text-[8px] text-zinc-500 font-mono uppercase">OWNED FOR 6 MONTHS</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="font-bold text-black">5.0 / 5</span>
-                  <span class="text-[8px] text-zinc-500 block uppercase">NEXON EV USER</span>
-                </div>
-              </div>
-              <p class="text-[11px] text-zinc-600 leading-normal italic">
-                "Running costs dropped significantly. Charging at home overnight is extremely convenient. Driving dynamics in sports mode are punchy."
-              </p>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="border border-zinc-200 bg-zinc-50 p-5 flex flex-col gap-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)] stagger-card review-card">
-              <div class="flex justify-between items-center text-xs">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-none bg-zinc-200 flex items-center justify-center font-mono text-[9px] text-zinc-600">
-                    KM
-                  </div>
-                  <div>
-                    <h4 class="font-bold text-black">Kabir M.</h4>
-                    <span class="text-[8px] text-zinc-500 font-mono uppercase">OWNED FOR 12 MONTHS</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="font-bold text-black">4.5 / 5</span>
-                  <span class="text-[8px] text-zinc-500 block uppercase">BMW i4 USER</span>
-                </div>
-              </div>
-              <p class="text-[11px] text-zinc-600 leading-normal italic">
-                "Outstanding highway range. I regularly get over 500 km on a single charge. Cabin build quality feels incredibly high-end."
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
   <!-- Section: Featured Videos -->
   <section id="videos" class="bg-white text-black py-24 px-6 lg:px-12 relative reveal-on-scroll">
     <div class="max-w-6xl mx-auto">
@@ -2254,105 +1887,6 @@
 
       <div id="featured-videos-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
       <div id="view-all-videos-container" class="flex justify-center mt-12"></div>
-    </div>
-  </section>
-
-  <!-- Seamless Section Transition -->
-  <div class="section-divider"></div>
-
-  <!-- ===================================================
-       Section: Learn Electric Vehicles (Knowledge Hub)
-       =================================================== -->
-  <section id="knowledge-hub" class="bg-white text-black py-24 px-6 lg:px-12 relative overflow-hidden reveal-on-scroll">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-left mb-10">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">EDUCATIONAL RESOURCES</span>
-        <h2 class="text-3xl font-black tracking-tight uppercase">Learn Electric Vehicles</h2>
-        <p class="text-xs text-zinc-550 mt-1 font-mono leading-relaxed">Understand the core technology, metrics, and charging standards that define modern electric mobility.</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Hub Card 1 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="regenerative-braking">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">01 / ENERGY RECOVERY</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">What is Regenerative Braking?</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 2 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="lfp-vs-nmc">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">02 / BATTERY CHEMISTRY</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">LFP vs NMC Battery Pack</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 3 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="ac-vs-dc">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">03 / POWER CONVERSION</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">AC vs DC Charging</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 4 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="v2l">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">04 / DISCHARGE TECH</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">Vehicle-to-Load (V2L)</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 5 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="ground-clearance">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">05 / VEHICLE STANCE</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">Ground Clearance Explained</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 6 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="battery-health">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">06 / LIFECYCLE MONITOR</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">Understanding Battery Health</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 7 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="charging-etiquette">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">07 / STATION MANNERS</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">Charging Etiquette</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-        <!-- Hub Card 8 -->
-        <div class="border border-zinc-150 bg-zinc-50/50 p-6 flex flex-col justify-between h-[180px] rounded-xl hover:border-black transition-all hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] cursor-pointer group btn-open-hub" data-hub-key="highway-charging">
-          <div class="flex flex-col gap-2">
-            <span class="text-[9px] text-zinc-400 font-mono">08 / HIGHWAY TRAVEL</span>
-            <h3 class="text-xs font-bold uppercase tracking-wider leading-snug">Highway Charging Strategies</h3>
-          </div>
-          <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-650 flex items-center gap-1 group-hover:text-black transition-colors">
-            Quick View <span class="arrow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -2436,15 +1970,14 @@
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">MARKETPLACE</span>
           <a href="index.html#popular-evs" class="hover:text-white transition-colors">Popular Electric Cars</a>
           <a href="index.html#upcoming" class="hover:text-white transition-colors">Upcoming EVs</a>
-          <a href="index.html#compare" class="hover:text-white transition-colors">Compare EVs</a>
+          <a href="/compare" class="hover:text-white transition-colors">Compare EVs</a>
         </div>
 
         <!-- Col 2: Resources -->
         <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">RESOURCES</span>
           <a href="index.html#news" class="hover:text-white transition-colors">Latest News</a>
-          <a href="index.html#reviews" class="hover:text-white transition-colors">Expert Reviews</a>
-          <a href="index.html#stations" class="hover:text-white transition-colors">Charging Stations</a>
+          <a href="/charging-stations" class="hover:text-white transition-colors">Charging Stations</a>
         </div>
 
         <!-- Col 3: Corporate -->
@@ -2674,8 +2207,16 @@ Ask me anything about:
     });
   </script>
   <script>
+    function getNativeLabel(langCode) {
+      var labels = { en:'English', hi:'हिन्दी', kn:'ಕನ್ನಡ', ml:'മലയാളം', te:'తెలుగు', ta:'தமிழ்' };
+      return labels[langCode] || langCode.toUpperCase();
+    }
+
     function changeLanguage(langCode) {
-      document.getElementById('custom-lang-label').textContent = langCode.toUpperCase();
+      document.getElementById('custom-lang-label').textContent = getNativeLabel(langCode);
+      document.querySelectorAll('#custom-lang-menu .lang-option').forEach(function(o) {
+        o.classList.toggle('active', o.getAttribute('data-lang') === langCode);
+      });
       document.getElementById('custom-lang-menu').classList.remove('open');
       
       // Clear Google Translate cookie to avoid conflicts
@@ -2692,8 +2233,7 @@ Ask me anything about:
       if (window.TranslationEngine) {
         window.TranslationEngine.setLanguage(langCode);
       } else {
-        localStorage.setItem('evcarwale_language', JSON.stringify({ lang: langCode, text: langCode.toUpperCase() }));
-        sessionStorage.setItem('evcwSkipPreloader', '1');
+        localStorage.setItem('evcarwale_language', JSON.stringify({ lang: langCode, text: getNativeLabel(langCode) }));
         location.reload();
       }
     }

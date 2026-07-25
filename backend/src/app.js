@@ -108,7 +108,7 @@ function createApp(options = {}) {
   });
   const fs = require('fs');
 
-  // Intercept app.js to inject the S3 base URL
+  // Intercept app.js to inject environment variables
   app.get('/app.js', (req, res) => {
     try {
       let content = fs.readFileSync(path.join(frontendRoot, 'app.js'), 'utf8');
@@ -135,6 +135,20 @@ function createApp(options = {}) {
     res.redirect(`${s3BaseUrl}/${cleanPath}`);
   });
 
+  // Inject API key into index.html
+  function injectMapsKeyIntoHtml(req, res) {
+    try {
+      let content = fs.readFileSync(path.join(frontendRoot, 'index.html'), 'utf8');
+      const mapsKey = process.env.GOOGLE_MAPS_API_KEY || env.GOOGLE_MAPS_API_KEY || '';
+      content = content.replace(/__GOOGLE_MAPS_API_KEY__/g, mapsKey);
+      res.type('text/html').send(content);
+    } catch (err) {
+      res.status(500).send('Error loading index.html');
+    }
+  }
+  app.get('/index.html', injectMapsKeyIntoHtml);
+  app.get('/', injectMapsKeyIntoHtml);
+
   app.use(express.static(path.join(frontendRoot, 'public')));
   app.use(express.static(frontendRoot));
 
@@ -142,9 +156,52 @@ function createApp(options = {}) {
     res.sendFile(path.join(frontendRoot, 'videos.html'));
   });
 
-  app.get(/^(?!\/api).*$/, (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'index.html'));
+  app.get('/compare', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'compare.html'));
   });
+
+  app.get('/charging-time-calculator', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'charging-time-calculator.html'));
+  });
+
+  app.get('/emi-calculator', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'emi-calculator.html'));
+  });
+
+  app.get('/petrol-savings', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'petrol-savings.html'));
+  });
+
+  app.get('/all-cars', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'all-cars.html'));
+  });
+
+  app.get('/apartment-charging', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'apartment-charging.html'));
+  });
+
+  app.get('/battery-health', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'battery-health.html'));
+  });
+
+  app.get('/profile', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'profile.html'));
+  });
+
+  function injectChargingStationsHtml(req, res) {
+    try {
+      let content = fs.readFileSync(path.join(frontendRoot, 'charging-stations.html'), 'utf8');
+      const mapsKey = process.env.GOOGLE_MAPS_API_KEY || env.GOOGLE_MAPS_API_KEY || '';
+      content = content.replace(/__GOOGLE_MAPS_API_KEY__/g, mapsKey);
+      res.type('text/html').send(content);
+    } catch (err) {
+      res.status(500).send('Error loading charging-stations.html');
+    }
+  }
+  app.get('/charging-stations', injectChargingStationsHtml);
+  app.get('/charging-stations.html', injectChargingStationsHtml);
+
+  app.get(/^(?!\/api).*$/, injectMapsKeyIntoHtml);
 
   app.use(notFound);
   app.use(errorHandler);

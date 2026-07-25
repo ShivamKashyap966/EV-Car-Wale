@@ -4,7 +4,7 @@
       "id": "tata-nexon",
       "name": "Nexon.ev",
       "brand": "tata",
-      "image": "tata_nexon_ev.jpeg",
+      "image": "NEXON.jpeg",
       "variants": [
         {
           "name": "Smart",
@@ -18,7 +18,9 @@
           "torque": "140 Nm",
           "drivetrain": "RWD",
           "features": "LED Headlights, Connected Car",
-          "images": ["tata_nexon_ev.jpeg"]
+          "images": [
+            "NEXON.jpeg"
+          ]
         },
         {
           "name": "Creative",
@@ -32,7 +34,9 @@
           "torque": "170 Nm",
           "drivetrain": "RWD",
           "features": "Panoramic Sunroof, 7‑inch Infotainment",
-          "images": ["tata_nexon_ev.jpeg"]
+          "images": [
+            "NEXON.jpeg"
+          ]
         }
       ]
     },
@@ -40,7 +44,7 @@
       "id": "tata-punch",
       "name": "Punch.ev",
       "brand": "tata",
-      "image": "tata_punch_ev.jpg",
+      "image": "PUNCH.jpeg",
       "variants": [
         {
           "name": "Smart",
@@ -54,7 +58,9 @@
           "torque": "140 Nm",
           "drivetrain": "RWD",
           "features": "LED DRL, Android Auto",
-          "images": ["tata_punch_ev.jpg"]
+          "images": [
+            "PUNCH.jpeg"
+          ]
         }
       ]
     }

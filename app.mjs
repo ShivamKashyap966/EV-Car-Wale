@@ -610,18 +610,6 @@ const GUIDE_DATABASE = [
 ];
 
 
-// --- Charging Stations Database ---
-const STATIONS_DATABASE = [
-  { city: 'mumbai', name: 'Tata Power EZ Charger - Bandra', type: 'Fast', speed: '60 kW', address: 'Turner Road, Bandra West', status: 'Available' },
-  { city: 'mumbai', name: 'Zeon Charging - Lower Parel', type: 'Fast', speed: '120 kW', address: 'Phoenix Palladium Mall', status: 'In Use' },
-  { city: 'mumbai', name: 'Jio-bp pulse - Andheri East', type: 'Normal', speed: '22 kW', address: 'WEH Metro Station', status: 'Available' },
-  { city: 'delhi', name: 'Fortum Charge & Drive - Connaught Place', type: 'Fast', speed: '50 kW', address: 'Outer Circle, Block E', status: 'Available' },
-  { city: 'delhi', name: 'Statcon Energia - Saket', type: 'Normal', speed: '22 kW', address: 'Select Citywalk Mall', status: 'Available' },
-  { city: 'bangalore', name: 'Ather Grid - Indiranagar', type: 'Fast', speed: '80 kW', address: '100 Feet Road', status: 'Available' },
-  { city: 'bangalore', name: 'Shell Recharge - Whitefield', type: 'Fast', speed: '150 kW', address: 'ITPB Road', status: 'In Use' },
-  { city: 'pune', name: 'Tata Power - Hinjawadi', type: 'Normal', speed: '22 kW', address: 'Phase 1 Tech Park', status: 'Available' }
-];
-
 // Wishlist array
 let wishlistIds = [];
 let scrollDividers = [];
@@ -8272,64 +8260,6 @@ function initElectricHighlightObserver() {
 
 // --- Brands Directory Module ---
 // --- Brands Directory Module ---
-const SUPPORTED_BRANDS = [
-  { id: 'audi', name: 'Audi', origin: 'Indian' },
-  { id: 'bmw', name: 'BMW', origin: 'Indian' },
-  { id: 'byd', name: 'BYD', origin: 'Indian' },
-  { id: 'citroen', name: 'Citroën', origin: 'Indian' },
-  { id: 'force-motors', name: 'Force Motors', origin: 'Indian' },
-  { id: 'hyundai', name: 'Hyundai', origin: 'Indian' },
-  { id: 'isuzu', name: 'Isuzu', origin: 'International' },
-  { id: 'jeep', name: 'Jeep', origin: 'International' },
-  { id: 'kia', name: 'Kia', origin: 'Indian' },
-  { id: 'mahindra', name: 'Mahindra Electric', origin: 'Indian' },
-  { id: 'maruti-suzuki', name: 'Maruti Suzuki', origin: 'Indian' },
-  { id: 'mercedes-benz', name: 'Mercedes-Benz', origin: 'Indian' },
-  { id: 'mg', name: 'MG Motor', origin: 'Indian' },
-  { id: 'nissan', name: 'Nissan', origin: 'International' },
-  { id: 'renault', name: 'Renault', origin: 'International' },
-  { id: 'skoda', name: 'Skoda', origin: 'International' },
-  { id: 'tata', name: 'Tata Motors', origin: 'Indian' },
-  { id: 'toyota', name: 'Toyota', origin: 'International' },
-  { id: 'vinfast', name: 'VinFast', origin: 'International' },
-  { id: 'volkswagen', name: 'Volkswagen', origin: 'International' },
-  { id: 'volvo', name: 'Volvo', origin: 'Indian' },
-  { id: 'tesla', name: 'Tesla', origin: 'Indian' },
-  { id: 'porsche', name: 'Porsche', origin: 'Indian' },
-  { id: 'jaguar', name: 'Jaguar', origin: 'Indian' },
-  { id: 'mini', name: 'Mini', origin: 'Indian' },
-];
-
-const INTERNATIONAL_BRANDS = [
-  { id: 'land-rover', name: 'Land Rover', origin: 'International' },
-  { id: 'lexus', name: 'Lexus', origin: 'International' },
-  { id: 'ferrari', name: 'Ferrari', origin: 'International' },
-  { id: 'lamborghini', name: 'Lamborghini', origin: 'International' },
-  { id: 'rolls-royce', name: 'Rolls-Royce', origin: 'International' },
-  { id: 'bentley', name: 'Bentley', origin: 'International' },
-  { id: 'bugatti', name: 'Bugatti', origin: 'International' },
-  { id: 'aston-martin', name: 'Aston Martin', origin: 'International' },
-  { id: 'maserati', name: 'Maserati', origin: 'International' },
-  { id: 'ford', name: 'Ford', origin: 'International' },
-  { id: 'chevrolet', name: 'Chevrolet', origin: 'International' },
-  { id: 'gmc', name: 'GMC', origin: 'International' },
-  { id: 'dodge', name: 'Dodge', origin: 'International' },
-  { id: 'ram', name: 'RAM', origin: 'International' },
-  { id: 'chrysler', name: 'Chrysler', origin: 'International' },
-  { id: 'subaru', name: 'Subaru', origin: 'International' },
-  { id: 'mazda', name: 'Mazda', origin: 'International' },
-  { id: 'mitsubishi', name: 'Mitsubishi', origin: 'International' },
-  { id: 'peugeot', name: 'Peugeot', origin: 'International' },
-  { id: 'opel', name: 'Opel', origin: 'International' },
-  { id: 'fiat', name: 'Fiat', origin: 'International' },
-  { id: 'alfa-romeo', name: 'Alfa Romeo', origin: 'International' },
-  { id: 'lucid', name: 'Lucid', origin: 'International' },
-  { id: 'rivian', name: 'Rivian', origin: 'International' },
-  { id: 'polestar', name: 'Polestar', origin: 'International' },
-  { id: 'nio', name: 'NIO', origin: 'International' },
-  { id: 'xpeng', name: 'XPeng', origin: 'International' },
-  { id: 'zeekr', name: 'Zeekr', origin: 'International' }
-];
 
 const BrandDataService = {
   async getVehiclesByBrand(brandId) {

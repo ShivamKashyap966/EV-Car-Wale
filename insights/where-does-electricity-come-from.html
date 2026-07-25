@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Where Does Electricity Come From? – EV Car Wale</title>
-  <meta name="description" content="Explore India's electricity generation mix — coal, gas, hydro, nuclear, and renewable — and how it connects to EV charging and well-to-wheel emissions.">
+  <title>Where Does India's Electricity Come From? – EV Car Wale</title>
+  <meta name="description" content="Explore India's electricity generation mix — coal, gas, hydro, nuclear, and renewables — and how grid emissions connect to EV charging and well-to-wheel sustainability.">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../ai-assistant.css">
   <script>
     tailwind.config = {
       theme: {
@@ -23,26 +25,30 @@
             lightgray: '#F5F5F5',
           },
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Poppins', 'sans-serif'],
           }
         }
       }
     }
   </script>
+  
+  <!-- CSS Links -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../ai-assistant.css">
   <style>
     .hero-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);
     }
     @media (min-width: 768px) {
       .hero-overlay {
-        background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+        background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.15) 100%);
       }
     }
     .pie-slice {
       transition: transform 0.3s ease;
     }
     .pie-slice:hover {
-      transform: scale(1.05);
+      transform: translateX(4px);
     }
   </style>
   <link rel="icon" type="image/png" href="/tab_logo.png">
@@ -51,7 +57,7 @@
 <body class="bg-white text-black font-sans overflow-x-hidden">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
       <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
         <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
@@ -64,390 +70,412 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center overflow-hidden">
+  <section class="relative min-h-[60vh] md:min-h-[65vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
-      <img src="../insights_images/where-does-electricity-come-from.JPG" alt="Electricity grid and power lines" class="w-full h-full object-cover">
+      <img src="../insights_images/where-does-electricity-come-from.JPG" alt="India's Electricity Grid and Power Lines" class="w-full h-full object-cover">
       <div class="hero-overlay absolute inset-0"></div>
       <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
     </div>
-    <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 w-full pt-20 pb-12 md:pt-28 md:pb-16">
+    <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-12 w-full pt-20 pb-12 md:pt-28 md:pb-16 text-left">
       <div class="max-w-2xl">
-        <span class="font-mono text-[10px] tracking-widest text-zinc-300 uppercase mb-4 inline-block border border-zinc-500/40 px-3 py-1">Guides & Education</span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white mb-4">Where Does Electricity Come From?</h1>
-        <p class="text-base md:text-lg text-zinc-200 max-w-xl leading-relaxed mb-6">A deep dive into India's energy generation mix, grid emissions, and what it means for your EV's true environmental impact.</p>
-        <div class="flex flex-wrap items-center gap-4 font-mono text-[10px] tracking-wider text-zinc-400">
+        <span class="font-mono text-[9px] tracking-[0.3em] text-zinc-300 uppercase mb-4 inline-block border border-zinc-500/40 px-3 py-1 bg-black/40 backdrop-blur-sm">ENERGY & ENVIRONMENT</span>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white mb-4">Where Does India's Electricity Come From?</h1>
+        <p class="text-sm md:text-lg text-zinc-200 max-w-xl leading-relaxed mb-6">A deep dive into India's power generation mix, grid emissions, and what it means for your EV's true well-to-wheel environmental impact.</p>
+        <div class="flex flex-wrap items-center gap-4 font-mono text-[10px] tracking-wider text-zinc-300">
           <span class="flex items-center gap-1.5">
             <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            6 min read
+            7 MIN READ
           </span>
+          <span class="w-1 h-1 bg-zinc-500 rounded-full"></span>
           <span class="flex items-center gap-1.5">
             <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            EV Car Wale Team
+            EV CAR WALE TEAM
           </span>
-          <span class="flex items-center gap-1.5">Updated July 2026</span>
+          <span class="w-1 h-1 bg-zinc-500 rounded-full"></span>
+          <span class="tracking-wider">UPDATED JULY 2026</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Article Content -->
-  <article class="max-w-4xl mx-auto px-6 lg:px-12 py-12 md:py-16">
-    <div class="prose prose-zinc max-w-none">
+  <!-- Article Main Container -->
+  <article class="max-w-3xl mx-auto px-6 py-12 md:py-20">
 
-      <!-- Intro -->
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Every time you plug in your EV, you're drawing power from India's vast electricity grid — a complex network of power plants, transmission lines, and distribution systems. But where does that electricity actually come from? Understanding India's energy mix helps you grasp the true environmental impact of driving an electric vehicle, from the power plant to the wheel.</p>
+    <!-- Intro Lead -->
+    <p class="text-base md:text-lg text-zinc-700 leading-relaxed mb-8">Every time you plug in your electric vehicle, you draw power from India's national electricity grid — a vast network of thermal power plants, hydroelectric dams, solar parks, and wind farms. But where does that power originate, and how green is it really? Understanding India's evolving energy mix reveals the true <strong class="text-black">well-to-wheel carbon reduction</strong> achieved when switching from petrol or diesel to electricity.</p>
 
-      <!-- Section 1: India's Electricity Generation Mix -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        India's Electricity Generation Mix
-      </h2>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">🔌 Clean Energy Grid</div>
-        <p class="editorial-callout-content">Even when charged from a grid that relies on coal, EVs produce 40-50% fewer lifecycle emissions than petrol cars. As India aims for 50% non-fossil generation capacity by 2030, EVs will become progressively cleaner.</p>
+    <!-- Key Stats Card Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+      <div class="border border-zinc-200 rounded-2xl p-5 text-center bg-zinc-50">
+        <span class="text-2xl md:text-3xl font-black text-black block">430+ GW</span>
+        <span class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase block mt-1">Installed Capacity</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">🔌 Clean Energy Grid</div>
-        <p class="editorial-callout-content">Even when charged from a grid that relies on coal, EVs produce 40-50% fewer lifecycle emissions than petrol cars. As India aims for 50% non-fossil generation capacity by 2030, EVs will become progressively cleaner.</p>
+      <div class="border border-zinc-200 rounded-2xl p-5 text-center bg-zinc-50">
+        <span class="text-2xl md:text-3xl font-black text-black block">55%</span>
+        <span class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase block mt-1">Coal Share (2026)</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">🔌 Clean Energy Grid</div>
-        <p class="editorial-callout-content">Even when charged from a grid that relies on coal, EVs produce 40-50% fewer lifecycle emissions than petrol cars. As India aims for 50% non-fossil generation capacity by 2030, EVs will become progressively cleaner.</p>
+      <div class="border border-zinc-200 rounded-2xl p-5 text-center bg-zinc-50">
+        <span class="text-2xl md:text-3xl font-black text-black block">500 GW</span>
+        <span class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase block mt-1">Non-Fossil Goal 2030</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">🔌 Clean Energy Grid</div>
-        <p class="editorial-callout-content">Even when charged from a grid that relies on coal, EVs produce 40-50% fewer lifecycle emissions than petrol cars. As India aims for 50% non-fossil generation capacity by 2030, EVs will become progressively cleaner.</p>
+      <div class="border border-zinc-200 rounded-2xl p-5 text-center bg-zinc-50">
+        <span class="text-2xl md:text-3xl font-black text-black block">50%</span>
+        <span class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase block mt-1">Less CO₂ vs Petrol</span>
       </div>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">India is the third-largest electricity producer in the world, with a total installed capacity exceeding 430 GW as of 2026. The generation mix is a diverse range of sources, each contributing to the grid in different proportions:</p>
+    </div>
 
-      <!-- Styled Pie Chart / Energy Mix Breakdown -->
+    <!-- Section 01: Generation Mix -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">01</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">India's Electricity Generation Mix</h2>
+      
+      <div class="editorial-callout">
+        <div class="editorial-callout-title">🔌 Clean Energy Grid Progress</div>
+        <p class="editorial-callout-content">Even when charged from a grid relying on thermal power, EVs produce 40% to 50% fewer lifecycle CO₂ emissions than petrol or diesel cars. As India targets 50% non-fossil capacity by 2030, your EV becomes cleaner every year.</p>
+      </div>
+
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">India is the third-largest electricity producer in the world. As of 2026, the country's installed capacity has surpassed <strong class="text-black">430 Gigawatts (GW)</strong>. While thermal energy still forms the baseline of the national grid, renewable sources are expanding at an unprecedented rate.</p>
+
+      <!-- Energy Generation Breakdown Card -->
       <div class="border border-zinc-200 rounded-2xl p-6 md:p-8 bg-zinc-50 mb-8">
-        <h3 class="text-sm font-bold text-black mb-6 text-center">India's Electricity Generation Mix (2025–26)</h3>
+        <h3 class="text-sm font-bold text-black mb-6 text-center tracking-tight">India's Power Generation Mix Breakdown (2025–2026)</h3>
         <div class="flex flex-col md:flex-row items-center gap-8">
-          <!-- Visual bars breakdown -->
-          <div class="w-full md:w-2/3 space-y-3">
+          <div class="w-full md:w-2/3 space-y-3.5">
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-900 inline-block"></span> Coal</span>
-                <span class="font-mono text-zinc-500">55%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-900 rounded-sm inline-block"></span> Coal / Thermal</span>
+                <span class="font-mono text-zinc-600 font-semibold">55%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-zinc-900 h-full" style="width: 55%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-zinc-900 h-full rounded-full" style="width: 55%"></div>
               </div>
             </div>
+
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-600 inline-block"></span> Natural Gas</span>
-                <span class="font-mono text-zinc-500">9%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-emerald-600 rounded-sm inline-block"></span> Solar Energy</span>
+                <span class="font-mono text-zinc-600 font-semibold">14%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-zinc-600 h-full" style="width: 9%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 14%"></div>
               </div>
             </div>
+
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-400 inline-block"></span> Hydroelectric</span>
-                <span class="font-mono text-zinc-500">12%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-blue-600 rounded-sm inline-block"></span> Hydroelectric</span>
+                <span class="font-mono text-zinc-600 font-semibold">12%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-zinc-400 h-full" style="width: 12%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-full rounded-full" style="width: 12%"></div>
               </div>
             </div>
+
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-800 inline-block"></span> Nuclear</span>
-                <span class="font-mono text-zinc-500">3%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-600 rounded-sm inline-block"></span> Natural Gas</span>
+                <span class="font-mono text-zinc-600 font-semibold">9%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-zinc-800 h-full" style="width: 3%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-zinc-600 h-full rounded-full" style="width: 9%"></div>
               </div>
             </div>
+
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-black inline-block"></span> Solar</span>
-                <span class="font-mono text-zinc-500">14%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-teal-600 rounded-sm inline-block"></span> Wind Energy</span>
+                <span class="font-mono text-zinc-600 font-semibold">6%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-black h-full" style="width: 14%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-teal-600 h-full rounded-full" style="width: 6%"></div>
               </div>
             </div>
+
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-500 inline-block"></span> Wind</span>
-                <span class="font-mono text-zinc-500">6%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-purple-700 rounded-sm inline-block"></span> Nuclear</span>
+                <span class="font-mono text-zinc-600 font-semibold">3%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-zinc-500 h-full" style="width: 6%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-purple-700 h-full rounded-full" style="width: 3%"></div>
               </div>
             </div>
+
             <div class="pie-slice">
               <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-zinc-300 inline-block"></span> Other Renewables</span>
-                <span class="font-mono text-zinc-500">1%</span>
+                <span class="font-bold text-black flex items-center gap-2"><span class="w-3 h-3 bg-amber-600 rounded-sm inline-block"></span> Biomass & Others</span>
+                <span class="font-mono text-zinc-600 font-semibold">1%</span>
               </div>
-              <div class="w-full bg-zinc-200 h-5 rounded-none overflow-hidden">
-                <div class="bg-zinc-300 h-full" style="width: 1%"></div>
+              <div class="w-full bg-zinc-200 h-4 rounded-full overflow-hidden">
+                <div class="bg-amber-600 h-full rounded-full" style="width: 1%"></div>
               </div>
             </div>
           </div>
-          <div class="w-full md:w-1/3 text-center">
-            <div class="w-32 h-32 rounded-full border-4 border-black mx-auto flex items-center justify-center bg-zinc-50">
+
+          <div class="w-full md:w-1/3 text-center border-t md:border-t-0 md:border-l border-zinc-200 pt-6 md:pt-0 md:pl-6">
+            <div class="w-28 h-28 rounded-full border-4 border-black mx-auto flex items-center justify-center bg-white shadow-sm">
               <div class="text-center">
-                <span class="text-2xl font-black text-black block">430+</span>
-                <span class="font-mono text-[9px] text-zinc-500 tracking-wider">GW Installed</span>
+                <span class="text-2xl font-black text-black block leading-none">430+</span>
+                <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider mt-1 block">GW Grid</span>
               </div>
             </div>
-            <p class="text-xs text-zinc-500 mt-3">India's total installed capacity includes both utility-scale and grid-connected renewable sources.</p>
+            <p class="text-xs text-zinc-500 mt-4 leading-relaxed">India ranks 5th globally in installed solar capacity and is steadily transitioning toward 500 GW of clean energy by 2030.</p>
           </div>
         </div>
       </div>
 
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Coal remains the dominant source, though its share has been declining steadily from 65% in 2020 to 55% in 2025 as renewable capacity expands. The government has set a target of 500 GW of non-fossil fuel capacity by 2030.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Notably, solar has overtaken hydroelectricity as the third-largest source, driven by massive installations in Rajasthan, Gujarat, and Karnataka. India now ranks fifth globally in installed solar capacity.</p>
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Coal's share in power generation has declined from 65% in 2020 to 55% in 2026. Meanwhile, solar power has surpassed hydro to become India's fastest-growing electricity source, with major ultra-mega solar parks operating across Rajasthan, Gujarat, and Karnataka.</p>
+    </section>
 
-      <!-- Grid Emission Factors -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Grid Emission Factors
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The <span class="jargon-term" data-tooltip="Grid Emission Factor — a measure of the average CO₂ emitted per unit of electricity generated, expressed in grams of CO₂ per kWh.">grid emission factor</span> (GEF) measures how many grams of CO₂ are emitted for every kilowatt-hour (kWh) of electricity consumed. India's grid emission factor is approximately 650 gCO₂/kWh — one of the highest in the world due to heavy coal dependence.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">To put this in perspective: charging a 40 kWh EV battery emits about 26 kg of CO₂ at the grid level. An equivalent petrol car (20 km/l) covering 300 km would emit approximately 52 kg of CO₂. So even on India's coal-heavy grid, an EV produces roughly half the CO₂ emissions of a petrol car.</p>
+    <!-- Section 02: Grid Emission Factors & Lifecycle Analysis -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">02</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Grid Emission Factors & Well-to-Wheel Analysis</h2>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The <span class="jargon-term cursor-help border-b border-dotted border-zinc-400" data-tooltip="Grid Emission Factor (GEF) — the average amount of CO₂ emitted per kWh of electricity generated.">Grid Emission Factor (GEF)</span> measures the carbon intensity of electricity consumed from the grid. In India, the average grid emission factor stands at approximately <strong class="text-black">650 gCO₂/kWh</strong>.</p>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Even with this coal-heavy grid, an EV driving 300 km consumes ~40 kWh of power, producing approximately 26 kg of CO₂. A comparable petrol car achieving 18 km/L over 300 km consumes 16.6 litres of fuel, emitting over 52 kg of direct and indirect CO₂ — proving that EVs are twice as clean even on today's grid.</p>
 
       <!-- Emission Factors Comparison Table -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-6 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Emission Factors by Energy Source
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">The carbon intensity varies dramatically across different energy sources. Here's how they compare on a lifecycle basis (including extraction, construction, and operation):</p>
-      <div class="overflow-x-auto mb-10">
-        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
+      <h3 class="text-lg font-bold tracking-tight text-black mb-4">Lifecycle Emission Factors by Energy Source</h3>
+      <div class="overflow-x-auto mb-8">
+        <table class="w-full text-xs md:text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
           <thead>
-            <tr class="bg-zinc-50 border-b border-zinc-200">
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Energy Source</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Emissions (gCO₂eq/kWh)</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Share of India Grid</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Trend</th>
+            <tr class="bg-zinc-50 border-b border-zinc-200 text-zinc-800">
+              <th class="text-left p-3.5 font-bold text-xs tracking-wider">Energy Source</th>
+              <th class="text-left p-3.5 font-bold text-xs tracking-wider">Emissions (gCO₂eq/kWh)</th>
+              <th class="text-left p-3.5 font-bold text-xs tracking-wider">India Grid Share</th>
+              <th class="text-left p-3.5 font-bold text-xs tracking-wider">Trajectory</th>
             </tr>
           </thead>
           <tbody class="text-zinc-600">
             <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Coal</td>
-              <td class="p-4">820–1,050</td>
-              <td class="p-4">55%</td>
-              <td class="p-4">Declining</td>
+              <td class="p-3.5 font-medium text-black">Thermal (Coal)</td>
+              <td class="p-3.5">820–1,050</td>
+              <td class="p-3.5 font-mono">55%</td>
+              <td class="p-3.5 text-amber-700 font-medium">Declining</td>
             </tr>
             <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Natural Gas</td>
-              <td class="p-4">400–550</td>
-              <td class="p-4">9%</td>
-              <td class="p-4">Stable</td>
+              <td class="p-3.5 font-medium text-black">Natural Gas</td>
+              <td class="p-3.5">400–550</td>
+              <td class="p-3.5 font-mono">9%</td>
+              <td class="p-3.5">Stable</td>
             </tr>
             <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Solar</td>
-              <td class="p-4">30–50</td>
-              <td class="p-4">14%</td>
-              <td class="p-4">Rapidly Growing</td>
+              <td class="p-3.5 font-medium text-black">Solar PV</td>
+              <td class="p-3.5">30–50</td>
+              <td class="p-3.5 font-mono">14%</td>
+              <td class="p-3.5 text-emerald-600 font-medium">Rapidly Growing</td>
             </tr>
             <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Wind</td>
-              <td class="p-4">10–30</td>
-              <td class="p-4">6%</td>
-              <td class="p-4">Growing</td>
+              <td class="p-3.5 font-medium text-black">Wind Turbines</td>
+              <td class="p-3.5">10–30</td>
+              <td class="p-3.5 font-mono">6%</td>
+              <td class="p-3.5 text-emerald-600 font-medium">Growing</td>
             </tr>
             <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Hydroelectric</td>
-              <td class="p-4">10–40</td>
-              <td class="p-4">12%</td>
-              <td class="p-4">Stable</td>
+              <td class="p-3.5 font-medium text-black">Hydroelectric Dams</td>
+              <td class="p-3.5">10–40</td>
+              <td class="p-3.5 font-mono">12%</td>
+              <td class="p-3.5">Stable</td>
             </tr>
             <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Nuclear</td>
-              <td class="p-4">5–15</td>
-              <td class="p-4">3%</td>
-              <td class="p-4">Slow Growth</td>
+              <td class="p-3.5 font-medium text-black">Nuclear Power</td>
+              <td class="p-3.5">5–15</td>
+              <td class="p-3.5 font-mono">3%</td>
+              <td class="p-3.5">Expanding</td>
             </tr>
             <tr>
-              <td class="p-4 font-medium text-black">Biomass / Other</td>
-              <td class="p-4">100–200</td>
-              <td class="p-4">1%</td>
-              <td class="p-4">Niche</td>
+              <td class="p-3.5 font-medium text-black">Biomass & Waste</td>
+              <td class="p-3.5">100–200</td>
+              <td class="p-3.5 font-mono">1%</td>
+              <td class="p-3.5">Niche Segment</td>
             </tr>
           </tbody>
         </table>
       </div>
+    </section>
 
-      <!-- Section 3: How EV Charging Impacts the Grid -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        How EV Charging Impacts the Grid
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">A single EV drawing 7.2 kW from a home charger consumes roughly as much power as 5–6 households running simultaneously. When millions of EVs charge at the same time — especially during peak evening hours — grid stress becomes a legitimate concern.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">However, studies show that with smart charging and time-of-day tariffs, the grid can easily handle mass EV adoption. Most EV charging happens overnight (11 PM–6 AM) when grid demand is at its lowest, effectively utilising idle generation capacity.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">The Indian government and power utilities are implementing <span class="jargon-term" data-tooltip="Vehicle-to-Grid (V2G) — technology that allows EVs to send power back to the grid, helping balance supply and demand during peak hours.">V2G</span> (Vehicle-to-Grid) pilot projects, where EVs act as mobile batteries that can discharge power back to the grid when demand peaks — turning the potential challenge into an opportunity.</p>
-
-      <!-- Section 4: Renewable Energy Certificates & Green Charging -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Renewable Energy Certificates & Green Charging
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4"><span class="jargon-term" data-tooltip="Renewable Energy Certificate (REC) — a market-based instrument that certifies the bearer owns one MWh of electricity generated from renewable sources.">RECs</span> (Renewable Energy Certificates) allow EV owners and businesses to offset their electricity consumption with renewable energy, even if their local grid is fossil-fuel-heavy. One REC represents 1 MWh of renewable energy fed into the grid.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Several Indian charging networks now offer green charging options. For example, Tata Power EV charging stations are powered by renewable energy through REC purchases, and ChargeZone has committed to 100% renewable energy for its chargers by 2027.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Individual EV owners can also purchase RECs to offset their home charging emissions. At roughly ₹500–800 per REC (1,000 kWh), offsetting a full year of EV driving (say 6,000 kWh) costs just ₹3,000–4,800 — making your EV effectively net-zero on emissions.</p>
-
-      <!-- Highlight Box: How Green Is Your EV? -->
-      <div class="border-l-4 border-black pl-4 bg-zinc-50 p-5 md:p-6 mb-10 rounded-r-2xl">
-        <h3 class="text-sm font-bold text-black mb-3 flex items-center gap-2">
-          <span class="text-base">&#9851;</span> How Green Is Your EV?
+    <!-- Section 03: How EV Charging Impacts the Grid -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">03</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">How EV Charging Impacts the Grid</h2>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">A standard 7.2 kW home EV charger consumes roughly the same instantaneous power as running 5 to 6 air conditioners simultaneously. Uncontrolled charging during peak evening demand hours (6 PM – 10 PM) can strain local transformers.</p>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">However, smart charging infrastructure and Time-of-Day (ToD) tariffs shift charging demand to overnight hours (11 PM – 6 AM). This utilizes idle thermal and wind power capacity, balancing the grid while offering EV owners discounted tariff rates.</p>
+      
+      <div class="border-l-4 border-black pl-4 bg-zinc-50 p-5 md:p-6 mb-8 rounded-r-2xl">
+        <h3 class="text-sm font-bold text-black mb-2 flex items-center gap-2">
+          <span>⚡ Vehicle-to-Grid (V2G) Integration</span>
         </h3>
-        <div class="space-y-3 text-sm text-zinc-600">
-          <p><strong class="text-black">The well-to-wheel perspective:</strong> An EV is only as clean as the electricity it consumes. Even on India's grid (650 gCO₂/kWh), an EV emits about 50% less CO₂ per kilometre than a petrol car. If charged via solar panels or green RECs, that figure drops to near zero.</p>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-            <div class="border border-zinc-200 rounded-xl p-3 bg-white text-center">
-              <span class="font-black text-lg text-black">50%</span>
-              <p class="font-mono text-[9px] text-zinc-500 tracking-wider mt-1">Less CO₂ vs Petrol<br>(India Grid Average)</p>
-            </div>
-            <div class="border border-zinc-200 rounded-xl p-3 bg-white text-center">
-              <span class="font-black text-lg text-black">96%</span>
-              <p class="font-mono text-[9px] text-zinc-500 tracking-wider mt-1">Less CO₂ vs Petrol<br>(Solar Charged)</p>
-            </div>
-            <div class="border border-zinc-200 rounded-xl p-3 bg-white text-center">
-              <span class="font-black text-lg text-black">~3yr</span>
-              <p class="font-mono text-[9px] text-zinc-500 tracking-wider mt-1">Energy Payback<br>(Manufacturing + Driving)</p>
-            </div>
-          </div>
+        <p class="text-xs md:text-sm text-zinc-600 leading-relaxed">V2G technology transforms EVs from power consumers into distributed battery storage assets. During peak grid stress, plugged-in EVs can safely discharge stored power back into the grid to stabilize local supply, earning revenue for vehicle owners while preventing power shortages.</p>
+      </div>
+    </section>
+
+    <!-- Section 04: Renewable Energy Certificates & Green Charging -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">04</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Renewable Energy Certificates & Green Charging</h2>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4"><span class="jargon-term cursor-help border-b border-dotted border-zinc-400" data-tooltip="Renewable Energy Certificate (REC) — a market instrument verifying that 1 MWh of power was generated from renewable sources.">Renewable Energy Certificates (RECs)</span> allow charge point operators to buy green power credits. Major CPOs like Tata Power EZ Charge and ChargeZone are deploying 100% green-indexed highway charging hubs, ensuring every kWh delivered originates from solar or wind generators.</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-6">
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white text-center">
+          <span class="font-black text-xl text-black block">50%</span>
+          <p class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase mt-1">Less CO₂ vs Petrol<br>(Standard India Grid)</p>
+        </div>
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white text-center">
+          <span class="font-black text-xl text-black block">96%</span>
+          <p class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase mt-1">Less CO₂ vs Petrol<br>(Rooftop Solar Charged)</p>
+        </div>
+        <div class="border border-zinc-200 rounded-xl p-4 bg-white text-center">
+          <span class="font-black text-xl text-black block">~2.5 Yrs</span>
+          <p class="font-mono text-[9px] text-zinc-500 tracking-wider uppercase mt-1">Manufacturing Carbon<br>Payback Period</p>
         </div>
       </div>
+    </section>
 
-      <!-- Section 5: Time-of-Day Tariffs -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Time-of-Day Tariffs for EV Charging
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Many Indian states have introduced time-of-day (ToD) tariffs specifically for EV charging. These tariffs offer lower per-unit rates during off-peak hours to incentivise charging when grid demand is low and renewable generation (especially wind) is high.</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Off-peak (11 PM – 6 AM):</strong> ₹4–5/kWh — cheapest rates, ideal for overnight charging</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Shoulder (6 AM – 6 PM):</strong> ₹6–8/kWh — moderate rates</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Peak (6 PM – 11 PM):</strong> ₹9–12/kWh — highest rates, avoid if possible</span></li>
+    <!-- Section 05: Time-of-Day (ToD) Tariffs -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">05</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Time-of-Day (ToD) Tariffs for EV Owners</h2>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">DISCOMs across Maharashtra, Delhi, Gujarat, and Karnataka offer specialized EV charging tariffs structured around grid demand periods:</p>
+      
+      <ul class="space-y-3 mb-6 text-sm md:text-base text-zinc-600">
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Night Off-Peak (11 PM – 6 AM):</strong> ₹4.0–₹5.5 / unit — Lowest rates for overnight scheduled home charging.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Daytime Normal (6 AM – 6 PM):</strong> ₹6.5–₹8.0 / unit — Standard domestic / EV tariff rate.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Evening Peak (6 PM – 11 PM):</strong> ₹9.0–₹12.0 / unit — Higher tariff rate to discourage grid congestion.</span></li>
       </ul>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">By scheduling your EV to charge during off-peak hours, you can save 40–50% on charging costs while also reducing strain on the grid during peak demand periods. Most modern EVs and chargers support scheduled charging — set it once and forget it.</p>
+    </section>
 
-      <!-- Section 6: Solar-Powered Home Charging -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Solar-Powered Home Charging
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Installing rooftop solar panels is the ultimate way to charge your EV with 100% clean energy. A typical 5 kW solar system can generate 500–700 kWh per month — enough to power both a home and an EV driving 1,200–1,500 km per month.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">With the Indian government's PM-Surya Ghar scheme offering subsidies of up to ₹78,000 for rooftop solar installation, the upfront cost has dropped significantly. The payback period for a solar + EV charging system is typically 3–5 years, depending on your state's net metering policy.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">During daylight hours, your solar panels feed power directly into your home and EV charger. Any excess is exported to the grid via net metering, earning you credits. At night, you draw from the grid (or from a home battery if installed).</p>
+    <!-- Section 06: Solar-Powered Home Charging -->
+    <section class="mb-14">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">06</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4">Rooftop Solar & EV Synergy</h2>
+      
+      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">A 5 kW rooftop solar setup produces 20–25 units of clean power daily. Under the central government's <strong class="text-black">PM Surya Ghar Muft Bijli Yojana</strong> (providing subsidies up to ₹78,000), Indian homeowners can charge their EVs at near-zero operating cost while exporting excess solar energy back to the DISCOM via net metering.</p>
+      
       <div class="border border-zinc-200 rounded-2xl p-5 bg-zinc-50 mb-8">
         <div class="flex items-start gap-3">
-          <span class="text-lg shrink-0 mt-0.5">&#9728;</span>
+          <span class="text-xl shrink-0 mt-0.5">☀️</span>
           <div>
-            <h4 class="text-sm font-bold text-black mb-1">Solar + EV: The Perfect Pair</h4>
-            <p class="text-sm text-zinc-600">A home with a 5 kW solar system and an EV can reduce its carbon footprint by 3–4 tonnes of CO₂ per year compared to a petrol-car household. With net metering, your electricity bill can drop to near zero — making both your home and car run on sunshine.</p>
+            <h4 class="text-sm font-bold text-black mb-1">Zero-Fuel Cost Mobility</h4>
+            <p class="text-xs md:text-sm text-zinc-600 leading-relaxed">Pairing a 30–40 kWh EV with a 5 kW rooftop solar array saves an average driver ₹65,000–₹90,000 annually in fuel costs, achieving complete financial payback within 3 to 4 years.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Section 7: Well-to-Wheel Emissions -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Well-to-Wheel Emissions: The Full Picture
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4"><span class="jargon-term" data-tooltip="Well-to-Wheel (WtW) — a lifecycle analysis that accounts for emissions from fuel extraction, processing, transportation, and final consumption in the vehicle.">Well-to-wheel</span> analysis accounts for every stage of the energy lifecycle — from extraction (well) to consumption (wheel). For EVs, this includes:</p>
-      <ul class="space-y-3 mb-6 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">1.</span> <span><strong class="text-black">Fuel cycle:</strong> Coal mining, gas extraction, uranium mining, solar panel manufacturing, wind turbine construction</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">2.</span> <span><strong class="text-black">Power generation:</strong> Burning fuel or converting renewable energy at power plants</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">3.</span> <span><strong class="text-black">Transmission & distribution:</strong> Line losses (India averages 15–20% T&D losses)</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">4.</span> <span><strong class="text-black">Charging & driving:</strong> Battery efficiency, charger losses, and motor efficiency</span></li>
+    <!-- Section 07: FAQ Section -->
+    <section class="mb-14 border-t border-zinc-200 pt-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-mono text-[9px] text-zinc-400 tracking-[0.25em] uppercase">Q&A</span>
+        <div class="h-px flex-1 bg-zinc-200"></div>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black mb-6">Frequently Asked Questions</h2>
+
+      <div class="flex flex-col gap-3" id="faq-accordion">
+        <div class="faq-item border border-zinc-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors focus:outline-none">
+            <span>Does charging an EV on a coal-powered grid defeat the purpose of an EV?</span>
+            <svg class="faq-chevron w-3.5 h-3.5 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-xs md:text-sm text-zinc-600 leading-relaxed">No. Because electric motors are over 85% efficient compared to internal combustion engines (which lose ~75% of energy as heat), driving an EV on India's current electricity grid emits roughly 50% less CO₂ per km than a petrol car. Additionally, as India adds 500 GW of renewable energy by 2030, your EV automatically gets cleaner every year without modifying the vehicle.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-zinc-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors focus:outline-none">
+            <span>Will mass EV adoption overload India's electrical grid?</span>
+            <svg class="faq-chevron w-3.5 h-3.5 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-xs md:text-sm text-zinc-600 leading-relaxed">Grid studies by NITI Aayog and CEA show that adding 10 million EVs by 2030 will increase total national electricity demand by only 3% to 4%. Because over 80% of EV charging occurs overnight during off-peak hours, it utilizes existing idle power plant capacity rather than creating peak grid overload.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-zinc-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors focus:outline-none">
+            <span>How does solar rooftop charging work with net metering?</span>
+            <svg class="faq-chevron w-3.5 h-3.5 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-xs md:text-sm text-zinc-600 leading-relaxed">During daytime hours, your rooftop solar panels generate power and feed surplus electricity into the grid via a bi-directional net meter. At night, when you charge your EV, you draw power back from the grid. At the end of the billing cycle, your DISCOM credits daytime solar exports against nighttime EV consumption.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-zinc-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors focus:outline-none">
+            <span>What are Time-of-Day (ToD) charging tariffs?</span>
+            <svg class="faq-chevron w-3.5 h-3.5 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-xs md:text-sm text-zinc-600 leading-relaxed">Time-of-Day (ToD) tariffs charge different per-unit electricity rates depending on the hour. Off-peak nighttime slots (11 PM to 6 AM) feature discounted rates (e.g. ₹4–5/unit), while peak evening hours carry higher charges. Scheduling your EV charger to turn on after 11 PM minimizes charging costs.</div>
+          </div>
+        </div>
+
+        <div class="faq-item border border-zinc-200 rounded-xl overflow-hidden bg-white">
+          <button class="faq-trigger w-full px-5 py-4 flex justify-between items-center text-left font-mono text-xs uppercase tracking-wider text-zinc-800 hover:text-black transition-colors focus:outline-none">
+            <span>What is Vehicle-to-Grid (V2G) technology?</span>
+            <svg class="faq-chevron w-3.5 h-3.5 text-zinc-500 transition-transform duration-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-xs md:text-sm text-zinc-600 leading-relaxed">V2G enables bi-directional power flow between an EV battery and the power grid. When grid demand surges during peak evening hours, connected EVs can safely discharge stored power back into the grid to stabilize local supply, generating credits or payment for vehicle owners.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Takeaways & Conclusion -->
+    <div class="key-takeaways-card">
+      <div class="key-takeaways-title">💡 Key Takeaways: India's Power Grid & EVs</div>
+      <ul class="key-takeaways-list">
+        <li class="key-takeaways-item">
+          <span class="key-takeaways-bullet font-bold text-black">✔</span>
+          <span><strong>Rapid Decarbonization:</strong> India's grid is aggressively integrating solar and wind power, reducing thermal dependence every year.</span>
+        </li>
+        <li class="key-takeaways-item">
+          <span class="key-takeaways-bullet font-bold text-black">✔</span>
+          <span><strong>Lower Emissions Today:</strong> Driving an EV on India's current grid already cuts well-to-wheel CO₂ emissions by 50% compared to petrol cars.</span>
+        </li>
+        <li class="key-takeaways-item">
+          <span class="key-takeaways-bullet font-bold text-black">✔</span>
+          <span><strong>Solar Synergy:</strong> Home rooftop solar paired with EV charging provides genuine 100% zero-emission driving with near-zero operating costs.</span>
+        </li>
       </ul>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Even accounting for all these factors, EVs on India's grid emit 40–55% less CO₂ than petrol cars and 30–40% less than diesel cars on a well-to-wheel basis. As the grid gets cleaner — with the government targeting 500 GW of non-fossil fuel capacity by 2030 — the environmental advantage of EVs will only improve.</p>
-
-      <!-- Conclusion -->
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Energy Grid</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Grid Decarbonization:</strong> India's grid is rapidly integrating solar and wind energy.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Timing Matters:</strong> Charging during day-time solar generation peaks (10 AM to 3 PM) is the cleanest option.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Solar Integration:</strong> Pairing an EV with home rooftop solar panels provides 100% green energy at zero cost.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Energy Grid</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Grid Decarbonization:</strong> India's grid is rapidly integrating solar and wind energy.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Timing Matters:</strong> Charging during day-time solar generation peaks (10 AM to 3 PM) is the cleanest option.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Solar Integration:</strong> Pairing an EV with home rooftop solar panels provides 100% green energy at zero cost.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Energy Grid</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Grid Decarbonization:</strong> India's grid is rapidly integrating solar and wind energy.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Timing Matters:</strong> Charging during day-time solar generation peaks (10 AM to 3 PM) is the cleanest option.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Solar Integration:</strong> Pairing an EV with home rooftop solar panels provides 100% green energy at zero cost.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Energy Grid</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Grid Decarbonization:</strong> India's grid is rapidly integrating solar and wind energy.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Timing Matters:</strong> Charging during day-time solar generation peaks (10 AM to 3 PM) is the cleanest option.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Solar Integration:</strong> Pairing an EV with home rooftop solar panels provides 100% green energy at zero cost.</span>
-          </li>
-        </ul>
-      </div>
-
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-16 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Conclusion
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Electricity powers our modern world, and understanding where it comes from is key to making informed decisions about EV ownership. While India's grid still relies heavily on coal, the rapid growth of renewable energy — particularly solar — is rapidly changing the picture.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Every EV sold in India today is already significantly cleaner than its petrol counterpart, even on the current grid. By choosing green charging options, installing rooftop solar, or simply charging during off-peak hours, you can make your EV even more sustainable.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed">The future is electric, and the grid is getting greener every year. The question isn't whether India's electricity is clean enough for EVs — it's how quickly we can build more renewable capacity to power the electric mobility revolution.</p>
-
     </div>
+
+    <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
+      <span class="w-1 h-6 bg-black inline-block"></span>
+      Conclusion
+    </h2>
+    <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Electricity powers the future of transportation, and understanding where it originates is key to evaluating the environmental impact of electric vehicles. While thermal power remains part of India's current baseline, the rapid expansion of solar and wind capacity ensures that every EV sold in India will become cleaner every single year of its operational lifespan.</p>
+    <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">By taking advantage of off-peak Time-of-Day tariffs, installing rooftop solar, or utilizing green-certified public fast chargers, Indian EV owners can maximize both their financial savings and environmental benefits.</p>
+
   </article>
 
-  <!-- Related Articles -->
+  <!-- Related Articles Section -->
   <section class="border-t border-zinc-200 bg-zinc-50">
     <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
       <h2 class="text-lg font-bold tracking-tight text-black mb-8 flex items-center gap-3">
@@ -455,25 +483,25 @@
         Related Articles
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="renewable-energy-and-evs.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Green Energy</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">Renewable Energy & EVs</h3>
+          <p class="text-xs text-zinc-500">Discover solar charging, V2G tech, and India's 500 GW target.</p>
+        </a>
+        <a href="ev-infrastructure-india.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
+          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Infrastructure</span>
+          <h3 class="text-sm font-bold text-black mt-2 mb-1">EV Infrastructure in India</h3>
+          <p class="text-xs text-zinc-500">An overview of India's growing charging network and grid readiness.</p>
+        </a>
         <a href="ev-charging-explained.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
           <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Charging</span>
           <h3 class="text-sm font-bold text-black mt-2 mb-1">EV Charging Explained</h3>
-          <p class="text-xs text-zinc-500">Everything about EV charging levels, connectors, speeds, and costs in India.</p>
-        </a>
-        <a href="renewable-energy-and-evs.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Green</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Renewable Energy and EVs</h3>
-          <p class="text-xs text-zinc-500">How solar, wind, and EVs are creating a sustainable mobility ecosystem.</p>
-        </a>
-        <a href="../battery-health.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Maintenance</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Battery Health Guide</h3>
-          <p class="text-xs text-zinc-500">Tips to maximise EV battery lifespan in Indian driving conditions.</p>
+          <p class="text-xs text-zinc-500">Levels 1, 2, and DC fast charging speeds, connectors, and costs.</p>
         </a>
         <a href="ev-cost-savings.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
           <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Savings</span>
           <h3 class="text-sm font-bold text-black mt-2 mb-1">EV Cost & Savings</h3>
-          <p class="text-xs text-zinc-500">Calculate total cost of ownership and long-term savings with an EV.</p>
+          <p class="text-xs text-zinc-500">Calculate total ownership costs and long-term fuel savings.</p>
         </a>
       </div>
       <div class="mt-10 text-center">
@@ -496,29 +524,29 @@
     </div>
   </footer>
 
-<!-- AI Floating Assistant -->
-<div id="ai-overlay" class="ai-overlay"></div>
-<div class="ai-assistant-container">
-  <div class="ai-trigger" id="ai-trigger">
-    <div class="ai-avatar-wrapper ai-float-anim">
-      <div class="ai-avatar-glow"></div>
-      <img src="../ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
-    </div>
-    <div class="ai-label" id="ai-label">Ask EV AI</div>
-  </div>
-  <div class="ai-chat-window" id="ai-chat-window">
-    <div class="ai-chat-header">
-      <div class="ai-chat-header-left">
-        <img src="../ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
-        <div>
-          <div class="ai-chat-title">EV AI Assistant</div>
-          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
-        </div>
+  <!-- AI Floating Assistant -->
+  <div id="ai-overlay" class="ai-overlay"></div>
+  <div class="ai-assistant-container">
+    <div class="ai-trigger" id="ai-trigger">
+      <div class="ai-avatar-wrapper ai-float-anim">
+        <div class="ai-avatar-glow"></div>
+        <img src="../ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
       </div>
-      <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
+      <div class="ai-label" id="ai-label">Ask EV AI</div>
     </div>
-    <div class="ai-chat-body" id="ai-chat-body">
-      <div class="ai-message ai-bot-message" style="white-space:pre-line">
+    <div class="ai-chat-window" id="ai-chat-window">
+      <div class="ai-chat-header">
+        <div class="ai-chat-header-left">
+          <img src="../ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
+          <div>
+            <div class="ai-chat-title">EV AI Assistant</div>
+            <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
+          </div>
+        </div>
+        <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
+      </div>
+      <div class="ai-chat-body" id="ai-chat-body">
+        <div class="ai-message ai-bot-message" style="white-space:pre-line">
 Hi! 👋 I'm your EV AI Assistant.
 
 Ask me anything about:
@@ -532,22 +560,41 @@ Ask me anything about:
 • Range
 • Comparisons
 • Charging Stations
+        </div>
+        <div class="ai-suggestions">
+          <button class="ai-chip">Best EV under ₹15 lakh</button>
+          <button class="ai-chip">Charging cost</button>
+          <button class="ai-chip">Battery lifespan</button>
+          <button class="ai-chip">Compare Tata vs MG</button>
+          <button class="ai-chip">Government subsidy</button>
+          <button class="ai-chip">Charging stations near me</button>
+        </div>
       </div>
-      <div class="ai-suggestions">
-        <button class="ai-chip">Best EV under ₹15 lakh</button>
-        <button class="ai-chip">Charging cost</button>
-        <button class="ai-chip">Battery lifespan</button>
-        <button class="ai-chip">Compare Tata vs MG</button>
-        <button class="ai-chip">Government subsidy</button>
-        <button class="ai-chip">Charging stations near me</button>
+      <div class="ai-chat-input-area">
+        <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
+        <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
       </div>
-    </div>
-    <div class="ai-chat-input-area">
-      <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
-      <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
     </div>
   </div>
-</div>
-<script src="../ai-assistant.js"></script>
+
+  <!-- Scripts -->
+  <script src="../ai-assistant.js"></script>
+  <script>
+    document.querySelectorAll('.faq-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling;
+        const chevron = trigger.querySelector('.faq-chevron');
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+        document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = '0px');
+        document.querySelectorAll('.faq-chevron').forEach(ch => ch.style.transform = 'rotate(0deg)');
+
+        if (!isOpen) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          chevron.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

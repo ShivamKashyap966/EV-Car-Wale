@@ -7,7 +7,7 @@
   <meta name="description" content="Manage your EV Car Wale account.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -21,7 +21,7 @@
             lightgray: '#F5F5F5',
           },
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Poppins', 'sans-serif'],
           }
         }
       }
@@ -35,14 +35,14 @@
 <body class="bg-white text-black font-sans overflow-x-hidden">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
-      <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
+      <a href="/" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
         <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
         EV CAR WALE
       </a>
       <div class="flex items-center gap-4">
-        <a href="index.html" class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors">HOME</a>
+        <a href="/" class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors">HOME</a>
       </div>
     </div>
   </nav>
@@ -122,7 +122,7 @@
               </div>
               <p class="font-mono text-[10px] text-zinc-400">No shortlisted vehicles yet.</p>
               <p class="font-mono text-[9px] text-zinc-300 mt-1">Browse EVs and save your favourites.</p>
-              <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
+              <a href="/" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
             </div>
             <p class="font-mono text-[10px] text-zinc-400">No recent activity.</p>
             <p class="font-mono text-[9px] text-zinc-300 mt-1">Your test drives, comparisons, and views will appear here.</p>
-            <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Explore EVs</a>
+            <a href="/" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Explore EVs</a>
           </div>
         </div>
 
@@ -258,44 +258,151 @@
     }
 
     const S3_IMAGE_MAPPING = {
-      "nexon-ev": "car_images/tata/tata_nexon_ev.jpeg",
-      "punch-ev": "car_images/tata/tata_punch_ev.jpg",
-      "tiago-ev": "car_images/tata/tata_tiago_ev.jpg",
-      "curvv-ev": "car_images/tata/tata_curvv_ev.png",
-      "sierra-ev": "car_images/tata/tata_sierra_ev.png",
-      "xev-9e": "car_images/mahindra/Mahindra_XEV_9e.jpg",
-      "be-6": "car_images/mahindra/Mahindra_BE_6.jpg",
+      "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON.png",
+      "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+      "audi-q6-e-tron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "audi-q6-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "audi-q8-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
+      "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
+      "be07": "car_images/mahindra/mahindra_BE_07.jpeg",
+      "be6": "car_images/mahindra/mahindra-BE6.jpg",
+      "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
+      "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
+      "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
+      "bmw-ix": "car_images/BMW/BMW iX.JPG",
+      "bmw-ix1": "car_images/BMW/BMW iX1 LWB.jpeg",
+      "bmw-ix1-lwb": "car_images/BMW/BMW iX1 LWB.jpeg",
+      "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
+      "byd-emax-7": "car_images/BYD/BYD_eMAX_7.jpeg",
+      "byd-emax7": "car_images/BYD/BYD_eMAX_7.jpeg",
+      "byd-seal": "car_images/BYD/byd_seal.jpeg",
+      "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
+      "byd-sealion-7": "car_images/BYD/BYD SEALION 7.jpeg",
+      "byd-sealion7": "car_images/BYD/BYD SEALION 7.jpeg",
+      "citroen-ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
+      "comet-ev": "car_images/MG/mg_comet_ev.webp",
+      "creta-ev": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
+      "curvv-ev": "car_images/tata/CURVE.jpeg",
+      "cyberster": "car_images/MG/MG_Cyberster.jpeg",
+      "d-max-ev": "car_images/ISUZU/D-MAX-EV.jpeg",
+      "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
+      "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
+      "etron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+      "ev6": "car_images/KIA/kia_ev6.jpeg",
+      "ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+      "fronx-ev": "car_images/maruti suzuki/fronx_ev.jpeg",
+      "gv60": "car_images/GENESIS/GV60.jpeg",
+      "harrier-ev": "car_images/tata/HARRIER.webp",
+      "hyundai-creta-electric": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
+      "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
+      "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
+      "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
+      "kia-carens-clavis-ev": "car_images/KIA/Kia Carens Clavis EV.WEBP",
+      "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
+      "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
+      "lexus-es": "car_images/LEXUS/ES.jpeg",
+      "lotus-eletre": "car_images/LOTUS/ELETRE.webp",
+      "lotus-emeya": "car_images/LOTUS/EMEYA.jpeg",
+      "luce": "car_images/ferrari/LUCE.jpeg",
+      "m9-ev": "car_images/MG/MG_M9.jpeg",
+      "macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+      "mahindra-thar-e": "car_images/mahindra/thar.e.jpeg",
+      "mahindra-xev-7e": "car_images/mahindra/mahindra_XEV_9e.webp",
+      "maruti-e-vitara": "car_images/maruti suzuki/maruti_evitara.jpeg",
+      "maruti-jimny": "car_images/maruti suzuki/jimny.png",
+      "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
+      "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+      "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+      "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
+      "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
+      "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+      "mercedes-cla-electric": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+      "mercedes-eqa": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+      "mercedes-eqe-suv": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
+      "mercedes-eqs": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-g-class-electric": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+      "mg-cyberster": "car_images/MG/MG_Cyberster.jpeg",
+      "mg-m9": "car_images/MG/MG_M9.jpeg",
+      "mg-zs-ev": "car_images/MG/MG ZS EV.JPG",
+      "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.jpeg",
+      "nexon-ev": "car_images/tata/NEXON.jpeg",
+      "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.jpeg",
+      "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
+      "pmv-eas-e": "car_images/PMV/EAS-E.jpeg",
+      "porsche-cayenne-electric": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
+      "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
+      "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+      "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+      "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
+      "punch-ev": "car_images/tata/PUNCH.jpeg",
+      "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
+      "rolls-royce-spectre": "car_images/ROLLS_ROYCE/Rolls-Royce Spectre.jpeg",
+      "ryde": "car_images/BLINQ/RYDE.jpeg",
+      "sierra-ev": "car_images/tata/SIERRA.jpeg",
+      "skoda-elroq": "car_images/SKODA/Skoda_Elroq.jpeg",
+      "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
+      "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
+      "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
+      "tata-sierra-ev": "car_images/tata/SIERRA.jpeg",
+      "tata-tigor-ev": "car_images/tata/TIAGO.jpeg",
+      "tesla-model-y": "car_images/TESLA/MODEL-Y.jpeg",
+      "thar-e": "car_images/mahindra/thar.e.jpeg",
+      "tiago-ev": "car_images/tata/TIAGO.jpeg",
+      "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
+      "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+      "toyota-urban-cruiser-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+      "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/eva.jpeg",
+      "vinfast-vf-mpv7": "car_images/VINFAST/VinFast VF MPV7.JPG",
+      "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
+      "vinfast-vf6": "car_images/VINFAST/VinFast VF 6.jpeg",
+      "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
+      "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
+      "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
+      "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.jpeg",
+      "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
+      "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+      "windsor-ev": "car_images/MG/MG_windsor_EV.jpeg",
+      "xev-9e": "car_images/mahindra/mahindra_XEV_9e.webp",
+      "xev-9s": "car_images/mahindra/Mahindra XEV 9s.png",
+      "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
+      "xuv-3xo-ev": "car_images/mahindra/3X0.jpeg",
       "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
-      "windsor-ev": "car_images/MG/MG_Windsor_EV.jpeg",
-      "comet-ev": "car_images/MG/MG_Comet_EV.jpeg",
-      "zs-ev": "car_images/MG/MG ZS EV.JPG",
-      "seal": "car_images/BYD/BYD_Seal.jpg",
-      "atto-3": "car_images/BYD/BYD_Atto_3.jpg",
-      "ioniq-5": "car_images/hyundai/Hyundai_Ioniq_5.jpg",
-      "creta-ev": "car_images/hyundai/Hyundai_Creta_EV.png",
-      "ix1": "car_images/BMW/BMW_iX1.jpeg",
-      "i7": "car_images/BMW/BMW_i7.jpg",
-      "q8-etron": "car_images/audi/Audi_Q8_e-tron.jpg",
-      "ec3": "car_images/Citroen/Citroen_eC3.jpg",
-      "ev6": "car_images/kia/kia_ev6.jpg",
-      "zoe-ev": "car_images/renault/zoe.jpg",
-      "enyaq-iv": "car_images/skoda/enyaq.jpg",
-      "bz4x-ev": "car_images/toyota/bz4x.jpg",
-      "vf-6": "car_images/vinfast/vf6.jpg",
-      "id4": "car_images/volkswagen/id4.jpg"
-    };
+      "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
+      "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
+      "zs-ev": "car_images/MG/MG ZS EV.JPG"
+};
 
-    function getS3ImageUrl(car) {
-      let relativePath = car.image;
-      if (S3_IMAGE_MAPPING[car.id]) {
-        relativePath = S3_IMAGE_MAPPING[car.id];
-      } else {
-        const brandFolder = getBrandFolder(car.brand);
-        if (!relativePath.startsWith('car_images/')) {
-          relativePath = `car_images/${brandFolder}/${relativePath}`;
+    function handleImageError(imgElement) {
+  if (!imgElement) return;
+  imgElement.onerror = null;
+  const failedUrl = imgElement.src || 'Unknown S3 URL';
+  const altText = imgElement.alt || 'Vehicle';
+  console.warn('[EV Car Wale Image Error] Failed to load image for "' + altText + '" from S3 URL: ' + failedUrl + '. Displaying default placeholder /car_outline.jpg.');
+  if (imgElement.previousElementSibling && imgElement.previousElementSibling.classList.contains('skeleton-shimmer')) {
+    imgElement.previousElementSibling.style.display = 'none';
+  }
+  imgElement.src = '/car_outline.jpg';
+}
+
+    function getS3ImageUrl(carOrPath) {
+      if (!carOrPath) return '/car_outline.jpg';
+      let relativePath = carOrPath;
+      if (typeof carOrPath === 'object' && carOrPath !== null) {
+        if (carOrPath.id && S3_IMAGE_MAPPING[carOrPath.id]) {
+          relativePath = S3_IMAGE_MAPPING[carOrPath.id];
+        } else {
+          relativePath = carOrPath.image || '';
         }
+      } else if (typeof carOrPath === 'string' && S3_IMAGE_MAPPING[carOrPath]) {
+        relativePath = S3_IMAGE_MAPPING[carOrPath];
       }
       if (!relativePath) return '/car_outline.jpg';
+      if (relativePath === 'car_outline.jpg' || relativePath === '/car_outline.jpg') {
+        return '/car_outline.jpg';
+      }
       if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
         return relativePath;
       }
@@ -308,7 +415,7 @@
       }
       const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
       const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
-      return `${s3BaseUrl}/${encodedPath}`;
+      return s3BaseUrl + '/' + encodedPath;
     }
 
     function showToast(message) {
@@ -338,9 +445,21 @@
 
     async function loadShortlistData() {
       try {
-        const wishlist = await window.WishlistService.getWishlist();
-        shortlistedIds = wishlist.map(c => c.id);
-        allCars = wishlist;
+        const favRes = await fetch('/api/favourites');
+        if (favRes.ok) {
+          const favData = await favRes.json();
+          if (favData.success) {
+            shortlistedIds = favData.data || [];
+          }
+        }
+
+        const carsRes = await fetch('/data/cars.json');
+        if (carsRes.ok) {
+          const text = await carsRes.text();
+          const cleanText = text.replace(/,(\s*[\]}])/g, '$1');
+          allCars = JSON.parse(cleanText);
+        }
+
         renderShortlist();
       } catch (err) {
         console.error('Failed to load shortlisted vehicles data:', err);
@@ -351,7 +470,7 @@
       const container = document.getElementById('shortlisted-content-container');
       if (!container) return;
 
-      const shortlistedCars = allCars;
+      const shortlistedCars = allCars.filter(car => shortlistedIds.includes(car.id));
 
       if (shortlistedCars.length === 0) {
         container.innerHTML = `
@@ -363,7 +482,7 @@
             </div>
             <p class="font-mono text-[10px] text-zinc-400">No shortlisted vehicles yet.</p>
             <p class="font-mono text-[9px] text-zinc-300 mt-1">Browse EVs and save your favourites.</p>
-            <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
+            <a href="/" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Browse EVs</a>
           </div>
         `;
         return;
@@ -381,27 +500,29 @@
         }
 
         gridHtml += `
-          <div class="car-card border border-zinc-200 bg-white p-6 flex flex-col gap-4 relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] cursor-pointer rounded-2xl" data-car-id="${car.id}">
-            <div class="flex justify-between items-center w-full">
-              <button class="wishlist-btn" data-id="${car.id}" aria-label="Remove from Shortlist">
-                <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current text-red-500">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-              </button>
-              <span class="font-mono text-sm font-bold text-black notranslate">${car.price}</span>
+          <div class="car-card border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] cursor-pointer" data-car-id="${car.id}">
+            <button class="wishlist-btn absolute top-4 right-4 z-20" data-id="${car.id}" aria-label="Remove from Shortlist">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current text-red-500">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+            <div class="h-44 bg-white mb-4 relative overflow-hidden rounded-[14px] border border-zinc-100">
+              <img src="${imgUrl}" alt="${car.name}" class="w-full h-full transition-transform duration-500 group-hover:scale-105" onerror="handleImageError(this)">
             </div>
-            
-            <div class="flex flex-col gap-1 text-left">
-              <span class="font-mono text-[9px] text-zinc-500 uppercase notranslate">${displayBrand}</span>
-              <h3 class="text-lg font-bold text-black notranslate">${cleanedName}</h3>
+            <div>
+              <div class="flex justify-between items-start text-black">
+                <div>
+                  <span class="font-mono text-[9px] text-zinc-500 uppercase notranslate">${displayBrand}</span>
+                  <h3 class="text-lg font-bold mt-0.5 text-black notranslate">${cleanedName}</h3>
+                </div>
+                <span class="font-mono text-sm font-bold text-black notranslate">${car.price}</span>
+              </div>
+              <div class="grid grid-cols-2 gap-y-1.5 gap-x-4 my-3 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono">
+                <div>RANGE: ${car.range}</div>
+                <div>BATTERY: ${car.battery}</div>
+              </div>
             </div>
-            
-            <div class="flex flex-col gap-1 my-1 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono text-left">
-              <div>Range: ${car.range}</div>
-              <div>Battery: ${car.battery}</div>
-            </div>
-            
-            <a href="index.html#/cars/${car.id}" class="w-full py-2.5 border border-zinc-200 hover:border-black text-center text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all notranslate mt-1">
+            <a href="index.html#/cars/${car.id}" class="w-full py-2.5 border border-zinc-200 hover:border-black text-center text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all notranslate">
               VIEW DETAILS
             </a>
           </div>
@@ -435,20 +556,19 @@
 
     async function removeFromShortlist(carId) {
       try {
-        await window.WishlistService.removeWishlist(carId);
-        await loadShortlistData();
-        showToast('Removed from Shortlisted Vehicles');
+        const res = await fetch(`/api/favourites/${carId}`, {
+          method: 'DELETE'
+        });
+        if (res.ok) {
+          shortlistedIds = shortlistedIds.filter(id => id !== carId);
+          localStorage.setItem('ev_wishlist_logged_in', JSON.stringify(shortlistedIds));
+          renderShortlist();
+          showToast('Removed from Shortlisted Vehicles');
+        }
       } catch (err) {
         console.error('Failed to remove from shortlist:', err);
       }
     }
-
-    window.addEventListener('storage', (e) => {
-      const key = window.WishlistService.getLocalStorageKey();
-      if (e.key === key || !e.key) {
-        loadShortlistData();
-      }
-    });
 
     // Verify user session using backend OAuth /api/auth/me
     async function verifyAuth() {
@@ -460,7 +580,7 @@
           const sidebarProfileImg = document.querySelector('aside .rounded-full');
           const sidebarName = document.querySelector('aside p.font-bold');
           if (sidebarProfileImg && data.user.picture) {
-            sidebarProfileImg.innerHTML = `<img src="${data.user.picture}" alt="${data.user.name}" class="w-full h-full rounded-full object-cover" onerror="this.src='/car_outline.jpg';">`;
+            sidebarProfileImg.innerHTML = `<img src="${data.user.picture}" alt="${data.user.name}" class="w-full h-full rounded-full object-cover" onerror="this.style.display='none';">`;
           }
           if (sidebarName && data.user.name) {
             sidebarName.textContent = data.user.name;

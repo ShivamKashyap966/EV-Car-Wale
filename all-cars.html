@@ -7,7 +7,7 @@
   <meta name="description" content="Browse all electric vehicles in India. Search, filter by brand, and sort by price, range, or battery capacity.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -21,7 +21,7 @@
             lightgray: '#F5F5F5',
           },
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            sans: ['Poppins', 'sans-serif'],
           }
         }
       }
@@ -65,13 +65,13 @@
 <body class="bg-white text-black font-sans overflow-x-hidden">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Inter',sans-serif;">
+  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
-      <a href="index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
+      <a href="/" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
         <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
       </a>
       <div class="flex items-center gap-4">
-        <a href="index.html" class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors">HOME</a>
+        <a href="/" class="font-mono text-[10px] tracking-wider text-zinc-500 hover:text-black transition-colors">HOME</a>
       </div>
     </div>
   </nav>
@@ -133,6 +133,7 @@
 
   <script>
     const EV_DATABASE = [
+            {id:'jimny-ev',name:'Jimny EV',brand:'maruti',priceVal:18.00,price:'₹18.00 Lakh',rangeVal:350,range:'350 km',battery:'60 kWh',charging:'50 min (DC)',speed:'130 km/h',power:'156 hp',safety:'4 Stars (Expected)',features:'Dual-motor AllGrip AWD electric terrain system, boxy ladder-frame chassis layout',dimensions:'3985 x 1645 x 1720 mm',image:'car_images/MARUTI_SUZUKI/jimny.png'},
       {id:'nexon-ev',name:'Nexon EV',brand:'tata',priceVal:14.50,price:'₹14.50 Lakh',rangeVal:465,range:'465 km',battery:'40.5 kWh',charging:'56 min (DC)',speed:'150 km/h',power:'143 hp',safety:'5 Stars (BNCAP)',features:'Ventilated seats, 12.3-inch screen, V2L capability',dimensions:'3994 x 1811 x 1616 mm',image:'tata_nexon_ev.jpeg'},
       {id:'xuv400',name:'XUV400',brand:'mahindra',priceVal:15.49,price:'₹15.49 Lakh',rangeVal:456,range:'456 km',battery:'39.4 kWh',charging:'50 min (DC)',speed:'160 km/h',power:'150 hp',safety:'5 Stars (Expected)',features:'Single pane sunroof, Drive modes, 10.25-inch touchscreen',dimensions:'4200 x 1821 x 1634 mm',image:'mahindra_XUV_400.jpg'},
       {id:'punch-ev',name:'Punch EV',brand:'tata',priceVal:10.99,price:'₹10.99 Lakh',rangeVal:421,range:'421 km',battery:'35 kWh',charging:'56 min (DC)',speed:'140 km/h',power:'122 hp',safety:'5 Stars (BNCAP)',features:'Electronic parking brake, Sunroof, Paddle shifters for regeneration',dimensions:'3827 x 1742 x 1615 mm',image:'tata_punch_ev.jpg'},
@@ -208,120 +209,169 @@
     };
 
     const S3_IMAGE_MAPPING = {
-      "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON .png",
+      "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON.png",
       "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
-      "audi-q6-e-tron": "car_images/AUDI/    Audi Q6 e-tron.JPG",
+      "audi-q6-e-tron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "audi-q6-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "audi-q8-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
       "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
       "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
+      "be07": "car_images/mahindra/mahindra_BE_07.jpeg",
       "be6": "car_images/mahindra/mahindra-BE6.jpg",
       "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
       "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
       "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
-      "bmw-ix": "car_images/BMW/    BMW iX.JPG",
-      "bmw-ix1": "car_images/BMW/    BMW iX1 LWB.JPG",
+      "bmw-ix": "car_images/BMW/BMW iX.JPG",
+      "bmw-ix1": "car_images/BMW/BMW iX1 LWB.jpeg",
+      "bmw-ix1-lwb": "car_images/BMW/BMW iX1 LWB.jpeg",
       "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
-      "byd-emax-7": "car_images/BYD/ BYD_eMAX_7.JPG",
+      "byd-emax-7": "car_images/BYD/BYD_eMAX_7.jpeg",
+      "byd-emax7": "car_images/BYD/BYD_eMAX_7.jpeg",
       "byd-seal": "car_images/BYD/byd_seal.jpeg",
       "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
-      "byd-sealion-7": "car_images/BYD/    BYD SEALION 7.JPG",
+      "byd-sealion-7": "car_images/BYD/BYD SEALION 7.jpeg",
+      "byd-sealion7": "car_images/BYD/BYD SEALION 7.jpeg",
+      "citroen-ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
       "comet-ev": "car_images/MG/mg_comet_ev.webp",
-      "creta-ev": "car_images/hyundai/Hyundai_Creta _Electric.JPG",
+      "creta-ev": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
       "curvv-ev": "car_images/tata/CURVE.jpeg",
-      "cyberster": "car_images/MG/MG_Cyberster.JPG",
-      "d-max-ev": "car_images/ISUZU/D-MAX-EV.webp",
+      "cyberster": "car_images/MG/MG_Cyberster.jpeg",
+      "d-max-ev": "car_images/ISUZU/D-MAX-EV.jpeg",
       "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
       "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
-      "fronx-ev": "car_images/MARUTI_SUZUKI/fronx_ev.jpeg",
+      "etron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+      "ev6": "car_images/KIA/kia_ev6.jpeg",
+      "ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+      "fronx-ev": "car_images/maruti suzuki/fronx_ev.jpeg",
       "gv60": "car_images/GENESIS/GV60.jpeg",
       "harrier-ev": "car_images/tata/HARRIER.webp",
+      "hyundai-creta-electric": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
       "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
       "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
       "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
-      "jimny-ev": "car_images/MARUTI_SUZUKI/jimny.jpeg",
-      "kia-carens-clavis-ev": "car_images/KIA/    Kia Carens Clavis EV.WEBP",
+      "kia-carens-clavis-ev": "car_images/KIA/Kia Carens Clavis EV.WEBP",
       "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
       "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
-      "lexus-es": "car_images/LEXUS/ES.webp",
-      "lotus-eletre": "car_images/LOTUS/ELETRE.jpeg",
-      "lotus-emeya": "car_images/LOTUS/EMEYA.webp",
+      "lexus-es": "car_images/LEXUS/ES.jpeg",
+      "lotus-eletre": "car_images/LOTUS/ELETRE.webp",
+      "lotus-emeya": "car_images/LOTUS/EMEYA.jpeg",
       "luce": "car_images/ferrari/LUCE.jpeg",
-      "m9-ev": "car_images/MG/MG_M9.jpg",
-      "maruti-e-vitara": "car_images/MARUTI_SUZUKI/maruti_evitara.jpeg",
+      "m9-ev": "car_images/MG/MG_M9.jpeg",
+      "macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+      "mahindra-thar-e": "car_images/mahindra/thar.e.jpeg",
+      "mahindra-xev-7e": "car_images/mahindra/mahindra_XEV_9e.webp",
+      "maruti-e-vitara": "car_images/maruti suzuki/maruti_evitara.jpeg",
+      "maruti-jimny": "car_images/maruti suzuki/jimny.png",
       "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
-      "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.webp",
-      "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz _CLA.JPG",
+      "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+      "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
       "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
-      "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz _EQS_SUV.JPG",
-      "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.webp",
-      "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.JPG",
-      "mini-countryman-c": "car_images/MINI /COUNTRYMAN-C.webp",
-      "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.webp",
+      "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
+      "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+      "mercedes-cla-electric": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+      "mercedes-eqa": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+      "mercedes-eqe-suv": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
+      "mercedes-eqs": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-g-class-electric": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+      "mg-cyberster": "car_images/MG/MG_Cyberster.jpeg",
+      "mg-m9": "car_images/MG/MG_M9.jpeg",
+      "mg-zs-ev": "car_images/MG/MG ZS EV.JPG",
+      "mini-countryman-electric": "car_images/MINI/COUNTRYMAN-ELECTRIC.jpeg",
       "nexon-ev": "car_images/tata/NEXON.jpeg",
-      "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.WEBP",
+      "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.jpeg",
       "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
-      "pmv-eas-e": "car_images/PMV/EAS-E.webp",
-      "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.JPG",
+      "pmv-eas-e": "car_images/PMV/EAS-E.jpeg",
+      "porsche-cayenne-electric": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
+      "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
       "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
       "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
       "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
       "punch-ev": "car_images/tata/PUNCH.jpeg",
       "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
-      "rolls-royce-shadow": "car_outline.jpg",
-      "rolls-royce-spectre": "car_images/ROLLS_ROYCE/SPECTRE.jpeg",
+      "rolls-royce-spectre": "car_images/ROLLS_ROYCE/Rolls-Royce Spectre.jpeg",
       "ryde": "car_images/BLINQ/RYDE.jpeg",
       "sierra-ev": "car_images/tata/SIERRA.jpeg",
-      "skoda-elroq": "car_images/SKODA/Skoda_Elroq.JPG",
+      "skoda-elroq": "car_images/SKODA/Skoda_Elroq.jpeg",
       "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
       "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
       "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
-      "tesla-model-y": "car_images/TESLA/MODEL-Ywebp.webp",
+      "tata-sierra-ev": "car_images/tata/SIERRA.jpeg",
+      "tata-tigor-ev": "car_images/tata/TIAGO.jpeg",
+      "tesla-model-y": "car_images/TESLA/MODEL-Y.jpeg",
       "thar-e": "car_images/mahindra/thar.e.jpeg",
       "tiago-ev": "car_images/tata/TIAGO.jpeg",
       "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
-      "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpg",
-      "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/EVA-colours/white.jpeg",
-      "vinfast-vf-mpv7": "car_images/VINFAST/    VinFast VF MPV7.JPG",
+      "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+      "toyota-urban-cruiser-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+      "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/eva.jpeg",
+      "vinfast-vf-mpv7": "car_images/VINFAST/VinFast VF MPV7.JPG",
       "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
-      "vinfast-vf6": "car_images/VINFAST/    VinFast VF 6.WEBP",
+      "vinfast-vf6": "car_images/VINFAST/VinFast VF 6.jpeg",
       "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
+      "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
       "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
-      "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.JPG",
+      "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.jpeg",
       "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
       "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
-      "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
-      "xev-9e": "car_images/mahindra/mahindra_XEV_9e.jpeg",
-      "xev-9s": "car_images/mahindra/    Mahindra XEV 9s.jpg",
+      "windsor-ev": "car_images/MG/MG_windsor_EV.jpeg",
+      "xev-9e": "car_images/mahindra/mahindra_XEV_9e.webp",
+      "xev-9s": "car_images/mahindra/Mahindra XEV 9s.png",
       "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
-      "xuv-3xo-ev": "car_images/mahindra/3X0.JPG",
+      "xuv-3xo-ev": "car_images/mahindra/3X0.jpeg",
       "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
       "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
       "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
-      "zs-ev": "car_images/MG/MG ZS EV.JPG",
-    };
+      "zs-ev": "car_images/MG/MG ZS EV.JPG"
+};
 
     function getBrandDisplay(brand) {
       return brandNameMap[brand] || brand.charAt(0).toUpperCase() + brand.slice(1);
     }
 
-    function getS3ImageUrl(relativePath) {
-      if (!relativePath) return 'car_outline.jpg';
-      if (relativePath === 'car_outline.jpg') {
-        return 'car_outline.jpg';
-      }
-      if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
-        return relativePath;
-      }
-      let cleanPath = relativePath.trim();
-      if (cleanPath.startsWith('/')) {
-        cleanPath = cleanPath.substring(1);
-      }
-      if (cleanPath.startsWith('public/')) {
-        cleanPath = cleanPath.substring(7);
-      }
-      // Hardcode fallback domain as in app.js since we are running server.js
-      const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
-      return `${s3BaseUrl}/${cleanPath}`;
+    function handleImageError(imgElement) {
+  if (!imgElement) return;
+  imgElement.onerror = null;
+  const failedUrl = imgElement.src || 'Unknown S3 URL';
+  const altText = imgElement.alt || 'Vehicle';
+  console.warn('[EV Car Wale Image Error] Failed to load image for "' + altText + '" from S3 URL: ' + failedUrl + '. Displaying default placeholder /car_outline.jpg.');
+  if (imgElement.previousElementSibling && imgElement.previousElementSibling.classList.contains('skeleton-shimmer')) {
+    imgElement.previousElementSibling.style.display = 'none';
+  }
+  imgElement.src = '/car_outline.jpg';
+}
+
+    function getS3ImageUrl(carOrPath) {
+  if (!carOrPath) return '/car_outline.jpg';
+  let relativePath = carOrPath;
+  if (typeof carOrPath === 'object' && carOrPath !== null) {
+    if (carOrPath.id && S3_IMAGE_MAPPING[carOrPath.id]) {
+      relativePath = S3_IMAGE_MAPPING[carOrPath.id];
+    } else {
+      relativePath = carOrPath.image || '';
     }
+  } else if (typeof carOrPath === 'string' && S3_IMAGE_MAPPING[carOrPath]) {
+    relativePath = S3_IMAGE_MAPPING[carOrPath];
+  }
+  if (!relativePath) return '/car_outline.jpg';
+  if (relativePath === 'car_outline.jpg' || relativePath === '/car_outline.jpg') {
+    return '/car_outline.jpg';
+  }
+  if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
+    return relativePath;
+  }
+  let cleanPath = relativePath.trim();
+  if (cleanPath.startsWith('/')) {
+    cleanPath = cleanPath.substring(1);
+  }
+  if (cleanPath.startsWith('public/')) {
+    cleanPath = cleanPath.substring(7);
+  }
+  const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
+  const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
+  return s3BaseUrl + '/' + encodedPath;
+}
 
     function renderCars(cars) {
       const grid = document.getElementById('car-grid');
@@ -345,7 +395,7 @@
         <div class="car-card border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card cursor-pointer">
           <div class="h-40 bg-white flex items-center justify-center mb-4 relative overflow-hidden border border-zinc-100 p-2">
             <div class="absolute inset-0 skeleton-shimmer"></div>
-            <img src="${getS3ImageUrl(car.image)}" alt="${car.name}" class="w-full h-full object-contain relative z-10" loading="lazy" onload="if (this.previousElementSibling) this.previousElementSibling.style.display='none';" onerror="if (this.previousElementSibling) this.previousElementSibling.style.display='none'; this.src='/car_outline.jpg';">
+            <img src="${getS3ImageUrl(car)}" alt="${car.name}" class="w-full h-full object-contain relative z-10" loading="lazy" onload="if (this.previousElementSibling) this.previousElementSibling.style.display='none';" onerror="handleImageError(this)">
           </div>
           <div>
             <div class="flex justify-between items-start text-black">

@@ -7,13 +7,16 @@ const CAR_IMAGES_DIR = path.join(__dirname, '..', '..', '..', 'public', 'car_ima
 function getBrandFolder(brand) {
   if (!brand) return '';
   const lower = brand.toLowerCase().trim();
-  if (lower === 'mercedes-benz') return 'MERCEDES_BENZ';
-  if (lower === 'force-motors') return 'FORCE';
+  if (lower === 'mercedes-benz' || lower === 'mercedes_benz') return 'MERCEDES_BENZ';
+  if (lower === 'force-motors' || lower === 'force_motors') return 'FORCE';
   if (lower === 'volkswagen') return 'VOLKSWAGAN';
-  if (lower === 'rolls-royce') return 'ROLLS_ROYCE';
-  if (lower === 'maruti-suzuki') return 'MARUTI_SUZUKI';
+  if (lower === 'rolls-royce' || lower === 'rolls_royce') return 'ROLLS_ROYCE';
+  if (lower === 'maruti-suzuki' || lower === 'maruti_suzuki' || lower === 'maruti suzuki') return 'maruti suzuki';
+  if (lower === 'strom-motors' || lower === 'strom_motors') return 'STROM_MOTORS';
+  if (lower === 'vayve-mobility' || lower === 'vayve_mobility') return 'VAYVE_MOBILITY';
   if (lower === 'mini') return 'MINI ';
-  if (lower === 'tata' || lower === 'mahindra' || lower === 'hyundai') return lower;
+  if (lower === 'blink') return 'BLINQ';
+  if (lower === 'tata' || lower === 'mahindra' || lower === 'hyundai' || lower === 'ferrari') return lower;
   return lower.toUpperCase();
 }
 

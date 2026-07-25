@@ -65,6 +65,7 @@ router.get('/', async (req, res) => {
     
     // Whitelisted preferred Indian automotive channels (case-insensitive)
    const whitelistedChannels = [
+   "EVolution-Nick",
    "motoroctane",
    "powerdrift",
    "autocar india",
@@ -242,6 +243,128 @@ router.get('/', async (req, res) => {
     }
 
     res.status(500).json({ error: 'Unable to load latest EV videos.' });
+  }
+});
+
+// ─── TOPIC VIDEO CONFIGS ─────────────────────────────────────────
+const TOPIC_VIDEO_CONFIGS = {
+  'ev-infrastructure-india': {
+    queries: ['EV Infrastructure India', 'India EV Charging Infrastructure', 'EV Charging Network India', 'Public Charging Stations India', 'Highway EV Charging India', 'Electric Mobility India'],
+    includeTerms: ['ev infrastructure', 'charging infrastructure', 'charging network', 'public charger', 'public charging', 'highway charging', 'fast charger', 'dc charging', 'charging station', 'charging hub', 'battery swapping', 'evse', 'charging corridor', 'charging point', 'charging points', 'infrastructure expansion', 'ev charging network', 'charging rollout', 'charge point', 'ultra-fast charger'],
+    excludeTerms: ['review', 'ownership', 'launch', 'battery review', 'range test', 'comparison', 'vs ', 'buying guide', 'price', 'top 5', 'top 10', 'best ev', 'road trip', 'vlog', 'unboxing', 'test drive', 'first drive', 'first look', 'walkaround', 'market', 'sales', 'financial', 'earnings', 'car review']
+  },
+  'government-policies': {
+    queries: ['EV policy India', 'government EV subsidy India', 'FAME scheme India', 'EV regulation India', 'PM E-Drive India'],
+    includeTerms: ['government', 'policy', 'subsidy', 'fame', 'pm e-drive', 'ev policy', 'incentive', 'regulation', 'mandate', 'tax', 'scheme', 'ministry'],
+    excludeTerms: ['review', 'car review', 'test drive', 'comparison', 'vs ', 'launch', 'price', 'top 5', 'top 10', 'vlog', 'unboxing', 'road trip']
+  },
+  'ev-charging-explained': {
+    queries: ['EV AC DC charging explained', 'home EV charging India', 'CCS2 charging India', 'EV charging types India', 'public charging India'],
+    includeTerms: ['ac charging', 'dc charging', 'fast charging', 'charging speed', 'home charger', 'home charging', 'public charging', 'ccs2', 'type 2', 'charging explained', 'charger type', 'charging connector', 'wall charger', 'level 2', 'slow charging'],
+    excludeTerms: ['review', 'car review', 'launch', 'price', 'comparison', 'vs ', 'top 5', 'top 10', 'vlog', 'unboxing', 'road trip', 'sales']
+  },
+  'where-electricity-comes-from': {
+    queries: ['electricity generation India', 'solar power India', 'wind energy India', 'power grid India', 'renewable energy India'],
+    includeTerms: ['electricity', 'power generation', 'solar', 'wind', 'hydro', 'thermal', 'grid', 'renewable', 'energy', 'power plant', 'electricity generation'],
+    excludeTerms: ['review', 'car review', 'launch', 'comparison', 'vs ', 'test drive', 'price', 'vlog', 'unboxing', 'cricket', 'movie', 'music']
+  },
+  'renewable-energy-evs': {
+    queries: ['renewable energy EV India', 'solar EV charging India', 'green energy EV India', 'sustainable mobility India'],
+    includeTerms: ['solar', 'wind', 'renewable', 'green energy', 'clean energy', 'sustainable', 'carbon', 'net zero', 'green electricity'],
+    excludeTerms: ['review', 'car review', 'launch', 'comparison', 'vs ', 'price', 'vlog', 'unboxing', 'movie', 'music', 'gaming']
+  },
+  'ev-guides': {
+    queries: ['EV buying guide India', 'first EV India guide', 'home EV charging guide', 'EV beginner guide India'],
+    includeTerms: ['buying guide', 'how to buy', 'ev guide', 'beginner', 'first ev', 'ev tips', 'guide', 'which ev', 'ev ownership', 'charging guide', 'things to know'],
+    excludeTerms: ['review', 'car review', 'launch', 'comparison', 'vs ', 'price', 'top 5', 'top 10', 'vlog', 'unboxing', 'road trip', 'sales']
+  },
+  'companies-building-indias-network': {
+    queries: ['Tata Power EV charging India', 'Statiq charging India', 'ChargeZone EV', 'Jio-bp pulse', 'Kazam EV', 'Zeon charging', 'Bolt Earth', 'BPCL EV', 'HPCL EV'],
+    includeTerms: ['tata power', 'statiq', 'chargezone', 'jio-bp', 'kazam', 'zeon', 'bolt.earth', 'bpcl', 'hpcl', 'indian oil', 'ev charging', 'charging network', 'charging company'],
+    excludeTerms: ['review', 'car review', 'launch', 'comparison', 'vs ', 'price', 'top 5', 'top 10', 'vlog', 'unboxing', 'road trip', 'gaming']
+  },
+  'ev-cost-savings': {
+    queries: ['EV running cost India', 'EV vs petrol cost India', 'EV charging cost India', 'EV ownership cost India'],
+    includeTerms: ['running cost', 'cost per km', 'ev vs petrol', 'charging cost', 'maintenance cost', 'ownership cost', 'tco', 'total cost', 'battery price', 'fuel saving', 'save money', 'ev cheaper', 'savings'],
+    excludeTerms: ['review', 'car review', 'launch', 'comparison', 'test drive', 'price', 'top 5', 'top 10', 'vlog', 'unboxing', 'road trip']
+  },
+  'market-analysis': {
+    queries: ['EV sales India', 'EV market growth India', 'EV industry analysis India', 'EV adoption India'],
+    includeTerms: ['ev sales', 'market share', 'market growth', 'industry analysis', 'adoption', 'ev market', 'sales data', 'registration', 'quarterly', 'report', 'demand', 'growth rate'],
+    excludeTerms: ['review', 'car review', 'launch', 'test drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'road trip', 'gaming', 'movie', 'cricket']
+  }
+};
+
+// ─── TOPIC VIDEOS ENDPOINT ───────────────────────────────────────
+let topicVideoCache = {};
+const VIDEO_CACHE_DURATION = 60 * 60 * 1000;
+
+router.get('/infrastructure', async (req, res) => {
+  const topic = req.query.topic || 'ev-infrastructure-india';
+  const config = TOPIC_VIDEO_CONFIGS[topic] || TOPIC_VIDEO_CONFIGS['ev-infrastructure-india'];
+  const cacheKey = 'topic_' + topic;
+  const cacheEntry = topicVideoCache[cacheKey];
+  if (cacheEntry && (Date.now() - cacheEntry.timestamp < VIDEO_CACHE_DURATION)) {
+    return res.json(cacheEntry.data);
+  }
+  try {
+    const apiKey = process.env.YOUTUBE_API_KEY;
+    const queries = config.queries;
+    const includeTerms = config.includeTerms;
+    const excludeTerms = config.excludeTerms;
+    let allResults = [];
+    const seenVideoIds = new Set();
+    for (const q of queries) {
+      try {
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+          params: { part: 'snippet', q, type: 'video', maxResults: 20, key: apiKey, regionCode: 'IN', relevanceLanguage: 'en' },
+          timeout: 10000
+        });
+        const items = response.data.items || [];
+        items.forEach(item => {
+          const videoId = item.id?.videoId;
+          if (!videoId || seenVideoIds.has(videoId)) return;
+          const title = (item.snippet?.title || '').toLowerCase();
+          const desc = (item.snippet?.description || '').toLowerCase();
+          const text = title + ' ' + desc;
+          if (excludeTerms.some(t => text.includes(t))) return;
+          if (!includeTerms.some(t => text.includes(t))) return;
+          seenVideoIds.add(videoId);
+          allResults.push(item);
+        });
+      } catch (e) { /* skip failed query */ }
+    }
+    allResults = allResults.slice(0, 20);
+    const videoIds = allResults.map(i => i.id?.videoId).filter(Boolean);
+    let durations = {};
+    if (videoIds.length) {
+      try {
+        const vRes = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+          params: { part: 'contentDetails', id: videoIds.join(','), key: apiKey },
+          timeout: 10000
+        });
+        (vRes.data.items || []).forEach(v => {
+          if (v.id && v.contentDetails?.duration) durations[v.id] = parseISO8601Duration(v.contentDetails.duration);
+        });
+      } catch (e) {}
+    }
+    const processed = allResults.map(item => ({
+      id: item.id.videoId,
+      title: item.snippet.title || 'Untitled',
+      description: item.snippet.description || '',
+      channelName: item.snippet.channelTitle || 'YouTube',
+      published: item.snippet.publishedAt || new Date().toISOString(),
+      thumbnail: item.snippet?.thumbnails?.maxres?.url || item.snippet?.thumbnails?.high?.url || item.snippet?.thumbnails?.medium?.url || '',
+      duration: durations[item.id.videoId] || '0:00',
+      url: 'https://www.youtube.com/watch?v=' + item.id.videoId
+    }));
+    topicVideoCache[cacheKey] = { data: processed, timestamp: Date.now() };
+    res.json(processed);
+  } catch (error) {
+    console.error('Error fetching videos for topic', topic + ':', error.message);
+    const stale = topicVideoCache[cacheKey];
+    if (stale) return res.json(stale.data);
+    res.json([]);
   }
 });
 

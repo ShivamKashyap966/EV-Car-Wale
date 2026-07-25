@@ -5,113 +5,150 @@
  */
 
 const S3_IMAGE_MAPPING = {
-  // NOTE: Values may contain inconsistent whitespace; they will be normalized at runtime.
-  "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON .png",
-  "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
-  "audi-q6-e-tron": "car_images/AUDI/Audi Q6 e-tron.JPG",
-  "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
-  "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
-  "be6": "car_images/mahindra/mahindra-BE6.jpg",
-  "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
-  "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
-  "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
-  "bmw-ix": "car_images/BMW/BMW iX.JPG",
-  "bmw-ix1": "car_images/BMW/BMW iX1 LWB.JPG",
-  "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
-  "byd-emax-7": "car_images/BYD/ BYD_eMAX_7.JPG",
-  "byd-seal": "car_images/BYD/byd_seal.jpeg",
-  "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
-  "byd-sealion-7": "car_images/BYD/    BYD SEALION 7.JPG",
-  "comet-ev": "car_images/MG/mg_comet_ev.webp",
-  "creta-ev": "car_images/hyundai/Hyundai_Creta _Electric.JPG",
-  "curvv-ev": "car_images/tata/CURVE.jpeg",
-  "cyberster": "car_images/MG/MG_Cyberster.JPG",
-  "d-max-ev": "car_images/ISUZU/D-MAX-EV.webp",
-  "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
-  "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
-  "fronx-ev": "car_images/MARUTI_SUZUKI/fronx_ev.jpeg",
-  "gv60": "car_images/GENESIS/GV60.jpeg",
-  "harrier-ev": "car_images/tata/HARRIER.webp",
-  "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
-  "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
-  "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
-  "jimny-ev": "car_images/MARUTI_SUZUKI/jimny.jpeg",
-  "kia-carens-clavis-ev": "car_images/KIA/Kia Carens Clavis EV.WEBP",
-  "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
-  "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
-  "lexus-es": "car_images/LEXUS/ES.webp",
-  "lotus-eletre": "car_images/LOTUS/ELETRE.jpeg",
-  "lotus-emeya": "car_images/LOTUS/EMEYA.webp",
-  "luce": "car_images/ferrari/LUCE.jpeg",
-  "m9-ev": "car_images/MG/MG_M9.jpg",
-  "maruti-e-vitara": "car_images/MARUTI_SUZUKI/maruti_evitara.jpeg",
-  "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
-  "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.webp",
-  "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz _CLA.JPG",
-  "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
-  "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz _EQS_SUV.JPG",
-  "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.webp",
-  "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.JPG",
-  "mini-countryman-c": "car_images/MINI /COUNTRYMAN-C.webp",
-  "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.webp",
-  "nexon-ev": "car_images/tata/NEXON.jpeg",
-  "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.WEBP",
-  "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
-  "pmv-eas-e": "car_images/PMV/EAS-E.webp",
-  "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.JPG",
-  "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
-  "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
-  "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
-  "punch-ev": "car_images/tata/PUNCH.jpeg",
-  "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
-  "rolls-royce-spectre": "car_images/ROLLS_ROYCE/SPECTRE.jpeg",
-  "ryde": "car_images/BLINQ/RYDE.jpeg",
-  "sierra-ev": "car_images/tata/SIERRA.jpeg",
-  "skoda-elroq": "car_images/SKODA/Skoda_Elroq.JPG",
-  "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
-  "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
-  "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
-  "tesla-model-y": "car_images/TESLA/MODEL-Ywebp.webp",
-  "thar-e": "car_images/mahindra/thar.e.jpeg",
-  "tiago-ev": "car_images/tata/TIAGO.jpeg",
-  "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
-  "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpg",
-  "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/EVA-colours/white.jpeg",
-  "vinfast-vf-mpv7": "car_images/VINFAST/VinFast VF MPV7.JPG",
-  "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
-  "vinfast-vf6": "car_images/VINFAST/VinFast VF 6.WEBP",
-  "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
-  "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
-  "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.JPG",
-  "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
-  "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
-  "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
-  "xev-9e": "car_images/mahindra/mahindra_XEV_9e.jpeg",
-  "xev-9s": "car_images/mahindra/Mahindra_XEV_9s.jpg",
-  "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
-  "xuv-3xo-ev": "car_images/mahindra/3X0.JPG",
-  "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
-  "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
-  "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
-  "zs-ev": "car_images/MG/MG ZS EV.JPG",
+      "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON.png",
+      "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+      "audi-q6-e-tron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "audi-q6-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "audi-q8-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
+      "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
+      "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
+      "be07": "car_images/mahindra/mahindra_BE_07.jpeg",
+      "be6": "car_images/mahindra/mahindra-BE6.jpg",
+      "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
+      "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
+      "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
+      "bmw-ix": "car_images/BMW/BMW iX.JPG",
+      "bmw-ix1": "car_images/BMW/BMW iX1 LWB.jpeg",
+      "bmw-ix1-lwb": "car_images/BMW/BMW iX1 LWB.jpeg",
+      "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
+      "byd-emax-7": "car_images/BYD/BYD_eMAX_7.jpeg",
+      "byd-emax7": "car_images/BYD/BYD_eMAX_7.jpeg",
+      "byd-seal": "car_images/BYD/byd_seal.jpeg",
+      "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
+      "byd-sealion-7": "car_images/BYD/BYD SEALION 7.jpeg",
+      "byd-sealion7": "car_images/BYD/BYD SEALION 7.jpeg",
+      "citroen-ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
+      "comet-ev": "car_images/MG/mg_comet_ev.webp",
+      "creta-ev": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
+      "curvv-ev": "car_images/tata/CURVE.jpeg",
+      "cyberster": "car_images/MG/MG_Cyberster.jpeg",
+      "d-max-ev": "car_images/ISUZU/D-MAX-EV.jpeg",
+      "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
+      "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
+      "etron-gt": "car_images/AUDI/audi_etron_gt.jpg",
+      "ev6": "car_images/KIA/kia_ev6.jpeg",
+      "ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+      "fronx-ev": "car_images/maruti suzuki/fronx_ev.jpeg",
+      "gv60": "car_images/GENESIS/GV60.jpeg",
+      "harrier-ev": "car_images/tata/HARRIER.webp",
+      "hyundai-creta-electric": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
+      "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
+      "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
+      "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
+      "kia-carens-clavis-ev": "car_images/KIA/Kia Carens Clavis EV.WEBP",
+      "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
+      "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
+      "lexus-es": "car_images/LEXUS/ES.jpeg",
+      "lotus-eletre": "car_images/LOTUS/ELETRE.webp",
+      "lotus-emeya": "car_images/LOTUS/EMEYA.jpeg",
+      "luce": "car_images/ferrari/LUCE.jpeg",
+      "m9-ev": "car_images/MG/MG_M9.jpeg",
+      "macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+      "mahindra-thar-e": "car_images/mahindra/thar.e.jpeg",
+      "mahindra-xev-7e": "car_images/mahindra/mahindra_XEV_9e.webp",
+      "maruti-e-vitara": "car_images/maruti suzuki/maruti_evitara.jpeg",
+      "maruti-jimny": "car_images/maruti suzuki/jimny.png",
+      "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
+      "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+      "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+      "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
+      "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
+      "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+      "mercedes-cla-electric": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+      "mercedes-eqa": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+      "mercedes-eqe-suv": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
+      "mercedes-eqs": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+      "mercedes-g-class-electric": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+      "mg-cyberster": "car_images/MG/MG_Cyberster.jpeg",
+      "mg-m9": "car_images/MG/MG_M9.jpeg",
+      "mg-zs-ev": "car_images/MG/MG ZS EV.JPG",
+      "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.jpeg",
+      "nexon-ev": "car_images/tata/NEXON.jpeg",
+      "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.jpeg",
+      "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
+      "pmv-eas-e": "car_images/PMV/EAS-E.jpeg",
+      "porsche-cayenne-electric": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
+      "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
+      "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
+      "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+      "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
+      "punch-ev": "car_images/tata/PUNCH.jpeg",
+      "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
+      "rolls-royce-spectre": "car_images/ROLLS_ROYCE/Rolls-Royce Spectre.jpeg",
+      "ryde": "car_images/BLINQ/RYDE.jpeg",
+      "sierra-ev": "car_images/tata/SIERRA.jpeg",
+      "skoda-elroq": "car_images/SKODA/Skoda_Elroq.jpeg",
+      "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
+      "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
+      "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
+      "tata-sierra-ev": "car_images/tata/SIERRA.jpeg",
+      "tata-tigor-ev": "car_images/tata/TIAGO.jpeg",
+      "tesla-model-y": "car_images/TESLA/MODEL-Y.jpeg",
+      "thar-e": "car_images/mahindra/thar.e.jpeg",
+      "tiago-ev": "car_images/tata/TIAGO.jpeg",
+      "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
+      "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+      "toyota-urban-cruiser-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+      "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/eva.jpeg",
+      "vinfast-vf-mpv7": "car_images/VINFAST/VinFast VF MPV7.JPG",
+      "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
+      "vinfast-vf6": "car_images/VINFAST/VinFast VF 6.jpeg",
+      "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
+      "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
+      "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
+      "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.jpeg",
+      "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
+      "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
+      "windsor-ev": "car_images/MG/MG_windsor_EV.jpeg",
+      "xev-9e": "car_images/mahindra/mahindra_XEV_9e.webp",
+      "xev-9s": "car_images/mahindra/Mahindra XEV 9s.png",
+      "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
+      "xuv-3xo-ev": "car_images/mahindra/3X0.jpeg",
+      "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
+      "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
+      "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
+      "zs-ev": "car_images/MG/MG ZS EV.JPG",
 };
 
 // Reusable image helper/utility for Amazon S3 integration
-function getS3ImageUrl(relativePath) {
+function getS3ImageUrl(carOrPath) {
+  if (!carOrPath) return '/car_outline.jpg';
+  let relativePath = carOrPath;
+  if (typeof carOrPath === 'object' && carOrPath !== null) {
+    if (carOrPath.id && S3_IMAGE_MAPPING[carOrPath.id]) {
+      relativePath = S3_IMAGE_MAPPING[carOrPath.id];
+    } else {
+      relativePath = carOrPath.image || '';
+    }
+  } else if (typeof carOrPath === 'string' && S3_IMAGE_MAPPING[carOrPath]) {
+    relativePath = S3_IMAGE_MAPPING[carOrPath];
+  }
   if (!relativePath) return '/car_outline.jpg';
-  if (relativePath === 'car_outline.jpg') {
+  if (relativePath === 'car_outline.jpg' || relativePath === '/car_outline.jpg') {
     return '/car_outline.jpg';
   }
   if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) {
     return relativePath;
   }
-  // Clean up path: trim whitespace and remove leading slash if present
-  let cleanPath = relativePath.trim();
-  // Remove any leading slash
+  // Clean up path: trim whitespace and collapse multiple spaces
+  let cleanPath = relativePath.replace(/\s+/g, ' ').trim();
+  cleanPath = cleanPath.replace(/\s+\./g, '.');
+  cleanPath = cleanPath.replace(/\/\s+/g, '/').replace(/\s+\//g, '/');
   if (cleanPath.startsWith('/')) {
     cleanPath = cleanPath.substring(1);
   }
-  // Remove 'public/' prefix if present
   if (cleanPath.startsWith('public/')) {
     cleanPath = cleanPath.substring(7);
   }
@@ -119,7 +156,6 @@ function getS3ImageUrl(relativePath) {
   const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
   const s3BaseUrl = 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
   const finalUrl = `${s3BaseUrl}/${encodedPath}`;
-  console.log('getS3ImageUrl - input:', relativePath, 'cleanPath:', cleanPath, 'encodedPath:', encodedPath, 'finalUrl:', finalUrl);
   return finalUrl;
 }
 
@@ -133,10 +169,15 @@ function renderCarImage(imageUrl, altText) {
 
 // Fallback handler for broken images – replaces a failing src with the generic placeholder.
 function handleImageError(imgElement) {
-  // Prevent infinite recursion if the placeholder also fails.
+  if (!imgElement) return;
   imgElement.onerror = null;
+  const failedUrl = imgElement.src || 'Unknown S3 URL';
+  const altText = imgElement.alt || 'Vehicle';
+  console.warn('[EV Car Wale Image Error] Failed to load image for "' + altText + '" from S3 URL: ' + failedUrl + '. Displaying default placeholder /car_outline.jpg.');
+  if (imgElement.previousElementSibling && imgElement.previousElementSibling.classList.contains('skeleton-shimmer')) {
+    imgElement.previousElementSibling.style.display = 'none';
+  }
   imgElement.src = '/car_outline.jpg';
-  console.warn('Image failed to load, replaced with placeholder:', imgElement);
 }
 
 
@@ -285,6 +326,7 @@ async function loadDatabase() {
         initUserSession();
         renderAllCarousels();
         populateCompareDropdowns();
+        populateSavingsDropdown();
         updateCompareTable();
         initTripPlanner();
       } else {
@@ -1338,10 +1380,12 @@ Object.assign(INSIGHTS_DATABASE, {
 // Add new category metadata
 INSIGHTS_CATEGORIES.push(
   { key: 'ev-infrastructure-india', label: 'EV Infrastructure in India', icon: '🔌', desc: 'Charging network and infrastructure developments' },
+  { key: 'ev-charging-explained', label: 'EV Charging Explained', icon: '⚡', desc: 'Complete guide to EV charging technology' },
   { key: 'where-electricity-comes-from', label: 'Where Does Electricity Come From?', icon: '⚡', desc: 'Understanding the grid and energy sources' },
   { key: 'renewable-energy-and-evs', label: 'Renewable Energy and EVs', icon: '☀️', desc: 'Synergies between solar power and electric vehicles' },
+  { key: 'ev-guides', label: 'EV Guides', icon: '📋', desc: 'Buying guides, charging guides, and how-tos' },
   { key: 'companies-building-indias-network', label: 'Companies Building India\'s Network', icon: '🏗️', desc: 'Key players in India\'s charging infrastructure' },
-  { key: 'ev-cost-and-savings', label: 'EV Cost & Savings', icon: '💰', desc: 'Total cost of ownership and financial analysis' }
+  { key: 'ev-cost-savings', label: 'EV Cost & Savings', icon: '💰', desc: 'Total cost of ownership and financial analysis' }
 );
 
 // --- About Pages Database ---
@@ -1718,71 +1762,160 @@ function enrichDatabase() {
 }
 enrichDatabase();
 
-// Preloader setup
-const preloader = document.getElementById('preloader');
-const loadingText = document.getElementById('loading-text');
-const loaderLogo = document.getElementById('loader-logo');
+// Preloader — homepage only, once per session
+var preloaderEl = document.getElementById('preloader');
 
-function runPreloader() {
-  if (!preloader) return;
-
-  // Animate LOADING dots immediately (1–4 dots)
-  var dotCount = 0;
-  var dotInterval = setInterval(function() {
-    dotCount = (dotCount % 4) + 1;
-    var text = 'LOADING';
-    for (var i = 0; i < dotCount; i++) text += '.';
-    if (loadingText) loadingText.textContent = text;
-  }, 400);
-
-  // 5s — fade in logo + tagline with scale
+function hidePreloader() {
+  if (!preloaderEl) return;
+  preloaderEl.classList.add('preloader-hidden');
+  document.body.classList.add('loaded');
   setTimeout(function() {
-    if (loaderLogo) loaderLogo.classList.add('reveal');
-  }, 5000);
-
-  // 6s — fade out everything
-  setTimeout(function() {
-    clearInterval(dotInterval);
-
-    var video = document.getElementById('preloader-video');
-    if (video) video.pause();
-
-    preloader.classList.add('preloader-hidden');
-    document.body.classList.add('loaded');
-
-    setTimeout(function() {
-      preloader.style.display = 'none';
-    }, 1000);
-
-    if (typeof window.showAIAssistant === 'function') {
-      setTimeout(window.showAIAssistant, 100);
-    }
-  }, 6000);
+    preloaderEl.style.display = 'none';
+  }, 500);
+  if (typeof window.showAIAssistant === 'function') {
+    setTimeout(window.showAIAssistant, 100);
+  }
 }
-window.addEventListener('DOMContentLoaded', runPreloader);
+
+if (preloaderEl) {
+  try {
+    if (sessionStorage.getItem('ev_preloader_shown')) {
+      document.body.classList.add('loaded');
+      preloaderEl.style.display = 'none';
+      if (typeof window.showAIAssistant === 'function') {
+        window.showAIAssistant();
+      }
+    } else {
+      sessionStorage.setItem('ev_preloader_shown', '1');
+      setTimeout(function() {
+        var brand = document.getElementById('loader-brand');
+        if (brand) brand.classList.add('reveal');
+        var tagline = document.getElementById('loader-tagline');
+        if (tagline) tagline.classList.add('reveal');
+      }, 5000);
+      setTimeout(hidePreloader, 7000);
+    }
+  } catch(e) {
+    // sessionStorage may be unavailable; show preloader normally
+    setTimeout(function() {
+      var brand = document.getElementById('loader-brand');
+      if (brand) brand.classList.add('reveal');
+      var tagline = document.getElementById('loader-tagline');
+      if (tagline) tagline.classList.add('reveal');
+    }, 5000);
+    setTimeout(hidePreloader, 7000);
+  }
+} else {
+  document.body.classList.add('loaded');
+}
 
 
 // --- Active Filters Setup ---
 const BODY_TYPE_MAP = {
-  'nexon-ev':'SUV','xuv400':'SUV','punch-ev':'SUV','windsor-ev':'SUV',
-  'ioniq-5':'SUV','byd-seal':'Sedan','ev6':'SUV','harrier-ev':'SUV',
-  'be6':'SUV','bmw-i4':'Sedan','etron-gt':'Sedan','mercedes-eqs':'Sedan',
-  'vinfast-vf6':'SUV','kia-ev9':'SUV','xev-9e':'SUV','citroen-ec3':'Hatchback',
-  'curvv-ev':'SUV','tiago-ev':'Hatchback','byd-atto3':'SUV','elevate-ev':'SUV',
-  'ioniq-6':'Sedan','syros-ev':'SUV','be07':'SUV','avinya-ev':'MUV',
-  'ex90':'SUV','comet-ev':'Hatchback','toyota-bz4x':'SUV','bmw-i7':'Luxury',
-  'macan-ev':'SUV','audi-q6-etron':'SUV','audi-q8-etron':'SUV','bmw-ix':'SUV',
-  'bmw-ix1-lwb':'SUV','byd-sealion-7':'SUV','byd-emax7':'MUV',
-  'hyundai-creta-electric':'SUV','kia-carens-clavis-ev':'MUV',
-  'mahindra-xev-7e':'SUV','mahindra-thar-e':'SUV','maruti-e-vitara':'SUV',
-  'mercedes-cla-electric':'Luxury','mercedes-eqa':'SUV','mercedes-eqe-suv':'SUV',
-  'mercedes-eqs-suv':'SUV','mercedes-g-class-electric':'SUV',
-  'mg-cyberster':'Convertible','mg-m9':'MUV','mg-zs-ev':'SUV',
-  'nissan-ariya':'SUV','nissan-leaf':'Hatchback','porsche-cayenne-electric':'SUV',
-  'porsche-taycan':'Luxury','renault-kwid-ev':'Hatchback','skoda-elroq':'SUV',
-  'skoda-enyaq':'SUV','tata-sierra-ev':'SUV','tata-tigor-ev':'Sedan',
-  'toyota-urban-cruiser-ev':'SUV','vinfast-vf3':'Hatchback','vinfast-vf7':'SUV',
-  'vinfast-vf-mpv7':'MUV','volvo-ec40':'SUV','volvo-ex30':'SUV','volvo-ex40':'SUV'
+  'nexon-ev':'SUV',
+  'xuv400':'SUV',
+  'punch-ev':'SUV',
+  'windsor-ev':'SUV',
+  'ioniq-5':'SUV',
+  'byd-seal':'Sedan',
+  'ev6':'SUV',
+  'harrier-ev':'SUV',
+  'be6':'SUV',
+  'bmw-i4':'Sedan',
+  'etron-gt':'Sedan',
+  'mercedes-eqs':'Luxury',
+  'vinfast-vf6':'SUV',
+  'kia-ev9':'SUV',
+  'xev-9e':'SUV',
+  'citroen-ec3':'Hatchback',
+  'curvv-ev':'SUV',
+  'tiago-ev':'Hatchback',
+  'byd-atto3':'SUV',
+  'elevate-ev':'SUV',
+  'ioniq-6':'Sedan',
+  'syros-ev':'SUV',
+  'be07':'SUV',
+  'avinya-ev':'MUV',
+  'ex90':'SUV',
+  'comet-ev':'Hatchback',
+  'toyota-bz4x':'SUV',
+  'bmw-i7':'Luxury',
+  'macan-ev':'SUV',
+  'audi-q6-etron':'SUV',
+  'audi-q8-etron':'SUV',
+  'bmw-ix':'SUV',
+  'bmw-ix1-lwb':'SUV',
+  'byd-sealion-7':'SUV',
+  'byd-emax7':'MUV',
+  'hyundai-creta-electric':'SUV',
+  'kia-carens-clavis-ev':'MUV',
+  'mahindra-xev-7e':'SUV',
+  'mahindra-thar-e':'SUV',
+  'maruti-e-vitara':'SUV',
+  'mercedes-cla-electric':'Luxury',
+  'mercedes-eqa':'SUV',
+  'mercedes-eqe-suv':'SUV',
+  'mercedes-eqs-suv':'SUV',
+  'mercedes-g-class-electric':'SUV',
+  'mg-cyberster':'Convertible',
+  'mg-m9':'MUV',
+  'mg-zs-ev':'SUV',
+  'nissan-ariya':'SUV',
+  'nissan-leaf':'Hatchback',
+  'porsche-cayenne-electric':'SUV',
+  'porsche-taycan':'Luxury',
+  'renault-kwid-ev':'Hatchback',
+  'skoda-elroq':'SUV',
+  'skoda-enyaq':'SUV',
+  'tata-sierra-ev':'SUV',
+  'tata-tigor-ev':'Sedan',
+  'toyota-urban-cruiser-ev':'SUV',
+  'vinfast-vf3':'Hatchback',
+  'vinfast-vf7':'SUV',
+  'vinfast-vf-mpv7':'MUV',
+  'volvo-ec40':'SUV',
+  'volvo-ex30':'SUV',
+  'volvo-ex40':'SUV',
+  'audi-a6-e-tron':'Sedan',
+  'audi-e-tron-gt':'Sedan',
+  'audi-q6-e-tron':'SUV',
+  'bmw-i5':'Sedan',
+  'byd-sealion-6':'SUV',
+  'd-max-ev':'Pickup',
+  'ec3':'Hatchback',
+  'fronx-ev':'SUV',
+  'gv60':'SUV',
+  'jeep-avengers':'SUV',
+  'jimny-ev':'SUV',
+  'kia-ev6':'SUV',
+  'lexus-es':'Sedan',
+  'lotus-eletre':'SUV',
+  'lotus-emeya':'Sedan',
+  'luce':'Sports',
+  'm9-ev':'MUV',
+  'mercedes-benz-amg-eqs':'Luxury',
+  'mercedes-benz-c-class-ev':'Sedan',
+  'mercedes-benz-cla-ev':'Sedan',
+  'mercedes-benz-eqs-maybach':'Luxury',
+  'mercedes-benz-eqs-suv':'SUV',
+  'mercedes-benz-g-class-ev':'SUV',
+  'mini-countryman-electric':'SUV',
+  'pmv-eas-e':'Hatchback',
+  'pravaig-defy':'Luxury',
+  'rolls-royce-spectre':'Luxury',
+  'ryde':'Hatchback',
+  'strom-r3':'Hatchback',
+  'tesla-model-y':'SUV',
+  'toyota-taisor-ev':'SUV',
+  'vayve-mobility-eva':'Hatchback',
+  'volkswagen-id4':'SUV',
+  'volvo-ex90':'SUV',
+  'xev-9s':'SUV',
+  'xpres-t-ev':'Sedan',
+  'xuv-3xo-ev':'SUV',
+  'zero-alpha':'Sedan',
+  'zero-suv':'SUV',
+  'zs-ev':'SUV'
 };
 let activeBodyType = null;
 let activeBrand = null;
@@ -1840,7 +1973,7 @@ function createCarCardHtml(car, extraClasses = '') {
   return `
     <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card cursor-pointer">
       <button class="wishlist-btn absolute top-4 right-4 z-20" data-id="${car.id}" aria-label="Toggle Wishlist">
-        <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current text-red-500' : ''}">
+        <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current' : ''}">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         </svg>
       </button>
@@ -1876,9 +2009,12 @@ function renderAllCarousels() {
     const popularCars = EV_DATABASE.filter(car => car.sections && car.sections.includes('popular'));
     
     // Apply filters
-    const nameSearch = document.getElementById('search-car-name').value.toLowerCase().trim();
-    const searchBrand = document.getElementById('search-car-brand').value;
-    const searchBudget = document.getElementById('search-car-budget').value;
+    const nameSearchEl = document.getElementById('search-car-name');
+    const searchBrandEl = document.getElementById('search-car-brand');
+    const searchBudgetEl = document.getElementById('search-car-budget');
+    const nameSearch = nameSearchEl ? nameSearchEl.value.toLowerCase().trim() : '';
+    const searchBrand = searchBrandEl ? searchBrandEl.value : 'all';
+    const searchBudget = searchBudgetEl ? searchBudgetEl.value : 'all';
     
     const filteredPopular = popularCars.filter(car => {
       if (activeRecentlyViewed) {
@@ -1987,20 +2123,23 @@ function attachCardEvents() {
   });
 }
 
-async function toggleWishlist(carId) {
+function toggleWishlist(carId) {
+  if (!isUserLoggedIn()) {
+    showToast('Please login to save favourites.');
+    navigateTo('/login');
+    return;
+  }
+
   const index = wishlistIds.indexOf(carId);
   const isAdding = index === -1;
-  
   if (isAdding) {
     wishlistIds.push(carId);
-    const carObj = EV_DATABASE.find(c => c.id === carId);
-    await window.WishlistService.addWishlist(carObj || { id: carId });
-    showToast('Added to Shortlisted Vehicles ❤️');
   } else {
     wishlistIds.splice(index, 1);
-    await window.WishlistService.removeWishlist(carId);
-    showToast('Removed from Shortlisted Vehicles');
   }
+  
+  // Persist to localStorage
+  saveWishlistToStorage();
 
   // Update badge UI
   updateWishlistBadge();
@@ -2038,25 +2177,58 @@ async function toggleWishlist(carId) {
       }
     }
   }
+
+  // Backend Sync & User Feedback
+  if (isAdding) {
+    fetch('/api/favourites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ carId })
+    })
+    .then(res => {
+      if (!res.ok) console.error('Failed to save shortlist to database');
+    })
+    .catch(err => console.error('Error saving shortlist:', err));
+
+    showToast('Added to Shortlisted Vehicles ❤️');
+  } else {
+    fetch(`/api/favourites/${carId}`, {
+      method: 'DELETE'
+    })
+    .then(res => {
+      if (!res.ok) console.error('Failed to remove shortlist from database');
+    })
+    .catch(err => console.error('Error removing shortlist:', err));
+
+    showToast('Removed from Shortlisted Vehicles');
+  }
 }
 
 // Reset browse logic
-document.getElementById('filter-reset-btn').addEventListener('click', () => {
-  activeBrand = null;
-  activeBudget = null;
-  activeRecentlyViewed = false;
-  
-  brandChips.forEach(c => c.classList.remove('selected'));
-  budgetChips.forEach(c => c.classList.remove('selected'));
-  
-  document.getElementById('search-car-name').value = '';
-  document.getElementById('search-car-brand').value = 'all';
-  document.getElementById('search-car-budget').value = 'all';
-  const bodyReset = document.getElementById('search-car-body');
-  if (bodyReset) bodyReset.value = 'all';
-  
-  renderAllCarousels();
-});
+var filterResetBtn = document.getElementById('filter-reset-btn');
+if (filterResetBtn) {
+  filterResetBtn.addEventListener('click', () => {
+    activeBrand = null;
+    activeBudget = null;
+    activeRecentlyViewed = false;
+    
+    brandChips.forEach(c => c.classList.remove('selected'));
+    budgetChips.forEach(c => c.classList.remove('selected'));
+    
+    var sn = document.getElementById('search-car-name');
+    if (sn) sn.value = '';
+    var sb = document.getElementById('search-car-brand');
+    if (sb) sb.value = 'all';
+    var sbu = document.getElementById('search-car-budget');
+    if (sbu) sbu.value = 'all';
+    var bodyReset = document.getElementById('search-car-body');
+    if (bodyReset) bodyReset.value = 'all';
+    
+    renderAllCarousels();
+  });
+}
 
 // Brand chips redirects
 brandChips.forEach(chip => {
@@ -2083,22 +2255,29 @@ budgetChips.forEach(chip => {
 });
 
 // Search submit button click — brand → brand page, else → search page
-document.getElementById('search-submit-btn').addEventListener('click', () => {
-  const name = document.getElementById('search-car-name').value.trim();
-  const brand = document.getElementById('search-car-brand').value;
-  const budget = document.getElementById('search-car-budget').value;
-  const body = document.getElementById('search-car-body').value;
-  const p = new URLSearchParams();
-  if (name) p.set('name', name);
-  if (budget && budget !== 'all') p.set('budget', budget);
-  if (body && body !== 'all') p.set('body', body);
-  const qs = p.toString();
-  if (brand && brand !== 'all') {
-    navigateTo('/brand/' + brand + (qs ? '?' + qs : ''));
-  } else {
-    navigateTo('/search' + (qs ? '?' + qs : ''));
-  }
-});
+var searchSubmitBtn = document.getElementById('search-submit-btn');
+if (searchSubmitBtn) {
+  searchSubmitBtn.addEventListener('click', () => {
+    const nameEl = document.getElementById('search-car-name');
+    const brandEl = document.getElementById('search-car-brand');
+    const budgetEl = document.getElementById('search-car-budget');
+    const bodyEl = document.getElementById('search-car-body');
+    const name = nameEl ? nameEl.value.trim() : '';
+    const brand = brandEl ? brandEl.value : 'all';
+    const budget = budgetEl ? budgetEl.value : 'all';
+    const body = bodyEl ? bodyEl.value : 'all';
+    const p = new URLSearchParams();
+    if (name) p.set('name', name);
+    if (budget && budget !== 'all') p.set('budget', budget);
+    if (body && body !== 'all') p.set('body', body);
+    const qs = p.toString();
+    if (brand && brand !== 'all') {
+      navigateTo('/brand/' + brand + (qs ? '?' + qs : ''));
+    } else {
+      navigateTo('/search' + (qs ? '?' + qs : ''));
+    }
+  });
+}
 
 // Initial carousels load
 renderAllCarousels();
@@ -2121,16 +2300,22 @@ function scrollCarousel(viewport, direction) {
 }
 
 // Controls
-document.getElementById('pop-car-prev').addEventListener('click', () => scrollCarousel(carCarouselViewport, 'prev'));
-document.getElementById('pop-car-next').addEventListener('click', () => scrollCarousel(carCarouselViewport, 'next'));
+var popCarPrev = document.getElementById('pop-car-prev');
+if (popCarPrev) popCarPrev.addEventListener('click', () => scrollCarousel(carCarouselViewport, 'prev'));
+var popCarNext = document.getElementById('pop-car-next');
+if (popCarNext) popCarNext.addEventListener('click', () => scrollCarousel(carCarouselViewport, 'next'));
 
 const upCarouselViewport = document.getElementById('up-carousel-viewport');
-document.getElementById('up-car-prev').addEventListener('click', () => scrollCarousel(upCarouselViewport, 'prev'));
-document.getElementById('up-car-next').addEventListener('click', () => scrollCarousel(upCarouselViewport, 'next'));
+var upCarPrev = document.getElementById('up-car-prev');
+if (upCarPrev) upCarPrev.addEventListener('click', () => scrollCarousel(upCarouselViewport, 'prev'));
+var upCarNext = document.getElementById('up-car-next');
+if (upCarNext) upCarNext.addEventListener('click', () => scrollCarousel(upCarouselViewport, 'next'));
 
 const launchCarouselViewport = document.getElementById('launch-carousel-viewport');
-document.getElementById('launch-car-prev').addEventListener('click', () => scrollCarousel(launchCarouselViewport, 'prev'));
-document.getElementById('launch-car-next').addEventListener('click', () => scrollCarousel(launchCarouselViewport, 'next'));
+var launchCarPrev = document.getElementById('launch-car-prev');
+if (launchCarPrev) launchCarPrev.addEventListener('click', () => scrollCarousel(launchCarouselViewport, 'prev'));
+var launchCarNext = document.getElementById('launch-car-next');
+if (launchCarNext) launchCarNext.addEventListener('click', () => scrollCarousel(launchCarouselViewport, 'next'));
 
 
 
@@ -2229,22 +2414,39 @@ function extractAirbags(safetyText) {
   return '6 Airbags (Standard)';
 }
 
+function getDisplayCarName(car) {
+  return (getBrandDisplay(car.brand) + ' ' + car.name).trim();
+}
+
 function populateCompareDropdowns() {
   if (!compSelectA || !compSelectB) return;
   compSelectA.innerHTML = '';
   compSelectB.innerHTML = '';
   
-  EV_DATABASE.forEach((car, index) => {
-    const optA = document.createElement('option');
+  var placeholderA = document.createElement('option');
+  placeholderA.value = '';
+  placeholderA.textContent = 'Select Vehicle';
+  placeholderA.disabled = true;
+  placeholderA.selected = true;
+  compSelectA.appendChild(placeholderA);
+
+  var placeholderB = document.createElement('option');
+  placeholderB.value = '';
+  placeholderB.textContent = 'Select Vehicle';
+  placeholderB.disabled = true;
+  placeholderB.selected = true;
+  compSelectB.appendChild(placeholderB);
+
+  EV_DATABASE.forEach(function(car) {
+    var displayName = getDisplayCarName(car);
+    var optA = document.createElement('option');
     optA.value = car.id;
-    optA.textContent = car.name;
-    if (index === 0) optA.selected = true; // Nexon initially
+    optA.textContent = displayName;
     compSelectA.appendChild(optA);
 
-    const optB = document.createElement('option');
+    var optB = document.createElement('option');
     optB.value = car.id;
-    optB.textContent = car.name;
-    if (index === 2 || (index === 1 && EV_DATABASE.length === 2)) optB.selected = true; // Ioniq 5 initially
+    optB.textContent = displayName;
     compSelectB.appendChild(optB);
   });
 }
@@ -2259,8 +2461,8 @@ function updateCompareTable() {
   
   if (!carA || !carB) return;
   
-  compHdrA.textContent = carA.name;
-  compHdrB.textContent = carB.name;
+  compHdrA.textContent = getDisplayCarName(carA);
+  compHdrB.textContent = getDisplayCarName(carB);
   
   const compStateKey = document.getElementById('comp-state-select') ? document.getElementById('comp-state-select').value : 'delhi';
 
@@ -2280,12 +2482,6 @@ function updateCompareTable() {
   const infotainmentB = featsB.infotainment || featsB.Infotainment || 'Not Available';
 
   const specsList = [
-    {
-      label: 'Variant Name',
-      valA: variantA.name || 'Not Available',
-      valB: variantB.name || 'Not Available',
-      compare: null
-    },
     {
       label: 'Ex-showroom Price',
       valA: variantA.price || carA.price || 'Not Available',
@@ -2548,6 +2744,55 @@ function updateCompareTable() {
     `;
     compTableBody.appendChild(row);
   });
+
+  // Update vehicle info cards on compare page
+  updateCompareCards(carA, carB);
+}
+
+function updateCompareCards(carA, carB) {
+  var cardA = document.getElementById('comp-card-a');
+  var cardB = document.getElementById('comp-card-b');
+  if (!cardA || !cardB) return;
+
+  var cars = [carA, carB];
+  var cardEls = [cardA, cardB];
+
+  cars.forEach(function(car, idx) {
+    if (!car) return;
+    var suffix = idx === 0 ? 'a' : 'b';
+    var variant = (car.variants && car.variants[0]) || {};
+    var badgeEl = document.getElementById('comp-badge-' + (idx + 1));
+
+    cardEls[idx].classList.remove('hidden');
+    if (badgeEl) badgeEl.classList.remove('hidden');
+
+    var imgEl = document.getElementById('comp-img-' + suffix);
+    if (imgEl) {
+      imgEl.innerHTML = '<img src="' + getS3ImageUrl(car) + '" alt="' + car.name + '" class="w-full h-full object-contain" onerror="this.src=\'/car_outline.jpg\'" />';
+    }
+
+    setText('comp-brand-' + suffix, getBrandDisplay(car.brand));
+    setText('comp-name-' + suffix, getDisplayCarName(car));
+    setText('comp-price-' + suffix, car.price || variant.price || 'Not Available');
+    setText('comp-body-' + suffix, (BODY_TYPE_MAP && BODY_TYPE_MAP[car.id]) || 'SUV');
+    setText('comp-spec-battery-' + suffix, variant.battery || car.battery || 'Not Available');
+    setText('comp-spec-range-' + suffix, variant.range || car.range || 'Not Available');
+    setText('comp-spec-charging-' + suffix, car.chargingAC || variant.charging || car.charging || 'Not Available');
+    setText('comp-spec-dc-' + suffix, variant.charging || car.charging || 'Not Available');
+    setText('comp-spec-speed-' + suffix, variant.speed || car.speed || 'Not Available');
+    setText('comp-spec-power-' + suffix, variant.power || car.power || 'Not Available');
+    setText('comp-spec-torque-' + suffix, variant.torque || car.torque || 'Not Available');
+    setText('comp-spec-seating-' + suffix, car.seating || variant.seating || 'Not Available');
+    setText('comp-spec-boot-' + suffix, car.bootSpace || variant.bootSpace || 'Not Available');
+
+    var viewDetailsEl = document.getElementById('comp-view-details-' + suffix);
+    if (viewDetailsEl) viewDetailsEl.href = '/details?id=' + car.id;
+  });
+}
+
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = val || 'Not Available';
 }
 
 if (compSelectA) compSelectA.addEventListener('change', updateCompareTable);
@@ -2770,206 +3015,868 @@ const CITY_COORDS = {
   "daman": { lat: "20.3974", lng: "72.8328" },
   "diu": { lat: "20.7144", lng: "70.9874" },
   "silvassa": { lat: "20.2739", lng: "72.9967" },
-  "kavaratti": { lat: "10.5669", lng: "72.6420" }
+  "kavaratti": { lat: "10.5669", lng: "72.6420" },
+
+  "indore": { lat: "22.7196", lng: "75.8577" },
+  "bhopal": { lat: "23.2599", lng: "77.4126" },
+  "gwalior": { lat: "26.2183", lng: "78.1828" },
+  "jabalpur": { lat: "23.1815", lng: "79.9864" },
+  "ujjain": { lat: "23.1765", lng: "75.7885" },
+  "sagar": { lat: "23.8388", lng: "78.7378" },
+  "satna": { lat: "24.6005", lng: "80.8322" },
+  "rewa": { lat: "24.5362", lng: "81.3037" },
+
+  "davangere": { lat: "14.4673", lng: "75.9241" },
+  "chikkamagaluru": { lat: "13.3161", lng: "75.7720" },
+  "hassan": { lat: "13.0033", lng: "76.1004" },
+  "kalaburagi": { lat: "17.3297", lng: "76.8343" },
+  "gulbarga": { lat: "17.3297", lng: "76.8343" },
+  "mandya": { lat: "12.5218", lng: "76.8951" },
+  "bidar": { lat: "17.9104", lng: "77.5199" },
+  "chitradurga": { lat: "14.2251", lng: "76.3980" },
+  "hosapete": { lat: "15.2689", lng: "76.3909" },
+  "hampi": { lat: "15.3350", lng: "76.4600" },
+  "karwar": { lat: "14.8185", lng: "74.1337" },
+  "kolar": { lat: "13.1367", lng: "78.1291" },
+
+  "satara": { lat: "17.6805", lng: "74.0183" },
+  "sangli": { lat: "16.8524", lng: "74.5815" },
+  "ahmednagar": { lat: "19.0948", lng: "74.7480" },
+  "ahilyanagar": { lat: "19.0948", lng: "74.7480" },
+  "amravati": { lat: "20.9374", lng: "77.7796" },
+  "lonavala": { lat: "18.7557", lng: "73.4091" },
+  "nanded": { lat: "19.1383", lng: "77.3210" },
+  "jalgaon": { lat: "21.0077", lng: "75.5626" },
+  "ratnagiri": { lat: "16.9902", lng: "73.3120" },
+  "mahabaleshwar": { lat: "17.9307", lng: "73.6477" },
+  "akola": { lat: "20.7002", lng: "77.0082" },
+  "chandrapur": { lat: "19.9615", lng: "79.2961" },
+  "alibag": { lat: "18.6414", lng: "72.8722" },
+
+  "erode": { lat: "11.3410", lng: "77.7172" },
+  "thanjavur": { lat: "10.7870", lng: "79.1378" },
+  "kanchipuram": { lat: "12.8342", lng: "79.7036" },
+  "tuticorin": { lat: "8.7642", lng: "78.1348" },
+  "thoothukudi": { lat: "8.7642", lng: "78.1348" },
+  "ooty": { lat: "11.4102", lng: "76.6950" },
+  "udhagamandalam": { lat: "11.4102", lng: "76.6950" },
+  "kodaikanal": { lat: "10.2381", lng: "77.4892" },
+  "hosur": { lat: "12.7409", lng: "77.8253" },
+  "dindigul": { lat: "10.3673", lng: "77.9803" },
+  "nagercoil": { lat: "8.1833", lng: "77.4119" },
+  "cuddalore": { lat: "11.7480", lng: "79.7714" },
+  "kanyakumari": { lat: "8.0883", lng: "77.5385" },
+  "karur": { lat: "10.9601", lng: "78.0766" },
+
+  "palakkad": { lat: "10.7867", lng: "76.6548" },
+  "kottayam": { lat: "9.5916", lng: "76.5222" },
+  "pathanamthitta": { lat: "9.2648", lng: "76.7870" },
+  "munnar": { lat: "10.0889", lng: "77.0595" },
+  "wayanad": { lat: "11.6103", lng: "76.0827" },
+  "kalpetta": { lat: "11.6103", lng: "76.0827" },
+  "kasaragod": { lat: "12.5102", lng: "74.9852" },
+  "malappuram": { lat: "11.0732", lng: "76.0740" },
+  "idukki": { lat: "9.8494", lng: "76.9802" },
+
+  "gandhinagar": { lat: "23.2156", lng: "72.6369" },
+  "jamnagar": { lat: "22.4707", lng: "70.0577" },
+  "anand": { lat: "22.5645", lng: "72.9289" },
+  "vapi": { lat: "20.3893", lng: "72.9106" },
+  "mehsana": { lat: "23.5880", lng: "72.3693" },
+  "bhuj": { lat: "23.2420", lng: "69.6669" },
+  "navsari": { lat: "20.9467", lng: "72.9520" },
+  "junagadh": { lat: "21.5222", lng: "70.4579" },
+  "kevadia": { lat: "21.8380", lng: "73.7191" },
+
+  "bhilwara": { lat: "25.3407", lng: "74.6313" },
+  "alwar": { lat: "27.5530", lng: "76.6346" },
+  "bikaner": { lat: "28.0229", lng: "73.3119" },
+  "bharatpur": { lat: "27.2152", lng: "77.4930" },
+  "sikar": { lat: "27.6094", lng: "75.1398" },
+  "pali": { lat: "25.7711", lng: "73.3237" },
+  "chittorgarh": { lat: "24.8887", lng: "74.6269" },
+  "mount abu": { lat: "24.5926", lng: "72.7156" },
+
+  "jhansi": { lat: "25.4484", lng: "78.5685" },
+  "mathura": { lat: "27.4924", lng: "77.6737" },
+  "vrindavan": { lat: "27.5706", lng: "77.7006" },
+  "ayodhya": { lat: "26.7922", lng: "82.1998" },
+  "aligarh": { lat: "27.8974", lng: "78.0880" },
+  "moradabad": { lat: "28.8386", lng: "78.7733" },
+  "saharanpur": { lat: "29.9640", lng: "77.5460" },
+  "muzaffarnagar": { lat: "29.4727", lng: "77.7085" },
+
+  "anantapur": { lat: "14.6819", lng: "77.6006" },
+  "kurnool": { lat: "15.8281", lng: "78.0373" },
+  "rajahmundry": { lat: "17.0005", lng: "81.8040" },
+  "rajamahendravaram": { lat: "17.0005", lng: "81.8040" },
+  "eluru": { lat: "16.7107", lng: "81.1035" },
+  "kadapa": { lat: "14.4673", lng: "78.8242" },
+  "khammam": { lat: "17.2473", lng: "80.1514" },
+  "mahbubnagar": { lat: "16.7488", lng: "77.9818" },
+
+  "kharagpur": { lat: "22.3460", lng: "87.2320" },
+  "bardhaman": { lat: "23.2324", lng: "87.8615" },
+  "burdwan": { lat: "23.2324", lng: "87.8615" },
+  "haldia": { lat: "22.0667", lng: "88.0667" },
+  "darjeeling": { lat: "27.0410", lng: "88.2663" },
+  "kalimpong": { lat: "27.0600", lng: "88.4700" },
+
+  "mohali": { lat: "30.6799", lng: "76.7221" },
+  "panchkula": { lat: "30.6942", lng: "76.8606" },
+  "sonipat": { lat: "28.9286", lng: "77.0913" },
+  "rewari": { lat: "28.1833", lng: "76.6167" },
+  "kurukshetra": { lat: "29.9695", lng: "76.8783" },
+  "pathankot": { lat: "32.2643", lng: "75.6421" },
+  "hoshiarpur": { lat: "31.5143", lng: "75.9115" },
+
+  "kullu": { lat: "31.9579", lng: "77.1095" },
+  "mandi": { lat: "31.7087", lng: "76.9320" },
+  "mussoorie": { lat: "30.4598", lng: "78.0644" },
+  "nainital": { lat: "29.3803", lng: "79.4636" },
+
+  "berhampur": { lat: "19.3150", lng: "84.7941" },
+  "koraput": { lat: "18.8135", lng: "82.7123" },
+  "darbhanga": { lat: "26.1542", lng: "85.8918" },
+  "deoghar": { lat: "24.4826", lng: "86.6961" },
+  "hazaribagh": { lat: "23.9925", lng: "85.3637" },
+
+  "tezpur": { lat: "26.6338", lng: "92.8006" },
+  "nagaon": { lat: "26.3467", lng: "92.6833" },
+
+  "shirdi": { lat: "19.7645", lng: "74.4762" },
+  "karad": { lat: "17.2858", lng: "74.1837" },
+  "solapur highway (mohol)": { lat: "17.8130", lng: "75.6480" },
+  "sawantwadi": { lat: "15.9038", lng: "73.8188" },
+
+  "bharuch": { lat: "21.7051", lng: "72.9959" },
+  "ankleshwar": { lat: "21.6264", lng: "73.0033" },
+  "somnath": { lat: "20.8880", lng: "70.4012" },
+  "dwarka": { lat: "22.2442", lng: "68.9685" },
+  "palanpur": { lat: "24.1724", lng: "72.4346" },
+
+  "tiruchendur": { lat: "8.4962", lng: "78.1228" },
+  "namakkal": { lat: "11.2189", lng: "78.1674" },
+  "perambalur": { lat: "11.2325", lng: "78.8806" },
+  "sivakasi": { lat: "9.4533", lng: "77.7963" },
+  "raichur": { lat: "16.2076", lng: "77.3463" },
+  "bagalkot": { lat: "16.1852", lng: "75.6961" },
+  "tiruvannamalai": { lat: "12.2253", lng: "79.0747" },
+
+  "bhiwadi": { lat: "28.2096", lng: "76.8335" },
+  "neemrana": { lat: "27.9880", lng: "76.3883" },
+  "palwal": { lat: "28.1487", lng: "77.3320" },
+  "solan expressway": { lat: "30.9042", lng: "77.0967" },
+  "rudrapur": { lat: "28.9800", lng: "79.4000" },
+
+  "korba": { lat: "22.3595", lng: "82.7501" },
+  "angul": { lat: "20.8400", lng: "85.1500" },
+  "balasore": { lat: "21.4934", lng: "86.9135" },
+  "chhindwara": { lat: "22.0574", lng: "78.9382" },
+  "muzaffarpur express": { lat: "26.1209", lng: "85.3647" },
+ "ramanagara": { lat: "12.7218", lng: "77.2815" },
+ "madikeri": { lat: "12.4244", lng: "75.7382" },
+ "chamarajanagar": { lat: "11.9261", lng: "76.9400" },
+ "vijayapura": { lat: "16.8302", lng: "75.7100" },
+ "yadgir": { lat: "16.7700", lng: "77.1378" },
+  "gadag": { lat: "15.4315", lng: "75.6350" },
+
+ "wardha": { lat: "20.7453", lng: "78.6022" },
+ "yavatmal": { lat: "20.3899", lng: "78.1307" },
+ "beed": { lat: "18.9901", lng: "75.7531" },
+ "osmanabad": { lat: "18.1861", lng: "76.0419" },
+ "parbhani": { lat: "19.2704", lng: "76.7600" },
+ "buldhana": { lat: "20.5293", lng: "76.1842" },
+
+ "morbi": { lat: "22.8173", lng: "70.8377" },
+ "surendranagar": { lat: "22.7271", lng: "71.6486" },
+ "porbandar": { lat: "21.6417", lng: "69.6293" }, 
+
+ "tiruppur": { lat: "11.1085", lng: "77.3411" },
+ "ranipet": { lat: "12.9246", lng: "79.3333" },
+ "ariyalur": { lat: "11.1385", lng: "79.0756" },
+
+ "koothattukulam": { lat: "9.9892", lng: "76.5865" },
+ "varkala": { lat: "8.7379", lng: "76.7163" },
+
+ "nalgonda": { lat: "17.0575", lng: "79.2672" },
+ "adilabad": { lat: "19.6667", lng: "78.5333" },
+
+ "ongole": { lat: "15.5057", lng: "80.0499" },
+ "srikakulam": { lat: "18.2949", lng: "83.8938" },
+ "vizianagaram": { lat: "18.1067", lng: "83.3956" },
+
+ "beawar": { lat: "26.1007", lng: "74.3203" },
+ "barmer": { lat: "25.7500", lng: "71.3833" },
+
+ "katni": { lat: "23.8388", lng: "80.3941" },
+ "dewas": { lat: "22.9676", lng: "76.0534" },
+
+ "noida extension": { lat: "28.5890", lng: "77.4500" },
+ "firozabad": { lat: "27.1592", lng: "78.3957" },
+
+ "moga": { lat: "30.8230", lng: "75.1734" },
+ "barnala": { lat: "30.3819", lng: "75.5468" },
+
+ "kasol": { lat: "32.0094", lng: "77.3147" },
+ "spiti": { lat: "32.2460", lng: "78.0340" },
+
+ "almora": { lat: "29.5892", lng: "79.6467" },
+ "ramnagar": { lat: "29.3925", lng: "79.1283" },
+
+ "gulmarg": { lat: "34.0484", lng: "74.3805" },
+ "sonamarg": { lat: "34.3039", lng: "75.2933" },
+
+ "tawang": { lat: "27.5869", lng: "91.8694" },
+ "bomdila": { lat: "27.2648", lng: "92.4247" },
+ "lunglei": { lat: "22.8925", lng: "92.7425" },
+
+ "krishnagiri": { lat: "12.5266", lng: "78.2137" },
+ "chittoor": { lat: "13.2172", lng: "79.1003" },
+ "salem bypass": { lat: "11.6643", lng: "78.1460" },
+ "belgaum highway": { lat: "15.8497", lng: "74.4977" },
+ "tumkur highway": { lat: "13.3409", lng: "77.1010" },
+ "hoskote": { lat: "13.0707", lng: "77.7981" },
+  "pithoragarh": { lat: "29.5829", lng: "80.2182" },
+"champawat": { lat: "29.3364", lng: "80.0926" },
+"bageshwar": { lat: "29.8374", lng: "79.7718" },
+
+"sirsa": { lat: "29.5336", lng: "75.0177" },
+"kaithal": { lat: "29.8014", lng: "76.3998" },
+"fatehabad": { lat: "29.5152", lng: "75.4553" },
+
+"sambhal": { lat: "28.5846", lng: "78.5696" },
+"etawah": { lat: "26.7769", lng: "79.0230" },
+"azamgarh": { lat: "26.0739", lng: "83.1859" },
+"ballia": { lat: "25.7588", lng: "84.1487" },
+
+"sehore": { lat: "23.2032", lng: "77.0844" },
+"ratlam": { lat: "23.3342", lng: "75.0376" },
+"mandsaur": { lat: "24.0734", lng: "75.0699" },
+
+"guntur highway": { lat: "16.3067", lng: "80.4365" },
+"krishna district": { lat: "16.2000", lng: "81.1000" },
+
+"koppal": { lat: "15.3483", lng: "76.1548" },
+"sirsi": { lat: "14.6196", lng: "74.8355" },
+"ranebennur": { lat: "14.6229", lng: "75.6215" },
+"sakleshpur": { lat: "12.9417", lng: "75.7850" },
+
+"tirupur bypass": { lat: "11.1085", lng: "77.3411" },
+"pollachi": { lat: "10.6582", lng: "77.0087" },
+"mayiladuthurai": { lat: "11.1035", lng: "79.6550" },
+
+"kasargod": { lat: "12.5102", lng: "74.9852" },
+"payyanur": { lat: "12.1010", lng: "75.2025" },
+
+"valsad": { lat: "20.6101", lng: "72.9342" },
+"godhra": { lat: "22.7788", lng: "73.6149" },
+"veraval": { lat: "20.9077", lng: "70.3673" },
+
+"sasan gir": { lat: "21.1240", lng: "70.8241" },
+"dholera": { lat: "22.2500", lng: "72.2000" },
+
+"tirupati highway": { lat: "13.6288", lng: "79.4192" },
+"bangalore airport": { lat: "13.1986", lng: "77.7066" },
+"kempegowda airport": { lat: "13.1986", lng: "77.7066" },
+ "hyderabad airport": { lat: "17.2403", lng: "78.4294" },
+  "chennai airport": { lat: "12.9941", lng: "80.1709" },
+  "mumbai airport": { lat: "19.0896", lng: "72.8656" },
+  "delhi airport": { lat: "28.5562", lng: "77.1000" }
+  
 };
+
+// Major Indian cities used when no specific city is searched
+var ALL_INDIA_CITIES = [
+  { name: 'Bangalore',    lat: 12.9716,  lng: 77.5946 },
+  { name: 'Mumbai',       lat: 19.0760,  lng: 72.8777 },
+  { name: 'Delhi',        lat: 28.6139,  lng: 77.2090 },
+  { name: 'Chennai',      lat: 13.0827,  lng: 80.2707 },
+  { name: 'Hyderabad',    lat: 17.3850,  lng: 78.4867 },
+  { name: 'Kolkata',      lat: 22.5726,  lng: 88.3639 },
+  { name: 'Pune',         lat: 18.5204,  lng: 73.8567 },
+  { name: 'Ahmedabad',    lat: 23.0225,  lng: 72.5714 },
+  { name: 'Jaipur',       lat: 26.9124,  lng: 75.7873 },
+  { name: 'Lucknow',      lat: 26.8467,  lng: 80.9462 },
+  { name: 'Surat',        lat: 21.1702,  lng: 72.8311 },
+  { name: 'Indore',       lat: 22.7196,  lng: 75.8577 },
+  { name: 'Bhopal',       lat: 23.2599,  lng: 77.4126 },
+  { name: 'Nagpur',       lat: 21.1458,  lng: 79.0882 },
+  { name: 'Chandigarh',   lat: 30.7333,  lng: 76.7794 },
+  { name: 'Coimbatore',   lat: 11.0168,  lng: 76.9558 },
+  { name: 'Kochi',        lat: 9.9312,   lng: 76.2673 },
+  { name: 'Bhubaneswar',  lat: 20.2961,  lng: 85.8245 },
+  { name: 'Guwahati',     lat: 26.1445,  lng: 91.7362 },
+  { name: 'Patna',        lat: 25.5941,  lng: 85.1376 },
+  { name: 'Goa',          lat: 15.4909,  lng: 73.8278 },
+  { name: 'Trivandrum',   lat: 8.5241,   lng: 76.9366 },
+  { name: 'Raipur',       lat: 21.2514,  lng: 81.6296 },
+  { name: 'Ranchi',       lat: 23.3441,  lng: 85.3096 },
+  { name: 'Dehradun',     lat: 30.3165,  lng: 78.0322 },
+  { name: 'Vadodara',     lat: 22.3072,  lng: 73.1812 },
+  { name: 'Agra',         lat: 27.1767,  lng: 78.0081 },
+  { name: 'Varanasi',     lat: 25.3176,  lng: 82.9739 },
+  { name: 'Amritsar',     lat: 31.6340,  lng: 74.8723 },
+  { name: 'Jodhpur',      lat: 26.2389,  lng: 73.0243 },
+  { name: 'Madurai',      lat: 9.9252,   lng: 78.1198 },
+  { name: 'Visakhapatnam',lat: 17.6868,  lng: 83.2185 },
+  { name: 'Srinagar',     lat: 34.0837,  lng: 74.7973 },
+  { name: 'Jammu',        lat: 32.7266,  lng: 74.8570 },
+  { name: 'Shimla',       lat: 31.1048,  lng: 77.1734 },
+  { name: 'Gangtok',      lat: 27.3314,  lng: 88.6138 },
+  { name: 'Puducherry',   lat: 11.9416,  lng: 79.8083 },
+  { name: 'Siliguri',     lat: 26.7271,  lng: 88.3953 },
+  { name: 'Udaipur',      lat: 24.5854,  lng: 73.7125 },
+  { name: 'Gwalior',      lat: 26.2183,  lng: 78.1828 },
+  { name: 'Tiruchirappalli', lat: 10.7905, lng: 78.7047 },
+  { name: 'Rourkela',     lat: 22.2604,  lng: 84.8536 },
+  { name: 'Port Blair',   lat: 11.6234,  lng: 92.7265 },
+];
 
 let debounceTimeout = null;
 
+var GOOGLE_PLACES_FIELDS = 'places.id,places.displayName,places.formattedAddress,places.location,places.rating,places.userRatingCount,places.types,places.currentOpeningHours,places.nationalPhoneNumber,places.websiteUri,places.photos';
+
+var placesApiCache = {};
+var placesApiQuotaExceeded = false;
+
+function getCachedOrFetch(cacheKey, fetchFn) {
+  if (placesApiQuotaExceeded) return { places: [], nextPageToken: null };
+  if (placesApiCache[cacheKey] !== undefined) return placesApiCache[cacheKey];
+  try {
+    var raw = sessionStorage.getItem('pc_' + cacheKey);
+    if (raw) {
+      var entry = JSON.parse(raw);
+      if (Date.now() - entry.ts < 900000) {
+        placesApiCache[cacheKey] = entry.data;
+        return entry.data;
+      }
+      sessionStorage.removeItem('pc_' + cacheKey);
+    }
+  } catch (e) {}
+  var result = fetchFn();
+  placesApiCache[cacheKey] = result;
+  if (result && typeof result.then === 'function') {
+    result.then(function(resolved) {
+      try {
+        sessionStorage.setItem('pc_' + cacheKey, JSON.stringify({ ts: Date.now(), data: resolved }));
+      } catch (e) {}
+    });
+  }
+  return result;
+}
+
+function checkPlacesApiError(data, label) {
+  if (!data) return null;
+  if (data.error) {
+    var err = data.error;
+    var msg = err.message || '';
+    var status = err.code || 0;
+    console.error('[Chargers] ' + label + ' API error [' + status + ']: ' + msg, JSON.stringify(err));
+    if (status === 429 || status === 403 || msg.includes('RESOURCE_EXHAUSTED') || msg.includes('API_NOT_ACTIVATED') || msg.includes('REQUEST_DENIED') || msg.includes('INVALID_ARGUMENT') || msg.includes('not enabled') || msg.includes('billing')) {
+      placesApiQuotaExceeded = true;
+    }
+    return err;
+  }
+  return null;
+}
+
+async function newPlacesSearchText(apiKey, query, lat, lng, maxResults, pageToken) {
+  var cacheKey = 'text:' + query + ':' + lat + ':' + lng + ':' + (pageToken || '0');
+  if (pageToken) return await doTextSearch(apiKey, query, lat, lng, maxResults, pageToken);
+  return getCachedOrFetch(cacheKey, function() {
+    return doTextSearch(apiKey, query, lat, lng, maxResults, null).then(function(r) { return r; });
+  });
+}
+
+async function doTextSearch(apiKey, query, lat, lng, maxResults, pageToken) {
+  if (placesApiQuotaExceeded) return { places: [], nextPageToken: null };
+  var body = { textQuery: query, maxResultCount: 20, locationBias: { circle: { center: { latitude: lat, longitude: lng }, radius: 50000 } } };
+  if (pageToken) body.pageToken = pageToken;
+  var url = 'https://places.googleapis.com/v1/places:searchText';
+  console.log('[Chargers]>>> API REQUEST: POST ' + url + ' query=' + query + ' lat=' + lat + ' lng=' + lng + ' pageToken=' + (pageToken || 'none'));
+  var res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': apiKey, 'X-Goog-FieldMask': GOOGLE_PLACES_FIELDS },
+    body: JSON.stringify(body)
+  });
+  console.log('[Chargers]>>> API RESPONSE: status=' + res.status + ' ' + res.statusText);
+  if (!res.ok) console.error('[Chargers] textSearch HTTP', res.status, res.statusText);
+  var data = await res.json();
+  console.log('[Chargers]>>> API BODY:', JSON.stringify(data).substring(0, 500));
+  checkPlacesApiError(data, 'textSearch');
+  return data;
+}
+
+async function newPlacesSearchNearby(apiKey, lat, lng, maxResults, pageToken, radius) {
+  var cacheKey = 'nearby:' + lat + ':' + lng + ':' + (radius || 50000) + ':' + (pageToken || '0');
+  if (pageToken) return await doNearbySearch(apiKey, lat, lng, maxResults, pageToken, radius);
+  return getCachedOrFetch(cacheKey, function() {
+    return doNearbySearch(apiKey, lat, lng, maxResults, null, radius).then(function(r) { return r; });
+  });
+}
+
+async function doNearbySearch(apiKey, lat, lng, maxResults, pageToken, radius) {
+  if (placesApiQuotaExceeded) return { places: [], nextPageToken: null };
+  radius = radius || 50000;
+  var body = { includedTypes: ['electric_vehicle_charging_station'], maxResultCount: 20, locationRestriction: { circle: { center: { latitude: lat, longitude: lng }, radius: radius } } };
+  if (pageToken) body.pageToken = pageToken;
+  var url = 'https://places.googleapis.com/v1/places:searchNearby';
+  console.log('[Chargers]>>> API REQUEST: POST ' + url + ' lat=' + lat + ' lng=' + lng + ' radius=' + radius + ' pageToken=' + (pageToken || 'none'));
+  var res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': apiKey, 'X-Goog-FieldMask': GOOGLE_PLACES_FIELDS },
+    body: JSON.stringify(body)
+  });
+  console.log('[Chargers]>>> API RESPONSE: status=' + res.status + ' ' + res.statusText);
+  if (!res.ok) console.error('[Chargers] nearbySearch HTTP', res.status, res.statusText);
+  var data = await res.json();
+  console.log('[Chargers]>>> API BODY:', JSON.stringify(data).substring(0, 500));
+  checkPlacesApiError(data, 'nearbySearch');
+  return data;
+}
+
+async function fetchAllPagesText(apiKey, query, lat, lng, maxResults, maxPages) {
+  if (maxPages === undefined) maxPages = 3;
+  var allPlaces = [], seen = {}, pageToken = null, pageCount = 0;
+  do {
+    var data = await newPlacesSearchText(apiKey, query, lat, lng, maxResults, pageToken);
+    var places = data.places || [];
+    for (var i = 0; i < places.length; i++) {
+      var id = places[i].id;
+      if (id && !seen[id]) { seen[id] = true; allPlaces.push(places[i]); }
+    }
+    pageToken = data.nextPageToken || null;
+    pageCount++;
+    if (pageToken && pageCount < maxPages) await new Promise(function(r) { setTimeout(r, 500); });
+  } while (pageToken && pageCount < maxPages);
+  return allPlaces;
+}
+
+async function fetchAllPagesNearby(apiKey, lat, lng, maxResults, maxPages) {
+  if (maxPages === undefined) maxPages = 5;
+  var allPlaces = [], seen = {}, pageToken = null, pageCount = 0;
+  do {
+    var data = await newPlacesSearchNearby(apiKey, lat, lng, maxResults, pageToken);
+    var places = data.places || [];
+    for (var i = 0; i < places.length; i++) {
+      var id = places[i].id;
+      if (id && !seen[id]) { seen[id] = true; allPlaces.push(places[i]); }
+    }
+    pageToken = data.nextPageToken || null;
+    pageCount++;
+    if (pageToken && pageCount < maxPages) await new Promise(function(r) { setTimeout(r, 500); });
+  } while (pageToken && pageCount < maxPages);
+  return allPlaces;
+}
+
+function getGridPoints(lat, lng) {
+  var d = 0.45;
+  return [
+    { lat: lat, lng: lng },
+    { lat: lat + d, lng: lng },
+    { lat: lat - d, lng: lng },
+    { lat: lat, lng: lng + d },
+    { lat: lat, lng: lng - d }
+  ];
+}
+
+function getCityCoverageGrid(lat, lng, numRows, numCols, spreadLat, spreadLng) {
+  if (numRows === undefined) numRows = 3;
+  if (numCols === undefined) numCols = 3;
+  if (spreadLat === undefined) spreadLat = 0.16;
+  if (spreadLng === undefined) spreadLng = 0.16;
+  var points = [];
+  var dlat = spreadLat / (Math.max(numRows - 1, 1));
+  var dlng = spreadLng / (Math.max(numCols - 1, 1));
+  var startLat = lat - spreadLat / 2;
+  var startLng = lng - spreadLng / 2;
+  for (var r = 0; r < numRows; r++) {
+    for (var c = 0; c < numCols; c++) {
+      points.push({ lat: +(startLat + r * dlat).toFixed(6), lng: +(startLng + c * dlng).toFixed(6) });
+    }
+  }
+  return points;
+}
+
+async function searchGridPoint(apiKey, query, point) {
+  var places = await fetchAllPagesText(apiKey, query, point.lat, point.lng, 20, 3);
+  console.log('[Chargers] grid point [' + point.lat.toFixed(4) + ',' + point.lng.toFixed(4) + '] "' + query + '": ' + places.length + ' unique');
+  return places;
+}
+
+function parseNewPlace(p) {
+  if (!p) return null;
+  return {
+    name: (p.displayName && p.displayName.text) || '(no name)',
+    address: p.formattedAddress || '(no address)',
+    place_id: p.id || '(no id)',
+    lat: p.location && p.location.latitude,
+    lng: p.location && p.location.longitude,
+    rating: p.rating || null,
+    totalRatings: p.userRatingCount || 0,
+    types: p.types || [],
+    openNow: p.currentOpeningHours ? p.currentOpeningHours.openNow : null,
+    phone: p.nationalPhoneNumber || null,
+    website: p.websiteUri || null,
+    photos: p.photos || []
+  };
+}
+
+function newPlacePhotoUrl(p, apiKey) {
+  if (!p || !p.photos || p.photos.length === 0) return null;
+  var photoName = p.photos[0].name;
+  if (!photoName) return null;
+  return 'https://places.googleapis.com/v1/' + photoName + '/media?maxHeightPx=400&key=' + apiKey;
+}
+
+function renderStaticStationsForCity(cityQuery) {
+  if (!stationsListContainer) return;
+  var matched = STATIONS_DATABASE.filter(function(s) {
+    return !cityQuery || s.city.indexOf(cityQuery.toLowerCase()) !== -1;
+  });
+  if (matched.length === 0) {
+    stationsListContainer.innerHTML = '<div class="text-center py-8 text-zinc-500 font-mono text-[10px]">NO CHARGING STATIONS FOUND IN DATABASE FOR THIS CITY.</div>';
+    return;
+  }
+  stationsListContainer.innerHTML = '';
+  matched.forEach(function(s) {
+    var item = document.createElement('div');
+    item.className = 'border-b border-zinc-100 pb-3 pt-1 text-left font-mono text-[10px]';
+    item.innerHTML =
+      '<div class="text-xs">' +
+      '<h4 class="font-bold text-zinc-850 uppercase text-[11px]">' + s.name + '</h4>' +
+      '<span class="text-[9px] text-zinc-500 block mt-0.5">' + s.address + '</span>' +
+      '<span class="text-[9px] inline-block mt-1 px-2 py-0.5 ' + (s.type === 'Fast' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800') + '">' + s.type + ' · ' + s.speed + '</span>' +
+      '<span class="text-[9px] text-zinc-500 ml-2">' + s.status + '</span>' +
+      '</div>';
+    stationsListContainer.appendChild(item);
+  });
+}
+
 async function renderChargingStations() {
   if (!stationSearchInput || !stationsListContainer) return;
-  
-  const query = stationSearchInput.value.toLowerCase().trim();
-  const showFast = filterChargerFast ? filterChargerFast.checked : true;
-  const showNormal = filterChargerNormal ? filterChargerNormal.checked : true;
-  
-  stationsListContainer.innerHTML = `
-    <div class="text-center py-8 text-zinc-600 font-mono text-[10px] animate-pulse">
-      FETCHING CHARGERS FROM NETWORK CORE...
-    </div>
-  `;
 
-  const searchKey = query || 'bangalore';
-  const coords = CITY_COORDS[searchKey];
-
-  if (!coords) {
-    stationsListContainer.innerHTML = `
-      <div class="text-center py-8 text-red-600 font-mono text-[10px]">
-        ERROR: INVALID COORDINATES (UNKNOWN CITY "${query.toUpperCase()}"). PLEASE SEARCH FOR DELHI, MUMBAI, BANGALORE, OR HYDERABAD.
-      </div>
-    `;
-    if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
+  if (placesApiQuotaExceeded) {
+    console.warn('[Chargers] Places API quota exceeded. Using static STATIONS_DATABASE fallback.');
+    stationsListContainer.innerHTML = '<div class="text-center py-8 text-amber-600 font-mono text-[10px]">PLACES API QUOTA EXCEEDED. SHOWING STATIC DATABASE RESULTS.</div>';
+    var query = stationSearchInput.value.toLowerCase().trim();
+    var fallbackTimer = setTimeout(function() {
+      renderStaticStationsForCity(query);
+    }, 600);
     return;
   }
 
-  try {
-    const url = `/api/chargers/nearby?latitude=${coords.lat}&longitude=${coords.lng}&distance=70&maxresults=300`;
-    console.log(`Frontend sending chargers request for lat: ${coords.lat}, lng: ${coords.lng}`);
-    const response = await fetch(url);
-    
-    if (response.status === 401) {
-      throw new Error('INVALID_API_KEY');
-    }
-    if (response.status === 429) {
-      throw new Error('RATE_LIMIT_EXCEEDED');
-    }
-    if (!response.ok) {
-      throw new Error('BACKEND_ERROR');
+  var query = stationSearchInput.value.toLowerCase().trim();
+  var searchKey = query || 'bangalore';
+
+  if (!window.__gmapReady || typeof google === 'undefined' || !google.maps) {
+    stationsListContainer.innerHTML = '<div class="text-center py-8 text-red-600 font-mono text-[10px]">GOOGLE MAPS API NOT AVAILABLE.</div>';
+    return;
+  }
+
+  stationsListContainer.innerHTML = '<div class="text-center py-8 text-zinc-600 font-mono text-[10px] animate-pulse">SEARCHING...</div>';
+
+  // ─── 1. GET API KEY & DIAGNOSTICS ─────────────────────────
+  var scriptTag = document.querySelector('script[src*="maps/api/js"]');
+  var apiKey = scriptTag ? new URL(scriptTag.src).searchParams.get('key') : '';
+  var maskedKey = apiKey ? apiKey.slice(0, 8) + '...' + apiKey.slice(-6) : 'NOT FOUND';
+  console.log('%c═══════════ CHARGER DIAGNOSTIC ═══════════', 'font-weight:bold');
+  console.log('[1] API Key (masked):', maskedKey);
+  console.log('[2] window.location.origin:', window.location.origin);
+  console.log('[2] window.location.href:', window.location.href);
+  console.log('[3] Google Maps script URL:', scriptTag ? scriptTag.src : 'NOT FOUND');
+  console.log('[4] Frontend API key matches backend:', apiKey ? 'YES (extracted from script tag)' : 'NO');
+  console.log('[5] API enablement: using new Places API (Places API v1) REST endpoints');
+  console.log('[6] google.maps.version:', google.maps.version || 'unknown');
+  console.log('[6] google.maps.places exists:', !!(google.maps && google.maps.places));
+  console.log('[6] PlacesService NOT used (legacy API disabled for this project)');
+
+  // ─── ALL-INDIA MULTI-CITY SEARCH (empty query) ──────────
+  if (!query) {
+    var allMerged = {};
+    var gridRadius = 10000;
+    stationsListContainer.innerHTML = '<div class="text-center py-8 text-zinc-600 font-mono text-[10px] animate-pulse">SEARCHING ALL INDIA...</div>';
+    console.log('[Chargers] === ALL-INDIA multi-city grid search ===');
+
+    // Grid config per city tier: larger cities get denser grids
+    function getCityGridConfig(city) {
+      var tier1 = { rows: 3, cols: 3, spreadLat: 0.28, spreadLng: 0.28 };
+      var tier2 = { rows: 2, cols: 2, spreadLat: 0.14, spreadLng: 0.14 };
+      var configs = {
+        'Bangalore': tier1, 'Mumbai': tier1, 'Delhi': tier1, 'Chennai': tier1,
+        'Hyderabad': tier1, 'Kolkata': tier1, 'Pune': tier1, 'Ahmedabad': tier1,
+        'Jaipur': tier2, 'Lucknow': tier2, 'Surat': tier2, 'Indore': tier2,
+        'Bhopal': tier2, 'Nagpur': tier2, 'Chandigarh': tier2, 'Coimbatore': tier2,
+        'Kochi': tier2, 'Bhubaneswar': tier2, 'Guwahati': tier2, 'Patna': tier2,
+        'Goa': tier2, 'Trivandrum': tier2, 'Raipur': tier2, 'Ranchi': tier2,
+        'Dehradun': tier2, 'Vadodara': tier2, 'Agra': tier2, 'Varanasi': tier2
+      };
+      return configs[city.name] || { rows: 1, cols: 1, spreadLat: 0, spreadLng: 0 };
     }
 
-    const resData = await response.json();
-    if (!resData.success) {
-      if (resData.message && resData.message.includes('API key')) {
-        throw new Error('INVALID_API_KEY');
+    // Build all grid search tasks
+    var tasks = [];
+    for (var ci = 0; ci < ALL_INDIA_CITIES.length; ci++) {
+      var city = ALL_INDIA_CITIES[ci];
+      var cfg = getCityGridConfig(city);
+      var points = getCityCoverageGrid(city.lat, city.lng, cfg.rows, cfg.cols, cfg.spreadLat, cfg.spreadLng);
+      for (var pi = 0; pi < points.length; pi++) {
+        tasks.push(points[pi]);
       }
-      throw new Error(resData.error || 'BACKEND_ERROR');
     }
 
-    const stations = resData.data;
-    if (!Array.isArray(stations)) {
-      throw new Error('EMPTY_API_RESPONSE');
-    }
-
-    console.log(`Stations received: Yes | Number of stations: ${stations.length}`);
-
-    if (stations.length === 0) {
-      throw new Error('EMPTY_API_RESPONSE');
-    }
-
-    // Process and filter stations
-    const processedStations = stations.map(st => {
-      const addressInfo = st.AddressInfo || {};
-      const title = addressInfo.Title || 'Unknown Charger';
-      const address = [addressInfo.AddressLine1, addressInfo.Town].filter(Boolean).join(', ') || 'No address details';
-      
-      // Determine charger type and speed from connections list
-      let speed = '7.4 kW';
-      let isFast = false;
-      if (Array.isArray(st.Connections) && st.Connections.length > 0) {
-        const pwr = st.Connections[0].PowerKW;
-        if (pwr) {
-          speed = `${pwr} kW`;
-          if (pwr >= 30) isFast = true;
+    // Execute grid searches in parallel batches
+    var totalTasks = tasks.length;
+    var doneTasks = 0;
+    for (var ti = 0; ti < totalTasks; ti += 8) {
+      var batch = tasks.slice(ti, Math.min(ti + 8, totalTasks));
+      var batchResults = await Promise.all(batch.map(function(pt) {
+        return newPlacesSearchNearby(apiKey, pt.lat, pt.lng, 20, null, gridRadius)
+          .then(function(d) { return d.places || []; })
+          .catch(function() { return []; });
+      }));
+      for (var bi = 0; bi < batchResults.length; bi++) {
+        for (var pi = 0; pi < batchResults[bi].length; pi++) {
+          var pid = batchResults[bi][pi].id;
+          if (pid) allMerged[pid] = batchResults[bi][pi];
         }
       }
+      doneTasks += batch.length;
+      stationsListContainer.innerHTML = '<div class="text-center py-8 text-zinc-600 font-mono text-[10px] animate-pulse">SEARCHING ALL INDIA... ' + doneTasks + '/' + totalTasks + '</div>';
+    }
 
-      return {
-        name: title,
-        address: address,
-        lat: addressInfo.Latitude,
-        lng: addressInfo.Longitude,
-        type: isFast ? 'Fast' : 'Normal',
-        speed: speed,
-        status: (st.StatusType && st.StatusType.Title) || 'Available'
-      };
-    });
+    rawPlaces = [];
+    for (var key in allMerged) rawPlaces.push(allMerged[key]);
+    console.log('[Chargers] All-India search complete: ' + rawPlaces.length + ' unique stations from ' + totalTasks + ' grid searches across ' + ALL_INDIA_CITIES.length + ' cities');
 
-    const filtered = processedStations.filter(st => {
-      if (st.type === 'Fast' && !showFast) return false;
-      if (st.type === 'Normal' && !showNormal) return false;
-      return true;
-    });
-
-    if (filtered.length === 0) {
-      stationsListContainer.innerHTML = `
-        <div class="text-center py-8 text-zinc-600 font-mono text-[10px]">
-          NO CHARGERS FOUND IN LOCATION BOUNDS FOR SELECTED FILTERS.
-        </div>
-      `;
+    if (!rawPlaces || rawPlaces.length === 0) {
+      stationsListContainer.innerHTML = '<div class="text-center py-8 text-zinc-500 font-mono text-[10px]">NO CHARGING STATIONS FOUND IN INDIA.</div>';
       if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
       return;
     }
 
-    // Populate List
     stationsListContainer.innerHTML = '';
-    filtered.forEach(st => {
-      const item = document.createElement('div');
-      item.className = 'border-b border-zinc-100 pb-3 text-left font-mono';
-      item.innerHTML = `
-        <div class="flex justify-between items-start text-xs">
-          <div>
-            <h4 class="font-bold text-zinc-850">${st.name}</h4>
-            <span class="text-[9px] text-zinc-500">${st.address}</span>
-          </div>
-          <div class="text-right">
-            <span class="px-1.5 py-0.5 bg-zinc-100 text-[8px] text-zinc-655 border border-zinc-200 uppercase">${st.type} [${st.speed}]</span>
-            <span class="text-[8px] block mt-1 ${st.status === 'Operational' || st.status === 'Available' ? 'text-black font-bold' : 'text-zinc-400'}">${st.status.toUpperCase()}</span>
-          </div>
-        </div>
-        <div class="mt-2 flex justify-end">
-         <a
-         href="https://www.google.com/maps/dir/?api=1&destination=${st.lat},${st.lng}"
-         target="_blank"
-         rel="noopener noreferrer"
-          class="text-blue-600 hover:text-blue-800 hover:underline text-[12px] font-medium"
-          >
-           Directions →
-            </a>
-            </div>
-      `;
-      stationsListContainer.appendChild(item);
-    });
+    for (var ri = 0; ri < rawPlaces.length; ri++) {
+      var p = parseNewPlace(rawPlaces[ri]);
+      if (!p || p.lat === undefined || p.lng === undefined) continue;
 
-    // Populate Leaflet Map Markers
+      var photoUrl = newPlacePhotoUrl(rawPlaces[ri], apiKey);
+      var item = document.createElement('div');
+      item.className = 'border-b border-zinc-100 pb-3 pt-1 text-left font-mono text-[10px]';
+
+      var photoHtml = '';
+      if (photoUrl) {
+        photoHtml = '<img src="' + photoUrl + '" alt="' + p.name + '" class="w-full h-28 object-cover mb-2 border border-zinc-200" onerror="this.style.display=\'none\'">';
+      }
+
+      var ratingText = p.rating ? '★ '.repeat(Math.round(p.rating)) + ' ' + p.rating.toFixed(1) + ' (' + p.totalRatings + ')' : 'No rating';
+      var openHtml = p.openNow === true ? '<span class="text-[9px] text-green-700 font-bold">● OPEN NOW</span>' : (p.openNow === false ? '<span class="text-[9px] text-red-600">● CLOSED</span>' : '');
+      var phoneHtml = p.phone ? '<a href="tel:' + p.phone + '" class="text-blue-600 hover:underline text-[10px] block">' + p.phone + '</a>' : '';
+      var websiteHtml = p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-[10px] block truncate">' + p.website + '</a>' : '';
+
+      item.innerHTML = photoHtml +
+        '<div class="text-xs">' +
+        '<h4 class="font-bold text-zinc-850 uppercase text-[11px]">' + p.name + '</h4>' +
+        '<span class="text-amber-600">' + ratingText + '</span>' +
+        '<span class="text-[9px] text-zinc-500 block mt-0.5">' + p.address + '</span>' +
+        openHtml + phoneHtml + websiteHtml +
+        '</div>' +
+        '<div class="mt-2 flex justify-end">' +
+        '<a href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + ',' + p.lng + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline text-[12px] font-medium">Directions →</a>' +
+        '</div>';
+      stationsListContainer.appendChild(item);
+    }
+
     if (chargerMap && chargerMarkersGroup) {
       chargerMarkersGroup.clearLayers();
-      
-      // Pan map to new city coordinates
-      chargerMap.setView([coords.lat, coords.lng], 11);
-
-      let markersCount = 0;
-      filtered.forEach(st => {
-        if (st.lat && st.lng) {
-          const marker = L.marker([st.lat, st.lng])
-            .bindPopup(`
-              <div class="font-mono text-[10px] text-left">
-                <strong class="text-black uppercase">${st.name}</strong><br>
-                <span class="text-zinc-600 block mt-0.5">${st.address}</span>
-                <span class="inline-block mt-1 px-1.5 py-0.5 bg-zinc-100 text-[8px] text-zinc-700 border border-zinc-200 uppercase">${st.type} [${st.speed}]</span>
-              </div>
-            `);
-          chargerMarkersGroup.addLayer(marker);
-          markersCount++;
+      var lats = [], lngs = [];
+      for (var ri2 = 0; ri2 < rawPlaces.length; ri2++) {
+        var rp = parseNewPlace(rawPlaces[ri2]);
+        if (rp && rp.lat !== undefined && rp.lng !== undefined) {
+          lats.push(rp.lat); lngs.push(rp.lng);
+          L.marker([rp.lat, rp.lng])
+            .bindPopup('<div class="font-mono text-[10px]"><strong>' + rp.name + '</strong><br>' + rp.address + '</div>', { maxWidth: 220 })
+            .addTo(chargerMarkersGroup);
         }
+      }
+      if (lats.length > 0) {
+        var minLat = Math.min.apply(null, lats), maxLat = Math.max.apply(null, lats);
+        var minLng = Math.min.apply(null, lngs), maxLng = Math.max.apply(null, lngs);
+        var pad = 0.5;
+        chargerMap.fitBounds([[minLat - pad, minLng - pad], [maxLat + pad, maxLng + pad]]);
+      }
+    }
+    return;
+  }
+
+  // ─── 2. GET COORDINATES ──────────────────────────────────
+  var lat, lng;
+  var coords = CITY_COORDS[searchKey];
+  if (coords) {
+    lat = parseFloat(coords.lat);
+    lng = parseFloat(coords.lng);
+  } else {
+    try {
+      var geocoder = new google.maps.Geocoder();
+      var geoResult = await new Promise(function(resolve) {
+        geocoder.geocode({ address: searchKey + ', India' }, function(results, status) {
+          console.log('[Chargers] Geocoder status:', status);
+          if (status === 'OK' && results && results.length > 0) resolve(results[0]);
+          else resolve(null);
+        });
       });
-      console.log(`Number of markers displayed: ${markersCount}`);
+      if (!geoResult) {
+        stationsListContainer.innerHTML = '<div class="text-center py-8 text-red-600 font-mono text-[10px]">UNKNOWN CITY.</div>';
+        if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
+        return;
+      }
+      lat = geoResult.geometry.location.lat();
+      lng = geoResult.geometry.location.lng();
+    } catch (e) {
+      console.error('[Chargers] Geocoder exception:', e);
+      stationsListContainer.innerHTML = '<div class="text-center py-8 text-red-600 font-mono text-[10px]">GEOCODING FAILED.</div>';
+      return;
+    }
+  }
+  console.log('[7] Coordinates:', { lat: lat, lng: lng });
+
+  // ─── 3. SEARCH USING NEW PLACES API (v1 REST) ──────────
+  var rawPlaces = null;
+  var methodUsed = '';
+  var apiStatus = '';
+
+  function logNewPlacesResult(label, data) {
+    var places = data.places || [];
+    console.log('[Chargers] === ' + label + ' ===');
+    console.log('[Chargers] >>> API returned places:', places.length);
+    if (places.length > 0) {
+      console.log('[Chargers] >>> Places:');
+      for (var i = 0; i < places.length; i++) {
+        var p = parseNewPlace(places[i]);
+        console.log('  [' + i + ']', p);
+      }
+    } else {
+      console.log('[Chargers] >>> Error info:', data.error || '(none)');
+    }
+    return places;
+  }
+
+  try {
+    // Grid search: search from multiple points covering ~200km × 200km
+    var queries = ["EV charging station", "Electric vehicle charging station"];
+    var grid = getGridPoints(lat, lng);
+    var merged = {};
+
+    for (var g = 0; g < grid.length; g++) {
+      for (var q = 0; q < queries.length; q++) {
+        if (g === 0 && q === 0) console.log('[Chargers] === searching grid... ===');
+        var places = await searchGridPoint(apiKey, queries[q], grid[g]);
+        for (var i = 0; i < places.length; i++) {
+          var id = places[i].id;
+          if (id) merged[id] = places[i];
+        }
+      }
+    }
+
+    console.log('[Chargers] === nearbySearch from center ===');
+    var nearbyPlaces = await fetchAllPagesNearby(apiKey, lat, lng, 20, 5);
+    for (var i = 0; i < nearbyPlaces.length; i++) {
+      var id = nearbyPlaces[i].id;
+      if (id) merged[id] = nearbyPlaces[i];
+    }
+
+    rawPlaces = [];
+    for (var key in merged) rawPlaces.push(merged[key]);
+    methodUsed = 'grid ' + grid.length + ' points × ' + queries.length + ' queries + nearbySearch';
+    apiStatus = 'OK';
+
+    // ─── 4. DIAGNOSTIC SUMMARY ──────────────────────────────
+    console.log('%c═══════════ DIAGNOSTIC SUMMARY ═══════════', 'font-weight:bold');
+    console.log('Google Maps JS loaded:', window.__gmapReady ? 'YES' : 'NO');
+    console.log('Geocoding API: works via google.maps.Geocoder');
+    console.log('API key valid:', apiKey ? 'YES (' + maskedKey + ')' : 'NO');
+    console.log('API: Places API v1 (new) — grid search');
+    console.log('Grid: ' + grid.length + ' points × ' + queries.length + ' queries + nearbySearch');
+    console.log('Search radius per point: 50km — grid span: ~200km × 200km');
+    console.log('Coordinates searched:', { lat: lat, lng: lng });
+    console.log('Search method used:', methodUsed || 'NONE — ALL FAILED');
+    console.log('API status:', apiStatus || 'N/A');
+    console.log('Total unique places (merged, deduplicated, all pages):', rawPlaces ? rawPlaces.length : 0);
+    console.log('All stations rendered — no cap applied');
+    if (!rawPlaces || rawPlaces.length === 0) {
+      console.log('Reason for zero results: All queries returned no results.');
+      console.log('  - Ensure Places API (new) is enabled in Google Cloud Console');
+      console.log('  - Ensure API key has access to Places API');
+    }
+
+    // ─── 5. RENDER ──────────────────────────────────────────
+    if (!rawPlaces || rawPlaces.length === 0) {
+      stationsListContainer.innerHTML = '<div class="text-center py-8 text-zinc-500 font-mono text-[10px]">NO CHARGING STATIONS FOUND. CHECK CONSOLE FOR DIAGNOSTICS.</div>';
+      if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
+      return;
+    }
+
+    stationsListContainer.innerHTML = '';
+    for (var i = 0; i < rawPlaces.length; i++) {
+      var p = parseNewPlace(rawPlaces[i]);
+      if (!p || p.lat === undefined || p.lng === undefined) continue;
+
+      var photoUrl = newPlacePhotoUrl(rawPlaces[i], apiKey);
+      var item = document.createElement('div');
+      item.className = 'border-b border-zinc-100 pb-3 pt-1 text-left font-mono text-[10px]';
+
+      var photoHtml = '';
+      if (photoUrl) {
+        photoHtml = '<img src="' + photoUrl + '" alt="' + p.name + '" class="w-full h-28 object-cover mb-2 border border-zinc-200" onerror="this.style.display=\'none\'">';
+      }
+
+      var ratingText = p.rating ? '★ '.repeat(Math.round(p.rating)) + ' ' + p.rating.toFixed(1) + ' (' + p.totalRatings + ')' : 'No rating';
+      var openHtml = p.openNow === true ? '<span class="text-[9px] text-green-700 font-bold">● OPEN NOW</span>' : (p.openNow === false ? '<span class="text-[9px] text-red-600">● CLOSED</span>' : '');
+      var phoneHtml = p.phone ? '<a href="tel:' + p.phone + '" class="text-blue-600 hover:underline text-[10px] block">' + p.phone + '</a>' : '';
+      var websiteHtml = p.website ? '<a href="' + p.website + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-[10px] block truncate">' + p.website + '</a>' : '';
+
+      item.innerHTML = photoHtml +
+        '<div class="text-xs">' +
+        '<h4 class="font-bold text-zinc-850 uppercase text-[11px]">' + p.name + '</h4>' +
+        '<span class="text-amber-600">' + ratingText + '</span>' +
+        '<span class="text-[9px] text-zinc-500 block mt-0.5">' + p.address + '</span>' +
+        openHtml + phoneHtml + websiteHtml +
+        '</div>' +
+        '<div class="mt-2 flex justify-end">' +
+        '<a href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + ',' + p.lng + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline text-[12px] font-medium">Directions →</a>' +
+        '</div>';
+      stationsListContainer.appendChild(item);
+    }
+
+    if (chargerMap && chargerMarkersGroup) {
+      chargerMarkersGroup.clearLayers();
+      var firstP = parseNewPlace(rawPlaces[0]);
+      if (firstP && firstP.lat !== undefined) {
+        chargerMap.setView([firstP.lat, firstP.lng], 11);
+      }
+      for (var m = 0; m < rawPlaces.length; m++) {
+        var mp = parseNewPlace(rawPlaces[m]);
+        if (mp && mp.lat !== undefined && mp.lng !== undefined) {
+          L.marker([mp.lat, mp.lng])
+            .bindPopup('<div class="font-mono text-[10px]"><strong>' + mp.name + '</strong><br>' + mp.address + '</div>', { maxWidth: 220 })
+            .addTo(chargerMarkersGroup);
+        }
+      }
     }
 
   } catch (error) {
-    console.error('Error rendering stations:', error);
-    let errMsg = 'NETWORK FAILURE (FAILED TO REACH SERVER CORE)';
-    if (error.message === 'INVALID_API_KEY') {
-      errMsg = 'INVALID API KEY (OPEN CHARGE MAP API UNAUTHORIZED)';
-    } else if (error.message === 'RATE_LIMIT_EXCEEDED') {
-      errMsg = 'RATE LIMIT EXCEEDED (TOO MANY REQUESTS)';
-    } else if (error.message === 'EMPTY_API_RESPONSE') {
-      errMsg = 'EMPTY API RESPONSE (NO POI DATA FOUND FOR LOCATION)';
-    } else if (error.message === 'BACKEND_ERROR') {
-      errMsg = 'BACKEND ERROR (SERVER RESPONDED WITH AN ERROR)';
+    console.error('[Chargers] Fatal error:', error);
+    if (placesApiQuotaExceeded) {
+      var fallbackQuery = stationSearchInput ? stationSearchInput.value.toLowerCase().trim() : '';
+      stationsListContainer.innerHTML = '<div class="text-center py-8 text-amber-600 font-mono text-[10px]">PLACES API QUOTA EXCEEDED. SHOWING STATIC DATABASE RESULTS.</div>';
+      setTimeout(function() { renderStaticStationsForCity(fallbackQuery); }, 600);
+    } else {
+      stationsListContainer.innerHTML = '<div class="text-center py-8 text-red-600 font-mono text-[10px]">SEARCH FAILED. CHECK CONSOLE.</div>';
     }
-    
-    stationsListContainer.innerHTML = `
-      <div class="text-center py-8 text-red-600 font-mono text-[10px] uppercase">
-        ERROR: ${errMsg}
-      </div>
-    `;
     if (chargerMarkersGroup) chargerMarkersGroup.clearLayers();
   }
 }
-
-// Debounce helper for inputs
-function handleSearchInput() {
-  if (debounceTimeout) clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(renderChargingStations, 300);
-}
-
-// Initialize map & load data
-initChargerMap();
-renderChargingStations();
-
-if (stationSearchInput) stationSearchInput.addEventListener('input', handleSearchInput);
-if (filterChargerFast) filterChargerFast.addEventListener('change', renderChargingStations);
-if (filterChargerNormal) filterChargerNormal.addEventListener('change', renderChargingStations);
-
 
 // --- Section: EMI Loan Calculator ---
 const sliderPrice = document.getElementById('slider-price');
@@ -3046,12 +3953,12 @@ function updateEMICalculator() {
   emiCalcResult.textContent = formatCurrency(emi);
 }
 
-sliderPrice.addEventListener('input', updateEMICalculator);
-sliderDown.addEventListener('input', updateEMICalculator);
-sliderRate.addEventListener('input', updateEMICalculator);
-sliderTenure.addEventListener('input', updateEMICalculator);
+if (sliderPrice) sliderPrice.addEventListener('input', updateEMICalculator);
+if (sliderDown) sliderDown.addEventListener('input', updateEMICalculator);
+if (sliderRate) sliderRate.addEventListener('input', updateEMICalculator);
+if (sliderTenure) sliderTenure.addEventListener('input', updateEMICalculator);
 
-updateEMICalculator(); // initial calculation call
+if (sliderPrice) updateEMICalculator(); // initial calculation call
 
 // --- Petrol Savings Calculator (Landing Page) ---
 function animateSavingsNumber(elementId, targetValue) {
@@ -3138,14 +4045,35 @@ if (sliderSavingsPetrol) sliderSavingsPetrol.addEventListener('input', updateLan
 if (sliderSavingsTariff) sliderSavingsTariff.addEventListener('input', updateLandingSavings);
 if (sliderSavingsPeriod) sliderSavingsPeriod.addEventListener('input', updateLandingSavings);
 
-// Populate EV Dropdown on landing page
-if (selectSavingsEv) {
+// Populate EV Dropdown on landing page (sorted, shared EV_DATABASE)
+function populateSavingsDropdown() {
+  if (!selectSavingsEv) return;
   selectSavingsEv.innerHTML = '';
-  EV_DATABASE.forEach(car => {
-    selectSavingsEv.innerHTML += `<option value="${car.id}">${car.name} (${car.brand.toUpperCase()})</option>`;
+  if (!EV_DATABASE || EV_DATABASE.length === 0) {
+    var emptyOpt = document.createElement('option');
+    emptyOpt.textContent = 'No vehicles available';
+    emptyOpt.disabled = true;
+    selectSavingsEv.appendChild(emptyOpt);
+    return;
+  }
+  var sorted = EV_DATABASE.slice().sort(function(a, b) {
+    var brandA = (getBrandDisplay(a.brand) || '').toLowerCase();
+    var brandB = (getBrandDisplay(b.brand) || '').toLowerCase();
+    if (brandA !== brandB) return brandA < brandB ? -1 : 1;
+    var nameA = (a.name || '').toLowerCase();
+    var nameB = (b.name || '').toLowerCase();
+    return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+  });
+  sorted.forEach(function(car) {
+    var opt = document.createElement('option');
+    opt.value = car.id;
+    var brandDisplay = getBrandDisplay(car.brand);
+    opt.textContent = brandDisplay ? brandDisplay + ' ' + car.name : car.name;
+    selectSavingsEv.appendChild(opt);
   });
   updateLandingSavings();
 }
+populateSavingsDropdown();
 
 
 // --- Modal Management Modules ---
@@ -3206,14 +4134,18 @@ document.querySelectorAll('#login-nav-btn, #login-nav-btn-mobile').forEach(btn =
 });
 
 
-document.getElementById('global-search-input').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    const val = e.target.value.trim();
-    closeAllModals();
-    document.getElementById('search-car-name').value = val;
-    navigateTo('/search' + (val ? '?name=' + encodeURIComponent(val) : ''));
-  }
-});
+var globalSearchInput = document.getElementById('global-search-input');
+if (globalSearchInput) {
+  globalSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const val = e.target.value.trim();
+      closeAllModals();
+      var sn = document.getElementById('search-car-name');
+      if (sn) sn.value = val;
+      navigateTo('/search' + (val ? '?name=' + encodeURIComponent(val) : ''));
+    }
+  });
+}
 
 // Video links
 document.querySelectorAll('.btn-video-play').forEach(btn => {
@@ -3993,16 +4925,12 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
 const spySections = [
   document.getElementById('home'),
   document.getElementById('popular-evs'),
-  document.getElementById('compare'),
   document.getElementById('upcoming'),
   document.getElementById('news'),
   document.getElementById('reviews'),
-  document.getElementById('stations'),
-  document.getElementById('emi'),
   document.getElementById('trip-planner'),
   document.getElementById('guide'),
   document.getElementById('faq'),
-  document.getElementById('petrol-savings'),
   document.getElementById('launches')
 ].filter(Boolean);
 
@@ -4239,7 +5167,14 @@ async function handleRouting() {
   await loadDatabase();
   const path = window.location.pathname;
   const hash = window.location.hash;
-  
+
+  // Redirect standalone pages to full page load (for popstate/back-forward on index.html)
+  var standalonePaths = ['/compare', '/charging-stations', '/charging-time-calculator', '/emi-calculator', '/petrol-savings', '/blogs', '/videos', '/all-cars', '/apartment-charging', '/battery-health', '/charging-stations.html'];
+  if (standalonePaths.indexOf(path) !== -1 && homepageContent) {
+    window.location.href = path;
+    return;
+  }
+
   let route = '/';
   if (path.startsWith('/cars/')) {
     route = path;
@@ -4393,6 +5328,14 @@ async function handleRouting() {
     const articleId = parts[1] || null;
     if (categoryKey === 'blogs') {
       renderAllBlogsPage();
+      return;
+    }
+    if (categoryKey === 'categories') {
+      renderAllInsightsPage();
+      return;
+    }
+    if (INSIGHT_TEMPLATE_PAGES[categoryKey]) {
+      renderInsightPage(categoryKey);
       return;
     }
     const resolvedKey = INSIGHTS_SLUG_ALIASES[categoryKey] || categoryKey;
@@ -4552,22 +5495,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  const btnExpert = document.getElementById('btn-view-all-expert-reviews');
-  if (btnExpert) {
-    btnExpert.addEventListener('click', (e) => {
-      e.preventDefault();
-      navigateTo('/reviews/expert');
-    });
-  }
-  
-  const btnCustomer = document.getElementById('btn-view-all-customer-reviews');
-  if (btnCustomer) {
-    btnCustomer.addEventListener('click', (e) => {
-      e.preventDefault();
-      navigateTo('/reviews/customer');
-    });
-  }
-  
   // Render guides and news dynamically
   renderNewsAndGuides();
   if (typeof initScrollDividers === 'function') initScrollDividers();
@@ -4582,12 +5509,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize automatic word-highlighting observer for "Electric"
   if (typeof initElectricHighlightObserver === 'function') initElectricHighlightObserver();
 
+  // Initialize testimonial carousel — clone cards for seamless infinite loop
+  initTestimonialCarousel();
+
+  function isSpaRoute(path) {
+    if (path === '/' || path === '/search') return true;
+    const spaPrefixes = ['/cars/', '/view-all/', '/news', '/guide/', '/reviews/', '/brand/', '/brands/', '/insights/', '/hub/', '/learn/', '/blog/', '/ev/', '/resources/'];
+    if (spaPrefixes.some(function(p) { return path.startsWith(p); })) return true;
+    var staticPages = ['/login', '/signup', '/forgot-password', '/about', '/contact', '/feedback', '/help', '/faqs', '/privacy-policy', '/terms-and-conditions', '/disclaimer', '/cookie-policy', '/copyright'];
+    if (staticPages.indexOf(path) !== -1) return true;
+    return false;
+  }
+
   // Global click interceptor for SPA path-based links
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     if (!link) return;
     const href = link.getAttribute('href');
     if (href && href.startsWith('/') && !href.startsWith('//') && !href.includes('.html')) {
+      if (!isSpaRoute(href)) return; // Let standalone pages navigate normally
       e.preventDefault();
       closeMegaPanels();
       closeMobileDrawer();
@@ -4596,6 +5536,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function initTestimonialCarousel() {
+  var track = document.getElementById('testimonial-track');
+  if (!track) return;
+  var cards = track.querySelectorAll('.testimonial-card');
+  if (cards.length === 0) return;
+  cards.forEach(function(card) {
+    var clone = card.cloneNode(true);
+    track.appendChild(clone);
+  });
+}
 
 async function renderNewsAndGuides() {
   const newsContainer = document.getElementById('news-grid-container');
@@ -4890,7 +5841,7 @@ function renderViewAllBrandsPage() {
     'porsche': 'Porsche', 'vinfast': 'VinFast','tesla': 'Tesla'
     ,'lexus': 'Lexus','ferrari': 'Ferrari','genesis': 'Genesis',
     'lotus': 'Lotus','mini': 'MINI','pmv': 'PMV','pravaig': 'Pravaig', 
-    'vayve': 'Vayve','blinq': 'Blinq','strom': 'Strom'
+    'vayve': 'Vayve','blinq': 'Blinq','strom': 'Strom', 'rolls-royce': 'Rolls-Roycee',
   };
   
   let brandsHtml = '';
@@ -4926,7 +5877,7 @@ function renderViewAllBrandsPage() {
    ferrari: 1,
    genesis: 1,
    lotus: 2,
-   mini: 2,
+   mini: 1,
    pmv: 1,
    pravaig: 1,
    "rolls-royce": 1,
@@ -5795,7 +6746,7 @@ function renderAllBlogsPage() {
         </div>
       </div>
 
-      <div id="blogs-grid" class="flex flex-col gap-4 mt-2">
+      <div id="blogs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2">
         <div class="border border-zinc-200 bg-white p-5 rounded-xl skeleton-card flex flex-col gap-3">
           <div class="h-3 bg-zinc-100 rounded w-16 animate-pulse"></div>
           <div class="h-5 bg-zinc-100 rounded w-3/4 animate-pulse"></div>
@@ -5940,18 +6891,23 @@ async function loadBlogsData() {
     }
 
     var cardsHtml = filtered.map((blog, idx) => `
-      <div class="border border-zinc-200 bg-white p-5 flex flex-col gap-2.5 group hover:border-black hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all shadow-[0_1px_6px_rgba(0,0,0,0.03)] rounded-xl stagger-card btn-blog-card-click" data-index="${idx}">
-        <div class="flex items-center gap-3 text-[9px] text-zinc-400 font-mono">
-          <span class="bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded uppercase tracking-wider">${(blog.source || 'EV UPDATE').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
-          <span>${((blog.date || '').toUpperCase())}</span>
+      <div class="border border-zinc-200 bg-white flex flex-col group hover:border-black hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-xl overflow-hidden stagger-card btn-blog-card-click" data-index="${idx}">
+        <div class="aspect-[16/9] bg-zinc-50 border-b border-zinc-100 overflow-hidden">
+          ${getNewsImageHtml(blog.image || '', blog.title || 'EV Blog', idx)}
         </div>
-        <h3 class="text-[15px] font-bold leading-snug text-zinc-800 group-hover:text-black transition-colors">${(blog.title || 'Untitled EV Article').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h3>
-        <p class="text-[12px] text-zinc-500 leading-relaxed line-clamp-2">${(blog.summary || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
-        <div class="flex items-center justify-between mt-1 pt-2.5 border-t border-zinc-100">
-          <span class="text-[8px] text-zinc-400 font-mono">BY ${(blog.author || 'EV CAR WALE').toUpperCase().replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
-          <button class="font-mono text-[9px] uppercase tracking-wider text-[#22C55E] group-hover:text-black transition-colors flex items-center gap-1 select-none">
-            READ BLOG <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
-          </button>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-center gap-3 text-[9px] text-zinc-400 font-mono mb-3">
+            <span class="bg-zinc-100 px-2 py-0.5 rounded uppercase tracking-wider">${(blog.source || 'EV UPDATE').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+            <span>${((blog.date || '').toUpperCase())}</span>
+          </div>
+          <h3 class="text-[15px] font-bold leading-snug text-zinc-800 group-hover:text-black transition-colors mb-2 line-clamp-2">${(blog.title || 'Untitled EV Article').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h3>
+          <p class="text-[11px] text-zinc-500 leading-relaxed line-clamp-3 flex-1">${(blog.summary || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+          <div class="flex items-center justify-between mt-4 pt-3 border-t border-zinc-100">
+            <span class="text-[8px] text-zinc-400 font-mono truncate">BY ${(blog.author || 'EV CAR WALE').toUpperCase().replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+            <span class="font-mono text-[9px] uppercase tracking-wider text-zinc-400 group-hover:text-black transition-colors flex items-center gap-1 select-none cursor-pointer">
+              READ BLOG <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+            </span>
+          </div>
         </div>
       </div>
     `).join('');
@@ -5969,6 +6925,576 @@ async function loadBlogsData() {
       });
     });
   }
+}
+
+// ─── INSIGHT TEMPLATE PAGES CONFIG ──────────────────────────────
+var INSIGHT_TEMPLATE_PAGES = {
+  'ev-infrastructure-india': {
+    heroTitle: 'EV Infrastructure in India',
+    heroSubtitle: 'From charging deserts to a nationwide grid — tracking India\u2019s rapid transition to electric mobility infrastructure.',
+    overviewCards: [
+      { icon: 'bolt', title: 'Public Charging Stations', text: 'India has installed over <strong>16,000+</strong> public EV charging stations as of 2026, concentrated primarily in urban centres. The top 5 cities account for over 55% of the nation\u2019s public charging infrastructure.' },
+      { icon: 'star', title: 'DC Fast Charging Networks', text: 'Fast-charging corridors are expanding along major highways. Operators have deployed <strong>2,800+</strong> DC fast-charging points across national highways, enabling inter-city EV travel.' },
+      { icon: 'map', title: 'Highway Charging Infrastructure', text: 'The government\u2019s plan to install charging stations every <strong>25 km</strong> on key highways and every <strong>100 km</strong> on other major roads is underway, with <strong>9,000+</strong> planned charging points.' },
+      { icon: 'home', title: 'Home & Workplace Charging', text: 'Over <strong>65%</strong> of EV owners in India charge at home using AC slow chargers (2\u20133 kW). Workplace charging is growing, with <strong>800+</strong> corporate campuses installing EV chargers.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Battery Swapping &amp; New Models', text: 'Battery swapping stations are expanding to retail customers. Ola Electric and Bounce Infinity lead the two-wheeler swapping space, while Tata Motors and Maruti Suzuki are piloting Battery-as-a-Service (BaaS) models.' },
+    topicSectionTitle: 'Government Initiatives',
+    topicCards: [
+      { badge: 'PM', title: 'PM E-Drive Scheme', text: '\u20B910,900 Cr outlay (2024-29) replacing FAME II. Provides demand incentives for 2Ws, 3Ws, e-buses, e-trucks, and public charging station deployment across India.' },
+      { badge: 'F2', title: 'FAME India Phase II', text: '\u20B910,000 Cr scheme supporting EV adoption with focus on public transportation, charging infrastructure in 68 cities, and demand incentives for 1.5M+ EVs.' },
+      { badge: 'NE', title: 'National EV Policy', text: 'Aims for 30% EV penetration by 2030. Targets 1.3M EVs on road, mandating charging stations every 3 km in cities and 25 km on highways.' },
+      { badge: 'BS', title: 'Battery Swapping Policy', text: 'Standardized battery specifications, interoperability framework, and GST reduction on swappable batteries to accelerate Battery-as-a-Service (BaaS) adoption.' },
+      { badge: 'SE', title: 'State EV Policies', text: '20+ states have EV policies offering purchase subsidies, road tax exemptions, registration fee waivers, and capital subsidies for charging station setup.' },
+      { badge: 'CS', title: 'Charging Standards', text: 'Bureau of Indian Standards (BIS) notified CCS2 as the standard AC/DC charging protocol. IS 17017 series compliance mandatory for all public chargers.' }
+    ],
+    statistics: [
+      { value: '16,000+', label: 'Public Charging Stations', sublabel: 'Across India (2026)' },
+      { value: '2,800+', label: 'DC Fast Chargers', sublabel: 'On national highways' },
+      { value: '65%', label: 'Home Charging', sublabel: 'Primary EV charging method' },
+      { value: '\u20B9800 Cr', label: 'FAME II Outlay', sublabel: 'For charging infrastructure' }
+    ],
+    newsTopic: 'ev-infrastructure-india',
+    videoTopic: 'ev-infrastructure-india',
+    newsIncludeTerms: ['charging station', 'charging infrastructure', 'charging network', 'ev charging', 'public charging', 'fast charger', 'charging hub', 'battery swapping', 'infrastructure'],
+    newsExcludeTerms: ['review', 'launch', 'first drive', 'comparison', 'test drive', 'price', 'top 5', 'top 10', 'buying guide', 'ownership', 'savings', 'cost'],
+    videoIncludeTerms: ['ev infrastructure', 'charging infrastructure', 'charging network', 'public charger', 'public charging', 'highway charging', 'fast charger', 'dc charging', 'charging station', 'charging hub', 'battery swapping', 'evse', 'charging corridor', 'charging point', 'charging rollout', 'ultra-fast charger'],
+    videoExcludeTerms: ['review', 'ownership', 'launch', 'comparison', 'price', 'top 5', 'top 10', 'best ev', 'vlog', 'unboxing', 'walkaround', 'market', 'sales', 'car review', 'first drive', 'first look']
+  },
+  'government-policies': {
+    heroTitle: 'Government EV Policies',
+    heroSubtitle: 'Understanding India\u2019s policy framework driving electric vehicle adoption \u2014 from central schemes to state-level incentives.',
+    overviewCards: [
+      { icon: 'gov', title: 'PM E-Drive Scheme', text: 'The \u20B910,900 crore PM E-Drive scheme (2024-2029) is India\u2019s flagship EV incentive program, replacing FAME II. It provides demand incentives for electric two-wheelers, three-wheelers, buses, and trucks.' },
+      { icon: 'star', title: 'FAME India Scheme', text: 'FAME (Faster Adoption and Manufacturing of Electric Vehicles) has been instrumental in India\u2019s EV transition. Phase II allocated \u20B910,000 crore with focus on public transport and charging infrastructure.' },
+      { icon: 'gov', title: 'State-Level Policies', text: 'Over 20 states have notified dedicated EV policies offering purchase subsidies, road tax exemptions (up to 100%), registration fee waivers, and capital subsidies for charging station deployment.' },
+      { icon: 'cash', title: 'Tax Benefits & Incentives', text: 'Section 80EEB offers income tax deduction up to \u20B91.5 lakh on EV loan interest. Reduced GST of 5% on EVs (vs 28% on petrol cars) and 12% on chargers make EVs more affordable.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Policy Impact', text: 'Government policies have accelerated EV adoption from 1% in 2020 to over 7% of new vehicle sales in 2026. The cumulative impact of central and state schemes is estimated at \u20B950,000+ crore in consumer benefits.' },
+    topicSectionTitle: 'Key Policy Initiatives',
+    topicCards: [
+      { badge: 'PM', title: 'PM E-Drive Scheme', text: 'Flagship \u20B910,900 Cr scheme (2024-29) with demand incentives for all EV segments, public charging deployment, and manufacturing support for advanced battery technologies.' },
+      { badge: 'F2', title: 'FAME II', text: '\u20B910,000 Cr scheme that subsidised 1.5M+ EVs, established charging in 68 cities, and created the foundation for India\u2019s EV ecosystem.' },
+      { badge: 'PL', title: 'PLI Scheme', text: 'Production-Linked Incentive for Advanced Chemistry Cell (ACC) manufacturing with \u20B918,100 Cr outlay to build 50 GWh of domestic battery production capacity.' },
+      { badge: 'GT', title: 'GST Council', text: 'Reduced GST on EVs from 12% to 5%, and on chargers from 18% to 12%. Battery swapping services taxed at just 5%, making ownership more affordable.' },
+      { badge: 'SE', title: 'State EV Policies', text: 'Delhi, Maharashtra, Gujarat, Karnataka, Tamil Nadu, and Telangana lead with aggressive EV targets, additional purchase incentives, and charging infrastructure mandates.' },
+      { badge: 'CS', title: 'Charging Policy', text: 'Central government mandates EV charging stations every 3 km in cities and 25 km on highways. New buildings must have 20% EV-ready parking spaces.' }
+    ],
+    statistics: [
+      { value: '\u20B910,900 Cr', label: 'PM E-Drive Outlay', sublabel: '2024-2029' },
+      { value: '20+', label: 'States with EV Policies', sublabel: 'Nationwide coverage' },
+      { value: '5%', label: 'GST on EVs', sublabel: 'Vs 28% on petrol cars' },
+      { value: '7%', label: 'EV Sales Penetration', sublabel: 'Of new vehicle sales (2026)' }
+    ],
+    newsTopic: 'government-policies',
+    videoTopic: 'government-policies',
+    newsIncludeTerms: ['government policy', 'fame', 'subsidy', 'incentive', 'regulation', 'ev policy', 'pm e-drive', 'mandate', 'scheme', 'tax benefit', 'state policy'],
+    newsExcludeTerms: ['review', 'first drive', 'comparison', 'test drive', 'price', 'top 5', 'top 10', 'buying guide', 'ownership', 'vlog', 'unboxing'],
+    videoIncludeTerms: ['government', 'policy', 'subsidy', 'fame', 'pm e-drive', 'ev policy', 'incentive', 'regulation', 'mandate', 'tax', 'scheme'],
+    videoExcludeTerms: ['review', 'car review', 'test drive', 'comparison', 'price', 'top 5', 'top 10', 'vlog', 'unboxing']
+  },
+  'ev-charging-explained': {
+    heroTitle: 'EV Charging Explained',
+    heroSubtitle: 'A complete guide to how EV charging works \u2014 from home wall boxes to ultra-fast DC chargers.',
+    overviewCards: [
+      { icon: 'plug', title: 'AC Charging (Slow)', text: 'Alternating Current (AC) charging uses the EV\u2019s onboard charger to convert AC to DC. Typical power: 2.3 kW to 7.2 kW. Best for overnight home charging, adding 15-30 km of range per hour.' },
+      { icon: 'bolt', title: 'DC Fast Charging', text: 'Direct Current (DC) bypasses the onboard charger, delivering power directly to the battery. Typical power: 30 kW to 350 kW. Adds 200-500 km of range in 30 minutes, ideal for highway travel.' },
+      { icon: 'home', title: 'Home Charging Setup', text: 'Most EV owners install a 3.3 kW or 7.2 kW AC wall box at home. Installation costs \u20B915,000-40,000. A full charge from empty takes 6-12 hours, easily done overnight at \u20B91-1.5/km.' },
+      { icon: 'map', title: 'Public Charging Network', text: 'India has 16,000+ public charging stations with both AC and DC options. CHAdeMO, CCS2, and Type 2 connectors are available. Prices range from \u20B94-12/unit depending on speed and operator.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Connector Standards in India', text: 'CCS2 (Combined Charging System) has been adopted as the national standard by BIS. Most new EVs in India use CCS2 for DC fast charging and Type 2 for AC charging. CHAdeMO is limited to older Japanese EVs.' },
+    topicSectionTitle: 'Charging Types & Standards',
+    topicCards: [
+      { badge: 'AC', title: 'AC Level 1 & 2', text: 'Level 1 uses a standard 3-pin socket (2.3 kW). Level 2 uses a dedicated wall box (3.3-7.2 kW). Both use Type 2 connectors in India. Best for overnight home and workplace charging.' },
+      { badge: 'DC', title: 'DC Fast Charging', text: 'DC chargers deliver 30-350 kW directly to the battery. CCS2 is the standard in India. A 50 kW charger can add 150 km range in 30 minutes. Ultra-fast 350 kW chargers can add 400 km in 15 minutes.' },
+      { badge: 'C2', title: 'CCS2 Standard', text: 'CCS2 (Combined Charging System Type 2) is India\u2019s mandated standard for public EV charging. It combines Type 2 AC charging with two DC pins for fast charging, supporting up to 350 kW.' },
+      { badge: 'T2', title: 'Type 2 Connector', text: 'Type 2 (Mennekes) is the standard AC charging connector in India. All EVs sold in India come with a Type 2 socket for AC charging. Supports single-phase (3.3 kW) and three-phase (7.2 kW) charging.' },
+      { badge: 'BS', title: 'Battery Swapping', text: 'Battery swapping allows exchanging a depleted battery for a charged one in under 2 minutes. Popular for two-wheelers and three-wheelers. Standardization efforts are underway for passenger cars.' },
+      { badge: 'CH', title: 'Charging Speeds', text: 'Charging speed depends on battery size, charger power, and state of charge. Most EVs charge fastest between 10-80% (charging slows beyond 80% to protect battery health).' }
+    ],
+    statistics: [
+      { value: '3.3-7.2 kW', label: 'AC Home Charging', sublabel: 'Power output' },
+      { value: '30-350 kW', label: 'DC Fast Charging', sublabel: 'Power output range' },
+      { value: '15-30 km/hr', label: 'AC Charging Speed', sublabel: 'Range per hour' },
+      { value: '200-500 km', label: 'DC 30-min Range', sublabel: 'Range added in 30 min' }
+    ],
+    newsTopic: 'ev-charging-explained',
+    videoTopic: 'ev-charging-explained',
+    newsIncludeTerms: ['ac charging', 'dc charging', 'fast charging', 'home charger', 'home charging', 'charging speed', 'public charging', 'ccs2', 'type 2', 'charger type', 'charging connector', 'charging guide', 'wall charger', 'level 2', 'slow charging', 'charging time'],
+    newsExcludeTerms: ['review', 'launch', 'price', 'comparison', 'test drive', 'first drive', 'top 5', 'top 10', 'sales', 'market', 'vlog', 'unboxing'],
+    videoIncludeTerms: ['ac charging', 'dc charging', 'fast charging', 'charging speed', 'home charger', 'home charging', 'public charging', 'ccs2', 'type 2', 'charging explained', 'charger type', 'charging connector', 'wall charger', 'level 2', 'slow charging'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'price', 'comparison', 'top 5', 'top 10', 'vlog', 'unboxing', 'sales']
+  },
+  'where-does-electricity-come-from': {
+    heroTitle: 'Where Does Electricity Come From?',
+    heroSubtitle: 'Understanding India\u2019s electricity generation mix and how it powers the growing EV ecosystem.',
+    overviewCards: [
+      { icon: 'sun', title: 'Solar Power', text: 'India has rapidly expanded solar capacity to over 100 GW, making it the third-largest solar market globally. Solar accounts for <strong>18%</strong> of grid electricity and is the fastest-growing energy source.' },
+      { icon: 'wind', title: 'Wind Energy', text: 'Wind power contributes <strong>12%</strong> of India\u2019s electricity with 45 GW installed capacity. Tamil Nadu, Gujarat, and Karnataka lead wind generation, with offshore wind projects being developed.' },
+      { icon: 'map', title: 'Thermal Power', text: 'Coal remains the largest source at <strong>48%</strong> of generation, though its share is declining from 70%+ in 2020. Natural gas contributes 6%. Thermal plants provide baseload power for the grid.' },
+      { icon: 'star', title: 'Hydro & Nuclear', text: 'Hydroelectric power provides <strong>10%</strong> of India\u2019s electricity, with pumped storage playing a key role in grid balancing. Nuclear contributes 3% with plans to triple capacity by 2032.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Grid Evolution', text: 'India\u2019s electricity grid is transforming rapidly. Renewable energy now accounts for 46% of installed capacity, up from 23% in 2022. The target is 70% renewable electricity by 2030, making EV charging progressively cleaner.' },
+    topicSectionTitle: 'Energy Sources & the Grid',
+    topicCards: [
+      { badge: 'SL', title: 'Solar Energy', text: 'India\u2019s solar capacity has grown from 2 GW in 2014 to 100+ GW in 2026. Rooftop solar installations are incentivised under PM Surya Ghar Yojana with subsidies up to \u20B978,000.' },
+      { badge: 'WD', title: 'Wind Energy', text: '45 GW installed wind capacity with a target of 140 GW by 2030. Offshore wind projects in Gujarat and Tamil Nadu are being developed with viability gap funding.' },
+      { badge: 'TH', title: 'Thermal Power', text: 'Coal-based power plants still generate 48% of India\u2019s electricity. Efficiency improvements and carbon capture technologies are being deployed to reduce emissions from existing plants.' },
+      { badge: 'HY', title: 'Hydroelectricity', text: '47 GW installed hydro capacity provides flexible, dispatchable renewable power. Pumped storage projects (6 GW) help integrate variable solar and wind generation.' },
+      { badge: 'GR', title: 'National Grid', text: 'India\u2019s transmission grid, operating as ONE NATION ONE GRID, has 4,80,000+ circuit km of transmission lines. The Green Energy Corridor project is adding 20,000 km for renewable integration.' },
+      { badge: 'NU', title: 'Nuclear Power', text: '7 GW nuclear capacity with 10 reactors under construction. Small Modular Reactors (SMRs) are being explored as a future clean energy option for baseload power.' }
+    ],
+    statistics: [
+      { value: '48%', label: 'Coal Power Share', sublabel: 'Of total generation (2026)' },
+      { value: '46%', label: 'Renewable Capacity', sublabel: 'Of installed capacity' },
+      { value: '100+ GW', label: 'Solar Capacity', sublabel: 'Installed (2026)' },
+      { value: '70%', label: '2030 Renewable Target', sublabel: 'Of electricity generation' }
+    ],
+    newsTopic: 'where-does-electricity-come-from',
+    videoTopic: 'where-does-electricity-come-from',
+    newsIncludeTerms: ['electricity generation', 'power generation', 'solar', 'wind', 'hydro', 'thermal', 'grid', 'renewable energy', 'power plant', 'electricity', 'energy sector', 'green energy', 'clean energy'],
+    newsExcludeTerms: ['review', 'launch', 'comparison', 'price', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'cricket', 'movie'],
+    videoIncludeTerms: ['electricity', 'power generation', 'solar', 'wind', 'hydro', 'thermal', 'grid', 'renewable', 'energy', 'power plant', 'electricity generation'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'comparison', 'test drive', 'price', 'vlog', 'unboxing', 'cricket', 'movie']
+  },
+  'renewable-energy-evs': {
+    heroTitle: 'Renewable Energy & EVs',
+    heroSubtitle: 'Exploring the powerful synergy between renewable energy generation and electric vehicle adoption in India.',
+    overviewCards: [
+      { icon: 'sun', title: 'Solar-Powered EVs', text: 'A 5-7 kW rooftop solar system generates enough electricity to power both a home and an EV. At current installation costs (\u20B940,000-60,000/kW), payback period is 4-6 years including fuel savings.' },
+      { icon: 'leaf', title: 'Carbon Reduction Impact', text: 'An EV charged entirely from solar eliminates approximately <strong>4-5 tonnes</strong> of CO2 emissions annually compared to a petrol car. This is equivalent to planting 200 trees per year.' },
+      { icon: 'home', title: 'Home Solar + EV', text: 'Combining rooftop solar with an EV is the most impactful climate action a household can take. The PM Surya Ghar Yojana provides up to \u20B978,000 subsidy for residential solar installations.' },
+      { icon: 'bolt', title: 'Grid Integration', text: 'EV batteries serve as distributed storage for renewable energy. Vehicle-to-Grid (V2G) technology allows EV owners to sell excess solar power back to the grid during peak demand.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Green Energy Target', text: 'India aims for 500 GW of renewable energy capacity by 2030. With 100M+ EVs expected on roads by 2030, the combination of renewables and EVs could reduce transport emissions by 70-80%.' },
+    topicSectionTitle: 'Renewable Energy & Mobility',
+    topicCards: [
+      { badge: 'SL', title: 'Solar EV Charging', text: 'Solar-powered EV charging stations are being deployed across India. These stations use rooftop solar panels to generate electricity for EV charging, reducing grid dependence and operating costs.' },
+      { badge: 'WD', title: 'Wind-Powered Charging', text: 'Wind-rich states like Tamil Nadu and Gujarat are exploring wind-powered EV charging corridors. Hybrid solar-wind charging hubs provide round-the-clock renewable charging.' },
+      { badge: 'GR', title: 'Green Charging Corridors', text: 'National highway corridors are being developed with renewable-powered charging stations. The Delhi-Mumbai green corridor will have 100+ solar-powered charging stations.' },
+      { badge: 'V2', title: 'Vehicle-to-Grid (V2G)', text: 'V2G technology enables bidirectional charging. EV owners can charge during peak solar generation (daytime) and sell power back to the grid during evening peak hours, earning \u20B95,000-15,000 annually.' },
+      { badge: 'CR', title: 'Carbon Credits', text: 'EV charging from renewable sources generates carbon credits under India\u2019s carbon trading scheme. Companies with EV fleets and on-site solar can earn additional revenue through carbon credit sales.' },
+      { badge: 'SM', title: 'Sustainable Mobility', text: 'India\u2019s sustainable mobility vision integrates 100% electric public transport, renewable-powered charging, and green hydrogen for heavy transport. Target: 70% clean transport by 2035.' }
+    ],
+    statistics: [
+      { value: '4-5 tonnes', label: 'CO2 Saved/Year', sublabel: 'Per solar-charged EV' },
+      { value: '500 GW', label: 'Renewable Target', sublabel: 'By 2030' },
+      { value: '\u20B978,000', label: 'Solar Subsidy', sublabel: 'PM Surya Ghar Yojana' },
+      { value: '70-80%', label: 'Emission Reduction', sublabel: 'With renewables + EVs' }
+    ],
+    newsTopic: 'renewable-energy-evs',
+    videoTopic: 'renewable-energy-evs',
+    newsIncludeTerms: ['solar', 'wind', 'green energy', 'clean energy', 'renewable energy', 'sustainable mobility', 'carbon reduction', 'carbon footprint', 'net zero', 'green electricity', 'renewable ev', 'solar panel', 'solar charging'],
+    newsExcludeTerms: ['review', 'launch', 'comparison', 'price', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming', 'movie'],
+    videoIncludeTerms: ['solar', 'wind', 'renewable', 'green energy', 'clean energy', 'sustainable', 'carbon', 'net zero', 'green electricity'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'comparison', 'price', 'vlog', 'unboxing', 'movie', 'gaming']
+  },
+  'ev-guides': {
+    heroTitle: 'EV Guides',
+    heroSubtitle: 'Everything you need to know about buying, owning, and maintaining an electric vehicle in India.',
+    overviewCards: [
+      { icon: 'book', title: 'Buying Your First EV', text: 'A step-by-step guide to choosing your first electric vehicle: assess your daily commute, check charging availability, compare models, calculate total cost of ownership, and take a test drive.' },
+      { icon: 'home', title: 'Home Charging Guide', text: 'Installing a home charger is the most important step for EV ownership. Learn about charger types, installation costs (\u20B915,000-40,000), electrical requirements, and RWA approval processes.' },
+      { icon: 'bolt', title: 'Public Charging Guide', text: 'How to use public charging stations: finding stations via apps, understanding connector types (CCS2, Type 2), payment methods, charging etiquette, and planning long-distance trips.' },
+      { icon: 'star', title: 'Battery Care Guide', text: 'Maximising your EV battery\u2019s lifespan: optimal charging habits (20-80% for daily use), thermal management, monthly calibration, and understanding battery health metrics.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'EV Readiness Checklist', text: 'Before buying an EV: confirm home charging feasibility, calculate daily driving needs, check state EV subsidies, compare insurance costs, and verify that your apartment building allows charger installation.' },
+    topicSectionTitle: 'Essential EV Guides',
+    topicCards: [
+      { badge: 'B1', title: 'First EV Buyer\u2019s Guide', text: 'From assessing your driving needs to choosing the right model, this comprehensive guide covers everything a first-time EV buyer in India needs to know before making the switch.' },
+      { badge: 'CH', title: 'Home Charging Setup Guide', text: 'Step-by-step guide to installing a home EV charger: evaluating electrical capacity, choosing between 3.3 kW and 7.2 kW chargers, finding an installer, and applying for utility connections.' },
+      { badge: 'BC', title: 'EV Battery Guide', text: 'Understanding battery types (LFP vs NMC), charging best practices, state of health, warranty coverage, replacement costs, and how to maximise battery life in India\u2019s climate.' },
+      { badge: 'TC', title: 'Total Cost Guide', text: 'Detailed breakdown of EV ownership costs: purchase price after subsidies, running cost (\u20B91-1.5/km vs \u20B98-9/km for petrol), maintenance, insurance, and 5-year total cost comparison.' },
+      { badge: 'TR', title: 'Long Distance Travel Guide', text: 'Planning EV road trips in India: using charging apps, identifying highway charging corridors, booking compatible hotels with charging, and managing range anxiety on long journeys.' },
+      { badge: 'IN', title: 'EV Insurance Guide', text: 'Understanding EV insurance: comprehensive vs third-party, battery cover, depreciation benefits, no-claim bonus, and how to choose the best EV insurance policy in India.' }
+    ],
+    statistics: [
+      { value: '\u20B91-1.5/km', label: 'EV Running Cost', sublabel: 'Home charging rate' },
+      { value: '80%', label: 'Fewer Moving Parts', sublabel: 'Vs petrol vehicles' },
+      { value: '8-10 years', label: 'Battery Lifespan', sublabel: 'Typical warranty period' },
+      { value: '\u20B94-7 Lakh', label: '5-Year Savings', sublabel: 'EV vs petrol car' }
+    ],
+    newsTopic: 'ev-guides',
+    videoTopic: 'ev-guides',
+    newsIncludeTerms: ['buying guide', 'purchase guide', 'beginner guide', 'first ev', 'ev guide', 'charging guide', 'battery guide', 'how to buy', 'which ev', 'ev tips', 'ev ownership', 'ev maintenance', 'things to know', 'ev buyer'],
+    newsExcludeTerms: ['review', 'launch', 'comparison', 'price', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'sales', 'market'],
+    videoIncludeTerms: ['buying guide', 'how to buy', 'ev guide', 'beginner', 'first ev', 'ev tips', 'guide', 'which ev', 'ev ownership', 'charging guide', 'things to know'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'comparison', 'price', 'top 5', 'top 10', 'vlog', 'unboxing', 'sales']
+  },
+  'companies-building-indias-network': {
+    heroTitle: 'Companies Building India\u2019s Network',
+    heroSubtitle: 'The key players \u2014 from public sector giants to innovative startups \u2014 driving India\u2019s EV charging infrastructure expansion.',
+    overviewCards: [
+      { icon: 'bolt', title: 'Tata Power EZ Charging', text: 'India\u2019s largest private charging network with <strong>1,000+ DC chargers</strong> across 200+ cities. Strong presence in malls, hotels, office complexes, and highway corridors. Offers both AC and DC charging solutions.' },
+      { icon: 'gov', title: 'Jio-bp Pulse', text: 'Joint venture between Reliance Industries and bp operating <strong>500+ stations</strong> with integrated convenience stores. Focused on highway corridors with ultra-fast charging and food/retail amenities.' },
+      { icon: 'map', title: 'ChargeZone & Statiq', text: 'ChargeZone specialises in highway charging with <strong>15,000+ km</strong> network coverage. Statiq is rapidly expanding with <strong>5,000+ charge points</strong> across cities and highways, focusing on reliability.' },
+      { icon: 'star', title: 'Public Sector Players', text: 'BPCL, HPCL, IOCL are deploying chargers at fuel stations nationwide. EESL is installing chargers at government buildings. NTPC and PGCIL are building highway charging corridors.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Startups Driving Innovation', text: 'Startups like Kazam (charging management software), Zeon (reliable urban charging), Bolt.Earth (home charging network), and Electreefi (ultra-fast charging) are bringing innovation, competitive pricing, and better user experience.' },
+    topicSectionTitle: 'Major Players',
+    topicCards: [
+      { badge: 'TP', title: 'Tata Power', text: '1,000+ DC chargers across 200+ cities. EZ Charging app for finding and paying. Partnership with major automakers for bundled charging solutions. Expanding to 5,000+ chargers by 2028.' },
+      { badge: 'JB', title: 'Jio-bp Pulse', text: '500+ stations with convenience stores. 60 kW DC chargers at highway locations. Reliance\u2019s retail network provides land access. Plans for 10,000+ charging points by 2028.' },
+      { badge: 'CZ', title: 'ChargeZone', text: 'Focused exclusively on highway charging. Network spans 15,000+ km of highways. Operates 300+ DC chargers at 50-80 km intervals on major routes. Known for high charger uptime.' },
+      { badge: 'ST', title: 'Statiq', text: '5,000+ charge points deployed across India. Partnerships with 1,000+ locations including malls, offices, and apartment complexes. App provides real-time availability, pricing, and booking.' },
+      { badge: 'ZE', title: 'Zeon Charging', text: '300+ chargers in 50+ cities. Known for reliability and customer service. Focus on urban charging with both AC and DC options. Monthly subscription plans for frequent users.' },
+      { badge: 'BE', title: 'Bolt.Earth', text: 'India\u2019s largest EV charging network by partner locations. 30,000+ charging points across 1,500+ cities. Focus on home and workplace charging solutions. Open network model for interoperability.' }
+    ],
+    statistics: [
+      { value: '5,000+', label: 'Charge Points (Statiq)', sublabel: 'Urban and highway' },
+      { value: '30,000+', label: 'Bolt.Earth Network', sublabel: 'Charging points nationwide' },
+      { value: '1,000+', label: 'Tata Power DC Chargers', sublabel: 'Across 200+ cities' },
+      { value: '15,000+ km', label: 'ChargeZone Coverage', sublabel: 'Highway network' }
+    ],
+    newsTopic: 'companies-building-indias-network',
+    videoTopic: 'companies-building-indias-network',
+    newsIncludeTerms: ['tata power', 'statiq', 'chargezone', 'jio-bp', 'kazam', 'zeon', 'bolt.earth', 'bpcl', 'hpcl', 'indian oil', 'charging company', 'charging network', 'cpo', 'charge point operator'],
+    newsExcludeTerms: ['review', 'launch', 'comparison', 'price', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming'],
+    videoIncludeTerms: ['tata power', 'statiq', 'chargezone', 'jio-bp', 'kazam', 'zeon', 'bolt.earth', 'bpcl', 'hpcl', 'indian oil', 'ev charging', 'charging network', 'charging company'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'comparison', 'price', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming']
+  },
+  'ev-cost-savings': {
+    heroTitle: 'EV Cost & Savings',
+    heroSubtitle: 'A comprehensive financial analysis of EV ownership in India \u2014 from purchase costs to lifetime savings.',
+    overviewCards: [
+      { icon: 'cash', title: 'Purchase Price Comparison', text: 'EVs cost \u20B91-5 lakh more than comparable petrol cars upfront. However, FAME subsidies (up to \u20B93.5 lakh), state incentives, road tax exemption (\u20B930,000-\u20B92 lakh), and registration waivers significantly reduce the premium.' },
+      { icon: 'bolt', title: 'Running Cost Savings', text: 'Home charging costs <strong>\u20B91-1.5/km</strong> compared to \u20B98-9/km for petrol. At 15,000 km/year, you save <strong>\u20B975,000-90,000 annually</strong> on fuel alone. Over 5 years, fuel savings exceed \u20B93.75-4.5 lakh.' },
+      { icon: 'home', title: 'Maintenance Advantage', text: 'EVs have <strong>80% fewer moving parts</strong> than petrol cars. No oil changes, timing belts, or exhaust systems. Annual maintenance: \u20B92,000-4,000 vs \u20B95,000-10,000. 5-year maintenance savings: \u20B920,000-40,000.' },
+      { icon: 'star', title: 'Total 5-Year Ownership', text: 'For a compact EV (\u20B915 lakh on-road), 5-year TCO including depreciation, financing, electricity, maintenance, and insurance is \u20B918-20 lakh. Equivalent petrol car: \u20B924-27 lakh. Net EV savings: <strong>\u20B94-7 lakh</strong>.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'Tax Benefits', text: 'Section 80EEB offers deduction up to \u20B91.5 lakh/year on EV loan interest (saves \u20B946,800/year in 30% tax bracket). Some employers offer EV leasing through salary restructuring for additional tax savings of \u20B950,000-1,00,000/year.' },
+    topicSectionTitle: 'Cost Breakdown',
+    topicCards: [
+      { badge: 'UP', title: 'Upfront Costs', text: 'EV premium after subsidies: \u20B950,000-\u20B92 lakh. Charger installation: \u20B915,000-40,000. Insurance: \u20B98,000-15,000/year (slightly lower than petrol due to simpler drivetrain).' },
+      { badge: 'RC', title: 'Running Cost', text: 'Home charging: \u20B91-1.5/km. Public charging: \u20B94-6/km. DC fast charging: \u20B98-12/km. Compare with petrol: \u20B98-9/km. Annual savings at 15,000 km: \u20B975,000-1,00,000.' },
+      { badge: 'MT', title: 'Maintenance Cost', text: 'Annual service: \u20B92,000-4,000 (vs \u20B95,000-10,000 for petrol). No engine oil, air filter, spark plug, or clutch replacements. Brake pads last longer due to regenerative braking.' },
+      { badge: 'BR', title: 'Battery Replacement', text: 'Battery replacement cost: \u20B93-6 lakh (current prices dropping 10-15% annually). Most batteries last 8-10 years/1,60,000 km. Warranty covers replacement if SOH drops below 70%.' },
+      { badge: 'DP', title: 'Depreciation', text: 'EVs currently depreciate 15-20% in year 1, 12-15% in year 2, similar to petrol cars. Resale value is improving as the second-hand EV market matures. Better battery tech means less degradation.' },
+      { badge: 'SA', title: '5-Year Savings Total', text: 'Fuel savings: \u20B93.75-4.5 lakh. Maintenance: \u20B920,000-40,000. Tax benefits: \u20B92.34 lakh (80EEB over 5 years). Total 5-year savings: \u20B94-7 lakh. Break-even typically occurs in 3-4 years.' }
+    ],
+    statistics: [
+      { value: '\u20B91-1.5/km', label: 'EV Running Cost', sublabel: 'Home charging' },
+      { value: '\u20B94-7 Lakh', label: '5-Year Savings', sublabel: 'Vs petrol car' },
+      { value: '80%', label: 'Lower Maintenance', sublabel: 'Fewer moving parts' },
+      { value: '3-4 Years', label: 'Break-Even Period', sublabel: 'Cost parity with petrol' }
+    ],
+    newsTopic: 'ev-cost-savings',
+    videoTopic: 'ev-cost-savings',
+    newsIncludeTerms: ['running cost', 'cost per km', 'ev vs petrol', 'charging cost', 'maintenance cost', 'ownership cost', 'tco', 'total cost', 'battery price', 'fuel saving', 'save money', 'ev cheaper', 'savings'],
+    newsExcludeTerms: ['review', 'launch', 'comparison', 'price', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing'],
+    videoIncludeTerms: ['running cost', 'cost per km', 'ev vs petrol', 'charging cost', 'maintenance cost', 'ownership cost', 'tco', 'total cost', 'battery price', 'fuel saving', 'save money', 'ev cheaper', 'savings'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'comparison', 'test drive', 'price', 'top 5', 'top 10', 'vlog', 'unboxing']
+  },
+  'market-analysis': {
+    heroTitle: 'EV Market Analysis',
+    heroSubtitle: 'In-depth data, trends, and analysis of India\u2019s rapidly growing electric vehicle market.',
+    overviewCards: [
+      { icon: 'chart', title: 'Market Growth', text: 'India\u2019s EV market grew from 1% of vehicle sales in 2020 to over <strong>7% in 2026</strong>. The market is projected to reach <strong>30% penetration by 2030</strong>, driven by government policies, new model launches, and expanding infrastructure.' },
+      { icon: 'star', title: 'Segment Analysis', text: 'Two-wheelers lead EV adoption at <strong>15% penetration</strong>, followed by three-wheelers at 12%. Passenger cars are at 4% but growing fastest at <strong>40%+ YoY</strong>. E-buses are growing with state transport tenders.' },
+      { icon: 'gov', title: 'Brand Market Share', text: 'Tata Motors dominates the EV car market with <strong>65%+ market share</strong>. MG and Mahindra are growing with new models. BYD is expanding rapidly. Hyundai and Kia are increasing their EV portfolio in India.' },
+      { icon: 'bolt', title: 'Quarterly Trends', text: 'EV sales crossed <strong>5,00,000 units annually</strong> for the first time in 2026. Q3 2026 saw record quarterly sales of 1,65,000 EVs, driven by festive season and new model launches.' }
+    ],
+    overviewHighlight: { icon: 'info', title: 'State-Wise Adoption', text: 'Maharashtra leads in absolute EV registrations, followed by Delhi, Karnataka, Gujarat, and Tamil Nadu. Delhi has the highest EV penetration rate at 15%, driven by the most aggressive state EV policy.' },
+    topicSectionTitle: 'Market Insights',
+    topicCards: [
+      { badge: 'G1', title: 'Overall Market Growth', text: 'India\u2019s EV market is growing at 40-50% CAGR. Total EV sales reached 5,00,000+ units in 2026. Projections suggest 15M+ EVs on Indian roads by 2030, requiring 50,000+ public charging stations.' },
+      { badge: 'S1', title: 'Passenger EV Segment', text: 'EV car sales grew 52% YoY in 2026. Tata, MG, Mahindra, BYD, and Hyundai lead. Price range: \u20B98-30 lakh. New models from Maruti, Volkswagen, and Skoda expected in 2027-28.' },
+      { badge: 'S2', title: 'Two-Wheeler Segment', text: 'Electric two-wheelers achieved 15% penetration in 2026. Ola Electric leads with 35% market share, followed by Ather, Bajaj, TVS, and Okinawa. Subsidy reductions are driving consolidation in the segment.' },
+      { badge: 'S3', title: 'Commercial EV Segment', text: 'E-buses are growing with state transport undertakings. E-trucks are emerging for last-mile delivery. Three-wheeler EVs (e-rickshaws) have near-complete penetration in many cities.' },
+      { badge: 'R1', title: 'State-by-State Analysis', text: 'Top 5 states account for 60% of EV sales. Delhi offers highest subsidies (\u20B910,000/kWh). Maharashtra has the largest charging network. Tamil Nadu is the EV manufacturing hub.' },
+      { badge: 'F1', title: 'Future Projections', text: '2030 projections: 30% EV penetration, 50,000+ charging stations, \u20B93 Lakh Cr market size, 10M+ cumulative EVs, 5,00,000+ jobs in EV ecosystem. Battery prices expected to drop 30-40%.' }
+    ],
+    statistics: [
+      { value: '5,00,000+', label: 'Annual EV Sales (2026)', sublabel: 'All segments' },
+      { value: '40-50%', label: 'Market CAGR', sublabel: 'Year-on-year growth' },
+      { value: '7%', label: 'EV Penetration', sublabel: 'Of total vehicle sales' },
+      { value: '65%+', label: 'Tata Motors Share', sublabel: 'EV car market' }
+    ],
+    newsTopic: 'market-analysis',
+    videoTopic: 'market-analysis',
+    newsIncludeTerms: ['ev sales', 'market share', 'market growth', 'industry analysis', 'ev adoption', 'quarterly', 'report', 'registration', 'demand', 'growth rate', 'sales figure', 'ev market'],
+    newsExcludeTerms: ['review', 'launch', 'comparison', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming', 'movie', 'cricket'],
+    videoIncludeTerms: ['ev sales', 'market share', 'market growth', 'industry analysis', 'adoption', 'ev market', 'sales data', 'registration', 'quarterly', 'report', 'demand', 'growth rate'],
+    videoExcludeTerms: ['review', 'car review', 'launch', 'test drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming', 'movie', 'cricket']
+  }
+};
+
+function renderEVInfrastructurePage() {
+  renderInsightPage('ev-infrastructure-india');
+}
+
+function renderInsightPage(categoryKey) {
+  var page = INSIGHT_TEMPLATE_PAGES[categoryKey];
+  if (!page) return;
+
+  if (homepageContent) homepageContent.classList.add('hidden');
+  if (detailsPageContent) {
+    detailsPageContent.classList.remove('hidden');
+    detailsPageContent.style.cssText = '';
+  }
+  document.body.style.removeProperty('overflow');
+  document.body.style.removeProperty('height');
+  var aiAssistant = document.querySelector('.ai-assistant-container');
+  if (aiAssistant) {
+    aiAssistant.classList.remove('hidden');
+    if (document.body.classList.contains('loaded')) aiAssistant.classList.add('loaded');
+  }
+  if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  var ICONS = {
+    bolt: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
+    star: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>',
+    map: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>',
+    home: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>',
+    gov: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
+    cash: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+    chart: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
+    book: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>',
+    sun: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>',
+    wind: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>',
+    plug: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
+    info: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+    leaf: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>'
+  };
+  var heroImage = 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1400&h=600&fit=crop';
+
+  var overviewCardsHtml = page.overviewCards.map(function(c) {
+    return '<div class="bg-zinc-50 border border-zinc-200 rounded-xl p-6 hover:border-zinc-300 transition-colors">' +
+      '<div class="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center mb-4">' + (ICONS[c.icon] || '') + '</div>' +
+      '<h3 class="text-lg font-semibold text-black mb-2">' + c.title + '</h3>' +
+      '<p class="text-zinc-600 text-sm leading-relaxed">' + c.text + '</p>' +
+    '</div>';
+  }).join('');
+
+  var highlightHtml = '';
+  if (page.overviewHighlight) {
+    highlightHtml = '<div class="mt-6 bg-gradient-to-r from-[#22c55e]/5 to-transparent border border-[#22c55e]/15 rounded-xl p-6">' +
+      '<div class="flex flex-col md:flex-row items-start gap-4">' +
+        '<div class="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center shrink-0">' + (ICONS[page.overviewHighlight.icon] || '') + '</div>' +
+        '<div>' +
+          '<h3 class="text-lg font-semibold text-black mb-1">' + page.overviewHighlight.title + '</h3>' +
+          '<p class="text-zinc-600 text-sm leading-relaxed">' + page.overviewHighlight.text + '</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  var topicCardsHtml = page.topicCards.map(function(c) {
+    return '<div class="bg-white border border-zinc-200 rounded-xl p-5 hover:border-zinc-300 transition-all hover:-translate-y-0.5">' +
+      '<div class="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center mb-3 text-[#22c55e] font-bold text-sm">' + c.badge + '</div>' +
+      '<h3 class="font-semibold text-black mb-2">' + c.title + '</h3>' +
+      '<p class="text-zinc-600 text-sm leading-relaxed">' + c.text + '</p>' +
+    '</div>';
+  }).join('');
+
+  var statsHtml = page.statistics.map(function(s) {
+    return '<div class="bg-zinc-50 border border-zinc-200 rounded-xl p-5 text-center hover:border-zinc-300 transition-all hover:-translate-y-1">' +
+      '<div class="text-2xl md:text-3xl font-bold text-[#22c55e] mb-1">' + s.value + '</div>' +
+      '<div class="text-black text-sm font-medium">' + s.label + '</div>' +
+      '<div class="text-zinc-500 text-xs mt-1">' + s.sublabel + '</div>' +
+    '</div>';
+  }).join('');
+
+  var sectionTitle = page.heroTitle;
+
+  detailsPageContent.innerHTML = '' +
+    '<div class="min-h-screen bg-white">' +
+      '<div class="border-b border-zinc-200 bg-zinc-50/80 py-3 px-6">' +
+        '<div class="max-w-7xl mx-auto flex flex-wrap items-center gap-2 text-sm text-zinc-500">' +
+          '<a href="/" class="hover:text-black transition-colors">Home</a>' +
+          '<span>\u203A</span>' +
+          '<a href="/insights" class="hover:text-black transition-colors">Insights</a>' +
+          '<span>\u203A</span>' +
+          '<span class="text-black font-medium">' + sectionTitle + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="max-w-7xl mx-auto px-4 md:px-8 py-8">' +
+
+        '<!-- HERO -->' +
+        '<section class="relative rounded-2xl overflow-hidden h-[320px] md:h-[420px] mb-12">' +
+          '<div class="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent z-10"></div>' +
+          '<img class="absolute inset-0 w-full h-full object-cover" src="' + heroImage + '" alt="' + page.heroTitle + '" loading="lazy">' +
+          '<div class="relative z-20 h-full flex flex-col justify-end p-6 md:p-10">' +
+            '<h1 class="text-3xl md:text-5xl font-bold text-black mb-3">' + page.heroTitle + '</h1>' +
+            '<p class="text-zinc-600 text-base md:text-lg max-w-2xl leading-relaxed">' + page.heroSubtitle + '</p>' +
+          '</div>' +
+        '</section>' +
+
+        '<!-- INTRODUCTION -->' +
+        '<section class="mb-14">' +
+          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
+            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
+            'Overview' +
+          '</h2>' +
+          '<div class="grid md:grid-cols-2 gap-6">' + overviewCardsHtml + '</div>' +
+          highlightHtml +
+        '</section>' +
+
+        '<!-- LATEST NEWS -->' +
+        '<section class="mb-14 bg-zinc-50 -mx-4 md:-mx-8 px-4 md:px-8 py-10">' +
+          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
+            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
+            'Latest News' +
+          '</h2>' +
+          '<div id="infra-news-content" class="grid md:grid-cols-3 gap-5">' +
+            '<div class="md:col-span-3 flex items-center gap-3 py-12 justify-center text-zinc-400">' +
+              '<svg class="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>' +
+              'Loading news...' +
+            '</div>' +
+          '</div>' +
+        '</section>' +
+
+        '<!-- YOUTUBE VIDEOS -->' +
+        '<section class="mb-14">' +
+          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
+            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
+            'Videos' +
+          '</h2>' +
+          '<div id="infra-video-content" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">' +
+            '<div class="col-span-full flex items-center gap-3 py-12 justify-center text-zinc-400">' +
+              '<svg class="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>' +
+              'Loading videos...' +
+            '</div>' +
+          '</div>' +
+        '</section>' +
+
+        '<!-- TOPIC SECTION -->' +
+        '<section class="mb-14 bg-zinc-50 -mx-4 md:-mx-8 px-4 md:px-8 py-10">' +
+          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
+            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
+            '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>' +
+            page.topicSectionTitle +
+          '</h2>' +
+          '<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">' + topicCardsHtml + '</div>' +
+        '</section>' +
+
+        '<!-- KEY STATISTICS -->' +
+        '<section class="mb-14">' +
+          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
+            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
+            'Key Statistics' +
+          '</h2>' +
+          '<div class="grid grid-cols-2 md:grid-cols-4 gap-4">' + statsHtml + '</div>' +
+        '</section>' +
+      '</div>' +
+    '</div>';
+
+  var esc = function(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+  var formatDate = function(d) {
+    try { return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}); } catch(e) { return ''; }
+  };
+  var formatShortDate = function(d) {
+    try { return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short'}); } catch(e) { return ''; }
+  };
+  var fallbackImg = 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=250&fit=crop';
+
+  function isInfraArticle(a) {
+    var text = ((a.title || '') + ' ' + (a.description || '')).toLowerCase();
+    if (page.newsExcludeTerms && page.newsExcludeTerms.some(function(t) { return text.indexOf(t) !== -1; })) return false;
+    if (page.newsIncludeTerms) return page.newsIncludeTerms.some(function(t) { return text.indexOf(t) !== -1; });
+    return true;
+  }
+
+  function isInfraVideo(v) {
+    var text = ((v.title || '') + ' ' + (v.channelName || '') + ' ' + (v.description || '')).toLowerCase();
+    if (page.videoExcludeTerms && page.videoExcludeTerms.some(function(t) { return text.indexOf(t) !== -1; })) return false;
+    if (page.videoIncludeTerms) return page.videoIncludeTerms.some(function(t) { return text.indexOf(t) !== -1; });
+    return true;
+  }
+
+  var newsTopic = page.newsTopic || categoryKey;
+  var videoTopic = page.videoTopic || categoryKey;
+
+  var newsPromise = fetch('/api/news/infrastructure?topic=' + encodeURIComponent(newsTopic))
+    .then(function(r) { return r.json(); }).catch(function() { return []; });
+  var videoPromise = fetch('/api/videos/infrastructure?topic=' + encodeURIComponent(videoTopic))
+    .then(function(r) { return r.json(); }).catch(function() { return []; });
+  var allNewsPromise = fetch('/api/news')
+    .then(function(r) { return r.json(); }).catch(function() { return []; });
+
+  Promise.all([newsPromise, videoPromise, allNewsPromise]).then(function(results) {
+    var infraNews = results[0];
+    var videos = results[1];
+    var allNews = results[2];
+
+    // VIDEOS - strict filter, dedup by ID
+    var vc = document.getElementById('infra-video-content');
+    var filteredVideos = (videos || []).filter(isInfraVideo);
+    var seenIds = {};
+    var uniqueVideos = [];
+    filteredVideos.forEach(function(v) {
+      if (!seenIds[v.id]) {
+        seenIds[v.id] = true;
+        uniqueVideos.push(v);
+      }
+    });
+    if (uniqueVideos.length) {
+      vc.innerHTML = uniqueVideos.slice(0, 8).map(function(v) {
+        var vt = esc(v.title);
+        var thumb = esc(v.thumbnail || '');
+        var channel = esc(v.channelName || 'YouTube');
+        var date = formatShortDate(v.published);
+        var vUrl = 'https://www.youtube.com/watch?v=' + esc(v.id);
+        return '<a href="' + vUrl + '" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-zinc-300 hover:shadow-sm transition-all">' +
+          '<div class="aspect-video bg-zinc-100 overflow-hidden relative">' +
+            '<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + thumb + '" alt="' + vt + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+            '<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">' +
+              '<svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>' +
+            '</div>' +
+          '</div>' +
+          '<div class="p-3">' +
+            '<p class="text-black text-sm font-medium leading-snug line-clamp-2 group-hover:text-[#22c55e] transition-colors">' + vt + '</p>' +
+            '<p class="text-zinc-500 text-xs mt-1.5">' + channel + ' \u00B7 ' + date + '</p>' +
+          '</div>' +
+        '</a>';
+      }).join('');
+    } else {
+      vc.innerHTML = '<div class="col-span-full text-center py-8 text-zinc-500"><p>No videos available.</p></div>';
+    }
+
+    // NEWS - merge topic news + all news, dedup, always 3
+    var nc = document.getElementById('infra-news-content');
+    var newsSeenUrls = {};
+    var newsSeenTitles = {};
+    var infraNewsList = [];
+    var newsPool = (infraNews || []).concat(allNews || []);
+    newsPool.forEach(function(a) {
+      if (!a.url || !a.title) return;
+      var url = a.url.trim();
+      var title = a.title.trim().toLowerCase();
+      if (newsSeenUrls[url] || newsSeenTitles[title]) return;
+      if (!isInfraArticle(a)) return;
+      newsSeenUrls[url] = true;
+      newsSeenTitles[title] = true;
+      infraNewsList.push(a);
+    });
+    infraNewsList = infraNewsList.slice(0, 3);
+    if (infraNewsList.length) {
+      nc.innerHTML = infraNewsList.map(function(a) {
+        var ttl = esc(a.title);
+        var src = esc(a.source || 'EV News');
+        var img = esc(a.image) || fallbackImg;
+        var dt = formatShortDate(a.published);
+        return '<a href="' + esc(a.url) + '" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-zinc-300 hover:shadow-sm transition-all">' +
+          '<div class="aspect-video bg-zinc-100 overflow-hidden">' +
+            '<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + img + '" alt="' + ttl + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+          '</div>' +
+          '<div class="p-4">' +
+            '<div class="flex items-center gap-2 mb-1">' +
+              '<span class="text-xs text-zinc-500">' + src + '</span>' +
+              '<span class="text-zinc-300">\u00B7</span>' +
+              '<span class="text-zinc-500 text-xs">' + dt + '</span>' +
+            '</div>' +
+            '<h3 class="text-sm font-medium text-black group-hover:text-[#22c55e] transition-colors line-clamp-2">' + ttl + '</h3>' +
+          '</div>' +
+        '</a>';
+      }).join('');
+    } else {
+      nc.innerHTML = '<div class="md:col-span-3 text-center py-8 text-zinc-500"><p>No recent news found.</p></div>';
+    }
+
+  });
 }
 
 function renderAllInsightsPage() {
@@ -7126,37 +8652,6 @@ async function renderCarDetailsPage(car) {
       featuresHtml = '<div class="col-span-full text-center py-12 font-mono text-xs text-zinc-500">Features coming soon.</div>';
     }
 
-    let prosHtml = '';
-    car.expertReview.pros.forEach(p => {
-      prosHtml += `<li class="flex items-start gap-1.5 py-0.5"><span>+</span><span>${p}</span></li>`;
-    });
-    let consHtml = '';
-    car.expertReview.cons.forEach(c => {
-      consHtml += `<li class="flex items-start gap-1.5 py-0.5 text-zinc-550"><span>-</span><span>${c}</span></li>`;
-    });
-
-    let customerReviewsHtml = '';
-    car.customerReviews.forEach(r => {
-      customerReviewsHtml += `
-        <div class="border border-zinc-200 bg-zinc-50 p-5 flex flex-col gap-3 shadow-sm">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 bg-zinc-200 flex items-center justify-center font-bold text-[9px] text-zinc-700">${r.author.substring(0,2)}</div>
-              <div>
-                <h5 class="font-bold text-black">${r.author}</h5>
-                <span class="text-[8px] text-zinc-500 uppercase">OWNED FOR ${r.duration.toUpperCase()}</span>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="font-bold text-black">${r.score}</span>
-              <span class="text-[8px] text-zinc-550 block uppercase">VERIFIED OWNER</span>
-            </div>
-          </div>
-          <p class="text-[11px] text-zinc-650 leading-normal italic font-mono">"${r.feedback}"</p>
-        </div>
-      `;
-    });
-
     let colorOptionsHtml = '';
     colorNames.forEach((cName, idx) => {
       colorOptionsHtml += `<option value="${idx}">${cName}</option>`;
@@ -7261,7 +8756,7 @@ async function renderCarDetailsPage(car) {
                 COMPARE CAR
               </button>
               <button id="detail-wishlist-btn" class="wishlist-btn py-3 px-8 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-2" style="width: auto !important; height: auto !important;">
-                <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current text-red-500' : ''}">
+                <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current' : ''}">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
                 SHORTLIST
@@ -7373,60 +8868,7 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- 4. Reviews Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-zinc-150 pt-10">
-          <!-- Expert Evaluation (Left) -->
-          <div class="lg:col-span-6 flex flex-col gap-5">
-            <div>
-              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">EVALUATION LOG</span>
-              <h3 class="text-xl font-bold tracking-tight">EV Car Wale Expert Review</h3>
-            </div>
-            
-            <div class="border border-zinc-200 bg-zinc-50 p-6 flex flex-col gap-5 shadow-sm">
-              <div class="flex items-center justify-between border-b border-zinc-200 pb-3">
-                <div>
-                  <h4 class="font-bold text-sm text-black">${car.name}</h4>
-                  <span class="font-mono text-[8px] text-zinc-400">TEST LAB DIAGNOSTICS</span>
-                </div>
-                <div class="text-right">
-                  <span class="text-xl font-bold text-black font-mono">${car.expertReview.rating}</span>
-                  <span class="text-[8px] text-zinc-400 block uppercase font-mono">LAB RATING</span>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-4 text-xs font-mono">
-                <div>
-                  <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">PROS</span>
-                  <ul class="flex flex-col gap-1 text-[11px] text-zinc-700">
-                    ${prosHtml}
-                  </ul>
-                </div>
-                <div>
-                  <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">CONS</span>
-                  <ul class="flex flex-col gap-1 text-[11px] text-zinc-500">
-                    ${consHtml}
-                  </ul>
-                </div>
-              </div>
-              <div class="border-t border-zinc-200 pt-3 text-[11px] font-mono leading-relaxed">
-                <span class="font-bold text-[8px] text-zinc-500 block uppercase mb-1">FINAL VERDICT</span>
-                <p class="text-zinc-700 italic">"${car.expertReview.verdict}"</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Customer Reviews (Right) -->
-          <div class="lg:col-span-6 flex flex-col gap-5">
-            <div>
-              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">CUSTOMER INSIGHT</span>
-              <h3 class="text-xl font-bold tracking-tight">Owner Verification Feedback</h3>
-            </div>
-            <div class="flex flex-col gap-4">
-              ${customerReviewsHtml}
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. EMI Calculator Panel -->
+        <!-- 4. EMI Calculator Panel -->
         <div class="border-t border-zinc-150 pt-10">
           <div class="text-center mb-8">
             <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">FINANCIAL COEFFICIENT</span>
@@ -7642,7 +9084,7 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- 6. Related Cars Section -->
+        <!-- 5. Related Cars Section -->
         <div class="border-t border-zinc-150 pt-10 pb-8">
           <div class="text-left mb-8">
             <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">CATEGORICAL PAIRINGS</span>
@@ -8694,7 +10136,7 @@ function updateDividerPositions() {
   // Animate over a range: start when divider is at bottom of viewport,
   // end when divider is 30% of viewport height above the bottom edge.
   const startY = viewportHeight;
-  const endY = viewportHeight * 0.7;
+  const endY = viewportHeight * 0.5;
   const distance = startY - endY;
 
   scrollDividers.forEach(div => {
@@ -8963,7 +10405,6 @@ function renderBrandPage(brandId) {
     'volvo': 'Volvo',
     'audi': 'Audi',
     'maruti-suzuki': 'Maruti Suzuki',
-    'maruti_suzuki': 'Maruti Suzuki',
     'toyota': 'Toyota',
     'honda': 'Honda',
     'skoda': 'Skoda',
