@@ -188,6 +188,14 @@ function createApp(options = {}) {
     res.sendFile(path.join(frontendRoot, 'profile.html'));
   });
 
+  app.get('/where-does-electricity-come-from', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html'));
+  });
+
+  app.get('/where-does-electricity-come-from.html', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html'));
+  });
+
   function injectChargingStationsHtml(req, res) {
     try {
       let content = fs.readFileSync(path.join(frontendRoot, 'charging-stations.html'), 'utf8');
