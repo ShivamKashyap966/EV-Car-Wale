@@ -125,12 +125,31 @@ function createApp(options = {}) {
     res.sendFile(path.join(frontendRoot, 'nav bar logo.png'));
   });
 
-  // Redirect only vehicle images, colour variants, and brand logos to S3
+  // Serve local vehicle images and brand logos if available, otherwise redirect to S3
   app.get(/^\/(LOGOS|public\/car_images|car_images)\/(.+)$/i, (req, res) => {
     let cleanPath = req.path;
     if (cleanPath.startsWith('/')) {
       cleanPath = cleanPath.substring(1);
     }
+
+    // 1. Direct file check
+    const localFile = path.join(frontendRoot, cleanPath);
+    if (fs.existsSync(localFile) && fs.statSync(localFile).isFile()) {
+      return res.sendFile(localFile);
+    }
+
+    // 2. Case-insensitive local file check
+    const dirPath = path.dirname(localFile);
+    const targetBase = path.basename(localFile).toLowerCase();
+    if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
+      const files = fs.readdirSync(dirPath);
+      const matched = files.find(f => f.toLowerCase() === targetBase || f.toLowerCase().replace(/\.[^/.]+$/, '') === targetBase.replace(/\.[^/.]+$/, ''));
+      if (matched) {
+        return res.sendFile(path.join(dirPath, matched));
+      }
+    }
+
+    // 3. Fallback to S3 bucket redirect
     const s3BaseUrl = process.env.VITE_S3_BASE_URL || process.env.AWS_S3_PUBLIC_BASE_URL || 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
     res.redirect(`${s3BaseUrl}/${cleanPath}`);
   });
@@ -149,67 +168,28 @@ function createApp(options = {}) {
   app.get('/index.html', injectMapsKeyIntoHtml);
   app.get('/', injectMapsKeyIntoHtml);
 
+  // Route aliases for /insights/ pages
+  app.use('/insights', (req, res, next) => {
+    let p = req.path;
+    if (p === '/where-electricity-comes-from.html' || p === '/where-electricity-comes-from') {
+      return res.sendFile(path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html'));
+    }
+    if (!p.endsWith('.html') && p !== '/') {
+      const targetFile = path.join(frontendRoot, 'insights', p + '.html');
+      if (fs.existsSync(targetFile)) {
+        return res.sendFile(targetFile);
+      }
+    }
+    next();
+  });
+
   app.use(express.static(path.join(frontendRoot, 'public')));
   app.use(express.static(frontendRoot));
 
-  app.get('/videos', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'videos.html'));
+  app.get(/^(?!\/(api|insights|insights_images|everything_u_need|car_images|LOGOS)).*$/, (req, res, next) => {
+    if (req.path.includes('.')) return next();
+    injectMapsKeyIntoHtml(req, res);
   });
-
-  app.get('/compare', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'compare.html'));
-  });
-
-  app.get('/charging-time-calculator', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'charging-time-calculator.html'));
-  });
-
-  app.get('/emi-calculator', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'emi-calculator.html'));
-  });
-
-  app.get('/petrol-savings', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'petrol-savings.html'));
-  });
-
-  app.get('/all-cars', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'all-cars.html'));
-  });
-
-  app.get('/apartment-charging', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'apartment-charging.html'));
-  });
-
-  app.get('/battery-health', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'battery-health.html'));
-  });
-
-  app.get('/profile', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'profile.html'));
-  });
-
-  app.get('/where-does-electricity-come-from', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html'));
-  });
-
-  app.get('/where-does-electricity-come-from.html', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html'));
-  });
-
-  function injectChargingStationsHtml(req, res) {
-    try {
-      let content = fs.readFileSync(path.join(frontendRoot, 'charging-stations.html'), 'utf8');
-      const mapsKey = process.env.GOOGLE_MAPS_API_KEY || env.GOOGLE_MAPS_API_KEY || '';
-      content = content.replace(/__GOOGLE_MAPS_API_KEY__/g, mapsKey);
-      res.type('text/html').send(content);
-    } catch (err) {
-      res.status(500).send('Error loading charging-stations.html');
-    }
-  }
-  app.get('/charging-stations', injectChargingStationsHtml);
-  app.get('/charging-stations.html', injectChargingStationsHtml);
-
-  app.get(/^(?!\/api).*$/, injectMapsKeyIntoHtml);
 
   app.use(notFound);
   app.use(errorHandler);

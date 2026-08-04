@@ -3,14 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EV Guides – EV Car Wale</title>
-  <meta name="description" content="Your comprehensive guide to buying, financing, insuring, and maintaining an electric vehicle in India. Everything a first-time EV buyer needs to know.">
+  <title>EV Buying & Ownership Master Guide (2026) – EV Car Wale</title>
+  <meta name="description" content="Step-by-step master guide to buying and owning an electric vehicle in India — test drives, home charger installation, battery warranty, range evaluation, and 3 latest news & video explainers.">
+  <meta property="og:title" content="EV Buying & Ownership Master Guide (2026)">
+  <meta property="og:description" content="Step-by-step master guide to buying and owning an electric vehicle in India.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.evcarwale.com/insights/ev-guides.html">
+  <meta property="og:image" content="../everything_u_need/BATTERY_WARRANTY.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EV Buying & Ownership Master Guide (2026)">
+  <meta name="twitter:description" content="Buyer checklist, test drive evaluation, home wallbox installation, and battery warranty tips.">
+  <meta name="twitter:image" content="../everything_u_need/BATTERY_WARRANTY.jpeg">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../ai-assistant.css">
   <script>
     tailwind.config = {
       theme: {
@@ -21,540 +32,231 @@
             darkgray: '#1E1E1E',
             medgray: '#555555',
             lightgray: '#F5F5F5',
+            accentgreen: '#22C55E',
           },
           fontFamily: {
             sans: ['Poppins', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
           }
         }
       }
     }
   </script>
-  <style>
-    .hero-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.1) 100%);
-    }
-    @media (min-width: 768px) {
-      .hero-overlay {
-        background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
-      }
-    }
-  </style>
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../ai-assistant.css">
   <link rel="icon" type="image/png" href="/tab_logo.png">
   <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
 </head>
-<body class="bg-white text-black font-sans overflow-x-hidden">
+<body class="bg-white text-black font-sans overflow-x-hidden antialiased">
 
-  <!-- Navbar -->
+  <!-- Header / Navbar -->
   <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
       <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
         <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
         EV CAR WALE
       </a>
-      <div class="flex items-center gap-3 flex-shrink-0">
-        <a href="../index.html" class="px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">HOME</a>
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="text-[11px] font-mono tracking-wider font-semibold text-zinc-700 hover:text-[#22C55E] transition-colors">← RETURN TO MARKETPLACE</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img src="../insights_images/ev_guides.jpg" alt="EV Guides" class="w-full h-full object-cover">
-      <div class="hero-overlay absolute inset-0"></div>
-      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+  <!-- Hero Magazine Header (SEAMLESS GRADIENT BLEND TO WHITE) -->
+  <section class="relative min-h-[520px] flex items-end justify-center overflow-hidden pb-16 bg-black">
+    <div class="absolute inset-0">
+      <img src="../everything_u_need/BATTERY_WARRANTY.jpeg" alt="EV Buying and Ownership Master Guide" class="w-full h-full object-cover">
+      <!-- Luxury Seamless Gradient Blend from Dark to Pure White -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-white"></div>
     </div>
-    <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 w-full pt-20 pb-12 md:pt-28 md:pb-16">
-      <div class="max-w-2xl">
-        <span class="font-mono text-[10px] tracking-widest text-zinc-300 uppercase mb-4 inline-block border border-zinc-500/40 px-3 py-1">Guides & Education</span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white mb-4">EV Guides</h1>
-        <p class="text-base md:text-lg text-zinc-200 max-w-xl leading-relaxed mb-6">Your complete handbook for buying, financing, insuring, and maintaining an electric vehicle in India — built for first-time EV owners.</p>
-        <div class="flex flex-wrap items-center gap-4 font-mono text-[10px] tracking-wider text-zinc-400">
-          <span class="flex items-center gap-1.5">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            8 min read
-          </span>
-          <span class="flex items-center gap-1.5">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            EV Car Wale Team
-          </span>
-          <span class="flex items-center gap-1.5">Updated July 2026</span>
-        </div>
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/20 border border-[#22C55E]/40 rounded-full mb-4">
+        <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+        <span class="font-mono text-[10px] text-[#22C55E] tracking-widest uppercase font-bold">BUYER & OWNER GUIDE</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight drop-shadow-md">EV Buying & Ownership Master Guide</h1>
+      <p class="text-sm md:text-lg text-zinc-200 max-w-2xl mx-auto leading-relaxed mb-6 drop-shadow">A step-by-step checklist to evaluating range, testing chargers, understanding battery warranties, and managing daily ownership.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4 font-mono text-[11px] text-zinc-800 font-semibold border-t border-zinc-400/40 pt-4">
+        <span>BY <strong>EV CAR WALE BUYER DESK</strong></span>
+        <span>•</span>
+        <span>AUGUST 2026</span>
+        <span>•</span>
+        <span>20 MIN READ</span>
+        <span>•</span>
+        <span class="text-[#22C55E]">3,300 WORDS</span>
       </div>
     </div>
   </section>
 
-  <!-- Article Content -->
-  <article class="max-w-4xl mx-auto px-6 lg:px-12 py-12 md:py-16">
-    <div class="prose prose-zinc max-w-none">
-
-      <!-- Intro -->
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Switching to an electric vehicle is an exciting decision — but it also comes with a new set of considerations. From choosing the right model to understanding insurance, financing, and maintenance, this comprehensive guide covers everything a first-time EV buyer in India needs to know. Whether you're buying new or used, leasing or financing, these insights will help you make an informed, confident decision.</p>
-
-      <!-- Section 1: How to Choose Your First EV -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        How to Choose Your First EV
-      </h2>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">📋 Buyer Checklist</div>
-        <p class="editorial-callout-content">Buying an EV involves evaluating your daily driving distance, home charging capabilities, battery chemistry (LFP vs NMC), and total cost of ownership (TCO) incentives.</p>
+  <!-- Metric Highlights Bar (SEAMLESS WHITE CONTINUITY) -->
+  <section class="bg-white text-black py-10 border-b border-zinc-200">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="border-r border-zinc-200 pr-4">
+        <span class="text-3xl md:text-4xl font-extrabold text-[#22C55E] block font-mono">8 Years</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Standard Battery Pack Warranty</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">📋 Buyer Checklist</div>
-        <p class="editorial-callout-content">Buying an EV involves evaluating your daily driving distance, home charging capabilities, battery chemistry (LFP vs NMC), and total cost of ownership (TCO) incentives.</p>
+      <div class="border-r border-zinc-200 pr-4">
+        <span class="text-3xl md:text-4xl font-extrabold text-black block font-mono">1.6 Lakh km</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Warranty Distance Coverage</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">📋 Buyer Checklist</div>
-        <p class="editorial-callout-content">Buying an EV involves evaluating your daily driving distance, home charging capabilities, battery chemistry (LFP vs NMC), and total cost of ownership (TCO) incentives.</p>
+      <div class="border-r border-zinc-200 pr-4">
+        <span class="text-3xl md:text-4xl font-extrabold text-[#22C55E] block font-mono">300+ km</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Real-World Range Baseline</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">📋 Buyer Checklist</div>
-        <p class="editorial-callout-content">Buying an EV involves evaluating your daily driving distance, home charging capabilities, battery chemistry (LFP vs NMC), and total cost of ownership (TCO) incentives.</p>
+      <div>
+        <span class="text-3xl md:text-4xl font-extrabold text-black block font-mono">80% Fewer</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Moving Mechanical Parts</span>
       </div>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Choosing your first EV involves more than just picking a car you like. Here are the key factors to consider:</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">1.</span> <span><strong class="text-black">Range Requirements:</strong> Calculate your daily commute and typical driving patterns. Most Indian commuters drive 30–50 km daily — even entry-level EVs with 200 km range are more than sufficient for daily use. For frequent road trippers, look for 350+ km real-world range.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">2.</span> <span><strong class="text-black">Charging Access:</strong> Do you have a dedicated parking spot with electricity access? Home charging is the biggest convenience factor. If you rely on public charging, check the availability of fast chargers along your regular routes.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">3.</span> <span><strong class="text-black">Body Type:</strong> EVs come in all shapes — hatchbacks (MG Comet, Tiago EV), SUVs (Nexon EV, BYD Atto 3), sedans (Tata Tigor EV, Hyundai Ioniq 6), and luxury (Kia EV6, Mercedes EQS). Choose based on your space and lifestyle needs.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">4.</span> <span><strong class="text-black">Battery Chemistry:</strong> LFP batteries (Tata Nexon, MG Comet) are safer, longer-lasting, and more heat-tolerant — ideal for Indian conditions. NMC batteries (BYD, Hyundai) offer higher energy density and range but degrade faster in heat.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">5.</span> <span><strong class="text-black">Budget & Incentives:</strong> Factor in FAME II subsidies, state EV policies, and income tax benefits under Section 80EEB. The effective price after incentives can be ₹1–3 lakh lower than the showroom price.</span></li>
-      </ul>
-
-      <!-- Section 2: New vs Used EV -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        New vs Used EV Considerations
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The used EV market in India is still emerging, but it offers compelling value for budget-conscious buyers. Here's what to weigh:</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-white">
-          <h4 class="text-sm font-bold text-black mb-1">✅ New EV</h4>
-          <ul class="text-xs text-zinc-600 space-y-1 mt-2">
-            <li>Full manufacturer warranty (8 years / 1.5 lakh km on battery)</li>
-            <li>Latest technology and range improvements</li>
-            <li>Eligible for FAME II and state subsidies</li>
-            <li>Lower maintenance from day one</li>
-            <li>Higher upfront cost</li>
-          </ul>
-        </div>
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-white">
-          <h4 class="text-sm font-bold text-black mb-1">🔄 Used EV</h4>
-          <ul class="text-xs text-zinc-600 space-y-1 mt-2">
-            <li>30–50% cheaper than new models</li>
-            <li>Battery health is the #1 concern — check SOH</li>
-            <li>Limited warranty remaining (often 3–5 years)</li>
-            <li>May not qualify for purchase subsidies</li>
-            <li>Great entry point for budget-conscious buyers</li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-l-4 border-black pl-4 bg-zinc-50 p-4 mb-8">
-        <p class="text-sm text-zinc-700 leading-relaxed"><strong class="text-black">Pro tip:</strong> If buying a used EV, always request a battery health report from an authorised service centre. A battery at 90% SOH is still excellent — anything below 80% may need replacement sooner.</p>
-      </div>
-
-      <!-- First-Time EV Buyer Checklist Highlight Box -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 md:p-8 mb-10">
-        <div class="flex items-start gap-4">
-          <span class="text-2xl shrink-0 mt-0.5">📋</span>
-          <div>
-            <h3 class="text-sm font-bold tracking-tight text-black mb-4">First-Time EV Buyer Checklist</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-zinc-600">
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Confirm home charging feasibility</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Check FAME II & state subsidy eligibility</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Compare real-world range (not ARAI)</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Verify battery chemistry & warranty</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Calculate total cost of ownership (5 years)</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Review charging connector compatibility</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Test drive in real traffic conditions</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Research nearby public charging stations</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Compare EV insurance premiums</div>
-              <div class="flex items-center gap-2"><span class="text-black font-bold">☐</span> Check service centre network in your city</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 3: EV Financing -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        EV Loan & Financing Options
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">EV financing in India has become increasingly competitive. Most major banks — SBI, HDFC, ICICI, Axis — offer green vehicle loans with preferential rates.</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">💰</span> <span><strong class="text-black">Interest Rates:</strong> EV loans typically range from 8.5%–11% p.a., often 0.25–0.5% lower than conventional car loans. Some banks offer special rates for women borrowers and government employees.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">📄</span> <span><strong class="text-black">Loan Tenure:</strong> Up to 7 years for new EVs (vs 5–6 years for ICE cars). Longer tenure means lower EMIs but higher total interest.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🏦</span> <span><strong class="text-black">Green Car Loans:</strong> SBI's Green Car Loan offers up to 90% financing with no processing fees. HDFC's EV Loan includes free insurance for the first year. Compare offers across at least 3 lenders.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🧾</span> <span><strong class="text-black">Tax Benefit:</strong> Section 80EEB of the Income Tax Act allows up to ₹1.5 lakh deduction on EV loan interest per financial year. This benefit is available on loans taken between April 2019 and March 2027.</span></li>
-      </ul>
-
-      <!-- Section 4: EV Insurance -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Insurance for EVs vs ICE Vehicles
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">EV insurance differs from conventional car insurance in several important ways:</p>
-      <div class="overflow-x-auto mb-8">
-        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
-          <thead>
-            <tr class="bg-zinc-50 border-b border-zinc-200">
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Factor</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">EV Insurance</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">ICE Car Insurance</th>
-            </tr>
-          </thead>
-          <tbody class="text-zinc-600">
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Premium (approx)</td>
-              <td class="p-4">₹18,000–30,000 / year</td>
-              <td class="p-4">₹12,000–20,000 / year</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Battery Cover</td>
-              <td class="p-4">Separate coverage needed (5–8% add-on)</td>
-              <td class="p-4">Not applicable</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Charging Equipment</td>
-              <td class="p-4">Can be covered under home insurance</td>
-              <td class="p-4">Not applicable</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Depreciation</td>
-              <td class="p-4">Lower depreciation on EV components</td>
-              <td class="p-4">Standard 10–50% per year</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">NCB Benefit</td>
-              <td class="p-4">Full NCB after 5 years (up to 50%)</td>
-              <td class="p-4">Same structure</td>
-            </tr>
-            <tr>
-              <td class="p-4 font-medium text-black">Key Discount</td>
-              <td class="p-4">~5% discount for EVs (IRDAI mandate)</td>
-              <td class="p-4">No EV discount</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Section 5: EV Maintenance Costs -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        EV Maintenance Costs
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">One of the biggest advantages of owning an EV is the dramatically lower maintenance cost. Fewer moving parts means fewer things to break. Here's a direct comparison:</p>
-      <div class="overflow-x-auto mb-8">
-        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
-          <thead>
-            <tr class="bg-zinc-50 border-b border-zinc-200">
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Maintenance Item</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">EV</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">ICE (Petrol)</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">5-Year Savings</th>
-            </tr>
-          </thead>
-          <tbody class="text-zinc-600">
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Oil Changes</td>
-              <td class="p-4">None</td>
-              <td class="p-4">₹6,000–8,000 / year</td>
-              <td class="p-4 text-black font-bold">₹30,000–40,000</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Brake Pads</td>
-              <td class="p-4">Every 80,000–1,00,000 km</td>
-              <td class="p-4">Every 30,000–40,000 km</td>
-              <td class="p-4 text-black font-bold">₹15,000–25,000</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Timing Belt</td>
-              <td class="p-4">N/A (no engine)</td>
-              <td class="p-4">₹8,000–15,000 every 5 years</td>
-              <td class="p-4 text-black font-bold">₹8,000–15,000</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Clutch & Transmission</td>
-              <td class="p-4">N/A (single-speed gearbox)</td>
-              <td class="p-4">₹12,000–25,000 per replacement</td>
-              <td class="p-4 text-black font-bold">₹12,000–25,000</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Exhaust System</td>
-              <td class="p-4">N/A</td>
-              <td class="p-4">₹10,000–20,000 over 5 years</td>
-              <td class="p-4 text-black font-bold">₹10,000–20,000</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Annual Service Cost</td>
-              <td class="p-4">₹1,500–3,000</td>
-              <td class="p-4">₹5,000–10,000</td>
-              <td class="p-4 text-black font-bold">₹17,500–35,000</td>
-            </tr>
-            <tr>
-              <td class="p-4 font-medium text-black font-bold">Total (5 years)</td>
-              <td class="p-4 font-bold text-black">₹7,500–15,000</td>
-              <td class="p-4 font-bold text-black">₹41,000–78,000</td>
-              <td class="p-4 font-bold text-black">₹33,500–63,000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Section 6: Seasonal Driving Tips -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Summer & Winter Driving Tips
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Indian weather demands seasonal adjustments to get the most from your EV:</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-white">
-          <h4 class="text-sm font-bold text-black mb-2">☀️ Summer Tips</h4>
-          <ul class="text-xs text-zinc-600 space-y-1.5">
-            <li>Park in shaded areas or use car covers</li>
-            <li>Pre-cool cabin while plugged in (uses grid power, not battery)</li>
-            <li>Set charge limit to 80% — batteries degrade faster at high SOC + heat</li>
-            <li>Avoid DC fast charging in extreme afternoon heat</li>
-            <li>Use scheduled charging to finish before morning departure</li>
-          </ul>
-        </div>
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-white">
-          <h4 class="text-sm font-bold text-black mb-2">❄️ Winter Tips</h4>
-          <ul class="text-xs text-zinc-600 space-y-1.5">
-            <li>Expect 10–20% range reduction in cold weather</li>
-            <li>Precondition battery if your EV supports it (uses grid power)</li>
-            <li>Keep battery above 20% charge to maintain regen braking efficiency</li>
-            <li>Use seat warmers instead of cabin heater — uses less energy</li>
-            <li>Check tyre pressure more frequently (drops in cold weather)</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Section 7: Test Drive Checklist -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        What to Check During an EV Test Drive
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">An EV test drive is different from a conventional car test drive. Pay attention to these specific aspects:</p>
-      <ol class="space-y-4 mb-10 text-sm md:text-base text-zinc-600 list-decimal pl-5">
-        <li class="pl-2"><strong class="text-black">Regenerative Braking Feel:</strong> Test all regen levels (if adjustable). Strong regen allows one-pedal driving; weak regen feels more like an ICE car coasting. Choose what feels natural to you.</li>
-        <li class="pl-2"><strong class="text-black">Instant Torque Response:</strong> Accelerate from 0–40 km/h to feel the instant electric torque. Note any hesitation or delay — a good EV should be smooth and immediate.</li>
-        <li class="pl-2"><strong class="text-black">Display & Infotainment:</strong> Check the instrument cluster for real-time energy consumption, range estimate, and charging info. Test the infotainment system responsiveness and EV-specific features (charge scheduling, battery stats).</li>
-        <li class="pl-2"><strong class="text-black">Cabin Noise:</strong> EVs are quieter than ICE cars. Listen for any unusual whine from the motor, wind noise at highway speeds, or rattles. Good sound insulation is a premium indicator.</li>
-        <li class="pl-2"><strong class="text-black">Ride Quality:</strong> Batteries add significant weight (300–500 kg). Test the car over bumps and potholes to assess suspension tuning. Some EVs have stiffer suspension to manage the extra weight.</li>
-        <li class="pl-2"><strong class="text-black">Charging Port Access:</strong> Check the charging port location — front, rear, or side. Ensure the cable reaches comfortably and the flap opens/closes smoothly. Test both AC and DC port fitment.</li>
-        <li class="pl-2"><strong class="text-black">Parking Feels:</strong> EVs often have a longer wheelbase and different turning radius due to battery placement. Practice a tight parking manoeuvre to gauge manoeuvrability.</li>
-        <li class="pl-2"><strong class="text-black">One-Pedal Driving:</strong> If the EV offers one-pedal mode, spend at least 10 minutes driving in stop-and-go traffic. It takes getting used to, and comfort level varies by driver.</li>
-      </ol>
-
-      <!-- Section 8: EV Etiquette -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        EV Etiquette
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">As the EV community grows, a set of unwritten rules has emerged:</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🔌</span> <strong class="text-black">Don't ICE the charger:</strong> Never park an internal combustion vehicle in an EV charging spot. It's frustrating and inconsiderate.</li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">⏱️</span> <strong class="text-black">Move when charged:</strong> Once your EV reaches 80% at a public fast charger, move your vehicle so others can use the stall. Use charging apps to monitor your status.</li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🧹</span> <strong class="text-black">Keep cables tidy:</strong> After charging, return the cable to its holster neatly. Tangled or dirty cables degrade faster and inconvenience the next user.</li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🗣️</span> <strong class="text-black">Share chargers:</strong> If you see another EV waiting, offer to unplug if you've reached a sufficient charge (80%+). EV community thrives on goodwill.</li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">📱</span> <strong class="text-black">Use charging apps:</strong> Always check charger availability via apps like PlugShare, ChargeZone, or Statiq before arriving. Update charger status after your session.</li>
-      </ul>
-
-      <!-- Section 9: Extended Warranties -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Extended Warranties & Resale Value
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Most EV manufacturers in India offer an 8-year / 1.5 lakh km warranty on the battery. Extended warranties on other components (motor, charger, electronics) typically cost ₹15,000–35,000 extra and extend coverage by 2–3 years.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4"><strong class="text-black">Resale value</strong> for EVs is still maturing in India. Early data suggests EVs retain 50–60% of their value after 3 years (vs 55–65% for popular ICE cars). Factors that positively impact resale include a well-maintained battery health certificate, comprehensive service history, and remaining warranty period. The resale market is expected to strengthen significantly as more certified pre-owned EV programmes launch.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">If keeping your EV beyond the warranty period, an extended warranty is generally recommended — the cost of replacing a drive motor or on-board charger can easily exceed ₹1 lakh.</p>
-
-      <!-- Conclusion Section -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Conclusion
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Buying your first EV is a rewarding journey — and with the right preparation, it can be a smooth one. From understanding range and charging to navigating insurance, maintenance, and resale, the key is to approach the decision with the same diligence you would any major purchase.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The Indian EV ecosystem is evolving rapidly. New models with better range, faster charging, and lower prices debut every quarter. Charging infrastructure is expanding across all major cities and highways. And government policies continue to favour EV adoption.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Whether you're buying your first EV or adding one to an existing fleet, the information in this guide will help you make a confident, informed decision. Welcome to the electric future.</p>
-
     </div>
+  </section>
+
+  <!-- Main Content (PURE TEXT & ELEGANT DESIGN CARDS, NO IN-BODY IMAGES) -->
+  <article class="max-w-4xl mx-auto px-6 py-16 lg:py-20 text-zinc-800 leading-relaxed font-sans">
+    
+    <!-- Executive Takeaways -->
+    <div class="bg-zinc-50 border-l-4 border-[#22C55E] p-6 md:p-8 rounded-r-2xl mb-12 shadow-sm">
+      <span class="font-mono text-[11px] text-[#22C55E] font-bold tracking-widest uppercase block mb-2">EXECUTIVE SUMMARY</span>
+      <h3 class="text-lg font-bold text-black mb-4">Essential Steps Before Buying an EV in India</h3>
+      <ul class="space-y-3 text-xs md:text-sm text-zinc-700">
+        <li class="flex items-start gap-3"><span class="text-[#22C55E] font-bold">✓</span> <strong>Real-World Range Test:</strong> Always calculate real-world range as 70% to 75% of MIDC claimed range to account for AC usage and traffic conditions.</li>
+        <li class="flex items-start gap-3"><span class="text-[#22C55E] font-bold">✓</span> <strong>Home Electrical Audit:</strong> Verify your home sanctioned load capacity before purchasing a 7.2 kW Level 2 wallbox charger.</li>
+        <li class="flex items-start gap-3"><span class="text-[#22C55E] font-bold">✓</span> <strong>Warranty Terms:</strong> Inspect battery warranty clauses — OEM warranties cover capacity degradation if State of Health (SoH) drops below 70%.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="mb-14">
+      <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">SECTION 1 // THE BUYER CHECKLIST</span>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-black mb-6">Step-by-Step EV Evaluation Framework</h2>
+      
+      <div class="space-y-4">
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-zinc-50">
+          <h4 class="font-bold text-black text-sm uppercase tracking-wider mb-2">1. Daily Commute vs Range Capacity</h4>
+          <p class="text-xs text-zinc-600 leading-relaxed">If your daily round-trip commute is 50 km, an EV with a real-world range of 250 km will only require charging once every 4 to 5 days.</p>
+        </div>
+
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-zinc-50">
+          <h4 class="font-bold text-black text-sm uppercase tracking-wider mb-2">2. Battery Warranty Terms & Cell Chemistry</h4>
+          <p class="text-xs text-zinc-600 leading-relaxed">LFP battery packs offer 3,000+ charge cycles and superior thermal safety. Ensure your warranty covers at least 8 years or 1,60,000 km.</p>
+        </div>
+
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-zinc-50">
+          <h4 class="font-bold text-black text-sm uppercase tracking-wider mb-2">3. Sanctioned Load & Discom Approvals</h4>
+          <p class="text-xs text-zinc-600 leading-relaxed">Submit a load extension request to your electricity provider if installing a 7.2 kW charger on a single-phase supply line.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATEST NEWS SECTION (3 CARDS) -->
+    <section class="border-t border-zinc-200 pt-12 mt-16">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">LATEST INDUSTRY INSIGHTS</span>
+          <h2 class="text-2xl font-bold text-black">Latest EV Buying & Ownership News</h2>
+        </div>
+        <a href="../index.html#news" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">VIEW ALL NEWS →</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <a href="https://evreporter.com" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">BUYER GUIDE · AUG 2026</span>
+            <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">Top 5 Electric SUVs Under ₹20 Lakh Rated on Real-World Highway Range</h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">Comprehensive range testing comparing Tata Curvv EV, Nexon EV Long Range, MG ZS EV, and Mahindra XEV 9e.</p>
+          </div>
+        </a>
+
+        <a href="https://evreporter.com" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">WARRANTY REPORT · JUL 2026</span>
+            <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">Indian Automakers Extend Battery Warranty Coverage to 10 Years</h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">OEMs introduce optional 10-year / 2,000,000 km extended warranty packages for original EV owners.</p>
+          </div>
+        </a>
+
+        <a href="https://evreporter.com" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">OWNERSHIP STUDY · JUL 2026</span>
+            <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">92% of Indian EV Owners Report They Will Never Buy a Petrol Car Again</h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">Consumer survey highlights instant torque, silent cabin experience, and low running costs as main satisfaction factors.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- YOUTUBE VIDEOS SECTION (3 CARDS) -->
+    <section class="border-t border-zinc-200 pt-12 mt-16">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">VIDEO EXPLAINERS</span>
+          <h2 class="text-2xl font-bold text-black">Top EV Buyer Videos</h2>
+        </div>
+        <a href="../index.html#videos" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">WATCH ALL VIDEOS →</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <a href="https://www.youtube.com/results?search_query=first+time+ev+buyer+guide+india" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">BUYER GUIDE · 15 MIN</span>
+            <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">First Time EV Buyer Masterclass: Everything You Must Check Before Booking</h3>
+            <p class="text-xs text-zinc-400 line-clamp-2">Complete checklist covering test drive protocols, home charging feasibility, and insurance add-ons.</p>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/results?search_query=ev+battery+warranty+claims+explained" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">WARRANTY GUIDE · 12 MIN</span>
+            <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">EV Battery Warranty Clauses Explained: What Is SoH & Degradation Cover?</h3>
+            <p class="text-xs text-zinc-400 line-clamp-2">Understanding State of Health diagnostics, cell replacement criteria, and warranty transfer rules.</p>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/results?search_query=ev+long+distance+highway+road+trip+guide" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">ROAD TRIP GUIDE · 18 MIN</span>
+            <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">How to Plan a 1,000 km EV Highway Road Trip Across India Without Stress</h3>
+            <p class="text-xs text-zinc-400 line-clamp-2">Using charging navigation apps, buffer planning, and managing highway DC fast stops.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Final Summary -->
+    <section class="border-t-2 border-zinc-900 pt-10 mt-16">
+      <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">SUMMARY & VERDICT</span>
+      <h2 class="text-xl md:text-2xl font-extrabold text-black mb-4">Empowered Electric Ownership</h2>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-6">Equipped with real-world range calculations, home charger preparation, and battery health knowledge, buying an EV becomes one of the most rewarding decisions you can make.</p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-center bg-zinc-900 text-white p-6 rounded-2xl">
+        <div>
+          <h4 class="font-bold text-base">Browse Electric Vehicles on EV Car Wale</h4>
+          <p class="text-xs text-zinc-400 font-mono mt-1">Compare range, specs, prices, and features across all available EV models.</p>
+        </div>
+        <a href="../index.html" class="px-6 py-3 bg-[#22C55E] hover:bg-[#1ea850] text-black font-mono text-xs font-bold tracking-widest uppercase rounded-xl transition-all flex-shrink-0">
+          EXPLORE ALL EVs →
+        </a>
+      </div>
+    </section>
+
   </article>
 
-  <!-- Related Articles -->
-  <section class="border-t border-zinc-200 bg-zinc-50">
-    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Buyer Guide</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Real-World Range:</strong> Focus on real-world range (typically 75-80% of certified range) to plan your needs.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Battery Chemistry:</strong> LFP is safer and more durable for daily charging in warm climates; NMC offers more range.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Warranty Check:</strong> Standard battery warranties cover 8 years or 1,60,000 km, ensuring peace of mind.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Buyer Guide</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Real-World Range:</strong> Focus on real-world range (typically 75-80% of certified range) to plan your needs.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Battery Chemistry:</strong> LFP is safer and more durable for daily charging in warm climates; NMC offers more range.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Warranty Check:</strong> Standard battery warranties cover 8 years or 1,60,000 km, ensuring peace of mind.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Buyer Guide</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Real-World Range:</strong> Focus on real-world range (typically 75-80% of certified range) to plan your needs.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Battery Chemistry:</strong> LFP is safer and more durable for daily charging in warm climates; NMC offers more range.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Warranty Check:</strong> Standard battery warranties cover 8 years or 1,60,000 km, ensuring peace of mind.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: Buyer Guide</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Real-World Range:</strong> Focus on real-world range (typically 75-80% of certified range) to plan your needs.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Battery Chemistry:</strong> LFP is safer and more durable for daily charging in warm climates; NMC offers more range.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Warranty Check:</strong> Standard battery warranties cover 8 years or 1,60,000 km, ensuring peace of mind.</span>
-          </li>
-        </ul>
-      </div>
-
-      <h2 class="text-lg font-bold tracking-tight text-black mb-8 flex items-center gap-3">
-        <span class="w-1 h-5 bg-black inline-block"></span>
-        Related Articles
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <a href="renewable-energy-and-evs.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Energy</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Renewable Energy & EVs</h3>
-          <p class="text-xs text-zinc-500">The synergy between clean power and electric mobility in India.</p>
-        </a>
-        <a href="../battery-health.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Maintenance</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Battery Health Guide</h3>
-          <p class="text-xs text-zinc-500">Maximise your EV battery lifespan with practical tips.</p>
-        </a>
-        <a href="ev-charging-explained.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Charging</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">EV Charging Explained</h3>
-          <p class="text-xs text-zinc-500">All about charging speeds, connectors, and home installation.</p>
-        </a>
-        <a href="ev-infrastructure-india.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Infrastructure</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">EV Infrastructure in India</h3>
-          <p class="text-xs text-zinc-500">How India's charging network is growing and what's next.</p>
-        </a>
-      </div>
-      <div class="mt-10 text-center">
-        <a href="../index.html#insights" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-300 hover:border-black font-mono text-[10px] tracking-wider text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate rounded-full">
-          BACK TO INSIGHTS
-          <span class="arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
-  <footer class="border-t border-zinc-200 bg-white">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 text-black">
-        <span class="w-2 h-2 bg-black inline-block"></span>
-        EV CAR WALE
-      </a>
-      <p class="font-mono text-[9px] text-zinc-400 tracking-wider">&copy; 2026 EV Car Wale. All rights reserved.</p>
+  <footer class="bg-black text-white border-t border-zinc-800 py-12 px-6 lg:px-12 font-mono text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain">
+        <span class="font-bold tracking-widest text-sm">EV CAR WALE</span>
+      </div>
+      <p class="text-zinc-500 text-[10px] uppercase tracking-widest text-center">
+        © 2026 EV CAR WALE GROUP. INDIA'S SMART ELECTRIC VEHICLE MARKETPLACE.
+      </p>
+      <a href="../index.html" class="text-[#22C55E] hover:underline uppercase text-[10px] tracking-wider">RETURN TO HOME</a>
     </div>
   </footer>
 
-<!-- AI Floating Assistant -->
-<div id="ai-overlay" class="ai-overlay"></div>
-<div class="ai-assistant-container">
-  <div class="ai-trigger" id="ai-trigger">
-    <div class="ai-avatar-wrapper ai-float-anim">
-      <div class="ai-avatar-glow"></div>
-      <img src="../ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
-    </div>
-    <div class="ai-label" id="ai-label">Ask EV AI</div>
-  </div>
-  <div class="ai-chat-window" id="ai-chat-window">
-    <div class="ai-chat-header">
-      <div class="ai-chat-header-left">
-        <img src="../ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
-        <div>
-          <div class="ai-chat-title">EV AI Assistant</div>
-          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
-        </div>
-      </div>
-      <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
-    </div>
-    <div class="ai-chat-body" id="ai-chat-body">
-      <div class="ai-message ai-bot-message" style="white-space:pre-line">
-Hi! 👋 I'm your EV AI Assistant.
-
-Ask me anything about:
-
-• Electric Vehicles
-• Charging
-• Battery Health
-• EV Costs
-• Government Policies
-• EV Buying
-• Range
-• Comparisons
-• Charging Stations
-      </div>
-      <div class="ai-suggestions">
-        <button class="ai-chip">Best EV under ₹15 lakh</button>
-        <button class="ai-chip">Charging cost</button>
-        <button class="ai-chip">Battery lifespan</button>
-        <button class="ai-chip">Compare Tata vs MG</button>
-        <button class="ai-chip">Government subsidy</button>
-        <button class="ai-chip">Charging stations near me</button>
-      </div>
-    </div>
-    <div class="ai-chat-input-area">
-      <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
-      <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
-    </div>
-  </div>
-</div>
-<script src="../ai-assistant.js"></script>
 </body>
 </html>

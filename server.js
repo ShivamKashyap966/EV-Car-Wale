@@ -1,4 +1,5 @@
 const path = require('path');
+module.paths.push(path.join(__dirname, 'backend', 'node_modules'));
 require('dotenv').config();
 
 // Clear empty keys from root .env to allow backend/.env overrides
@@ -19,8 +20,11 @@ const app = createApp({
   aiServicePath: path.join(__dirname, 'aiService.js')
 });
 
-initializeDataServices().finally(() => {
-  app.listen(env.PORT, () => {
-    console.log(`EV CAR WALE server running on http://localhost:${env.PORT}`);
-  });
+const port = env.PORT || 8081;
+app.listen(port, () => {
+  console.log(`EV CAR WALE server running on http://localhost:${port}`);
+});
+
+initializeDataServices().catch(err => {
+  console.log('Data services init notice:', err.message);
 });

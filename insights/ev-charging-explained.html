@@ -3,14 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EV Charging Explained – EV Car Wale</title>
-  <meta name="description" content="Everything you need to know about EV charging in India — from Level 1, 2, DC fast charging to connectors, costs, and home setup.">
+  <title>EV Charging Explained: The Master Guide to EV Batteries & Charging (2026) – EV Car Wale</title>
+  <meta name="description" content="An exhaustive master guide on electric vehicle charging — AC vs DC physics, charging curves, LFP vs NMC chemistry, thermal management, home installation, tariff math, and 3 news & video explainers.">
+  <meta property="og:title" content="EV Charging Explained: The Master Guide to EV Batteries & Charging (2026)">
+  <meta property="og:description" content="Master guide to electric vehicle charging — AC vs DC physics, charging curves, battery chemistry, tariffs, and battery lifespan optimization.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.evcarwale.com/insights/ev-charging-explained.html">
+  <meta property="og:image" content="../insights_images/ev-charging-explained.JPG">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EV Charging Explained: The Master Guide (2026)">
+  <meta name="twitter:description" content="AC vs DC physics, charging curves, battery chemistry, thermal management, home installation, and battery lifespan optimization.">
+  <meta name="twitter:image" content="../insights_images/ev-charging-explained.JPG">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../ai-assistant.css">
   <script>
     tailwind.config = {
       theme: {
@@ -21,535 +32,254 @@
             darkgray: '#1E1E1E',
             medgray: '#555555',
             lightgray: '#F5F5F5',
+            accentgreen: '#22C55E',
           },
           fontFamily: {
             sans: ['Poppins', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
           }
         }
       }
     }
   </script>
-  <style>
-    .hero-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
-    }
-    @media (min-width: 768px) {
-      .hero-overlay {
-        background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
-      }
-    }
-  </style>
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../ai-assistant.css">
   <link rel="icon" type="image/png" href="/tab_logo.png">
   <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
 </head>
-<body class="bg-white text-black font-sans overflow-x-hidden">
+<body class="bg-white text-black font-sans overflow-x-hidden antialiased">
 
-  <!-- Navbar -->
+  <!-- Header / Navbar -->
   <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
     <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
       <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
         <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
         EV CAR WALE
       </a>
-      <div class="flex items-center gap-3 flex-shrink-0">
-        <a href="../index.html" class="px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">HOME</a>
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="text-[11px] font-mono tracking-wider font-semibold text-zinc-700 hover:text-[#22C55E] transition-colors">← RETURN TO MARKETPLACE</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img src="../insights_images/ev-charging-explained.JPG" alt="EV Charging" class="w-full h-full object-cover">
-      <div class="hero-overlay absolute inset-0"></div>
-      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+  <!-- Hero Magazine Header (SEAMLESS GRADIENT BLEND TO WHITE) -->
+  <section class="relative min-h-[520px] flex items-end justify-center overflow-hidden pb-16 bg-black">
+    <div class="absolute inset-0">
+      <img src="../insights_images/ev-charging-explained.JPG" alt="EV Charging Master Guide" class="w-full h-full object-cover">
+      <!-- Luxury Seamless Gradient Blend from Dark to Pure White -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-white"></div>
     </div>
-    <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 w-full pt-20 pb-12 md:pt-28 md:pb-16">
-      <div class="max-w-2xl">
-        <span class="font-mono text-[10px] tracking-widest text-zinc-300 uppercase mb-4 inline-block border border-zinc-500/40 px-3 py-1">Guides & Education</span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white mb-4">EV Charging Explained</h1>
-        <p class="text-base md:text-lg text-zinc-200 max-w-xl leading-relaxed mb-6">From Level 1 home charging to DC fast charging on highways — a complete guide to how, where, and how much it costs to charge an electric vehicle in India.</p>
-        <div class="flex flex-wrap items-center gap-4 font-mono text-[10px] tracking-wider text-zinc-400">
-          <span class="flex items-center gap-1.5">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            10 min read
-          </span>
-          <span class="flex items-center gap-1.5">
-            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 stroke-current fill-none stroke-2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            EV Car Wale Team
-          </span>
-          <span class="flex items-center gap-1.5">Updated July 2026</span>
-        </div>
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/20 border border-[#22C55E]/40 rounded-full mb-4">
+        <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+        <span class="font-mono text-[10px] text-[#22C55E] tracking-widest uppercase font-bold">TECHNICAL EDITORIAL REPORT</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight drop-shadow-md">EV Charging Explained: The Complete Technical Guide</h1>
+      <p class="text-sm md:text-lg text-zinc-200 max-w-2xl mx-auto leading-relaxed mb-6 drop-shadow">Demystifying voltage levels, charging curves, C-rates, LFP vs NMC degradation, liquid thermal management, and home charging installation.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4 font-mono text-[11px] text-zinc-800 font-semibold border-t border-zinc-400/40 pt-4">
+        <span>BY <strong>EV CAR WALE TECHNICAL DESK</strong></span>
+        <span>•</span>
+        <span>AUGUST 2026</span>
+        <span>•</span>
+        <span>22 MIN READ</span>
+        <span>•</span>
+        <span class="text-[#22C55E]">3,680 WORDS</span>
       </div>
     </div>
   </section>
 
-  <!-- Article Content -->
-  <article class="max-w-4xl mx-auto px-6 lg:px-12 py-12 md:py-16">
-    <div class="prose prose-zinc max-w-none">
-
-      <!-- Intro -->
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Charging an electric vehicle is fundamentally different from refuelling a petrol or diesel car. There are multiple levels, connector types, charging speeds, and costs to understand. For Indian buyers considering their first EV, this guide breaks down everything you need to know about EV charging — from plugging into a standard wall socket to using a 150 kW DC fast charger on the Mumbai-Pune Expressway.</p>
-
-      <!-- Section 1: The Three Levels of EV Charging -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        The Three Levels of EV Charging
-      </h2>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">⚡ Charging Overview</div>
-        <p class="editorial-callout-content">EV charging is split into three levels: Level 1 (slow overnight charging via normal socket), Level 2 (faster AC wallbox at home/office), and Level 3 (high-speed DC fast charging on highways).</p>
+  <!-- Metric Highlights Bar (SEAMLESS WHITE CONTINUITY) -->
+  <section class="bg-white text-black py-10 border-b border-zinc-200">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="border-r border-zinc-200 pr-4">
+        <span class="text-3xl md:text-4xl font-extrabold text-[#22C55E] block font-mono">3.3 kW</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Standard 15A Socket</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">⚡ Charging Overview</div>
-        <p class="editorial-callout-content">EV charging is split into three levels: Level 1 (slow overnight charging via normal socket), Level 2 (faster AC wallbox at home/office), and Level 3 (high-speed DC fast charging on highways).</p>
+      <div class="border-r border-zinc-200 pr-4">
+        <span class="text-3xl md:text-4xl font-extrabold text-black block font-mono">7.2 kW</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Home AC Wallbox Standard</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">⚡ Charging Overview</div>
-        <p class="editorial-callout-content">EV charging is split into three levels: Level 1 (slow overnight charging via normal socket), Level 2 (faster AC wallbox at home/office), and Level 3 (high-speed DC fast charging on highways).</p>
+      <div class="border-r border-zinc-200 pr-4">
+        <span class="text-3xl md:text-4xl font-extrabold text-[#22C55E] block font-mono">60-120 kW</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">Highway DC Fast Charger Output</span>
       </div>
-      <div class="editorial-callout">
-        <div class="editorial-callout-title">⚡ Charging Overview</div>
-        <p class="editorial-callout-content">EV charging is split into three levels: Level 1 (slow overnight charging via normal socket), Level 2 (faster AC wallbox at home/office), and Level 3 (high-speed DC fast charging on highways).</p>
+      <div>
+        <span class="text-3xl md:text-4xl font-extrabold text-black block font-mono">3,000+</span>
+        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block mt-1">LFP Cell Cycle Life (to 80% SoH)</span>
       </div>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">EV charging is categorised into three levels based on power output and charging speed. In India, Levels 1 and 2 use AC (alternating current), while Level 3 uses DC (direct current).</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Your EV's onboard charger converts AC to DC before it reaches the battery. With DC fast charging, the conversion happens inside the charger itself, allowing much higher power delivery directly to the battery.</p>
-
-      <div class="grid gap-5 mb-10">
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-zinc-50">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="w-8 h-8 bg-black text-white flex items-center justify-center text-xs font-bold shrink-0">L1</span>
-            <h3 class="text-sm font-bold text-black">Level 1 — Standard Wall Socket (AC)</h3>
-          </div>
-          <p class="text-sm text-zinc-600">Uses a regular 3-pin 15A socket. Delivers 2.3–3.3 kW. Adds about 8–15 km of range per hour. Best for overnight charging or as a backup option. No installation cost, but very slow — a full charge for a 40 kWh battery could take 12–18 hours.</p>
-        </div>
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-zinc-50">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="w-8 h-8 bg-black text-white flex items-center justify-center text-xs font-bold shrink-0">L2</span>
-            <h3 class="text-sm font-bold text-black">Level 2 — Home Wall Box / AC Charger</h3>
-          </div>
-          <p class="text-sm text-zinc-600">A dedicated 7.2 kW AC wall charger installed at home. Adds about 30–45 km of range per hour. Fully charges a 40 kWh battery in 5–6 hours. Requires a professional installation (₹15,000–40,000). This is the standard setup for most Indian EV owners.</p>
-        </div>
-        <div class="border border-zinc-200 rounded-2xl p-5 bg-zinc-50">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="w-8 h-8 bg-black text-white flex items-center justify-center text-xs font-bold shrink-0">L3</span>
-            <h3 class="text-sm font-bold text-black">Level 3 — DC Fast Charging</h3>
-          </div>
-          <p class="text-sm text-zinc-600">High-power DC chargers found at public stations. Power ranges from 30 kW to 350 kW. Adds 150–500+ km of range in 30 minutes. Ideal for road trips and highway charging. Charging speed depends on the vehicle's maximum charge rate and battery temperature. Costs ₹12–25 per kWh.</p>
-        </div>
-      </div>
-
-      <!-- AC vs DC Comparison Table -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-6 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        AC vs DC Charging: Key Differences
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Understanding the difference between AC and DC charging is essential for planning your charging strategy. Here's how they compare:</p>
-      <div class="overflow-x-auto mb-10">
-        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
-          <thead>
-            <tr class="bg-zinc-50 border-b border-zinc-200">
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Parameter</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">AC Charging (Level 1 & 2)</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">DC Charging (Level 3)</th>
-            </tr>
-          </thead>
-          <tbody class="text-zinc-600">
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Power Source</td>
-              <td class="p-4">Alternating Current from the grid</td>
-              <td class="p-4">Direct Current from the charger</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Conversion Location</td>
-              <td class="p-4">Inside the car (onboard charger)</td>
-              <td class="p-4">Inside the charger (bypasses onboard charger)</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Typical Power</td>
-              <td class="p-4">2.3 kW – 7.2 kW (up to 22 kW in some markets)</td>
-              <td class="p-4">30 kW – 350 kW</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Charge Speed (40 kWh battery)</td>
-              <td class="p-4">5–18 hours (full charge)</td>
-              <td class="p-4">20–60 minutes (10–80%)</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Cost per kWh</td>
-              <td class="p-4">₹5–8 (residential tariff)</td>
-              <td class="p-4">₹12–25 (commercial tariff)</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Battery Wear</td>
-              <td class="p-4">Minimal — gentler on battery</td>
-              <td class="p-4">Higher — generates more heat</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">Best Use Case</td>
-              <td class="p-4">Daily home charging, workplace</td>
-              <td class="p-4">Road trips, highway travel</td>
-            </tr>
-            <tr>
-              <td class="p-4 font-medium text-black">Installation Cost</td>
-              <td class="p-4">₹15,000–40,000 (home setup)</td>
-              <td class="p-4">₹10–30 lakh (public charger)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Section 2: Connectors & Types -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Connectors & Charging Standards in India
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Unlike petrol nozzles which are universal, EV charging connectors vary by region, charging level, and vehicle manufacturer. India has adopted a mix of international standards:</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🔌</span> <span><strong class="text-black">CCS2 (Combined Charging System 2):</strong> The most common DC fast-charging standard in India. Used by Tata, MG, Hyundai, Kia, BMW, Mercedes-Benz, and most European and Korean EVs. Combines AC and DC in a single port.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🔌</span> <span><strong class="text-black">CHAdeMO:</strong> Developed by Japanese manufacturers. Used by the Nissan Leaf and some older EVs. CHAdeMO chargers are still found at some public stations but adoption is declining globally in favour of CCS.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🔌</span> <span><strong class="text-black">GB/T (Guobiao Standard):</strong> The Chinese standard used by BYD and MG (for certain models) in India. GB/T AC and DC connectors are physically different from CCS. Most public chargers in India now offer GB/T compatibility.</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">🔌</span> <span><strong class="text-black">Type 2 (Mennekes):</strong> The standard AC charging connector for all EVs sold in India. Used for home wall boxes and AC public chargers. Compatible with Levels 1 and 2 AC charging.</span></li>
-      </ul>
-
-      <!-- Stats Card: Typical Charging Times -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-6 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Typical Charging Times by Battery Size
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">Charging time depends on battery capacity, charger power, and the vehicle's maximum charge rate. Here's a quick reference for common Indian EV battery sizes:</p>
-      <div class="overflow-x-auto mb-10">
-        <table class="w-full text-sm border-collapse border border-zinc-200 rounded-2xl overflow-hidden">
-          <thead>
-            <tr class="bg-zinc-50 border-b border-zinc-200">
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Battery Size</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Example EV</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Level 1 (2.3 kW)</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">Level 2 (7.2 kW)</th>
-              <th class="text-left p-4 font-bold text-black text-xs tracking-wider">DC Fast (50 kW)</th>
-            </tr>
-          </thead>
-          <tbody class="text-zinc-600">
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">25–30 kWh</td>
-              <td class="p-4">Tata Tiago EV, MG Comet</td>
-              <td class="p-4">11–13 hours</td>
-              <td class="p-4">3–4 hours</td>
-              <td class="p-4">35 min (10–80%)</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">35–45 kWh</td>
-              <td class="p-4">Tata Nexon EV, MG ZS EV</td>
-              <td class="p-4">15–18 hours</td>
-              <td class="p-4">5–6 hours</td>
-              <td class="p-4">45–55 min (10–80%)</td>
-            </tr>
-            <tr class="border-b border-zinc-100">
-              <td class="p-4 font-medium text-black">50–60 kWh</td>
-              <td class="p-4">Hyundai Kona, Kia EV6</td>
-              <td class="p-4">22–26 hours</td>
-              <td class="p-4">7–8 hours</td>
-              <td class="p-4">45–60 min (10–80%)</td>
-            </tr>
-            <tr>
-              <td class="p-4 font-medium text-black">70–85 kWh</td>
-              <td class="p-4">BYD Atto 3, BMW i4</td>
-              <td class="p-4">30–36 hours</td>
-              <td class="p-4">10–12 hours</td>
-              <td class="p-4">50–70 min (10–80%)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Highlight Box: Home Charging Setup Checklist -->
-      <div class="border-l-4 border-black pl-4 bg-zinc-50 p-5 md:p-6 mb-10 rounded-r-2xl">
-        <h3 class="text-sm font-bold text-black mb-3 flex items-center gap-2">
-          <span class="text-base">&#9744;</span> Home Charging Setup Checklist
-        </h3>
-        <ul class="space-y-2 text-sm text-zinc-600">
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Get a dedicated 15A/32A socket installed by a licensed electrician</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Ensure proper earthing (mandatory for EV charging safety)</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Install a 7.2 kW AC wall box (₹15,000–40,000 + installation)</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Obtain NOC from housing society or RWA if living in an apartment</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Install a dedicated MCB and earth leakage protection</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Consider time-of-day tariffs to charge during off-peak hours (lower rates)</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Keep charging cable organised with a wall-mounted holster</li>
-          <li class="flex items-start gap-2"><span class="text-black font-bold shrink-0">&#9632;</span> Schedule regular inspection of charger and wiring (every 6 months)</li>
-        </ul>
-      </div>
-
-      <!-- Section 3: Home Charging Costs -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Home Charging: Costs & Savings
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Home charging is the most economical way to power your EV. In India, residential electricity tariffs range from ₹5–8 per kWh depending on your state and consumption slab. At ₹6/kWh, charging a 40 kWh battery (Tata Nexon EV) costs just ₹240 for a full charge — enough for about 300 km of real-world range.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Compared to petrol at ₹96/litre, an EV running on home charging saves approximately ₹0.80–1.20 per kilometre. Over 15,000 km per year, that's ₹12,000–18,000 in annual fuel savings.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">Most Indian states offer separate EV tariffs — typically ₹4–6/kWh during off-peak hours (11 PM to 6 AM). Check with your state electricity board for applicable rates and consider installing a time-of-day meter to maximise savings.</p>
-
-      <!-- Section 4: Public Charging Costs -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Public Charging Costs in India
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Public DC fast charging is more expensive than home charging but still significantly cheaper than petrol. Here are typical per-kWh rates across major networks:</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Tata Power EZ:</strong> ₹12–18/kWh + idle fees after 60 minutes</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">ChargeZone:</strong> ₹14–22/kWh depending on location and charger speed</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Zeon / Statiq:</strong> ₹12–20/kWh with membership plans available</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Adani Total Energies:</strong> ₹15–25/kWh at highway locations</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">BP Pulse / Jio-BP:</strong> ₹14–20/kWh at select urban and highway stations</span></li>
-      </ul>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">At ₹15/kWh, a 30-minute fast-charging session (from 20% to 80% on a 40 kWh battery) costs approximately ₹360 and adds about 240 km of range. Most networks offer app-based payments and real-time charger availability tracking.</p>
-
-      <!-- Section 5: Charging Time Calculation -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        How to Calculate Charging Time
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The basic formula for estimating charging time is straightforward:</p>
-      <div class="border border-zinc-200 rounded-2xl p-5 md:p-6 bg-zinc-50 mb-6">
-        <p class="text-sm font-mono text-black font-bold text-center text-base md:text-lg tracking-tight">
-          Charging Time (hours) = Battery Capacity (kWh) &divide; Charging Power (kW)
-        </p>
-      </div>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4"><strong class="text-black">Example:</strong> A 40 kWh battery charging on a 7.2 kW AC wall box: 40 &divide; 7.2 = 5.6 hours (approx.) from 0% to 100%.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">In reality, charging is not perfectly linear. The charging curve varies — EVs charge fastest in the middle range (20–80%) and slow down after 80% to protect the battery. DC fast chargers also have a charging curve influenced by battery temperature and state of charge.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">For a more accurate estimate, use this adjusted formula:</p>
-      <ul class="space-y-2 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">1.</span> <span>Calculate the usable energy: Battery capacity &times; (target SoC &minus; starting SoC)</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">2.</span> <span>Divide by charger power: Usable energy &divide; Charger power</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">3.</span> <span>Add 10–15% for charging losses and tapering at high SoC</span></li>
-      </ul>
-
-      <!-- Section 6: Battery Degradation from Fast Charging -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Does Fast Charging Degrade the Battery?
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">This is one of the most common concerns among first-time EV buyers. The short answer: yes, frequent DC fast charging accelerates battery degradation, but the impact is modest for most users.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Studies show that an EV charged exclusively on DC fast chargers may lose 2–3% more capacity per 1,00,000 km compared to one charged primarily on AC. For typical Indian usage patterns — where home charging accounts for 80–90% of charging sessions — the degradation difference is barely noticeable within the standard 8-year/1,50,000 km warranty period.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Modern EVs have sophisticated thermal management systems that pre-condition the battery before fast charging, reducing heat-related stress. If you fast charge once or twice a week for road trips, the impact on battery health is negligible.</p>
-      <div class="border border-zinc-200 rounded-2xl p-5 bg-zinc-50 mb-8">
-        <div class="flex items-start gap-3">
-          <span class="text-lg shrink-0 mt-0.5">&#128161;</span>
-          <div>
-            <h4 class="text-sm font-bold text-black mb-1">Best Practice</h4>
-            <p class="text-sm text-zinc-600">Use AC home charging for daily needs and reserve DC fast charging for road trips. This balanced approach gives you the best of both worlds — convenience and battery longevity.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 7: Overnight Charging Tips -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Overnight Charging Best Practices
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Overnight charging is the most convenient and cost-effective way to charge your EV. Here are tips to get the most out of it:</p>
-      <ul class="space-y-3 mb-8 text-sm md:text-base text-zinc-600">
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Charge to 80–90% for daily use</strong> — only charge to 100% when you need maximum range the next day</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Use scheduled charging</strong> — most EVs let you set a departure time so charging finishes just before you leave</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Take advantage of off-peak tariffs</strong> — charge between 11 PM and 6 AM when electricity is cheapest</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Avoid charging immediately after driving</strong> — let the battery cool for 15–30 minutes</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Keep the charging area ventilated</strong> — while EV charging is safe, good ventilation is recommended</span></li>
-        <li class="flex gap-3"><span class="font-bold text-black shrink-0 w-5">•</span> <span><strong class="text-black">Inspect cables regularly</strong> — check for fraying, cuts, or damage to the charging cable</span></li>
-      </ul>
-
-      <!-- Section 8: Workplace Charging -->
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-12 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Workplace Charging
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Workplace charging is an increasingly popular benefit offered by Indian employers. It fills the gap between home and public charging, especially for employees who live in apartments without dedicated parking.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">Most workplace chargers are Level 2 AC (7.2 kW) units, providing 30–45 km of range per hour. An 8-hour workday can add 250–360 km of range — more than enough for most commutes. Many companies offer this as a free perk, while others charge a nominal fee.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-8">The Indian government has mandated that commercial buildings with 100+ parking spaces must reserve 20% of parking for EV charging. This is driving rapid installation of workplace chargers in metro cities like Bengaluru, Mumbai, Delhi, and Pune.</p>
-
-      <!-- Conclusion -->
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: EV Charging</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>AC vs DC:</strong> AC charging is gentler on the battery and cheaper; DC fast charging is for quick road trip top-ups.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>CCS2 Standard:</strong> Most Indian EVs use the CCS2 connector for fast charging.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Home Charging:</strong> A 7.2 kW AC wallbox is the most convenient everyday charging setup.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: EV Charging</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>AC vs DC:</strong> AC charging is gentler on the battery and cheaper; DC fast charging is for quick road trip top-ups.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>CCS2 Standard:</strong> Most Indian EVs use the CCS2 connector for fast charging.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Home Charging:</strong> A 7.2 kW AC wallbox is the most convenient everyday charging setup.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: EV Charging</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>AC vs DC:</strong> AC charging is gentler on the battery and cheaper; DC fast charging is for quick road trip top-ups.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>CCS2 Standard:</strong> Most Indian EVs use the CCS2 connector for fast charging.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Home Charging:</strong> A 7.2 kW AC wallbox is the most convenient everyday charging setup.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="key-takeaways-card">
-        <div class="key-takeaways-title">💡 Key Takeaways: EV Charging</div>
-        <ul class="key-takeaways-list">
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>AC vs DC:</strong> AC charging is gentler on the battery and cheaper; DC fast charging is for quick road trip top-ups.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>CCS2 Standard:</strong> Most Indian EVs use the CCS2 connector for fast charging.</span>
-          </li>
-          <li class="key-takeaways-item">
-            <span class="key-takeaways-bullet">✔</span>
-            <span><strong>Home Charging:</strong> A 7.2 kW AC wallbox is the most convenient everyday charging setup.</span>
-          </li>
-        </ul>
-      </div>
-
-      <h2 class="text-xl md:text-2xl font-bold tracking-tight text-black mt-16 mb-4 flex items-center gap-3">
-        <span class="w-1 h-6 bg-black inline-block"></span>
-        Conclusion
-      </h2>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">EV charging in India is evolving quickly. With home charging costing just ₹5–8/kWh, public networks expanding to every major highway, and workplace charging becoming more common, the infrastructure is keeping pace with EV adoption.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">The key takeaway: use home AC charging for daily needs, keep your battery between 20% and 80% for longevity, and enjoy the convenience of DC fast charging on road trips. With proper planning, charging an EV is cheaper, cleaner, and simpler than filling up a petrol car.</p>
-      <p class="text-sm md:text-base text-zinc-600 leading-relaxed">As India's charging network continues to grow — from 5,000+ public chargers in 2025 to a projected 30,000+ by 2030 — range anxiety will become a thing of the past.</p>
-
     </div>
+  </section>
+
+  <!-- Main Content (PURE TEXT & ELEGANT DESIGN CARDS, NO IN-BODY IMAGES) -->
+  <article class="max-w-4xl mx-auto px-6 py-16 lg:py-20 text-zinc-800 leading-relaxed font-sans">
+    
+    <!-- Executive Takeaways -->
+    <div class="bg-zinc-50 border-l-4 border-[#22C55E] p-6 md:p-8 rounded-r-2xl mb-12 shadow-sm">
+      <span class="font-mono text-[11px] text-[#22C55E] font-bold tracking-widest uppercase block mb-2">EXECUTIVE SUMMARY</span>
+      <h3 class="text-lg font-bold text-black mb-4">Core Principles of EV Charging for Indian Owners</h3>
+      <ul class="space-y-3 text-xs md:text-sm text-zinc-700">
+        <li class="flex items-start gap-3"><span class="text-[#22C55E] font-bold">✓</span> <strong>AC vs DC Fundamentals:</strong> AC charging relies on your car's onboard converter (slow); DC fast charging bypasses the onboard converter and feeds high-voltage electricity directly to the battery.</li>
+        <li class="flex items-start gap-3"><span class="text-[#22C55E] font-bold">✓</span> <strong>The Charging Curve:</strong> EVs charge at peak speeds between 10% and 80% SOC; after 80%, charging slows down automatically to prevent lithium plating and thermal stress.</li>
+        <li class="flex items-start gap-3"><span class="text-[#22C55E] font-bold">✓</span> <strong>Battery Chemistry:</strong> LFP (Lithium Iron Phosphate) batteries can be charged to 100% routinely; NMC (Nickel Manganese Cobalt) batteries are best kept between 20% and 80% for daily commuting.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="mb-14">
+      <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">SECTION 1 // ELECTRICAL FOUNDATIONS</span>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-black mb-6">How EV Charging Works: Volts, Amps & Kilowatt-Hours</h2>
+      <p class="text-sm md:text-base text-zinc-700 leading-relaxed mb-4">At its electrical core, charging an electric car is analogous to filling a fuel tank, but governed by electrochemistry. Power (measured in kilowatts, kW) represents the speed at which energy is delivered, while capacity (measured in kilowatt-hours, kWh) represents the volume of energy stored inside the battery pack.</p>
+      <p class="text-sm md:text-base text-zinc-700 leading-relaxed mb-6">Electrical power is calculated by multiplying Voltage (V) by Current in Amperes (A). A standard Indian 15A wall socket operates at 230 Volts: <code>230V × 15A = 3,450 Watts = ~3.4 kW</code>. Plugging a 40 kWh EV battery into this socket will require approximately 12 hours for a full replenish.</p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="mb-14">
+      <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">SECTION 2 // CHARGING LEVELS & INFRASTRUCTURE MECHANICS</span>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-black mb-6">Level 1, Level 2 & Level 3 DC Fast Charging</h2>
+      
+      <div class="space-y-6">
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-zinc-50">
+          <h4 class="font-mono text-sm font-bold text-black uppercase tracking-wider mb-2">LEVEL 1 AC (Portable 3.3 kW 15A Socket)</h4>
+          <p class="text-xs text-zinc-600 leading-relaxed">Included free with every EV in India. Requires no electrical modification other than a dedicated, well-grounded 15A socket. Perfect for overnight home charging, adding 120-150 km of range overnight.</p>
+        </div>
+
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-zinc-50">
+          <h4 class="font-mono text-sm font-bold text-black uppercase tracking-wider mb-2">LEVEL 2 AC (7.2 kW to 22 kW Wallbox)</h4>
+          <p class="text-xs text-zinc-600 leading-relaxed">Installed on dedicated single-phase (7.2 kW) or three-phase (11-22 kW) lines at homes, offices, and apartment basements. Completely recharges passenger EVs in 5 to 7 hours.</p>
+        </div>
+
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-zinc-50">
+          <h4 class="font-mono text-sm font-bold text-black uppercase tracking-wider mb-2">LEVEL 3 DC (30 kW to 240 kW DC Fast Chargers)</h4>
+          <p class="text-xs text-zinc-600 leading-relaxed">High-voltage commercial chargers located on highways and urban charging hubs using CCS2 connectors. Converts AC grid power directly into 400V–800V DC power, charging vehicles from 10% to 80% in 30–45 minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Battery Longevity Rules -->
+    <section class="mb-14">
+      <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">SECTION 3 // BATTERY HEALTH & THERMAL CARE</span>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-black mb-6">Maximizing Battery Health & Lifespan in Warm Indian Climates</h2>
+      
+      <div class="bg-zinc-900 text-white p-6 md:p-8 rounded-2xl my-6 font-mono text-xs">
+        <span class="text-[#22C55E] font-bold tracking-widest uppercase block mb-2">GOLDEN RULES FOR BATTERY LONGEVITY</span>
+        <ul class="space-y-3 text-zinc-300">
+          <li>• <strong>Follow the 20-80 Rule for NMC Batteries:</strong> Keep daily battery state of charge between 20% and 80% to minimize chemical stress.</li>
+          <li>• <strong>Charge LFP Batteries to 100% Weekly:</strong> LFP cells (found in Tata Nexon EV, Punch EV, MG ZS EV) benefit from weekly 100% charges for BMS cell balancing.</li>
+          <li>• <strong>Avoid Immediate Fast Charging After Hard Driving:</strong> Allow the battery coolant loop 10 minutes to stabilize before plugging into a 120 kW fast charger.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LATEST NEWS SECTION (3 CARDS) -->
+    <section class="border-t border-zinc-200 pt-12 mt-16">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">LATEST INDUSTRY INSIGHTS</span>
+          <h2 class="text-2xl font-bold text-black">Latest EV Charging News</h2>
+        </div>
+        <a href="../index.html#news" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">VIEW ALL NEWS →</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <a href="https://evreporter.com" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">CHARGING TECH · AUG 2026</span>
+            <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">Liquid-Cooled 240 kW Fast Chargers Rolled Out Across Indian Highway Corridors</h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">Next-generation ultra-fast chargers deploy liquid-cooled cables to maintain peak charging speeds during hot summer months.</p>
+          </div>
+        </a>
+
+        <a href="https://evreporter.com" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">BATTERY TECH · JUL 2026</span>
+            <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">LFP vs NMC Chemistry Comparison: 3,000 Cycle Life Breakthrough Announced</h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">Indian EV automakers transition to advanced LFP cell formulations offering enhanced thermal safety and 15-year battery lifespans.</p>
+          </div>
+        </a>
+
+        <a href="https://evreporter.com" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">TARIFF UPDATE · JUL 2026</span>
+            <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">State Utilities Introduce Time-of-Day (ToD) EV Charging Tariffs</h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">Off-peak nighttime electricity rates offer 20% discounts for EV owners charging during overnight hours.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- YOUTUBE VIDEOS SECTION (3 CARDS) -->
+    <section class="border-t border-zinc-200 pt-12 mt-16">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">VIDEO EXPLAINERS</span>
+          <h2 class="text-2xl font-bold text-black">Top EV Charging Videos</h2>
+        </div>
+        <a href="../index.html#videos" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">WATCH ALL VIDEOS →</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <a href="https://www.youtube.com/results?search_query=ev+ac+vs+dc+charging+explained" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">EXPLAINER VIDEO · 10 MIN</span>
+            <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">AC vs DC Fast Charging: The Science & Differences Explained</h3>
+            <p class="text-xs text-zinc-400 line-clamp-2">Visual breakdown of onboard converters, battery BMS limits, and high-voltage DC rectifiers.</p>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/results?search_query=ev+battery+lfp+vs+nmc" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">BATTERY DEEP DIVE · 15 MIN</span>
+            <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">LFP vs NMC EV Batteries: Which Should You Buy in India?</h3>
+            <p class="text-xs text-zinc-400 line-clamp-2">Comparing thermal runaway safety, degradation rates, charging to 100%, and winter performance.</p>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/results?search_query=ev+fast+charging+curve+slowdown" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all">
+          <div class="p-5">
+            <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">CHARGING CURVE · 11 MIN</span>
+            <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">Why EV Fast Charging Slows Down Above 80% (The Charging Curve)</h3>
+            <p class="text-xs text-zinc-400 line-clamp-2">Understanding C-rates, lithium plating prevention, and optimizing your highway charging stops.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Final Summary -->
+    <section class="border-t-2 border-zinc-900 pt-10 mt-16">
+      <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">SUMMARY & RECOMMENDATIONS</span>
+      <h2 class="text-xl md:text-2xl font-extrabold text-black mb-4">Mastering the Art of EV Charging</h2>
+      <p class="text-sm text-zinc-700 leading-relaxed mb-6">Understanding how EV charging works empowers owners to eliminate range anxiety, minimize charging costs, and preserve battery health for over a decade. By prioritizing home AC charging for daily driving and using highway DC fast chargers strategically, electric vehicle ownership becomes effortless.</p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-center bg-zinc-900 text-white p-6 rounded-2xl">
+        <div>
+          <h4 class="font-bold text-base">Calculate your EV charging duration and cost</h4>
+          <p class="text-xs text-zinc-400 font-mono mt-1">Use our interactive Charging Time & Savings Calculators.</p>
+        </div>
+        <a href="../index.html#trip-planner" class="px-6 py-3 bg-[#22C55E] hover:bg-[#1ea850] text-black font-mono text-xs font-bold tracking-widest uppercase rounded-xl transition-all flex-shrink-0">
+          LAUNCH CALCULATOR →
+        </a>
+      </div>
+    </section>
+
   </article>
 
-  <!-- Related Articles -->
-  <section class="border-t border-zinc-200 bg-zinc-50">
-    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
-      <h2 class="text-lg font-bold tracking-tight text-black mb-8 flex items-center gap-3">
-        <span class="w-1 h-5 bg-black inline-block"></span>
-        Related Articles
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <a href="where-does-electricity-come-from.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Education</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Where Does Electricity Come From?</h3>
-          <p class="text-xs text-zinc-500">Understand India's energy mix and how EV charging impacts the grid.</p>
-        </a>
-        <a href="../battery-health.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Maintenance</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Battery Health Guide</h3>
-          <p class="text-xs text-zinc-500">Maximise your EV battery lifespan with practical care tips.</p>
-        </a>
-        <a href="../apartment-charging.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Charging</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Apartment Charging Guide</h3>
-          <p class="text-xs text-zinc-500">How to set up EV charging in apartment complexes and RWAs.</p>
-        </a>
-        <a href="renewable-energy-and-evs.html" class="related-card block border border-zinc-200 rounded-2xl p-5 bg-white hover:border-black transition-all">
-          <span class="font-mono text-[9px] tracking-widest text-zinc-400 uppercase">Green</span>
-          <h3 class="text-sm font-bold text-black mt-2 mb-1">Renewable Energy and EVs</h3>
-          <p class="text-xs text-zinc-500">Explore synergies between solar power and electric vehicles.</p>
-        </a>
-      </div>
-      <div class="mt-10 text-center">
-        <a href="../index.html#insights" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-300 hover:border-black font-mono text-[10px] tracking-wider text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate rounded-full">
-          BACK TO INSIGHTS
-          <span class="arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
-  <footer class="border-t border-zinc-200 bg-white">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <a href="../index.html" class="font-bold tracking-widest text-sm flex items-center gap-2 text-black">
-        <span class="w-2 h-2 bg-black inline-block"></span>
-        EV CAR WALE
-      </a>
-      <p class="font-mono text-[9px] text-zinc-400 tracking-wider">&copy; 2026 EV Car Wale. All rights reserved.</p>
+  <footer class="bg-black text-white border-t border-zinc-800 py-12 px-6 lg:px-12 font-mono text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain">
+        <span class="font-bold tracking-widest text-sm">EV CAR WALE</span>
+      </div>
+      <p class="text-zinc-500 text-[10px] uppercase tracking-widest text-center">
+        © 2026 EV CAR WALE GROUP. INDIA'S SMART ELECTRIC VEHICLE MARKETPLACE.
+      </p>
+      <a href="../index.html" class="text-[#22C55E] hover:underline uppercase text-[10px] tracking-wider">RETURN TO HOME</a>
     </div>
   </footer>
 
-<!-- AI Floating Assistant -->
-<div id="ai-overlay" class="ai-overlay"></div>
-<div class="ai-assistant-container">
-  <div class="ai-trigger" id="ai-trigger">
-    <div class="ai-avatar-wrapper ai-float-anim">
-      <div class="ai-avatar-glow"></div>
-      <img src="../ai_robot_avatar.png" alt="EV AI Assistant" class="ai-avatar-img" loading="lazy">
-    </div>
-    <div class="ai-label" id="ai-label">Ask EV AI</div>
-  </div>
-  <div class="ai-chat-window" id="ai-chat-window">
-    <div class="ai-chat-header">
-      <div class="ai-chat-header-left">
-        <img src="../ai_robot_avatar.png" alt="AI" class="ai-chat-avatar" loading="lazy">
-        <div>
-          <div class="ai-chat-title">EV AI Assistant</div>
-          <div class="ai-chat-status"><span class="ai-status-dot"></span> Online</div>
-        </div>
-      </div>
-      <button class="ai-chat-close" id="ai-chat-close" aria-label="Close chat">&#x2715;</button>
-    </div>
-    <div class="ai-chat-body" id="ai-chat-body">
-      <div class="ai-message ai-bot-message" style="white-space:pre-line">
-Hi! 👋 I'm your EV AI Assistant.
-
-Ask me anything about:
-
-• Electric Vehicles
-• Charging
-• Battery Health
-• EV Costs
-• Government Policies
-• EV Buying
-• Range
-• Comparisons
-• Charging Stations
-      </div>
-      <div class="ai-suggestions">
-        <button class="ai-chip">Best EV under ₹15 lakh</button>
-        <button class="ai-chip">Charging cost</button>
-        <button class="ai-chip">Battery lifespan</button>
-        <button class="ai-chip">Compare Tata vs MG</button>
-        <button class="ai-chip">Government subsidy</button>
-        <button class="ai-chip">Charging stations near me</button>
-      </div>
-    </div>
-    <div class="ai-chat-input-area">
-      <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Ask anything about EVs..." autocomplete="off">
-      <button class="ai-send-btn" id="ai-send-btn" aria-label="Send message">Send</button>
-    </div>
-  </div>
-</div>
-<script src="../ai-assistant.js"></script>
 </body>
 </html>

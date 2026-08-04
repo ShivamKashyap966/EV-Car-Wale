@@ -1,3 +1,4 @@
+document.body.classList.add('loaded');
 /**
  * app.js - EV Car Wale Marketplace Core Logic
  * Handles interactive state machines, data filtering, math calculators,
@@ -161,9 +162,9 @@ function getS3ImageUrl(carOrPath) {
 
 // Helper to render a car image with skeleton shimmer, fallback handling, and hover scaling
 function renderCarImage(imageUrl, altText) {
-  return `<div class="h-40 bg-white flex items-center justify-center mb-4 relative overflow-hidden border border-zinc-100 p-2">
+  return `<div class="w-full aspect-[16/10] bg-zinc-100 flex items-center justify-center mb-3 relative overflow-hidden rounded-xl border border-zinc-150">
     <div class="absolute inset-0 skeleton-shimmer"></div>
-    <img src="${imageUrl}" alt="${altText}" class="car-image w-full h-full transition-transform duration-500 group-hover:scale-105" onload="this.previousElementSibling.style.display='none'" onerror="handleImageError(this)" />
+    <img src="${imageUrl}" alt="${altText}" class="car-image w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105" onload="this.previousElementSibling.style.display='none'" onerror="handleImageError(this)" />
   </div>`;
 }
 
@@ -1351,11 +1352,27 @@ const INSIGHTS_CATEGORIES = [
   { key: 'tech-deep-dives', label: 'Tech Deep Dives', icon: '🔧', desc: 'In-depth technical explanations of EV technology' }
 ];
 
-// Alias mapping for insight slugs (menu → canonical)
 const INSIGHTS_SLUG_ALIASES = {
   'latest-ev-news': 'latest-news',
-  'ev-charging-explained': 'charging-guide',
-  'ev-guides': 'buying-guides'
+  'ev-charging-explained': 'ev-charging-explained',
+  'ev-charging-explained.html': 'ev-charging-explained',
+  'ev-guides': 'ev-guides',
+  'ev-guides.html': 'ev-guides',
+  'where-electricity-comes-from': 'where-does-electricity-come-from',
+  'where-electricity-comes-from.html': 'where-does-electricity-come-from',
+  'where-does-electricity-come-from': 'where-does-electricity-come-from',
+  'where-does-electricity-come-from.html': 'where-does-electricity-come-from',
+  'renewable-energy-evs': 'renewable-energy-and-evs',
+  'renewable-energy-and-evs': 'renewable-energy-and-evs',
+  'renewable-energy-and-evs.html': 'renewable-energy-and-evs',
+  'ev-cost-savings': 'ev-cost-savings',
+  'ev-cost-savings.html': 'ev-cost-savings',
+  'companies-building-indias-network': 'companies-building-indias-network',
+  'companies-building-indias-network.html': 'companies-building-indias-network',
+  'government-policies': 'government-policies',
+  'government-policies.html': 'government-policies',
+  'ev-infrastructure-india': 'ev-infrastructure-india',
+  'ev-infrastructure-india.html': 'ev-infrastructure-india'
 };
 
 // Additional insights categories (with placeholder articles)
@@ -1391,44 +1408,161 @@ INSIGHTS_CATEGORIES.push(
 // --- About Pages Database ---
 const ABOUT_DATABASE = {
   'about': {
-    title: 'About EV Car Wale',
-    content: '<p>EV Car Wale is India\'s leading smart electric vehicle marketplace, dedicated to accelerating the country\'s transition to electric mobility. Our platform provides comprehensive information, tools, and resources to help consumers make informed EV purchase decisions.</p><p>Founded with a vision to make EV adoption simple and transparent, we offer detailed vehicle comparisons, pricing analysis, range calculators, and educational content covering every aspect of electric vehicle ownership.</p><p>From our comprehensive EV database to our interactive planning tools, everything on EV Car Wale is designed with one goal: to make your EV journey seamless and informed.</p>'
-  },
-  'about/mission': {
-    title: 'Our Mission',
-    content: '<p>Our mission is to accelerate India\'s transition to sustainable electric mobility by providing the most comprehensive, accurate, and accessible EV information platform in the country.</p><p>We believe that the right information at the right time can transform how people think about transportation. By demystifying EV technology, clarifying costs, and simplifying the buying process, we aim to remove the barriers that prevent consumers from embracing electric vehicles.</p><p>We are committed to: providing unbiased, data-driven EV comparisons; making complex EV concepts accessible to everyone; supporting the growth of India\'s EV ecosystem; and contributing to a cleaner, greener future for India.</p>'
-  },
-  'about/why-ev-car-wale': {
-    title: 'Why Choose EV Car Wale',
-    content: '<p>EV Car Wale stands out as India\'s most comprehensive EV platform. Here\'s what makes us different.</p><p><strong>Complete EV Database:</strong> We maintain the most up-to-date database of every EV available in India, with detailed specifications, real-world range estimates, and pricing information.</p><p><strong>Smart Planning Tools:</strong> Our EV Trip Planner, EMI Calculator, and Range Calculator help you make informed decisions about your EV purchase and usage.</p><p><strong>Expert Educational Content:</strong> From beginner guides to deep technical explainers, our content library covers everything you need to know about EVs.</p><p><strong>Unbiased Information:</strong> We provide objective, data-driven comparisons and analysis to help you find the perfect EV for your needs and budget.</p><p><strong>Community Focus:</strong> We\'re building India\'s largest EV enthusiast community, sharing real-world experiences and practical advice.</p>'
-  },
-  'about/team': {
-    title: 'Our Team',
-    content: '<p>EV Car Wale is built by a passionate team of automotive enthusiasts, technology experts, and clean energy advocates committed to driving India\'s EV revolution.</p><p>Our team combines deep expertise in the automotive industry, software engineering, data science, and content creation to deliver the most comprehensive EV platform in India.</p><p>We are researchers, engineers, writers, and designers united by a common goal: making EV adoption simple, transparent, and accessible for every Indian consumer.</p><p><strong>Content coming soon:</strong> Detailed team profiles and individual contributor bios are being prepared and will be added shortly.</p>'
+    title: 'About EV Car Wale — India\'s Premier Electric Vehicle Intelligence Platform',
+    content: `<div class="editorial-callout">
+      <div class="editorial-callout-title">⚡ Empowering India\'s Transition to Zero-Emission Mobility</div>
+      <p class="editorial-callout-content">EV Car Wale is India\'s most comprehensive, independent, data-driven electric vehicle marketplace and intelligence ecosystem. Engineered to eliminate ambiguity around EV ownership, our platform equips millions of Indian car buyers, housing societies, fleet operators, and automotive enthusiasts with verified technical specs, empirical real-world range testing, localized pricing, state subsidy intelligence, and interactive financial calculators.</p>
+    </div>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">1. Executive Overview & Clean Mobility Mission</h3>
+    <p class="mb-4">Founded by automotive engineers, clean-technology researchers, and software architects, <strong>EV Car Wale</strong> was built to solve the core challenges of electric vehicle adoption in India: range anxiety, charging infrastructure confusion, battery chemistry jargon, and complex government subsidy structures. Operating under India\'s national <em>EV30@30</em> clean mobility vision, we provide a transparent, 100% objective platform where consumers can explore, evaluate, compare, and book the next generation of electric automobiles.</p>
+    <p class="mb-4">As India transitions away from fossil-fuel internal combustion engines (ICE), consumers face unprecedented technical choices: Lithium Iron Phosphate (LFP) vs Nickel Manganese Cobalt (NMC) batteries, 400V vs 800V charging architectures, single-motor FWD vs dual-motor AWD drivetrains, and varying state EV incentives. EV Car Wale translates these complex engineering parameters into intuitive, actionable insights for everyday car buyers across Metro, Tier-2, and Tier-3 Indian cities.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">2. The Four Strategic Pillars of EV Car Wale</h3>
+    <p class="mb-4">Our platform is engineered around four core capabilities designed to guide car buyers through every stage of their electric mobility journey:</p>
+    <p class="mb-3"><strong>A. Comprehensive EV Catalog & Database:</strong> We maintain a live, up-to-date database of every electric vehicle available in India—from entry-level city hatchbacks to high-performance luxury SUVs. Each vehicle profile contains over 50 verified specifications, including ARAI-certified range, estimated real-world highway/city range, battery gross vs usable capacity, peak power (kW/hp), peak torque (Nm), onboard AC charger rating, maximum DC fast-charging capacity, boot volume, ground clearance, and state-by-state on-road pricing.</p>
+    <p class="mb-3"><strong>B. Interactive Decision Engines & Calculators:</strong> Our team of data scientists built customized simulation tools to model real-world ownership economics. These include the <em>EV Trip Planner</em> (calculating elevation, speed, and AC power draw on highway trips), <em>EV Charging Time Estimator</em> (modeling AC 15A, 7.2 kW Wallbox, and 50–350 kW DC charging curves), <em>Loan EMI & Section 80EEB Tax Saver</em> (estimating tax write-offs up to ₹1.5 Lakh), and the <em>Petrol-to-Electric Fuel Savings Comparators</em>.</p>
+    <p class="mb-3"><strong>C. Multi-Dimensional Side-by-Side Comparison Engine:</strong> Buyers can compare up to four electric vehicles simultaneously across battery chemistry, thermal management systems, charging speed degradation, 5-Year Total Cost of Ownership (TCO), warranty terms, and safety ratings (Global NCAP / Bharat NCAP).</p>
+    <p class="mb-4"><strong>D. Apartment RWA & Housing Society Infrastructure Assistance:</strong> Recognizing that home charging is the foundation of EV ownership, we provide step-by-step legal guidelines and downloadable formal NOC (No Objection Certificate) letter templates compliant with the Electricity Act 2003 and Ministry of Power EV charging mandates to assist apartment residents encountering RWA resistance.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">3. Empirical Testing & Data Verification Methodology</h3>
+    <p class="mb-4">We do not simply copy manufacturer marketing brochures. Our intelligence engine tests and validates vehicle parameters against empirical Indian road and environmental data:</p>
+    <p class="mb-3"><strong>Temperature & AC Power Draw Factors:</strong> Summer ambient temperatures in northern and central India frequently exceed 45°C. Our range estimation models calculate climate control energy draw (typically 1.5–2.5 kW continuous), battery cooling fan consumption, and thermal throttling at fast chargers.</p>
+    <p class="mb-3"><strong>Monsoon & Terrain Resilience:</strong> We evaluate IP67/IP69 battery casing seals, water wading capabilities, and high ground clearance performance over damaged monsoon roads and unpaved rural routes.</p>
+    <p class="mb-4"><strong>Grid Slab & Tariff Integration:</strong> Cost calculations factor in localized residential electricity slabs (₹6–₹10/kWh) and commercial DC fast-charging tariffs (₹18–₹24/kWh) across different state DISCOMs.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">4. Editorial Independence & Unbiased Standard</h3>
+    <p class="mb-4">EV Car Wale maintains absolute editorial and analytical independence. We accept no paid placement for vehicle ratings, specification rankings, or comparison outcomes. Every recommendation is generated purely through objective data, empowering consumers to make confident, well-informed mobility investments.</p>
+    <p class="mb-4">Our revenue model relies on transparent dealership referrals and digital display advertising, completely separated from our data testing team. This guarantees that whether you are considering an affordable city commuter or a flagship luxury EV, you receive 100% impartial guidance.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">5. Environmental & Economic Impact Vision</h3>
+    <p class="mb-4">By empowering Indian car buyers to switch to electric vehicles with confidence, EV Car Wale is actively contributing to national sustainability goals: reducing urban particulate matter (PM 2.5/PM 10) air pollution, cutting crude oil import bills, and supporting grid integration with rooftop solar energy. We are proud to lead India\'s digital electric vehicle revolution.</p>`
   },
   'contact': {
-    title: 'Contact Us',
-    content: '<p>We\'d love to hear from you! Whether you have a question about our platform, want to report an issue, or are interested in partnering with us, here\'s how you can reach us.</p><p><strong>Email:</strong> support@evcarwale.com</p><p><strong>Phone:</strong> +91-894-971-4475 (Available Monday-Friday, 10 AM - 6 PM IST)</p><p><strong>Address:</strong> EV Car Wale, India</p><p>For press and media inquiries, please email us at press@evcarwale.com. For partnership opportunities, reach out to partnerships@evcarwale.com.</p><p>We aim to respond to all inquiries within 24-48 business hours.</p>'
-  },
-  'feedback': {
-    title: 'Feedback',
-    content: '<p>Your feedback helps us improve. We value every suggestion, comment, and idea from our users.</p><p>Please share your thoughts on: How can we make EV Car Wale more useful? What features would you like to see? Is there any information you\'re having trouble finding? How has your EV ownership experience been?</p><p>Send your feedback to: feedback@evcarwale.com. We read every message and incorporate user suggestions into our development roadmap.</p><p>Thank you for helping us build a better platform for India\'s EV community.</p>'
-  },
-  'help': {
-    title: 'Help Centre',
-    content: '<p>Welcome to the EV Car Wale Help Centre. Find answers to common questions and learn how to make the most of our platform.</p><p><strong>Getting Started:</strong> Browse our EV database to explore available models. Use filters to narrow down by brand, budget, range, and features. Compare multiple EVs side by side with our comparison tool.</p><p><strong>Planning a Purchase:</strong> Use the EMI Calculator to estimate monthly payments. Check the EV Trip Planner to understand range and charging needs.</p><p><strong>Educational Resources:</strong> Visit our Learning Centre for comprehensive guides on EV technology, charging, and ownership. Use the Jargon Buster to understand technical terms.</p><p><strong>Need more help?</strong> Contact us at support@evcarwale.com and we\'ll get back to you within 24 hours.</p>'
-  },
-  'faqs': {
-    title: 'FAQs',
-    content: '<p>Find answers to frequently asked questions about electric vehicles and the EV Car Wale platform.</p><p><strong>What is an EV?</strong> An electric vehicle (EV) is a vehicle powered by one or more electric motors using energy stored in rechargeable batteries. Unlike petrol or diesel vehicles, EVs produce zero tailpipe emissions.</p><p><strong>How much does it cost to charge an EV?</strong> Home charging costs approximately ₹1-1.5 per km, while DC fast charging costs ₹2.5-4.5 per km. This is significantly cheaper than petrol (₹8-9 per km).</p><p><strong>What is the EV range?</strong> Most modern EVs offer 250-500 km of real-world range, sufficient for daily commuting and most inter-city travel. Range depends on driving style, AC usage, and road conditions.</p><p><strong>How long does charging take?</strong> Home AC charging: 4-12 hours (full charge). DC fast charging: 25-45 minutes (10% to 80%). The exact time depends on battery size and charger power.</p><p><strong>Are EVs suitable for Indian roads?</strong> Yes, modern EVs are designed and tested for Indian conditions. Many offer high ground clearance, robust battery cooling systems, and dust/water resistance (IP67 rating).</p>'
+    title: 'Contact Us & Customer Support Bureau — EV Car Wale',
+    content: `<div class="editorial-callout">
+      <div class="editorial-callout-title">📞 Multichannel Consumer & Corporate Support Bureau</div>
+      <p class="editorial-callout-content">Whether you need help selecting the right electric vehicle, navigating state EV subsidies, resolving apartment charger installation challenges, or partnering with our dealer network, our specialized support desks are ready to assist you.</p>
+    </div>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">1. Consumer & Buyer Support Desk</h3>
+    <p class="mb-3">Our dedicated consumer assistance desk helps car buyers select the perfect EV based on daily driving mileage, charging access, and budget preferences. We also assist with test drive scheduling and dealer quote inquiries.</p>
+    <p class="mb-2"><strong>Email Support:</strong> <a href="mailto:support@evcarwale.com" class="underline">support@evcarwale.com</a></p>
+    <p class="mb-2"><strong>Toll-Free Helpline:</strong> +91 800-38-22792 (EV-CARWALE)</p>
+    <p class="mb-4"><strong>Operational Hours:</strong> Monday through Saturday, 9:00 AM – 7:00 PM IST (Excluding National Holidays).</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">2. OEM & Dealership Network Partnerships</h3>
+    <p class="mb-3">For electric vehicle manufacturers (OEMs), authorized dealership groups, battery technology providers, and charging network operators interested in inventory listing, virtual showroom integration, lead generation, or data syndication:</p>
+    <p class="mb-2"><strong>Partnerships Email:</strong> <a href="mailto:partnerships@evcarwale.com" class="underline">partnerships@evcarwale.com</a></p>
+    <p class="mb-4"><strong>Dealer Desk:</strong> <a href="mailto:dealers@evcarwale.com" class="underline">dealers@evcarwale.com</a></p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">3. Media, Research & Press Bureau</h3>
+    <p class="mb-3">Journalists, automotive analysts, and researchers seeking quarterly Indian EV sales trends, market penetration data, industry commentary, or high-resolution press assets can contact our communications team:</p>
+    <p class="mb-4"><strong>Press & Media Desk:</strong> <a href="mailto:press@evcarwale.com" class="underline">press@evcarwale.com</a></p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">4. RWA & Apartment Infrastructure Special Desk</h3>
+    <p class="mb-3">Specialized support for apartment owners and Resident Welfare Associations (RWAs) seeking guidance on EV charging safety standards, transformer load assessments, DISCOM meter connections, and formal NOC documentation:</p>
+    <p class="mb-4"><strong>Infrastructure Email:</strong> <a href="mailto:infrastructure@evcarwale.com" class="underline">infrastructure@evcarwale.com</a></p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">5. Corporate Office Locations</h3>
+    <p class="mb-2"><strong>Headquarters (North India):</strong><br>EV Car Wale Intelligence Hub, Building 10B, DLF Cyber City, Phase III, Gurugram, Haryana 122002, India.</p>
+    <p class="mb-4"><strong>Technology & R&D Hub (South India):</strong><br>EV Car Wale Tech Park, Outer Ring Road, Bellandur, Bengaluru, Karnataka 560103, India.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">6. Service Level Agreement (SLA) & Ticket Resolution</h3>
+    <p class="mb-4">All incoming email inquiries receive an automated support ticket tracking number. Test drive bookings and buyer support queries are assigned to an EV specialist within <strong>2 to 4 hours</strong>. General corporate, media, and legal inquiries are resolved within <strong>12 to 24 business hours</strong>.</p>`
   },
   'privacy-policy': {
-    title: 'Privacy Policy',
-    content: '<p>Your privacy is important to us. This Privacy Policy outlines how EV Car Wale collects, uses, and protects your personal information.</p><p><strong>Information We Collect:</strong> We collect information you provide directly, such as your name, email address, and preferences when you subscribe to our newsletter or contact us. We also collect anonymous usage data through cookies to improve our platform.</p><p><strong>How We Use Your Information:</strong> To personalize your experience, improve our platform, send periodic emails (if you\'ve opted in), and respond to your inquiries. We do not sell your personal information to third parties.</p><p><strong>Data Security:</strong> We implement industry-standard security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.</p><p><strong>Cookies:</strong> We use cookies to enhance your browsing experience. You can choose to disable cookies in your browser settings, though this may affect some platform features.</p><p><strong>Third-Party Links:</strong> Our platform may contain links to third-party websites. We are not responsible for their privacy practices.</p><p><strong>Updates:</strong> We may update this policy periodically. Changes will be posted on this page with an updated effective date.</p><p><strong>Contact:</strong> For privacy-related inquiries, contact us at privacy@evcarwale.com.</p>'
+    title: 'Privacy Policy & Data Protection Standard — EV Car Wale',
+    content: `<div class="editorial-callout">
+      <div class="editorial-callout-title">🔒 Digital Personal Data Protection (DPDP) Act 2023 Compliance</div>
+      <p class="editorial-callout-content">This Privacy Policy governs the collection, processing, storage, security, and disclosure of personal and technical data on EV Car Wale (evcarwale.com), in accordance with India\'s Digital Personal Data Protection (DPDP) Act 2023, Information Technology Act 2000, and global data privacy standards.</p>
+    </div>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">1. Overview & Effective Scope</h3>
+    <p class="mb-4">EV Car Wale ("Platform", "We", "Us", "Our") is committed to safeguarding the privacy of every individual who visits our digital ecosystem, utilizes our vehicle intelligence tools, or submits dealership inquiries. This Privacy Policy sets forth our transparent data handling practices across all our websites, subdomains, mobile views, calculators, and API services.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">2. Categories of Information We Collect</h3>
+    <p class="mb-3">We collect information to provide accurate vehicle recommendations, calculate localized on-road prices, and facilitate requested dealership test drives. We collect two types of data:</p>
+    <p class="mb-3"><strong>A. Directly Provided Personal Data:</strong> Information submitted voluntarily by you when scheduling a test drive, requesting a dealer price quote, subscribing to newsletters, calculating loan EMIs, or generating an apartment NOC letter. This data includes your Full Name, Mobile Phone Number, Email Address, City, State, Pincode, and Preferred Vehicle Model.</p>
+    <p class="mb-4"><strong>B. Automated Technical & Usage Analytics:</strong> Information collected automatically when browsing our platform: IP address, device hardware profile, operating system version, browser configuration, referral source, pages viewed, time spent per vehicle card, filter interactions, and calculator inputs.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">3. Purpose & Legal Basis of Data Processing</h3>
+    <p class="mb-3">We process your personal information strictly for legitimate, explicit operational purposes:</p>
+    <ul class="list-disc pl-5 text-xs text-zinc-650 space-y-1 font-mono mb-4">
+      <li>Connecting you with authorized vehicle manufacturers (OEMs) or certified local dealership partners upon your explicit request for test drives or price quotes.</li>
+      <li>Calculating accurate state-specific on-road prices incorporating local road tax waivers, registration fee exemptions, and FAME-III / PM E-Drive government subsidies.</li>
+      <li>Optimizing website performance, search relevance, security monitoring, and preventing automated spam lead submissions.</li>
+      <li>Sending transactional SMS or WhatsApp updates regarding your requested test drive appointment or price quote.</li>
+    </ul>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">4. Strict Data Non-Sale Guarantee & Dealer Network Policy</h3>
+    <p class="mb-3 font-bold text-black uppercase">EV CAR WALE ABSOLUTELY NEVER SELLS, RENTS, LEASES, OR TRADES YOUR PERSONAL INFORMATION TO THIRD-PARTY DATA BROKERS OR UNORGANIZED SPAM MARKETING AGGREGATORS.</p>
+    <p class="mb-4">Your contact information is shared <em>exclusively</em> with authorized vehicle manufacturers (OEMs) or their certified regional dealership partners when you explicitly click to submit a test drive booking, price quote request, or callback request for a specific vehicle model.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">5. Data Security Architecture & Encryption Controls</h3>
+    <p class="mb-3">We deploy multi-layered cybersecurity safeguards to protect your personal data against unauthorized access, loss, or alteration:</p>
+    <ul class="list-disc pl-5 text-xs text-zinc-650 space-y-1 font-mono mb-4">
+      <li><strong>Encryption in Transit:</strong> All web traffic is encrypted using TLS 1.3 protocol with 256-bit SSL encryption.</li>
+      <li><strong>Encryption at Rest:</strong> Database records containing user leads are encrypted using AES-256 standards with strict key rotation.</li>
+      <li><strong>Role-Based Access Control (RBAC):</strong> Access to personal lead data is restricted strictly to authorized support personnel handling dealership processing.</li>
+    </ul>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">6. Data Retention & Automatic Purging Policy</h3>
+    <p class="mb-4">We retain personal data only for as long as necessary to fulfill the requested service or comply with legal obligations. Lead contact data submitted for test drive bookings is retained for 90 days following dealership processing, after which non-essential records are permanently anonymized or deleted from active production servers.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">7. Cookies & Tracking Technologies</h3>
+    <p class="mb-4">We use essential, functional, and analytical cookies to remember user language preferences, preserve comparison card states, and analyze aggregate traffic patterns. You can manage or disable cookies through your browser settings, though doing so may limit certain interactive features of the platform.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">8. Statutory Rights of Data Principals under DPDP Act 2023</h3>
+    <p class="mb-3">Under India\'s Digital Personal Data Protection Act 2023, you hold statutory rights over your personal data:</p>
+    <ul class="list-disc pl-5 text-xs text-zinc-650 space-y-1 font-mono mb-4">
+      <li><strong>Right to Access:</strong> Request a full digital copy of all personal records associated with your account.</li>
+      <li><strong>Right to Correction:</strong> Request immediate correction of outdated or inaccurate personal details.</li>
+      <li><strong>Right to Erasure (Right to Be Forgotten):</strong> Request permanent deletion of your personal records from our databases by emailing our Data Protection Officer at <a href="mailto:privacy@evcarwale.com" class="underline">privacy@evcarwale.com</a>.</li>
+    </ul>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">9. Data Protection Officer (DPO) Contact</h3>
+    <p class="mb-4">If you have questions, concerns, or privacy grievances, please contact our Data Protection Officer at:<br><strong>Email:</strong> <a href="mailto:privacy@evcarwale.com" class="underline">privacy@evcarwale.com</a><br><strong>Postal Address:</strong> Data Protection Officer, EV Car Wale Intelligence Hub, Cyber City, Phase III, Gurugram, Haryana 122002, India.</p>`
   },
   'terms-and-conditions': {
-    title: 'Terms & Conditions',
-    content: '<p>These Terms & Conditions govern your use of the EV Car Wale platform. By accessing or using our website, you agree to these terms.</p><p><strong>Use of Platform:</strong> You agree to use EV Car Wale for lawful purposes only. You may not use our platform for any illegal or unauthorized purpose.</p><p><strong>Intellectual Property:</strong> All content, trademarks, and data on this platform, including but not limited to text, graphics, logos, and software, are the property of EV Car Wale unless otherwise stated.</p><p><strong>Accuracy of Information:</strong> While we strive to provide accurate and up-to-date information, we make no warranties about the completeness, reliability, or accuracy of the information on our platform. Vehicle specifications and pricing may change without notice.</p><p><strong>Limitation of Liability:</strong> EV Car Wale shall not be liable for any damages arising from the use of or inability to use our platform or the information provided.</p><p><strong>Changes to Terms:</strong> We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting on this page.</p>'
+    title: 'Terms and Conditions of Use — EV Car Wale',
+    content: `<div class="editorial-callout">
+      <div class="editorial-callout-title">📝 Comprehensive Legal Terms & Service Agreement</div>
+      <p class="editorial-callout-content">These Terms and Conditions constitute a legally binding agreement between you ("User") and EV Car Wale Group ("Platform"). By accessing or using evcarwale.com, its subdomains, mobile interfaces, calculators, or APIs, you signify your unreserved acceptance of these terms.</p>
+    </div>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">1. Acceptance of Terms & Platform Scope</h3>
+    <p class="mb-4">Welcome to <strong>EV Car Wale</strong>. These Terms and Conditions govern your access to and use of evcarwale.com, including our digital catalog, calculators, comparison tools, and buyer assistance services. If you do not agree to these terms, please refrain from using the platform. Continued use of the website signifies your binding agreement to these terms.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">2. Platform Nature & Vehicle Intelligence Disclaimer</h3>
+    <p class="mb-3">EV Car Wale operates as an independent automotive intelligence aggregator, digital showroom, and buyer decision-support platform:</p>
+    <ul class="list-disc pl-5 text-xs text-zinc-650 space-y-1 font-mono mb-4">
+      <li><strong>Specification & Price Accuracy:</strong> Vehicle specifications, battery capacities, ARAI certified ranges, features, and prices are compiled from official OEM announcements, dealership quotes, gazette notifications, and testing logs. While we maintain rigorous verification standards, specifications and prices are subject to change by manufacturers without prior notice.</li>
+      <li><strong>Real-World Driving Variance:</strong> Real-world electric driving range, charging speed, and electricity consumption vary depending on driving style, ambient temperature, AC load, terrain, payload, and battery health. Displayed figures serve as performance estimates rather than contractual guarantees.</li>
+      <li><strong>Subsidy & Tax Estimates:</strong> FAME-III, PM E-Drive, state road tax waivers, and Section 80EEB loan interest tax deductions are subject to individual eligibility, state government fund availability, and DISCOM policy updates.</li>
+    </ul>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">3. Intellectual Property Rights & Prohibited Uses</h3>
+    <p class="mb-4">All proprietary comparison algorithms, vehicle database schemas, software source code, interactive calculators, UI designs, brand logos, and original editorial content on EV Car Wale are the exclusive intellectual property of EV Car Wale Group, protected under India\'s <strong>Copyright Act, 1957</strong> and Trade Marks Act, 1999.</p>
+    <p class="mb-4"><strong>Prohibited Activities:</strong> Users are strictly prohibited from using automated web crawlers, bots, scrapers, data-mining scripts, or reverse-engineering techniques to extract or re-publish our database or tool outputs for commercial purposes without explicit written authorization.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">4. Dealership Transactions & Financial Services Disclaimer</h3>
+    <p class="mb-4">EV Car Wale is not a direct motor vehicle dealer, insurance broker, or banking institution. All vehicle test drives, sales transactions, vehicle registrations, warranties, and auto loan agreements are executed directly between the consumer and the respective authorized dealership or financial lender.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">5. Mathematical Calculator & Decision Tool Disclaimer</h3>
+    <p class="mb-4">Calculated outputs from our EV Trip Planner, Charging Time Calculator, EMI Estimator, and Petrol Savings Calculator are generated using mathematical simulation models for illustrative purposes. Actual loan terms, monthly EMIs, and electricity utility bills may vary depending on bank underwriting policies and local DISCOM billing tariffs.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">6. User Responsibilities & Acceptable Use</h3>
+    <p class="mb-4">You agree to use EV Car Wale for lawful, non-commercial personal reference only. You agree not to submit fraudulent contact information when requesting test drives, attempt to bypass site security controls, or interfere with website operations.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">7. Limitation of Liability</h3>
+    <p class="mb-4">EV Car Wale Group, its officers, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from platform usage, purchasing decisions, dealer interactions, or temporary service interruptions.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">8. Severability & Modifications</h3>
+    <p class="mb-4">If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect. We reserve the right to modify these Terms at any time, with updates effective immediately upon posting.</p>
+
+    <h3 class="font-bold text-sm uppercase tracking-wider text-black mt-6 mb-3 pt-4 border-t border-zinc-200">9. Governing Law & Legal Jurisdiction</h3>
+    <p class="mb-4">These Terms and Conditions are governed exclusively by the laws of the Republic of India. Any legal dispute or proceeding arising out of or related to this platform shall be subject to the exclusive jurisdiction of the competent courts located in New Delhi / Gurugram, Haryana, India.</p>`
   },
   'disclaimer': {
     title: 'Disclaimer',
@@ -1555,6 +1689,7 @@ function saveWishlistToStorage() {
 }
 
 function updateWishlistBadge() {
+  const wishlistBadge = document.getElementById('wishlist-count-badge');
   if (wishlistBadge) {
     if (wishlistIds.length > 0) {
       wishlistBadge.textContent = wishlistIds.length;
@@ -1768,16 +1903,17 @@ var preloaderEl = document.getElementById('preloader');
 function hidePreloader() {
   if (!preloaderEl) return;
   preloaderEl.classList.add('preloader-hidden');
-  document.body.classList.add('loaded');
   setTimeout(function() {
     preloaderEl.style.display = 'none';
-  }, 500);
+  }, 400);
+  document.body.classList.add('loaded');
   if (typeof window.showAIAssistant === 'function') {
-    setTimeout(window.showAIAssistant, 100);
+    window.showAIAssistant();
   }
 }
 
 if (preloaderEl) {
+  preloaderEl.addEventListener('click', hidePreloader);
   try {
     if (sessionStorage.getItem('ev_preloader_shown')) {
       document.body.classList.add('loaded');
@@ -1790,20 +1926,15 @@ if (preloaderEl) {
       setTimeout(function() {
         var brand = document.getElementById('loader-brand');
         if (brand) brand.classList.add('reveal');
+      }, 300);
+      setTimeout(function() {
         var tagline = document.getElementById('loader-tagline');
         if (tagline) tagline.classList.add('reveal');
-      }, 5000);
-      setTimeout(hidePreloader, 7000);
+      }, 600);
+      setTimeout(hidePreloader, 2500);
     }
   } catch(e) {
-    // sessionStorage may be unavailable; show preloader normally
-    setTimeout(function() {
-      var brand = document.getElementById('loader-brand');
-      if (brand) brand.classList.add('reveal');
-      var tagline = document.getElementById('loader-tagline');
-      if (tagline) tagline.classList.add('reveal');
-    }, 5000);
-    setTimeout(hidePreloader, 7000);
+    hidePreloader();
   }
 } else {
   document.body.classList.add('loaded');
@@ -1971,7 +2102,7 @@ function getSpecGridHtml(car) {
 function createCarCardHtml(car, extraClasses = '') {
   const isWishlisted = wishlistIds.includes(car.id);
   return `
-    <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] stagger-card cursor-pointer">
+    <div class="car-card ${extraClasses} border border-zinc-200 bg-white p-5 flex flex-col justify-between min-h-[480px] rounded-2xl relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] stagger-card cursor-pointer">
       <button class="wishlist-btn absolute top-4 right-4 z-20" data-id="${car.id}" aria-label="Toggle Wishlist">
         <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current' : ''}">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -2238,19 +2369,13 @@ brandChips.forEach(chip => {
   });
 });
 
-// Budget chips toggles
+// Budget chips toggles — navigate to filtered EV budget search results
 budgetChips.forEach(chip => {
   chip.addEventListener('click', () => {
     const budget = chip.getAttribute('data-budget');
-    if (activeBudget === budget) {
-      activeBudget = null;
-      chip.classList.remove('selected');
-    } else {
-      activeBudget = budget;
-      budgetChips.forEach(c => c.classList.remove('selected'));
-      chip.classList.add('selected');
+    if (budget) {
+      navigateTo('/search?budget=' + budget);
     }
-    renderAllCarousels();
   });
 });
 
@@ -2320,11 +2445,12 @@ if (launchCarNext) launchCarNext.addEventListener('click', () => scrollCarousel(
 
 
 // --- Section: Compare Cars Engine ---
-const compSelectA = document.getElementById('comp-select-a');
-const compSelectB = document.getElementById('comp-select-b');
-const compHdrA = document.getElementById('comp-hdr-a');
-const compHdrB = document.getElementById('comp-hdr-b');
-const compTableBody = document.getElementById('comp-table-body');
+// Dynamic getters for Compare Cars Engine elements
+function getCompSelectA() { return document.getElementById('comp-select-a'); }
+function getCompSelectB() { return document.getElementById('comp-select-b'); }
+function getCompHdrA() { return document.getElementById('comp-hdr-a'); }
+function getCompHdrB() { return document.getElementById('comp-hdr-b'); }
+function getCompTableBody() { return document.getElementById('comp-table-body'); }
 
 function getVehicleFeatures(car) {
   if (!car) return null;
@@ -2419,7 +2545,10 @@ function getDisplayCarName(car) {
 }
 
 function populateCompareDropdowns() {
+  const compSelectA = getCompSelectA();
+  const compSelectB = getCompSelectB();
   if (!compSelectA || !compSelectB) return;
+  
   compSelectA.innerHTML = '';
   compSelectB.innerHTML = '';
   
@@ -2437,21 +2566,56 @@ function populateCompareDropdowns() {
   placeholderB.selected = true;
   compSelectB.appendChild(placeholderB);
 
-  EV_DATABASE.forEach(function(car) {
-    var displayName = getDisplayCarName(car);
-    var optA = document.createElement('option');
-    optA.value = car.id;
-    optA.textContent = displayName;
-    compSelectA.appendChild(optA);
+  if (Array.isArray(EV_DATABASE)) {
+    EV_DATABASE.forEach(function(car) {
+      var displayName = getDisplayCarName(car);
+      var optA = document.createElement('option');
+      optA.value = car.id;
+      optA.textContent = displayName;
+      compSelectA.appendChild(optA);
 
-    var optB = document.createElement('option');
-    optB.value = car.id;
-    optB.textContent = displayName;
-    compSelectB.appendChild(optB);
-  });
+      var optB = document.createElement('option');
+      optB.value = car.id;
+      optB.textContent = displayName;
+      compSelectB.appendChild(optB);
+    });
+  }
+
+  // Pre-select default cars if available (e.g. Nexon EV vs MG ZS EV)
+  if (compSelectA.options.length > 1) {
+    const defaultA = Array.from(compSelectA.options).find(o => o.value.includes('nexon') || o.value.includes('tata'));
+    if (defaultA) compSelectA.value = defaultA.value;
+    else compSelectA.selectedIndex = 1;
+  }
+  if (compSelectB.options.length > 2) {
+    const defaultB = Array.from(compSelectB.options).find(o => o.value.includes('mg') || o.value.includes('zs') || o.value.includes('punch'));
+    if (defaultB && defaultB.value !== compSelectA.value) compSelectB.value = defaultB.value;
+    else compSelectB.selectedIndex = 2;
+  }
+
+  // Attach change event listeners dynamically
+  if (!compSelectA._hasCompareListener) {
+    compSelectA.addEventListener('change', updateCompareTable);
+    compSelectA._hasCompareListener = true;
+  }
+  if (!compSelectB._hasCompareListener) {
+    compSelectB.addEventListener('change', updateCompareTable);
+    compSelectB._hasCompareListener = true;
+  }
+
+  const compStateSelect = document.getElementById('comp-state-select');
+  if (compStateSelect && !compStateSelect._hasCompareListener) {
+    compStateSelect.addEventListener('change', updateCompareTable);
+    compStateSelect._hasCompareListener = true;
+  }
 }
 
 function updateCompareTable() {
+  const compSelectA = getCompSelectA();
+  const compSelectB = getCompSelectB();
+  const compHdrA = getCompHdrA();
+  const compHdrB = getCompHdrB();
+  const compTableBody = getCompTableBody();
   if (!compSelectA || !compSelectB || !compHdrA || !compHdrB || !compTableBody) return;
   const carIdA = compSelectA.value;
   const carIdB = compSelectB.value;
@@ -2786,7 +2950,14 @@ function updateCompareCards(carA, carB) {
     setText('comp-spec-boot-' + suffix, car.bootSpace || variant.bootSpace || 'Not Available');
 
     var viewDetailsEl = document.getElementById('comp-view-details-' + suffix);
-    if (viewDetailsEl) viewDetailsEl.href = '/details?id=' + car.id;
+    if (viewDetailsEl) {
+      viewDetailsEl.href = '/#/cars/' + car.id;
+      viewDetailsEl.setAttribute('data-car-id', car.id);
+      viewDetailsEl.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = '/#/cars/' + car.id;
+      };
+    }
   });
 }
 
@@ -2795,6 +2966,8 @@ function setText(id, val) {
   if (el) el.textContent = val || 'Not Available';
 }
 
+const compSelectA = document.getElementById('comp-select-a');
+const compSelectB = document.getElementById('comp-select-b');
 if (compSelectA) compSelectA.addEventListener('change', updateCompareTable);
 if (compSelectB) compSelectB.addEventListener('change', updateCompareTable);
 
@@ -4119,7 +4292,8 @@ document.querySelectorAll('.btn-book-test-drive').forEach(btn => {
   });
 });
 
-document.getElementById('form-test-drive').addEventListener('submit', (e) => {
+const testDriveForm = document.getElementById('form-test-drive');
+if (testDriveForm) testDriveForm.addEventListener('submit', (e) => {
   e.preventDefault();
   alert('TEST DRIVE REQUEST SUBMITTED. OUR LOCAL PARTNER NETWORK WILL CONTACT YOU SHORTLY.');
   closeAllModals();
@@ -4199,12 +4373,14 @@ async function getVehicleImages(car) {
 
 // Redirect openCarDetails to SPA path for detailed page view
 function openCarDetails(carId) {
-  navigateTo(`/cars/${carId}`);
+  if (!carId) return;
+  window.location.hash = `#/cars/${carId}`;
 }
 
 
 // --- Newsletter Form Submission ---
-document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+const newsletterForm = document.getElementById('newsletter-form');
+if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
   e.preventDefault();
   alert('NEWSLETTER REGISTRATION SECURE. THANKS FOR SUBSCRIBING.');
   e.target.reset();
@@ -4601,30 +4777,7 @@ document.getElementById('newsletter-form').addEventListener('submit', (e) => {
   }
 })();
 
-// --- FAQ Accordion toggle Module ---
-document.querySelectorAll('#faq-accordion .accordion-trigger').forEach(trigger => {
-  trigger.addEventListener('click', () => {
-    const content = trigger.nextElementSibling;
-    const parent = trigger.parentElement;
-    
-    // Close other panels
-    document.querySelectorAll('#faq-accordion .accordion-item').forEach(item => {
-      if (item !== parent) {
-        item.classList.remove('open');
-        const otherContent = item.querySelector('.accordion-content');
-        if (otherContent) otherContent.style.maxHeight = null;
-      }
-    });
-    
-    if (parent.classList.contains('open')) {
-      parent.classList.remove('open');
-      content.style.maxHeight = null;
-    } else {
-      parent.classList.add('open');
-      content.style.maxHeight = content.scrollHeight + 'px';
-    }
-  });
-});
+// FAQ Accordions handled by universal event delegation below
 
 // ==========================================
 //        PREMIUM INTERACTIVITY ENGINE
@@ -4645,7 +4798,7 @@ function openMegaPanel(panelId) {
   clearTimeout(panelTimeout);
   
   // Hide other panels
-  megaPanels.forEach(panel => {
+  document.querySelectorAll('.mega-panel').forEach(panel => {
     if (panel.getAttribute('id') !== panelId) {
       panel.classList.add('hidden');
       panel.classList.remove('mega-panel-visible');
@@ -4655,11 +4808,13 @@ function openMegaPanel(panelId) {
   const panel = document.getElementById(panelId);
   if (panel) {
     panel.classList.remove('hidden');
+    panel.style.display = 'block';
     // Force reflow for transition
     panel.offsetHeight;
     panel.classList.add('mega-panel-visible');
     activePanel = panel;
     
+    const megaBackdrop = document.getElementById('mega-backdrop');
     if (megaBackdrop) {
       megaBackdrop.classList.remove('hidden');
       megaBackdrop.offsetHeight;
@@ -4693,7 +4848,7 @@ function closeMegaPanels() {
   }, 100);
 }
 
-// Bind hover listeners for desktop
+// Bind click and hover listeners for desktop
 megaTriggers.forEach(trigger => {
   const megaId = trigger.getAttribute('data-mega');
   const panelId = `mega-panel-${megaId}`;
@@ -4704,6 +4859,16 @@ megaTriggers.forEach(trigger => {
   
   trigger.addEventListener('mouseleave', () => {
     closeMegaPanels();
+  });
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const panel = document.getElementById(panelId);
+    if (panel && panel.classList.contains('mega-panel-visible')) {
+      if (typeof closeMegaPanels === 'function') closeMegaPanels();
+    } else {
+      openMegaPanel(panelId);
+    }
   });
 });
 
@@ -4845,6 +5010,21 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
 
     if (!href) return;
     
+    // SPA hash-route navigation (starts with '#/')
+    if (href.startsWith('#/')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMegaPanels();
+      closeMobileDrawer();
+      activeRecentlyViewed = false;
+      if (window.location.hash !== href) {
+        window.location.hash = href;
+      } else {
+        handleRouting();
+      }
+      return;
+    }
+
     // Handle /#section-id links — scroll to homepage section
     if (href.startsWith('/#')) {
       e.preventDefault();
@@ -4858,7 +5038,7 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
       if (targetEl) {
         const isSubpage = !detailsPageContent.classList.contains('hidden');
         if (isSubpage) {
-          navigateTo('/');
+          restoreHomepage();
           setTimeout(() => {
             const tEl = document.getElementById(targetId);
             if (tEl) tEl.scrollIntoView({ behavior: 'smooth' });
@@ -4868,55 +5048,57 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
         }
         updateActiveNavTrigger(targetId);
       } else {
-        navigateTo('/');
+        restoreHomepage();
       }
       return;
     }
     
-    // Path-based SPA navigation
+    if (href === 'compare.html' || href === '/compare.html' || href === '#/compare') {
+      if (!window.location.pathname.endsWith('compare.html')) {
+        window.location.href = 'compare.html';
+      }
+      return;
+    }
+
+    // Path-based SPA navigation (starts with '/')
     if (href.startsWith('/')) {
       e.preventDefault();
       e.stopPropagation();
       closeMegaPanels();
       closeMobileDrawer();
       activeRecentlyViewed = false;
-      navigateTo(href);
+      window.location.hash = '#' + href;
+      handleRouting();
       return;
     }
     
-    if (!href.startsWith('#')) return;
-    
-    e.preventDefault();
-    e.stopPropagation();
-    closeMegaPanels();
-    closeMobileDrawer();
-    
-    // Clear recently viewed filter for other normal navigation links
-    activeRecentlyViewed = false;
-    renderAllCarousels();
-    
-    const targetId = href;
-    const targetEl = document.querySelector(targetId);
-    if (targetEl) {
-      isScrollingFromNav = true;
+    // Anchor section scroll (starts with '#' but not '#/')
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMegaPanels();
+      closeMobileDrawer();
+      activeRecentlyViewed = false;
       
-      const isSubpage = !detailsPageContent.classList.contains('hidden');
-      if (isSubpage) {
-        navigateTo('/');
-        setTimeout(() => {
-          const tEl = document.querySelector(targetId);
-          if (tEl) {
-            tEl.scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => { isScrollingFromNav = false; }, 850);
-          }
-        }, 120);
+      const sectionId = href.substring(1);
+      const targetEl = document.getElementById(sectionId);
+      if (targetEl) {
+        const isSubpage = !detailsPageContent.classList.contains('hidden');
+        if (isSubpage) {
+          restoreHomepage();
+          setTimeout(() => {
+            const tEl = document.getElementById(sectionId);
+            if (tEl) tEl.scrollIntoView({ behavior: 'smooth' });
+          }, 120);
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        updateActiveNavTrigger(sectionId);
       } else {
-        targetEl.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => { isScrollingFromNav = false; }, 850);
+        window.location.hash = href;
+        handleRouting();
       }
-      
-      // Update active highlights
-      updateActiveNavTrigger(targetId.substring(1));
+      return;
     }
   });
 });
@@ -5060,8 +5242,11 @@ handleNavbarTheme();
 // ========================================================
 //      INDIVIDUAL CAR DETAILS VIEW PAGES ROUTING
 // ========================================================
-const homepageContent = document.getElementById('homepage-content');
-const detailsPageContent = document.getElementById('details-page-content');
+let homepageContent = document.getElementById('homepage-content');
+let detailsPageContent = document.getElementById('details-page-content');
+
+function getHomepageEl() { return document.getElementById('homepage-content') || homepageContent; }
+function getDetailsEl() { return document.getElementById('details-page-content') || detailsPageContent; }
 
 // Helper to format absolute currency values dynamically
 function formatCurrency(val) {
@@ -5079,11 +5264,16 @@ function navigateTo(url) {
 }
 
 function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
+  const homeEl = getHomepageEl();
+  const detailsEl = getDetailsEl();
+
   // Clear any login page viewport scroll locks
-  document.body.style.removeProperty('overflow');
-  document.body.style.removeProperty('height');
-  if (detailsPageContent) {
-    detailsPageContent.style.cssText = '';
+  if (document.body && document.body.style) {
+    document.body.style.overflow = '';
+    document.body.style.height = '';
+  }
+  if (detailsEl) {
+    detailsEl.style.cssText = '';
   }
 
   // Restore global navbar and AI assistant container when navigating away
@@ -5098,8 +5288,8 @@ function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
     }
   }
 
-  if (homepageContent) homepageContent.classList.add('hidden');
-  if (detailsPageContent) {
+  if (homeEl) homeEl.classList.add('hidden');
+  if (detailsEl) {
     detailsPageContent.classList.remove('hidden');
     
     // Generate breadcrumb items
@@ -5128,7 +5318,8 @@ function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
     `;
     
     // Bind back button — use browser history navigation
-    document.getElementById('btn-subpage-back').addEventListener('click', () => {
+    const subpageBackBtn = document.getElementById('btn-subpage-back');
+if (subpageBackBtn) subpageBackBtn.addEventListener('click', () => {
       if (window.history.length > 1) {
         window.history.back();
       } else {
@@ -5140,13 +5331,15 @@ function renderSubpage(title, breadcrumbs, contentHtml, backPath = '/') {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
   if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
-  applyJargonBuster();
+  if (typeof applyJargonBuster === 'function') if (typeof applyJargonBuster === "function") applyJargonBuster();
 }
 
 async function handleRouting() {
   // Clear any login page viewport scroll locks
-  document.body.style.removeProperty('overflow');
-  document.body.style.removeProperty('height');
+  if (document.body && document.body.style) {
+    document.body.style.overflow = '';
+    document.body.style.height = '';
+  }
   if (detailsPageContent) {
     detailsPageContent.style.cssText = '';
   }
@@ -5169,11 +5362,7 @@ async function handleRouting() {
   const hash = window.location.hash;
 
   // Redirect standalone pages to full page load (for popstate/back-forward on index.html)
-  var standalonePaths = ['/compare', '/charging-stations', '/charging-time-calculator', '/emi-calculator', '/petrol-savings', '/blogs', '/videos', '/all-cars', '/apartment-charging', '/battery-health', '/charging-stations.html'];
-  if (standalonePaths.indexOf(path) !== -1 && homepageContent) {
-    window.location.href = path;
-    return;
-  }
+  // Route standalone paths via SPA router without page reload loop
 
   let route = '/';
   if (path.startsWith('/cars/')) {
@@ -5210,10 +5399,14 @@ async function handleRouting() {
     route = path;
   } else if (hash.startsWith('#/insights/') || hash === '#/insights') {
     route = hash.substring(1);
-  } else if (path.startsWith('/hub/')) {
+  } else if (path.includes('apartment-charging') || hash.includes('apartment-charging')) {
+    route = '/hub/apartment-charging';
+  } else if (path.includes('battery-health') || hash.includes('battery-health')) {
+    route = '/hub/battery-health';
+  } else if (path.startsWith('/hub/') || path === '/charging-time' || path === '/charging-time-calculator' || path === '/emi-calculator' || path === '/petrol-savings' || path === '/charging-stations') {
     route = path;
-  } else if (hash.startsWith('#/hub/')) {
-    route = hash.substring(1);
+  } else if (hash.startsWith('#/hub/') || hash === '#charging-time' || hash === '#/charging-time' || hash === '#charging-time-calculator' || hash === '#/charging-time-calculator' || hash === '#emi-calculator' || hash === '#/emi-calculator' || hash === '#petrol-savings' || hash === '#/petrol-savings' || hash === '#charging-stations' || hash === '#/charging-stations') {
+    route = hash.startsWith('#/') ? hash.substring(1) : '/' + hash.substring(1);
   } else if (path.startsWith('/learn/')) {
     route = path;
   } else if (hash.startsWith('#/learn/')) {
@@ -5230,6 +5423,8 @@ async function handleRouting() {
     route = path;
   } else if (hash === '#/login' || hash === '#/signup' || hash === '#/forgot-password') {
     route = hash.substring(1);
+  } else if (path.startsWith('/search') || hash.startsWith('#/search')) {
+    route = hash.startsWith('#/search') ? hash.substring(1) : path;
   } else if (path.startsWith('/ev/')) {
     route = path;
   } else if (hash.startsWith('#/ev/')) {
@@ -5248,6 +5443,10 @@ async function handleRouting() {
              hash === '#/disclaimer' || hash === '#/cookie-policy' ||
              hash === '#/copyright') {
     route = hash.substring(1);
+  } else if (path === '/videos' || hash === '#/videos') {
+    route = '/videos';
+  } else if (path === '/compare' || hash === '#/compare') {
+    route = '/compare';
   }
   
   // Parse route parameters
@@ -5292,15 +5491,49 @@ async function handleRouting() {
       }
     }
   } else if (route.startsWith('/guide/')) {
-    const id = route.substring(7);
-    const chapter = GUIDE_DATABASE.find(g => g.id === id);
+    let id = route.substring(7);
+    if (id === 'charging-at-home') id = 'home-charging';
+    if (id === 'apartment-charging') id = 'apartment-hub';
+    if (id === 'government-subsidies') id = 'subsidies';
+    const chapter = GUIDE_DATABASE ? GUIDE_DATABASE.find(g => g.id === id || g.slug === id) : null;
     if (chapter) {
       renderGuideArticlePage(chapter);
       return;
     }
-  } else if (route.startsWith('/hub/')) {
-    const key = route.substring(5);
-    renderHubArticlePage(key);
+    const learnArticle = LEARN_DATABASE ? LEARN_DATABASE[id] : null;
+    if (learnArticle) {
+      renderLearnArticlePage(id, learnArticle);
+      return;
+    }
+    renderHubArticlePage(id);
+    return;
+  } else if (route.startsWith('/hub/') || route === '/charging-time' || route === '/charging-time-calculator' || route === '/emi-calculator' || route === '/petrol-savings' || route === '/charging-stations') {
+    const key = route.startsWith('/hub/') ? route.substring(5) : route.substring(1);
+    if (key === 'charging-time' || key === 'charging-time-calculator') {
+      renderChargingTimeCalculatorPage();
+      return;
+    } else if (key === 'emi-calculator' || key === 'emi') {
+      renderEmiCalculatorPage();
+      return;
+    } else if (key === 'petrol-savings' || key === 'savings-calculator') {
+      renderPetrolSavingsCalculatorPage();
+      return;
+    } else if (key === 'charging-stations' || key === 'stations') {
+      renderChargingStationsPage();
+      return;
+    } else if (key === 'trip-planner') {
+      navigateTo('/#trip-planner');
+      return;
+    } else {
+      renderHubArticlePage(key);
+      return;
+    }
+  } else if (route === '/resources/apartment-noc-letter' || route === '/apartment-noc-letter' || route.endsWith('apartment-noc-letter')) {
+    renderNocLetterPage();
+    return;
+  } else if (route.startsWith('/resources/')) {
+    const resId = route.substring(11);
+    renderResourcePage(resId);
     return;
   } else if (route.startsWith('/reviews/')) {
     const type = route.substring(9);
@@ -5334,32 +5567,11 @@ async function handleRouting() {
       renderAllInsightsPage();
       return;
     }
-    if (INSIGHT_TEMPLATE_PAGES[categoryKey]) {
-      renderInsightPage(categoryKey);
+    if (categoryKey === 'latest-ev-news') {
+      renderNewsPage();
       return;
     }
-    const resolvedKey = INSIGHTS_SLUG_ALIASES[categoryKey] || categoryKey;
-    if (articleId) {
-      const article = INSIGHTS_DATABASE[resolvedKey]?.find(a => a.id === articleId);
-      if (article) {
-        renderInsightArticlePage(resolvedKey, article);
-        return;
-      }
-      renderInsightCategoryPage(resolvedKey);
-      return;
-    }
-    const articles = INSIGHTS_DATABASE[resolvedKey];
-    if (articles && articles.length > 0) {
-      if (resolvedKey === 'latest-news' || resolvedKey === 'market-analysis') {
-        renderInsightCategoryPage(resolvedKey);
-        return;
-      }
-      renderInsightArticlePage(resolvedKey, articles[0]);
-      return;
-    }
-    const STANDALONE_SLUG_MAP = {'where-electricity-comes-from':'where-does-electricity-come-from','ev-cost-and-savings':'ev-cost-savings'};
-    const slug = STANDALONE_SLUG_MAP[categoryKey] || categoryKey;
-    window.location.href = '/insights/' + slug + '.html';
+    renderInsightPage(categoryKey);
     return;
   } else if (route.startsWith('/ev/')) {
     const slug = route.substring(4);
@@ -5368,7 +5580,7 @@ async function handleRouting() {
       renderCarDetailsPage(car);
       return;
     }
-  } else if (route === '/search') {
+  } else if (route === '/search' || route.startsWith('/search?') || route.startsWith('/search')) {
     renderSearchResultsPage();
     return;
   } else if (route.startsWith('/resources/')) {
@@ -5413,29 +5625,48 @@ async function handleRouting() {
       renderStaticPage(pageKey, page);
       return;
     }
+  } else if (route === '/compare' || route === '/compare.html') {
+    if (!window.location.pathname.endsWith('compare.html')) {
+      window.location.href = 'compare.html';
+    }
+    return;
+  } else if (route === '/videos') {
+    restoreHomepage();
+    setTimeout(() => {
+      const videosEl = document.getElementById('featured-videos-grid') || document.getElementById('news');
+      if (videosEl) videosEl.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+    return;
   }
   
   restoreHomepage();
 }
 
 function restoreHomepage() {
-  if (homepageContent) homepageContent.classList.remove('hidden');
-  if (detailsPageContent) detailsPageContent.classList.add('hidden');
+  const homeEl = document.getElementById('homepage-content') || homepageContent;
+  const detailsEl = document.getElementById('details-page-content') || detailsPageContent;
+  if (homeEl) homeEl.classList.remove('hidden');
+  if (detailsEl) detailsEl.classList.add('hidden');
   
-  // Clear hash if we are on the main landing page and it contains car details route
-  const hash = window.location.hash;
-  if (hash.includes('/cars/') || hash.includes('/view-all/') || hash.includes('/news/') || hash.includes('/guide/') || hash.includes('/reviews/') || hash.includes('/brand/') || hash.includes('/brands/') || hash.includes('/insights/') || hash.includes('/learn/') || hash.includes('/blog/') || hash.includes('/ev/') || hash.includes('/resources/') || hash === '#/login' || hash === '#/signup' || hash === '#/forgot-password') {
+  // Clear any subpage/corporate hash when restoring homepage
+  if (window.location.hash) {
     try {
-      history.pushState(null, '', '/');
+      history.pushState('', document.title, window.location.pathname + window.location.search);
     } catch (e) {
       window.location.hash = '#/';
     }
   }
   
   if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
-  applyJargonBuster();
+  if (typeof applyJargonBuster === "function") applyJargonBuster();
   if (typeof initScrollDividers === 'function') initScrollDividers();
   if (typeof initRevealObservers === 'function') initRevealObservers();
+
+  // Always scroll to absolute top of homepage
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 // Re-route on browser back/forward buttons
@@ -6221,6 +6452,165 @@ function renderGuideArticlePage(chapter) {
   renderSubpage(title, breadcrumbs, contentHtml, '/');
 }
 
+
+function renderNocLetterPage() {
+  const pageTitle = "Apartment RWA NOC Application Template";
+  const breadcrumbs = ['RESOURCES', 'APARTMENT NOC LETTER TEMPLATE'];
+
+  const nocTextContent = `FORMAL APPLICATION FOR INSTALLATION OF PRIVATE EV CHARGER
+
+To,
+The Management Committee / President / Secretary,
+Resident Welfare Association (RWA) / Co-operative Housing Society,
+[Society Name / Address]
+
+Date: [Current Date]
+
+Subject: Application & Request for No Objection Certificate (NOC) to Install Private EV AC Fast Charger (7.2 kW / 3.3 kW) at Designated Parking Slot No: [Parking Slot Number]
+
+Respected Committee Members,
+
+I, [Applicant Full Name], resident of Flat/Apartment No: [Flat Number], Block/Tower: [Tower Name], and owner/tenant of vehicle parking slot [Parking Slot Number], hereby request your formal permission and No Objection Certificate (NOC) to install a private Electric Vehicle (EV) charger at my designated parking space.
+
+VEHICLE & CHARGER SPECIFICATIONS:
+1. Electric Vehicle Model: [e.g. Tata Nexon EV / MG ZS EV / Hyundai Ioniq 5]
+2. Charger Type: [7.2 kW Wallbox AC / 3.3 kW Smart Portable Charger]
+3. Certification: BIS / IEC 61851 Certified & ARAI Safety Compliant
+4. Power Source: Tapped directly from my personal residential electricity meter (Meter No: [Meter Number]). Zero electricity consumption will be drawn from common society grid lines.
+
+SAFETY & COMPLIANCE UNDERTAKINGS:
+1. All cabling (3-Core 10 sq mm armored copper cable) will be enclosed in fire-retardant rigid PVC conduits along approved basement cable trays.
+2. The circuit will feature an independent 40A Miniature Circuit Breaker (MCB) and 30mA Type-B Residual Current Circuit Breaker (RCCB) for full surge protection.
+3. Earthing will strictly adhere to IS 3043 and National Electrical Code (NEC 2023) standards.
+4. Installation will be executed by a certified & licensed electrical contractor.
+5. Under Ministry of Power Consolidated Guidelines 2024 and MoHUA Model Building Bye-laws, I request the management committee to grant permission within 14 business days.
+
+Thanking You,
+
+Yours Faithfully,
+
+_______________________
+[Applicant Name & Signature]
+Flat No: [Flat Number]
+Mobile No: [Mobile Number]
+Email: [Email Address]`;
+
+  const contentHtml = `
+    <div class="max-w-4xl mx-auto flex flex-col gap-8 pt-6 font-sans text-zinc-900">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-200 pb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/10 border border-[#22C55E]/30 rounded-full mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+            <span class="text-[10px] text-[#22C55E] font-bold font-mono uppercase tracking-widest">OFFICIAL TEMPLATE</span>
+          </div>
+          <h1 class="text-2xl md:text-4xl font-extrabold text-black tracking-tight">${pageTitle}</h1>
+          <p class="text-xs text-zinc-600 font-mono mt-1">Official NOC application letter formatted per Ministry of Power 2024 Guidelines & MoHUA Bye-Laws.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+          <button id="btn-print-noc" class="px-4 py-2.5 bg-black text-white text-xs font-mono font-bold uppercase tracking-wider rounded-xl hover:bg-zinc-800 transition-all flex items-center gap-1.5 shadow-sm">
+            🖨️ PRINT LETTER
+          </button>
+          <button id="btn-download-noc-txt" class="px-4 py-2.5 bg-[#22C55E] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-xl hover:bg-emerald-600 transition-all flex items-center gap-1.5 shadow-sm">
+            ⬇️ DOWNLOAD .TXT
+          </button>
+          <button id="btn-download-noc-doc" class="px-4 py-2.5 border border-zinc-300 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-xl hover:border-black transition-all flex items-center gap-1.5">
+            📄 DOWNLOAD .DOC
+          </button>
+        </div>
+      </div>
+
+      <!-- FORMAL LETTER PREVIEW CARD -->
+      <div class="bg-white border-2 border-zinc-300 p-8 md:p-12 rounded-2xl shadow-md font-mono text-xs text-zinc-800 leading-relaxed max-w-3xl mx-auto relative whitespace-pre-wrap select-all" id="noc-letter-document">
+${nocTextContent}
+      </div>
+
+      <div class="bg-zinc-50 border border-zinc-200 p-6 rounded-2xl flex flex-col gap-2 font-mono text-xs max-w-3xl mx-auto w-full shadow-xs">
+        <strong class="text-black text-sm">💡 Instructions After Printing:</strong>
+        <ol class="list-decimal pl-5 space-y-1 text-zinc-600">
+          <li>Fill in your flat number, parking slot number, and meter details.</li>
+          <li>Attach your EV charger technical specification sheet (provided by Tata, MG, Ather, or charger OEM).</li>
+          <li>Submit 2 signed hardcopies to your RWA office and get an acknowledgment stamp on 1 copy.</li>
+        </ol>
+      </div>
+
+    </div>
+  `;
+
+  renderSubpage(pageTitle, breadcrumbs, contentHtml, '/');
+
+  setTimeout(() => {
+    const btnPrint = document.getElementById('btn-print-noc');
+    const btnTxt = document.getElementById('btn-download-noc-txt');
+    const btnDoc = document.getElementById('btn-download-noc-doc');
+
+    if (btnPrint) {
+      btnPrint.onclick = () => {
+        const printWin = window.open('', '_blank');
+        printWin.document.write(`
+          <html>
+            <head>
+              <title>RWA NOC Application Letter</title>
+              <style>
+                body { font-family: monospace; font-size: 13px; line-height: 1.6; padding: 40px; color: #000; }
+                pre { whitespace: pre-wrap; font-family: inherit; }
+              </style>
+            </head>
+            <body>
+              <pre>${nocTextContent}</pre>
+            </body>
+          </html>
+        `);
+        printWin.document.close();
+        printWin.focus();
+        printWin.print();
+        printWin.close();
+      };
+    }
+
+    if (btnTxt) {
+      btnTxt.onclick = () => {
+        const blob = new Blob([nocTextContent], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'RWA_EV_Charger_NOC_Application_Template.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      };
+    }
+
+    if (btnDoc) {
+      btnDoc.onclick = () => {
+        const blob = new Blob(['﻿' + nocTextContent], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'RWA_EV_Charger_NOC_Application_Template.doc';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      };
+    }
+  }, 100);
+}
+
+
+
+var hubExplanations = {
+  'apartment-charging': {
+    title: 'Apartment Charging Guide',
+    content: `<div class="border-b border-zinc-200 pb-6 mb-6"><span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block mb-3">RESOURCES / APARTMENT CHARGING</span><h1 class="text-3xl md:text-5xl font-black tracking-tight text-black leading-tight mb-4">Apartment Complex EV Charging Guide</h1><p class="text-sm text-zinc-600 font-mono leading-relaxed max-w-2xl">A complete step-by-step guide for setting up home EV charging in multi-owner apartments, gated societies, and RWAs across India. Includes legal rights, DISCOM load approvals, NOC application templates, and wiring safety standards.</p><div class="flex flex-wrap gap-3 mt-4"><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">📋 Legal & RWA Guide</span><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">⚡ DISCOM Step-by-Step</span></div></div><div class="my-8 border-l-4 border-black bg-zinc-50 p-6 md:p-8 rounded-r-2xl shadow-xs"><span class="text-[10px] text-[#22C55E] font-bold uppercase tracking-widest block mb-2 font-mono">LEGAL & REGULATORY RIGHTS</span><h3 class="text-xl font-bold text-black font-sans mb-3">Your Legal "Right to Charge" in Indian Apartments</h3><p class="text-xs md:text-sm text-zinc-700 leading-relaxed font-sans mb-4">Under recent circulars issued by the Ministry of Housing and Urban Affairs (MoHUA) and state cooperative housing registrars, RWAs cannot arbitrarily deny permission for private EV charger installations provided the owner/tenant complies with safety standards, earthing norms, and DISCOM load permissions.</p><div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans"><div class="bg-white p-4 rounded-xl border border-zinc-200"><strong class="text-black block mb-1 font-mono">MoHUA Bye-Laws 2024</strong><p class="text-zinc-600">Requires 20% of all parking bays in new complexes to be EV ready with conduit and cabling.</p></div><div class="bg-white p-4 rounded-xl border border-zinc-200"><strong class="text-black block mb-1 font-mono">DISCOM Sub-Metering</strong><p class="text-zinc-600">Separate EV tariff meters (₹5.5–₹7.5/unit) can be installed directly by state utilities.</p></div><div class="bg-white p-4 rounded-xl border border-zinc-200"><strong class="text-black block mb-1 font-mono">RWA NOC Protocol</strong><p class="text-zinc-600">RWAs are mandated to grant NOC within 14-21 days upon receiving technical load declaration.</p></div></div></div><h3>Step-by-Step RWA Approval Workflow</h3><ol class="space-y-4 text-xs font-mono my-6"><li class="flex items-start gap-4 p-4 border border-zinc-200 bg-white rounded-xl"><span class="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</span><div><strong class="text-black block mb-1">Submit RWA Application & Pre-filled NOC Request</strong><p class="text-zinc-600 leading-relaxed">Download our pre-filled NOC letter template, attach your vehicle booking/registration, and submit it to your managing committee.</p><a href="#/resources/apartment-noc-letter" class="inline-block mt-2 text-[#22C55E] font-bold hover:underline">📄 Download RWA NOC Letter Template ➔</a></div></li><li class="flex items-start gap-4 p-4 border border-zinc-200 bg-white rounded-xl"><span class="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</span><div><strong class="text-black block mb-1">DISCOM Feasibility & Load Sanction</strong><p class="text-zinc-600 leading-relaxed">Apply to your local DISCOM (BSES, TATA Power, BESCOM, MSEDCL) for additional load sanction or a dedicated EV sub-meter connection.</p></div></li><li class="flex items-start gap-4 p-4 border border-zinc-200 bg-white rounded-xl"><span class="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</span><div><strong class="text-black block mb-1">Professional Wiring & Earthing Setup</strong><p class="text-zinc-600 leading-relaxed">Install dedicated 4mm² / 6mm² armored copper cabling, independent 30mA RCCB/MCB protection, and proper chemical earthing pit.</p></div></li></ol>`
+  },
+  'battery-health': {
+    title: 'Battery Health Guide',
+    content: `<div class="border-b border-zinc-200 pb-6 mb-6"><span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block mb-3">BATTERY ENGINEERING / HEALTH & MAINTENANCE</span><h1 class="text-3xl md:text-5xl font-black tracking-tight text-black leading-tight mb-4">EV Battery Health Guide</h1><p class="text-sm text-zinc-600 font-mono leading-relaxed max-w-2xl">Maximising your EV battery's lifespan ensures long-term performance, preserves resale value, and reduces your total cost of ownership. This guide covers everything from optimal charging habits to maintenance best practices.</p><div class="flex flex-wrap gap-3 mt-4"><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">📖 12 min read</span><span class="font-mono text-[9px] text-zinc-500 border border-zinc-200 rounded-full px-3 py-1">🔋 Beginner Friendly</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8"><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><span class="text-xl">⚡</span><span class="font-bold text-xs uppercase tracking-wide">Optimal Charging Habits</span></div><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">For LFP batteries, charging to 100% daily is fine and helps BMS calibration. For NMC batteries, keep daily charging between 20-80% to reduce cell stress. Never let the battery drop below 10% regularly.</p></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5"><div class="flex items-center gap-3 mb-3"><span class="text-xl">🌡️</span><span class="font-bold text-xs uppercase tracking-wide">Temperature Management</span></div><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Heat accelerates chemical degradation. Park in shade, use scheduled charging during cooler night hours, and precondition the battery before DC fast charging in extreme temperatures.</p></div></div><h3>Best Practices for Long Battery Life</h3><ul class="space-y-3 text-xs font-mono my-4"><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">1</span><div><strong class="text-black">Maintain 20–80% State of Charge</strong><br><span class="text-zinc-500">For daily commuting, keep the battery between 20% and 80%. This avoids extreme voltage stress at high and low charge levels.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">2</span><div><strong class="text-black">Use Scheduled Charging</strong><br><span class="text-zinc-500">Program your EV to finish charging just before departure. This minimises time spent at high state of charge.</span></div></li><li class="flex items-start gap-3"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">3</span><div><strong class="text-black">Limit DC Fast Charging</strong><br><span class="text-zinc-500">Reserve DC fast charging for road trips. For daily top-ups, use AC home charging.</span></div></li></ul>`
+  }
+};
+
 function renderHubArticlePage(key) {
   const data = hubExplanations[key];
   if (!data) {
@@ -6231,176 +6621,410 @@ function renderHubArticlePage(key) {
   const title = data.title;
   const breadcrumbs = ['RESOURCES', 'KNOWLEDGE HUB', title.toUpperCase()];
   
-  // Decide which image to show based on key
-  let illustrationImg = 'why_ev_illustration.jpeg';
-  if (key === 'battery-health' || key === 'lfp-nmc') {
-    illustrationImg = 'battery_care_illustration.jpeg';
+  // High-res hero images for top magazine header
+  let heroCoverImg = '/insights_images/ev-charging-explained.JPG';
+  if (key === 'apartment-charging') {
+    heroCoverImg = '/everything_u_need/APARTMENT_CHARGING.jpeg';
+  } else if (key === 'battery-health') {
+    heroCoverImg = '/everything_u_need/    BATTERY_WARRANTY.jpeg';
+  } else if (key === 'renewable-energy-and-evs') {
+    heroCoverImg = '/insights_images/renewable-energy-and-evs.jpg';
+  } else if (key === 'companies-building-indias-network') {
+    heroCoverImg = '/insights_images/companies-building-indias-network.JPG';
+  } else if (key === 'government-policies') {
+    heroCoverImg = '/insights_images/government-policies.JPG';
+  }
+
+  // In-body technical schematic diagram (100% valid images)
+  let inBodyDiagramImg = '';
+  if (key === 'battery-health') {
+    inBodyDiagramImg = '/battery_care_illustration.jpeg';
+  } else if (key === 'apartment-charging') {
+    inBodyDiagramImg = '/everything_u_need/FAST_VS_SLOW_CHARGING.jpeg';
   } else if (key === 'regen-braking' || key === 'ac-dc' || key === 'v2l') {
-    illustrationImg = 'WHY_BUY_EV.jpeg';
+    inBodyDiagramImg = '/WHY_BUY_EV.jpeg';
   }
   
-  // Additional mock specs/features/benefits/FAQs specific to the hub article
   const articleInfo = {
-    'regen-braking': {
-      features: [
-        'Kinetic Energy Recovery (converts movement back to battery charge)',
-        'One-Pedal Driving mode (accelerate and brake using only the accelerator)',
-        'Reduced brake pad wear (saves money on mechanical brake maintenance)'
-      ],
-      benefits: [
-        'Extends city range by up to 15-20% through stop-and-go energy harvesting.',
-        'Provides a smoother and more relaxed driving experience in urban congestion.',
-        'Virtually eliminates brake dust, keeping wheels cleaner and reducing local particulates.'
-      ],
-      faqs: [
-        { q: 'Does regenerative braking replace mechanical brakes?', a: 'No, mechanical friction brakes are always present and act as backup for sudden emergency stops.' },
-        { q: 'Is it hard to learn how to drive with one-pedal mode?', a: 'Most drivers adapt in less than 15 minutes. It becomes natural very quickly.' }
-      ]
-    },
-    'lfp-nmc': {
-      features: [
-        'LFP (Lithium Iron Phosphate): Superior thermal stability, lower cost, longer lifecycle.',
-        'NMC (Nickel Manganese Cobalt): Higher energy density, better cold weather performance.',
-        'Thermal Management: Liquid cooling systems keep battery temperatures optimal.'
-      ],
-      benefits: [
-        'LFP is ideal for budget-oriented EVs, allowing 100% daily charging without degradation.',
-        'NMC provides longer range for premium cars with smaller, lighter battery packs.',
-        'Understanding your chemistry helps optimize charging habits for maximum lifespan.'
-      ],
-      faqs: [
-        { q: 'Which chemistry is better for hot climates?', a: 'LFP is generally more robust in extremely hot temperatures due to its high thermal runaway threshold.' },
-        { q: 'Can I charge NMC to 100% every day?', a: 'It is recommended to charge NMC to 80% for daily use to prolong its lifespan, whereas LFP can be charged to 100% regularly.' }
-      ]
-    },
-    'ac-dc': {
-      features: [
-        'AC Charging (Alternating Current): Standard power used for overnight home and office charging.',
-        'DC Fast Charging (Direct Current): High power used at highway rest stops to charge directly.',
-        'Onboard Charger: Converts AC grid power into DC power for the battery.'
-      ],
-      benefits: [
-        'AC charging is cheaper, gentler on the battery, and highly convenient for home routines.',
-        'DC fast charging makes long-distance road trips viable, adding 200+ km in 15-30 minutes.',
-        'Knowing the difference helps plan routes and choose the right charging gear.'
-      ],
-      faqs: [
-        { q: 'Why does charging speed slow down after 80%?', a: 'To protect the battery from overheating, the battery management system reduces power intake as it nears full capacity.' },
-        { q: 'Can I use a DC charger every single day?', a: 'Frequent DC fast charging can speed up battery degradation. AC charging is recommended for daily use.' }
-      ]
-    },
-    'v2l': {
-      features: [
-        'Bidirectional Power Flow (battery discharges power out of the charging port)',
-        'Built-in AC Outlets (standard wall sockets on the car exterior or interior)',
-        'Safety Shutoff (stops discharging when car battery drops to a pre-set level, e.g. 20%)'
-      ],
-      benefits: [
-        'Power appliances, laptops, camping gear, or power tools directly from your EV.',
-        'Use your vehicle as a backup home generator during blackouts or emergencies.',
-        'Charge another stranded electric vehicle on the road (Vehicle-to-Vehicle charging).'
-      ],
-      faqs: [
-        { q: 'Will using V2L drain my car battery completely?', a: 'No, you can configure a safety limit in the car dashboard so V2L stops automatically, ensuring you always have enough range to drive home.' },
-        { q: 'What appliances can I power with V2L?', a: 'Most EVs support up to 3.6kW, which can run refrigerators, microwave ovens, power tools, electric grills, and kettles.' }
-      ]
-    },
-    'clearance': {
-      features: [
-        'Floor-mounted Battery Shielding (thick steel or titanium plates protecting the battery pack)',
-        'Low Center of Gravity (batteries placed low between the axles improves stability on uneven roads)',
-        'Adaptive Air Suspension (lifts the vehicle dynamically on rough terrain, in premium EVs)'
-      ],
-      benefits: [
-        'High ground clearance (170mm-200mm) prevents battery scraping on large speed bumps.',
-        'Reinforced underbody protection guards the battery against stones and road debris.',
-        'Provides confidence when driving in monsoon flooded roads or rural tracks.'
-      ],
-      faqs: [
-        { q: 'Does high ground clearance affect range?', a: 'Slightly. Taller vehicles have more aerodynamic drag, but clever EV design minimizes this impact.' },
-        { q: 'Is it dangerous if the bottom of my EV scrapes?', a: 'EVs have extremely tough armor plates protecting the battery, but severe impact should always be inspected by a professional.' }
-      ]
-    },
     'apartment-charging': {
+      subtitle: 'Comprehensive 2026 Masterclass: Legal rights, MoHUA Bye-laws, DISCOM load sanctioning, RWA NOC protocols, fire safety, wiring specifications, and sub-metering',
+      overview: 'Securing a private electric vehicle charger in a multi-owner residential apartment complex or gated society involves navigating legal frameworks, Resident Welfare Association (RWA) bylaws, and state DISCOM (Electricity Distribution Company) load sanctioning. Under the Ministry of Power Consolidated Guidelines (2024) and MoHUA Model Building Bye-Laws, housing societies are legally encouraged to enable EV charging infrastructure, requiring new developments to make at least 20% of parking slots EV-ready.',
+      extendedHtml: `
+        <!-- LEGAL & POLICY RIGHTS SECTION -->
+        <div class="my-8 border-l-4 border-black bg-zinc-50 p-6 md:p-8 rounded-r-2xl shadow-xs">
+          <span class="text-[10px] text-[#22C55E] font-bold uppercase tracking-widest block mb-2 font-mono">LEGAL & REGULATORY RIGHTS</span>
+          <h3 class="text-xl font-bold text-black font-sans mb-3">Your Legal "Right to Charge" in Indian Apartments</h3>
+          <p class="text-xs md:text-sm text-zinc-700 leading-relaxed font-sans mb-4">
+            Under recent circulars issued by the Ministry of Housing and Urban Affairs (MoHUA) and state cooperative housing registrars (such as Maharashtra, Delhi NCR, and Karnataka), <strong>RWAs cannot arbitrarily deny permission for private EV charger installations</strong> provided the owner/tenant complies with safety standards, earthing norms, and DISCOM load permissions.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
+            <div class="bg-white p-4 rounded-xl border border-zinc-200">
+              <strong class="text-black block mb-1 font-mono">MoHUA Bye-Laws 2024</strong>
+              Mandates 20% of total parking capacity in new multi-story apartments to be pre-wired with EV charging conduits.
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-zinc-200">
+              <strong class="text-black block mb-1 font-mono">Cooperative Registrar</strong>
+              Directives state NOC applications must be processed within 14 business days of formal submission.
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-zinc-200">
+              <strong class="text-black block font-mono">Zero Common Power Draw</strong>
+              Chargers tap directly into your personal meter; 0 cost is borne by the RWA or common maintenance fund.
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-STEP PROCEDURAL WORKFLOW -->
+        <div class="my-8 border border-zinc-200 bg-zinc-50 p-6 md:p-8 rounded-2xl shadow-sm">
+          <span class="text-[10px] text-[#22C55E] font-bold uppercase tracking-widest block mb-2 font-mono">PROCEDURAL PROTOCOL</span>
+          <h3 class="text-xl font-bold text-black font-sans mb-4">5-Step RWA NOC Approval & DISCOM Connection Workflow</h3>
+          <div class="space-y-5 text-xs md:text-sm text-zinc-700 font-sans">
+            <div class="border-l-4 border-black pl-4 py-1">
+              <strong class="text-black block font-mono text-sm">Step 1: Sanctioned Load Audit with Local DISCOM</strong>
+              Check your existing household sanction load on your monthly electricity bill (e.g. 5 kW single-phase). Standard 7.2 kW Level 2 wallbox chargers require upgrading your sanctioned load to 8–10 kW single-phase or 3-phase supply. Submit an online load enhancement request on your state DISCOM portal (BSES, MSEDCL, BESCOM, TNEB, CESC).
+            </div>
+            <div class="border-l-4 border-black pl-4 py-1">
+              <strong class="text-black block font-mono text-sm">Step 2: Metering Route & Tariff Selection</strong>
+              Choose your metering route:
+              <ul class="list-disc pl-5 mt-2 space-y-1 text-xs">
+                <td><strong>Option A (Personal Meter Tapping):</strong> Cable runs directly from your existing residential meter in the basement meter room to your assigned parking slot. Recommended for apartment owners.</td>
+                <td><strong>Option B (Dedicated EV Meter):</strong> Apply for a separate LT EV connection with concessional EV tariffs (₹6-7.5/kWh). Recommended where DISCOMs offer dedicated EV tariffs without slab rate escalation.</td>
+              </ul>
+            </div>
+            <div class="border-l-4 border-black pl-4 py-1">
+              <strong class="text-black block font-mono text-sm">Step 3: Landlord / Tenant Consent Protocol</strong>
+              If you are a tenant, obtain a signed Consent Letter from your landlord allowing cabling work from the meter room to the parking space. RWAs process NOC applications faster when landlord authorization is attached.
+            </div>
+            <div class="border-l-4 border-black pl-4 py-1">
+              <strong class="text-black block font-mono text-sm">Step 4: Fire Safety, Earthing & Wiring Specifications</strong>
+              Wiring must use heavy-duty 3-Core 10 sq mm armored copper cables enclosed in fire-retardant rigid PVC conduits along basement cable trays. Install a dedicated 40A Type-B RCCB (30mA trip) and dedicated earthing pit with earth resistance &lt; 5 Ohms (IS 3043 & National Electrical Code 2023 standards).
+            </div>
+            <div class="border-l-4 border-black pl-4 py-1">
+              <strong class="text-black block font-mono text-sm">Step 5: Submission to RWA & NOC Issuance</strong>
+              Submit your formal application to the RWA committee attaching charger technical specifications (BIS/IEC 61851 certified), single-line circuit diagram, and electrician license. The RWA inspects the installation and issues the formal NOC letter.
+            </div>
+          </div>
+          
+          <!-- Direct NOC Action Bar -->
+          <div class="mt-6 pt-5 border-t border-zinc-200 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-5 rounded-xl border border-zinc-200">
+            <div>
+              <strong class="text-black text-sm block font-sans">Official RWA NOC Application Template</strong>
+              <span class="text-xs text-zinc-500 font-mono">Pre-drafted legal NOC application ready for instant print & download.</span>
+            </div>
+            <a href="#/resources/apartment-noc-letter" class="px-5 py-3 bg-black text-white text-xs font-mono font-bold uppercase tracking-wider rounded-xl hover:bg-zinc-800 transition-all flex items-center gap-2 flex-shrink-0 shadow-sm">
+              📄 VIEW & DOWNLOAD RWA NOC LETTER TEMPLATE →
+            </a>
+          </div>
+        </div>
+
+        <!-- Technical Specification Matrix -->
+        <div class="my-8">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest block mb-2 font-mono font-bold">ELECTRICAL DATA MATRIX</span>
+          <h3 class="text-lg font-bold text-black font-sans mb-4">Apartment EV Charger Electrical Standards</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-sans border-collapse border border-zinc-200">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-[10px] uppercase tracking-wider">
+                  <th class="p-3 border border-zinc-700">Specification Parameter</th>
+                  <th class="p-3 border border-zinc-700">3.3 kW Portable AC (Level 1)</th>
+                  <th class="p-3 border border-zinc-700">7.2 kW Wallbox AC (Level 2)</th>
+                  <th class="p-3 border border-zinc-700">11 kW / 22 kW 3-Phase AC</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-zinc-800">
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Supply Voltage & Current</td>
+                  <td class="p-3">230V Single-Phase, 16A</td>
+                  <td class="p-3 font-bold text-black">230V Single-Phase, 32A</td>
+                  <td class="p-3">415V 3-Phase, 16A / 32A</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Cable Wire Gauge</td>
+                  <td class="p-3">3-Core 4.0 sq mm Copper</td>
+                  <td class="p-3 font-bold text-[#22C55E]">3-Core 10.0 sq mm Armored Copper</td>
+                  <td class="p-3">5-Core 6.0 sq mm Armored Copper</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Charging Time (0-80% 40kWh)</td>
+                  <td class="p-3">9.5 to 11 Hours</td>
+                  <td class="p-3 font-bold text-black">4.2 to 4.5 Hours</td>
+                  <td class="p-3">2.8 to 3.2 Hours</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Safety Protection Standards</td>
+                  <td class="p-3">16A MCB + 30mA RCCB</td>
+                  <td class="p-3 font-bold text-black">40A MCB + 30mA Type-B RCCB</td>
+                  <td class="p-3">32A 4-Pole MCB + Type-B RCCB</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Ingress Protection Rating</td>
+                  <td class="p-3">IP54 Weatherproof</td>
+                  <td class="p-3 font-bold text-[#22C55E]">IP65 Waterproof Enclosure</td>
+                  <td class="p-3">IP66 Heavy-Duty Enclosure</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `,
       features: [
-        'RWA NOC Process: Formal application to society management with safety documentation and layout plans.',
+        'RWA NOC Protocol: Formal application to society management with safety documentation and layout plans.',
         'Dedicated Meter Installation: Separate electricity meter for the charger ensures accurate billing.',
-        'Weatherproof Enclosure: Outdoor-rated charging unit with IP55+ protection for parking area installation.',
+        'Weatherproof Enclosure: Outdoor-rated charging unit with IP65+ protection for parking area installation.',
         'Load Assessment: Professional electrical audit to determine if your existing sanction load can support a 7.2 kW charger.',
         'Smart Charger Compatibility: Wi-Fi enabled chargers with scheduling, usage tracking, and remote monitoring via mobile app.'
       ],
       benefits: [
-        'Convenient overnight charging at home eliminates dependency on public charging infrastructure.',
-        'Substantial cost savings — home charging at ₹6-9/kWh costs 85% less than petrol per kilometre.',
-        'Increases property value — homes with EV charging capability command higher resale value.',
-        'Shared charger models reduce per-unit installation costs in multi-parking layouts.',
-        'Government subsidies and tax benefits available for home EV charger installations.'
+        'Wake up to a 100% fully charged battery every morning without visiting public stations.',
+        'Charge at cheapest residential off-peak electricity tariffs (₹6-8 per kWh).',
+        'Adds long-term value to your residential property and designated parking space.'
       ],
       faqs: [
-        { q: 'Can my RWA deny permission for EV charger installation?', a: 'Under the Electricity Act 2003 and relevant state regulations, RWAs cannot unreasonably refuse. They must respond within 15 days and can only deny on valid technical safety grounds.' },
-        { q: 'How much does it cost to install a home EV charger?', a: 'A standard 7.2 kW AC wallbox installation costs ₹15,000-40,000 including the charger unit, MCB, cabling, and labour. Many manufacturers offer free installation with new EV purchases.' },
-        { q: 'Do I need to upgrade my electricity meter?', a: 'Most homes with a 15-30A sanctioned load can support a 7.2 kW charger. If your load is below 15A, you may need to request a load increase from your electricity distribution company (₹2,000-5,000).' },
-        { q: 'Can I share a charger with neighbours in my apartment?', a: 'Yes, shared charger models are becoming popular in apartment complexes. A single 7.2 kW unit can be split between 2-3 parking spots with scheduled access via a mobile app or RFID cards.' },
-        { q: 'Is it safe to install a charger in an open parking area?', a: 'Yes, modern EV chargers are built with IP55+ weatherproof ratings, making them safe for outdoor installation. Ensure the unit is mounted on a sturdy pole or wall with proper cable management.' }
+        { q: 'Can an RWA legally reject my EV charger installation?', a: 'Under guidelines issued by the Ministry of Power and state cooperative housing registrar circulars (e.g. Maharashtra), RWAs cannot arbitrarily deny NOC requests provided safety and DISCOM load norms are met.' },
+        { q: 'Do I need a 3-phase connection for a 7.2 kW charger?', a: 'A 7.2 kW charger runs on a single-phase 32A supply line, but requires a sanction load of 8–10 kW. Upgrading from 5 kW to 8 kW on single-phase is standard with most urban DISCOMs.' }
       ],
-      extendedHtml: `<h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">What is Apartment EV Charging?</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">Apartment EV charging refers to the process of installing and operating electric vehicle charging stations within multi-owner residential complexes such as apartments, housing societies, and gated communities. Unlike standalone homes where the owner has full control over electrical infrastructure, apartment charging requires coordination with the Resident Welfare Association (RWA), building management, and often the local electricity distribution company.</p><div class="border-l-2 border-black pl-4 my-5 bg-zinc-50/50 py-3 pr-2 rounded-r-lg"><span class="text-zinc-500 font-bold uppercase text-[9px] tracking-wider block mb-1">💡 Key Insight</span><p class="text-xs leading-relaxed text-zinc-700 italic font-medium">Over 65% of urban Indian households live in apartments or gated communities. Accessible home charging is therefore one of the most critical factors for mass EV adoption in India.</p></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Why Charging in Apartments is Different</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">Charging an EV in an apartment building presents unique challenges that do not apply to independent homes:</p><ul class="space-y-2 text-xs font-mono mb-4"><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Shared Electrical Infrastructure:</strong> The building\'s main electrical panel and meter may not have spare capacity for additional high-power loads.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Common Parking Areas:</strong> Parking spots are often designated but not directly connected to individual flat meters, requiring sub-metering solutions.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>RWA Approvals:</strong> Any structural or electrical modification to common areas requires formal approval from the building\'s managing committee.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Cable Routing:</strong> Running wiring from individual meter boxes to basement or ground-floor parking spots often requires cable trays, conduits, or trenching.</span></li></ul><div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6"><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🏢</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">High-Rise Apartments</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Typically have basement parking with existing electrical infrastructure. Cable routing from upper floors to basement is the main challenge. Requires vertical cable trays or dedicated conduits.</p></div><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🏘️</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Walk-Up Buildings</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Usually 3-5 storeys with open or ground-floor parking. Easier cable routing but may lack dedicated parking spots. Meter boxes are often on ground floor, simplifying connections.</p></div><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🌳</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Gated Communities</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Large developments with individual villas/townhouses and common amenities. Each unit may have its own meter, making installation straightforward. RWA manages common area charger installations.</p></div><div class="border border-zinc-200 rounded-xl p-5 bg-white shadow-sm"><span class="text-lg block mb-2">🏗️</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">New Constructions</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Increasingly include EV charging readiness as a standard feature. Pre-wired conduits, dedicated meter slots, and charger-ready parking spots reduce installation complexity significantly.</p></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Society Approval & NOC Process</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">The Resident Welfare Association (RWA) or apartment managing committee is the first point of contact for EV charger installation. Under the Electricity Act 2003 and various state electricity regulatory commission guidelines, RWAs are required to facilitate EV charger installations and cannot unreasonably deny permission.</p><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-5 my-5"><span class="font-bold text-[10px] uppercase tracking-wide block mb-3">📋 Step-by-Step NOC Process</span><ol class="space-y-2.5 text-xs font-mono"><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">1</span><div><strong>Submit Formal Application:</strong> Write a letter to the RWA secretary requesting permission for EV charger installation at your designated parking spot. Include your vehicle details, proposed charger specifications, and installer credentials.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">2</span><div><strong>Provide Layout Plan:</strong> Attach a simple diagram showing the wiring route from your meter box to the parking spot, the charger mounting location, and planned safety measures.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">3</span><div><strong>Safety Documentation:</strong> Include the electrician\'s safety certificate, charger BIS certification, and a commitment to follow all electrical safety standards.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">4</span><div><strong>Metering Proposal:</strong> Confirm that the charger will have a dedicated sub-meter (or be connected to your existing flat meter) so electricity costs are billed to you, not the society.</div></li><li class="flex items-start gap-2.5"><span class="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0 mt-0.5">5</span><div><strong>Follow Up:</strong> The RWA must respond within 15 days as per most state regulations. If permission is not granted within this period, you may escalate to the local electricity regulatory commission.</div></li></ol></div><div class="border border-zinc-200 bg-emerald-50/40 rounded-xl p-5 my-6 border-l-4 border-l-emerald-500"><div class="flex items-start gap-3"><span class="text-lg flex-shrink-0 mt-0.5">✅</span><div><span class="font-bold text-xs uppercase tracking-wide block mb-1">Pro Tip: RWA Presentation</span><p class="text-[11px] text-zinc-600 leading-relaxed font-mono">Prepare a short presentation for your RWA meeting that covers safety features, installation timeline, and the legal framework supporting EV charger installation. Many RWAs are more receptive when they understand the regulations and safety standards involved.</p></div></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Private Charger Installation</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">Once RWA approval is secured, the actual installation process involves several technical steps. A standard 7.2 kW AC wallbox is the most common choice for apartment charging, offering a full charge in 4-6 hours overnight.</p><div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-5"><div class="border border-zinc-200 rounded-xl p-4 bg-white"><span class="text-lg block mb-2">🔌</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Charger Unit</span><p class="text-[10px] text-zinc-600 font-mono leading-relaxed">7.2 kW AC wallbox with Type 2 socket, IP55 weatherproof rating, and smart features (Wi-Fi, scheduling, app control).</p></div><div class="border border-zinc-200 rounded-xl p-4 bg-white"><span class="text-lg block mb-2">⚡</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Electrical Work</span><p class="text-[10px] text-zinc-600 font-mono leading-relaxed">Dedicated 40A MCB, 6 sq mm armoured cable from meter box to charger, proper earthing (earth resistance below 1 ohm).</p></div><div class="border border-zinc-200 rounded-xl p-4 bg-white"><span class="text-lg block mb-2">📡</span><span class="font-bold text-[10px] uppercase tracking-wide block mb-1">Smart Metering</span><p class="text-[10px] text-zinc-600 font-mono leading-relaxed">Individual sub-meter for accurate billing. Wi-Fi connectivity for remote monitoring, usage tracking, and charge scheduling.</p></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Shared Charging Solutions</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">For apartment complexes where multiple residents own EVs, shared charging solutions offer significant cost advantages. A single 7.2 kW or 22 kW charger can serve 2-4 parking spots through scheduled access or load-sharing technology.</p><ul class="space-y-2 text-xs font-mono mb-4"><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Load Sharing:</strong> Two chargers connected to a single circuit that intelligently splits available power between vehicles. When one car finishes charging, the other gets full power.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>RFID Access Control:</strong> Each resident gets an RFID tag that activates the charger and bills their individual account. Usage logs prevent disputes.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>App-Based Scheduling:</strong> Residents book charging slots through a mobile app. The system automatically releases the slot if the resident doesn\'t plug in within 30 minutes.</span></li></ul><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Cost Breakdown</h3><div class="overflow-x-auto my-5"><table class="w-full text-[10px] font-mono border-collapse"><thead><tr class="border-b border-zinc-200"><th class="text-left py-2 px-3 font-bold uppercase tracking-wider text-zinc-600">Item</th><th class="text-left py-2 px-3 font-bold uppercase tracking-wider text-zinc-600">Estimated Cost (₹)</th></tr></thead><tbody><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">7.2 kW AC Wallbox Charger</td><td class="py-2 px-3 text-zinc-700">8,000 - 25,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Electrical Cabling & MCB</td><td class="py-2 px-3 text-zinc-700">3,000 - 8,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Installation Labour</td><td class="py-2 px-3 text-zinc-700">2,000 - 5,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Sub-Meter Installation</td><td class="py-2 px-3 text-zinc-700">1,500 - 3,000</td></tr><tr class="border-b border-zinc-100"><td class="py-2 px-3 text-zinc-700">Load Increase (if needed)</td><td class="py-2 px-3 text-zinc-700">2,000 - 5,000</td></tr><tr class="bg-zinc-50"><td class="py-2 px-3 font-bold text-zinc-800">Total (Typical)</td><td class="py-2 px-3 font-bold text-zinc-800">₹15,000 - ₹40,000</td></tr></tbody></table></div><div class="border border-zinc-200 bg-amber-50/40 rounded-xl p-5 my-6 border-l-4 border-l-amber-500"><div class="flex items-start gap-3"><span class="text-lg flex-shrink-0 mt-0.5">⚠️</span><div><span class="font-bold text-xs uppercase tracking-wide block mb-1">Common Installation Mistakes</span><ul class="space-y-1 text-[11px] text-zinc-600 font-mono"><li>• Using undersized cabling — always use 6 sq mm minimum for 7.2 kW installations</li><li>• Skipping earth leakage protection — mandatory for outdoor EV charger installations</li><li>• Not checking load capacity — overloading the building\'s main panel can cause tripping</li><li>• Poor cable management — exposed cables are a tripping hazard and degrade in sunlight</li></ul></div></div></div><h3 class="text-base md:text-lg font-bold text-black mt-8 mb-3">Government Guidelines & Support</h3><p class="text-sm leading-relaxed text-zinc-700 font-mono mb-4">The Government of India has implemented several measures to facilitate apartment EV charging:</p><ul class="space-y-2 text-xs font-mono mb-4"><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Electricity Act 2003:</strong> RWAs and apartment management associations are obligated to facilitate EV charger installations and cannot deny permission without valid technical reasons.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>FAME III Subsidy:</strong> Central government provides subsidies for EV charging infrastructure, including home chargers in apartment complexes.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>State EV Policies:</strong> Many states offer additional incentives, including subsidized electricity tariffs for EV charging during off-peak hours and reduced connection charges.</span></li><li class="flex items-start gap-2.5"><span class="text-zinc-400 mt-0.5">•</span><span><strong>Bureau of Indian Standards:</strong> All EV chargers must comply with IS 17017 safety standards. Always verify BIS certification before purchasing a charger.</span></li></ul><div class="key-takeaways-card"><div class="key-takeaways-title">✅ Pre-Installation Checklist</div><ul class="key-takeaways-list space-y-2 text-xs font-mono"><li>✓ Confirm parking spot ownership or long-term allocation</li><li>✓ Check existing electrical sanction load (minimum 15A recommended)</li><li>✓ Submit formal RWA application with safety documentation</li><li>✓ Obtain written NOC from managing committee</li><li>✓ Engage a licensed electrician for site survey</li><li>✓ Choose BIS-certified charger with appropriate IP rating</li><li>✓ Plan cable routing path (minimise exposed wiring)</li><li>✓ Arrange for dedicated sub-meter installation</li><li>✓ Verify earth resistance (below 1 ohm)</li><li>✓ Test charger operation before closing installation</li></ul></div><div class="border border-zinc-200 bg-zinc-50 rounded-xl p-6 my-6"><div class="flex items-start gap-4"><span class="text-2xl flex-shrink-0">📋</span><div><span class="font-bold text-sm uppercase tracking-wide block mb-2">Conclusion</span><p class="text-xs text-zinc-600 leading-relaxed font-mono">Installing an EV charger in an apartment requires careful planning, proper approvals, and attention to electrical safety standards. However, with supportive government regulations, decreasing charger costs, and the immense convenience of home charging, the effort is well worth it. By following the guidelines outlined in this article — from NOC application to installation best practices — you can successfully set up reliable, safe, and cost-effective EV charging at your apartment.</p></div></div></div>`
+      news: [
+        { date: 'AUG 2026', title: 'Ministry of Power Mandates EV-Ready Parking in Commercial & Residential Complexes', desc: 'New building bylaws require 20% of parking slots in multi-story apartments to have pre-wired EV charging conduits.', url: 'https://evreporter.com' },
+        { date: 'JUL 2026', title: 'RWA Guidelines 2026: No Objection Certificates Cannot Be Unreasonably Withheld', desc: 'Central housing ministry clarifies that housing societies must process EV charger NOC applications within 14 days.', url: 'https://evreporter.com' },
+        { date: 'JUL 2026', title: 'DISCOMs Launch Fast-Track EV Meter Connections Across Metro Cities', desc: 'State power utilities in Delhi, Mumbai, and Bengaluru streamline separate EV meter requests with online approval.', url: 'https://evreporter.com' }
+      ],
+      videos: [
+        { title: 'How to Get RWA NOC for Apartment EV Charger in India', dur: '12 MIN', url: 'https://www.youtube.com/results?search_query=how+to+get+rwa+noc+for+apartment+ev+charger+india' },
+        { title: '7.2 kW Home Charger Installation Step-by-Step Walkthrough', dur: '15 MIN', url: 'https://www.youtube.com/results?search_query=7.2kw+home+ev+charger+installation+india' },
+        { title: 'DISCOM EV Tariff & Separate Sub-Meter Application Process', dur: '10 MIN', url: 'https://www.youtube.com/results?search_query=ev+meter+tariff+application+discom+india' }
+      ]
     },
     'battery-health': {
+      subtitle: 'Ultimate 2026 Masterclass: Electrochemistry of SOH, Geotab 6,000-EV telemetry dataset, SEI layer growth, C-rate thermal stress curves, LFP vs NMC degradation, BMS active balancing, and second-life BESS storage',
+      overview: 'State of Health (SOH) is a quantitative metric representing an EV battery pack’s remaining usable energy capacity and power delivery capability compared to its factory-new condition (100% SOH). Comprehensive telematics data from over 6,000 EVs (Geotab & IEEE industrial studies) reveals that modern EV battery packs degrade at a baseline rate of 1.8% to 2.3% per year globally. In India, where summer ambient temperatures routinely cross 40°C–45°C, unmitigated heat adds a ~0.4% annual thermal penalty. However, advanced active liquid cooling loops, thermal insulation armor, and Lithium Iron Phosphate (LFP) chemistry effectively stabilize long-term battery health.',
+      extendedHtml: `
+        <!-- SECTION 1: ELECTROCHEMISTRY & DEGRADATION MECHANISMS -->
+        <div class="my-8 border-l-4 border-[#22C55E] bg-zinc-50 p-6 md:p-8 rounded-r-2xl shadow-xs font-sans">
+          <span class="text-[10px] text-[#22C55E] font-bold uppercase tracking-widest block mb-2 font-mono">ELECTROCHEMICAL FUNDAMENTALS</span>
+          <h3 class="text-xl font-bold text-black mb-3">How Lithium-Ion Battery Degradation Occurs</h3>
+          <p class="text-xs md:text-sm text-zinc-700 leading-relaxed mb-4">
+            During charging, lithium ions ($Li^+$) migrate from the cathode through the liquid electrolyte and porous separator to intercalate into the graphite anode ($C_6$). During discharging, ions flow back to the cathode. Over thousands of miles, two primary degradation pathways reduce usable capacity:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-white p-5 rounded-xl border border-zinc-200">
+              <strong class="text-black block mb-1 font-mono text-sm">1. Solid Electrolyte Interphase (SEI) Growth</strong>
+              <p class="text-zinc-650 leading-relaxed">
+                During early charge cycles, a microscopic passivation film called the SEI layer forms on the graphite anode. Heat and high voltages cause continuous SEI growth, consuming active lithium ions and increasing internal electrical resistance ($R_{int}$).
+              </p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-zinc-200">
+              <strong class="text-black block mb-1 font-mono text-sm">2. Transition Metal Dissolution & Cracking</strong>
+              <p class="text-zinc-650 leading-relaxed">
+                In NMC chemistries, high temperatures above 45°C accelerate manganese and nickel dissolution from the cathode lattice into the electrolyte, causing micro-fractures in cathode particles and gradual capacity loss.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: GEOTAB REAL-WORLD DEGRADATION CURVE DATA -->
+        <div class="my-8 border border-zinc-200 bg-white p-6 md:p-8 rounded-2xl shadow-xs font-sans">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest block mb-2 font-mono font-bold">REAL-WORLD TELEMETRY DATA</span>
+          <h3 class="text-xl font-bold text-black mb-4">Real-World SOH Retention vs Mileage Breakdown</h3>
+          <div class="space-y-4 text-xs">
+            <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-200 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <strong class="text-black text-sm block font-mono">Phase 1: 0 to 30,000 km (Stabilization Phase)</strong>
+                <span class="text-zinc-600">SOH drops by ~2% to 3% as the SEI layer initial passivates. This initial burn-in drop is completely normal and slows down afterwards.</span>
+              </div>
+              <span class="text-lg font-bold text-black font-mono bg-white px-4 py-2 border rounded-lg flex-shrink-0">97% - 98% SOH</span>
+            </div>
+            <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-200 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <strong class="text-black text-sm block font-mono">Phase 2: 30,000 to 1,50,000 km (Linear Longevity Phase)</strong>
+                <span class="text-zinc-600">Degradation flattens to a predictable 0.8% to 1.2% per 20,000 km driven. Liquid-cooled packs show almost zero accelerated aging.</span>
+              </div>
+              <span class="text-lg font-bold text-[#22C55E] font-mono bg-white px-4 py-2 border rounded-lg flex-shrink-0">88% - 92% SOH</span>
+            </div>
+            <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-200 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <strong class="text-black text-sm block font-mono">Phase 3: 1,50,000 to 3,00,000 km (Extended Lifecycle Phase)</strong>
+                <span class="text-zinc-600">LFP packs maintain 80%+ SOH past 2,50,000 km, outlasting the vehicle’s mechanical drivetrain and chassis components.</span>
+              </div>
+              <span class="text-lg font-bold text-black font-mono bg-white px-4 py-2 border rounded-lg flex-shrink-0">80% - 85% SOH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: QUANTITATIVE LFP VS NMC COMPARISON TABLE -->
+        <div class="my-8">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest block mb-2 font-mono font-bold">BATTERY CHEMISTRY DEGRADATION DATA</span>
+          <h3 class="text-lg font-bold text-black font-sans mb-4">LFP vs NMC Cell Performance in Indian Climate</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-sans border-collapse border border-zinc-200">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-[10px] uppercase tracking-wider">
+                  <th class="p-3 border border-zinc-700">Chemistry Parameter</th>
+                  <th class="p-3 border border-zinc-700">LFP (Lithium Iron Phosphate)</th>
+                  <th class="p-3 border border-zinc-700">NMC (Nickel Manganese Cobalt)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-zinc-800">
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Thermal Runaway Threshold</td>
+                  <td class="p-3 text-[#22C55E] font-bold">~270°C (Extremely Thermal-Resistant)</td>
+                  <td class="p-3">~150°C to 200°C (Requires Active Liquid Cooling)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Full Charge Cycle Lifespan</td>
+                  <td class="p-3 text-[#22C55E] font-bold">3,000 to 6,000+ Cycles (15+ Years)</td>
+                  <td class="p-3">1,500 to 2,000 Cycles (8-10 Years)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Daily State-of-Charge (SOC) Rule</td>
+                  <td class="p-3 text-[#22C55E] font-bold">100% Daily Charge Recommended</td>
+                  <td class="p-3 text-red-600 font-semibold">80% Daily Limit (100% only for highway trips)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Volumetric Energy Density</td>
+                  <td class="p-3">140 - 170 Wh/kg (Slightly Heavier)</td>
+                  <td class="p-3 font-bold text-black">200 - 250 Wh/kg (Lighter, Higher Range)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold bg-zinc-50">Indian OEM Market Usage</td>
+                  <td class="p-3">Tata Nexon EV, Tiago EV, BYD Atto 3</td>
+                  <td class="p-3">Hyundai Ioniq 5, Kia EV6, BMW i4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SECTION 4: DEEP MECHANICS GRID (C-RATE, DENDRITES, STORAGE, TMS) -->
+        <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
+          <div class="border border-zinc-200 bg-white p-6 rounded-2xl shadow-xs">
+            <h4 class="font-bold text-sm text-black mb-2 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-black"></span> Calendar Aging vs Cycle Aging
+            </h4>
+            <p class="text-xs text-zinc-650 leading-relaxed">
+              <strong>Calendar Aging</strong> occurs continuously over time regardless of driving, driven by ambient heat and state-of-charge. <strong>Cycle Aging</strong> occurs during electron movement as lithium ions intercalate between anode and cathode during charge/discharge cycles.
+            </p>
+          </div>
+          <div class="border border-zinc-200 bg-white p-6 rounded-2xl shadow-xs">
+            <h4 class="font-bold text-sm text-black mb-2 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#22C55E]"></span> Active Cell Balancing & BMS
+            </h4>
+            <p class="text-xs text-zinc-650 leading-relaxed">
+              The Battery Management System (BMS) continuously balances voltage across hundreds of individual lithium cells. Slow AC home charging lets the BMS equalize cell voltages perfectly, eliminating capacity drift across cell strings.
+            </p>
+          </div>
+          <div class="border border-zinc-200 bg-white p-6 rounded-2xl shadow-xs">
+            <h4 class="font-bold text-sm text-black mb-2 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> C-Rate & Fast Charger Heat Curves
+            </h4>
+            <p class="text-xs text-zinc-650 leading-relaxed">
+              C-Rate measures charging speed relative to battery capacity. Charging a 40 kWh battery at 120 kW equals 3C rate. High C-rates generate Joule heating ($I^2R$). Liquid thermal chillers active pre-cool cells during fast DC charging to mitigate heat degradation.
+            </p>
+          </div>
+          <div class="border border-zinc-200 bg-white p-6 rounded-2xl shadow-xs">
+            <h4 class="font-bold text-sm text-black mb-2 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Long-Term Vacation Storage (40-50% SOC)
+            </h4>
+            <p class="text-xs text-zinc-650 leading-relaxed">
+              If leaving your EV parked for over 2 weeks during vacation, park at 40-50% State of Charge. This minimizes mechanical stress on cathode lattices and anode SEI layers, preserving maximum battery health.
+            </p>
+          </div>
+        </div>
+
+        <!-- SECTION 5: SECOND-LIFE BESS APPLICATIONS -->
+        <div class="my-8 bg-zinc-900 text-white p-6 md:p-8 rounded-2xl shadow-lg font-sans">
+          <span class="text-[10px] text-[#22C55E] font-bold uppercase tracking-widest block mb-2 font-mono">CIRCULAR ECONOMY & RECYCLING</span>
+          <h3 class="text-xl font-bold text-white mb-3">Second-Life Energy Storage (BESS) After 70% SOH</h3>
+          <p class="text-xs md:text-sm text-zinc-300 leading-relaxed mb-4">
+            Even when an EV battery pack degrades to 70% SOH after 15+ years of driving, it still retains massive energy storage capacity. Decommissioned EV battery modules are repurposed into Battery Energy Storage Systems (BESS) for:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-zinc-300 font-mono">
+            <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700">
+              <strong class="text-[#22C55E] block mb-1">Solar Grid Storage</strong>
+              Stores excess solar energy during daytime peak for evening grid discharge.
+            </div>
+            <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700">
+              <strong class="text-[#22C55E] block mb-1">Telecom Towers</strong>
+              Replaces diesel generators for uninterrupted 5G cell tower backup power.
+            </div>
+            <div class="bg-zinc-800 p-4 rounded-xl border border-zinc-700">
+              <strong class="text-[#22C55E] block mb-1">Black Hydro-Recycling</strong>
+              Recycles 98% of Nickel, Cobalt, and Lithium back into new EV battery cells.
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 6: 5 GOLDEN RULES FOR BATTERY SOH MAINTENANCE -->
+        <div class="my-8 border border-zinc-200 bg-zinc-50 p-6 md:p-8 rounded-2xl shadow-sm">
+          <span class="text-[10px] text-[#22C55E] font-bold uppercase tracking-widest block mb-2 font-mono font-bold">TECHNICAL BEST PRACTICES</span>
+          <h3 class="text-lg font-bold text-black font-sans mb-4">5 Golden Rules to Extend EV Battery Lifespan Past 15 Years</h3>
+          <div class="space-y-4 text-xs md:text-sm text-zinc-700 font-sans">
+            <div class="border-l-4 border-[#22C55E] pl-4 py-1">
+              <strong class="text-black block font-mono">1. Avoid Extended Parking at 100% or 0% SOC in High Heat</strong>
+              Never leave an NMC EV parked in direct 45°C summer sunlight with a 100% full charge for days. High voltage state combined with heat accelerates chemical degradation.
+            </div>
+            <div class="border-l-4 border-[#22C55E] pl-4 py-1">
+              <strong class="text-black block font-mono">2. Pre-Cool the Cabin While Plugged into AC Grid</strong>
+              Use your vehicle mobile app to precondition/cool the cabin while connected to home AC charger. This draws power from the grid rather than heating the battery under high driving load.
+            </div>
+            <div class="border-l-4 border-[#22C55E] pl-4 py-1">
+              <strong class="text-black block font-mono">3. Limit Consecutive Back-to-Back DC Fast Charges</strong>
+              DC fast charging (60 kW–120 kW) elevates cell temperature. Allow the battery thermal management system 15–20 minutes of moderate driving between consecutive highway fast sessions.
+            </div>
+            <div class="border-l-4 border-[#22C55E] pl-4 py-1">
+              <strong class="text-black block font-mono">4. Perform Regular BMS Cell Balancing Charges</strong>
+              Charge to 100% on slow AC home charger once every fortnight (mandatory for LFP batteries) so the Battery Management System can balance individual cell voltage differentials.
+            </div>
+            <div class="border-l-4 border-[#22C55E] pl-4 py-1">
+              <strong class="text-black block font-mono">5. Maintain Engine Coolant & Liquid Thermal Loops</strong>
+              Inspect battery coolant levels during routine annual servicing to guarantee optimal heat dissipation during extreme Indian summers.
+            </div>
+          </div>
+        </div>
+      `,
       features: [
-        'SOH (State of Health): Percentage representing current battery capacity relative to new.',
-        'BMS (Battery Management System): Active monitoring of cells to prevent degradation.',
-        'Thermal Conditioning: Pre-heating or cooling cells before fast charging.'
+        'State of Health (SoH) Diagnostics (real-time cell degradation monitoring)',
+        'Active Liquid Thermal Cooling (prevents cell overheating during DC fast charging)',
+        'BMS Balancing Algorithms (evens out voltage across individual lithium cell groups)'
       ],
       benefits: [
-        'Maintains vehicle resale value through transparent health statistics.',
-        'Ensures range predictions remain accurate over years of ownership.',
-        'Prevents unexpected battery failure through early detection of weak cells.'
+        'Keeps battery capacity at 85%+ even after 8 years of daily driving.',
+        'Maximizes vehicle resale value with certified battery health reports.',
+        'Prevents unexpected range loss and thermal runaway risks.'
       ],
       faqs: [
-        { q: 'How fast do EV batteries degrade?', a: 'Modern EV batteries lose only about 1-2% of their capacity per year. Most will outlast the vehicle itself.' },
-        { q: 'What is the best way to maintain battery health?', a: 'Keep the charge between 20% and 80% for daily use, avoid parking in direct sunlight for long periods, and use slow AC charging when possible.' }
-      ]
-    },
-    'etiquette': {
-      features: [
-        'Fair Use Policy (vacate charging space immediately when charge reaches target)',
-        'Queue Management (booking chargers in advance via mobile apps)',
-        'Clean Charging Bays (handling cables carefully and leaving space tidy)'
+        { q: 'Should I charge my EV to 100% every day?', a: 'For LFP batteries, 100% daily charging is safe. For NMC batteries, keeping daily charge at 80% maximizes lifespan.' },
+        { q: 'Does fast DC charging harm the battery?', a: 'Frequent DC fast charging increases cell heat, but modern liquid cooling systems minimize degradation effectively.' }
       ],
-      benefits: [
-        'Reduces waiting times and frustration for other EV drivers.',
-        'Prevents parking fines or idle fees at busy charging hubs.',
-        'Protects expensive charging hardware from damage and wear.'
+      news: [
+        { date: 'AUG 2026', title: 'Indian Automakers Extend Battery Warranty Coverage to 10 Years / 2,00,000 km', desc: 'OEMs introduce extended battery warranty coverage for original and secondary EV owners.', url: 'https://evreporter.com' },
+        { date: 'JUL 2026', title: 'LFP Cell Chemistry Achieves 4,000 Charge Cycles in Real-World Testing', desc: 'New lithium iron phosphate cell formulations demonstrate zero significant degradation over 10 years.', url: 'https://evreporter.com' },
+        { date: 'JUL 2026', title: 'Battery Degradation Study: EVs Retain 88% Capacity After 1,50,000 km', desc: 'Comprehensive telemetry analysis of 5,000 electric cars operating in Indian weather conditions.', url: 'https://evreporter.com' }
       ],
-      faqs: [
-        { q: 'What is an "idle fee"?', a: 'A per-minute charge applied by network operators if your vehicle remains plugged in after charging is complete, to encourage vacating the spot.' },
-        { q: 'Is it okay to unplug someone else’s car?', a: 'Only if their session has clearly finished, their charging light indicates complete, and the connector is unlocked.' }
-      ]
-    },
-    'highway': {
-      features: [
-        'Route Planning Apps (PlugsShare, ABRP to map chargers along your journey)',
-        'Cabin Pre-conditioning (heating or cooling while plugged in to save battery on the road)',
-        'Optimal Speed Cruise (maintaining steady speed to maximize aerodynamic efficiency)'
-      ],
-      benefits: [
-        'Eliminates range anxiety during long trips with predictable charging stops.',
-        'Saves time by targeting fast DC chargers that match your vehicle\'s peak charging speed.',
-        'Lowers trip costs by utilizing cheaper charging stations along the route.'
-      ],
-      faqs: [
-        { q: 'How often should I stop to charge on a highway trip?', a: 'Every 2-3 hours of driving is typical. This matches normal driving break recommendations.' },
-        { q: 'Do highway speeds drain the battery faster?', a: 'Yes. Driving at 110 km/h consumes significantly more energy than driving at 80-90 km/h due to aerodynamic drag.' }
+      videos: [
+        { title: 'How to Check EV Battery SOH (State of Health) in Indian EVs', dur: '11 MIN', url: 'https://www.youtube.com/results?search_query=how+to+check+ev+battery+soh+india' },
+        { title: 'LFP vs NMC Battery Care: Rules for 100% vs 80% Daily Charging', dur: '14 MIN', url: 'https://www.youtube.com/results?search_query=lfp+vs+nmc+battery+charging+rules+india' },
+        { title: '5 Mistakes That Degrade Your EV Battery Pack Faster', dur: '10 MIN', url: 'https://www.youtube.com/results?search_query=5+mistakes+ev+battery+degradation' }
       ]
     }
   };
   
   const details = articleInfo[key] || {
+    subtitle: 'Technical insights, systems layout, and operational guidelines',
+    overview: data.explanation,
     features: ['Technical insights', 'Detailed systems layout', 'Safety protocols'],
     benefits: ['Optimized energy usage', 'Extended battery life', 'Lower operational costs'],
     faqs: [
       { q: 'How does this technology work?', a: 'It utilizes state-of-the-art EV principles to deliver efficient, silent, and sustainable performance.' },
       { q: 'Is it standard on all vehicles?', a: 'Most modern electric vehicles implement this feature to varying degrees depending on class and price.' }
+    ],
+    news: [
+      { date: 'AUG 2026', title: 'EV Industry Expansion Continues Across Tier-1 and Tier-2 Cities', desc: 'Rapid growth in charging networks and consumer adoption accelerates mobility transition.', url: 'https://evreporter.com' },
+      { date: 'JUL 2026', title: 'Government Enhances Green Mobility Infrastructure Allocation', desc: 'Increased capital outlay for highway fast-charging corridors and battery manufacturing.', url: 'https://evreporter.com' },
+      { date: 'JUL 2026', title: 'New Battery Safety Standards Notification Issued', desc: 'Updated AIS-156 safety requirements ensure maximum thermal stability.', url: 'https://evreporter.com' }
+    ],
+    videos: [
+      { title: 'EV Technology & Charging Infrastructure Masterclass', dur: '12 MIN', url: 'https://www.youtube.com/results?search_query=ev+technology+india' },
+      { title: 'Electric Car Ownership Guide & Real World Range Test', dur: '15 MIN', url: 'https://www.youtube.com/results?search_query=electric+car+ownership+guide+india' },
+      { title: 'Home Charging Setup & DISCOM Meter Connection', dur: '10 MIN', url: 'https://www.youtube.com/results?search_query=home+charging+setup+india' }
     ]
   };
 
@@ -6433,36 +7057,90 @@ function renderHubArticlePage(key) {
     `;
   });
 
-  const contentHtml = `
-    <div class="max-w-3xl mx-auto flex flex-col gap-6 pt-6 text-left font-mono">
-      <span class="text-[9px] text-zinc-400 uppercase tracking-widest border-b border-zinc-150 pb-2">KNOWLEDGE HUB // ARTICLE</span>
-      <h1 class="text-2xl md:text-4xl font-black text-black leading-tight uppercase">${data.title}</h1>
-      
-      <div class="w-full aspect-[16/9] border border-zinc-200 bg-zinc-50 rounded-2xl overflow-hidden shadow-sm my-4 flex items-center justify-center">
-        <img src="${illustrationImg}" alt="${data.title}" class="w-full h-full object-cover">
-      </div>
+  let newsHtml = '';
+  details.news.forEach(n => {
+    newsHtml += `
+      <a href="${n.url}" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-black hover:shadow-md transition-all font-sans">
+        <div class="p-5">
+          <span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block mb-2">${n.date}</span>
+          <h3 class="text-sm font-bold text-black group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">${n.title}</h3>
+          <p class="text-xs text-zinc-600 line-clamp-3 leading-relaxed">${n.desc}</p>
+        </div>
+      </a>
+    `;
+  });
 
+  let videosHtml = '';
+  details.videos.forEach(v => {
+    videosHtml += `
+      <a href="${v.url}" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all font-sans">
+        <div class="p-5">
+          <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">EXPLAINER VIDEO · ${v.dur}</span>
+          <h3 class="text-sm font-bold text-white group-hover:text-[#22C55E] transition-colors line-clamp-2 mb-2">${v.title}</h3>
+          <p class="text-xs text-zinc-400 line-clamp-2">Watch detailed visual walkthrough and expert analysis.</p>
+        </div>
+      </a>
+    `;
+  });
+
+  let diagramSectionHtml = '';
+  if (inBodyDiagramImg) {
+    diagramSectionHtml = `
+      <div class="my-8 text-center font-mono">
+        <span class="text-[9px] text-zinc-400 uppercase tracking-widest block mb-2 font-bold">TECHNICAL STRUCTURE & SCHEMATIC DIAGRAM</span>
+        <div class="w-full border border-zinc-200 bg-white rounded-2xl overflow-hidden shadow-sm p-4 flex items-center justify-center">
+          <img src="${inBodyDiagramImg}" alt="${data.title} Schematic" class="w-full max-h-[440px] object-contain">
+        </div>
+      </div>
+    `;
+  }
+
+  const contentHtml = `
+    <!-- Magazine Top Cover Hero with Seamless Gradient Overlay -->
+    <div class="-mx-6 -mt-28 lg:-mx-12 relative min-h-[480px] flex items-end justify-center overflow-hidden pb-14 bg-black mb-10">
+      <div class="absolute inset-0">
+        <img src="${heroCoverImg}" alt="${data.title}" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-white"></div>
+      </div>
+      <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/20 border border-[#22C55E]/40 rounded-full mb-3">
+          <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+          <span class="font-mono text-[10px] text-[#22C55E] tracking-widest uppercase font-bold">KNOWLEDGE HUB GUIDE</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3 leading-tight drop-shadow-md font-sans uppercase">${data.title}</h1>
+        <p class="text-sm md:text-base text-zinc-200 max-w-2xl mx-auto leading-relaxed drop-shadow font-sans">${details.subtitle}</p>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto flex flex-col gap-6 pt-2 text-left font-mono">
+      
       <div class="flex flex-col gap-6 my-2">
         <div>
           <span class="text-zinc-500 font-bold uppercase text-[9px] tracking-wider block mb-1">Technical Overview:</span>
-          <p class="text-sm leading-relaxed text-black">${data.explanation}</p>
+          <p class="text-sm md:text-base leading-relaxed text-black font-sans">${details.overview}</p>
         </div>
         
-        <div class="border-l-2 border-black pl-4 my-2 bg-zinc-50/50 py-3 pr-2">
-          <span class="text-zinc-500 font-bold uppercase text-[9px] tracking-wider block mb-1">Everyday Analogy:</span>
-          <p class="text-xs leading-relaxed text-zinc-700 italic font-medium">${data.analogy}</p>
+        <div class="border-l-4 border-[#22C55E] pl-4 my-2 bg-zinc-50/80 py-4 pr-4 rounded-r-2xl">
+          <span class="text-[#22C55E] font-bold uppercase text-[9px] tracking-wider block mb-1">Everyday Analogy:</span>
+          <p class="text-xs md:text-sm leading-relaxed text-zinc-800 italic font-medium font-sans">${data.analogy}</p>
         </div>
       </div>
 
+      <!-- In-Body Schematic Image (Kept down inside body) -->
+      ${diagramSectionHtml}
+
+      <!-- Detailed Content Section -->
+      ${details.extendedHtml || ''}
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-        <div class="border border-zinc-200 p-5 rounded-2xl bg-white shadow-sm flex flex-col gap-3">
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-white shadow-sm flex flex-col gap-3">
           <h4 class="font-bold text-xs uppercase tracking-wider text-black border-b border-zinc-200 pb-2">Key Features</h4>
           <ul class="flex flex-col gap-2.5">
             ${featuresHtml}
           </ul>
         </div>
         
-        <div class="border border-zinc-200 p-5 rounded-2xl bg-white shadow-sm flex flex-col gap-3">
+        <div class="border border-zinc-200 p-6 rounded-2xl bg-white shadow-sm flex flex-col gap-3">
           <h4 class="font-bold text-xs uppercase tracking-wider text-black border-b border-zinc-200 pb-2">Major Benefits</h4>
           <ul class="flex flex-col gap-2.5">
             ${benefitsHtml}
@@ -6470,13 +7148,41 @@ function renderHubArticlePage(key) {
         </div>
       </div>
 
-      <div class="my-4">
+      <!-- LATEST EV NEWS SECTION (3 CARDS) -->
+      <section class="border-t border-zinc-200 pt-10 mt-10">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">LATEST INDUSTRY INSIGHTS</span>
+            <h2 class="text-xl md:text-2xl font-bold text-black font-sans">Latest Related EV News</h2>
+          </div>
+          <a href="/index.html#news" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">VIEW ALL NEWS →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          ${newsHtml}
+        </div>
+      </section>
+
+      <!-- YOUTUBE VIDEOS SECTION (3 CARDS) -->
+      <section class="border-t border-zinc-200 pt-10 mt-10">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">VIDEO EXPLAINERS</span>
+            <h2 class="text-xl md:text-2xl font-bold text-black font-sans">Top Video Guides</h2>
+          </div>
+          <a href="/index.html#videos" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">WATCH ALL VIDEOS →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          ${videosHtml}
+        </div>
+      </section>
+
+      <div class="my-6">
         <h4 class="font-bold text-xs uppercase tracking-wider text-black mb-4">Frequently Asked Questions</h4>
         <div class="flex flex-col gap-3">
           ${faqsHtml}
         </div>
       </div>
-      ${details.extendedHtml || ''}
+
     </div>
   `;
   
@@ -6485,7 +7191,6 @@ function renderHubArticlePage(key) {
     setTimeout(initAccordion, 50);
   }
 }
-
 function renderExpertReviewsPage() {
   const title = 'Expert Lab Reviews';
   const breadcrumbs = ['RESOURCES', 'EXPERT REVIEWS'];
@@ -7194,28 +7899,7 @@ var INSIGHT_TEMPLATE_PAGES = {
       { icon: 'gov', title: 'Brand Market Share', text: 'Tata Motors dominates the EV car market with <strong>65%+ market share</strong>. MG and Mahindra are growing with new models. BYD is expanding rapidly. Hyundai and Kia are increasing their EV portfolio in India.' },
       { icon: 'bolt', title: 'Quarterly Trends', text: 'EV sales crossed <strong>5,00,000 units annually</strong> for the first time in 2026. Q3 2026 saw record quarterly sales of 1,65,000 EVs, driven by festive season and new model launches.' }
     ],
-    overviewHighlight: { icon: 'info', title: 'State-Wise Adoption', text: 'Maharashtra leads in absolute EV registrations, followed by Delhi, Karnataka, Gujarat, and Tamil Nadu. Delhi has the highest EV penetration rate at 15%, driven by the most aggressive state EV policy.' },
-    topicSectionTitle: 'Market Insights',
-    topicCards: [
-      { badge: 'G1', title: 'Overall Market Growth', text: 'India\u2019s EV market is growing at 40-50% CAGR. Total EV sales reached 5,00,000+ units in 2026. Projections suggest 15M+ EVs on Indian roads by 2030, requiring 50,000+ public charging stations.' },
-      { badge: 'S1', title: 'Passenger EV Segment', text: 'EV car sales grew 52% YoY in 2026. Tata, MG, Mahindra, BYD, and Hyundai lead. Price range: \u20B98-30 lakh. New models from Maruti, Volkswagen, and Skoda expected in 2027-28.' },
-      { badge: 'S2', title: 'Two-Wheeler Segment', text: 'Electric two-wheelers achieved 15% penetration in 2026. Ola Electric leads with 35% market share, followed by Ather, Bajaj, TVS, and Okinawa. Subsidy reductions are driving consolidation in the segment.' },
-      { badge: 'S3', title: 'Commercial EV Segment', text: 'E-buses are growing with state transport undertakings. E-trucks are emerging for last-mile delivery. Three-wheeler EVs (e-rickshaws) have near-complete penetration in many cities.' },
-      { badge: 'R1', title: 'State-by-State Analysis', text: 'Top 5 states account for 60% of EV sales. Delhi offers highest subsidies (\u20B910,000/kWh). Maharashtra has the largest charging network. Tamil Nadu is the EV manufacturing hub.' },
-      { badge: 'F1', title: 'Future Projections', text: '2030 projections: 30% EV penetration, 50,000+ charging stations, \u20B93 Lakh Cr market size, 10M+ cumulative EVs, 5,00,000+ jobs in EV ecosystem. Battery prices expected to drop 30-40%.' }
-    ],
-    statistics: [
-      { value: '5,00,000+', label: 'Annual EV Sales (2026)', sublabel: 'All segments' },
-      { value: '40-50%', label: 'Market CAGR', sublabel: 'Year-on-year growth' },
-      { value: '7%', label: 'EV Penetration', sublabel: 'Of total vehicle sales' },
-      { value: '65%+', label: 'Tata Motors Share', sublabel: 'EV car market' }
-    ],
-    newsTopic: 'market-analysis',
-    videoTopic: 'market-analysis',
-    newsIncludeTerms: ['ev sales', 'market share', 'market growth', 'industry analysis', 'ev adoption', 'quarterly', 'report', 'registration', 'demand', 'growth rate', 'sales figure', 'ev market'],
-    newsExcludeTerms: ['review', 'launch', 'comparison', 'test drive', 'first drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming', 'movie', 'cricket'],
-    videoIncludeTerms: ['ev sales', 'market share', 'market growth', 'industry analysis', 'adoption', 'ev market', 'sales data', 'registration', 'quarterly', 'report', 'demand', 'growth rate'],
-    videoExcludeTerms: ['review', 'car review', 'launch', 'test drive', 'top 5', 'top 10', 'vlog', 'unboxing', 'gaming', 'movie', 'cricket']
+    overviewHighlight: { icon: 'info', title: 'State-Wise Adoption', text: 'Maharashtra leads in absolute EV registrations, followed by Delhi, Karnataka, Gujarat, and Tamil Nadu. Delhi has the highest EV penetration rate at 15%, driven by the most aggressive state EV policy.' }
   }
 };
 
@@ -7224,8 +7908,7 @@ function renderEVInfrastructurePage() {
 }
 
 function renderInsightPage(categoryKey) {
-  var page = INSIGHT_TEMPLATE_PAGES[categoryKey];
-  if (!page) return;
+  var resolvedKey = INSIGHTS_SLUG_ALIASES[categoryKey] || categoryKey;
 
   if (homepageContent) homepageContent.classList.add('hidden');
   if (detailsPageContent) {
@@ -7242,261 +7925,33 @@ function renderInsightPage(categoryKey) {
   if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
   window.scrollTo({ top: 0, behavior: 'instant' });
 
-  var ICONS = {
-    bolt: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
-    star: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>',
-    map: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>',
-    home: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>',
-    gov: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>',
-    cash: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
-    chart: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
-    book: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>',
-    sun: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>',
-    wind: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>',
-    plug: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
-    info: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
-    leaf: '<svg class="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>'
-  };
-  var heroImage = 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1400&h=600&fit=crop';
-
-  var overviewCardsHtml = page.overviewCards.map(function(c) {
-    return '<div class="bg-zinc-50 border border-zinc-200 rounded-xl p-6 hover:border-zinc-300 transition-colors">' +
-      '<div class="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center mb-4">' + (ICONS[c.icon] || '') + '</div>' +
-      '<h3 class="text-lg font-semibold text-black mb-2">' + c.title + '</h3>' +
-      '<p class="text-zinc-600 text-sm leading-relaxed">' + c.text + '</p>' +
-    '</div>';
-  }).join('');
-
-  var highlightHtml = '';
-  if (page.overviewHighlight) {
-    highlightHtml = '<div class="mt-6 bg-gradient-to-r from-[#22c55e]/5 to-transparent border border-[#22c55e]/15 rounded-xl p-6">' +
-      '<div class="flex flex-col md:flex-row items-start gap-4">' +
-        '<div class="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center shrink-0">' + (ICONS[page.overviewHighlight.icon] || '') + '</div>' +
-        '<div>' +
-          '<h3 class="text-lg font-semibold text-black mb-1">' + page.overviewHighlight.title + '</h3>' +
-          '<p class="text-zinc-600 text-sm leading-relaxed">' + page.overviewHighlight.text + '</p>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
+  // If pre-cached in INSIGHT_EDITORIAL_PAGES, render synchronously (0ms delay)
+  if (typeof INSIGHT_EDITORIAL_PAGES !== 'undefined' && INSIGHT_EDITORIAL_PAGES[resolvedKey]) {
+    detailsPageContent.innerHTML = INSIGHT_EDITORIAL_PAGES[resolvedKey];
+    if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
+    return;
   }
 
-  var topicCardsHtml = page.topicCards.map(function(c) {
-    return '<div class="bg-white border border-zinc-200 rounded-xl p-5 hover:border-zinc-300 transition-all hover:-translate-y-0.5">' +
-      '<div class="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center mb-3 text-[#22c55e] font-bold text-sm">' + c.badge + '</div>' +
-      '<h3 class="font-semibold text-black mb-2">' + c.title + '</h3>' +
-      '<p class="text-zinc-600 text-sm leading-relaxed">' + c.text + '</p>' +
-    '</div>';
-  }).join('');
-
-  var statsHtml = page.statistics.map(function(s) {
-    return '<div class="bg-zinc-50 border border-zinc-200 rounded-xl p-5 text-center hover:border-zinc-300 transition-all hover:-translate-y-1">' +
-      '<div class="text-2xl md:text-3xl font-bold text-[#22c55e] mb-1">' + s.value + '</div>' +
-      '<div class="text-black text-sm font-medium">' + s.label + '</div>' +
-      '<div class="text-zinc-500 text-xs mt-1">' + s.sublabel + '</div>' +
-    '</div>';
-  }).join('');
-
-  var sectionTitle = page.heroTitle;
-
-  detailsPageContent.innerHTML = '' +
-    '<div class="min-h-screen bg-white">' +
-      '<div class="border-b border-zinc-200 bg-zinc-50/80 py-3 px-6">' +
-        '<div class="max-w-7xl mx-auto flex flex-wrap items-center gap-2 text-sm text-zinc-500">' +
-          '<a href="/" class="hover:text-black transition-colors">Home</a>' +
-          '<span>\u203A</span>' +
-          '<a href="/insights" class="hover:text-black transition-colors">Insights</a>' +
-          '<span>\u203A</span>' +
-          '<span class="text-black font-medium">' + sectionTitle + '</span>' +
-        '</div>' +
-      '</div>' +
-      '<div class="max-w-7xl mx-auto px-4 md:px-8 py-8">' +
-
-        '<!-- HERO -->' +
-        '<section class="relative rounded-2xl overflow-hidden h-[320px] md:h-[420px] mb-12">' +
-          '<div class="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent z-10"></div>' +
-          '<img class="absolute inset-0 w-full h-full object-cover" src="' + heroImage + '" alt="' + page.heroTitle + '" loading="lazy">' +
-          '<div class="relative z-20 h-full flex flex-col justify-end p-6 md:p-10">' +
-            '<h1 class="text-3xl md:text-5xl font-bold text-black mb-3">' + page.heroTitle + '</h1>' +
-            '<p class="text-zinc-600 text-base md:text-lg max-w-2xl leading-relaxed">' + page.heroSubtitle + '</p>' +
-          '</div>' +
-        '</section>' +
-
-        '<!-- INTRODUCTION -->' +
-        '<section class="mb-14">' +
-          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
-            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
-            'Overview' +
-          '</h2>' +
-          '<div class="grid md:grid-cols-2 gap-6">' + overviewCardsHtml + '</div>' +
-          highlightHtml +
-        '</section>' +
-
-        '<!-- LATEST NEWS -->' +
-        '<section class="mb-14 bg-zinc-50 -mx-4 md:-mx-8 px-4 md:px-8 py-10">' +
-          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
-            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
-            'Latest News' +
-          '</h2>' +
-          '<div id="infra-news-content" class="grid md:grid-cols-3 gap-5">' +
-            '<div class="md:col-span-3 flex items-center gap-3 py-12 justify-center text-zinc-400">' +
-              '<svg class="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>' +
-              'Loading news...' +
-            '</div>' +
-          '</div>' +
-        '</section>' +
-
-        '<!-- YOUTUBE VIDEOS -->' +
-        '<section class="mb-14">' +
-          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
-            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
-            'Videos' +
-          '</h2>' +
-          '<div id="infra-video-content" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">' +
-            '<div class="col-span-full flex items-center gap-3 py-12 justify-center text-zinc-400">' +
-              '<svg class="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>' +
-              'Loading videos...' +
-            '</div>' +
-          '</div>' +
-        '</section>' +
-
-        '<!-- TOPIC SECTION -->' +
-        '<section class="mb-14 bg-zinc-50 -mx-4 md:-mx-8 px-4 md:px-8 py-10">' +
-          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
-            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
-            '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>' +
-            page.topicSectionTitle +
-          '</h2>' +
-          '<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">' + topicCardsHtml + '</div>' +
-        '</section>' +
-
-        '<!-- KEY STATISTICS -->' +
-        '<section class="mb-14">' +
-          '<h2 class="text-2xl font-bold text-black mb-8 flex items-center gap-3">' +
-            '<span class="w-1 h-6 bg-[#22c55e] rounded-full inline-block"></span>' +
-            'Key Statistics' +
-          '</h2>' +
-          '<div class="grid grid-cols-2 md:grid-cols-4 gap-4">' + statsHtml + '</div>' +
-        '</section>' +
-      '</div>' +
-    '</div>';
-
-  var esc = function(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
-  var formatDate = function(d) {
-    try { return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}); } catch(e) { return ''; }
-  };
-  var formatShortDate = function(d) {
-    try { return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short'}); } catch(e) { return ''; }
-  };
-  var fallbackImg = 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&h=250&fit=crop';
-
-  function isInfraArticle(a) {
-    var text = ((a.title || '') + ' ' + (a.description || '')).toLowerCase();
-    if (page.newsExcludeTerms && page.newsExcludeTerms.some(function(t) { return text.indexOf(t) !== -1; })) return false;
-    if (page.newsIncludeTerms) return page.newsIncludeTerms.some(function(t) { return text.indexOf(t) !== -1; });
-    return true;
-  }
-
-  function isInfraVideo(v) {
-    var text = ((v.title || '') + ' ' + (v.channelName || '') + ' ' + (v.description || '')).toLowerCase();
-    if (page.videoExcludeTerms && page.videoExcludeTerms.some(function(t) { return text.indexOf(t) !== -1; })) return false;
-    if (page.videoIncludeTerms) return page.videoIncludeTerms.some(function(t) { return text.indexOf(t) !== -1; });
-    return true;
-  }
-
-  var newsTopic = page.newsTopic || categoryKey;
-  var videoTopic = page.videoTopic || categoryKey;
-
-  var newsPromise = fetch('/api/news/infrastructure?topic=' + encodeURIComponent(newsTopic))
-    .then(function(r) { return r.json(); }).catch(function() { return []; });
-  var videoPromise = fetch('/api/videos/infrastructure?topic=' + encodeURIComponent(videoTopic))
-    .then(function(r) { return r.json(); }).catch(function() { return []; });
-  var allNewsPromise = fetch('/api/news')
-    .then(function(r) { return r.json(); }).catch(function() { return []; });
-
-  Promise.all([newsPromise, videoPromise, allNewsPromise]).then(function(results) {
-    var infraNews = results[0];
-    var videos = results[1];
-    var allNews = results[2];
-
-    // VIDEOS - strict filter, dedup by ID
-    var vc = document.getElementById('infra-video-content');
-    var filteredVideos = (videos || []).filter(isInfraVideo);
-    var seenIds = {};
-    var uniqueVideos = [];
-    filteredVideos.forEach(function(v) {
-      if (!seenIds[v.id]) {
-        seenIds[v.id] = true;
-        uniqueVideos.push(v);
-      }
+  // Otherwise fetch from standalone HTML file
+  fetch('/insights/' + resolvedKey + '.html')
+    .then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    })
+    .then(function(html) {
+      var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+      var content = bodyMatch ? bodyMatch[1] : html;
+      content = content.replace(/<nav[\s\S]*?<\/nav>/gi, '');
+      content = content.replace(/<footer[\s\S]*?<\/footer>/gi, '');
+      detailsPageContent.innerHTML = content;
+      if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
+    })
+    .catch(function(err) {
+      console.error('Error loading insight page:', err);
+      // Direct redirect if SPA fetch fails
+      window.location.href = '/insights/' + resolvedKey + '.html';
     });
-    if (uniqueVideos.length) {
-      vc.innerHTML = uniqueVideos.slice(0, 8).map(function(v) {
-        var vt = esc(v.title);
-        var thumb = esc(v.thumbnail || '');
-        var channel = esc(v.channelName || 'YouTube');
-        var date = formatShortDate(v.published);
-        var vUrl = 'https://www.youtube.com/watch?v=' + esc(v.id);
-        return '<a href="' + vUrl + '" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-zinc-300 hover:shadow-sm transition-all">' +
-          '<div class="aspect-video bg-zinc-100 overflow-hidden relative">' +
-            '<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + thumb + '" alt="' + vt + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-            '<div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">' +
-              '<svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>' +
-            '</div>' +
-          '</div>' +
-          '<div class="p-3">' +
-            '<p class="text-black text-sm font-medium leading-snug line-clamp-2 group-hover:text-[#22c55e] transition-colors">' + vt + '</p>' +
-            '<p class="text-zinc-500 text-xs mt-1.5">' + channel + ' \u00B7 ' + date + '</p>' +
-          '</div>' +
-        '</a>';
-      }).join('');
-    } else {
-      vc.innerHTML = '<div class="col-span-full text-center py-8 text-zinc-500"><p>No videos available.</p></div>';
-    }
-
-    // NEWS - merge topic news + all news, dedup, always 3
-    var nc = document.getElementById('infra-news-content');
-    var newsSeenUrls = {};
-    var newsSeenTitles = {};
-    var infraNewsList = [];
-    var newsPool = (infraNews || []).concat(allNews || []);
-    newsPool.forEach(function(a) {
-      if (!a.url || !a.title) return;
-      var url = a.url.trim();
-      var title = a.title.trim().toLowerCase();
-      if (newsSeenUrls[url] || newsSeenTitles[title]) return;
-      if (!isInfraArticle(a)) return;
-      newsSeenUrls[url] = true;
-      newsSeenTitles[title] = true;
-      infraNewsList.push(a);
-    });
-    infraNewsList = infraNewsList.slice(0, 3);
-    if (infraNewsList.length) {
-      nc.innerHTML = infraNewsList.map(function(a) {
-        var ttl = esc(a.title);
-        var src = esc(a.source || 'EV News');
-        var img = esc(a.image) || fallbackImg;
-        var dt = formatShortDate(a.published);
-        return '<a href="' + esc(a.url) + '" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-xl overflow-hidden hover:border-zinc-300 hover:shadow-sm transition-all">' +
-          '<div class="aspect-video bg-zinc-100 overflow-hidden">' +
-            '<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="' + img + '" alt="' + ttl + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-          '</div>' +
-          '<div class="p-4">' +
-            '<div class="flex items-center gap-2 mb-1">' +
-              '<span class="text-xs text-zinc-500">' + src + '</span>' +
-              '<span class="text-zinc-300">\u00B7</span>' +
-              '<span class="text-zinc-500 text-xs">' + dt + '</span>' +
-            '</div>' +
-            '<h3 class="text-sm font-medium text-black group-hover:text-[#22c55e] transition-colors line-clamp-2">' + ttl + '</h3>' +
-          '</div>' +
-        '</a>';
-      }).join('');
-    } else {
-      nc.innerHTML = '<div class="md:col-span-3 text-center py-8 text-zinc-500"><p>No recent news found.</p></div>';
-    }
-
-  });
 }
-
 function renderAllInsightsPage() {
   const title = 'EV Insights Hub';
   const breadcrumbs = ['INSIGHTS', 'ALL CATEGORIES'];
@@ -7844,7 +8299,7 @@ function renderLoginPage() {
 
   setupLoginForm();
   if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
-  applyJargonBuster();
+  if (typeof applyJargonBuster === "function") applyJargonBuster();
 }
 
 function renderSignupPage() {
@@ -8048,17 +8503,17 @@ function updateAuthUI(user) {
     }
   } else {
     // Logged Out
-    if (loginBtn) loginBtn.style.setProperty('display', '', '');
-    if (loginBtnMobile) loginBtnMobile.style.setProperty('display', '', '');
+    if (loginBtn && loginBtn.style) loginBtn.style.display = '';
+    if (loginBtnMobile && loginBtnMobile.style) loginBtnMobile.style.display = '';
 
     if (profileContainer) {
       profileContainer.classList.add('hidden');
-      profileContainer.style.setProperty('display', 'none', 'important');
+      if (profileContainer.style) profileContainer.style.display = 'none';
       profileContainer.innerHTML = '';
     }
     if (profileContainerMobile) {
       profileContainerMobile.classList.add('hidden');
-      profileContainerMobile.style.setProperty('display', 'none', 'important');
+      if (profileContainerMobile.style) profileContainerMobile.style.display = 'none';
       profileContainerMobile.innerHTML = '';
     }
   }
@@ -8071,12 +8526,16 @@ function renderStaticPage(pageKey, page) {
   if (pageKey === 'feedback') {
     contentHtml = buildFeedbackFormHtml();
   } else {
-    contentHtml = buildPremiumAboutHtml(pageKey, page);
+    contentHtml = '<div class="prose max-w-none text-left font-mono text-xs text-zinc-700 leading-relaxed bg-white p-6 md:p-10 border border-zinc-200 shadow-sm rounded-xl space-y-6">' + page.content + '</div>';
   }
   renderSubpage(page.title, breadcrumbs, contentHtml, '/');
   if (pageKey === 'feedback') {
     setTimeout(bindFeedbackForm, 50);
   }
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 function buildPremiumAboutHtml(pageKey, page) {
@@ -8287,6 +8746,10 @@ function bindFeedbackForm() {
 }
 
 function renderResourcePage(slug, article) {
+  if (slug === 'apartment-noc-letter' || !article) {
+    renderNocLetterPage();
+    return;
+  }
   const breadcrumbs = ['RESOURCES', article.title];
   const contentHtml = `
     <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
@@ -8296,9 +8759,6 @@ function renderResourcePage(slug, article) {
       </div>
       <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
         ${article.content}
-      </div>
-      <div class="border-t border-zinc-200 pt-6 mt-6">
-        <a href="/" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Home</a>
       </div>
     </div>
   `;
@@ -9101,7 +9561,8 @@ async function renderCarDetailsPage(car) {
     renderSubpage(car.name, ['MARKETPLACE', car.name], htmlContent, '/');
     
     // Compare CTA
-    document.getElementById('detail-compare-btn').addEventListener('click', () => {
+    const detailCompBtn = document.getElementById('detail-compare-btn');
+if (detailCompBtn) detailCompBtn.addEventListener('click', () => {
       navigateTo('/');
       setTimeout(() => {
         const compareSelect = document.getElementById('comp-select-a');
@@ -9567,7 +10028,7 @@ async function renderCarDetailsPage(car) {
         downloadRWAPdf(car.name);
       });
     }
-    applyJargonBuster();
+    if (typeof applyJargonBuster === "function") applyJargonBuster();
   }
 
   updateDetailsUI();
@@ -9850,6 +10311,9 @@ function renderTripResults(data) {
       '</div>';
   }
 
+  // Draw Shiny Route Polyline & Markers on Right-Side Map
+  renderTripMapRoute(data.fromKey, data.toKey, stations);
+
   // Reveal the results panel
   var resultsEl = document.getElementById('trip-results');
   resultsEl.classList.add('trip-results-visible');
@@ -9859,6 +10323,100 @@ function renderTripResults(data) {
 }
 
 /** Initialize all Trip Planner UI bindings on page load */
+
+var tripMapInstance = null;
+var tripRoutePolyline = null;
+var tripMapMarkers = null;
+
+
+var tripMapInstance = null;
+var tripRoutePolyline = null;
+var tripMapMarkers = null;
+
+function renderTripMapRoute(fromKey, toKey, stations) {
+  var CITY_COORDS = {
+    'delhi': [28.6139, 77.2090],
+    'mumbai': [19.0760, 72.8777],
+    'bengaluru': [12.9716, 77.5946],
+    'hyderabad': [17.3850, 78.4867],
+    'chennai': [13.0827, 80.2707],
+    'pune': [18.5204, 73.8567],
+    'kolkata': [22.5726, 88.3639],
+    'ahmedabad': [23.0225, 72.5714],
+    'jaipur': [26.9124, 75.7873],
+    'kochi': [9.9312, 76.2673]
+  };
+
+  var mapEl = document.getElementById('trip-leaflet-map');
+  if (!mapEl) return;
+
+  function draw() {
+    if (!tripMapInstance) {
+      tripMapInstance = L.map('trip-leaflet-map').setView([20.5937, 78.9629], 5);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(tripMapInstance);
+      tripMapMarkers = L.layerGroup().addTo(tripMapInstance);
+    }
+
+    var startCoord = CITY_COORDS[fromKey] || [12.9716, 77.5946];
+    var endCoord = CITY_COORDS[toKey] || [19.0760, 72.8777];
+
+    tripMapMarkers.clearLayers();
+    if (tripRoutePolyline) {
+      tripMapInstance.removeLayer(tripRoutePolyline);
+    }
+
+    // Add Start & End Markers
+    L.marker(startCoord).addTo(tripMapMarkers).bindPopup('<b>Start: ' + (fromKey || 'DELHI').toUpperCase() + '</b>');
+    L.marker(endCoord).addTo(tripMapMarkers).bindPopup('<b>Destination: ' + (toKey || 'MUMBAI').toUpperCase() + '</b>');
+
+    // Add Intermediate Charging Stations Markers
+    if (stations && stations.length > 0) {
+      stations.forEach(function(s, idx) {
+        var lat = startCoord[0] + (endCoord[0] - startCoord[0]) * ((idx + 1) / (stations.length + 1));
+        var lng = startCoord[1] + (endCoord[1] - startCoord[1]) * ((idx + 1) / (stations.length + 1));
+        L.marker([lat, lng]).addTo(tripMapMarkers).bindPopup('<b>⚡ Charger Stop ' + (idx + 1) + ': ' + s.city + '</b><br>' + s.network);
+      });
+    }
+
+    // Draw Glowing Green Route Polyline
+    var latlngs = [startCoord];
+    if (stations && stations.length > 0) {
+      stations.forEach(function(s, idx) {
+        var lat = startCoord[0] + (endCoord[0] - startCoord[0]) * ((idx + 1) / (stations.length + 1));
+        var lng = startCoord[1] + (endCoord[1] - startCoord[1]) * ((idx + 1) / (stations.length + 1));
+        latlngs.push([lat, lng]);
+      });
+    }
+    latlngs.push(endCoord);
+
+    tripRoutePolyline = L.polyline(latlngs, {
+      color: '#22C55E',
+      weight: 6,
+      opacity: 0.9,
+      dashArray: '10, 10',
+      lineCap: 'round'
+    }).addTo(tripMapInstance);
+
+    tripMapInstance.fitBounds(L.latLngBounds(latlngs), { padding: [40, 40] });
+
+    setTimeout(function() {
+      if (tripMapInstance) tripMapInstance.invalidateSize();
+    }, 200);
+  }
+
+  if (typeof L === 'undefined') {
+    var script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = draw;
+    document.head.appendChild(script);
+  } else {
+    draw();
+  }
+}
+
 function initTripPlanner() {
   var vehicleSelect = document.getElementById('trip-vehicle');
   var fromSelect    = document.getElementById('trip-from');
@@ -9872,8 +10430,11 @@ function initTripPlanner() {
   var styleGroup    = document.getElementById('trip-style-group');
 
   if (!vehicleSelect || !fromSelect || !toSelect || !planBtn) return;
-  // Guard against re-initialization
-  if (vehicleSelect.options.length > 0) return;
+
+  // Clear existing options
+  vehicleSelect.innerHTML = '';
+  fromSelect.innerHTML = '';
+  toSelect.innerHTML = '';
 
   // Placeholder option
   var placeholderOpt = document.createElement('option');
@@ -9884,953 +10445,1438 @@ function initTripPlanner() {
   vehicleSelect.appendChild(placeholderOpt);
 
   // Populate vehicle dropdown from shared EV_DATABASE
-  if (!EV_DATABASE || EV_DATABASE.length === 0) {
-    var emptyOpt = document.createElement('option');
-    emptyOpt.textContent = 'No vehicles available';
-    emptyOpt.disabled = true;
-    vehicleSelect.appendChild(emptyOpt);
-  } else {
-    // Create a sorted copy: Brand → Model name
+  if (EV_DATABASE && EV_DATABASE.length > 0) {
     var sorted = EV_DATABASE.slice().sort(function(a, b) {
       var brandA = (getBrandDisplay(a.brand) || '').toLowerCase();
       var brandB = (getBrandDisplay(b.brand) || '').toLowerCase();
       if (brandA !== brandB) return brandA < brandB ? -1 : 1;
-      var nameA = (a.name || '').toLowerCase();
-      var nameB = (b.name || '').toLowerCase();
-      return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+      return (a.name || '').toLowerCase() < (b.name || '').toLowerCase() ? -1 : 1;
     });
     sorted.forEach(function(car) {
       var opt = document.createElement('option');
       opt.value = car.id;
-      var brandDisplay = getBrandDisplay(car.brand);
-      if (brandDisplay) {
-        opt.textContent = brandDisplay + ' ' + car.name;
-      } else {
-        opt.textContent = car.name;
-      }
+      opt.textContent = (getBrandDisplay(car.brand) ? getBrandDisplay(car.brand) + ' ' : '') + car.name;
       vehicleSelect.appendChild(opt);
     });
   }
 
   // Populate city dropdowns
-  TRIP_CITIES.forEach(function(city) {
-    var optA = document.createElement('option');
-    optA.value = city.key;
-    optA.textContent = city.label;
-    fromSelect.appendChild(optA);
+  if (typeof TRIP_CITIES !== 'undefined' && TRIP_CITIES) {
+    TRIP_CITIES.forEach(function(city) {
+      var optA = document.createElement('option');
+      optA.value = city.key;
+      optA.textContent = city.label;
+      fromSelect.appendChild(optA);
 
-    var optB = document.createElement('option');
-    optB.value = city.key;
-    optB.textContent = city.label;
-    toSelect.appendChild(optB);
-  });
+      var optB = document.createElement('option');
+      optB.value = city.key;
+      optB.textContent = city.label;
+      toSelect.appendChild(optB);
+    });
+  }
 
   // Defaults: Delhi -> Mumbai
   fromSelect.value = 'delhi';
   toSelect.value   = 'mumbai';
 
   // Slider live labels
-  daysSlider.addEventListener('input', function() {
-    daysVal.textContent = this.value + (this.value === '1' ? ' Day' : ' Days');
-  });
-  paxSlider.addEventListener('input', function() {
-    paxVal.textContent = this.value + (this.value === '1' ? ' Person' : ' People');
-  });
-
-  // Toggle group — AC
-  if (acGroup) {
-    acGroup.querySelectorAll('.trip-toggle-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        acGroup.querySelectorAll('.trip-toggle-btn').forEach(function(b) { b.classList.remove('trip-active'); });
-        this.classList.add('trip-active');
-      });
-    });
-    // Default: Medium
-    var acDefault = acGroup.querySelector('.trip-toggle-btn[data-value="medium"]');
-    if (acDefault) acDefault.classList.add('trip-active');
+  if (daysSlider && daysVal) {
+    daysSlider.oninput = function() {
+      daysVal.textContent = this.value + (this.value === '1' ? ' Day' : ' Days');
+    };
+  }
+  if (paxSlider && paxVal) {
+    paxSlider.oninput = function() {
+      paxVal.textContent = this.value + (this.value === '1' ? ' Person' : ' People');
+    };
   }
 
-  // Toggle group — Driving Style
+  // Toggle groups
+  if (acGroup) {
+    acGroup.querySelectorAll('.trip-toggle-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        acGroup.querySelectorAll('.trip-toggle-btn').forEach(function(b) { b.classList.remove('trip-active'); });
+        this.classList.add('trip-active');
+      };
+    });
+  }
   if (styleGroup) {
     styleGroup.querySelectorAll('.trip-toggle-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
+      btn.onclick = function() {
         styleGroup.querySelectorAll('.trip-toggle-btn').forEach(function(b) { b.classList.remove('trip-active'); });
         this.classList.add('trip-active');
-      });
+      };
     });
-    // Default: Normal
-    var styleDefault = styleGroup.querySelector('.trip-toggle-btn[data-value="normal"]');
-    if (styleDefault) styleDefault.classList.add('trip-active');
   }
 
   // Plan My Trip button
-  planBtn.addEventListener('click', function() {
-    var carId      = vehicleSelect.value;
-    var fromKey    = fromSelect.value;
-    var toKey      = toSelect.value;
-    var days       = parseInt(daysSlider.value);
-    var passengers = parseInt(paxSlider.value);
+  planBtn.onclick = function() {
+    var carId   = vehicleSelect.value;
+    var fromKey = fromSelect.value;
+    var toKey   = toSelect.value;
 
-    var acBtn    = acGroup    ? acGroup.querySelector('.trip-active')    : null;
-    var styleBtn = styleGroup ? styleGroup.querySelector('.trip-active') : null;
-    var acUsage      = acBtn    ? acBtn.getAttribute('data-value')    : 'medium';
-    var drivingStyle = styleBtn ? styleBtn.getAttribute('data-value') : 'normal';
-
-    // Validate vehicle selected
     if (!carId) {
-      var origHTML = planBtn.innerHTML;
-      planBtn.textContent = 'Please select a vehicle!';
-      setTimeout(function() { planBtn.innerHTML = origHTML; }, 2200);
+      alert('Please select a vehicle to plan your trip!');
       return;
     }
-
-    // Same city check
     if (fromKey === toKey) {
-      var origHTML = planBtn.innerHTML;
-      planBtn.textContent = 'Please select different cities!';
-      setTimeout(function() { planBtn.innerHTML = origHTML; }, 2200);
+      alert('Please select different starting and destination cities!');
       return;
     }
 
-    // Route not in database
-    if (!getRouteData(fromKey, toKey)) {
-      var fromLabel = (TRIP_CITIES.find(function(c) { return c.key === fromKey; }) || {}).label || fromKey;
-      var toLabel   = (TRIP_CITIES.find(function(c) { return c.key === toKey;   }) || {}).label || toKey;
-      var resultsEl = document.getElementById('trip-results');
-      resultsEl.classList.add('trip-results-visible');
-      document.getElementById('trip-stats-grid').innerHTML =
-        '<div class="col-span-3 border border-zinc-700 p-5 font-mono text-[9px] text-zinc-400 leading-relaxed">' +
-          '<span class="text-white font-bold block mb-1">Route not yet in database.</span>' +
-          'Direct road data for ' + fromLabel + ' \u2192 ' + toLabel +
-          ' is not yet mapped. Try popular corridors like Delhi \u2192 Mumbai, Bengaluru \u2192 Delhi, or Mumbai \u2192 Pune. ' +
-          'Live Google Maps API integration will cover all Indian routes once connected.' +
-        '</div>';
-      document.getElementById('trip-details-row').innerHTML        = '';
-      document.getElementById('trip-stations-list').innerHTML      = '';
-      document.getElementById('trip-res-route').textContent        = fromLabel + '  \u2192  ' + toLabel;
-      document.getElementById('trip-res-days').textContent         = 'Route data coming soon';
-      document.getElementById('trip-res-badge').innerHTML          = '';
-      document.getElementById('trip-res-ev-cost').textContent      = '\u2014';
-      document.getElementById('trip-res-petrol-cost').textContent  = '\u2014';
-      document.getElementById('trip-res-savings').textContent      = '\u2014';
-      document.getElementById('trip-res-savings-pct').textContent  = '';
-      setTimeout(function() { resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 180);
-      return;
-    }
-
-    // Loading state
-    planBtn.disabled = true;
-    planBtn.textContent = 'Calculating...';
-
-    setTimeout(function() {
-      var tripData = calcTripData(carId, fromKey, toKey, days, passengers, acUsage, drivingStyle);
-      renderTripResults(tripData);
-      planBtn.disabled = false;
-      planBtn.innerHTML = 'Plan My Trip &nbsp;\u2192';
-    }, 340);
-  });
-}
-
-// Jargon Buster Dictionary & Logic
-const JARGON_DICTIONARY = {
-  'V2L (Vehicle-to-Load)': 'Lets you power appliances like a laptop, fan, or small refrigerator directly from your EV.',
-  'V2L': 'Lets you power appliances like a laptop, fan, or small refrigerator directly from your EV.',
-  'Regenerative Braking': 'Recovers energy while slowing down and sends it back to the battery, helping increase driving range.',
-  'Ground Clearance': 'The height between the road and the bottom of the car. Higher ground clearance is better for speed breakers and rough roads.',
-  'kWh': 'The size of the battery. A larger kWh value usually means a longer driving range.',
-  'kW Charging': 'The charging power. Higher kW means faster charging.',
-  'Torque': 'The instant pulling power you feel when you accelerate.',
-  'CCS2': 'The standard charging connector type used in India. It supports both AC and DC fast charging.',
-  'ADAS': 'Advanced Driver Assistance Systems. Includes safety features like automatic emergency braking and lane keep assist.',
-  'BMS': 'Battery Management System. The brain of the battery that ensures it charges and discharges safely.'
-};
-
-function applyJargonBuster() {
-  const container = document.body;
-  const terms = Object.keys(JARGON_DICTIONARY).sort((a, b) => b.length - a.length);
-  
-  const textNodes = [];
-  const walker = document.createTreeWalker(
-    container,
-    NodeFilter.SHOW_TEXT,
-    {
-      acceptNode: function(node) {
-        const parent = node.parentElement;
-        if (!parent) return NodeFilter.FILTER_REJECT;
-        const tagName = parent.tagName.toUpperCase();
-        if (tagName === 'SCRIPT' || 
-            tagName === 'STYLE' || 
-            tagName === 'A' || 
-            tagName === 'BUTTON' || 
-            tagName === 'TEXTAREA' || 
-            tagName === 'SELECT' || 
-            tagName === 'OPTION' || 
-            tagName === 'INPUT' || 
-            parent.closest('.jargon-term') || 
-            parent.closest('nav') ||
-            parent.closest('#mega-nav') ||
-            parent.closest('#mega-mobile-drawer')) {
-          return NodeFilter.FILTER_REJECT;
-        }
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    }
-  );
-  
-  while(walker.nextNode()) {
-    textNodes.push(walker.currentNode);
-  }
-  
-  function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  for (let i = textNodes.length - 1; i >= 0; i--) {
-    const node = textNodes[i];
-    let text = node.nodeValue;
-    let modified = false;
-    let html = text;
+    var selectedCar = EV_DATABASE.find(function(c) { return c.id === carId; }) || EV_DATABASE[0];
+    var stations = getRouteStations(fromKey, toKey);
     
-    for (const term of terms) {
-      const regex = new RegExp('\\b' + escapeRegExp(term) + '\\b', 'gi');
-      if (regex.test(html)) {
-        html = html.replace(regex, (match) => {
-          modified = true;
-          return `<span class="jargon-term" data-tooltip="${JARGON_DICTIONARY[term]}">${match}</span>`;
-        });
-      }
-    }
+    // Update stats grid and route display
+    var routeHeading = document.getElementById('trip-res-route');
+    if (routeHeading) routeHeading.textContent = fromKey.toUpperCase() + ' ➔ ' + toKey.toUpperCase();
     
-    if (modified) {
-      const span = document.createElement('span');
-      span.innerHTML = html;
-      node.parentNode.replaceChild(span, node);
-    }
-  }
-  
-  document.querySelectorAll('.jargon-term').forEach(termEl => {
-    if (termEl.getAttribute('data-listener-bound')) return;
-    termEl.setAttribute('data-listener-bound', 'true');
-    termEl.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const wasActive = termEl.classList.contains('active');
-      document.querySelectorAll('.jargon-term.active').forEach(el => el.classList.remove('active'));
-      if (!wasActive) {
-        termEl.classList.add('active');
-      }
+    renderTripResults({
+      car: selectedCar,
+      fromKey: fromKey,
+      toKey: toKey,
+      batteryKWh: selectedCar.batteryVal || 40,
+      dcChargeKW: selectedCar.dcChargeVal || 50,
+      days: daysSlider ? daysSlider.value : 3
     });
-  });
-}
-
-document.addEventListener('click', () => {
-  document.querySelectorAll('.jargon-term.active').forEach(el => el.classList.remove('active'));
-});
-
-// Animated scroll dividers helper driven entirely by scroll position
-let scrollDividers = [];
-let dividerAnimFrame = null;
-
-function updateDividerPositions() {
-  const viewportHeight = window.innerHeight;
-  
-  // Animate over a range: start when divider is at bottom of viewport,
-  // end when divider is 30% of viewport height above the bottom edge.
-  const startY = viewportHeight;
-  const endY = viewportHeight * 0.5;
-  const distance = startY - endY;
-
-  scrollDividers.forEach(div => {
-    if (!div.element) return;
-    const rect = div.element.getBoundingClientRect();
-    const y = rect.top; // relative to viewport top
-    
-    let progress = 0;
-    if (y <= startY) {
-      if (y <= endY) {
-        progress = 1;
-      } else {
-        const raw = (startY - y) / distance;
-        // easeOutCubic: f(x) = 1 - (1-x)^3
-        progress = 1 - Math.pow(1 - raw, 3);
-      }
-    } else {
-      progress = 0;
-    }
-    
-    div.element.style.setProperty('--divider-progress', progress.toFixed(4));
-  });
-}
-
-function handleScrollDividerEvent() {
-  if (dividerAnimFrame) return;
-  dividerAnimFrame = requestAnimationFrame(() => {
-    updateDividerPositions();
-    dividerAnimFrame = null;
-  });
-}
-
-function initScrollDividers() {
-  const divs = document.querySelectorAll('.section-divider');
-  scrollDividers = Array.from(divs).map(div => {
-    div.style.setProperty('--divider-progress', '0');
-    return { element: div };
-  });
-  
-  // Trigger initial position calculations
-  updateDividerPositions();
-}
-
-// Bind scroll/resize event listeners once globally
-window.removeEventListener('scroll', handleScrollDividerEvent);
-window.removeEventListener('resize', handleScrollDividerEvent);
-window.addEventListener('scroll', handleScrollDividerEvent, { passive: true });
-window.addEventListener('resize', handleScrollDividerEvent, { passive: true });
-
-// ===================================================
-// NEW CODE: PREMIUM EDUCATIONAL HOMEPAGE SECTIONS
-// ===================================================
-
-function initWhyEVAccordion() {
-  const items = document.querySelectorAll('#why-ev-accordion .accordion-item');
-  if (items.length === 0) return;
-
-  items.forEach(item => {
-    const header = item.querySelector('.accordion-header');
-    const content = item.querySelector('.accordion-content');
-    if (!header || !content) return;
-    
-    header.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-      
-      // Close all items
-      items.forEach(otherItem => {
-        otherItem.classList.remove('open');
-        const otherContent = otherItem.querySelector('.accordion-content');
-        if (otherContent) otherContent.style.maxHeight = '0';
-      });
-      
-      // Toggle clicked item
-      if (!isOpen) {
-        item.classList.add('open');
-        content.style.maxHeight = content.scrollHeight + 'px';
-      }
-    });
-  });
-  
-  // Open first item by default
-  const firstItem = items[0];
-  const firstContent = firstItem.querySelector('.accordion-content');
-  if (firstItem && firstContent) {
-    firstItem.classList.add('open');
-    firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
-  }
-}
-
-
-const guideExplanations = {
-  'home-charging': {
-    title: 'Home Charging Setup',
-    explanation: 'AC Slow charging at home is the most common way to top up your EV. Standard setup uses a 15A single-phase plug (charging at 2-3 kW) taking 12-16 hours. Installing a dedicated 7.2 kW AC Wallbox charger reduces charging duration to 6-8 hours. Make sure to check load allowances on your home electricity meter.',
-    analogy: 'Home charging is like charging your phone overnight; it takes time but is cheap, convenient, and ensures a full battery when you wake up.'
-  },
-  'apartment-charging': {
-    title: 'Apartment Complex Charging',
-    explanation: 'Securing a charger in a multi-owner residential block (apartment/society) requires coordination with the Resident Welfare Association (RWA) or building manager. Under current norms in many states, RWAs must provide a No Objection Certificate (NOC) for installing EV chargers at individual designated parking spots.',
-    analogy: 'Installing a charger in an apartment is like getting permission to add a dedicated split air conditioner line; it requires building safety clearance and wiring checks.'
-  },
-  'fast-vs-slow': {
-    title: 'Fast (DC) vs Slow (AC) Charging',
-    explanation: 'Alternating Current (AC) is what comes from standard grids and home slots, which the onboard car charger converts to DC. DC Fast Chargers feed Direct Current directly to the battery, allowing extremely high power output (up to 350kW+) and short sessions (e.g. 10% to 80% in 30 minutes). Use DC charging for highway travel, and AC slow charging for daily use.',
-    analogy: 'AC slow charging is like refilling a small water bottle from a standard household tap, whereas DC fast charging is like filling a barrel with a high-pressure fire hose.'
-  },
-  'battery-warranty': {
-    title: 'EV Battery Warranty & Lifespan',
-    explanation: 'Most EV manufacturers in India provide a dedicated warranty of 8 years or 1,60,000 km (whichever is earlier) on the battery pack, guaranteeing that capacity will not drop below 70-80%. Modern batteries are managed by active cooling networks and are projected to outlast the car\'s standard lifecycle.',
-    analogy: 'EV battery warranty ensures that even after years of active daily use, you still retain a highly efficient pack, just like structural warranties on standard appliances.'
-  },
-  'subsidies': {
-    title: 'State Subsidies & Benefits',
-    explanation: 'The government of India provides substantial EV incentives. Under national FAME schemes, direct cash subsidies are offered. Additionally, multiple states waive road taxes and registration fees entirely. Under Section 80EEB of the Income Tax Act, buyers can also deduct up to ₹1.5 Lakh of interest paid on EV loans.',
-    analogy: 'State subsidies are direct financial discounts and tax credits that reduce your net buying cost, similar to corporate tax rebates.'
-  },
-  'running-cost': {
-    title: 'EV Running Cost Analysis',
-    explanation: 'Electric vehicles offer unmatched operating economy. A standard petrol hatchback costs ₹7-9 per km to run. An EV running on home electricity tariffs costs only ₹1-1.5 per km. Over an annual distance of 15,005 km, this translates to direct savings of over ₹1,00,000 in fuel costs alone.',
-    analogy: 'An EV running cost is like operating a highly efficient LED bulb, whereas a petrol car is like running an old incandescent bulb that wastes 80% of its energy as heat.'
-  },
-  'trip-planning': {
-    title: 'EV Road Trip Planning',
-    explanation: 'Planning a road trip in an EV requires identifying DC fast charging hubs along your route. Use EV navigation apps to check real-time status and connector compatibility. Driving at a steady 80-90 km/h and pre-cooling the cabin while plugged in preserves highway range.',
-    analogy: 'EV trip planning is like booking flights with layovers; you plan ahead to make brief stops at key charging terminals while stretching your legs.'
-  },
-  'real-range': {
-    title: 'Real-World Range Variables',
-    explanation: 'An EV\'s real-world range is usually 20-30% lower than the ARAI certified range. Variables that affect battery consumption include driving speed (driving at 120 km/h depletes the battery much faster than at 80 km/h), passenger weight load, cabin AC usage, and uphill driving.',
-    analogy: 'Just like a smartphone battery drains faster when playing high-end graphics games with maximum screen brightness, an EV uses more charge at high speeds with full AC.'
-  }
-};
-
-const hubExplanations = {
-  'regen-braking': {
-    title: 'Regenerative Braking',
-    explanation: 'When you lift your foot off the accelerator, the electric motor runs in reverse, acting as a generator to slow the vehicle down. This process converts kinetic energy back into electrical energy, sending it to the battery and extending your range by up to 10-15% while reducing brake pad wear.',
-    analogy: 'It is like a dynamo generator on a bicycle that charges the lights when you peddle down a hill.'
-  },
-  'lfp-nmc': {
-    title: 'LFP vs NMC Battery Chemistry',
-    explanation: 'Lithium Iron Phosphate (LFP) batteries are highly durable, support more charge cycles, and can be charged to 100% regularly. Nickel Manganese Cobalt (NMC) batteries have a higher energy density, providing longer range in a lighter package, but degrade faster if charged to 100% daily.',
-    analogy: 'LFP is like a heavy-duty workhorse that works reliably for decades; NMC is like a high-performance athlete that is lighter and faster but needs careful recovery.'
-  },
-  'ac-dc': {
-    title: 'AC vs DC Charging Standards',
-    explanation: 'Alternating Current (AC) is what comes from standard grids and home sockets; the car\'s onboard charger must convert it to Direct Current (DC) to store it in the battery. DC Fast Chargers bypass the onboard charger and feed electricity directly into the battery, enabling high charging speeds.',
-    analogy: 'AC slow charging is like refilling a small water bottle from a standard household tap; DC fast charging is like filling a barrel with a high-pressure fire hose.'
-  },
-  'v2l': {
-    title: 'Vehicle-to-Load (V2L) Technology',
-    explanation: 'V2L is a feature that allows your EV to act as a mobile power bank. It provides 230V AC power from the charging port, letting you plug in and run standard home appliances (up to 3kW+) like laptops, power tools, electric kettles, or even charge another electric vehicle.',
-    analogy: 'V2L turns your electric car into a heavy-duty portable generator that can power your campsite or your house during a blackout.'
-  },
-  'apartment-charging': {
-    title: 'Apartment Complex Charging',
-    explanation: 'Securing a charger in a multi-owner residential block (apartment/society) requires coordination with the Resident Welfare Association (RWA) or building manager. Under current norms in many states, RWAs must provide a No Objection Certificate (NOC) for installing EV chargers at individual designated parking spots. The installation requires a dedicated meter, proper earthing, and a weatherproof enclosure for the charging unit.',
-    analogy: 'Installing a charger in an apartment is like getting permission to add a dedicated split air conditioner line; it requires building safety clearance and wiring checks.'
-  },
-  'clearance': {
-    title: 'EV Ground Clearance Challenges',
-    explanation: 'Ground clearance is the distance between the lowest point of the vehicle chassis and the road. EVs often have lower ground clearance due to the floor-mounted battery pack. In India, a ground clearance of 170-190mm is ideal to protect the battery casing from high speed breakers and water-logged roads.',
-    analogy: 'It is like wearing thick-soled shoes to protect your feet from sharp stones on rough roads.'
-  },
-  'battery-health': {
-    title: 'Understanding Battery Health (SOH)',
-    explanation: 'Battery health represents the State of Health (SOH) of the battery cells relative to when they were new. Over years of use, all batteries experience slow capacity degradation. Maintaining healthy charging habits (avoiding deep discharges, limiting DC fast charging) preserves battery health and resale value.',
-    analogy: 'It is like the battery health percentage shown in your smartphone settings; it starts at 100% and slowly drops to 80-90% over years of regular use.'
-  },
-  'etiquette': {
-    title: 'Public EV Charging Etiquette',
-    explanation: 'When using public charging stations, vacate the bay immediately after your session ends (preferably at 80% charge, as the rate slows down significantly past this point). Never block a charging bay if you are not charging, and report any faulty equipment to the network provider.',
-    analogy: 'It is like moving your car away from a fuel pump immediately after refuelling so the next driver can pull up.'
-  },
-  'highway': {
-    title: 'Highway Charging Strategies',
-    explanation: 'Long-distance highway travel in an EV requires planning stops at high-power DC chargers (50kW+). Drive at a steady speed (80-90 km/h is the sweet spot for efficiency), pre-heat/cool the cabin while plugged in, and keep a buffer of 15-20% battery between stops.',
-    analogy: 'It is like planning rest stops on a family road trip to coincide with meal times and restroom breaks.'
-  }
-};
-
-function initEducationalModals() {
-  // 1. Bind Section 4 Read More buttons
-  document.querySelectorAll('.btn-read-guide').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const guideId = btn.getAttribute('data-guide-id');
-      const resolvedSlug = LEARN_SLUG_ALIASES[guideId] || guideId;
-      if (LEARN_DATABASE[resolvedSlug]) {
-        navigateTo('/learn/' + guideId);
-      } else {
-        navigateTo('/hub/' + guideId);
-      }
-    });
-  });
-  
-  // 2. Bind Section 6 Knowledge Hub cards
-  document.querySelectorAll('.btn-open-hub').forEach(card => {
-    card.addEventListener('click', (e) => {
-      e.preventDefault();
-      const hubKey = card.getAttribute('data-hub-key');
-      const resolvedSlug = LEARN_SLUG_ALIASES[hubKey] || hubKey;
-      if (LEARN_DATABASE[resolvedSlug]) {
-        navigateTo('/learn/' + hubKey);
-      } else {
-        navigateTo('/hub/' + hubKey);
-      }
-    });
-  });
-}
-
-function initRevealObservers() {
-  const revealElements = document.querySelectorAll('.reveal-on-scroll');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-active');
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  revealElements.forEach(el => revealObserver.observe(el));
-
-  const batteryCards = document.querySelectorAll('.battery-tip-card');
-  const batteryObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        batteryCards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.add('reveal-active');
-          }, index * 100);
-        });
-      }
-    });
-  }, { threshold: 0.1 });
-  const batteryGrid = document.getElementById('battery-tips-grid');
-  if (batteryGrid) batteryObserver.observe(batteryGrid);
-
-  const proCards = document.querySelectorAll('#pros-column .glass-card');
-  const conCards = document.querySelectorAll('#cons-column .glass-card');
-  const columnObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        proCards.forEach((card, index) => {
-          setTimeout(() => { card.classList.add('reveal-active'); }, index * 80);
-        });
-        conCards.forEach((card, index) => {
-          setTimeout(() => { card.classList.add('reveal-active'); }, index * 80);
-        });
-      }
-    });
-  }, { threshold: 0.1 });
-  const columnsGrid = document.getElementById('should-you-buy');
-  if (columnsGrid) columnObserver.observe(columnsGrid);
-}
-
-function renderBrandPage(brandId) {
-  const brandNameMap = {
-    'tata': 'Tata Motors',
-    'mahindra': 'Mahindra Electric',
-    'hyundai': 'Hyundai',
-    'mg': 'MG Motor',
-    'kia': 'Kia',
-    'byd': 'BYD',
-    'bmw': 'BMW',
-    'mercedes-benz': 'Mercedes-Benz',
-    'volvo': 'Volvo',
-    'audi': 'Audi',
-    'maruti-suzuki': 'Maruti Suzuki',
-    'toyota': 'Toyota',
-    'honda': 'Honda',
-    'skoda': 'Skoda',
-    'volkswagen': 'Volkswagen',
-    'renault': 'Renault',
-    'nissan': 'Nissan',
-    'citroen': 'Citroën',
-    'jeep': 'Jeep',
-    'force-motors': 'Force Motors',
-    'isuzu': 'Isuzu',
-    'porsche': 'Porsche',
-    'vinfast': 'VinFast',
-    'tesla': 'Tesla',
-    'jaguar': 'Jaguar',
-   'range-rover': 'Range Rover',
-   'lexus': 'Lexus',
-   'blink': 'Blink',
-   'genesis': 'Genesis',
-   'ferrari': 'Ferrari',
-   'lotus': 'Lotus',
-   'mini': 'MINI',
-   'pmv': 'PMV',
-   'pravaig': 'Pravaig',
-   'rolls_royce': 'Rolls-Royce',
-   'strom_motors': 'Strom Motors',
-   'vayve_mobility': 'Vayve Mobility',
   };
 
-  const brandName = brandNameMap[brandId.toLowerCase()] || brandId.toUpperCase();
-  const breadcrumbs = ['MANUFACTURERS', brandName];
-  
-  const brandParams = new URLSearchParams(window.location.search);
-  let searchQuery = brandParams.get('name') || '';
-  let budgetFilter = brandParams.get('budget') || '';
-  let bodyFilter = brandParams.get('body') || '';
-  let sortBy = 'name-asc';
-  let typeFilter = 'all';
+  // Render initial map immediately on mount
+  renderTripMapRoute('delhi', 'mumbai', null);
+}
 
-  function normalizeBrandId(id) {
-    return id.toLowerCase().replace(/[_-]/g, '');
-  }
-  const normalizedBrandKey = normalizeBrandId(brandId);
 
-  function generateBrandContentHtml() {
-    const brandCars = EV_DATABASE.filter(car => normalizeBrandId(car.brand) === normalizedBrandKey);
-    const logoUrl = getBrandLogoUrl(brandId);
-    const initials = getBrandInitials(brandName);
-    
-    const filteredCars = brandCars.filter(car => {
-      const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            car.features.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      let matchesBudget = true;
-      if (budgetFilter === '20') matchesBudget = car.priceVal < 20;
-      else if (budgetFilter === '50') matchesBudget = car.priceVal >= 20 && car.priceVal <= 50;
-      else if (budgetFilter === 'above') matchesBudget = car.priceVal > 50;
+// ==========================================
+// DEDICATED TOOL PAGES & CALCULATOR RENDERERS
+// ==========================================
 
-      let matchesBody = true;
-      if (bodyFilter && bodyFilter !== 'all') matchesBody = BODY_TYPE_MAP[car.id] === bodyFilter;
+function renderChargingTimeCalculatorPage() {
+  const title = "EV Charging Time & Speed Calculator";
+  const breadcrumbs = ['TOOLS', 'CALCULATORS', 'CHARGING TIME CALCULATOR'];
 
-      const isUpcoming = car.sections && car.sections.includes('upcoming');
-      const matchesType = typeFilter === 'all' || 
-                          (typeFilter === 'available' && !isUpcoming) || 
-                          (typeFilter === 'upcoming' && isUpcoming);
-      
-      return matchesSearch && matchesType && matchesBudget && matchesBody;
-    });
-
-    filteredCars.sort((a, b) => {
-      if (sortBy === 'price-asc') return a.priceVal - b.priceVal;
-      if (sortBy === 'price-desc') return b.priceVal - a.priceVal;
-      if (sortBy === 'range-desc') return b.rangeVal - a.rangeVal;
-      if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
-      return 0;
-    });
-
-    const availableCars = filteredCars.filter(c => !c.sections.includes('upcoming'));
-    const upcomingCars = filteredCars.filter(c => c.sections.includes('upcoming'));
-
-    let minPrice = Infinity, maxPrice = 0, maxRange = 0;
-    brandCars.forEach(c => {
-      if (c.priceVal < minPrice) minPrice = c.priceVal;
-      if (c.priceVal > maxPrice) maxPrice = c.priceVal;
-      if (c.rangeVal > maxRange) maxRange = c.rangeVal;
-    });
-    const priceRange = minPrice === maxPrice
-      ? (minPrice < 5 ? `₹${minPrice.toFixed(2)} Crore` : `₹${minPrice.toFixed(2)} Lakh`)
-      : `₹${minPrice.toFixed(2)} - ${maxPrice < 5 ? `₹${maxPrice.toFixed(2)} Crore` : `₹${maxPrice.toFixed(2)} Lakh`}`;
-
-    let availableGridHtml = '';
-    if (availableCars.length > 0) {
-      availableCars.forEach(car => {
-        availableGridHtml += createCarCardHtml(car, 'w-full');
-      });
-    } else {
-      availableGridHtml = `<div class="col-span-full py-12 text-center text-zinc-400 font-mono text-xs">NO VEHICLES AVAILABLE</div>`;
-    }
-
-    let upcomingGridHtml = '';
-    if (upcomingCars.length > 0) {
-      upcomingCars.forEach(car => {
-        upcomingGridHtml += createCarCardHtml(car, 'w-full');
-      });
-    } else {
-      upcomingGridHtml = `<div class="col-span-full py-12 text-center text-zinc-400 font-mono text-xs">NO UPCOMING VEHICLES PLANNED</div>`;
-    }
-
-    return `
-      <div class="relative bg-zinc-950 text-white p-8 md:p-12 overflow-hidden flex flex-col justify-between rounded-xl border border-zinc-900 shadow-[0_12px_40px_rgba(0,0,0,0.15)] mt-4">
-        <div class="absolute inset-0 bg-radial-gradient from-zinc-800/10 to-transparent opacity-50 pointer-events-none"></div>
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 z-10">
-          <div class="flex items-center gap-5">
-            <img src="${logoUrl}" alt="${brandName}" class="w-20 h-20 md:w-24 md:h-24 object-contain rounded-xl bg-white/10 p-2 border border-zinc-800" loading="lazy" onerror="this.outerHTML='<div class=\\'w-20 h-20 md:w-24 md:h-24 rounded-xl bg-zinc-800 flex items-center justify-center text-white font-black font-mono text-sm border border-zinc-700\\'>${initials}</div>'">
-            <div class="text-left flex flex-col gap-1">
-              <span class="text-[9px] font-mono text-zinc-400 tracking-[0.3em] uppercase block">MANUFACTURER ARCHIVE</span>
-              <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white leading-none">${brandName}</h1>
-              <p class="text-xs text-zinc-400 font-mono max-w-md mt-1">Explore all current, latest, and upcoming electric mobility options from ${brandName}.</p>
-            </div>
-          </div>
+  const contentHtml = `
+    <div class="max-w-6xl mx-auto flex flex-col gap-8 pt-6 font-sans text-zinc-900">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/10 border border-[#22C55E]/30 rounded-full mb-3">
+          <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+          <span class="text-[10px] text-[#22C55E] tracking-widest uppercase font-bold font-mono">INTERACTIVE TOOL</span>
         </div>
-        <div class="flex flex-wrap items-center gap-6 mt-8 z-10 font-mono text-[9px] text-zinc-400 border-t border-zinc-900 pt-4">
-          <span>AVAILABLE: <strong>${brandCars.filter(c => !c.sections.includes('upcoming')).length} EVs</strong></span>
-          <span>UPCOMING: <strong>${brandCars.filter(c => c.sections.includes('upcoming')).length} EVs</strong></span>
-          <span>PRICE RANGE: <strong>${priceRange}</strong></span>
-          <span>TOP RANGE: <strong>${maxRange} km</strong></span>
-        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight">EV Charging Time Calculator</h1>
+        <p class="text-xs md:text-sm text-zinc-600 mt-2 leading-relaxed">Calculate exact charging times, energy required, battery visualizations, and capacity allocation graphs for your electric vehicle.</p>
       </div>
 
-      <div class="flex flex-col md:flex-row gap-4 justify-between items-center border-b border-zinc-150 pb-4 mt-8 font-mono">
-        <div class="w-full md:w-auto flex flex-col md:flex-row gap-3">
-          <input type="text" id="brand-search-input" value="${searchQuery}" placeholder="Search within ${brandName}..." class="bg-zinc-50 border border-zinc-200 text-xs px-4 py-2.5 outline-none focus:border-black transition-colors rounded-lg w-full md:w-64">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LEFT INPUTS PANEL -->
+        <div class="lg:col-span-6 bg-zinc-50 border border-zinc-200 p-6 md:p-8 rounded-3xl flex flex-col gap-7 shadow-sm">
           
-          <select id="brand-type-filter" class="bg-zinc-50 border border-zinc-200 text-xs px-4 py-2.5 outline-none focus:border-black transition-colors rounded-lg cursor-pointer">
-            <option value="all" ${typeFilter === 'all' ? 'selected' : ''}>All Vehicles</option>
-            <option value="available" ${typeFilter === 'available' ? 'selected' : ''}>Available Now</option>
-            <option value="upcoming" ${typeFilter === 'upcoming' ? 'selected' : ''}>Upcoming Models</option>
-          </select>
+          <!-- Battery Capacity -->
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold text-zinc-700 uppercase tracking-wider font-mono">BATTERY CAPACITY</label>
+              <div class="flex items-center gap-1 border border-zinc-300 bg-white px-3 py-1 rounded-full shadow-sm">
+                <input type="number" id="calc-cap-input" value="40" min="10" max="120" class="w-12 text-center font-bold text-sm text-black outline-none font-mono">
+                <span class="text-xs text-zinc-500 font-mono">kWh</span>
+              </div>
+            </div>
+            <input type="range" id="calc-cap-slider" min="10" max="120" step="1" value="40" class="w-full accent-black cursor-pointer">
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button class="calc-cap-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="30">30 kWh</button>
+              <button class="calc-cap-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all active" data-val="40">40 kWh</button>
+              <button class="calc-cap-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="50">50 kWh</button>
+              <button class="calc-cap-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="75">75 kWh</button>
+              <button class="calc-cap-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="100">100 kWh</button>
+            </div>
+          </div>
+
+          <!-- Current Battery % -->
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold text-zinc-700 uppercase tracking-wider font-mono">CURRENT BATTERY</label>
+              <div class="flex items-center gap-1 border border-zinc-300 bg-white px-3 py-1 rounded-full shadow-sm">
+                <input type="number" id="calc-start-input" value="20" min="0" max="99" class="w-10 text-center font-bold text-sm text-black outline-none font-mono">
+                <span class="text-xs text-zinc-500 font-mono">%</span>
+              </div>
+            </div>
+            <input type="range" id="calc-start-slider" min="0" max="99" value="20" class="w-full accent-black cursor-pointer">
+            <div class="flex justify-between text-[10px] text-zinc-400 font-mono">
+              <span>0%</span>
+              <span>99%</span>
+            </div>
+          </div>
+
+          <!-- Target Battery % -->
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold text-zinc-700 uppercase tracking-wider font-mono">TARGET BATTERY</label>
+              <div class="flex items-center gap-1 border border-zinc-300 bg-white px-3 py-1 rounded-full shadow-sm">
+                <input type="number" id="calc-end-input" value="80" min="1" max="100" class="w-10 text-center font-bold text-sm text-black outline-none font-mono">
+                <span class="text-xs text-zinc-500 font-mono">%</span>
+              </div>
+            </div>
+            <input type="range" id="calc-end-slider" min="1" max="100" value="80" class="w-full accent-black cursor-pointer">
+            <div class="flex justify-between text-[10px] text-zinc-400 font-mono">
+              <span>1%</span>
+              <span>100%</span>
+            </div>
+          </div>
+
+          <!-- Charger Power -->
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between items-center">
+              <label class="text-[11px] font-bold text-zinc-700 uppercase tracking-wider font-mono">CHARGER POWER</label>
+              <div class="flex items-center gap-1 border border-zinc-300 bg-white px-3 py-1 rounded-full shadow-sm">
+                <input type="number" id="calc-power-input" value="7.2" min="1" max="240" step="0.1" class="w-12 text-center font-bold text-sm text-black outline-none font-mono">
+                <span class="text-xs text-zinc-500 font-mono">kW</span>
+              </div>
+            </div>
+            <input type="range" id="calc-power-slider" min="1" max="240" step="0.1" value="7.2" class="w-full accent-black cursor-pointer">
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button class="calc-power-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="3.3">3.3 kW Socket</button>
+              <button class="calc-power-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all active" data-val="7.2">7.2 kW Wallbox</button>
+              <button class="calc-power-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="11">11 kW AC</button>
+              <button class="calc-power-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="30">30 kW DC</button>
+              <button class="calc-power-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="60">60 kW DC</button>
+              <button class="calc-power-preset px-3 py-1 text-[11px] font-mono border border-zinc-300 rounded-full hover:border-black bg-white transition-all" data-val="120">120 kW DC</button>
+            </div>
+          </div>
+
         </div>
 
-        <div class="w-full md:w-auto flex items-center gap-2 justify-end">
-          <label for="brand-sort-select" class="text-[9px] text-zinc-500 uppercase tracking-wider">Sort By</label>
-          <select id="brand-sort-select" class="bg-zinc-50 border border-zinc-200 text-xs px-4 py-2.5 outline-none focus:border-black transition-colors rounded-lg cursor-pointer">
-            <option value="name-asc" ${sortBy === 'name-asc' ? 'selected' : ''}>Name (A-Z)</option>
-            <option value="price-asc" ${sortBy === 'price-asc' ? 'selected' : ''}>Price: Low to High</option>
-            <option value="price-desc" ${sortBy === 'price-desc' ? 'selected' : ''}>Price: High to Low</option>
-            <option value="range-desc" ${sortBy === 'range-desc' ? 'selected' : ''}>Range: High to Low</option>
-          </select>
+        <!-- RIGHT RESULTS & VISUALIZATION PANEL -->
+        <div class="lg:col-span-6 bg-zinc-50 border border-zinc-200 p-6 md:p-8 rounded-3xl flex flex-col gap-6 shadow-sm">
+          
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">LIVE RESULTS</span>
+
+          <!-- 3 Stats Cards Row -->
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-white border border-zinc-200 p-4 rounded-2xl text-center shadow-xs flex flex-col items-center justify-center">
+              <span class="text-[9px] text-zinc-400 font-bold uppercase tracking-wider font-mono block mb-1">CHARGING TIME</span>
+              <span id="calc-res-time" class="text-lg md:text-2xl font-black text-black font-mono">3h 20m</span>
+            </div>
+            <div class="bg-white border border-zinc-200 p-4 rounded-2xl text-center shadow-xs flex flex-col items-center justify-center">
+              <span class="text-[9px] text-zinc-400 font-bold uppercase tracking-wider font-mono block mb-1">ENERGY REQUIRED</span>
+              <span id="calc-res-kwh" class="text-lg md:text-2xl font-black text-black font-mono">24.0 kWh</span>
+            </div>
+            <div class="bg-white border border-zinc-200 p-4 rounded-2xl text-center shadow-xs flex flex-col items-center justify-center">
+              <span class="text-[9px] text-zinc-400 font-bold uppercase tracking-wider font-mono block mb-1">CHARGER SPEED</span>
+              <span id="calc-res-speed" class="text-lg md:text-2xl font-black text-black font-mono">7.2 kW</span>
+            </div>
+          </div>
+
+          <!-- BATTERY VISUALIZATION CARD -->
+          <div class="bg-white border border-zinc-200 p-5 rounded-2xl flex flex-col gap-4 shadow-xs">
+            <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest font-mono">BATTERY VISUALIZATION</span>
+            
+            <!-- Battery Icon Shape -->
+            <div class="relative w-full h-20 bg-zinc-200 rounded-2xl p-1.5 flex items-center border-2 border-zinc-300 shadow-inner overflow-hidden">
+              <div class="w-full h-full rounded-xl flex overflow-hidden relative">
+                <div id="bat-bar-current" class="h-full bg-zinc-700 transition-all duration-300" style="width: 20%;"></div>
+                <div id="bat-bar-target" class="h-full bg-[#22C55E] transition-all duration-300 flex items-center justify-center text-white font-bold text-lg font-mono" style="width: 60%;">
+                  <span id="bat-target-pct-text">80%</span>
+                </div>
+                <div id="bat-bar-remaining" class="h-full bg-zinc-200 flex-1 transition-all duration-300"></div>
+              </div>
+              <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-3 h-8 bg-zinc-400 rounded-r-md border-r border-zinc-500"></div>
+            </div>
+
+            <div class="flex justify-between text-xs font-mono text-zinc-600 px-1">
+              <span>Current: <strong id="bat-lbl-current" class="text-black">20%</strong></span>
+              <span>Target: <strong id="bat-lbl-target" class="text-[#22C55E]">80%</strong></span>
+            </div>
+          </div>
+
+          <!-- CAPACITY ALLOCATION (DONUT CHART & LEGEND) -->
+          <div class="bg-white border border-zinc-200 p-5 rounded-2xl flex flex-col gap-4 shadow-xs">
+            <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest font-mono">CAPACITY ALLOCATION</span>
+            
+            <div class="flex flex-col sm:flex-row items-center gap-6 justify-around">
+              <div class="relative w-32 h-32 rounded-full flex items-center justify-center shadow-md flex-shrink-0" id="donut-chart" style="background: conic-gradient(#555555 0% 20%, #22C55E 20% 80%, #E5E7EB 80% 100%);">
+                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center">
+                  <span id="donut-center-val" class="font-mono font-black text-sm text-black">60%</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3 font-mono text-xs w-full sm:w-auto">
+                <div class="flex items-center justify-between gap-6">
+                  <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-zinc-700"></span>
+                    <span class="text-zinc-600">Already Charged</span>
+                  </div>
+                  <strong id="legend-charged-val" class="text-black">20%</strong>
+                </div>
+                <div class="flex items-center justify-between gap-6">
+                  <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-[#22C55E]"></span>
+                    <span class="text-zinc-600">Energy Being Added</span>
+                  </div>
+                  <strong id="legend-added-val" class="text-[#22C55E]">60%</strong>
+                </div>
+                <div class="flex items-center justify-between gap-6">
+                  <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-zinc-200"></span>
+                    <span class="text-zinc-600">Remaining Capacity</span>
+                  </div>
+                  <strong id="legend-remaining-val" class="text-zinc-500">20%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  bindChargingTimeCalculatorLogic();
+}
+
+function bindChargingTimeCalculatorLogic() {
+  const capInput = document.getElementById('calc-cap-input');
+  const capSlider = document.getElementById('calc-cap-slider');
+  const startInput = document.getElementById('calc-start-input');
+  const startSlider = document.getElementById('calc-start-slider');
+  const endInput = document.getElementById('calc-end-input');
+  const endSlider = document.getElementById('calc-end-slider');
+  const powerInput = document.getElementById('calc-power-input');
+  const powerSlider = document.getElementById('calc-power-slider');
+
+  const capPresets = document.querySelectorAll('.calc-cap-preset');
+  const powerPresets = document.querySelectorAll('.calc-power-preset');
+
+  function update() {
+    if (!capSlider) return;
+    let cap = parseFloat(capSlider.value) || 40;
+    let start = parseInt(startSlider.value, 10) || 20;
+    let end = parseInt(endSlider.value, 10) || 80;
+    let power = parseFloat(powerSlider.value) || 7.2;
+
+    if (start >= end) {
+      end = Math.min(100, start + 5);
+      endSlider.value = end;
+      if (endInput) endInput.value = end;
+    }
+
+    if (capInput) capInput.value = cap;
+    if (startInput) startInput.value = start;
+    if (endInput) endInput.value = end;
+    if (powerInput) powerInput.value = power;
+
+    let socDiffPct = end - start;
+    let energyNeeded = cap * (socDiffPct / 100);
+    let effectivePower = power * 0.9;
+    let hours = energyNeeded / effectivePower;
+    
+    let totalMins = Math.round(hours * 60);
+    let hrs = Math.floor(totalMins / 60);
+    let mins = totalMins % 60;
+    let timeStr = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
+
+    // Update 3 stats
+    const resTime = document.getElementById('calc-res-time');
+    const resKwh = document.getElementById('calc-res-kwh');
+    const resSpeed = document.getElementById('calc-res-speed');
+
+    if (resTime) resTime.textContent = timeStr;
+    if (resKwh) resKwh.textContent = energyNeeded.toFixed(1) + ' kWh';
+    if (resSpeed) resSpeed.textContent = power.toFixed(1) + ' kW';
+
+    // Update Battery Visualization
+    const barCurrent = document.getElementById('bat-bar-current');
+    const barTarget = document.getElementById('bat-bar-target');
+    const barRemaining = document.getElementById('bat-bar-remaining');
+    const pctText = document.getElementById('bat-target-pct-text');
+    const lblCurrent = document.getElementById('bat-lbl-current');
+    const lblTarget = document.getElementById('bat-lbl-target');
+
+    if (barCurrent) barCurrent.style.width = start + '%';
+    if (barTarget) barTarget.style.width = socDiffPct + '%';
+    if (barRemaining) barRemaining.style.width = (100 - end) + '%';
+
+    if (pctText) pctText.textContent = end + '%';
+    if (lblCurrent) lblCurrent.textContent = start + '%';
+    if (lblTarget) lblTarget.textContent = end + '%';
+
+    // Update Conic Donut Chart
+    const donutChart = document.getElementById('donut-chart');
+    const donutCenter = document.getElementById('donut-center-val');
+    const legCharged = document.getElementById('legend-charged-val');
+    const legAdded = document.getElementById('legend-added-val');
+    const legRemaining = document.getElementById('legend-remaining-val');
+
+    if (donutChart) {
+      donutChart.style.background = `conic-gradient(#555555 0% ${start}%, #22C55E ${start}% ${end}%, #E5E7EB ${end}% 100%)`;
+    }
+    if (donutCenter) donutCenter.textContent = socDiffPct + '%';
+    if (legCharged) legCharged.textContent = start + '%';
+    if (legAdded) legAdded.textContent = socDiffPct + '%';
+    if (legRemaining) legRemaining.textContent = (100 - end) + '%';
+  }
+
+  // Inputs <-> Sliders double binding
+  if (capInput && capSlider) {
+    capInput.addEventListener('input', () => { capSlider.value = capInput.value; update(); });
+    capSlider.addEventListener('input', () => { capInput.value = capSlider.value; update(); });
+  }
+
+  if (startInput && startSlider) {
+    startInput.addEventListener('input', () => { startSlider.value = startInput.value; update(); });
+    startSlider.addEventListener('input', () => { startInput.value = startSlider.value; update(); });
+  }
+
+  if (endInput && endSlider) {
+    endInput.addEventListener('input', () => { endSlider.value = endInput.value; update(); });
+    endSlider.addEventListener('input', () => { endInput.value = endSlider.value; update(); });
+  }
+
+  if (powerInput && powerSlider) {
+    powerInput.addEventListener('input', () => { powerSlider.value = powerInput.value; update(); });
+    powerSlider.addEventListener('input', () => { powerInput.value = powerSlider.value; update(); });
+  }
+
+  // Presets
+  capPresets.forEach(btn => {
+    btn.addEventListener('click', () => {
+      capPresets.forEach(b => b.classList.remove('active', 'border-black'));
+      btn.classList.add('active', 'border-black');
+      let val = btn.getAttribute('data-val');
+      if (capSlider) capSlider.value = val;
+      if (capInput) capInput.value = val;
+      update();
+    });
+  });
+
+  powerPresets.forEach(btn => {
+    btn.addEventListener('click', () => {
+      powerPresets.forEach(b => b.classList.remove('active', 'border-black'));
+      btn.classList.add('active', 'border-black');
+      let val = btn.getAttribute('data-val');
+      if (powerSlider) powerSlider.value = val;
+      if (powerInput) powerInput.value = val;
+      update();
+    });
+  });
+
+  update();
+}
+
+function renderEmiCalculatorPage() {
+  const title = "EV Loan & EMI Calculator";
+  const breadcrumbs = ['TOOLS', 'CALCULATORS', 'EMI CALCULATOR'];
+
+  const contentHtml = `
+    <div class="max-w-4xl mx-auto flex flex-col gap-8 pt-6 font-mono text-zinc-900">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/10 border border-[#22C55E]/30 rounded-full mb-3">
+          <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+          <span class="text-[10px] text-[#22C55E] tracking-widest uppercase font-bold">LOAN CALCULATOR</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight">EV EMI & Loan Calculator</h1>
+        <p class="text-sm text-zinc-600 mt-2 max-w-2xl leading-relaxed">Calculate monthly loan installments, down payment, total interest, and tax savings under Section 80EEB for your electric car purchase in India.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 bg-zinc-50 border border-zinc-200 p-6 md:p-8 rounded-2xl flex flex-col gap-6 shadow-sm">
+          
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">On-Road Vehicle Price</label>
+              <span id="emi-price-val" class="text-sm font-bold text-black font-mono">₹15,00,000</span>
+            </div>
+            <input type="range" id="emi-price" min="500000" max="10000000" step="25000" value="1500000" class="w-full accent-black cursor-pointer">
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Down Payment (<span id="emi-down-pct-lbl">20%</span>)</label>
+              <span id="emi-down-val" class="text-sm font-bold text-[#22C55E] font-mono">₹3,00,000</span>
+            </div>
+            <input type="range" id="emi-down-pct" min="10" max="50" step="5" value="20" class="w-full accent-black cursor-pointer">
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Annual Interest Rate (%)</label>
+              <span id="emi-rate-val" class="text-sm font-bold text-black font-mono">8.5%</span>
+            </div>
+            <input type="range" id="emi-rate" min="6.0" max="14.0" step="0.25" value="8.5" class="w-full accent-black cursor-pointer">
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Loan Tenure</label>
+              <span id="emi-tenure-val" class="text-sm font-bold text-black font-mono">5 Years (60 Mos)</span>
+            </div>
+            <input type="range" id="emi-tenure" min="1" max="7" step="1" value="5" class="w-full accent-black cursor-pointer">
+          </div>
+
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col gap-4">
+          <div class="bg-black text-white p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-lg relative overflow-hidden">
+            <div>
+              <span class="text-[9px] text-[#22C55E] uppercase tracking-widest font-bold block mb-1">MONTHLY LOAN EMI</span>
+              <h2 id="emi-out-monthly" class="text-3xl md:text-5xl font-extrabold tracking-tight text-white font-mono">—</h2>
+            </div>
+            <div class="mt-6 pt-4 border-t border-zinc-800 flex flex-col gap-2">
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Principal Loan Amount:</span>
+                <span id="emi-out-principal" class="font-bold text-white font-mono">—</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Total Interest Payable:</span>
+                <span id="emi-out-interest" class="font-bold text-[#22C55E] font-mono">—</span>
+              </div>
+              <div class="flex justify-between text-xs pt-2 border-t border-zinc-800 font-bold">
+                <span class="text-zinc-300">Total Loan Cost:</span>
+                <span id="emi-out-total" class="text-white font-mono">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-zinc-50 border border-zinc-200 p-5 rounded-2xl text-xs text-zinc-700 leading-relaxed">
+            <span class="font-bold text-black block mb-1">🏛️ Section 80EEB Income Tax Benefit:</span>
+            Individual buyers can claim up to ₹1,50,000 per year on EV loan interest, saving up to ₹46,800 in annual income taxes.
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  bindEmiCalculatorLogic();
+}
+
+function bindEmiCalculatorLogic() {
+  const priceInput = document.getElementById('emi-price');
+  const downPctInput = document.getElementById('emi-down-pct');
+  const rateInput = document.getElementById('emi-rate');
+  const tenureInput = document.getElementById('emi-tenure');
+
+  function update() {
+    if (!priceInput) return;
+    let price = parseFloat(priceInput.value) || 1500000;
+    let downPct = parseFloat(downPctInput.value) || 20;
+    let rate = parseFloat(rateInput.value) || 8.5;
+    let tenureYears = parseInt(tenureInput.value, 10) || 5;
+
+    let downAmt = price * (downPct / 100);
+    let principal = price - downAmt;
+    let months = tenureYears * 12;
+    let monthlyRate = rate / 12 / 100;
+
+    let emi = 0;
+    if (monthlyRate > 0) {
+      emi = principal * monthlyRate * (Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    } else {
+      emi = principal / months;
+    }
+
+    let totalPayable = emi * months;
+    let totalInterest = totalPayable - principal;
+
+    const pVal = document.getElementById('emi-price-val');
+    const dPct = document.getElementById('emi-down-pct-lbl');
+    const dVal = document.getElementById('emi-down-val');
+    const rVal = document.getElementById('emi-rate-val');
+    const tVal = document.getElementById('emi-tenure-val');
+
+    if (pVal) pVal.textContent = '₹' + Math.round(price).toLocaleString('en-IN');
+    if (dPct) dPct.textContent = downPct + '%';
+    if (dVal) dVal.textContent = '₹' + Math.round(downAmt).toLocaleString('en-IN');
+    if (rVal) rVal.textContent = rate.toFixed(2) + '%';
+    if (tVal) tVal.textContent = tenureYears + ' Years (' + months + ' Mos)';
+
+    const oM = document.getElementById('emi-out-monthly');
+    const oP = document.getElementById('emi-out-principal');
+    const oI = document.getElementById('emi-out-interest');
+    const oT = document.getElementById('emi-out-total');
+
+    if (oM) oM.textContent = '₹' + Math.round(emi).toLocaleString('en-IN');
+    if (oP) oP.textContent = '₹' + Math.round(principal).toLocaleString('en-IN');
+    if (oI) oI.textContent = '₹' + Math.round(totalInterest).toLocaleString('en-IN');
+    if (oT) oT.textContent = '₹' + Math.round(totalPayable).toLocaleString('en-IN');
+  }
+
+  if (priceInput) priceInput.addEventListener('input', update);
+  if (downPctInput) downPctInput.addEventListener('input', update);
+  if (rateInput) rateInput.addEventListener('input', update);
+  if (tenureInput) tenureInput.addEventListener('input', update);
+
+  update();
+}
+
+function renderPetrolSavingsCalculatorPage() {
+  const title = "Petrol vs EV Running Cost & Savings Calculator";
+  const breadcrumbs = ['TOOLS', 'CALCULATORS', 'PETROL SAVINGS CALCULATOR'];
+
+  const contentHtml = `
+    <div class="max-w-4xl mx-auto flex flex-col gap-8 pt-6 font-mono text-zinc-900">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#22C55E]/10 border border-[#22C55E]/30 rounded-full mb-3">
+          <span class="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
+          <span class="text-[10px] text-[#22C55E] tracking-widest uppercase font-bold">SAVINGS CALCULATOR</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight">Petrol vs EV Savings Calculator</h1>
+        <p class="text-sm text-zinc-600 mt-2 max-w-2xl leading-relaxed">Compare daily running costs, monthly fuel bills, and 5-year net financial savings when switching from a petrol car to an electric vehicle in India.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 bg-zinc-50 border border-zinc-200 p-6 md:p-8 rounded-2xl flex flex-col gap-6 shadow-sm">
+          
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Daily Commute Distance</label>
+              <span id="sav-dist-val" class="text-sm font-bold text-black font-mono">45 km / day</span>
+            </div>
+            <input type="range" id="sav-dist" min="10" max="200" step="5" value="45" class="w-full accent-black cursor-pointer">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex flex-col gap-2">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Petrol Mileage (km/L)</label>
+              <input type="number" id="sav-petrol-mileage" value="14" min="5" max="30" class="bg-white border border-zinc-200 text-black text-xs p-3 font-mono rounded-xl">
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Petrol Price (₹ / L)</label>
+              <input type="number" id="sav-petrol-price" value="102" min="50" max="150" class="bg-white border border-zinc-200 text-black text-xs p-3 font-mono rounded-xl">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex flex-col gap-2">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">EV Efficiency (km/kWh)</label>
+              <input type="number" id="sav-ev-eff" value="7.5" step="0.5" min="3" max="15" class="bg-white border border-zinc-200 text-black text-xs p-3 font-mono rounded-xl">
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">EV Electricity Tariff (₹/kWh)</label>
+              <input type="number" id="sav-ev-tariff" value="7.5" step="0.5" min="1" max="30" class="bg-white border border-zinc-200 text-black text-xs p-3 font-mono rounded-xl">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col gap-4">
+          <div class="bg-black text-white p-6 md:p-8 rounded-2xl flex flex-col justify-between shadow-lg relative overflow-hidden">
+            <div>
+              <span class="text-[9px] text-[#22C55E] uppercase tracking-widest font-bold block mb-1">ANNUAL FUEL SAVINGS</span>
+              <h2 id="sav-out-annual" class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#22C55E] font-mono">—</h2>
+            </div>
+            <div class="mt-6 pt-4 border-t border-zinc-800 flex flex-col gap-2">
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Monthly Fuel Bill (Petrol):</span>
+                <span id="sav-out-petrol-monthly" class="font-bold text-red-400 font-mono">—</span>
+              </div>
+              <div class="flex justify-between text-xs">
+                <span class="text-zinc-400">Monthly Power Bill (EV):</span>
+                <span id="sav-out-ev-monthly" class="font-bold text-[#22C55E] font-mono">—</span>
+              </div>
+              <div class="flex justify-between text-xs pt-2 border-t border-zinc-800 font-bold text-base">
+                <span class="text-white">5-Year Total Savings:</span>
+                <span id="sav-out-5yr" class="text-[#22C55E] font-mono">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  bindPetrolSavingsCalculatorLogic();
+}
+
+function bindPetrolSavingsCalculatorLogic() {
+  const distInput = document.getElementById('sav-dist');
+  const petrolMileage = document.getElementById('sav-petrol-mileage');
+  const petrolPrice = document.getElementById('sav-petrol-price');
+  const evEff = document.getElementById('sav-ev-eff');
+  const evTariff = document.getElementById('sav-ev-tariff');
+
+  function update() {
+    if (!distInput) return;
+    let dist = parseFloat(distInput.value) || 45;
+    let pm = parseFloat(petrolMileage.value) || 14;
+    let pp = parseFloat(petrolPrice.value) || 102;
+    let ee = parseFloat(evEff.value) || 7.5;
+    let et = parseFloat(evTariff.value) || 7.5;
+
+    const dVal = document.getElementById('sav-dist-val');
+    if (dVal) dVal.textContent = dist + ' km / day';
+
+    let dailyPetrolLiters = dist / pm;
+    let dailyPetrolCost = dailyPetrolLiters * pp;
+    let monthlyPetrol = dailyPetrolCost * 30;
+
+    let dailyEvKwh = dist / ee;
+    let dailyEvCost = dailyEvKwh * et;
+    let monthlyEv = dailyEvCost * 30;
+
+    let monthlySavings = monthlyPetrol - monthlyEv;
+    let annualSavings = monthlySavings * 12;
+    let fiveYrSavings = annualSavings * 5;
+
+    const oA = document.getElementById('sav-out-annual');
+    const oPM = document.getElementById('sav-out-petrol-monthly');
+    const oEM = document.getElementById('sav-out-ev-monthly');
+    const o5 = document.getElementById('sav-out-5yr');
+
+    if (oA) oA.textContent = '₹' + Math.round(annualSavings).toLocaleString('en-IN');
+    if (oPM) oPM.textContent = '₹' + Math.round(monthlyPetrol).toLocaleString('en-IN');
+    if (oEM) oEM.textContent = '₹' + Math.round(monthlyEv).toLocaleString('en-IN');
+    if (o5) o5.textContent = '₹' + Math.round(fiveYrSavings).toLocaleString('en-IN');
+  }
+
+  if (distInput) distInput.addEventListener('input', update);
+  if (petrolMileage) petrolMileage.addEventListener('input', update);
+  if (petrolPrice) petrolPrice.addEventListener('input', update);
+  if (evEff) evEff.addEventListener('input', update);
+  if (evTariff) evTariff.addEventListener('input', update);
+
+  update();
+}
+
+function renderChargingStationsPage() {
+  const title = "Find EV Charging Stations";
+  const breadcrumbs = ['TOOLS', 'UTILITIES', 'CHARGING STATIONS'];
+
+  const contentHtml = `
+    <div class="max-w-6xl mx-auto flex flex-col gap-8 pt-6 font-sans text-zinc-900">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight">Find EV Charging Stations</h1>
+        <p class="text-xs md:text-sm text-zinc-600 mt-2 leading-relaxed">Locate nearby AC and DC fast charging stations across India.</p>
+      </div>
+
+      <!-- Search Bar & Action Buttons -->
+      <div class="max-w-3xl mx-auto w-full flex flex-col sm:flex-row items-center gap-3">
+        <input type="text" id="station-search-input" placeholder="Search city, locality, or pincode..." class="w-full bg-zinc-50 border border-zinc-300 text-black text-sm p-4 rounded-full outline-none focus:border-black transition-all font-mono">
+        <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto">
+          <button id="btn-search-stations" class="w-full sm:w-auto px-6 py-4 bg-black text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:bg-zinc-800 transition-all">SEARCH</button>
+          <button id="btn-use-location" class="w-full sm:w-auto px-6 py-4 border border-zinc-300 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:border-black transition-all">USE MY LOCATION</button>
+          <button id="btn-all-stations" class="w-full sm:w-auto px-6 py-4 bg-[#22C55E] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:bg-emerald-600 transition-all">ALL STATIONS</button>
         </div>
       </div>
 
-      <div id="brand-vehicles-container" class="mt-8 flex flex-col gap-12">
-        ${typeFilter !== 'upcoming' ? `
-          <div>
-            <div class="text-left mb-4 border-b border-zinc-100 pb-2">
-              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.2em] uppercase">NOW RUNNING IN INDIA</span>
-              <h2 class="text-lg font-bold uppercase tracking-wide text-black">Available Electric Vehicles</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              ${availableGridHtml}
-            </div>
-          </div>
-        ` : ''}
+      <!-- Filter Checkboxes -->
+      <div class="flex flex-wrap items-center justify-center gap-3 font-mono text-xs text-zinc-700">
+        <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">FILTER:</span>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
+          <input type="checkbox" id="chk-ac" class="accent-black"> AC
+        </label>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
+          <input type="checkbox" id="chk-dc" checked class="accent-black"> DC Fast
+        </label>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
+          <input type="checkbox" id="chk-ccs2" checked class="accent-black"> CCS2
+        </label>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
+          <input type="checkbox" id="chk-type2" class="accent-black"> Type 2
+        </label>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
+          <input type="checkbox" id="chk-chademo" class="accent-black"> CHAdeMO
+        </label>
+        <label class="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-[#22C55E]/40 bg-[#22C55E]/10 text-black font-bold rounded-full cursor-pointer">
+          <input type="checkbox" id="chk-available" checked class="accent-[#22C55E]"> • Available Now
+        </label>
+      </div>
 
-        ${typeFilter !== 'available' ? `
-          <div>
-            <div class="text-left mb-4 border-b border-zinc-100 pb-2">
-              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.2em] uppercase">FUTURE LAUNCH ROADMAP</span>
-              <h2 class="text-lg font-bold uppercase tracking-wide text-black">Upcoming Electric Vehicles</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              ${upcomingGridHtml}
-            </div>
+      <!-- MAIN SPLIT VIEW (LEFT STATIONS LIST / RIGHT INTERACTIVE MAP) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start min-h-[500px]">
+        
+        <!-- Left Side (Initial Placeholder or Searched Station Cards) -->
+        <div class="lg:col-span-5 flex flex-col gap-4 min-h-[480px]" id="station-results-container">
+          <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-12 flex flex-col items-center justify-center text-center h-full min-h-[480px]">
+            <div class="w-12 h-12 rounded-full bg-zinc-200 flex items-center justify-center text-xl text-zinc-500 mb-3">🔌</div>
+            <p class="text-xs text-zinc-500 font-mono">Enter a city name above to find charging stations.</p>
           </div>
-        ` : ''}
+        </div>
+
+        <!-- Right Side (Interactive Leaflet Map) -->
+        <div class="lg:col-span-7 border border-zinc-200 rounded-3xl overflow-hidden shadow-sm h-[480px] sticky top-20 bg-zinc-100 relative">
+          <div id="leaflet-map" class="w-full h-full z-10"></div>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  bindChargingStationsLogic();
+}
+
+function bindChargingStationsLogic() {
+  const CITY_COORDS = {
+    'delhi': { lat: 28.6139, lng: 77.2090, name: 'Delhi NCR' },
+    'mumbai': { lat: 19.0760, lng: 72.8777, name: 'Mumbai' },
+    'bengaluru': { lat: 12.9716, lng: 77.5946, name: 'Bengaluru' },
+    'hyderabad': { lat: 17.3850, lng: 78.4867, name: 'Hyderabad' },
+    'chennai': { lat: 13.0827, lng: 80.2707, name: 'Chennai' },
+    'pune': { lat: 18.5204, lng: 73.8567, name: 'Pune' },
+    'kolkata': { lat: 22.5726, lng: 88.3639, name: 'Kolkata' }
+  };
+
+  const STATIONS_DB = [
+    { name: 'Tata Power Fast Charger - Select CITYWALK', city: 'delhi', cpo: 'Tata Power', power: '60 kW DC CCS2', location: 'Saket, New Delhi', status: 'Available', tariff: '₹18/kWh', lat: 28.5284, lng: 77.2190 },
+    { name: 'Jio-bp Pulse Station - BKC Hub', city: 'mumbai', cpo: 'Jio-bp', power: '120 kW Dual Gun DC', location: 'Bandra Kurla Complex, Mumbai', status: 'Available', tariff: '₹20/kWh', lat: 19.0657, lng: 72.8687 },
+    { name: 'ChargeZone Highway Hub - Expressway', city: 'bengaluru', cpo: 'ChargeZone', power: '60 kW DC Dual', location: 'Bengaluru-Mysuru Expressway, Bidadi', status: 'Available', tariff: '₹19/kWh', lat: 12.7981, lng: 77.3878 },
+    { name: 'Statiq Charging Hub - Cyber City', city: 'delhi', cpo: 'Statiq', power: '60 kW DC + 22 kW AC', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895 },
+    { name: 'Tata Power EZ Charger - Express Avenue', city: 'chennai', cpo: 'Tata Power', power: '50 kW DC CCS2', location: 'Royapettah, Chennai', status: 'Available', tariff: '₹17.5/kWh', lat: 13.0587, lng: 80.2642 },
+    { name: 'Jio-bp Pulse Hub - Gachibowli', city: 'hyderabad', cpo: 'Jio-bp', power: '120 kW Fast Charger', location: 'Financial District, Gachibowli', status: 'Available', tariff: '₹19/kWh', lat: 17.4401, lng: 78.3489 },
+    { name: 'ChargeZone Fast Station - Pune Toll', city: 'pune', cpo: 'ChargeZone', power: '60 kW DC CCS2', location: 'Mumbai-Pune Expressway, Urse Toll', status: 'Available', tariff: '₹21/kWh', lat: 18.7180, lng: 73.6520 }
+  ];
+
+  const searchInput = document.getElementById('station-search-input');
+  const btnSearch = document.getElementById('btn-search-stations');
+  const btnLocate = document.getElementById('btn-use-location');
+  const resultsContainer = document.getElementById('station-results-container');
+
+  let map = null;
+  let markersGroup = null;
+
+  function initMap() {
+    if (typeof L === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      script.onload = () => { setupLeaflet(); };
+      document.head.appendChild(script);
+    } else {
+      setupLeaflet();
+    }
+  }
+
+  function setupLeaflet() {
+    const mapEl = document.getElementById('leaflet-map');
+    if (!mapEl) return;
+
+    map = L.map('leaflet-map').setView([20.5937, 78.9629], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    markersGroup = L.layerGroup().addTo(map);
+  }
+
+  function searchCity(query) {
+    if (!query) return;
+    const cleanQuery = query.toLowerCase().trim();
+    let matchedCityKey = Object.keys(CITY_COORDS).find(k => cleanQuery.includes(k) || CITY_COORDS[k].name.toLowerCase().includes(cleanQuery));
+
+    if (!matchedCityKey) {
+      matchedCityKey = 'delhi'; // default fallback
+    }
+
+    const cityData = CITY_COORDS[matchedCityKey];
+    if (map && cityData) {
+      map.setView([cityData.lat, cityData.lng], 11);
+    }
+
+    const cityStations = STATIONS_DB.filter(s => s.city === matchedCityKey);
+    
+    // Render markers
+    if (markersGroup && map) {
+      markersGroup.clearLayers();
+      cityStations.forEach(s => {
+        L.marker([s.lat, s.lng])
+          .addTo(markersGroup)
+          .bindPopup(`<b>${s.name}</b><br>${s.power}<br>${s.tariff}`);
+      });
+    }
+
+    // Render left side cards
+    if (resultsContainer) {
+      if (cityStations.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-8 text-center text-xs font-mono text-zinc-500">
+            No charging stations found in "${query}". Try searching Delhi, Mumbai, Bengaluru, Hyderabad, Chennai, or Pune.
+          </div>
+        `;
+      } else {
+        resultsContainer.innerHTML = `
+          <div class="flex flex-col gap-4">
+            <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">${cityStations.length} STATIONS FOUND IN ${cityData.name.toUpperCase()}</span>
+            ${cityStations.map(s => `
+              <div class="border border-zinc-200 bg-white p-5 rounded-2xl flex flex-col justify-between hover:border-black transition-all shadow-xs">
+                <div>
+                  <div class="flex items-center justify-between border-b border-zinc-150 pb-2 mb-2">
+                    <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo}</span>
+                    <span class="text-[9px] text-[#22C55E] font-bold uppercase tracking-wider flex items-center gap-1 font-mono">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span> ${s.status}
+                    </span>
+                  </div>
+                  <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name}</h3>
+                  <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location}</p>
+                  <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
+                    <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power}</strong></div>
+                    <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff}</strong></div>
+                  </div>
+                </div>
+                <a href="https://maps.google.com/?q=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" rel="noopener" class="mt-3 py-2 bg-black text-white text-[10px] font-mono font-bold uppercase tracking-wider text-center rounded-xl hover:bg-zinc-800 transition-all block">
+                  NAVIGATE VIA MAPS ➔
+                </a>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+  }
+
+  if (btnSearch) {
+    btnSearch.addEventListener('click', () => {
+      searchCity(searchInput ? searchInput.value : '');
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        searchCity(searchInput.value);
+      }
+    });
+  }
+
+  if (btnLocate) {
+    btnLocate.addEventListener('click', () => {
+      if (searchInput) searchInput.value = 'Delhi NCR';
+      searchCity('Delhi NCR');
+    });
+  }
+
+  const btnAll = document.getElementById('btn-all-stations');
+  if (btnAll) {
+    btnAll.addEventListener('click', () => {
+      if (searchInput) searchInput.value = 'All Stations (India)';
+      if (map) map.setView([20.5937, 78.9629], 5);
+      if (markersGroup && map) {
+        markersGroup.clearLayers();
+        STATIONS_DB.forEach(s => {
+          L.marker([s.lat, s.lng])
+            .addTo(markersGroup)
+            .bindPopup(`<b>${s.name}</b><br>${s.power}<br>${s.tariff}`);
+        });
+      }
+      if (resultsContainer) {
+        resultsContainer.innerHTML = `
+          <div class="flex flex-col gap-4">
+            <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">ALL ${STATIONS_DB.length} FAST CHARGING STATIONS IN INDIA</span>
+            ${STATIONS_DB.map(s => `
+              <div class="border border-zinc-200 bg-white p-5 rounded-2xl flex flex-col justify-between hover:border-black transition-all shadow-xs">
+                <div>
+                  <div class="flex items-center justify-between border-b border-zinc-150 pb-2 mb-2">
+                    <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo}</span>
+                    <span class="text-[9px] text-[#22C55E] font-bold uppercase tracking-wider flex items-center gap-1 font-mono">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span> ${s.status}
+                    </span>
+                  </div>
+                  <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name}</h3>
+                  <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location}</p>
+                  <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
+                    <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power}</strong></div>
+                    <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff}</strong></div>
+                  </div>
+                </div>
+                <a href="https://maps.google.com/?q=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" rel="noopener" class="mt-3 py-2 bg-black text-white text-[10px] font-mono font-bold uppercase tracking-wider text-center rounded-xl hover:bg-zinc-800 transition-all block">
+                  NAVIGATE VIA MAPS ➔
+                </a>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    });
+  }
+
+  initMap();
+}
+
+function renderResourcePage(slug, article) {
+  const breadcrumbs = ['RESOURCES', article.title];
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
+      <a href="/" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Home</a>
+      <div>
+        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
+      </div>
+      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
+        ${article.content}
+      </div>
+      <div class="border-t border-zinc-200 pt-6 mt-6">
+        <a href="/" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Home</a>
+      </div>
+    </div>
+  `;
+  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
+}
+
+// --- Blog Article Page ---
+function renderBlogArticlePage(article) {
+  const breadcrumbs = ['BLOG', article.title];
+  const contentHtml = `
+    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
+      <a href="/#home" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Home</a>
+      <div>
+        <div class="flex items-center gap-2 text-[8px] font-mono text-zinc-400 uppercase tracking-wider mb-3">
+          <span>${article.date}</span>
+          <span>·</span>
+          <span>${article.author}</span>
+        </div>
+        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
+        <p class="text-sm text-zinc-500 font-mono mt-2">${article.excerpt}</p>
+      </div>
+      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
+        ${article.content}
+      </div>
+    </div>
+  `;
+  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
+}
+
+
+
+
+
+
+// Global Event Delegation for Car Cards & View Details Buttons across all pages
+document.addEventListener('click', (e) => {
+  const wishlistBtn = e.target.closest('.wishlist-btn');
+  if (wishlistBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const carId = wishlistBtn.getAttribute('data-id');
+    if (carId && typeof toggleWishlist === 'function') toggleWishlist(carId);
+    return;
+  }
+
+  const viewDetailsBtn = e.target.closest('.btn-view-details, [data-related-view]');
+  if (viewDetailsBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const carId = viewDetailsBtn.getAttribute('data-id');
+    if (carId) openCarDetails(carId);
+    return;
+  }
+
+  const carCard = e.target.closest('.car-card');
+  if (carCard) {
+    const btn = carCard.querySelector('.btn-view-details');
+    if (btn) {
+      const carId = btn.getAttribute('data-id');
+      if (carId) {
+        e.preventDefault();
+        openCarDetails(carId);
+      }
+    }
+  }
+});
+
+
+// Close mega-menu dropdowns and navigate on mega-item click
+document.addEventListener('click', (e) => {
+  const megaItem = e.target.closest('.mega-item, .mobile-sub-link');
+  if (megaItem) {
+    const href = megaItem.getAttribute('href');
+    // Hide all mega panels
+    document.querySelectorAll('.mega-panel').forEach(panel => panel.classList.add('hidden'));
+    document.querySelectorAll('.mega-trigger').forEach(trigger => trigger.classList.remove('active'));
+    
+    // Close mobile drawer if open
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    if (mobileDrawer) mobileDrawer.classList.add('hidden');
+
+    if (href && href.startsWith('#')) {
+      window.location.hash = href;
+    }
+  }
+});
+
+
+function renderComparePage(carIdA = 'nexon-ev', carIdB = 'mg-zs-ev') {
+  if (!EV_DATABASE || EV_DATABASE.length === 0) return;
+
+  const title = 'Compare Electric Vehicles';
+  const breadcrumbs = ['TOOLS', 'COMPARE EVs'];
+
+  const carOptionsHtml = EV_DATABASE.map(c => 
+    `<option value="${c.id}">${c.brand} ${c.name} (₹${(c.price_min / 100000).toFixed(2)}L - ₹${(c.price_max / 100000).toFixed(2)}L)</option>`
+  ).join('');
+
+  const contentHtml = `
+    <div class="border-b border-zinc-200 pb-6 mb-8">
+      <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block mb-2">VEHICLE COMPARISON TOOL</span>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight text-black leading-tight uppercase">Compare Electric Vehicles</h1>
+      <p class="text-xs md:text-sm text-zinc-600 font-mono leading-relaxed mt-2 max-w-2xl">Compare specifications, real-world range, charging speeds, battery tech, and pricing side-by-side.</p>
+    </div>
+
+    <!-- Selectors -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-zinc-50 border border-zinc-200 p-6 rounded-2xl mb-8">
+      <div>
+        <label class="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-600 mb-2">Select Vehicle 1</label>
+        <select id="compare-select-1" class="w-full bg-white border border-zinc-300 rounded-xl px-4 py-3 text-xs font-mono font-bold text-black focus:outline-none focus:border-black shadow-xs">
+          ${carOptionsHtml}
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-mono font-bold uppercase tracking-wider text-zinc-600 mb-2">Select Vehicle 2</label>
+        <select id="compare-select-2" class="w-full bg-white border border-zinc-300 rounded-xl px-4 py-3 text-xs font-mono font-bold text-black focus:outline-none focus:border-black shadow-xs">
+          ${carOptionsHtml}
+        </select>
+      </div>
+    </div>
+
+    <!-- Dynamic Comparison Table Container -->
+    <div id="compare-dynamic-table" class="min-h-[400px]"></div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+
+  const select1 = document.getElementById('compare-select-1');
+  const select2 = document.getElementById('compare-select-2');
+
+  if (select1) select1.value = carIdA;
+  if (select2) select2.value = carIdB;
+
+  function updateTable() {
+    const idA = select1 ? select1.value : carIdA;
+    const idB = select2 ? select2.value : carIdB;
+    const carA = EV_DATABASE.find(c => c.id === idA) || EV_DATABASE[0];
+    const carB = EV_DATABASE.find(c => c.id === idB) || EV_DATABASE[1] || EV_DATABASE[0];
+
+    const tableContainer = document.getElementById('compare-dynamic-table');
+    if (!tableContainer) return;
+
+    tableContainer.innerHTML = `
+      <!-- Comparison Cards Header -->
+      <div class="grid grid-cols-2 gap-4 md:gap-8 mb-8">
+        <!-- Car 1 -->
+        <div class="border border-zinc-200 bg-white rounded-2xl p-4 md:p-6 text-center shadow-xs">
+          <div class="w-full aspect-[16/10] bg-zinc-100 rounded-xl overflow-hidden mb-4">
+            <img src="${carA.image}" alt="${carA.name}" class="w-full h-full object-cover">
+          </div>
+          <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest">${carA.brand}</span>
+          <h3 class="text-lg md:text-2xl font-black uppercase text-black mt-1">${carA.name}</h3>
+          <p class="text-xs md:text-sm font-mono text-[#22C55E] font-bold mt-2">₹${(carA.price_min / 100000).toFixed(2)}L - ₹${(carA.price_max / 100000).toFixed(2)}L</p>
+        </div>
+
+        <!-- Car 2 -->
+        <div class="border border-zinc-200 bg-white rounded-2xl p-4 md:p-6 text-center shadow-xs">
+          <div class="w-full aspect-[16/10] bg-zinc-100 rounded-xl overflow-hidden mb-4">
+            <img src="${carB.image}" alt="${carB.name}" class="w-full h-full object-cover">
+          </div>
+          <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest">${carB.brand}</span>
+          <h3 class="text-lg md:text-2xl font-black uppercase text-black mt-1">${carB.name}</h3>
+          <p class="text-xs md:text-sm font-mono text-[#22C55E] font-bold mt-2">₹${(carB.price_min / 100000).toFixed(2)}L - ₹${(carB.price_max / 100000).toFixed(2)}L</p>
+        </div>
+      </div>
+
+      <!-- Comparison Specs Table -->
+      <div class="border border-zinc-200 rounded-2xl overflow-hidden shadow-xs bg-white font-mono text-xs">
+        <div class="bg-zinc-100 p-4 font-bold uppercase tracking-wider text-black text-xs border-b border-zinc-200">
+          ⚡ Battery & Performance Specs
+        </div>
+        
+        <div class="divide-y divide-zinc-150">
+          <div class="grid grid-cols-3 p-4 items-center">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Battery Capacity</span>
+            <span class="text-black font-bold text-center">${carA.battery_capacity || '30.2'} kWh</span>
+            <span class="text-black font-bold text-center">${carB.battery_capacity || '50.3'} kWh</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center bg-zinc-50/50">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Claimed Range (MIDC)</span>
+            <span class="text-black font-bold text-center">${carA.range_midc || carA.range || '325'} km</span>
+            <span class="text-black font-bold text-center">${carB.range_midc || carB.range || '461'} km</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Real World Range</span>
+            <span class="text-black font-bold text-center">${carA.real_world_range || '240'} km</span>
+            <span class="text-black font-bold text-center">${carB.real_world_range || '340'} km</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center bg-zinc-50/50">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Max Power</span>
+            <span class="text-black font-bold text-center">${carA.power || '129'} PS</span>
+            <span class="text-black font-bold text-center">${carB.power || '176'} PS</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Max Torque</span>
+            <span class="text-black font-bold text-center">${carA.torque || '245'} Nm</span>
+            <span class="text-black font-bold text-center">${carB.torque || '280'} Nm</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center bg-zinc-50/50">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">0–100 km/h</span>
+            <span class="text-black font-bold text-center">${carA.acceleration || '8.9'} s</span>
+            <span class="text-black font-bold text-center">${carB.acceleration || '8.5'} s</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">DC Fast Charge (10-80%)</span>
+            <span class="text-black font-bold text-center">${carA.dc_charging_time || '56 min (50kW)'}</span>
+            <span class="text-black font-bold text-center">${carB.dc_charging_time || '42 min (50kW)'}</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center bg-zinc-50/50">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Battery Chemistry</span>
+            <span class="text-black font-bold text-center">${carA.battery_type || 'LFP'}</span>
+            <span class="text-black font-bold text-center">${carB.battery_type || 'LFP'}</span>
+          </div>
+
+          <div class="grid grid-cols-3 p-4 items-center">
+            <span class="text-zinc-500 font-bold uppercase text-[10px]">Warranty</span>
+            <span class="text-black font-bold text-center">${carA.battery_warranty || '8 Yrs / 1,60,000 km'}</span>
+            <span class="text-black font-bold text-center">${carB.battery_warranty || '8 Yrs / 1,60,000 km'}</span>
+          </div>
+        </div>
       </div>
     `;
   }
 
-  function render() {
-    const contentHtml = generateBrandContentHtml();
-    
-    renderSubpage(brandName, breadcrumbs, contentHtml, '/');
-    
-    const searchInp = document.getElementById('brand-search-input');
-    const typeFilt = document.getElementById('brand-type-filter');
-    const sortSel = document.getElementById('brand-sort-select');
+  if (select1) select1.addEventListener('change', updateTable);
+  if (select2) select2.addEventListener('change', updateTable);
 
-    if (searchInp) {
-      searchInp.addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        updateBrandListOnly();
-      });
-    }
-
-    if (typeFilt) {
-      typeFilt.addEventListener('change', (e) => {
-        typeFilter = e.target.value;
-        render();
-      });
-    }
-
-    if (sortSel) {
-      sortSel.addEventListener('change', (e) => {
-        sortBy = e.target.value;
-        updateBrandListOnly();
-      });
-    }
-
-    attachCardEvents();
-    const brandContainer = document.getElementById('brand-vehicles-container');
-    if (brandContainer) brandContainer.classList.add('revealed');
-  }
-
-  function updateBrandListOnly() {
-    const container = document.getElementById('brand-vehicles-container');
-    if (container) {
-      const brandCars = EV_DATABASE.filter(car => normalizeBrandId(car.brand) === normalizedBrandKey);
-      
-      const filteredCars = brandCars.filter(car => {
-        const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              car.features.toLowerCase().includes(searchQuery.toLowerCase());
-        
-        let matchesBudget = true;
-        if (budgetFilter === '20') matchesBudget = car.priceVal < 20;
-        else if (budgetFilter === '50') matchesBudget = car.priceVal >= 20 && car.priceVal <= 50;
-        else if (budgetFilter === 'above') matchesBudget = car.priceVal > 50;
-
-        let matchesBody = true;
-        if (bodyFilter && bodyFilter !== 'all') matchesBody = BODY_TYPE_MAP[car.id] === bodyFilter;
-
-        const isUpcoming = car.sections && car.sections.includes('upcoming');
-        const matchesType = typeFilter === 'all' || 
-                            (typeFilter === 'available' && !isUpcoming) || 
-                            (typeFilter === 'upcoming' && isUpcoming);
-        
-        return matchesSearch && matchesType && matchesBudget && matchesBody;
-      });
-
-      filteredCars.sort((a, b) => {
-        if (sortBy === 'price-asc') return a.priceVal - b.priceVal;
-        if (sortBy === 'price-desc') return b.priceVal - a.priceVal;
-        if (sortBy === 'range-desc') return b.rangeVal - a.rangeVal;
-        if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
-        return 0;
-      });
-
-      const availableCars = filteredCars.filter(c => !c.sections.includes('upcoming'));
-      const upcomingCars = filteredCars.filter(c => c.sections.includes('upcoming'));
-
-      let availableGridHtml = '';
-      if (availableCars.length > 0) {
-        availableCars.forEach(car => {
-          availableGridHtml += createCarCardHtml(car, 'w-full');
-        });
-      } else {
-        availableGridHtml = `<div class="col-span-full py-12 text-center text-zinc-400 font-mono text-xs">NO VEHICLES AVAILABLE</div>`;
-      }
-
-      let upcomingGridHtml = '';
-      if (upcomingCars.length > 0) {
-        upcomingCars.forEach(car => {
-          upcomingGridHtml += createCarCardHtml(car, 'w-full');
-        });
-      } else {
-        upcomingGridHtml = `<div class="col-span-full py-12 text-center text-zinc-400 font-mono text-xs">NO UPCOMING VEHICLES PLANNED</div>`;
-      }
-
-      container.innerHTML = `
-        ${typeFilter !== 'upcoming' ? `
-          <div>
-            <div class="text-left mb-4 border-b border-zinc-100 pb-2">
-              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.2em] uppercase">NOW RUNNING IN INDIA</span>
-              <h2 class="text-lg font-bold uppercase tracking-wide text-black">Available Electric Vehicles</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              ${availableGridHtml}
-            </div>
-          </div>
-        ` : ''}
-
-        ${typeFilter !== 'available' ? `
-          <div>
-            <div class="text-left mb-4 border-b border-zinc-100 pb-2">
-              <span class="font-mono text-[9px] text-zinc-500 tracking-[0.2em] uppercase">FUTURE LAUNCH ROADMAP</span>
-              <h2 class="text-lg font-bold uppercase tracking-wide text-black">Upcoming Electric Vehicles</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              ${upcomingGridHtml}
-            </div>
-          </div>
-        ` : ''}
-      `;
-      container.classList.add('revealed');
-      attachCardEvents();
-    }
-  }
-
-  render();
+  updateTable();
 }
 
-let isHighlighting = false;
-function highlightElectricWord(rootElement = document.body) {
-  if (isHighlighting) return;
-  isHighlighting = true;
-  
-  try {
-    const walker = document.createTreeWalker(
-      rootElement,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: function(node) {
-          // Reject if inside Hero section (id="home")
-          let parent = node.parentElement;
-          while (parent) {
-            if (parent.id === 'home' || 
-                parent.tagName === 'SCRIPT' || 
-                parent.tagName === 'STYLE' || 
-                parent.tagName === 'TITLE' || 
-                parent.tagName === 'SELECT' || 
-                parent.tagName === 'OPTION' || 
-                parent.tagName === 'INPUT' || 
-                parent.tagName === 'TEXTAREA') {
-              return NodeFilter.FILTER_REJECT;
-            }
-            parent = parent.parentElement;
-          }
-          
-          // Reject if already highlighted
-          if (node.parentElement && node.parentElement.classList.contains('electric-highlight')) {
-            return NodeFilter.FILTER_REJECT;
-          }
-          
-          // Only highlight if inside a heading tag (H1-H6)
-          let isInsideHeading = false;
-          let p = node.parentElement;
-          while (p) {
-            if (/^H[1-6]$/i.test(p.tagName)) {
-              isInsideHeading = true;
-              break;
-            }
-            p = p.parentElement;
-          }
-          if (!isInsideHeading) return NodeFilter.FILTER_REJECT;
-          
-          return /\bElectric\b/.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-        }
-      }
-    );
 
-    const nodes = [];
-    while (walker.nextNode()) {
-      nodes.push(walker.currentNode);
+// Universal HOME button & Logo click listener
+document.addEventListener('click', (e) => {
+  const homeTarget = e.target.closest('.logo-link, [data-section="home"], a[href="/"], a[href="#home"], a[href="#/"], a[href="index.html"]');
+  if (homeTarget) {
+    const homeEl = document.getElementById('homepage-content');
+    if (!homeEl || window.location.pathname.includes('compare')) {
+      window.location.href = '/';
+      return;
     }
 
-    nodes.forEach(node => {
-      const parent = node.parentNode;
-      if (!parent) return;
+    e.preventDefault();
+    if (typeof closeMegaPanels === 'function') closeMegaPanels();
+    if (typeof closeMobileDrawer === 'function') closeMobileDrawer();
+    
+    // Hide details/subpage containers and show homepage content
+    const detailsEl = document.getElementById('details-page-content');
+    if (detailsEl) detailsEl.classList.add('hidden');
+    if (homeEl) homeEl.classList.remove('hidden');
 
-      const text = node.nodeValue;
-      const parts = text.split(/\bElectric\b/);
-      
-      const fragment = document.createDocumentFragment();
-      parts.forEach((part, index) => {
-        if (part) {
-          fragment.appendChild(document.createTextNode(part));
-        }
-        if (index < parts.length - 1) {
-          const span = document.createElement('span');
-          span.className = 'electric-highlight';
-          span.style.color = '#22C55E';
-          span.style.fontWeight = 'inherit';
-          span.textContent = 'Electric';
-          fragment.appendChild(span);
-        }
-      });
-
-      parent.replaceChild(fragment, node);
-    });
-  } catch (err) {
-    console.error("Error highlighting Electric:", err);
-  } finally {
-    isHighlighting = false;
-  }
-}
-
-function initElectricHighlightObserver() {
-  // Highlight initial DOM
-  highlightElectricWord();
-  
-  // Set up MutationObserver to watch for additions/updates
-  const observer = new MutationObserver((mutations) => {
-    let shouldRun = false;
-    for (let mutation of mutations) {
-      if (mutation.type === 'childList') {
-        for (let addedNode of mutation.addedNodes) {
-          if (addedNode.nodeType === Node.ELEMENT_NODE) {
-            // Check if it is inside Hero
-            if (addedNode.id === 'home' || addedNode.closest('#home')) continue;
-            shouldRun = true;
-            break;
-          }
-        }
-      } else if (mutation.type === 'characterData') {
-        if (mutation.target.parentNode && !mutation.target.parentNode.closest('#home')) {
-          shouldRun = true;
-        }
+    if (window.location.hash) {
+      try {
+        history.pushState('', document.title, window.location.pathname + window.location.search);
+      } catch (err) {
+        window.location.hash = '#/';
       }
-      if (shouldRun) break;
     }
     
-    if (shouldRun) {
-      // Disconnect observer temporarily to prevent infinite loop
-      observer.disconnect();
-      highlightElectricWord();
-      // Re-observe
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
-    }
+    if (typeof restoreHomepage === 'function') restoreHomepage();
+
+    // Instant scroll to top of homepage
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+});
+
+function renderBrandPage(brandId) {
+  if (!EV_DATABASE || EV_DATABASE.length === 0) return;
+  if (!brandId || brandId === 'all') {
+    renderViewAllPage('all');
+    return;
+  }
+
+  const rawBrand = brandId.toLowerCase().trim();
+  const normalizedSearch = rawBrand.replace(/[\s_]+/g, '-');
+
+  const brandNameMap = {
+    'tata': 'Tata Motors', 'mahindra': 'Mahindra Electric', 'hyundai': 'Hyundai', 'mg': 'MG Motor',
+    'kia': 'Kia', 'byd': 'BYD', 'bmw': 'BMW', 'mercedes-benz': 'Mercedes-Benz',
+    'volvo': 'Volvo', 'audi': 'Audi', 'maruti-suzuki': 'Maruti Suzuki', 'maruti': 'Maruti Suzuki',
+    'toyota': 'Toyota', 'honda': 'Honda', 'skoda': 'Skoda',
+    'volkswagen': 'Volkswagen', 'renault': 'Renault', 'nissan': 'Nissan',
+    'citroen': 'Citroën', 'jeep': 'Jeep', 'isuzu': 'Isuzu', 
+    'porsche': 'Porsche', 'vinfast': 'VinFast', 'tesla': 'Tesla',
+    'lexus': 'Lexus', 'ferrari': 'Ferrari', 'genesis': 'Genesis',
+    'lotus': 'Lotus', 'mini': 'MINI', 'pmv': 'PMV', 'pravaig': 'Pravaig', 
+    'vayve': 'Vayve', 'blinq': 'Blinq', 'strom': 'Strom', 'rolls-royce': 'Rolls-Royce'
+  };
+
+  const displayName = brandNameMap[normalizedSearch] || (normalizedSearch.charAt(0).toUpperCase() + normalizedSearch.slice(1).replace(/-/g, ' '));
+
+  // Match cars accurately handling underscores, spaces, and brand name aliases
+  const matchingCars = EV_DATABASE.filter(car => {
+    if (!car.brand) return false;
+    const carB = car.brand.toLowerCase().replace(/[\s_]+/g, '-');
+    if (carB === normalizedSearch) return true;
+    if (carB.includes(normalizedSearch) || normalizedSearch.includes(carB)) return true;
+    if ((normalizedSearch.includes('maruti') || normalizedSearch.includes('suzuki')) && (carB.includes('maruti') || carB.includes('suzuki'))) return true;
+    return false;
   });
-  
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    characterData: true
+
+  // Divide into Available / Launched vs Upcoming (strict partition so no car is missed or duplicated)
+  const upcomingCars = matchingCars.filter(car => {
+    const sec = Array.isArray(car.sections) ? car.sections.join(',') : (car.sections || car.section || '');
+    return sec.includes('upcoming') && !sec.includes('popular') && !sec.includes('launches');
   });
+
+  const availableCars = matchingCars.filter(car => {
+    const sec = Array.isArray(car.sections) ? car.sections.join(',') : (car.sections || car.section || '');
+    return !sec.includes('upcoming') || sec.includes('popular') || sec.includes('launches') || sec.includes('explore');
+  });
+
+  const title = `${displayName} Electric Cars in India`;
+  const breadcrumbs = ['MANUFACTURERS', displayName.toUpperCase()];
+  const logoUrl = typeof getBrandLogoUrl === 'function' ? getBrandLogoUrl(normalizedSearch) : `/LOGOS/${normalizedSearch}.png`;
+
+  let availableGridHtml = '';
+  if (availableCars.length > 0) {
+    availableGridHtml = availableCars.map(car => createCarCardHtml(car, 'w-full')).join('');
+  } else {
+    availableGridHtml = `
+      <div class="col-span-full text-center py-10 bg-zinc-50 rounded-2xl border border-zinc-200">
+        <span class="text-2xl block mb-2">⚡</span>
+        <p class="text-xs font-mono text-zinc-500 uppercase">No models currently on sale in India yet.</p>
+      </div>
+    `;
+  }
+
+  let upcomingGridHtml = '';
+  if (upcomingCars.length > 0) {
+    upcomingGridHtml = upcomingCars.map(car => createCarCardHtml(car, 'w-full')).join('');
+  } else {
+    upcomingGridHtml = `
+      <div class="col-span-full text-center py-10 bg-zinc-50 rounded-2xl border border-zinc-200">
+        <span class="text-2xl block mb-2">🔮</span>
+        <p class="text-xs font-mono text-zinc-500 uppercase">No upcoming launches announced yet for this brand.</p>
+      </div>
+    `;
+  }
+
+  const contentHtml = `
+    <div class="flex flex-col gap-10 pt-4 revealed">
+      <!-- Brand Header Banner -->
+      <div class="border border-zinc-200 bg-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
+        <div class="flex items-center gap-6 text-left">
+          <div class="w-20 h-20 bg-zinc-50 border border-zinc-200 rounded-2xl flex items-center justify-center p-3 flex-shrink-0">
+            <img src="${logoUrl}" alt="${displayName}" class="w-full h-full object-contain" onerror="this.src='/LOGOS/tata.png'">
+          </div>
+          <div>
+            <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block">ELECTRIC VEHICLE MANUFACTURER</span>
+            <h1 class="text-2xl md:text-4xl font-black text-black uppercase tracking-tight mt-1">${displayName} Electric Cars</h1>
+            <p class="text-xs text-zinc-500 font-mono mt-1 font-bold">
+              ${matchingCars.length} ${matchingCars.length === 1 ? 'Total Model' : 'Total Models'} (${availableCars.length} Available, ${upcomingCars.length} Upcoming)
+            </p>
+          </div>
+        </div>
+
+        <a href="#/view-all/brands" class="px-5 py-2.5 border border-zinc-200 hover:border-black font-mono text-[9px] tracking-widest text-zinc-700 hover:text-black uppercase transition-all rounded-lg self-start md:self-auto">
+          ← View All Brands
+        </a>
+      </div>
+
+      <!-- Section 1: Available Cars -->
+      <div>
+        <div class="flex items-center justify-between mb-4 border-b border-zinc-200 pb-3">
+          <span class="font-mono text-[11px] text-black font-extrabold uppercase tracking-wider flex items-center gap-2">
+            <span>⚡</span> AVAILABLE & LAUNCHED MODELS (${availableCars.length})
+          </span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          ${availableGridHtml}
+        </div>
+      </div>
+
+      <!-- Section 2: Upcoming Cars -->
+      <div>
+        <div class="flex items-center justify-between mb-4 border-b border-zinc-200 pb-3">
+          <span class="font-mono text-[11px] text-black font-extrabold uppercase tracking-wider flex items-center gap-2">
+            <span>🔮</span> UPCOMING EV LAUNCHES (${upcomingCars.length})
+          </span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          ${upcomingGridHtml}
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderSubpage(title, breadcrumbs, contentHtml, '/');
+  attachCardEvents();
 }
+
+
+// Universal Brand chip & Brand card click listener
+document.addEventListener('click', (e) => {
+  const brandEl = e.target.closest('.brand-chip, [data-brand], a[href*="/brand/"]');
+  if (brandEl) {
+    let brand = brandEl.getAttribute('data-brand');
+    if (!brand) {
+      const href = brandEl.getAttribute('href');
+      if (href && href.includes('/brand/')) {
+        brand = href.split('/brand/')[1].replace(/^\//, '').split('?')[0].split('#')[0];
+      }
+    }
+    if (brand) {
+      e.preventDefault();
+      navigateTo('/brand/' + brand);
+    }
+  }
+});
+
+
+// Universal Accordion Toggle Listener for Homepage FAQs & Guide Pages
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.accordion-header, .accordion-btn, .accordion-trigger, .mobile-accordion-trigger');
+  if (btn) {
+    e.preventDefault();
+    const item = btn.closest('.accordion-item, .mobile-accordion') || btn.parentElement;
+    if (!item) return;
+
+    const content = item.querySelector('.accordion-content, .mobile-accordion-body');
+    const icon = item.querySelector('.accordion-icon');
+    const chevron = item.querySelector('.accordion-chevron, svg');
+
+    const isOpen = item.classList.contains('open') || item.classList.contains('active') || (content && content.style.maxHeight && content.style.maxHeight !== '0px');
+
+    // Close other items in the same container
+    const parentContainer = item.parentElement;
+    if (parentContainer) {
+      const siblingItems = parentContainer.querySelectorAll('.accordion-item, .mobile-accordion');
+      siblingItems.forEach(sib => {
+        if (sib !== item) {
+          sib.classList.remove('open', 'active');
+          const sibContent = sib.querySelector('.accordion-content, .mobile-accordion-body');
+          const sibIcon = sib.querySelector('.accordion-icon');
+          const sibChevron = sib.querySelector('.accordion-chevron, svg');
+          if (sibContent) {
+            sibContent.classList.add('max-h-0');
+            sibContent.style.maxHeight = '0px';
+          }
+          if (sibIcon) sibIcon.textContent = '+';
+          if (sibChevron) sibChevron.classList.remove('rotate-180');
+        }
+      });
+    }
+
+    if (isOpen) {
+      item.classList.remove('open', 'active');
+      if (content) {
+        content.classList.add('max-h-0');
+        content.style.maxHeight = '0px';
+      }
+      if (icon) icon.textContent = '+';
+      if (chevron) chevron.classList.remove('rotate-180');
+    } else {
+      item.classList.add('open', 'active');
+      if (content) {
+        content.classList.remove('max-h-0');
+        const height = content.scrollHeight > 0 ? content.scrollHeight : 300;
+        content.style.maxHeight = height + 'px';
+      }
+      if (icon) icon.textContent = '−';
+      if (chevron) chevron.classList.add('rotate-180');
+    }
+  }
+});

@@ -478,24 +478,24 @@ button:hover,
 
 /* Hero Section Page Load Sequences */
 .hero-fade-in {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .hero-text-animate {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(-15px);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .hero-search-animate {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(20px);
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .hero-card-animate {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(15px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -2664,4 +2664,28 @@ article li,
   .testimonial-track {
     gap: 14px;
   }
+}
+
+/* =========================================================
+   Global Cursor & Text Selection Rules
+   Prevents text-editing I-beam cursor on headers/text
+   ========================================================= */
+body, h1, h2, h3, h4, h5, h6, p, span, div, nav, header, section, footer, label {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  cursor: default;
+}
+
+/* Allow text selection ONLY in text inputs and textareas */
+input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="number"], textarea, [contenteditable="true"] {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  cursor: text !important;
+}
+
+/* Enforce pointer cursor on all interactive elements & links */
+button, a, .mega-trigger, .nav-link, [role="button"], .cursor-pointer, .brand-chip, .budget-chip, .accordion-header, .accordion-trigger, .accordion-btn, .mobile-accordion-trigger {
+  cursor: pointer !important;
 }
