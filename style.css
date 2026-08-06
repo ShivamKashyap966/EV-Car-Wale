@@ -870,33 +870,38 @@ nav.nav-light-theme #login-nav-btn:hover {
 /* AC & Driving Style toggle buttons */
 .trip-toggle-group {
   display: flex;
-  gap: 0;
+  gap: 8px;
   flex-wrap: wrap;
 }
 .trip-toggle-btn {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
-  padding: 7px 6px;
+  padding: 10px 8px;
   font-family: monospace;
-  font-size: 8.5px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   border: 1px solid #d4d4d8; /* zinc-300 */
-  background: transparent;
+  background: #ffffff;
   color: #71717a;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
 }
-.trip-toggle-btn:not(:last-child) { border-right: none; }
 .trip-toggle-btn.trip-active {
   background: #000000 !important;
   color: #ffffff !important;
   border-color: #000000 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 .trip-toggle-btn:hover:not(.trip-active) {
   border-color: #000000;
   color: #000000;
+  background: #ffffff;
 }
 
 /* Trip stat cards with hover zoom and invert to dark */

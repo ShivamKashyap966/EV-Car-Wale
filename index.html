@@ -80,7 +80,7 @@
     })();
   </script>
 
-  <div id="preloader" class="preloader-hidden" style="display:none;" onclick="this.style.display='none'">
+  <div id="preloader">
     <div class="loader-brand-group">
       <div id="loader-brand"><span class="brand-ev">EV</span> <span class="brand-name">Car Wale</span></div>
       <p id="loader-tagline">Smart Choices. Sustainable Future.</p>
@@ -839,7 +839,7 @@
         <!-- Row 2: AC + Driving Style toggles -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border-t border-zinc-200 pt-6">
           <div class="flex flex-col gap-2">
-            <label class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">AC Usage</label>
+            <label class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest text-center block">AC Usage</label>
             <div class="trip-toggle-group trip-toggle-light" id="trip-ac-group">
               <button class="trip-toggle-btn" data-value="off">Off</button>
               <button class="trip-toggle-btn" data-value="low">Low</button>
@@ -848,7 +848,7 @@
             </div>
           </div>
           <div class="flex flex-col gap-2">
-            <label class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest">Driving Style</label>
+            <label class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest text-center block">Driving Style</label>
             <div class="trip-toggle-group trip-toggle-light" id="trip-style-group">
               <button class="trip-toggle-btn" data-value="eco">Eco</button>
               <button class="trip-toggle-btn" data-value="normal">Normal</button>
@@ -952,6 +952,24 @@
 
     </div>
   </section>
+
+  <!-- Trip Planner Validation Modal -->
+  <div id="trip-alert-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-darkgray border border-zinc-800 w-full max-w-md p-8 relative font-mono text-xs text-zinc-300 shadow-2xl">
+      <button class="absolute top-4 right-4 text-zinc-500 hover:text-white text-base" id="trip-alert-close-x" aria-label="Close">×</button>
+      <div class="w-12 h-12 border border-zinc-700 text-white flex items-center justify-center mb-5">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9.18 6.46 2.5 18a1.5 1.5 0 0 0 1.32 2.25h16.36a1.5 1.5 0 0 0 1.32-2.25L14.82 6.46a1.5 1.5 0 0 0-2.64 0Z"/><path d="M12 10v4"/><path d="M12 17h.01"/>
+        </svg>
+      </div>
+      <span class="text-[8px] text-zinc-500 uppercase tracking-widest font-semibold block mb-2">TRIP PLANNER</span>
+      <h4 class="text-white font-bold text-base mb-2 tracking-tight">Vehicle Required</h4>
+      <p class="text-zinc-400 leading-relaxed text-[11px] mb-6 pt-3 border-t border-zinc-900">Please select a vehicle first to plan your EV trip.</p>
+      <button class="px-5 py-2 bg-white text-black hover:bg-[#22C55E] hover:text-black transition-colors uppercase text-[9px] tracking-widest font-semibold w-full" id="trip-alert-ok">
+        GOT IT
+      </button>
+    </div>
+  </div>
 
   <!-- Seamless Section Transition -->
   <div class="section-divider"></div>

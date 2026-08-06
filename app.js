@@ -17283,7 +17283,20 @@ function initTripPlanner() {
     var toKey   = toSelect.value;
 
     if (!carId) {
-      alert('Please select a vehicle to plan your trip!');
+      var tripAlert = document.getElementById('trip-alert-modal');
+      if (tripAlert) {
+        tripAlert.classList.remove('opacity-0', 'pointer-events-none');
+        var closeTripAlert = function() {
+          tripAlert.classList.add('opacity-0', 'pointer-events-none');
+        };
+        tripAlert.onclick = function(e) {
+          if (e.target === tripAlert) closeTripAlert();
+        };
+        var okBtn = document.getElementById('trip-alert-ok');
+        var xBtn = document.getElementById('trip-alert-close-x');
+        if (okBtn) okBtn.onclick = closeTripAlert;
+        if (xBtn) xBtn.onclick = closeTripAlert;
+      }
       return;
     }
     if (fromKey === toKey) {
