@@ -114,7 +114,6 @@ const S3_IMAGE_MAPPING = {
       "xuv-3xo-ev": "car_images/mahindra/3X0.jpeg",
       "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
       "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
-      "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
       "zs-ev": "car_images/MG/MG ZS EV.JPG",
 };
 

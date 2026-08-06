@@ -6220,80 +6220,6 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- Real World Range Calculator Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-150 pt-10">
-          <div class="lg:col-span-4 text-left">
-            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">RANGE SIMULATOR</span>
-            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Real World Range Calculator</h3>
-            <p class="text-xs text-zinc-500 mt-2 leading-relaxed font-mono">Calculate real-world range by selecting driving conditions below.</p>
-          </div>
-          <div class="lg:col-span-8 bg-zinc-50 border border-zinc-200 shadow-sm p-6 flex flex-col gap-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <!-- Dropdown 1: Traffic -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-traffic" class="text-zinc-500 text-[8px] uppercase tracking-wider">Traffic</label>
-                <select id="range-traffic" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="light">Light</option>
-                  <option value="moderate" selected>Moderate</option>
-                  <option value="heavy">Heavy (Bumper-to-Bumper)</option>
-                </select>
-              </div>
-              <!-- Dropdown 2: AC Usage -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-ac" class="text-zinc-500 text-[8px] uppercase tracking-wider">AC Usage</label>
-                <select id="range-ac" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="off">Off</option>
-                  <option value="low">Low</option>
-                  <option value="medium" selected>Medium</option>
-                  <option value="high">High</option>
-                </select>
-              </div>
-              <!-- Dropdown 3: Driving Style -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-style" class="text-zinc-500 text-[8px] uppercase tracking-wider">Driving Style</label>
-                <select id="range-style" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="eco">Eco</option>
-                  <option value="normal" selected>Normal</option>
-                  <option value="aggressive">Aggressive</option>
-                </select>
-              </div>
-              <!-- Dropdown 4: Weather -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-weather" class="text-zinc-500 text-[8px] uppercase tracking-wider">Weather</label>
-                <select id="range-weather" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="cool">Cool</option>
-                  <option value="normal" selected>Normal</option>
-                  <option value="hot">Hot Indian Summer</option>
-                </select>
-              </div>
-              <!-- Dropdown 5: Passengers -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-passengers" class="text-zinc-500 text-[8px] uppercase tracking-wider">Passengers</label>
-                <select id="range-passengers" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="1" selected>1</option>
-                  <option value="2-3">2–3</option>
-                  <option value="full">Full Car</option>
-                </select>
-              </div>
-            </div>
-            
-            <!-- Result Display -->
-            <div class="border-t border-zinc-200 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="p-4 border border-zinc-200 bg-white flex flex-col justify-center text-center font-mono">
-                <span class="text-[8px] text-zinc-500 uppercase tracking-widest block mb-1">Claimed Range</span>
-                <span id="range-claimed-display" class="text-xl font-black text-black">-- km</span>
-              </div>
-              <div class="p-4 border border-black bg-black text-white flex flex-col justify-center text-center font-mono relative overflow-hidden">
-                <span class="text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">Estimated Real World Range</span>
-                <span id="range-estimated-display" class="text-2xl font-black text-white">-- km</span>
-              </div>
-            </div>
-            
-            <p class="text-[9px] text-zinc-450 italic font-mono mt-1 text-center">
-              "Estimated range based on Indian driving conditions. Actual results may vary."
-            </p>
-          </div>
-        </div>
 
         <!-- 3. Features Accordions Grid -->
         <div class="flex flex-col gap-6 border-t border-zinc-150 pt-10">
@@ -7259,11 +7185,6 @@ function renderTripResults(data) {
   var detailsRow = document.getElementById('trip-details-row');
   var paxEl = document.getElementById('trip-pax');
   var paxCount = paxEl ? paxEl.value : '?';
-  detailsRow.innerHTML =
-    makeTripStatCard('Total kWh Required', data.totalKWh + ' kWh', 'Full journey') +
-    makeTripStatCard('Battery Capacity',   data.batteryKWh + ' kWh', data.car.name) +
-    makeTripStatCard('DC Charge Speed',    data.dcChargeKW + ' kW', 'Derived from spec') +
-    makeTripStatCard('Trip Config',        data.days + ' Days / ' + paxCount + ' Pax', 'Selected settings');
 
   // Charging stations (light theme borders and colors)
   var stations = getRouteStations(data.fromKey, data.toKey);

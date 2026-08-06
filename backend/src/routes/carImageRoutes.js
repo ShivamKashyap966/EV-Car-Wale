@@ -104,7 +104,7 @@ router.get('/list', (req, res) => {
 
     const files = fs.readdirSync(dirPath).filter(f => {
       const ext = path.extname(f).toLowerCase();
-      return IMAGE_EXTS.includes(ext);
+      return IMAGE_EXTS.includes(ext) && !f.startsWith('.');
     });
 
     files.sort();

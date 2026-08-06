@@ -3770,83 +3770,6 @@ let EV_VARIANT_FULL_DB = {
         "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
         "Warranty": "8 Years / 1,60,000 km (Battery)"
       }
-    },
-    "0 SUV": {
-      "Standard": {
-        "Ex-Showroom Price": "₹38.64 Lakh",
-        "Est. On-Road Price": "₹41.73 Lakh",
-        "Battery Capacity": "85 kWh",
-        "Claimed Range": "480 km",
-        "Real-World Range": "384 km",
-        "Motor Output (Power)": "480 hp",
-        "Peak Torque": "250 Nm",
-        "Top Speed": "200 km/h",
-        "0–100 km/h Acceleration": "9.5 sec",
-        "Charging Time (DC Fast)": "20 min (DC)",
-        "Standard AC Charging": "7.5 hrs (7.2 kW)",
-        "Fast Charging Support": "Yes",
-        "Drive Type": "FWD",
-        "Motor Type": "Permanent Magnet Synchronous Motor",
-        "Seating Capacity": "5 Seats",
-        "Boot Space": "380 Litres",
-        "Ground Clearance": "185 mm",
-        "Dimensions": "4750 x 1930 x 1640 mm",
-        "Safety Rating": "5 Stars (Expected)",
-        "Airbags": "6 Airbags",
-        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
-        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
-        "Warranty": "8 Years / 1,60,000 km (Battery)"
-      },
-      "Extended Range": {
-        "Ex-Showroom Price": "₹42.84 Lakh",
-        "Est. On-Road Price": "₹46.27 Lakh",
-        "Battery Capacity": "85 kWh",
-        "Claimed Range": "480 km",
-        "Real-World Range": "384 km",
-        "Motor Output (Power)": "480 hp",
-        "Peak Torque": "250 Nm",
-        "Top Speed": "200 km/h",
-        "0–100 km/h Acceleration": "8.7 sec",
-        "Charging Time (DC Fast)": "20 min (DC)",
-        "Standard AC Charging": "7.5 hrs (7.2 kW)",
-        "Fast Charging Support": "Yes",
-        "Drive Type": "AWD",
-        "Motor Type": "Permanent Magnet Synchronous Motor",
-        "Seating Capacity": "5 Seats",
-        "Boot Space": "380 Litres",
-        "Ground Clearance": "185 mm",
-        "Dimensions": "4750 x 1930 x 1640 mm",
-        "Safety Rating": "5 Stars (Expected)",
-        "Airbags": "6 Airbags",
-        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
-        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
-        "Warranty": "8 Years / 1,60,000 km (Battery)"
-      },
-      "Performance AWD": {
-        "Ex-Showroom Price": "₹47.04 Lakh",
-        "Est. On-Road Price": "₹50.80 Lakh",
-        "Battery Capacity": "85 kWh",
-        "Claimed Range": "480 km",
-        "Real-World Range": "384 km",
-        "Motor Output (Power)": "480 hp",
-        "Peak Torque": "250 Nm",
-        "Top Speed": "200 km/h",
-        "0–100 km/h Acceleration": "7.9 sec",
-        "Charging Time (DC Fast)": "20 min (DC)",
-        "Standard AC Charging": "7.5 hrs (7.2 kW)",
-        "Fast Charging Support": "Yes",
-        "Drive Type": "AWD",
-        "Motor Type": "Permanent Magnet Synchronous Motor",
-        "Seating Capacity": "5 Seats",
-        "Boot Space": "380 Litres",
-        "Ground Clearance": "185 mm",
-        "Dimensions": "4750 x 1930 x 1640 mm",
-        "Safety Rating": "5 Stars (Expected)",
-        "Airbags": "6 Airbags",
-        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
-        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
-        "Warranty": "8 Years / 1,60,000 km (Battery)"
-      }
     }
   },
   "Isuzu": {
@@ -6823,7 +6746,7 @@ const S3_IMAGE_MAPPING = {
   "bmw-i7": "/car_images/BMW/bmw_i7.jpeg",
   "bmw-ix": "/car_images/BMW/BMW iX.JPG",
   "bmw-ix1": "/car_images/BMW/BMW iX1 LWB.jpeg",
-  "bmw-i5": "/car_images/MG/IM5.jpeg",
+  "bmw-i5": "/car_images/BMW/BMW-I5.jpeg",
   "audi-q6-e-tron": "/car_images/AUDI/Audi Q6 e-tron.jpeg",
   "audi-e-tron-gt": "/car_images/AUDI/audi_etron_gt.jpg",
   "audi-a6-e-tron": "/car_images/AUDI/AUDI-A6-ETRON.png",
@@ -6833,42 +6756,41 @@ const S3_IMAGE_MAPPING = {
   "luce": "/car_images/ferrari/LUCE.jpeg",
   "elevate-ev": "/car_images/HONDA/honda_elevate_EV.jpeg",
   "zero-alpha": "/car_images/HONDA/ZERO_ALPHA.jpeg",
-  "zero-suv": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
   "d-max-ev": "/car_images/ISUZU/D-MAX-EV.jpeg",
   "nissan-ariya": "/car_images/NISSAN/Nissan_Ariya.jpeg",
   "nissan-leaf": "/car_images/NISSAN/nissan_leaf.JPG",
-  "mini-countryman-electric": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
-  "jeep-avengers": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
-  "lexus-es": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
-  "lotus-eletre": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
-  "lotus-emeya": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "mini-countryman-electric": "/car_images/MINI?/COUNTRYMAN-ELECTRIC.jpeg",
+  "jeep-avengers": "/car_images/JEEP/Avengers.jpeg",
+  "lexus-es": "/car_images/LEXUS/ES.jpeg",
+  "lotus-eletre": "/car_images/LOTUS/ELETRE.webp",
+  "lotus-emeya": "/car_images/LOTUS/EMEYA.jpeg",
   "maruti-e-vitara": "/car_images/maruti suzuki/maruti_evitara.jpeg",
   "fronx-ev": "/car_images/maruti suzuki/fronx_ev.jpeg",
   "jimny-ev": "/car_images/maruti suzuki/IMG_2402.jpeg",
   "mercedes-benz-cla-ev": "/car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
   "mercedes-benz-eqs-suv": "/car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
-  "mercedes-benz-g-class-ev": "/car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
-  "mercedes-benz-amg-eqs": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
-  "mercedes-benz-c-class-ev": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
-  "mercedes-benz-eqs-maybach": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
-  "pmv-eas-e": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "mercedes-benz-g-class-ev": "/car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
+  "mercedes-benz-amg-eqs": "/car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
+  "mercedes-benz-c-class-ev": "/car_images/MERCEDES_BENZ/C-CLASS.jpeg",
+  "mercedes-benz-eqs-maybach": "/car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
+  "pmv-eas-e": "/car_images/PMV/EAS-E.jpeg",
   "renault-kwid-ev": "/car_images/RENAULT/renault_kwid_ev.JPG",
-  "porsche-macan-ev": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+  "porsche-macan-ev": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
   "porsche-taycan": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
-  "porsche-cayenne-ev": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
-  "rolls-royce-spectre": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "porsche-cayenne-ev": "/car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
+  "rolls-royce-spectre": "/car_images/ROLLS_ROYCE/Rolls-Royce Spectre.jpeg",
   "toyota-bz4x": "/car_images/TOYOTA/Toyota_bZ4X.jpeg",
-  "toyota-taisor-ev": "/car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
-  "tesla-model-y": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "toyota-taisor-ev": "/car_images/TOYOTA/urban_cruiser-colors/grey.webp",
+  "tesla-model-y": "/car_images/TESLA/MODEL-Y.jpeg",
   "skoda-elroq": "/car_images/SKODA/Skoda_Elroq.jpeg",
   "skoda-enyaq": "/car_images/SKODA/Skoda_Enyaq.JPG",
-  "strom-r3": "/car_images/VINFAST/vin_fast_vf3.jpeg",
-  "pravaig-defy": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "strom-r3": "/car_images/STROM_MOTORS/R3.jpeg",
+  "pravaig-defy": "/car_images/PRAVAIG/DEFY.jpeg",
   "volvo-ec40": "/car_images/VOLVO/volvo_EC40.WEBP",
   "volvo-ex30": "/car_images/VOLVO/VOLVO_EX30.jpeg",
-  "volvo-ex40": "/car_images/maruti suzuki/IMG_2402.jpeg",
+  "volvo-ex40": "/car_images/VOLVO/VOLVO_EX40.JPG",
   "volvo-ex90": "/car_images/VOLVO/Volvo_EX90.jpeg",
-  "volkswagen-id4": "/car_images/tata/NEXON.jpeg",
+  "volkswagen-id4": "/car_images/VOLKSWAGAN/id_4.jpeg",
   "vayve-mobility-eva": "/car_images/VAYVE_MOBILITY/eva.jpeg",
   "vinfast-vf3": "/car_images/VINFAST/vin_fast_vf3.jpeg",
   "vinfast-vf6": "/car_images/VINFAST/VinFast VF 6.jpeg",
@@ -6921,12 +6843,24 @@ function renderCarImage(imageUrl, altText) {
   </div>`;
 }
 
-// Fallback handler for broken images – replaces a failing src with the generic placeholder.
+// Fallback handler for broken images – retries via the local backend proxy before falling back to the generic placeholder.
 function handleImageError(imgElement) {
   if (!imgElement) return;
-  imgElement.onerror = null;
-  const failedUrl = imgElement.src || 'Unknown S3 URL';
+  const failedUrl = imgElement.src || '';
   const altText = imgElement.alt || 'Vehicle';
+  if (!imgElement.dataset.retried && failedUrl.indexOf('amazonaws.com') !== -1) {
+    imgElement.dataset.retried = '1';
+    try {
+      const parsed = new URL(failedUrl);
+      const p = parsed.pathname;
+      if (p && (p.indexOf('/car_images/') === 0 || p.indexOf('/LOGOS/') === 0)) {
+        imgElement.onerror = function() { handleImageError(this); };
+        imgElement.src = p;
+        return;
+      }
+    } catch (e) {}
+  }
+  imgElement.onerror = null;
   console.warn('[EV Car Wale Image Error] Failed to load image for "' + altText + '" from S3 URL: ' + failedUrl + '. Displaying default placeholder /car_outline.jpg.');
   if (imgElement.previousElementSibling && imgElement.previousElementSibling.classList.contains('skeleton-shimmer')) {
     imgElement.previousElementSibling.style.display = 'none';
@@ -7957,7 +7891,7 @@ const BRAND_LOGO_MAP = {
   'mercedes-benz': 'MERCEDES_LOGO.jpeg',
   'mg': 'MG_LOGO.jpeg',
   'nissan': 'nissan_logo.jpeg',
-  'porsche': 'PORSCHE_logo.jpeg',
+  'porsche': 'PORSCHE_LOGO.jpeg',
   'renault': 'RENAULT_LOGO.jpeg',
   'skoda': 'SKODA_LOGO.jpeg',
   'tata': 'TATA_LOGO.jpeg',
@@ -8640,7 +8574,6 @@ const BODY_TYPE_MAP = {
   'xpres-t-ev':'Sedan',
   'xuv-3xo-ev':'SUV',
   'zero-alpha':'Sedan',
-  'zero-suv':'SUV',
   'zs-ev':'SUV'
 };
 let activeBodyType = null;
@@ -9680,7 +9613,7 @@ function updateCompareCards(carA, carB) {
 
     var imgEl = document.getElementById('comp-img-' + suffix);
     if (imgEl) {
-      imgEl.innerHTML = '<img src="' + getS3ImageUrl(car) + '" alt="' + car.name + '" class="w-full h-full object-contain" onerror="this.src=\'/car_outline.jpg\'" />';
+      imgEl.innerHTML = '<img src="' + getS3ImageUrl(car) + '" alt="' + car.name + '" class="w-full h-full object-contain" onerror="handleImageError(this)" />';
     }
 
     setText('comp-brand-' + suffix, getBrandDisplay(car.brand));
@@ -11727,6 +11660,36 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
     const href = link.getAttribute('href');
     const text = link.textContent.trim();
     
+    // Explicit Home link / Logo handling
+    if (href === '/' || href === '/#' || href === '#home' || link.getAttribute('data-section') === 'home') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof closeMegaPanels === 'function') closeMegaPanels();
+      if (typeof closeMobileDrawer === 'function') closeMobileDrawer();
+      
+      window.lastHomepageScrollPos = 0;
+      try { sessionStorage.removeItem('ev_last_home_scroll'); } catch(err) {}
+      
+      const homeEl = document.getElementById('homepage-content');
+      if (!homeEl || window.location.pathname.includes('compare')) {
+        window.location.href = '/';
+        return;
+      }
+      
+      try {
+        history.pushState('', document.title, '/' + window.location.search);
+      } catch (err) {}
+
+      if (typeof restoreHomepage === 'function') {
+        restoreHomepage(false, false, true);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      return;
+    }
+    
     // Check if Recently Viewed clicked
     if (text.includes('Recently Viewed') || link.id === 'nav-btn-recently-viewed') {
       e.preventDefault();
@@ -12119,7 +12082,9 @@ async function handleRouting() {
   // Route standalone paths via SPA router without page reload loop
 
   let route = '/';
-  if (path.startsWith('/cars/')) {
+  if (hash === '#trip-planner' || hash === '#/trip-planner') {
+    route = 'trip-planner';
+  } else if (path.startsWith('/cars/')) {
     route = path;
   } else if (hash.startsWith('#/cars/')) {
     route = hash.substring(1);
@@ -12385,7 +12350,7 @@ async function handleRouting() {
     }
     return;
     } else if (route === 'upcoming' || route === '/upcoming' || route === '#upcoming' || route === 'launches' || route === '/launches') {
-    restoreHomepage(true);
+    restoreHomepage(true, true);
     setTimeout(() => {
       const targetId = (route.includes('upcoming') || route === 'upcoming') ? 'upcoming' : 'launches';
       const el = document.getElementById(targetId);
@@ -12393,7 +12358,7 @@ async function handleRouting() {
     }, 50);
     return;
   } else if (route === 'trip-planner' || route === '/trip-planner' || route === '#trip-planner') {
-    restoreHomepage(true);
+    restoreHomepage(true, true);
     setTimeout(() => {
       const el = document.getElementById('trip-planner');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -12419,14 +12384,18 @@ async function handleRouting() {
   restoreHomepage();
 }
 
-function restoreHomepage() {
+function restoreHomepage(keepScroll, skipScrollRestore, forceTop) {
   const homeEl = document.getElementById('homepage-content') || homepageContent;
   const detailsEl = document.getElementById('details-page-content') || detailsPageContent;
   if (homeEl) homeEl.classList.remove('hidden');
   if (detailsEl) detailsEl.classList.add('hidden');
   
-  // Clear any subpage/corporate hash when restoring homepage
-  if (window.location.hash) {
+  // Clean up URL to standard clean path without index.html
+  if (window.location.pathname.endsWith('/index.html') || window.location.pathname.endsWith('index.html')) {
+    try {
+      history.pushState('', document.title, '/' + window.location.search + (forceTop ? '' : window.location.hash));
+    } catch (e) {}
+  } else if (window.location.hash) {
     try {
       history.pushState('', document.title, window.location.pathname + window.location.search);
     } catch (e) {
@@ -12439,11 +12408,29 @@ function restoreHomepage() {
   if (typeof initScrollDividers === 'function') initScrollDividers();
   if (typeof initRevealObservers === 'function') initRevealObservers();
 
-  // Always scroll to absolute top of homepage
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
+  if (forceTop) {
+    window.lastHomepageScrollPos = 0;
+    try { sessionStorage.removeItem('ev_last_home_scroll'); } catch(e) {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    return;
+  }
+
+  if (skipScrollRestore) {
+    return;
+  }
+
+  // Restore exact scroll position where user clicked View Details
+  var targetY = window.lastHomepageScrollPos || parseInt(sessionStorage.getItem('ev_last_home_scroll') || '0', 10);
+  if (targetY > 0) {
+    window.scrollTo({ top: targetY, behavior: 'instant' });
+    setTimeout(function() {
+      window.scrollTo({ top: targetY, behavior: 'instant' });
+    }, 20);
+  } else if (!keepScroll) {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 }
 
 // Re-route on browser back/forward buttons
@@ -12500,6 +12487,14 @@ document.addEventListener('DOMContentLoaded', () => {
     btnViewAllNews.addEventListener('click', (e) => {
       e.preventDefault();
       navigateTo('/news');
+    });
+  }
+
+  const btnViewAllVideos = document.getElementById('btn-view-all-videos');
+  if (btnViewAllVideos) {
+    btnViewAllVideos.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = '/videos.html';
     });
   }
   
@@ -12733,13 +12728,7 @@ function renderSearchResultsPage() {
   });
 
   const totalCount = results.length;
-  const pageSize = 12;
-  let currentPage = parseInt(params.get('page') || '1', 10);
-  if (currentPage < 1) currentPage = 1;
-  const totalPages = Math.ceil(totalCount / pageSize) || 1;
-  if (currentPage > totalPages) currentPage = totalPages;
-  const startIdx = (currentPage - 1) * pageSize;
-  const pageCars = results.slice(startIdx, startIdx + pageSize);
+  const pageCars = results;
 
   const breadcrumbs = ['SEARCH'];
 
@@ -12809,14 +12798,6 @@ function renderSearchResultsPage() {
         </div>
         `}
       </div>
-
-      ${totalPages > 1 ? `
-      <div class="flex justify-center items-center gap-4 mt-6 font-mono text-[10px]">
-        ${currentPage > 1 ? `<a href="${buildUrl({ page: currentPage - 1 })}" class="px-4 py-2 border border-zinc-200 hover:border-black rounded transition-all">← PREV</a>` : '<span class="px-4 py-2 border border-zinc-100 text-zinc-300 rounded cursor-default">← PREV</span>'}
-        <span class="text-zinc-500">PAGE ${currentPage} OF ${totalPages}</span>
-        ${currentPage < totalPages ? `<a href="${buildUrl({ page: currentPage + 1 })}" class="px-4 py-2 border border-zinc-200 hover:border-black rounded transition-all">NEXT →</a>` : '<span class="px-4 py-2 border border-zinc-100 text-zinc-300 rounded cursor-default">NEXT →</span>'}
-      </div>
-      ` : ''}
     </div>
   `;
 
@@ -13565,9 +13546,9 @@ function renderHubArticlePage(key) {
         { date: 'JUL 2026', title: 'DISCOMs Launch Fast-Track EV Meter Connections Across Metro Cities', desc: 'State power utilities in Delhi, Mumbai, and Bengaluru streamline separate EV meter requests with online approval.', url: 'https://evreporter.com' }
       ],
       videos: [
-        { title: 'How to Get RWA NOC for Apartment EV Charger in India', dur: '12 MIN', url: 'https://www.youtube.com/results?search_query=how+to+get+rwa+noc+for+apartment+ev+charger+india' },
-        { title: '7.2 kW Home Charger Installation Step-by-Step Walkthrough', dur: '15 MIN', url: 'https://www.youtube.com/results?search_query=7.2kw+home+ev+charger+installation+india' },
-        { title: 'DISCOM EV Tariff & Separate Sub-Meter Application Process', dur: '10 MIN', url: 'https://www.youtube.com/results?search_query=ev+meter+tariff+application+discom+india' }
+        { id: 'va68mr9fgc8', title: 'EV Charging Setup In An Apartment Building (India, Real Installation)', url: 'https://www.youtube.com/watch?v=va68mr9fgc8' },
+        { id: '8BwdUa6pkAU', title: '7 Steps to a Safe Apartment EV Charger Setup', url: 'https://www.youtube.com/watch?v=8BwdUa6pkAU' },
+        { id: '87UYYiEhkXw', title: 'EV Charging at Home in India: Full Guide for Apartments & Independent House', url: 'https://www.youtube.com/watch?v=87UYYiEhkXw' }
       ]
     },
     'battery-health': {
@@ -13777,9 +13758,9 @@ function renderHubArticlePage(key) {
         { date: 'JUL 2026', title: 'Battery Degradation Study: EVs Retain 88% Capacity After 1,50,000 km', desc: 'Comprehensive telemetry analysis of 5,000 electric cars operating in Indian weather conditions.', url: 'https://evreporter.com' }
       ],
       videos: [
-        { title: 'How to Check EV Battery SOH (State of Health) in Indian EVs', dur: '11 MIN', url: 'https://www.youtube.com/results?search_query=how+to+check+ev+battery+soh+india' },
-        { title: 'LFP vs NMC Battery Care: Rules for 100% vs 80% Daily Charging', dur: '14 MIN', url: 'https://www.youtube.com/results?search_query=lfp+vs+nmc+battery+charging+rules+india' },
-        { title: '5 Mistakes That Degrade Your EV Battery Pack Faster', dur: '10 MIN', url: 'https://www.youtube.com/results?search_query=5+mistakes+ev+battery+degradation' }
+        { id: 'w4lvDGtfI9U', title: 'How To Ruin Your Electric Car\u2019s Battery - NMC Edition (Engineering Explained)', url: 'https://www.youtube.com/watch?v=w4lvDGtfI9U' },
+        { id: 'w1zKfIQUQ-s', title: 'How To Ruin Your Electric Car\u2019s Battery - LFP Edition (Engineering Explained)', url: 'https://www.youtube.com/watch?v=w1zKfIQUQ-s' },
+        { id: 'jdtKPlG9ajU', title: 'EV 101: How Long Will an EV Battery Really Last? (Recurrent)', url: 'https://www.youtube.com/watch?v=jdtKPlG9ajU' }
       ]
     }
   };
@@ -13849,7 +13830,29 @@ function renderHubArticlePage(key) {
 
   let videosHtml = '';
   details.videos.forEach(v => {
-    videosHtml += `
+    if (v.id) {
+      const vidThumb = 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+      const vidThumbFallback = 'https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg';
+      const vidTitle = (v.title || '').replace(/"/g, '&quot;');
+      videosHtml += `
+      <a href="${v.url}" target="_blank" rel="noopener" class="group block bg-white border border-zinc-200 rounded-2xl overflow-hidden hover:border-black hover:shadow-xl transition-all duration-300 flex flex-col font-sans">
+        <div class="aspect-video w-full overflow-hidden relative bg-zinc-100">
+          <img src="${vidThumb}" alt="${vidTitle}" referrerpolicy="no-referrer" crossorigin="anonymous" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='${vidThumbFallback}';">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-12 h-12 rounded-full bg-black/70 border border-white/20 flex items-center justify-center group-hover:bg-red-600 transition-colors">
+              <svg class="w-5 h-5 fill-current text-white ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col gap-1.5 flex-1">
+          <span class="text-[9px] font-mono text-[#22C55E] uppercase tracking-widest font-bold">EXPLAINER VIDEO</span>
+          <h3 class="text-xs font-bold text-zinc-800 group-hover:text-black transition-colors line-clamp-2 leading-snug">${v.title}</h3>
+          <span class="text-[10px] font-mono text-zinc-400 mt-auto pt-1">WATCH ON YOUTUBE <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span></span>
+        </div>
+      </a>
+    `;
+    } else {
+      videosHtml += `
       <a href="${v.url}" target="_blank" rel="noopener" class="group block bg-zinc-900 text-white rounded-xl overflow-hidden hover:border-[#22C55E] border border-transparent transition-all font-sans">
         <div class="p-5">
           <span class="text-[10px] font-mono text-[#22C55E] uppercase tracking-widest block mb-2">EXPLAINER VIDEO · ${v.dur}</span>
@@ -13858,6 +13861,7 @@ function renderHubArticlePage(key) {
         </div>
       </a>
     `;
+    }
   });
 
   let diagramSectionHtml = '';
@@ -15649,7 +15653,7 @@ async function renderCarDetailsPage(car) {
       relatedHtml += `
         <div class="border border-zinc-200 bg-white rounded-xl overflow-hidden flex flex-col">
           <div class="h-40 bg-white flex items-center justify-center p-4 border-b border-zinc-100">
-            <img src="${imgUrl}" alt="${c.name}" class="w-full h-full object-contain" onerror="this.src='/car_outline.jpg'">
+            <img src="${imgUrl}" alt="${c.name}" class="w-full h-full object-contain" onerror="handleImageError(this)">
           </div>
           <div class="flex flex-col flex-1 p-4">
             <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">${getBrandDisplay(c.brand)}</span>
@@ -15906,7 +15910,7 @@ async function renderCarDetailsPage(car) {
     let gallerySlideshowHtml = `
       <div class="flex flex-col gap-4 w-full">
         <div class="relative w-full h-[260px] md:h-[380px] bg-zinc-50 border border-zinc-200 flex items-center justify-center overflow-hidden select-none rounded-2xl group/gallery">
-          <img id="detail-main-img" src="${images[0]}" class="w-full h-full object-contain p-2 transition-all duration-300" onerror="this.src='/car_outline.jpg';">
+          <img id="detail-main-img" src="${images[0]}" class="w-full h-full object-contain p-2 transition-all duration-300" onerror="handleImageError(this);">
           ${images.length > 1 ? `
             <button id="gallery-detail-prev" class="absolute left-2 z-10 text-zinc-400 hover:text-black transition-all transform hover:scale-125 active:scale-95 bg-transparent border-none outline-none cursor-pointer p-1.5 flex items-center justify-center" aria-label="Previous image" style="background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; outline: none !important;">
               <svg class="w-6 h-6 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
@@ -15997,19 +16001,18 @@ async function renderCarDetailsPage(car) {
               <p class="text-[8px] text-zinc-400 font-mono leading-relaxed mt-1 border-t border-zinc-200 pt-2">⚠️ Estimated on-road price. Taxes, incentives, and charges vary by state and may change over time.</p>
             </div>
 
-            <div class="flex justify-center items-center gap-4 font-mono text-[10px] tracking-wider mt-4">
-              <button id="detail-compare-btn" class="py-3 px-8 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center">
-                COMPARE CAR
-              </button>
+
               <button id="detail-wishlist-btn" class="wishlist-btn py-3 px-8 border border-zinc-200 hover:border-black text-zinc-700 hover:text-black transition-colors uppercase text-center flex items-center justify-center gap-2" style="width: auto !important; height: auto !important;">
                 <svg viewBox="0 0 24 24" class="w-4 h-4 ${isWishlisted ? 'fill-current' : ''}">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
                 SHORTLIST
               </button>
+              </div>
             </div>
           </div>
         </div>
+
 
         <!-- 2. Variants & Complete Specifications -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-150 pt-10">
@@ -16039,82 +16042,7 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- Real World Range Calculator Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-150 pt-10">
-          <div class="lg:col-span-4 text-left">
-            <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">RANGE SIMULATOR</span>
-            <h3 class="text-xl md:text-2xl font-bold tracking-tight">Real World Range Calculator</h3>
-            <p class="text-xs text-zinc-500 mt-2 leading-relaxed font-mono">Calculate real-world range by selecting driving conditions below.</p>
-          </div>
-          <div class="lg:col-span-8 bg-zinc-50 border border-zinc-200 shadow-sm p-6 flex flex-col gap-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <!-- Dropdown 1: Traffic -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-traffic" class="text-zinc-500 text-[8px] uppercase tracking-wider">Traffic</label>
-                <select id="range-traffic" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="light">Light</option>
-                  <option value="moderate" selected>Moderate</option>
-                  <option value="heavy">Heavy (Bumper-to-Bumper)</option>
-                </select>
-              </div>
-              <!-- Dropdown 2: AC Usage -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-ac" class="text-zinc-500 text-[8px] uppercase tracking-wider">AC Usage</label>
-                <select id="range-ac" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="off">Off</option>
-                  <option value="low">Low</option>
-                  <option value="medium" selected>Medium</option>
-                  <option value="high">High</option>
-                </select>
-              </div>
-              <!-- Dropdown 3: Driving Style -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-style" class="text-zinc-500 text-[8px] uppercase tracking-wider">Driving Style</label>
-                <select id="range-style" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="eco">Eco</option>
-                  <option value="normal" selected>Normal</option>
-                  <option value="aggressive">Aggressive</option>
-                </select>
-              </div>
-              <!-- Dropdown 4: Weather -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-weather" class="text-zinc-500 text-[8px] uppercase tracking-wider">Weather</label>
-                <select id="range-weather" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="cool">Cool</option>
-                  <option value="normal" selected>Normal</option>
-                  <option value="hot">Hot Indian Summer</option>
-                </select>
-              </div>
-              <!-- Dropdown 5: Passengers -->
-              <div class="flex flex-col gap-1 text-left font-mono">
-                <label for="range-passengers" class="text-zinc-500 text-[8px] uppercase tracking-wider">Passengers</label>
-                <select id="range-passengers" class="bg-white border border-zinc-200 p-2.5 text-[11px] text-zinc-800 outline-none focus:border-black transition-colors rounded-none">
-                  <option value="1" selected>1</option>
-                  <option value="2-3">2–3</option>
-                  <option value="full">Full Car</option>
-                </select>
-              </div>
-            </div>
-            
-            <!-- Result Display -->
-            <div class="border-t border-zinc-200 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="p-4 border border-zinc-200 bg-white flex flex-col justify-center text-center font-mono">
-                <span class="text-[8px] text-zinc-500 uppercase tracking-widest block mb-1">Claimed Range</span>
-                <span id="range-claimed-display" class="text-xl font-black text-black">-- km</span>
-              </div>
-              <div class="p-4 border border-black bg-black text-white flex flex-col justify-center text-center font-mono relative overflow-hidden">
-                <span class="text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">Estimated Real World Range</span>
-                <span id="range-estimated-display" class="text-2xl font-black text-white">-- km</span>
-              </div>
-            </div>
-            
-            <p class="text-[9px] text-zinc-450 italic font-mono mt-1 text-center">
-              "Estimated range based on Indian driving conditions. Actual results may vary."
-            </p>
-          </div>
-        </div>
-
-        <!-- 4. EMI Calculator Panel -->
+        <!-- 3. EMI Calculator Panel -->
         <div class="border-t border-zinc-150 pt-10">
           <div class="text-center mb-8">
             <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">FINANCIAL COEFFICIENT</span>
@@ -16187,7 +16115,7 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- Petrol Savings Calculator Panel -->
+        <!-- 4.Petrol Savings Calculator Panel -->
         <div class="border-t border-zinc-150 pt-10">
           <div class="text-center mb-8">
             <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">EFFICIENCY MATRIX</span>
@@ -16277,7 +16205,7 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- Apartment Charging Guide Panel -->
+        <!-- 5.Apartment Charging Guide Panel -->
         <div class="border-t border-zinc-150 pt-10">
           <div class="text-left mb-8">
             <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-2">INFRASTRUCTURE GUIDE</span>
@@ -16330,7 +16258,7 @@ async function renderCarDetailsPage(car) {
           </div>
         </div>
 
-        <!-- 5. Related Cars Section -->
+        <!-- 6. Related Cars Section -->
         <div class="border-t border-zinc-150 pt-10 pb-8">
           <div class="text-left mb-8">
             <span class="font-mono text-[9px] text-zinc-500 tracking-[0.25em] uppercase block mb-1">CATEGORICAL PAIRINGS</span>
@@ -17082,12 +17010,6 @@ function renderTripResults(data) {
   var detailsRow = document.getElementById('trip-details-row');
   var paxEl = document.getElementById('trip-pax');
   var paxCount = paxEl ? paxEl.value : '?';
-  detailsRow.innerHTML =
-    makeTripStatCard('Total kWh Required', data.totalKWh + ' kWh', 'Full journey') +
-    makeTripStatCard('Battery Capacity',   data.batteryKWh + ' kWh', data.car.name) +
-    makeTripStatCard('DC Charge Speed',    data.dcChargeKW + ' kW', 'Derived from spec') +
-    makeTripStatCard('Trip Config',        data.days + ' Days / ' + paxCount + ' Pax', 'Selected settings');
-
   // Charging stations (light theme borders and colors)
   var stations = getRouteStations(data.fromKey, data.toKey);
   var stationsList = document.getElementById('trip-stations-list');
@@ -17110,7 +17032,7 @@ function renderTripResults(data) {
             '<span class="font-mono text-[10px] text-zinc-500">' + addressText + ' &nbsp;&middot;&nbsp; <strong class="text-zinc-700">' + s.network + '</strong></span>' +
           '</div>' +
         '</div>' +
-        '<a href="' + mapUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-black text-white hover:bg-emerald-600 font-mono text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm whitespace-nowrap self-start sm:self-auto">' +
+        '<a href="' + mapUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-blue-600 font-semibold hover:text-blue-700 hover:underline transition-colors font-mono text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm whitespace-nowrap self-start sm:self-auto">' +
           '<span>Get Directions</span>' +
           '<svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-none stroke-current stroke-2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>' +
         '</a>' +
@@ -18492,6 +18414,21 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Footer / standalone #trip-planner links — scroll to trip planner section from any page
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href="#trip-planner"], a[href="#/trip-planner"]');
+  if (!link) return;
+  if (link.classList.contains('mega-item') || link.classList.contains('mobile-sub-link') || link.classList.contains('mega-nav-item') || link.classList.contains('mobile-nav-link')) return;
+  e.preventDefault();
+  if (typeof closeMegaPanels === 'function') closeMegaPanels();
+  if (typeof closeMobileDrawer === 'function') closeMobileDrawer();
+  if (typeof restoreHomepage === 'function') restoreHomepage(true, true);
+  setTimeout(() => {
+    const el = document.getElementById('trip-planner');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 80);
+});
+
 
 function renderComparePage(carIdA = 'nexon-ev', carIdB = 'mg-zs-ev') {
   if (!EV_DATABASE || EV_DATABASE.length === 0) return;
@@ -18645,7 +18582,7 @@ function renderComparePage(carIdA = 'nexon-ev', carIdB = 'mg-zs-ev') {
 
 // Universal HOME button & Logo click listener
 document.addEventListener('click', (e) => {
-  const homeTarget = e.target.closest('.logo-link, [data-section="home"], a[href="/"], a[href="#home"], a[href="#/"], a[href="index.html"]');
+  const homeTarget = e.target.closest('.logo-link, [data-section="home"], a[href="/"], a[href="#home"], a[href="#/"], a[href="index.html"], a[href="/index.html"]');
   if (homeTarget) {
     const homeEl = document.getElementById('homepage-content');
     if (!homeEl || window.location.pathname.includes('compare')) {
@@ -18657,20 +18594,24 @@ document.addEventListener('click', (e) => {
     if (typeof closeMegaPanels === 'function') closeMegaPanels();
     if (typeof closeMobileDrawer === 'function') closeMobileDrawer();
     
+    // Reset stored homepage scroll position on explicit Home click
+    window.lastHomepageScrollPos = 0;
+    try { sessionStorage.removeItem('ev_last_home_scroll'); } catch(err) {}
+
     // Hide details/subpage containers and show homepage content
     const detailsEl = document.getElementById('details-page-content');
     if (detailsEl) detailsEl.classList.add('hidden');
     if (homeEl) homeEl.classList.remove('hidden');
 
-    if (window.location.hash) {
-      try {
-        history.pushState('', document.title, window.location.pathname + window.location.search);
-      } catch (err) {
-        window.location.hash = '#/';
-      }
-    }
+    try {
+      history.pushState('', document.title, '/' + window.location.search);
+    } catch (err) {}
     
-    if (typeof restoreHomepage === 'function') restoreHomepage();
+    if (typeof restoreHomepage === 'function') restoreHomepage(false, false, true);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 });
 

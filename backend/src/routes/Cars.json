@@ -899,26 +899,6 @@
     ]
   },
   {
-    "id": "zero-suv",
-    "name": "0 SUV",
-    "brand": "honda",
-    "priceVal": 42,
-    "price": "₹42.00 Lakh",
-    "rangeVal": 480,
-    "range": "480 km",
-    "battery": "85 kWh",
-    "charging": "20 min (DC)",
-    "speed": "200 km/h",
-    "power": "480 hp",
-    "safety": "5 Stars (Expected)",
-    "features": "Dual-motor AWD layout, ASIMO OS operating system framework, Level 3 autonomous driving sensor stack",
-    "dimensions": "4750 x 1930 x 1640 mm",
-    "image": "ZERO-SUV.jpeg",
-    "sections": [
-      "upcoming"
-    ]
-  },
-  {
     "id": "d-max-ev",
     "name": "D-Max EV",
     "brand": "isuzu",
