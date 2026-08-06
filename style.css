@@ -869,28 +869,38 @@ nav.nav-light-theme #login-nav-btn:hover {
 
 /* AC & Driving Style toggle buttons */
 .trip-toggle-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  display: grid;
+  width: 100%;
+  gap: 6px;
+}
+#trip-ac-group {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+#trip-style-group {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .trip-toggle-btn {
-  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
   min-width: 0;
-  padding: 10px 8px;
+  height: 38px;
+  padding: 0 4px;
   font-family: monospace;
   font-size: 9px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.03em;
   border: 1px solid #d4d4d8; /* zinc-300 */
   background: #ffffff;
   color: #71717a;
   cursor: pointer;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
   border-radius: 9999px;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 .trip-toggle-btn.trip-active {
   background: #000000 !important;

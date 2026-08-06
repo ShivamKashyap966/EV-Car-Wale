@@ -679,7 +679,7 @@
             <option value="byd">BYD</option>
             <option value="citroen">Citroën</option>
             <option value="ferrari">Ferrari</option>
-            <option value="force-motors">Force Motors</option>
+            <option value="rolls-royce">Rolls-Royce</option>
             <option value="genesis">Genesis</option>
             <option value="honda">Honda</option>
             <option value="hyundai">Hyundai</option>
@@ -707,7 +707,7 @@
             <option value="volkswagen">Volkswagen</option>
             <option value="volvo">Volvo</option>
             <option value="vayve">Vayve</option>
-            <option value="bliqo">Bliqo</option>
+            <option value="blinq">Blinq</option>
           </select>
         </div>
 
@@ -870,8 +870,8 @@
       </div><!-- /Left Column -->
 
         <!-- Right Side: Interactive Leaflet Route Map -->
-        <div class="lg:col-span-6 border border-zinc-200 bg-zinc-100 rounded-3xl overflow-hidden shadow-sm h-[600px] sticky top-24 relative">
-          <div id="trip-leaflet-map" class="w-full h-full z-10"></div>
+        <div class="lg:col-span-6 border border-zinc-200 bg-zinc-100 rounded-3xl overflow-hidden shadow-sm h-[580px] min-h-[500px] sticky top-24 relative">
+          <div id="trip-leaflet-map" class="w-full h-full min-h-[580px] relative z-10"></div>
         </div>
       </div><!-- /Grid Split -->
 
@@ -953,19 +953,29 @@
     </div>
   </section>
 
-  <!-- Trip Planner Validation Modal -->
-  <div id="trip-alert-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
-    <div class="bg-darkgray border border-zinc-800 w-full max-w-md p-8 relative font-mono text-xs text-zinc-300 shadow-2xl">
-      <button class="absolute top-4 right-4 text-zinc-500 hover:text-white text-base" id="trip-alert-close-x" aria-label="Close">×</button>
-      <div class="w-12 h-12 border border-zinc-700 text-white flex items-center justify-center mb-5">
-        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9.18 6.46 2.5 18a1.5 1.5 0 0 0 1.32 2.25h16.36a1.5 1.5 0 0 0 1.32-2.25L14.82 6.46a1.5 1.5 0 0 0-2.64 0Z"/><path d="M12 10v4"/><path d="M12 17h.01"/>
+  <!-- Trip Planner Validation Modal (Whitish, Transparent Backdrop & EV Green Finish) -->
+  <div id="trip-alert-modal" class="fixed inset-0 bg-white/40 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-white/95 backdrop-blur-xl border-2 border-[#22C55E]/30 w-full max-w-sm md:max-w-md p-7 md:p-8 relative font-sans text-black rounded-3xl shadow-[0_20px_60px_-15px_rgba(34,197,94,0.25),0_10px_25px_-5px_rgba(0,0,0,0.08)] transition-all duration-300">
+      
+      <!-- Close Button -->
+      <button class="absolute top-5 right-5 w-8 h-8 rounded-full bg-emerald-50 text-zinc-400 hover:bg-emerald-100 hover:text-emerald-700 transition-all flex items-center justify-center text-sm font-bold border border-emerald-200/60 cursor-pointer outline-none" id="trip-alert-close-x" aria-label="Close">✕</button>
+
+      <!-- EV Green Icon Badge -->
+      <div class="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 text-[#22C55E] flex items-center justify-center mb-5 shadow-xs shadow-emerald-500/10">
+        <svg viewBox="0 0 24 24" class="w-7 h-7 fill-none stroke-current stroke-[2.2]" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9.18 6.46 2.5 18a1.5 1.5 0 0 0 1.32 2.25h16.36a1.5 1.5 0 0 0 1.32-2.25L14.82 6.46a1.5 1.5 0 0 0-2.64 0Z"/>
+          <path d="M12 10v4"/>
+          <path d="M12 17h.01"/>
         </svg>
       </div>
-      <span class="text-[8px] text-zinc-500 uppercase tracking-widest font-semibold block mb-2">TRIP PLANNER</span>
-      <h4 class="text-white font-bold text-base mb-2 tracking-tight">Vehicle Required</h4>
-      <p class="text-zinc-400 leading-relaxed text-[11px] mb-6 pt-3 border-t border-zinc-900">Please select a vehicle first to plan your EV trip.</p>
-      <button class="px-5 py-2 bg-white text-black hover:bg-[#22C55E] hover:text-black transition-colors uppercase text-[9px] tracking-widest font-semibold w-full" id="trip-alert-ok">
+
+      <!-- Content -->
+      <span class="text-[9px] font-mono text-[#22C55E] font-bold uppercase tracking-[0.25em] block mb-1">TRIP PLANNER</span>
+      <h4 class="text-black font-extrabold text-xl tracking-tight mb-2">Vehicle Required</h4>
+      <p class="text-zinc-700 font-sans text-xs leading-relaxed mb-6 pt-3 border-t border-emerald-100">Please select a vehicle first to plan your EV trip.</p>
+
+      <!-- EV Green Action Button -->
+      <button class="w-full py-3.5 bg-[#22C55E] hover:bg-[#1ea850] active:scale-[0.99] text-white font-mono text-xs font-bold uppercase tracking-[0.2em] rounded-2xl shadow-md shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-none" id="trip-alert-ok">
         GOT IT
       </button>
     </div>

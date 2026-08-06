@@ -1044,7 +1044,13 @@ Ask me anything about:
       return labels[langCode] || langCode.toUpperCase();
     }
     function changeLanguage(langCode) {
-      document.getElementById('custom-lang-label').textContent = getNativeLabel(langCode);
+      const customLabel = document.getElementById('custom-lang-label');
+      const SPINNER_HTML = '<svg class="w-3.5 h-3.5 animate-spin text-current inline-block align-middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>';
+      if (customLabel && langCode !== 'en') {
+        customLabel.innerHTML = SPINNER_HTML;
+      } else if (customLabel) {
+        customLabel.textContent = getNativeLabel(langCode);
+      }
       document.querySelectorAll('#custom-lang-menu .lang-option').forEach(function(o) {
         o.classList.toggle('active', o.getAttribute('data-lang') === langCode);
       });

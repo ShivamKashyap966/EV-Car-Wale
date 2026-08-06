@@ -7905,7 +7905,7 @@ const BRAND_LOGO_MAP = {
   'lotus': 'LOTUS_LOGO.png',
   'lexus': 'LEXUS_LOGO.jpeg',
   'mini': 'MINI_LOGO.JPG',
-  'pmv': 'PMV_LOGO.jpeg',
+  'pmv': 'PMV_LOGO.png',
   'pravaig': 'PRAVAIG_LOGO.png',
   'rolls-royce': 'ROLLS_ROYCLE.JPG',
   'vayve': 'VAYVE_LOGO.jpeg',
@@ -9693,450 +9693,347 @@ function initChargerMap() {
 
 // Map of known cities to coordinates
 const CITY_COORDS = {
-  "mumbai": { lat: "19.0760", lng: "72.8777" },
-  "navi mumbai": { lat: "19.0330", lng: "73.0297" },
-  "thane": { lat: "19.2183", lng: "72.9781" },
-  "pune": { lat: "18.5204", lng: "73.8567" },
-  "nagpur": { lat: "21.1458", lng: "79.0882" },
-  "nashik": { lat: "19.9975", lng: "73.7898" },
-  "aurangabad": { lat: "19.8762", lng: "75.3433" },
-  "kolhapur": { lat: "16.7050", lng: "74.2433" },
-  "solapur": { lat: "17.6599", lng: "75.9064" },
-
-  "delhi": { lat: "28.6139", lng: "77.2090" },
-  "new delhi": { lat: "28.6139", lng: "77.2090" },
-  "gurgaon": { lat: "28.4595", lng: "77.0266" },
-  "gurugram": { lat: "28.4595", lng: "77.0266" },
-  "noida": { lat: "28.5355", lng: "77.3910" },
-  "greater noida": { lat: "28.4744", lng: "77.5040" },
-  "faridabad": { lat: "28.4089", lng: "77.3178" },
-  "ghaziabad": { lat: "28.6692", lng: "77.4538" },
-
-  "bangalore": { lat: "12.9716", lng: "77.5946" },
-  "bengaluru": { lat: "12.9716", lng: "77.5946" },
-  "mysore": { lat: "12.2958", lng: "76.6394" },
-  "mysuru": { lat: "12.2958", lng: "76.6394" },
-  "mangalore": { lat: "12.9141", lng: "74.8560" },
-  "mangaluru": { lat: "12.9141", lng: "74.8560" },
-  "hubli": { lat: "15.3647", lng: "75.1240" },
-  "dharwad": { lat: "15.4589", lng: "75.0078" },
-  "belagavi": { lat: "15.8497", lng: "74.4977" },
-  "bellary": { lat: "15.1394", lng: "76.9214" },
-  "tumakuru": { lat: "13.3409", lng: "77.1010" },
-  "shivamogga": { lat: "13.9299", lng: "75.5681" },
-  "udupi": { lat: "13.3409", lng: "74.7421" },
-
-  "chennai": { lat: "13.0827", lng: "80.2707" },
-  "coimbatore": { lat: "11.0168", lng: "76.9558" },
-  "madurai": { lat: "9.9252", lng: "78.1198" },
-  "salem": { lat: "11.6643", lng: "78.1460" },
-  "trichy": { lat: "10.7905", lng: "78.7047" },
-  "tiruchirappalli": { lat: "10.7905", lng: "78.7047" },
-  "vellore": { lat: "12.9165", lng: "79.1325" },
-  "tirunelveli": { lat: "8.7139", lng: "77.7567" },
-
-  "hyderabad": { lat: "17.3850", lng: "78.4867" },
-  "warangal": { lat: "17.9784", lng: "79.5941" },
-  "karimnagar": { lat: "18.4386", lng: "79.1288" },
-  "nizamabad": { lat: "18.6725", lng: "78.0941" },
-
-  "visakhapatnam": { lat: "17.6868", lng: "83.2185" },
-  "vijayawada": { lat: "16.5062", lng: "80.6480" },
-  "guntur": { lat: "16.3067", lng: "80.4365" },
-  "nellore": { lat: "14.4426", lng: "79.9865" },
-  "tirupati": { lat: "13.6288", lng: "79.4192" },
-  "kakinada": { lat: "16.9891", lng: "82.2475" },
-
-  "kochi": { lat: "9.9312", lng: "76.2673" },
-  "ernakulam": { lat: "9.9816", lng: "76.2999" },
-  "kozhikode": { lat: "11.2588", lng: "75.7804" },
-  "thrissur": { lat: "10.5276", lng: "76.2144" },
-  "kollam": { lat: "8.8932", lng: "76.6141" },
-  "alappuzha": { lat: "9.4981", lng: "76.3388" },
-  "kannur": { lat: "11.8745", lng: "75.3704" },
-  "thiruvananthapuram": { lat: "8.5241", lng: "76.9366" },
-
-  "kolkata": { lat: "22.5726", lng: "88.3639" },
-  "howrah": { lat: "22.5958", lng: "88.2636" },
-  "durgapur": { lat: "23.5204", lng: "87.3119" },
-  "siliguri": { lat: "26.7271", lng: "88.3953" },
-  "asansol": { lat: "23.6739", lng: "86.9524" },
-
-  "ahmedabad": { lat: "23.0225", lng: "72.5714" },
-  "surat": { lat: "21.1702", lng: "72.8311" },
-  "vadodara": { lat: "22.3072", lng: "73.1812" },
-  "rajkot": { lat: "22.3039", lng: "70.8022" },
-  "bhavnagar": { lat: "21.7645", lng: "72.1519" },
-
-  "jaipur": { lat: "26.9124", lng: "75.7873" },
-  "jodhpur": { lat: "26.2389", lng: "73.0243" },
-  "udaipur": { lat: "24.5854", lng: "73.7125" },
-  "kota": { lat: "25.2138", lng: "75.8648" },
-  "ajmer": { lat: "26.4499", lng: "74.6399" },
-
-  "lucknow": { lat: "26.8467", lng: "80.9462" },
-  "kanpur": { lat: "26.4499", lng: "80.3319" },
-  "agra": { lat: "27.1767", lng: "78.0081" },
-  "varanasi": { lat: "25.3176", lng: "82.9739" },
-  "prayagraj": { lat: "25.4358", lng: "81.8463" },
-  "meerut": { lat: "28.9845", lng: "77.7064" },
-  "bareilly": { lat: "28.3670", lng: "79.4304" },
-  "gorakhpur": { lat: "26.7606", lng: "83.3732" },
-  
-  "amritsar": { lat: "31.6340", lng: "74.8723" },
-  "ludhiana": { lat: "30.9010", lng: "75.8573" },
-  "jalandhar": { lat: "31.3260", lng: "75.5762" },
-  "patiala": { lat: "30.3398", lng: "76.3869" },
-  "bathinda": { lat: "30.2109", lng: "74.9455" },
-
-  
-  "panipat": { lat: "29.3909", lng: "76.9635" },
-  "ambala": { lat: "30.3782", lng: "76.7767" },
-  "hisar": { lat: "29.1492", lng: "75.7217" },
-  "rohtak": { lat: "28.8955", lng: "76.6066" },
-  "karnal": { lat: "29.6857", lng: "76.9905" },
-
-  
-  "dehradun": { lat: "30.3165", lng: "78.0322" },
-  "haridwar": { lat: "29.9457", lng: "78.1642" },
-  "rishikesh": { lat: "30.0869", lng: "78.2676" },
-  "haldwani": { lat: "29.2183", lng: "79.5130" },
-
-
-  "shimla": { lat: "31.1048", lng: "77.1734" },
-  "manali": { lat: "32.2396", lng: "77.1887" },
-  "solan": { lat: "30.9042", lng: "77.0967" },
-  "dharamshala": { lat: "32.2190", lng: "76.3234" },
-
-  
-  "patna": { lat: "25.5941", lng: "85.1376" },
-  "gaya": { lat: "24.7914", lng: "85.0002" },
-  "muzaffarpur": { lat: "26.1209", lng: "85.3647" },
-  "bhagalpur": { lat: "25.2425", lng: "86.9842" },
-
-  
-  "ranchi": { lat: "23.3441", lng: "85.3096" },
-  "jamshedpur": { lat: "22.8046", lng: "86.2029" },
-  "dhanbad": { lat: "23.7957", lng: "86.4304" },
-  "bokaro": { lat: "23.6693", lng: "86.1511" },
-
-  
-  "raipur": { lat: "21.2514", lng: "81.6296" },
-  "bhilai": { lat: "21.1938", lng: "81.3509" },
-  "bilaspur": { lat: "22.0797", lng: "82.1409" },
-  "durg": { lat: "21.1904", lng: "81.2849" },
-
-  
-  "bhubaneswar": { lat: "20.2961", lng: "85.8245" },
-  "cuttack": { lat: "20.4625", lng: "85.8828" },
-  "rourkela": { lat: "22.2604", lng: "84.8536" },
-  "puri": { lat: "19.8135", lng: "85.8312" },
-  "sambalpur": { lat: "21.4669", lng: "83.9812" },
-
-  
-  "guwahati": { lat: "26.1445", lng: "91.7362" },
-  "silchar": { lat: "24.8333", lng: "92.7789" },
-  "dibrugarh": { lat: "27.4728", lng: "94.9120" },
-  "jorhat": { lat: "26.7509", lng: "94.2037" },
-
-  
-  "agartala": { lat: "23.8315", lng: "91.2868" },
-  "imphal": { lat: "24.8170", lng: "93.9368" },
-  "aizawl": { lat: "23.7271", lng: "92.7176" },
-  "kohima": { lat: "25.6751", lng: "94.1086" },
-  "dimapur": { lat: "25.9091", lng: "93.7276" },
-  "itanagar": { lat: "27.0844", lng: "93.6053" },
-  "gangtok": { lat: "27.3389", lng: "88.6065" },
-  "shillong": { lat: "25.5788", lng: "91.8933" },
-
-  
-  "goa": { lat: "15.2993", lng: "74.1240" },
-  "panaji": { lat: "15.4909", lng: "73.8278" },
-  "margao": { lat: "15.2832", lng: "73.9862" },
-  "vasco da gama": { lat: "15.3860", lng: "73.8440" },
-
-  
-  "srinagar": { lat: "34.0837", lng: "74.7973" },
-  "jammu": { lat: "32.7266", lng: "74.8570" },
-  "leh": { lat: "34.1526", lng: "77.5771" },
-  "kargil": { lat: "34.5539", lng: "76.1349" },
-
-  
-  "chandigarh": { lat: "30.7333", lng: "76.7794" },
-  "pondicherry": { lat: "11.9416", lng: "79.8083" },
-  "puducherry": { lat: "11.9416", lng: "79.8083" },
-  "port blair": { lat: "11.6234", lng: "92.7265" },
-  "daman": { lat: "20.3974", lng: "72.8328" },
-  "diu": { lat: "20.7144", lng: "70.9874" },
-  "silvassa": { lat: "20.2739", lng: "72.9967" },
-  "kavaratti": { lat: "10.5669", lng: "72.6420" },
-
-  "indore": { lat: "22.7196", lng: "75.8577" },
-  "bhopal": { lat: "23.2599", lng: "77.4126" },
-  "gwalior": { lat: "26.2183", lng: "78.1828" },
-  "jabalpur": { lat: "23.1815", lng: "79.9864" },
-  "ujjain": { lat: "23.1765", lng: "75.7885" },
-  "sagar": { lat: "23.8388", lng: "78.7378" },
-  "satna": { lat: "24.6005", lng: "80.8322" },
-  "rewa": { lat: "24.5362", lng: "81.3037" },
-
-  "davangere": { lat: "14.4673", lng: "75.9241" },
-  "chikkamagaluru": { lat: "13.3161", lng: "75.7720" },
-  "hassan": { lat: "13.0033", lng: "76.1004" },
-  "kalaburagi": { lat: "17.3297", lng: "76.8343" },
-  "gulbarga": { lat: "17.3297", lng: "76.8343" },
-  "mandya": { lat: "12.5218", lng: "76.8951" },
-  "bidar": { lat: "17.9104", lng: "77.5199" },
-  "chitradurga": { lat: "14.2251", lng: "76.3980" },
-  "hosapete": { lat: "15.2689", lng: "76.3909" },
-  "hampi": { lat: "15.3350", lng: "76.4600" },
-  "karwar": { lat: "14.8185", lng: "74.1337" },
-  "kolar": { lat: "13.1367", lng: "78.1291" },
-
-  "satara": { lat: "17.6805", lng: "74.0183" },
-  "sangli": { lat: "16.8524", lng: "74.5815" },
-  "ahmednagar": { lat: "19.0948", lng: "74.7480" },
-  "ahilyanagar": { lat: "19.0948", lng: "74.7480" },
-  "amravati": { lat: "20.9374", lng: "77.7796" },
-  "lonavala": { lat: "18.7557", lng: "73.4091" },
-  "nanded": { lat: "19.1383", lng: "77.3210" },
-  "jalgaon": { lat: "21.0077", lng: "75.5626" },
-  "ratnagiri": { lat: "16.9902", lng: "73.3120" },
-  "mahabaleshwar": { lat: "17.9307", lng: "73.6477" },
-  "akola": { lat: "20.7002", lng: "77.0082" },
-  "chandrapur": { lat: "19.9615", lng: "79.2961" },
-  "alibag": { lat: "18.6414", lng: "72.8722" },
-
-  "erode": { lat: "11.3410", lng: "77.7172" },
-  "thanjavur": { lat: "10.7870", lng: "79.1378" },
-  "kanchipuram": { lat: "12.8342", lng: "79.7036" },
-  "tuticorin": { lat: "8.7642", lng: "78.1348" },
-  "thoothukudi": { lat: "8.7642", lng: "78.1348" },
-  "ooty": { lat: "11.4102", lng: "76.6950" },
-  "udhagamandalam": { lat: "11.4102", lng: "76.6950" },
-  "kodaikanal": { lat: "10.2381", lng: "77.4892" },
-  "hosur": { lat: "12.7409", lng: "77.8253" },
-  "dindigul": { lat: "10.3673", lng: "77.9803" },
-  "nagercoil": { lat: "8.1833", lng: "77.4119" },
-  "cuddalore": { lat: "11.7480", lng: "79.7714" },
-  "kanyakumari": { lat: "8.0883", lng: "77.5385" },
-  "karur": { lat: "10.9601", lng: "78.0766" },
-
-  "palakkad": { lat: "10.7867", lng: "76.6548" },
-  "kottayam": { lat: "9.5916", lng: "76.5222" },
-  "pathanamthitta": { lat: "9.2648", lng: "76.7870" },
-  "munnar": { lat: "10.0889", lng: "77.0595" },
-  "wayanad": { lat: "11.6103", lng: "76.0827" },
-  "kalpetta": { lat: "11.6103", lng: "76.0827" },
-  "kasaragod": { lat: "12.5102", lng: "74.9852" },
-  "malappuram": { lat: "11.0732", lng: "76.0740" },
-  "idukki": { lat: "9.8494", lng: "76.9802" },
-
-  "gandhinagar": { lat: "23.2156", lng: "72.6369" },
-  "jamnagar": { lat: "22.4707", lng: "70.0577" },
-  "anand": { lat: "22.5645", lng: "72.9289" },
-  "vapi": { lat: "20.3893", lng: "72.9106" },
-  "mehsana": { lat: "23.5880", lng: "72.3693" },
-  "bhuj": { lat: "23.2420", lng: "69.6669" },
-  "navsari": { lat: "20.9467", lng: "72.9520" },
-  "junagadh": { lat: "21.5222", lng: "70.4579" },
-  "kevadia": { lat: "21.8380", lng: "73.7191" },
-
-  "bhilwara": { lat: "25.3407", lng: "74.6313" },
-  "alwar": { lat: "27.5530", lng: "76.6346" },
-  "bikaner": { lat: "28.0229", lng: "73.3119" },
-  "bharatpur": { lat: "27.2152", lng: "77.4930" },
-  "sikar": { lat: "27.6094", lng: "75.1398" },
-  "pali": { lat: "25.7711", lng: "73.3237" },
-  "chittorgarh": { lat: "24.8887", lng: "74.6269" },
-  "mount abu": { lat: "24.5926", lng: "72.7156" },
-
-  "jhansi": { lat: "25.4484", lng: "78.5685" },
-  "mathura": { lat: "27.4924", lng: "77.6737" },
-  "vrindavan": { lat: "27.5706", lng: "77.7006" },
-  "ayodhya": { lat: "26.7922", lng: "82.1998" },
-  "aligarh": { lat: "27.8974", lng: "78.0880" },
-  "moradabad": { lat: "28.8386", lng: "78.7733" },
-  "saharanpur": { lat: "29.9640", lng: "77.5460" },
-  "muzaffarnagar": { lat: "29.4727", lng: "77.7085" },
-
-  "anantapur": { lat: "14.6819", lng: "77.6006" },
-  "kurnool": { lat: "15.8281", lng: "78.0373" },
-  "rajahmundry": { lat: "17.0005", lng: "81.8040" },
-  "rajamahendravaram": { lat: "17.0005", lng: "81.8040" },
-  "eluru": { lat: "16.7107", lng: "81.1035" },
-  "kadapa": { lat: "14.4673", lng: "78.8242" },
-  "khammam": { lat: "17.2473", lng: "80.1514" },
-  "mahbubnagar": { lat: "16.7488", lng: "77.9818" },
-
-  "kharagpur": { lat: "22.3460", lng: "87.2320" },
-  "bardhaman": { lat: "23.2324", lng: "87.8615" },
-  "burdwan": { lat: "23.2324", lng: "87.8615" },
-  "haldia": { lat: "22.0667", lng: "88.0667" },
-  "darjeeling": { lat: "27.0410", lng: "88.2663" },
-  "kalimpong": { lat: "27.0600", lng: "88.4700" },
-
-  "mohali": { lat: "30.6799", lng: "76.7221" },
-  "panchkula": { lat: "30.6942", lng: "76.8606" },
-  "sonipat": { lat: "28.9286", lng: "77.0913" },
-  "rewari": { lat: "28.1833", lng: "76.6167" },
-  "kurukshetra": { lat: "29.9695", lng: "76.8783" },
-  "pathankot": { lat: "32.2643", lng: "75.6421" },
-  "hoshiarpur": { lat: "31.5143", lng: "75.9115" },
-
-  "kullu": { lat: "31.9579", lng: "77.1095" },
-  "mandi": { lat: "31.7087", lng: "76.9320" },
-  "mussoorie": { lat: "30.4598", lng: "78.0644" },
-  "nainital": { lat: "29.3803", lng: "79.4636" },
-
-  "berhampur": { lat: "19.3150", lng: "84.7941" },
-  "koraput": { lat: "18.8135", lng: "82.7123" },
-  "darbhanga": { lat: "26.1542", lng: "85.8918" },
-  "deoghar": { lat: "24.4826", lng: "86.6961" },
-  "hazaribagh": { lat: "23.9925", lng: "85.3637" },
-
-  "tezpur": { lat: "26.6338", lng: "92.8006" },
-  "nagaon": { lat: "26.3467", lng: "92.6833" },
-
-  "shirdi": { lat: "19.7645", lng: "74.4762" },
-  "karad": { lat: "17.2858", lng: "74.1837" },
-  "solapur highway (mohol)": { lat: "17.8130", lng: "75.6480" },
-  "sawantwadi": { lat: "15.9038", lng: "73.8188" },
-
-  "bharuch": { lat: "21.7051", lng: "72.9959" },
-  "ankleshwar": { lat: "21.6264", lng: "73.0033" },
-  "somnath": { lat: "20.8880", lng: "70.4012" },
-  "dwarka": { lat: "22.2442", lng: "68.9685" },
-  "palanpur": { lat: "24.1724", lng: "72.4346" },
-
-  "tiruchendur": { lat: "8.4962", lng: "78.1228" },
-  "namakkal": { lat: "11.2189", lng: "78.1674" },
-  "perambalur": { lat: "11.2325", lng: "78.8806" },
-  "sivakasi": { lat: "9.4533", lng: "77.7963" },
-  "raichur": { lat: "16.2076", lng: "77.3463" },
-  "bagalkot": { lat: "16.1852", lng: "75.6961" },
-  "tiruvannamalai": { lat: "12.2253", lng: "79.0747" },
-
-  "bhiwadi": { lat: "28.2096", lng: "76.8335" },
-  "neemrana": { lat: "27.9880", lng: "76.3883" },
-  "palwal": { lat: "28.1487", lng: "77.3320" },
-  "solan expressway": { lat: "30.9042", lng: "77.0967" },
-  "rudrapur": { lat: "28.9800", lng: "79.4000" },
-
-  "korba": { lat: "22.3595", lng: "82.7501" },
-  "angul": { lat: "20.8400", lng: "85.1500" },
-  "balasore": { lat: "21.4934", lng: "86.9135" },
-  "chhindwara": { lat: "22.0574", lng: "78.9382" },
-  "muzaffarpur express": { lat: "26.1209", lng: "85.3647" },
- "ramanagara": { lat: "12.7218", lng: "77.2815" },
- "madikeri": { lat: "12.4244", lng: "75.7382" },
- "chamarajanagar": { lat: "11.9261", lng: "76.9400" },
- "vijayapura": { lat: "16.8302", lng: "75.7100" },
- "yadgir": { lat: "16.7700", lng: "77.1378" },
-  "gadag": { lat: "15.4315", lng: "75.6350" },
-
- "wardha": { lat: "20.7453", lng: "78.6022" },
- "yavatmal": { lat: "20.3899", lng: "78.1307" },
- "beed": { lat: "18.9901", lng: "75.7531" },
- "osmanabad": { lat: "18.1861", lng: "76.0419" },
- "parbhani": { lat: "19.2704", lng: "76.7600" },
- "buldhana": { lat: "20.5293", lng: "76.1842" },
-
- "morbi": { lat: "22.8173", lng: "70.8377" },
- "surendranagar": { lat: "22.7271", lng: "71.6486" },
- "porbandar": { lat: "21.6417", lng: "69.6293" }, 
-
- "tiruppur": { lat: "11.1085", lng: "77.3411" },
- "ranipet": { lat: "12.9246", lng: "79.3333" },
- "ariyalur": { lat: "11.1385", lng: "79.0756" },
-
- "koothattukulam": { lat: "9.9892", lng: "76.5865" },
- "varkala": { lat: "8.7379", lng: "76.7163" },
-
- "nalgonda": { lat: "17.0575", lng: "79.2672" },
- "adilabad": { lat: "19.6667", lng: "78.5333" },
-
- "ongole": { lat: "15.5057", lng: "80.0499" },
- "srikakulam": { lat: "18.2949", lng: "83.8938" },
- "vizianagaram": { lat: "18.1067", lng: "83.3956" },
-
- "beawar": { lat: "26.1007", lng: "74.3203" },
- "barmer": { lat: "25.7500", lng: "71.3833" },
-
- "katni": { lat: "23.8388", lng: "80.3941" },
- "dewas": { lat: "22.9676", lng: "76.0534" },
-
- "noida extension": { lat: "28.5890", lng: "77.4500" },
- "firozabad": { lat: "27.1592", lng: "78.3957" },
-
- "moga": { lat: "30.8230", lng: "75.1734" },
- "barnala": { lat: "30.3819", lng: "75.5468" },
-
- "kasol": { lat: "32.0094", lng: "77.3147" },
- "spiti": { lat: "32.2460", lng: "78.0340" },
-
- "almora": { lat: "29.5892", lng: "79.6467" },
- "ramnagar": { lat: "29.3925", lng: "79.1283" },
-
- "gulmarg": { lat: "34.0484", lng: "74.3805" },
- "sonamarg": { lat: "34.3039", lng: "75.2933" },
-
- "tawang": { lat: "27.5869", lng: "91.8694" },
- "bomdila": { lat: "27.2648", lng: "92.4247" },
- "lunglei": { lat: "22.8925", lng: "92.7425" },
-
- "krishnagiri": { lat: "12.5266", lng: "78.2137" },
- "chittoor": { lat: "13.2172", lng: "79.1003" },
- "salem bypass": { lat: "11.6643", lng: "78.1460" },
- "belgaum highway": { lat: "15.8497", lng: "74.4977" },
- "tumkur highway": { lat: "13.3409", lng: "77.1010" },
- "hoskote": { lat: "13.0707", lng: "77.7981" },
-  "pithoragarh": { lat: "29.5829", lng: "80.2182" },
-"champawat": { lat: "29.3364", lng: "80.0926" },
-"bageshwar": { lat: "29.8374", lng: "79.7718" },
-
-"sirsa": { lat: "29.5336", lng: "75.0177" },
-"kaithal": { lat: "29.8014", lng: "76.3998" },
-"fatehabad": { lat: "29.5152", lng: "75.4553" },
-
-"sambhal": { lat: "28.5846", lng: "78.5696" },
-"etawah": { lat: "26.7769", lng: "79.0230" },
-"azamgarh": { lat: "26.0739", lng: "83.1859" },
-"ballia": { lat: "25.7588", lng: "84.1487" },
-
-"sehore": { lat: "23.2032", lng: "77.0844" },
-"ratlam": { lat: "23.3342", lng: "75.0376" },
-"mandsaur": { lat: "24.0734", lng: "75.0699" },
-
-"guntur highway": { lat: "16.3067", lng: "80.4365" },
-"krishna district": { lat: "16.2000", lng: "81.1000" },
-
-"koppal": { lat: "15.3483", lng: "76.1548" },
-"sirsi": { lat: "14.6196", lng: "74.8355" },
-"ranebennur": { lat: "14.6229", lng: "75.6215" },
-"sakleshpur": { lat: "12.9417", lng: "75.7850" },
-
-"tirupur bypass": { lat: "11.1085", lng: "77.3411" },
-"pollachi": { lat: "10.6582", lng: "77.0087" },
-"mayiladuthurai": { lat: "11.1035", lng: "79.6550" },
-
-"kasargod": { lat: "12.5102", lng: "74.9852" },
-"payyanur": { lat: "12.1010", lng: "75.2025" },
-
-"valsad": { lat: "20.6101", lng: "72.9342" },
-"godhra": { lat: "22.7788", lng: "73.6149" },
-"veraval": { lat: "20.9077", lng: "70.3673" },
-
-"sasan gir": { lat: "21.1240", lng: "70.8241" },
-"dholera": { lat: "22.2500", lng: "72.2000" },
-
-"tirupati highway": { lat: "13.6288", lng: "79.4192" },
-"bangalore airport": { lat: "13.1986", lng: "77.7066" },
-"kempegowda airport": { lat: "13.1986", lng: "77.7066" },
- "hyderabad airport": { lat: "17.2403", lng: "78.4294" },
-  "chennai airport": { lat: "12.9941", lng: "80.1709" },
-  "mumbai airport": { lat: "19.0896", lng: "72.8656" },
-  "delhi airport": { lat: "28.5562", lng: "77.1000" }
+  'delhi': [28.6139, 77.2090],
+  'new delhi': [28.6139, 77.2090],
+  'mumbai': [19.0760, 72.8777],
+  'navi mumbai': [19.0330, 73.0297],
+  'thane': [19.2183, 72.9781],
+  'pune': [18.5204, 73.8567],
+  'nagpur': [21.1458, 79.0882],
+  'nashik': [19.9975, 73.7898],
+  'aurangabad': [19.8762, 75.3433],
+  'kolhapur': [16.7050, 74.2433],
+  'solapur': [17.6599, 75.9064],
+  'bengaluru': [12.9716, 77.5946],
+  'bangalore': [12.9716, 77.5946],
+  'mysuru': [12.2958, 76.6394],
+  'hubli': [15.3647, 75.1240],
+  'mangalore': [12.9141, 74.8560],
+  'belagavi': [15.8497, 74.4977],
+  'shivamogga': [13.9299, 75.5681],
+  'ballari': [15.1394, 76.9214],
+  'hyderabad': [17.3850, 78.4867],
+  'warangal': [17.9689, 79.5941],
+  'karimnagar': [18.4386, 79.1288],
+  'nizamabad': [18.6725, 78.0941],
+  'khammam': [17.2473, 80.1514],
+  'chennai': [13.0827, 80.2707],
+  'coimbatore': [11.0168, 76.9558],
+  'madurai': [9.9252, 78.1198],
+  'salem': [11.6643, 78.1460],
+  'tiruchirappalli': [10.7905, 78.7047],
+  'tirunelveli': [8.7139, 77.7567],
+  'vellore': [12.9165, 79.1325],
+  'erode': [11.3410, 77.7172],
+  'kochi': [9.9312, 76.2673],
+  'kozhikode': [11.2588, 75.7804],
+  'thiruvananthapuram': [8.5241, 76.9366],
+  'thrissur': [10.5276, 76.2144],
+  'kollam': [8.8932, 76.6141],
+  'ahmedabad': [23.0225, 72.5714],
+  'surat': [21.1702, 72.8311],
+  'vadodara': [22.3072, 73.1812],
+  'rajkot': [22.3039, 70.8022],
+  'bhavnagar': [21.7645, 72.1519],
+  'gandhinagar': [23.2156, 72.6369],
+  'jamnagar': [22.4707, 70.0577],
+  'vapi': [20.3893, 72.9106],
+  'jaipur': [26.9124, 75.7873],
+  'jodhpur': [26.2389, 73.0243],
+  'udaipur': [24.5854, 73.7125],
+  'ajmer': [26.4499, 74.6399],
+  'kota': [25.2138, 75.8648],
+  'bikaner': [28.0229, 73.3119],
+  'alwar': [27.5530, 76.6346],
+  'chandigarh': [30.7333, 76.7794],
+  'mohali': [30.7046, 76.7179],
+  'amritsar': [31.6340, 74.8723],
+  'ludhiana': [30.9009, 75.8573],
+  'jalandhar': [31.3260, 75.5762],
+  'lucknow': [26.8467, 80.9462],
+  'kanpur': [26.4499, 80.3319],
+  'agra': [27.1767, 78.0081],
+  'varanasi': [25.3176, 82.9739],
+  'prayagraj': [25.4358, 81.8463],
+  'meerut': [28.9845, 77.7064],
+  'ghaziabad': [28.6692, 77.4538],
+  'noida': [28.5355, 77.3910],
+  'greater noida': [28.4744, 77.5030],
+  'patna': [25.5941, 85.1376],
+  'ranchi': [23.3441, 85.3096],
+  'dhanbad': [23.7957, 86.4304],
+  'jamshedpur': [22.8046, 86.2029],
+  'kolkata': [22.5726, 88.3639],
+  'howrah': [22.5958, 88.2636],
+  'durgapur': [23.5204, 87.3119],
+  'siliguri': [26.7271, 88.3953],
+  'asansol': [23.6739, 86.9524],
+  'bhubaneswar': [20.2961, 85.8245],
+  'cuttack': [20.4625, 85.8828],
+  'rourkela': [22.2604, 84.8536],
+  'puri': [19.8135, 85.8312],
+  'visakhapatnam': [17.6868, 83.2185],
+  'vijayawada': [16.5062, 80.6480],
+  'guntur': [16.3067, 80.4365],
+  'tirupati': [13.6288, 79.4192],
+  'nellore': [14.4426, 79.9865],
+  'kurnool': [15.8281, 78.0373],
+  'rajahmundry': [17.0005, 81.8040],
+  'bhopal': [23.2599, 77.4126],
+  'indore': [22.7196, 75.8577],
+  'gwalior': [26.2183, 78.1828],
+  'jabalpur': [23.1815, 79.9864],
+  'ujjain': [23.1765, 75.7885],
+  'dehradun': [30.3165, 78.0322],
+  'haridwar': [29.9457, 78.1642],
+  'shimla': [31.1048, 77.1734],
+  'manali': [32.2432, 77.1892],
+  'guwahati': [26.1445, 91.7362],
+  'shillong': [25.5788, 91.8933],
+  'imphal': [24.8170, 93.9368],
+  'agartala': [23.8315, 91.2868],
+  'aizawl': [23.7271, 92.7176],
+  'itanagar': [27.0844, 93.6053],
+  'gangtok': [27.3389, 88.6065],
+  'kohima': [25.6751, 94.1086],
+  'goa': [15.2993, 74.1240],
+  'panaji': [15.4909, 73.8278],
+  'margao': [15.2832, 73.9862],
+ 'puducherry': [11.9416, 79.8083],
+ 'mysore': [12.2958, 76.6394],
+  'mangalore': [12.9141, 74.8560],
+  'hubli-dharwad': [15.3647, 75.1240],
+  'belgaum': [15.8497, 74.4977],
+ 'davanagere': [14.4644, 75.9218],
+    'bellary': [15.1394, 76.9214],
+    'gulbarga': [17.3297, 76.8343],
+    'tiruchirappalli': [10.7905, 78.7047],
+    'salem': [11.6643, 78.1460],
+    'tirunelveli': [8.7139, 77.7567],
+    'vellore': [12.9165, 79.1325],
+    'erode': [11.3410, 77.7172],
+    'thoothukudi': [8.7642, 78.1348],
+    'dindigul': [10.3673, 77.9803],
+    'thanjavur': [10.7870, 79.1378],
+    'calicut': [11.2588, 75.7804],
+    'thrissur': [10.5276, 76.2144],
+    'kollam': [8.8932, 76.6141],
+    'palakkad': [10.7867, 76.6548],
+    'alappuzha': [9.4981, 76.3388],
+    'kannur': [11.8745, 75.3704],
+    'nashik': [19.9975, 73.7898],
+    'aurangabad': [19.8762, 75.3433],
+    'solapur': [17.6599, 75.9064],
+    'amravati': [20.9374, 77.7796],
+    'nanded': [19.1383, 77.3210],
+    'kolhapur': [16.7050, 74.2433],
+    'sangli': [16.8524, 74.5815],
+    'jalgaon': [21.0077, 75.5626],
+    'akola': [20.7002, 77.0082],
+    'latur': [18.4088, 76.5604],
+    'ahmednagar': [19.0952, 74.7496],
+    'chandrapur': [19.9615, 79.2961],
+    'parbhani': [19.2611, 76.7749],
+    'jalna': [19.8344, 75.8816],
+    'bhiwandi': [19.2966, 73.0631],
+    'udaipur': [24.5854, 73.7125],
+    'kota': [25.2138, 75.8648],
+    'ajmer': [26.4499, 74.6399],
+    'bikaner': [28.0229, 73.3119],
+    'alwar': [27.5530, 76.6346],
+    'bhilwara': [25.3457, 74.6397],
+    'sikar': [27.6094, 75.1399],
+    'pali': [25.7711, 73.3233],
+    'bharatpur': [27.2157, 77.4903],
+    'ganganganagar': [29.9149, 73.8797],
+    'jalandhar': [31.3260, 75.5762],
+    'patiala': [30.3398, 76.3869],
+    'bathinda': [30.2110, 74.9455],
+    'hoshiarpur': [31.5143, 75.9224],
+    'batala': [31.8156, 75.2014],
+    'moga': [30.8175, 75.1717],
+    'pathankot': [32.2643, 75.6450],
+    'roorkee': [29.8543, 77.8880],
+    'haldwani': [29.2183, 79.5130],
+    'rudrapur': [28.9839, 79.3809],
+    'rishikesh': [30.0869, 78.2676],
+    'gorakhpur': [26.7606, 83.3732],
+    'bareilly': [28.3670, 79.4304],
+    'aligarh': [27.8974, 78.0880],
+    'moradabad': [28.8386, 78.7733],
+    'saharanpur': [29.9640, 77.5460],
+    'jhansi': [25.4484, 78.5685],
+    'muzaffarnagar': [29.4727, 77.7085],
+    'mathura': [27.4924, 77.6737],
+    'rampur': [28.8005, 79.0255],
+    'shahjahanpur': [27.8803, 79.9111],
+    'farrukhabad': [27.3820, 79.5778],
+    'faizabad': [26.7618, 82.1444],
+    'muzaffarpur': [26.1226, 85.3906],
+    'gaya': [24.7914, 85.0002],
+    'bhagalpur': [25.2425, 87.0177],
+    'darbhanga': [26.1542, 85.8918],
+    'purnia': [25.7771, 87.4753],
+    'arrah': [25.5604, 84.6642],
+    'begusarai': [25.4163, 86.1272],
+    'katihar': [25.5428, 87.5688],
+    'chhapra': [25.7801, 84.7431],
+    'siliguri': [26.7271, 88.3953],
+    'durgapur': [23.5204, 87.3119],
+    'asansol': [23.6739, 86.9524],
+    'bardhaman': [23.2324, 87.8615],
+    'malda': [25.0108, 88.1411],
+    'kharagpur': [22.3460, 87.3199],
+    'haldia': [22.0667, 88.0698],
+    'raipur': [21.2514, 81.6296],
+    'bhilai': [21.1938, 81.3509],
+    'bilaspur': [22.0797, 82.1391],
+    'korba': [22.3595, 82.6845],
+    'durg': [21.1904, 81.2849],
+    'jagdalpur': [19.0740, 82.0306],
+    'rourkela': [22.2604, 84.8536],
+    'berhampur': [19.3149, 84.7941],
+    'sambalpur': [21.4687, 83.9812],
+    'puri': [19.8135, 85.8312],
+    'balasore': [21.4942, 86.9314],
+    'jamshedpur': [22.8046, 86.2029],
+    'dhanbad': [23.7957, 86.4304],
+    'bokaro': [23.6693, 86.1511],
+    'deoghar': [24.4826, 86.6974],
+    'hazaribagh': [23.9929, 85.3653],
+    'agartala': [23.8315, 91.2868],
+    'dimapur': [25.9063, 93.7255],
+    'aizawl': [23.7271, 92.7176],
+    'itanagar': [27.0844, 93.6053],
+    'gangtok': [27.3389, 88.6065],
+    'kohima': [25.6751, 94.1086],
+   'bhiwandi': [19.2966, 73.0631],
+    'amravati': [20.9374, 77.7796],
+    'nanded': [19.1383, 77.3210],
+    'sangli': [16.8524, 74.5815],
+    'jalgaon': [21.0077, 75.5626],
+    'akola': [20.7002, 77.0082],
+    'latur': [18.4088, 76.5604],
+    'ahmednagar': [19.0952, 74.7496],
+    'chandrapur': [19.9615, 79.2961],
+    'parbhani': [19.2611, 76.7749],
+    'jalna': [19.8344, 75.8816],
+    'puducherry': [11.9416, 79.8083],
+    'davanagere': [14.4644, 75.9218],
+    'gulbarga': [17.3297, 76.8343],
+    'thoothukudi': [8.7642, 78.1348],
+    'dindigul': [10.3673, 77.9803],
+    'thanjavur': [10.7870, 79.1378],
+    'palakkad': [10.7867, 76.6548],
+    'alappuzha': [9.4981, 76.3388],
+    'kannur': [11.8745, 75.3704],
+    'bhilwara': [25.3457, 74.6397],
+    'sikar': [27.6094, 75.1399],
+    'pali': [25.7711, 73.3233],
+    'bharatpur': [27.2157, 77.4903],
+    'ganganagar': [29.9149, 73.8797],
+    'patiala': [30.3398, 76.3869],
+    'bathinda': [30.2110, 74.9455],
+    'hoshiarpur': [31.5143, 75.9224],
+    'batala': [31.8156, 75.2014],
+    'moga': [30.8175, 75.1717],
+    'pathankot': [32.2643, 75.6450],
+    'haldwani': [29.2183, 79.5130],
+    'rudrapur': [28.9839, 79.3809],
+    'rishikesh': [30.0869, 78.2676],
+    'ramagundam': [18.7557, 79.4674],
+    'mahbubnagar': [16.7410, 77.9897],
+    'nalgonda': [17.0535, 79.2661],
+    'adilabad': [19.6706, 78.5323],
+    'suryapet': [17.1437, 79.6231],
+    'miryalaguda': [16.8687, 79.5658],
+    'siddipet': [18.1018, 78.8524],
+    'narsampet': [17.9256, 79.9142],
+    'bhadradri kothagudem': [17.5500, 80.6167],
+    'kakinada': [16.9891, 82.2475],
+    'eluru': [16.7107, 81.0952],
+    'ongole': [15.5057, 80.0499],
+    'srikakulam': [18.2949, 83.8938],
+    'vizianagaram': [18.1130, 83.4144],
+    'machilipatnam': [16.1875, 81.1389],
+    'proddatur': [14.7370, 78.5528],
+    'nandyal': [15.4786, 78.4842],
+    'adoni': [15.6276, 77.2755],
+    'tenali': [16.2434, 80.6470],
+    'hindupur': [13.8291, 77.4914],
+    'bhimavaram': [16.5449, 81.5212],
+    'madanapalle': [13.5531, 78.5025],
+    'guntakal': [15.1667, 77.3333],
+    'sullurpeta': [13.7042, 80.0210],
+    'hosur': [12.7409, 77.8253],
+    'kanchipuram': [12.8342, 79.7036],
+    'kumbakonam': [10.9601, 79.3845],
+    'tiruvannamalai': [12.2253, 79.0747],
+    'pollachi': [10.6601, 77.0047],
+    'rajapalayam': [9.4447, 77.5526],
+    'sivakasi': [9.4527, 77.8037],
+    'karur': [10.9601, 78.0766],
+    'udagamandalam': [11.4102, 76.6950],
+    'neyveli': [11.6094, 79.4851],
+    'cuddalore': [11.7480, 79.7714],
+    'malappuram': [10.7056, 76.0827],
+    'manjeri': [11.1219, 76.1218],
+    'thalassery': [11.7492, 75.4890],
+    'ponnani': [10.7686, 75.9298],
+    'vatakara': [11.6033, 75.5920],
+    'kanhangad': [12.3167, 75.1000],
+    'payyanur': [12.1004, 75.2045],
+    'faridabad': [28.4089, 77.3178],
+    'gurugram': [28.4595, 77.0266],
+    'panipat': [29.3909, 76.9635],
+    'ambala': [30.3782, 76.7767],
+    'yamunanagar': [30.1290, 77.2674],
+    'rohtak': [28.8955, 76.6066],
+    'hisar': [29.1492, 75.7217],
+    'karnal': [29.6857, 76.9905],
+    'sonipat': [28.9955, 77.0110],
+    'sirsa': [29.5352, 75.0238],
+    'bhiwani': [28.7845, 76.1304],
+    'fatehabad': [29.5133, 75.4542],
+    'kurukshetra': [29.9695, 76.8783],
+    'jind': [29.3113, 76.3155],
+    'bihar sharif': [25.1972, 85.5172],
+    'sagar': [23.8388, 78.7378],
+    'dewas': [22.9676, 76.0534],
+    'satna': [24.5776, 80.8322],
+    'ratlam': [23.3343, 75.0387],
+    'rewa': [24.5362, 81.3037],
+    'giridih': [24.1925, 86.3023],
+    'silchar': [24.8333, 92.7789],
+    'dibrugarh': [27.4728, 94.9120],
+    'jorhat': [26.7509, 94.2037],
+    'nagaon': [26.3484, 92.6841],
+    'tinsukia': [27.4915, 95.5653],
+    'tezpur': [26.6528, 92.7926],
+    'kashipur': [29.2104, 78.9568],
+    'dharamshala': [32.2190, 76.3234],
+    'solan': [30.9045, 77.0967],
+    'mandi': [31.7087, 76.9317],
+    'kullu': [31.9579, 77.1095],
+    'kalyani': [22.9753, 88.4344],
+    'habra': [22.8427, 88.6334],
+    'shantipur': [23.2505, 88.4316],
+    'krishnanagar': [23.4019, 88.5011],
+    'raiganj': [25.6206, 88.1256],
+    'balurghat': [25.2258, 88.7737],
+    'medinipur': [22.4257, 87.3204],
+    'jalpaiguri': [26.5204, 88.7139],
+    'purulia': [23.3324, 86.3655],
+    'raipur': [21.2514, 81.6296],
+    'bhilai': [21.1938, 81.3509],
+    'bilaspur': [22.0797, 82.1391],
+    'korba': [22.3595, 82.6845],
+    'durg': [21.1904, 81.2849],
+    'jagdalpur': [19.0740, 82.0306],
+    'berhampur': [19.3149, 84.7941],
+    'sambalpur': [21.4687, 83.9812],
+    'balasore': [21.4942, 86.9314],
+    'dimapur': [25.9063, 93.7255]
   
 };
 
@@ -11139,8 +11036,8 @@ if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
       const text = this.getLangName(lang);
       
       const customLabel = document.getElementById('custom-lang-label');
-      if (customLabel) {
-        customLabel.textContent = lang.toUpperCase();
+      if (customLabel && !this.isTranslating) {
+        customLabel.textContent = this.getNativeLabel(lang);
       }
       const customOptions = document.querySelectorAll('#custom-lang-menu .lang-option');
       customOptions.forEach(opt => {
@@ -11228,7 +11125,7 @@ if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
       this._observerPaused = true;
       const customLabel = document.getElementById('custom-lang-label');
       if (customLabel) {
-        customLabel.textContent = '...';
+        customLabel.innerHTML = '<svg class="w-3.5 h-3.5 animate-spin text-current inline-block align-middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>';
       }
 
       try {
@@ -11270,7 +11167,7 @@ if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
 
         if (textsToTranslate.length === 0) {
           if (customLabel) {
-            customLabel.textContent = this.currentLanguage.toUpperCase();
+            customLabel.textContent = this.getNativeLabel(this.currentLanguage);
           }
           return;
         }
@@ -11360,7 +11257,7 @@ if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
         }
 
         if (customLabel) {
-          customLabel.textContent = this.currentLanguage.toUpperCase();
+          customLabel.textContent = this.getNativeLabel(this.currentLanguage);
         }
 
       } catch (e) {
@@ -11421,6 +11318,10 @@ if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
       }
     },
 
+    getNativeLabel(lang) {
+      const labels = { en:'English', hi:'हिन्दी', kn:'ಕನ್ನಡ', ml:'മലയാളം', te:'తెలుగు', ta:'தமிழ்' };
+      return labels[lang] || lang.toUpperCase();
+    },
     getLangName(lang) {
       const names = {
         en: 'English',
@@ -12362,7 +12263,13 @@ async function handleRouting() {
     setTimeout(() => {
       const el = document.getElementById('trip-planner');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+      if (typeof renderTripMapRoute === 'function') {
+        renderTripMapRoute('delhi', 'mumbai', null);
+      }
+      if (typeof tripMapInstance !== 'undefined' && tripMapInstance) {
+        tripMapInstance.invalidateSize();
+      }
+    }, 150);
     return;
   } else if (route === 'popular-evs' || route === '/popular-evs' || route === 'browse' || route === '/browse') {
     restoreHomepage(true);
@@ -12734,7 +12641,7 @@ function renderSearchResultsPage() {
 
   function getLabel(val, type) {
     if (type === 'brand') {
-      const map = { tata:'Tata', mahindra:'Mahindra', hyundai:'Hyundai', mg:'MG', kia:'Kia', byd:'BYD', bmw:'BMW', 'mercedes-benz':'Mercedes-Benz', volvo:'Volvo', audi:'Audi', 'maruti-suzuki':'Maruti Suzuki', toyota:'Toyota', honda:'Honda', skoda:'Skoda', volkswagen:'Volkswagen', renault:'Renault', nissan:'Nissan', citroen:'Citroën', jeep:'Jeep', 'force-motors':'Force Motors', isuzu:'Isuzu', porsche:'Porsche', vinfast:'VinFast', tesla:'Tesla', lexus:'Lexus' };
+      const map = { tata:'Tata', mahindra:'Mahindra', hyundai:'Hyundai', mg:'MG', kia:'Kia', byd:'BYD', bmw:'BMW',volvo:'Volvo', audi:'Audi','maruti-suzuki':'Maruti-Suzuki', toyota :'Toyota', ferrari:'Ferrari', genesis:'Genesis',honda:'Honda', skoda:'Skoda', volkswagen:'Volkswagen', renault:'Renault', nissan:'Nissan', citroen:'Citroën', lotus:'Lotus',jeep:'Jeep', isuzu:'Isuzu', porsche:'Porsche', vinfast:'VinFast', tesla:'Tesla', lexus:'Lexus', 'rolls-royce' :'Rolls-Royce', blinq :'Blinq' };
       return map[val] || val;
     }
     if (type === 'budget') {
@@ -12885,6 +12792,7 @@ const count = brandCounts[brandId] ?? 0;
     src="${logoUrl}"
     alt="${brandName}"
     class="w-14 h-14 object-contain mx-auto"
+    onerror="handleImageError(this)"
 />
         <div>
           <span class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-800 group-hover:text-black block">${brandName}</span>
@@ -17071,16 +16979,347 @@ var tripMapMarkers = null;
 
 function renderTripMapRoute(fromKey, toKey, stations) {
   var CITY_COORDS = {
-    'delhi': [28.6139, 77.2090],
-    'mumbai': [19.0760, 72.8777],
-    'bengaluru': [12.9716, 77.5946],
-    'hyderabad': [17.3850, 78.4867],
-    'chennai': [13.0827, 80.2707],
-    'pune': [18.5204, 73.8567],
-    'kolkata': [22.5726, 88.3639],
-    'ahmedabad': [23.0225, 72.5714],
-    'jaipur': [26.9124, 75.7873],
-    'kochi': [9.9312, 76.2673]
+  'delhi': [28.6139, 77.2090],
+  'new delhi': [28.6139, 77.2090],
+  'mumbai': [19.0760, 72.8777],
+  'navi mumbai': [19.0330, 73.0297],
+  'thane': [19.2183, 72.9781],
+  'pune': [18.5204, 73.8567],
+  'nagpur': [21.1458, 79.0882],
+  'nashik': [19.9975, 73.7898],
+  'aurangabad': [19.8762, 75.3433],
+  'kolhapur': [16.7050, 74.2433],
+  'solapur': [17.6599, 75.9064],
+  'bengaluru': [12.9716, 77.5946],
+  'bangalore': [12.9716, 77.5946],
+  'mysuru': [12.2958, 76.6394],
+  'hubli': [15.3647, 75.1240],
+  'mangalore': [12.9141, 74.8560],
+  'belagavi': [15.8497, 74.4977],
+  'shivamogga': [13.9299, 75.5681],
+  'ballari': [15.1394, 76.9214],
+  'hyderabad': [17.3850, 78.4867],
+  'warangal': [17.9689, 79.5941],
+  'karimnagar': [18.4386, 79.1288],
+  'nizamabad': [18.6725, 78.0941],
+  'khammam': [17.2473, 80.1514],
+  'chennai': [13.0827, 80.2707],
+  'coimbatore': [11.0168, 76.9558],
+  'madurai': [9.9252, 78.1198],
+  'salem': [11.6643, 78.1460],
+  'tiruchirappalli': [10.7905, 78.7047],
+  'tirunelveli': [8.7139, 77.7567],
+  'vellore': [12.9165, 79.1325],
+  'erode': [11.3410, 77.7172],
+  'kochi': [9.9312, 76.2673],
+  'kozhikode': [11.2588, 75.7804],
+  'thiruvananthapuram': [8.5241, 76.9366],
+  'thrissur': [10.5276, 76.2144],
+  'kollam': [8.8932, 76.6141],
+  'ahmedabad': [23.0225, 72.5714],
+  'surat': [21.1702, 72.8311],
+  'vadodara': [22.3072, 73.1812],
+  'rajkot': [22.3039, 70.8022],
+  'bhavnagar': [21.7645, 72.1519],
+  'gandhinagar': [23.2156, 72.6369],
+  'jamnagar': [22.4707, 70.0577],
+  'vapi': [20.3893, 72.9106],
+  'jaipur': [26.9124, 75.7873],
+  'jodhpur': [26.2389, 73.0243],
+  'udaipur': [24.5854, 73.7125],
+  'ajmer': [26.4499, 74.6399],
+  'kota': [25.2138, 75.8648],
+  'bikaner': [28.0229, 73.3119],
+  'alwar': [27.5530, 76.6346],
+  'chandigarh': [30.7333, 76.7794],
+  'mohali': [30.7046, 76.7179],
+  'amritsar': [31.6340, 74.8723],
+  'ludhiana': [30.9009, 75.8573],
+  'jalandhar': [31.3260, 75.5762],
+  'lucknow': [26.8467, 80.9462],
+  'kanpur': [26.4499, 80.3319],
+  'agra': [27.1767, 78.0081],
+  'varanasi': [25.3176, 82.9739],
+  'prayagraj': [25.4358, 81.8463],
+  'meerut': [28.9845, 77.7064],
+  'ghaziabad': [28.6692, 77.4538],
+  'noida': [28.5355, 77.3910],
+  'greater noida': [28.4744, 77.5030],
+  'patna': [25.5941, 85.1376],
+  'ranchi': [23.3441, 85.3096],
+  'dhanbad': [23.7957, 86.4304],
+  'jamshedpur': [22.8046, 86.2029],
+  'kolkata': [22.5726, 88.3639],
+  'howrah': [22.5958, 88.2636],
+  'durgapur': [23.5204, 87.3119],
+  'siliguri': [26.7271, 88.3953],
+  'asansol': [23.6739, 86.9524],
+  'bhubaneswar': [20.2961, 85.8245],
+  'cuttack': [20.4625, 85.8828],
+  'rourkela': [22.2604, 84.8536],
+  'puri': [19.8135, 85.8312],
+  'visakhapatnam': [17.6868, 83.2185],
+  'vijayawada': [16.5062, 80.6480],
+  'guntur': [16.3067, 80.4365],
+  'tirupati': [13.6288, 79.4192],
+  'nellore': [14.4426, 79.9865],
+  'kurnool': [15.8281, 78.0373],
+  'rajahmundry': [17.0005, 81.8040],
+  'bhopal': [23.2599, 77.4126],
+  'indore': [22.7196, 75.8577],
+  'gwalior': [26.2183, 78.1828],
+  'jabalpur': [23.1815, 79.9864],
+  'ujjain': [23.1765, 75.7885],
+  'dehradun': [30.3165, 78.0322],
+  'haridwar': [29.9457, 78.1642],
+  'shimla': [31.1048, 77.1734],
+  'manali': [32.2432, 77.1892],
+  'guwahati': [26.1445, 91.7362],
+  'shillong': [25.5788, 91.8933],
+  'imphal': [24.8170, 93.9368],
+  'agartala': [23.8315, 91.2868],
+  'aizawl': [23.7271, 92.7176],
+  'itanagar': [27.0844, 93.6053],
+  'gangtok': [27.3389, 88.6065],
+  'kohima': [25.6751, 94.1086],
+  'goa': [15.2993, 74.1240],
+  'panaji': [15.4909, 73.8278],
+  'margao': [15.2832, 73.9862],
+ 'puducherry': [11.9416, 79.8083],
+ 'mysore': [12.2958, 76.6394],
+  'mangalore': [12.9141, 74.8560],
+  'hubli-dharwad': [15.3647, 75.1240],
+  'belgaum': [15.8497, 74.4977],
+ 'davanagere': [14.4644, 75.9218],
+    'bellary': [15.1394, 76.9214],
+    'gulbarga': [17.3297, 76.8343],
+    'tiruchirappalli': [10.7905, 78.7047],
+    'salem': [11.6643, 78.1460],
+    'tirunelveli': [8.7139, 77.7567],
+    'vellore': [12.9165, 79.1325],
+    'erode': [11.3410, 77.7172],
+    'thoothukudi': [8.7642, 78.1348],
+    'dindigul': [10.3673, 77.9803],
+    'thanjavur': [10.7870, 79.1378],
+    'calicut': [11.2588, 75.7804],
+    'thrissur': [10.5276, 76.2144],
+    'kollam': [8.8932, 76.6141],
+    'palakkad': [10.7867, 76.6548],
+    'alappuzha': [9.4981, 76.3388],
+    'kannur': [11.8745, 75.3704],
+    'nashik': [19.9975, 73.7898],
+    'aurangabad': [19.8762, 75.3433],
+    'solapur': [17.6599, 75.9064],
+    'amravati': [20.9374, 77.7796],
+    'nanded': [19.1383, 77.3210],
+    'kolhapur': [16.7050, 74.2433],
+    'sangli': [16.8524, 74.5815],
+    'jalgaon': [21.0077, 75.5626],
+    'akola': [20.7002, 77.0082],
+    'latur': [18.4088, 76.5604],
+    'ahmednagar': [19.0952, 74.7496],
+    'chandrapur': [19.9615, 79.2961],
+    'parbhani': [19.2611, 76.7749],
+    'jalna': [19.8344, 75.8816],
+    'bhiwandi': [19.2966, 73.0631],
+    'udaipur': [24.5854, 73.7125],
+    'kota': [25.2138, 75.8648],
+    'ajmer': [26.4499, 74.6399],
+    'bikaner': [28.0229, 73.3119],
+    'alwar': [27.5530, 76.6346],
+    'bhilwara': [25.3457, 74.6397],
+    'sikar': [27.6094, 75.1399],
+    'pali': [25.7711, 73.3233],
+    'bharatpur': [27.2157, 77.4903],
+    'ganganganagar': [29.9149, 73.8797],
+    'jalandhar': [31.3260, 75.5762],
+    'patiala': [30.3398, 76.3869],
+    'bathinda': [30.2110, 74.9455],
+    'hoshiarpur': [31.5143, 75.9224],
+    'batala': [31.8156, 75.2014],
+    'moga': [30.8175, 75.1717],
+    'pathankot': [32.2643, 75.6450],
+    'roorkee': [29.8543, 77.8880],
+    'haldwani': [29.2183, 79.5130],
+    'rudrapur': [28.9839, 79.3809],
+    'rishikesh': [30.0869, 78.2676],
+    'gorakhpur': [26.7606, 83.3732],
+    'bareilly': [28.3670, 79.4304],
+    'aligarh': [27.8974, 78.0880],
+    'moradabad': [28.8386, 78.7733],
+    'saharanpur': [29.9640, 77.5460],
+    'jhansi': [25.4484, 78.5685],
+    'muzaffarnagar': [29.4727, 77.7085],
+    'mathura': [27.4924, 77.6737],
+    'rampur': [28.8005, 79.0255],
+    'shahjahanpur': [27.8803, 79.9111],
+    'farrukhabad': [27.3820, 79.5778],
+    'faizabad': [26.7618, 82.1444],
+    'muzaffarpur': [26.1226, 85.3906],
+    'gaya': [24.7914, 85.0002],
+    'bhagalpur': [25.2425, 87.0177],
+    'darbhanga': [26.1542, 85.8918],
+    'purnia': [25.7771, 87.4753],
+    'arrah': [25.5604, 84.6642],
+    'begusarai': [25.4163, 86.1272],
+    'katihar': [25.5428, 87.5688],
+    'chhapra': [25.7801, 84.7431],
+    'siliguri': [26.7271, 88.3953],
+    'durgapur': [23.5204, 87.3119],
+    'asansol': [23.6739, 86.9524],
+    'bardhaman': [23.2324, 87.8615],
+    'malda': [25.0108, 88.1411],
+    'kharagpur': [22.3460, 87.3199],
+    'haldia': [22.0667, 88.0698],
+    'raipur': [21.2514, 81.6296],
+    'bhilai': [21.1938, 81.3509],
+    'bilaspur': [22.0797, 82.1391],
+    'korba': [22.3595, 82.6845],
+    'durg': [21.1904, 81.2849],
+    'jagdalpur': [19.0740, 82.0306],
+    'rourkela': [22.2604, 84.8536],
+    'berhampur': [19.3149, 84.7941],
+    'sambalpur': [21.4687, 83.9812],
+    'puri': [19.8135, 85.8312],
+    'balasore': [21.4942, 86.9314],
+    'jamshedpur': [22.8046, 86.2029],
+    'dhanbad': [23.7957, 86.4304],
+    'bokaro': [23.6693, 86.1511],
+    'deoghar': [24.4826, 86.6974],
+    'hazaribagh': [23.9929, 85.3653],
+    'agartala': [23.8315, 91.2868],
+    'dimapur': [25.9063, 93.7255],
+    'aizawl': [23.7271, 92.7176],
+    'itanagar': [27.0844, 93.6053],
+    'gangtok': [27.3389, 88.6065],
+    'kohima': [25.6751, 94.1086],
+   'bhiwandi': [19.2966, 73.0631],
+    'amravati': [20.9374, 77.7796],
+    'nanded': [19.1383, 77.3210],
+    'sangli': [16.8524, 74.5815],
+    'jalgaon': [21.0077, 75.5626],
+    'akola': [20.7002, 77.0082],
+    'latur': [18.4088, 76.5604],
+    'ahmednagar': [19.0952, 74.7496],
+    'chandrapur': [19.9615, 79.2961],
+    'parbhani': [19.2611, 76.7749],
+    'jalna': [19.8344, 75.8816],
+    'puducherry': [11.9416, 79.8083],
+    'davanagere': [14.4644, 75.9218],
+    'gulbarga': [17.3297, 76.8343],
+    'thoothukudi': [8.7642, 78.1348],
+    'dindigul': [10.3673, 77.9803],
+    'thanjavur': [10.7870, 79.1378],
+    'palakkad': [10.7867, 76.6548],
+    'alappuzha': [9.4981, 76.3388],
+    'kannur': [11.8745, 75.3704],
+    'bhilwara': [25.3457, 74.6397],
+    'sikar': [27.6094, 75.1399],
+    'pali': [25.7711, 73.3233],
+    'bharatpur': [27.2157, 77.4903],
+    'ganganagar': [29.9149, 73.8797],
+    'patiala': [30.3398, 76.3869],
+    'bathinda': [30.2110, 74.9455],
+    'hoshiarpur': [31.5143, 75.9224],
+    'batala': [31.8156, 75.2014],
+    'moga': [30.8175, 75.1717],
+    'pathankot': [32.2643, 75.6450],
+    'haldwani': [29.2183, 79.5130],
+    'rudrapur': [28.9839, 79.3809],
+    'rishikesh': [30.0869, 78.2676],
+    'ramagundam': [18.7557, 79.4674],
+    'mahbubnagar': [16.7410, 77.9897],
+    'nalgonda': [17.0535, 79.2661],
+    'adilabad': [19.6706, 78.5323],
+    'suryapet': [17.1437, 79.6231],
+    'miryalaguda': [16.8687, 79.5658],
+    'siddipet': [18.1018, 78.8524],
+    'narsampet': [17.9256, 79.9142],
+    'bhadradri kothagudem': [17.5500, 80.6167],
+    'kakinada': [16.9891, 82.2475],
+    'eluru': [16.7107, 81.0952],
+    'ongole': [15.5057, 80.0499],
+    'srikakulam': [18.2949, 83.8938],
+    'vizianagaram': [18.1130, 83.4144],
+    'machilipatnam': [16.1875, 81.1389],
+    'proddatur': [14.7370, 78.5528],
+    'nandyal': [15.4786, 78.4842],
+    'adoni': [15.6276, 77.2755],
+    'tenali': [16.2434, 80.6470],
+    'hindupur': [13.8291, 77.4914],
+    'bhimavaram': [16.5449, 81.5212],
+    'madanapalle': [13.5531, 78.5025],
+    'guntakal': [15.1667, 77.3333],
+    'sullurpeta': [13.7042, 80.0210],
+    'hosur': [12.7409, 77.8253],
+    'kanchipuram': [12.8342, 79.7036],
+    'kumbakonam': [10.9601, 79.3845],
+    'tiruvannamalai': [12.2253, 79.0747],
+    'pollachi': [10.6601, 77.0047],
+    'rajapalayam': [9.4447, 77.5526],
+    'sivakasi': [9.4527, 77.8037],
+    'karur': [10.9601, 78.0766],
+    'udagamandalam': [11.4102, 76.6950],
+    'neyveli': [11.6094, 79.4851],
+    'cuddalore': [11.7480, 79.7714],
+    'malappuram': [10.7056, 76.0827],
+    'manjeri': [11.1219, 76.1218],
+    'thalassery': [11.7492, 75.4890],
+    'ponnani': [10.7686, 75.9298],
+    'vatakara': [11.6033, 75.5920],
+    'kanhangad': [12.3167, 75.1000],
+    'payyanur': [12.1004, 75.2045],
+    'faridabad': [28.4089, 77.3178],
+    'gurugram': [28.4595, 77.0266],
+    'panipat': [29.3909, 76.9635],
+    'ambala': [30.3782, 76.7767],
+    'yamunanagar': [30.1290, 77.2674],
+    'rohtak': [28.8955, 76.6066],
+    'hisar': [29.1492, 75.7217],
+    'karnal': [29.6857, 76.9905],
+    'sonipat': [28.9955, 77.0110],
+    'sirsa': [29.5352, 75.0238],
+    'bhiwani': [28.7845, 76.1304],
+    'fatehabad': [29.5133, 75.4542],
+    'kurukshetra': [29.9695, 76.8783],
+    'jind': [29.3113, 76.3155],
+    'bihar sharif': [25.1972, 85.5172],
+    'sagar': [23.8388, 78.7378],
+    'dewas': [22.9676, 76.0534],
+    'satna': [24.5776, 80.8322],
+    'ratlam': [23.3343, 75.0387],
+    'rewa': [24.5362, 81.3037],
+    'giridih': [24.1925, 86.3023],
+    'silchar': [24.8333, 92.7789],
+    'dibrugarh': [27.4728, 94.9120],
+    'jorhat': [26.7509, 94.2037],
+    'nagaon': [26.3484, 92.6841],
+    'tinsukia': [27.4915, 95.5653],
+    'tezpur': [26.6528, 92.7926],
+    'kashipur': [29.2104, 78.9568],
+    'dharamshala': [32.2190, 76.3234],
+    'solan': [30.9045, 77.0967],
+    'mandi': [31.7087, 76.9317],
+    'kullu': [31.9579, 77.1095],
+    'kalyani': [22.9753, 88.4344],
+    'habra': [22.8427, 88.6334],
+    'shantipur': [23.2505, 88.4316],
+    'krishnanagar': [23.4019, 88.5011],
+    'raiganj': [25.6206, 88.1256],
+    'balurghat': [25.2258, 88.7737],
+    'medinipur': [22.4257, 87.3204],
+    'jalpaiguri': [26.5204, 88.7139],
+    'purulia': [23.3324, 86.3655],
+    'raipur': [21.2514, 81.6296],
+    'bhilai': [21.1938, 81.3509],
+    'bilaspur': [22.0797, 82.1391],
+    'korba': [22.3595, 82.6845],
+    'durg': [21.1904, 81.2849],
+    'jagdalpur': [19.0740, 82.0306],
+    'berhampur': [19.3149, 84.7941],
+    'sambalpur': [21.4687, 83.9812],
+    'balasore': [21.4942, 86.9314],
+    'dimapur': [25.9063, 93.7255]
   };
 
   var mapEl = document.getElementById('trip-leaflet-map');
@@ -17167,11 +17406,17 @@ function renderTripMapRoute(fromKey, toKey, stations) {
       lineJoin: 'round'
     }).addTo(tripMapInstance);
 
+    // Fit route bounds and invalidate map size
     tripMapInstance.fitBounds(L.latLngBounds(latlngs), { padding: [40, 40] });
 
-    setTimeout(function() {
-      if (tripMapInstance) tripMapInstance.invalidateSize();
-    }, 200);
+    // Multi-stage invalidations to ensure full tiles render even if container layout is deferred
+    [20, 100, 300, 600, 1200, 2000].forEach(function(delay) {
+      setTimeout(function() {
+        if (tripMapInstance) {
+          tripMapInstance.invalidateSize();
+        }
+      }, delay);
+    });
   }
 
   if (typeof L === 'undefined') {
@@ -17181,6 +17426,28 @@ function renderTripMapRoute(fromKey, toKey, stations) {
     document.head.appendChild(script);
   } else {
     draw();
+  }
+
+  // Automatic observers to guarantee map is always loaded and drawn when visible or resized
+  if (window.ResizeObserver && mapEl && !mapEl._hasTripResizeObserver) {
+    mapEl._hasTripResizeObserver = true;
+    var ro = new ResizeObserver(function() {
+      if (tripMapInstance) {
+        tripMapInstance.invalidateSize();
+      }
+    });
+    ro.observe(mapEl);
+  }
+  if (window.IntersectionObserver && mapEl && !mapEl._hasTripIntersectionObserver) {
+    mapEl._hasTripIntersectionObserver = true;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && tripMapInstance) {
+          tripMapInstance.invalidateSize();
+        }
+      });
+    }, { threshold: 0.05 });
+    io.observe(mapEl);
   }
 }
 
@@ -17996,35 +18263,15 @@ function renderChargingStationsPage() {
 
       <!-- Search Bar & Action Buttons -->
       <div class="max-w-3xl mx-auto w-full flex flex-col sm:flex-row items-center gap-3">
-        <input type="text" id="station-search-input" placeholder="Search city, locality, or pincode..." class="w-full bg-zinc-50 border border-zinc-300 text-black text-sm p-4 rounded-full outline-none focus:border-black transition-all font-mono">
-        <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto">
-          <button id="btn-search-stations" class="w-full sm:w-auto px-6 py-4 bg-black text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:bg-zinc-800 transition-all">SEARCH</button>
-          <button id="btn-use-location" class="w-full sm:w-auto px-6 py-4 border border-zinc-300 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:border-black transition-all">USE MY LOCATION</button>
-          <button id="btn-all-stations" class="w-full sm:w-auto px-6 py-4 bg-[#22C55E] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:bg-emerald-600 transition-all">ALL STATIONS</button>
+        <div class="relative w-full">
+          <input type="text" id="station-search-input" autocomplete="off" placeholder="Search city, state, locality, or pincode (e.g. Bangalore, Delhi)..." class="w-full bg-zinc-50 border border-zinc-300 text-black text-sm p-4 rounded-full outline-none focus:border-black transition-all font-mono">
+          <div id="charging-search-suggestions" class="absolute left-0 right-0 top-full mt-2 bg-white border border-zinc-200 rounded-2xl shadow-xl z-50 max-h-64 overflow-y-auto hidden divide-y divide-zinc-100 font-mono"></div>
         </div>
-      </div>
-
-      <!-- Filter Checkboxes -->
-      <div class="flex flex-wrap items-center justify-center gap-3 font-mono text-xs text-zinc-700">
-        <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">FILTER:</span>
-        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
-          <input type="checkbox" id="chk-ac" class="accent-black"> AC
-        </label>
-        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
-          <input type="checkbox" id="chk-dc" checked class="accent-black"> DC Fast
-        </label>
-        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
-          <input type="checkbox" id="chk-ccs2" checked class="accent-black"> CCS2
-        </label>
-        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
-          <input type="checkbox" id="chk-type2" class="accent-black"> Type 2
-        </label>
-        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-zinc-200 bg-white rounded-xl cursor-pointer hover:border-zinc-400">
-          <input type="checkbox" id="chk-chademo" class="accent-black"> CHAdeMO
-        </label>
-        <label class="inline-flex items-center gap-1.5 px-3.5 py-1.5 border border-[#22C55E]/40 bg-[#22C55E]/10 text-black font-bold rounded-full cursor-pointer">
-          <input type="checkbox" id="chk-available" checked class="accent-[#22C55E]"> • Available Now
-        </label>
+        <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto">
+          <button id="btn-search-stations" class="w-full sm:w-auto px-6 py-4 bg-black text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:bg-zinc-800 transition-all cursor-pointer">SEARCH</button>
+          <button id="btn-use-location" class="w-full sm:w-auto px-6 py-4 border border-zinc-300 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:border-black transition-all cursor-pointer">USE MY LOCATION</button>
+          <button id="btn-all-stations" class="w-full sm:w-auto px-6 py-4 bg-[#22C55E] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-full hover:bg-emerald-600 transition-all cursor-pointer">ALL STATIONS</button>
+        </div>
       </div>
 
       <!-- MAIN SPLIT VIEW (LEFT STATIONS LIST / RIGHT INTERACTIVE MAP) -->
@@ -18034,13 +18281,13 @@ function renderChargingStationsPage() {
         <div class="lg:col-span-5 flex flex-col gap-4 min-h-[480px]" id="station-results-container">
           <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-12 flex flex-col items-center justify-center text-center h-full min-h-[480px]">
             <div class="w-12 h-12 rounded-full bg-zinc-200 flex items-center justify-center text-xl text-zinc-500 mb-3">🔌</div>
-            <p class="text-xs text-zinc-500 font-mono">Enter a city name above or use your location to find charging stations.</p>
+            <p class="text-xs text-zinc-500 font-mono">Enter a city, state, or locality above or use your location to find charging stations.</p>
           </div>
         </div>
 
         <!-- Right Side (Interactive Leaflet Map) -->
         <div class="lg:col-span-7 border border-zinc-200 rounded-3xl overflow-hidden shadow-sm h-[480px] sticky top-20 bg-zinc-100 relative">
-          <div id="leaflet-map" class="w-full h-full z-10"></div>
+          <div id="leaflet-map" class="w-full h-[650px] z-10"></div>
         </div>
 
       </div>
@@ -18053,32 +18300,136 @@ function renderChargingStationsPage() {
 }
 
 function bindChargingStationsLogic() {
+  const STATE_COORDS = {
+    'karnataka': { name: 'Karnataka', coords: [12.9716, 77.5946], city: 'bengaluru' },
+    'maharashtra': { name: 'Maharashtra', coords: [19.0760, 72.8777], city: 'mumbai' },
+    'tamil nadu': { name: 'Tamil Nadu', coords: [13.0827, 80.2707], city: 'chennai' },
+    'telangana': { name: 'Telangana', coords: [17.3850, 78.4867], city: 'hyderabad' },
+    'delhi': { name: 'Delhi NCR', coords: [28.6139, 77.2090], city: 'delhi' },
+    'ncr': { name: 'Delhi NCR', coords: [28.6139, 77.2090], city: 'delhi' },
+    'kerala': { name: 'Kerala', coords: [9.9312, 76.2673], city: 'kochi' },
+    'gujarat': { name: 'Gujarat', coords: [23.0225, 72.5714], city: 'ahmedabad' },
+    'rajasthan': { name: 'Rajasthan', coords: [26.9124, 75.7873], city: 'jaipur' },
+    'west bengal': { name: 'West Bengal', coords: [22.5726, 88.3639], city: 'kolkata' },
+    'bengal': { name: 'West Bengal', coords: [22.5726, 88.3639], city: 'kolkata' },
+    'punjab': { name: 'Punjab', coords: [30.9009, 75.8573], city: 'ludhiana' },
+    'haryana': { name: 'Haryana', coords: [28.4595, 77.0266], city: 'gurugram' },
+    'uttar pradesh': { name: 'Uttar Pradesh', coords: [26.8467, 80.9462], city: 'lucknow' },
+    'up': { name: 'Uttar Pradesh', coords: [26.8467, 80.9462], city: 'lucknow' },
+    'madhya pradesh': { name: 'Madhya Pradesh', coords: [23.2599, 77.4126], city: 'bhopal' },
+    'mp': { name: 'Madhya Pradesh', coords: [23.2599, 77.4126], city: 'bhopal' },
+    'goa': { name: 'Goa', coords: [15.2993, 74.1240], city: 'goa' },
+    'andhra pradesh': { name: 'Andhra Pradesh', coords: [17.6868, 83.2185], city: 'visakhapatnam' },
+    'ap': { name: 'Andhra Pradesh', coords: [17.6868, 83.2185], city: 'visakhapatnam' },
+    'odisha': { name: 'Odisha', coords: [20.2961, 85.8245], city: 'bhubaneswar' },
+    'bihar': { name: 'Bihar', coords: [25.5941, 85.1376], city: 'patna' },
+    'jharkhand': { name: 'Jharkhand', coords: [23.3441, 85.3096], city: 'ranchi' },
+    'chhattisgarh': { name: 'Chhattisgarh', coords: [21.2514, 81.6296], city: 'raipur' },
+    'uttarakhand': { name: 'Uttarakhand', coords: [30.3165, 78.0322], city: 'dehradun' },
+    'himachal pradesh': { name: 'Himachal Pradesh', coords: [31.1048, 77.1734], city: 'shimla' },
+    'assam': { name: 'Assam', coords: [26.1445, 91.7362], city: 'guwahati' }
+  };
+
   const CITY_COORDS = {
-    'delhi': { lat: 28.6139, lng: 77.2090, name: 'Delhi NCR' },
-    'mumbai': { lat: 19.0760, lng: 72.8777, name: 'Mumbai' },
-    'bengaluru': { lat: 12.9716, lng: 77.5946, name: 'Bengaluru' },
-    'hyderabad': { lat: 17.3850, lng: 78.4867, name: 'Hyderabad' },
-    'chennai': { lat: 13.0827, lng: 80.2707, name: 'Chennai' },
-    'pune': { lat: 18.5204, lng: 73.8567, name: 'Pune' },
-    'kolkata': { lat: 22.5726, lng: 88.3639, name: 'Kolkata' }
+    // Karnataka Cities & Districts
+    'bengaluru': [12.9716, 77.5946], 'bangalore': [12.9716, 77.5946], 'mysuru': [12.2958, 76.6394], 'mysore': [12.2958, 76.6394],
+    'hubballi': [15.3647, 75.1240], 'hubli': [15.3647, 75.1240], 'dharwad': [15.4589, 75.0078], 'mangaluru': [12.9141, 74.8560], 'mangalore': [12.9141, 74.8560],
+    'belagavi': [15.8497, 74.4977], 'belgaum': [15.8497, 74.4977], 'shivamogga': [13.9299, 75.5681], 'shimoga': [13.9299, 75.5681], 'ballari': [15.1394, 76.9214], 'bellary': [15.1394, 76.9214],
+    'kalaburagi': [17.3297, 76.8343], 'gulbarga': [17.3297, 76.8343], 'davanagere': [14.4644, 75.9218], 'tumakuru': [13.3379, 77.1173], 'tumkur': [13.3379, 77.1173],
+    'vijayapura': [16.8302, 75.7100], 'bijapur': [16.8302, 75.7100], 'raichur': [16.2076, 77.3463], 'bidar': [17.9104, 77.5199], 'hassan': [13.0033, 76.1004],
+    'udupi': [13.3409, 74.7421], 'kolar': [13.1367, 78.1291], 'mandya': [12.5218, 76.8951], 'chikkamagaluru': [13.3161, 75.7720], 'chitradurga': [14.2251, 76.3980],
+    'bagalkot': [16.1852, 75.6961], 'gadag': [15.4305, 75.6322], 'haveri': [14.7954, 75.4011], 'yadgir': [16.7640, 77.1357], 'chamarajanagar': [11.9261, 76.9437],
+    'ramanagara': [12.7230, 77.2809], 'madikeri': [12.4244, 75.7382], 'kodagu': [12.4244, 75.7382], 'chikkaballapur': [13.4355, 77.7275], 'koppal': [15.3524, 76.1553], 'karwar': [14.8185, 74.1416],
+
+    // Maharashtra Cities & Districts
+    'mumbai': [19.0760, 72.8777], 'navi mumbai': [19.0330, 73.0297], 'thane': [19.2183, 72.9781], 'pune': [18.5204, 73.8567], 'nagpur': [21.1458, 79.0882],
+    'nashik': [19.9975, 73.7898], 'aurangabad': [19.8762, 75.3433], 'chhatrapati sambhajinagar': [19.8762, 75.3433], 'solapur': [17.6599, 75.9064], 'kolhapur': [16.7050, 74.2433],
+    'amravati': [20.9374, 77.7796], 'nanded': [19.1383, 77.3210], 'sangli': [16.8524, 74.5815], 'jalgaon': [21.0077, 75.5626], 'akola': [20.7002, 77.0082],
+    'latur': [18.4088, 76.5604], 'ahmednagar': [19.0952, 74.7496], 'chandrapur': [19.9615, 79.2961], 'parbhani': [19.2611, 76.7749], 'jalna': [19.8344, 75.8816],
+    'bhiwandi': [19.2966, 73.0631], 'satara': [17.6805, 74.0183], 'ratnagiri': [16.9902, 73.3120], 'sindhudurg': [16.1264, 73.6897], 'dhule': [20.9042, 74.7749],
+    'nandurbar': [21.3716, 74.2409], 'wardha': [20.7453, 78.6022], 'yavatmal': [20.3888, 78.1204], 'bhandara': [21.1714, 79.6542], 'gondia': [21.4604, 80.1920],
+    'gadchiroli': [20.1837, 79.9975], 'hingoli': [19.7188, 77.1466], 'washim': [20.1105, 77.1332], 'buldhana': [20.5293, 76.1843], 'osmanabad': [18.1856, 76.0416],
+    'dharashiv': [18.1856, 76.0416], 'palghar': [19.6967, 72.7699],
+
+    // Tamil Nadu Cities & Districts
+    'chennai': [13.0827, 80.2707], 'coimbatore': [11.0168, 76.9558], 'madurai': [9.9252, 78.1198], 'tiruchirappalli': [10.7905, 78.7047], 'trichy': [10.7905, 78.7047],
+    'salem': [11.6643, 78.1460], 'tirunelveli': [8.7139, 77.7567], 'erode': [11.3410, 77.7172], 'vellore': [12.9165, 79.1325], 'thoothukudi': [8.7642, 78.1348], 'tuticorin': [8.7642, 78.1348],
+    'dindigul': [10.3673, 77.9803], 'thanjavur': [10.7870, 79.1378], 'tiruppur': [11.1085, 77.3411], 'kanchipuram': [12.8342, 79.7036], 'nagercoil': [8.1833, 77.4119],
+    'kanyakumari': [8.0883, 77.5385], 'karur': [10.9601, 78.0766], 'ooty': [11.4102, 76.6950], 'udagamandalam': [11.4102, 76.6950], 'cuddalore': [11.7480, 79.7714],
+    'krishnagiri': [12.5186, 78.2137], 'dharmapuri': [12.1211, 78.1582], 'tiruvannamalai': [12.2253, 79.0747], 'pollachi': [10.6601, 77.0047], 'hosur': [12.7409, 77.8253],
+
+    // Telangana Cities & Districts
+    'hyderabad': [17.3850, 78.4867], 'warangal': [17.9689, 79.5941], 'karimnagar': [18.4386, 79.1288], 'nizamabad': [18.6725, 78.0941], 'khammam': [17.2473, 80.1514],
+    'ramagundam': [18.7557, 79.4674], 'mahbubnagar': [16.7410, 77.9897], 'nalgonda': [17.0535, 79.2661], 'adilabad': [19.6706, 78.5323], 'suryapet': [17.1437, 79.6231],
+    'miryalaguda': [16.8687, 79.5658], 'siddipet': [18.1018, 78.8524], 'medak': [18.0461, 78.2625], 'kamareddy': [18.3188, 78.3370], 'sangareddy': [17.6294, 78.0850],
+
+    // Kerala Cities & Districts
+    'kochi': [9.9312, 76.2673], 'cochin': [9.9312, 76.2673], 'thiruvananthapuram': [8.5241, 76.9366], 'trivandrum': [8.5241, 76.9366], 'kozhikode': [11.2588, 75.7804],
+    'calicut': [11.2588, 75.7804], 'thrissur': [10.5276, 76.2144], 'kollam': [8.8932, 76.6141], 'alappuzha': [9.4981, 76.3388], 'alleppey': [9.4981, 76.3388],
+    'palakkad': [10.7867, 76.6548], 'kannur': [11.8745, 75.3704], 'kottayam': [9.5916, 76.5222], 'malappuram': [10.7056, 76.0827], 'kasaragod': [12.5102, 74.9852],
+    'wayanad': [11.6854, 76.1320], 'kalpetta': [11.6086, 76.0854], 'idukki': [9.8494, 76.9805], 'thodupuzha': [9.8943, 76.7176],
+
+    // Delhi & NCR
+    'delhi': [28.6139, 77.2090], 'new delhi': [28.6139, 77.2090], 'noida': [28.5355, 77.3910], 'greater noida': [28.4744, 77.5030], 'gurugram': [28.4595, 77.0266],
+    'gurgaon': [28.4595, 77.0266], 'faridabad': [28.4089, 77.3178], 'ghaziabad': [28.6692, 77.4538], 'meerut': [28.9845, 77.7064],
+
+    // Gujarat Cities & Districts
+    'ahmedabad': [23.0225, 72.5714], 'surat': [21.1702, 72.8311], 'vadodara': [22.3072, 73.1812], 'baroda': [22.3072, 73.1812], 'rajkot': [22.3039, 70.8022],
+    'bhavnagar': [21.7645, 72.1519], 'jamnagar': [22.4707, 70.0577], 'gandhinagar': [23.2156, 72.6369], 'junagadh': [21.5222, 70.4579], 'anand': [22.5645, 72.9289],
+    'navsari': [20.9467, 72.9520], 'morbi': [22.8173, 70.8372], 'bharuch': [21.7051, 72.9959], 'bhuj': [23.2420, 69.6669], 'porbandar': [21.6417, 69.6293],
+    'valsad': [20.5992, 72.9342], 'vapi': [20.3893, 72.9106],
+
+    // Uttar Pradesh Cities & Districts
+    'lucknow': [26.8467, 80.9462], 'kanpur': [26.4499, 80.3319], 'agra': [27.1767, 78.0081], 'varanasi': [25.3176, 82.9739], 'prayagraj': [25.4358, 81.8463],
+    'allahabad': [25.4358, 81.8463], 'bareilly': [28.3670, 79.4304], 'aligarh': [27.8974, 78.0880], 'moradabad': [28.8386, 78.7733], 'saharanpur': [29.9640, 77.5460],
+    'gorakhpur': [26.7606, 83.3732], 'jhansi': [25.4484, 78.5685], 'muzaffarnagar': [29.4727, 77.7085], 'mathura': [27.4924, 77.6737], 'ayodhya': [26.7922, 82.1998],
+
+    // Rajasthan Cities & Districts
+    'jaipur': [26.9124, 75.7873], 'jodhpur': [26.2389, 73.0243], 'udaipur': [24.5854, 73.7125], 'kota': [25.2138, 75.8648], 'ajmer': [26.4499, 74.6399],
+    'bikaner': [28.0229, 73.3119], 'alwar': [27.5530, 76.6346], 'bhilwara': [25.3457, 74.6397], 'sikar': [27.6094, 75.1399], 'pali': [25.7711, 73.3233],
+    'jaisalmer': [26.9157, 70.9083], 'barmer': [25.7532, 71.4181],
+
+    // West Bengal Cities & Districts
+    'kolkata': [22.5726, 88.3639], 'howrah': [22.5958, 88.2636], 'durgapur': [23.5204, 87.3119], 'asansol': [23.6739, 86.9524], 'siliguri': [26.7271, 88.3953],
+    'bardhaman': [23.2324, 87.8615], 'malda': [25.0108, 88.1411], 'kharagpur': [22.3460, 87.3199], 'darjeeling': [27.0410, 88.2663],
+
+    // Punjab & Haryana Cities
+    'ludhiana': [30.9009, 75.8573], 'amritsar': [31.6340, 74.8723], 'jalandhar': [31.3260, 75.5762], 'patiala': [30.3398, 76.3869], 'bathinda': [30.2110, 74.9455],
+    'mohali': [30.7046, 76.7179], 'chandigarh': [30.7333, 76.7794], 'panipat': [29.3909, 76.9635], 'ambala': [30.3782, 76.7767], 'rohtak': [28.8955, 76.6066],
+
+    // Madhya Pradesh & Chhattisgarh
+    'bhopal': [23.2599, 77.4126], 'indore': [22.7196, 75.8577], 'jabalpur': [23.1815, 79.9864], 'gwalior': [26.2183, 78.1828], 'ujjain': [23.1765, 75.7885],
+    'raipur': [21.2514, 81.6296], 'bhilai': [21.1938, 81.3509], 'bilaspur': [22.0797, 82.1391],
+
+    // Andhra Pradesh, Bihar, Odisha, Jharkhand
+    'visakhapatnam': [17.6868, 83.2185], 'vizag': [17.6868, 83.2185], 'vijayawada': [16.5062, 80.6480], 'guntur': [16.3067, 80.4365], 'tirupati': [13.6288, 79.4192],
+    'patna': [25.5941, 85.1376], 'gaya': [24.7914, 85.0002], 'bhagalpur': [25.2425, 87.0177], 'muzaffarpur': [26.1226, 85.3906],
+    'bhubaneswar': [20.2961, 85.8245], 'cuttack': [20.4625, 85.8828], 'puri': [19.8135, 85.8312], 'rourkela': [22.2604, 84.8536],
+    'ranchi': [23.3441, 85.3096], 'jamshedpur': [22.8046, 86.2029], 'dhanbad': [23.7957, 86.4304],
+
+    // Goa, Uttarakhand, Himachal Pradesh & North East
+    'goa': [15.2993, 74.1240], 'panaji': [15.4909, 73.8278], 'margao': [15.2832, 73.9862], 'dehradun': [30.3165, 78.0322], 'haridwar': [29.9457, 78.1642], 'rishikesh': [30.0869, 78.2676],
+    'shimla': [31.1048, 77.1734], 'manali': [32.2432, 77.1892], 'dharamshala': [32.2190, 76.3234], 'guwahati': [26.1445, 91.7362], 'shillong': [25.5788, 91.8933],
+    'imphal': [24.8170, 93.9368], 'agartala': [23.8315, 91.2868], 'aizawl': [23.7271, 92.7176], 'itanagar': [27.0844, 93.6053], 'gangtok': [27.3389, 88.6065], 'kohima': [25.6751, 94.1086], 'puducherry': [11.9416, 79.8083]
   };
 
   const STATIONS_DB = [
-    { name: 'ChargeZone Fast Hub - Cyber City', city: 'delhi', cpo: 'ChargeZone', power: '120 kW Dual DC Fast', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895 },
-    { name: 'ChargeZone Supercharger - Select CITYWALK', city: 'delhi', cpo: 'ChargeZone', power: '150 kW Ultra Fast DC', location: 'Saket District Centre, New Delhi', status: 'Available', tariff: '₹19/kWh', lat: 28.5284, lng: 77.2190 },
-    { name: 'Tata Power Fast Charger - Select CITYWALK', city: 'delhi', cpo: 'Tata Power', power: '60 kW DC CCS2', location: 'Saket, New Delhi', status: 'Available', tariff: '₹18/kWh', lat: 28.5284, lng: 77.2190 },
-    { name: 'Jio-bp Pulse Station - BKC Hub', city: 'mumbai', cpo: 'Jio-bp', power: '120 kW Dual Gun DC', location: 'Bandra Kurla Complex, Mumbai', status: 'Available', tariff: '₹20/kWh', lat: 19.0657, lng: 72.8687 },
-    { name: 'ChargeZone BKC Premium Hub', city: 'mumbai', cpo: 'ChargeZone', power: '120 kW Dual Gun DC', location: 'G Block, BKC, Mumbai', status: 'Available', tariff: '₹20.5/kWh', lat: 19.0657, lng: 72.8687 },
-    { name: 'ChargeZone Highway Hub - Expressway', city: 'bengaluru', cpo: 'ChargeZone', power: '60 kW DC Dual', location: 'Bengaluru-Mysuru Expressway, Bidadi', status: 'Available', tariff: '₹19.5/kWh', lat: 12.7981, lng: 77.3878 },
-    { name: 'Statiq Charging Hub - Cyber City', city: 'delhi', cpo: 'Statiq', power: '60 kW DC + 22 kW AC', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895 },
-    { name: 'Tata Power EZ Charger - Express Avenue', city: 'chennai', cpo: 'Tata Power', power: '50 kW DC CCS2', location: 'Royapettah, Chennai', status: 'Available', tariff: '₹17.5/kWh', lat: 13.0587, lng: 80.2642 },
-    { name: 'ChargeZone Chennai Bypass Hub', city: 'chennai', cpo: 'ChargeZone', power: '60 kW DC Fast', location: 'Poonamallee High Road, Chennai', status: 'Available', tariff: '₹18/kWh', lat: 13.0587, lng: 80.2642 },
-    { name: 'Jio-bp Pulse Hub - Gachibowli', city: 'hyderabad', cpo: 'Jio-bp', power: '120 kW Fast Charger', location: 'Financial District, Gachibowli', status: 'Available', tariff: '₹19/kWh', lat: 17.4401, lng: 78.3489 },
-    { name: 'ChargeZone Gachibowli Hub', city: 'hyderabad', cpo: 'ChargeZone', power: '60 kW DC Fast', location: 'Nanakramguda, Hyderabad', status: 'Available', tariff: '₹18.5/kWh', lat: 17.4401, lng: 78.3489 },
-    { name: 'ChargeZone Fast Station - Pune Toll', city: 'pune', cpo: 'ChargeZone', power: '60 kW DC CCS2', location: 'Mumbai-Pune Expressway, Urse Toll', status: 'Available', tariff: '₹21/kWh', lat: 18.7180, lng: 73.6520 }
+    { name: 'ChargeZone Fast Hub - Cyber City', city: 'delhi', cpo: 'ChargeZone', power: '120 kW Dual DC Fast', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895, type: 'DC', connector: 'CCS2' },
+    { name: 'ChargeZone Supercharger - Select CITYWALK', city: 'delhi', cpo: 'ChargeZone', power: '150 kW Ultra Fast DC', location: 'Saket District Centre, New Delhi', status: 'Available', tariff: '₹19/kWh', lat: 28.5284, lng: 77.2190, type: 'DC', connector: 'CCS2' },
+    { name: 'Tata Power Fast Charger - Select CITYWALK', city: 'delhi', cpo: 'Tata Power', power: '60 kW DC CCS2', location: 'Saket, New Delhi', status: 'Available', tariff: '₹18/kWh', lat: 28.5284, lng: 77.2190, type: 'DC', connector: 'CCS2' },
+    { name: 'Jio-bp Pulse Station - BKC Hub', city: 'mumbai', cpo: 'Jio-bp', power: '120 kW Dual Gun DC', location: 'Bandra Kurla Complex, Mumbai', status: 'Available', tariff: '₹20/kWh', lat: 19.0657, lng: 72.8687, type: 'DC', connector: 'CCS2' },
+    { name: 'ChargeZone BKC Premium Hub', city: 'mumbai', cpo: 'ChargeZone', power: '120 kW Dual Gun DC', location: 'G Block, BKC, Mumbai', status: 'Available', tariff: '₹20.5/kWh', lat: 19.0657, lng: 72.8687, type: 'DC', connector: 'CCS2' },
+    { name: 'ChargeZone Highway Hub - Expressway', city: 'bengaluru', cpo: 'ChargeZone', power: '60 kW DC Dual', location: 'Bengaluru-Mysuru Expressway, Bidadi', status: 'Available', tariff: '₹19.5/kWh', lat: 12.7981, lng: 77.3878, type: 'DC', connector: 'CCS2' },
+    { name: 'Statiq Charging Hub - Cyber City', city: 'delhi', cpo: 'Statiq', power: '60 kW DC + 22 kW AC', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895, type: 'DC', connector: 'CCS2' },
+    { name: 'Tata Power EZ Charger - Express Avenue', city: 'chennai', cpo: 'Tata Power', power: '50 kW DC CCS2', location: 'Royapettah, Chennai', status: 'Available', tariff: '₹17.5/kWh', lat: 13.0587, lng: 80.2642, type: 'DC', connector: 'CCS2' },
+    { name: 'ChargeZone Chennai Bypass Hub', city: 'chennai', cpo: 'ChargeZone', power: '60 kW DC Fast', location: 'Poonamallee High Road, Chennai', status: 'Available', tariff: '₹18/kWh', lat: 13.0587, lng: 80.2642, type: 'DC', connector: 'CCS2' },
+    { name: 'Jio-bp Pulse Hub - Gachibowli', city: 'hyderabad', cpo: 'Jio-bp', power: '120 kW Fast Charger', location: 'Financial District, Gachibowli', status: 'Available', tariff: '₹19/kWh', lat: 17.4401, lng: 78.3489, type: 'DC', connector: 'CCS2' },
+    { name: 'ChargeZone Gachibowli Hub', city: 'hyderabad', cpo: 'ChargeZone', power: '60 kW DC Fast', location: 'Nanakramguda, Hyderabad', status: 'Available', tariff: '₹18.5/kWh', lat: 17.4401, lng: 78.3489, type: 'DC', connector: 'CCS2' },
+    { name: 'ChargeZone Fast Station - Pune Toll', city: 'pune', cpo: 'ChargeZone', power: '60 kW DC CCS2', location: 'Mumbai-Pune Expressway, Urse Toll', status: 'Available', tariff: '₹21/kWh', lat: 18.7180, lng: 73.6520, type: 'DC', connector: 'CCS2' }
   ];
 
   const searchInput = document.getElementById('station-search-input');
+  const suggestionsBox = document.getElementById('charging-search-suggestions');
   const btnSearch = document.getElementById('btn-search-stations');
   const btnLocate = document.getElementById('btn-use-location');
   const resultsContainer = document.getElementById('station-results-container');
@@ -18124,10 +18475,15 @@ function bindChargingStationsLogic() {
     }).addTo(map);
 
     markersGroup = L.layerGroup().addTo(map);
+    setTimeout(() => {
+      if (map) {
+        map.invalidateSize();
+      }
+    }, 300);
   }
 
   function calculateDistanceKm(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radius of the earth in km
+    const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -18137,23 +18493,146 @@ function bindChargingStationsLogic() {
     return R * c;
   }
 
+  // Render Google-style Autocomplete Dropdown Suggestions
+  function updateSuggestions(query) {
+    if (!suggestionsBox) return;
+    const q = (query || '').toLowerCase().trim();
+
+    if (!q) {
+      suggestionsBox.classList.add('hidden');
+      suggestionsBox.innerHTML = '';
+      return;
+    }
+
+    const matches = [];
+
+    // Match States
+    Object.keys(STATE_COORDS).forEach(st => {
+      if (st.includes(q) || STATE_COORDS[st].name.toLowerCase().includes(q)) {
+        matches.push({
+          label: STATE_COORDS[st].name,
+          subtitle: 'State in India',
+          type: 'State',
+          value: STATE_COORDS[st].name
+        });
+      }
+    });
+
+    // Match Cities
+    Object.keys(CITY_COORDS).forEach(c => {
+      if (c.includes(q)) {
+        const formattedName = c.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        matches.push({
+          label: formattedName,
+          subtitle: 'City in India',
+          type: 'City',
+          value: formattedName
+        });
+      }
+    });
+
+    // Match Stations
+    STATIONS_DB.forEach(s => {
+      if (s.name.toLowerCase().includes(q) || s.location.toLowerCase().includes(q)) {
+        matches.push({
+          label: s.name,
+          subtitle: s.location,
+          type: 'Station',
+          value: s.name
+        });
+      }
+    });
+
+    // Deduplicate by label
+    const uniqueMatches = [];
+    const seen = new Set();
+    matches.forEach(m => {
+      if (!seen.has(m.label)) {
+        seen.add(m.label);
+        uniqueMatches.push(m);
+      }
+    });
+
+    const topSuggestions = uniqueMatches.slice(0, 8);
+
+    if (topSuggestions.length === 0) {
+      suggestionsBox.innerHTML = `
+        <div class="px-4 py-3 text-xs text-zinc-500 font-mono text-center">
+          No instant matches. Press Enter or click SEARCH to find location.
+        </div>
+      `;
+    } else {
+      suggestionsBox.innerHTML = topSuggestions.map(item => `
+        <div class="px-4 py-3 hover:bg-zinc-100 cursor-pointer flex items-center justify-between transition-colors suggestion-item" data-value="${item.value}">
+          <div class="flex items-center gap-3">
+            <span class="text-zinc-400 text-sm">📍</span>
+            <div>
+              <div class="text-xs font-bold text-black font-mono">${item.label}</div>
+              <div class="text-[10px] text-zinc-500 font-mono">${item.subtitle}</div>
+            </div>
+          </div>
+          <span class="text-[9px] bg-zinc-100 text-zinc-700 px-2.5 py-0.5 rounded-full font-bold uppercase font-mono">${item.type}</span>
+        </div>
+      `).join('');
+    }
+
+    suggestionsBox.classList.remove('hidden');
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      updateSuggestions(e.target.value);
+    });
+
+    searchInput.addEventListener('focus', (e) => {
+      if (e.target.value) {
+        updateSuggestions(e.target.value);
+      }
+    });
+  }
+
+  if (suggestionsBox) {
+    suggestionsBox.addEventListener('click', (e) => {
+      const item = e.target.closest('.suggestion-item');
+      if (item) {
+        const val = item.getAttribute('data-value');
+        if (searchInput) searchInput.value = val;
+        suggestionsBox.classList.add('hidden');
+        searchCity(val);
+      }
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (suggestionsBox && searchInput && !searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.classList.add('hidden');
+    }
+  });
+
   function renderStationCards(stationsList, titleHeader) {
     if (!resultsContainer) return;
     if (stationsList.length === 0) {
       resultsContainer.innerHTML = `
         <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-8 text-center text-xs font-mono text-zinc-500">
-          No charging stations found.
+          No charging stations found matching filters for this location.
         </div>
       `;
     } else {
       resultsContainer.innerHTML = `
         <div class="flex flex-col gap-4">
           <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">${titleHeader}</span>
-          ${stationsList.map(s => `
+          ${stationsList.map(s => {
+            const sLat = s.lat || s.latitude;
+            const sLng = s.lng || s.longitude;
+            const mapsUrl = (sLat && sLng)
+              ? `https://www.google.com/maps/dir/?api=1&destination=${sLat},${sLng}`
+              : `https://maps.google.com/?q=${encodeURIComponent((s.name || s.title) + ' ' + (s.location || s.city || ''))}`;
+
+            return `
             <div class="border border-zinc-200 bg-white p-5 rounded-2xl flex flex-col justify-between hover:border-black transition-all shadow-xs">
               <div>
                 <div class="flex items-center justify-between border-b border-zinc-150 pb-2 mb-2">
-                  <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo}</span>
+                  <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo || s.operator || 'EV CARWALE'}</span>
                   <div class="flex items-center gap-2">
                     ${s.distanceKm !== undefined ? `<span class="text-[9px] font-bold text-blue-600 font-mono bg-blue-50 px-2 py-0.5 rounded-full border border-blue-150">${s.distanceKm} km away</span>` : ''}
                     <span class="text-[9px] text-[#22C55E] font-bold uppercase tracking-wider flex items-center gap-1 font-mono">
@@ -18161,49 +18640,144 @@ function bindChargingStationsLogic() {
                     </span>
                   </div>
                 </div>
-                <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name}</h3>
-                <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location}</p>
+                <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name || s.title}</h3>
+                <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location || s.city || 'India'}</p>
                 <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
-                  <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power}</strong></div>
-                  <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff}</strong></div>
+                  <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power || '60 kW DC Fast'}</strong></div>
+                  <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff || '₹18.5/kWh'}</strong></div>
                 </div>
               </div>
-              <a href="https://maps.google.com/?q=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" rel="noopener" class="mt-3 py-2 bg-black text-white text-[10px] font-mono font-bold uppercase tracking-wider text-center rounded-xl hover:bg-zinc-800 transition-all block">
-                NAVIGATE VIA MAPS ➔
+              <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 mt-4 w-full py-3 bg-black text-white rounded-xl text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#22C55E] transition-all cursor-pointer shadow-xs">
+                📍 GET DIRECTIONS VIA GOOGLE MAPS ➔
               </a>
             </div>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
       `;
     }
   }
 
-  function searchCity(query) {
+  async function searchCity(query) {
     if (!query) return;
-    const cleanQuery = query.toLowerCase().trim();
-    let matchedCityKey = Object.keys(CITY_COORDS).find(k => cleanQuery.includes(k) || CITY_COORDS[k].name.toLowerCase().includes(cleanQuery));
+    if (suggestionsBox) suggestionsBox.classList.add('hidden');
 
-    if (!matchedCityKey) {
+    const cleanQuery = query.toLowerCase().trim();
+    let targetCoords = null;
+    let locationTitle = '';
+    let matchedCityKey = null;
+
+    // 1. Direct match in CITY_COORDS
+    const directCity = Object.keys(CITY_COORDS).find(k => k === cleanQuery || cleanQuery.includes(k) || k.includes(cleanQuery));
+    if (directCity) {
+      targetCoords = CITY_COORDS[directCity];
+      matchedCityKey = directCity;
+      locationTitle = directCity.charAt(0).toUpperCase() + directCity.slice(1);
+    }
+
+    // 2. State match in STATE_COORDS
+    if (!targetCoords) {
+      const stateKey = Object.keys(STATE_COORDS).find(s => cleanQuery.includes(s) || s.includes(cleanQuery));
+      if (stateKey) {
+        targetCoords = STATE_COORDS[stateKey].coords;
+        locationTitle = STATE_COORDS[stateKey].name;
+        matchedCityKey = STATE_COORDS[stateKey].city;
+      }
+    }
+
+    // 3. Station DB match
+    if (!targetCoords) {
+      const stationMatch = STATIONS_DB.find(s => s.name.toLowerCase().includes(cleanQuery) || s.location.toLowerCase().includes(cleanQuery));
+      if (stationMatch) {
+        targetCoords = [stationMatch.lat, stationMatch.lng];
+        locationTitle = stationMatch.name;
+        matchedCityKey = stationMatch.city;
+      }
+    }
+
+    // 4. OpenStreetMap Nominatim Geocode Fallback for ANY city / town / location in India
+    if (!targetCoords) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&countrycodes=in&q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        if (data && data.length > 0) {
+          targetCoords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+          locationTitle = data[0].display_name.split(',')[0] || query;
+        }
+      } catch (err) {
+        console.warn('Geocoding search failed:', err);
+      }
+    }
+
+    // Default fallback if completely unknown
+    if (!targetCoords) {
+      targetCoords = CITY_COORDS['delhi'];
+      locationTitle = query.toUpperCase();
       matchedCityKey = 'delhi';
     }
 
-    const cityData = CITY_COORDS[matchedCityKey];
-    if (map && cityData) {
-      map.setView([cityData.lat, cityData.lng], 11);
+    const [lat, lng] = targetCoords;
+
+    // Center map
+    if (map) {
+      map.setView([lat, lng], 11);
     }
 
-    const cityStations = STATIONS_DB.filter(s => s.city === matchedCityKey);
-    
+    // Try live API chargers fetch around [lat, lng]
+    let stationsWithDist = [];
+    try {
+      const apiRes = await fetch(`/api/chargers/openchargemap?latitude=${lat}&longitude=${lng}&distance=100&maxresults=100`);
+      const apiData = await apiRes.json();
+      if (apiData && apiData.success && Array.isArray(apiData.data) && apiData.data.length > 0) {
+        stationsWithDist = apiData.data;
+      }
+    } catch (e) {
+      console.warn('API chargers fetch failed:', e);
+    }
+
+    // Local DB fallback
+    if (!stationsWithDist || stationsWithDist.length === 0) {
+      stationsWithDist = STATIONS_DB.map(s => {
+        const dist = calculateDistanceKm(lat, lng, s.lat, s.lng);
+        return { ...s, distanceKm: parseFloat(dist.toFixed(1)) };
+      }).sort((a, b) => a.distanceKm - b.distanceKm);
+
+      if (matchedCityKey) {
+        const cityFilter = stationsWithDist.filter(s => s.city === matchedCityKey);
+        if (cityFilter.length > 0) {
+          stationsWithDist = cityFilter;
+        } else {
+          stationsWithDist = stationsWithDist.slice(0, 10);
+        }
+      } else {
+        stationsWithDist = stationsWithDist.slice(0, 10);
+      }
+    }
+
+    // Render map markers
     if (markersGroup && map) {
       markersGroup.clearLayers();
-      cityStations.forEach(s => {
-        L.marker([s.lat, s.lng])
-          .addTo(markersGroup)
-          .bindPopup(`<b>${s.name}</b><br>${s.power}<br>${s.tariff}`);
+
+      // Pulsing green center pin for searched location
+      L.circleMarker([lat, lng], {
+        radius: 9,
+        color: '#22C55E',
+        fillColor: '#22C55E',
+        fillOpacity: 0.9
+      }).addTo(markersGroup).bindPopup(`<b>📍 ${locationTitle.toUpperCase()}</b>`).openPopup();
+
+      stationsWithDist.forEach(s => {
+        const sLat = s.lat || s.latitude;
+        const sLng = s.lng || s.longitude;
+        if (sLat && sLng) {
+          L.marker([sLat, sLng])
+            .addTo(markersGroup)
+            .bindPopup(`<b>${s.name || s.title}</b><br>${s.power || '60 kW DC'}<br>${s.tariff || '₹18.5/kWh'}`);
+        }
       });
     }
 
-    renderStationCards(cityStations, `${cityStations.length} STATIONS FOUND IN ${cityData.name.toUpperCase()}`);
+    renderStationCards(stationsWithDist, `${stationsWithDist.length} CHARGING STATIONS FOUND FOR "${locationTitle.toUpperCase()}"`);
   }
 
   // Location Permission Modal Logic
@@ -18225,13 +18799,15 @@ function bindChargingStationsLogic() {
   if (btnAllow) {
     btnAllow.addEventListener('click', () => {
       if (modal) modal.classList.add('hidden');
+      if (searchInput) searchInput.value = 'Using your location...';
+      showToast('📍 Using your location...');
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           async (position) => {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
 
-            if (searchInput) searchInput.value = `Near My Location (${lat.toFixed(3)}, ${lng.toFixed(3)})`;
+            if (searchInput) searchInput.value = `Using your location (${lat.toFixed(3)}, ${lng.toFixed(3)})`;
 
             let stationsWithDist = [];
             try {
@@ -18258,7 +18834,6 @@ function bindChargingStationsLogic() {
             if (markersGroup && map) {
               markersGroup.clearLayers();
               
-              // Place Current Location Marker
               L.circleMarker([lat, lng], {
                 radius: 10,
                 color: '#3B82F6',
@@ -18267,14 +18842,18 @@ function bindChargingStationsLogic() {
               }).addTo(markersGroup).bindPopup('<b>YOUR CURRENT LOCATION</b>').openPopup();
 
               stationsWithDist.forEach(s => {
-                L.marker([s.lat, s.lng])
-                  .addTo(markersGroup)
-                  .bindPopup(`<b>${s.name || s.title}</b> (${s.distanceKm} km away)<br>${s.power}<br>${s.tariff || '₹18.5/kWh'}`);
+                const sLat = s.lat || s.latitude;
+                const sLng = s.lng || s.longitude;
+                if (sLat && sLng) {
+                  L.marker([sLat, sLng])
+                    .addTo(markersGroup)
+                    .bindPopup(`<b>${s.name || s.title}</b> (${s.distanceKm} km away)<br>${s.power || '60 kW DC'}<br>${s.tariff || '₹18.5/kWh'}`);
+                }
               });
             }
 
-            renderStationCards(stationsWithDist, `📍 NEARBY CHARGING STATIONS WITHIN 100 KM (${stationsWithDist.length} STATIONS FOUND)`);
-            showToast(`Location Access Granted! Found ${stationsWithDist.length} stations within 100 km radius.`);
+            renderStationCards(stationsWithDist, `📍 CHARGING STATIONS NEAR YOUR LOCATION (${stationsWithDist.length} STATIONS FOUND)`);
+            showToast(`📍 Using your location - Found ${stationsWithDist.length} chargers!`);
           },
           (err) => {
             showToast('Permission Denied: Browser blocked location access.', true);
@@ -18313,6 +18892,7 @@ function bindChargingStationsLogic() {
   if (searchInput) {
     searchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
+        if (suggestionsBox) suggestionsBox.classList.add('hidden');
         searchCity(searchInput.value);
       }
     });
@@ -18641,12 +19221,12 @@ function renderBrandPage(brandId) {
   const brandNameMap = {
     'tata': 'Tata Motors', 'mahindra': 'Mahindra Electric', 'hyundai': 'Hyundai', 'mg': 'MG Motor',
     'kia': 'Kia', 'byd': 'BYD', 'bmw': 'BMW', 'mercedes-benz': 'Mercedes-Benz',
-    'volvo': 'Volvo', 'audi': 'Audi', 'maruti-suzuki': 'Maruti Suzuki', 'maruti': 'Maruti Suzuki',
+    'volvo': 'Volvo', 'audi': 'Audi', 'maruti-suzuki': 'Maruti-Suzuki',
     'toyota': 'Toyota', 'honda': 'Honda', 'skoda': 'Skoda',
     'volkswagen': 'Volkswagen', 'renault': 'Renault', 'nissan': 'Nissan',
     'citroen': 'Citroën', 'jeep': 'Jeep', 'isuzu': 'Isuzu', 
     'porsche': 'Porsche', 'vinfast': 'VinFast', 'tesla': 'Tesla',
-    'lexus': 'Lexus', 'ferrari': 'Ferrari', 'genesis': 'Genesis',
+    'lexus': 'Lexus', 'genesis': 'Genesis',
     'lotus': 'Lotus', 'mini': 'MINI', 'pmv': 'PMV', 'pravaig': 'Pravaig', 
     'vayve': 'Vayve', 'blinq': 'Blinq', 'strom': 'Strom', 'rolls-royce': 'Rolls-Royce'
   };
