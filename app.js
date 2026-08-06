@@ -11866,11 +11866,6 @@ let detailsPageContent = document.getElementById('details-page-content');
 function getHomepageEl() { return document.getElementById('homepage-content') || homepageContent; }
 function getDetailsEl() { return document.getElementById('details-page-content') || detailsPageContent; }
 
-// Helper to format absolute currency values dynamically
-function formatCurrency(val) {
-  return '₹' + Number(val).toLocaleString('en-IN');
-}
-
 function navigateTo(url) {
   try {
     history.pushState(null, '', url);
@@ -18905,54 +18900,6 @@ function bindChargingStationsLogic() {
 
   initMap();
 }
-
-
-function renderResourcePage(slug, article) {
-  const breadcrumbs = ['RESOURCES', article.title];
-  const contentHtml = `
-    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
-      <a href="/" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Home</a>
-      <div>
-        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
-      </div>
-      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
-        ${article.content}
-      </div>
-      <div class="border-t border-zinc-200 pt-6 mt-6">
-        <a href="/" class="border border-zinc-200 bg-zinc-50 hover:border-black hover:bg-white transition-all px-5 py-3 font-mono text-[9px] uppercase tracking-wider rounded-lg inline-block">← Back to Home</a>
-      </div>
-    </div>
-  `;
-  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
-}
-
-// --- Blog Article Page ---
-function renderBlogArticlePage(article) {
-  const breadcrumbs = ['BLOG', article.title];
-  const contentHtml = `
-    <div class="flex flex-col gap-6 pt-6 max-w-3xl mx-auto">
-      <a href="/#home" class="font-mono text-[9px] text-zinc-500 hover:text-black uppercase tracking-wider flex items-center gap-1 transition-colors">← Back to Home</a>
-      <div>
-        <div class="flex items-center gap-2 text-[8px] font-mono text-zinc-400 uppercase tracking-wider mb-3">
-          <span>${article.date}</span>
-          <span>·</span>
-          <span>${article.author}</span>
-        </div>
-        <h1 class="text-2xl md:text-4xl font-black tracking-tight text-black leading-tight">${article.title}</h1>
-        <p class="text-sm text-zinc-500 font-mono mt-2">${article.excerpt}</p>
-      </div>
-      <div class="prose-custom text-sm text-zinc-700 leading-relaxed font-mono">
-        ${article.content}
-      </div>
-    </div>
-  `;
-  renderSubpage(article.title, breadcrumbs, contentHtml, '/');
-}
-
-
-
-
-
 
 // Global Event Delegation for Car Cards & View Details Buttons across all pages
 document.addEventListener('click', (e) => {
