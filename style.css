@@ -773,6 +773,7 @@ nav.nav-light-theme #login-nav-btn:hover {
   height: 1px;
   background-color: #111111 !important; /* Black (#111111) */
   will-change: transform;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .section-divider::before {
   left: 0;
@@ -960,9 +961,9 @@ nav.nav-light-theme #login-nav-btn:hover {
               transform  0.45s cubic-bezier(0.16,1,0.3,1);
 }
 #trip-results.trip-results-visible {
-  max-height: 2500px;
-  opacity: 1;
-  transform: translateY(0);
+  max-height: 3500px !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* Cost comparison bar */
@@ -2688,4 +2689,159 @@ input[type="text"], input[type="search"], input[type="email"], input[type="passw
 /* Enforce pointer cursor on all interactive elements & links */
 button, a, .mega-trigger, .nav-link, [role="button"], .cursor-pointer, .brand-chip, .budget-chip, .accordion-header, .accordion-trigger, .accordion-btn, .mobile-accordion-trigger {
   cursor: pointer !important;
+}
+
+
+/* ==========================================================================
+   DESIGN SYSTEM POLISH (Apple, Stripe, Tesla & Notion Quality Standards)
+   ========================================================================== */
+
+/* 1. Global Font Smoothing & Typography Refinements */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.6;
+  color: #111827;
+}
+
+/* Headings Tracking & Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+/* Monospace & Badges Tracking */
+.font-mono, [class*="tracking-widest"], [class*="tracking-wider"] {
+  letter-spacing: 0.1em !important;
+}
+
+/* 2. Premium Button Sizing & Elevating Hover States (Stripe / Tesla Style) */
+button, .btn, .btn-primary, .btn-secondary, [role="button"] {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, box-shadow;
+}
+
+button:hover, .btn:hover, [role="button"]:hover {
+  transform: translateY(-1.5px);
+}
+
+button:active, .btn:active, [role="button"]:active {
+  transform: translateY(0.5px) scale(0.98);
+}
+
+/* Green Accent Buttons Glow */
+.bg-accentgreen, .bg-\[\#22C55E\], .bg-green-600, .btn-accent {
+  box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.25);
+}
+
+.bg-accentgreen:hover, .bg-\[\#22C55E\]:hover, .bg-green-600:hover, .btn-accent:hover {
+  box-shadow: 0 8px 25px 0 rgba(34, 197, 94, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* 3. Card Consistency & Apple-Grade Hover Lifts */
+.car-card, .testimonial-card, .insight-card, .tool-card, .brand-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease !important;
+  border-radius: 12px;
+}
+
+.car-card:hover, .testimonial-card:hover, .insight-card:hover, .tool-card:hover, .brand-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Smooth Image Zoom on Card Hover */
+.car-card img, .insight-card img, .card-image-container img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.car-card:hover img, .insight-card:hover img, .card-image-container:hover img {
+  transform: scale(1.04);
+}
+
+/* 4. Form Controls & Focus States (Stripe UX) */
+input[type="text"], input[type="search"], input[type="email"], input[type="number"], select, textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease !important;
+  border-radius: 8px;
+}
+
+input[type="text"]:focus, input[type="search"]:focus, input[type="email"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+  border-color: #22c55e !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15) !important;
+  outline: none !important;
+}
+
+/* 5. Brand & Budget Filter Chips Consistency */
+.brand-chip, .budget-chip {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border-radius: 9999px;
+}
+
+.brand-chip:hover, .budget-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 6. Accordion Smooth Transitions */
+.accordion-item, .mobile-accordion {
+  transition: border-color 0.3s ease, background-color 0.3s ease !important;
+}
+
+.accordion-header, .mobile-accordion-trigger {
+  transition: color 0.2s ease, background-color 0.2s ease !important;
+}
+
+/* 7. Glassmorphic Backdrop Navbar Polish */
+#mega-nav {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+/* 8. Responsive Scrollbar & Spacing Cleanliness */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATIONS (CSS Render Engine & Layout Containment)
+   ========================================================================== */
+
+/* Offscreen Section Render Containment (Reduces Initial Paint Work) */
+#faqs, #insight-section, #tools-section, footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
+/* Enforce GPU acceleration on heavy animated elements to prevent layout jank */
+.hero-fade-in, .hero-text-animate, .hero-search-animate, .car-card {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Prevent Layout Shift (CLS) on Card Image Containers */
+.car-card-img-wrap, .card-image-container {
+  aspect-ratio: 16 / 10;
+  background-color: #f3f4f6;
+  overflow: hidden;
 }

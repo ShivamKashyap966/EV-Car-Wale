@@ -766,14 +766,14 @@
         </span>
       </a>
 
-      <a href="#upcoming" class="flex flex-col p-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 hover:border-[#22C55E] rounded-2xl transition-all duration-300 hover:-translate-y-1 group shadow-lg">
+      <a href="#upcoming" onclick="event.preventDefault(); if (typeof restoreHomepage === 'function') restoreHomepage(true); var el = document.getElementById('upcoming'); if (el) el.scrollIntoView({ behavior: 'smooth' });" class="flex flex-col p-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 hover:border-[#22C55E] rounded-2xl transition-all duration-300 hover:-translate-y-1 group shadow-lg">
         <span class="text-[9px] text-[#22C55E] tracking-widest font-bold">03 / IN THE PIPELINE</span>
         <span class="text-sm text-white font-bold mt-2 group-hover:text-[#22C55E] transition-colors flex items-center justify-between">
           Upcoming EV Launches <span class="text-xs">➔</span>
         </span>
       </a>
 
-      <a href="#trip-planner" class="flex flex-col p-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 hover:border-[#22C55E] rounded-2xl transition-all duration-300 hover:-translate-y-1 group shadow-lg">
+      <a href="#trip-planner" onclick="event.preventDefault(); if (typeof restoreHomepage === 'function') restoreHomepage(true); var el = document.getElementById('trip-planner'); if (el) el.scrollIntoView({ behavior: 'smooth' });" class="flex flex-col p-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 hover:border-[#22C55E] rounded-2xl transition-all duration-300 hover:-translate-y-1 group shadow-lg">
         <span class="text-[9px] text-[#22C55E] tracking-widest font-bold">04 / ROUTE AI</span>
         <span class="text-sm text-white font-bold mt-2 group-hover:text-[#22C55E] transition-colors flex items-center justify-between">
           Plan a Trip <span class="text-xs">✦</span>
@@ -965,7 +965,8 @@
           <!-- Recommended Stations -->
           <div id="trip-stations-wrap" class="border border-zinc-200 p-5">
             <span class="font-mono text-[8px] text-zinc-500 uppercase tracking-widest block mb-4">RECOMMENDED FAST CHARGING STOPS</span>
-            <div id="trip-stations-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="max-h-[360px] overflow-y-auto pr-2 custom-scrollbar border border-zinc-200 rounded-xl p-3 bg-zinc-50/50">
+              <div id="trip-stations-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <!-- Populated by JS -->
             </div>
           </div>

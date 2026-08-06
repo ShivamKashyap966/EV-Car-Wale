@@ -1,3 +1,6786 @@
+
+// Continuously track homepage scroll position
+window.lastHomepageScrollPos = 0;
+window.addEventListener('scroll', function() {
+  const homeEl = document.getElementById('homepage-content');
+  if (homeEl && !homeEl.classList.contains('hidden')) {
+    const y = window.scrollY || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+    if (y > 0) {
+      window.lastHomepageScrollPos = y;
+      try { sessionStorage.setItem('ev_last_home_scroll', String(y)); } catch(e) {}
+    }
+  }
+}, { passive: true });
+// Synchronous Master Variant Database
+let EV_VARIANT_FULL_DB = {
+  "Tata": {
+    "Harrier.ev": {
+      "Adventure": {
+        "Ex-Showroom Price": "₹21.50 Lakh",
+        "Est. On-Road Price": "₹23.20 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "170 kW (228 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.5 sec",
+        "Charging Time (DC Fast)": "30 min (10-80%, 100 kW)",
+        "Standard AC Charging": "8.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "445 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4605 x 1922 x 1718 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, Hill Descent Control, All-Wheel Disc Brakes",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Adventure S": {
+        "Ex-Showroom Price": "₹22.30 Lakh",
+        "Est. On-Road Price": "₹24.00 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "170 kW (228 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.5 sec",
+        "Charging Time (DC Fast)": "30 min (10-80%, 100 kW)",
+        "Standard AC Charging": "8.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "445 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4605 x 1922 x 1718 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 1 ADAS Suite, Electronic Parking Brake with Auto Hold",
+        "Infotainment System": "10.25-inch Touchscreen, Panoramic Sunroof, Wireless Phone Charging",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Fearless Plus": {
+        "Ex-Showroom Price": "₹24.50 Lakh",
+        "Est. On-Road Price": "₹26.40 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "210 kW (282 hp)",
+        "Peak Torque": "450 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "6.5 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 120 kW)",
+        "Standard AC Charging": "10.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "445 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4605 x 1922 x 1718 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 ADAS (Adaptive Cruise Control, Lane Keep Assist, Emergency Braking)",
+        "Infotainment System": "12.3-inch Cinematic Touchscreen, 10-Speaker JBL Audio System, Ventilated Seats",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered": {
+        "Ex-Showroom Price": "₹26.00 Lakh",
+        "Est. On-Road Price": "₹28.00 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "210 kW (282 hp)",
+        "Peak Torque": "450 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "6.5 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 120 kW)",
+        "Standard AC Charging": "10.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "445 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4605 x 1922 x 1718 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 ADAS, 360-Degree Camera, Blind Spot Monitoring, Multi-Terrain Modes",
+        "Infotainment System": "12.3-inch Screen, Powered Tailgate, Ventilated Front & Rear Seats, Panoramic Sunroof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Sierra.ev": {
+      "Pure": {
+        "Ex-Showroom Price": "₹16.99 Lakh",
+        "Est. On-Road Price": "₹18.30 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "450 km",
+        "Real-World Range": "360 km",
+        "Motor Output (Power)": "130 kW (174 hp)",
+        "Peak Torque": "280 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.2 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 100 kW)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4350 x 1850 x 1680 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, ABS with EBD, Rear Parking Sensors",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Pure S": {
+        "Ex-Showroom Price": "₹17.79 Lakh",
+        "Est. On-Road Price": "₹19.15 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "450 km",
+        "Real-World Range": "360 km",
+        "Motor Output (Power)": "130 kW (174 hp)",
+        "Peak Torque": "280 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.2 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 100 kW)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4350 x 1850 x 1680 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Hill Hold Control, Reverse Camera Assist",
+        "Infotainment System": "10.25-inch Touchscreen, Voice-Activated Glass Sunroof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Adventure": {
+        "Ex-Showroom Price": "₹19.99 Lakh",
+        "Est. On-Road Price": "₹21.50 Lakh",
+        "Battery Capacity": "63 kWh",
+        "Claimed Range": "520 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.8 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 120 kW)",
+        "Standard AC Charging": "9.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4350 x 1850 x 1680 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, Electronic Parking Brake with Auto Hold",
+        "Infotainment System": "Horizon Triple-Screen Dashboard Setup, Wireless Charging, Connected Tech",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered": {
+        "Ex-Showroom Price": "₹22.49 Lakh",
+        "Est. On-Road Price": "₹24.20 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "170 kW (228 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "165 km/h",
+        "0–100 km/h Acceleration": "7.2 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 150 kW)",
+        "Standard AC Charging": "10.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD Option Available",
+        "Motor Type": "Dual Motor Option / PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4350 x 1850 x 1680 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Advanced Level 2+ ADAS, 360-Degree Camera, Blind Spot Monitoring",
+        "Infotainment System": "Triple Screen Display, 12-Speaker JBL Sound System, Ventilated Front Seats",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered A": {
+        "Ex-Showroom Price": "₹23.99 Lakh",
+        "Est. On-Road Price": "₹25.80 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "170 kW (228 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "165 km/h",
+        "0–100 km/h Acceleration": "7.2 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 150 kW)",
+        "Standard AC Charging": "10.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Motor Setup",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres",
+        "Ground Clearance": "205 mm",
+        "Dimensions": "4350 x 1850 x 1680 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2+ ADAS, HypAR Head-Up Display (HUD), Intelligent Auto Park Assist, 360 Park View",
+        "Infotainment System": "Ultra-Wide Panoramic 3-Screen Display, Dolby Atmos Spatial Sound, V2L/V2V Support",
+        "Warranty": "Lifetime Battery Warranty Policy"
+      }
+    },
+    "Xpres-T EV": {
+      "XM Plus": {
+        "Ex-Showroom Price": "₹13.04 Lakh",
+        "Est. On-Road Price": "₹14.00 Lakh",
+        "Battery Capacity": "21.5 kWh",
+        "Claimed Range": "213 km",
+        "Real-World Range": "150 km",
+        "Motor Output (Power)": "30 kW (41 hp)",
+        "Peak Torque": "105 Nm",
+        "Top Speed": "80 km/h",
+        "0–100 km/h Acceleration": "N/A (Fleet Optimized)",
+        "Charging Time (DC Fast)": "110 min (0-80%, 15 kW)",
+        "Standard AC Charging": "7.0 hrs (15A Plug)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "3-Phase AC Induction Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "316 Litres",
+        "Ground Clearance": "177 mm",
+        "Dimensions": "3993 x 1677 x 1537 mm",
+        "Safety Rating": "4-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "ABS with EBD, Rear Parking Sensors",
+        "Infotainment System": "Fleet Standard Audio System, Bluetooth Connectivity",
+        "Warranty": "3 Years / 1,25,000 km (Vehicle & Battery)"
+      },
+      "XT Plus": {
+        "Ex-Showroom Price": "₹13.49 Lakh",
+        "Est. On-Road Price": "₹14.50 Lakh",
+        "Battery Capacity": "21.5 kWh",
+        "Claimed Range": "213 km",
+        "Real-World Range": "150 km",
+        "Motor Output (Power)": "30 kW (41 hp)",
+        "Peak Torque": "105 Nm",
+        "Top Speed": "80 km/h",
+        "0–100 km/h Acceleration": "N/A",
+        "Charging Time (DC Fast)": "110 min (0-80%, 15 kW)",
+        "Standard AC Charging": "7.0 hrs (15A Plug)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "3-Phase AC Induction Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "316 Litres",
+        "Ground Clearance": "177 mm",
+        "Dimensions": "3993 x 1677 x 1537 mm",
+        "Safety Rating": "4-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "ABS with EBD, Reverse Parking Sensors, Speed Alert System",
+        "Infotainment System": "Infotainment System with USB/Bluetooth, Premium Fabric Seats",
+        "Warranty": "3 Years / 1,25,000 km (Vehicle & Battery)"
+      }
+    },
+    "Tigor.ev": {
+      "XE": {
+        "Ex-Showroom Price": "₹12.49 Lakh",
+        "Est. On-Road Price": "₹13.40 Lakh",
+        "Battery Capacity": "26 kWh",
+        "Claimed Range": "315 km",
+        "Real-World Range": "220 km",
+        "Motor Output (Power)": "55 kW (74 bhp)",
+        "Peak Torque": "170 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "12.0 sec",
+        "Charging Time (DC Fast)": "59 min (10-80%, 25 kW)",
+        "Standard AC Charging": "8.5 hrs (10-100%, 3.3 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "316 Litres",
+        "Ground Clearance": "172 mm",
+        "Dimensions": "3993 x 1677 x 1532 mm",
+        "Safety Rating": "4-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "None",
+        "Infotainment System": "Digital Driver Cluster, Standard Audio System",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "XT": {
+        "Ex-Showroom Price": "₹12.99 Lakh",
+        "Est. On-Road Price": "₹13.95 Lakh",
+        "Battery Capacity": "26 kWh",
+        "Claimed Range": "315 km",
+        "Real-World Range": "220 km",
+        "Motor Output (Power)": "55 kW (74 bhp)",
+        "Peak Torque": "170 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "12.0 sec",
+        "Charging Time (DC Fast)": "59 min (10-80%, 25 kW)",
+        "Standard AC Charging": "8.5 hrs (10-100%, 3.3 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "316 Litres",
+        "Ground Clearance": "172 mm",
+        "Dimensions": "3993 x 1677 x 1532 mm",
+        "Safety Rating": "4-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "None",
+        "Infotainment System": "7-inch Harman Touchscreen, Apple CarPlay & Android Auto",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "XZ Plus": {
+        "Ex-Showroom Price": "₹13.49 Lakh",
+        "Est. On-Road Price": "₹14.50 Lakh",
+        "Battery Capacity": "26 kWh",
+        "Claimed Range": "315 km",
+        "Real-World Range": "220 km",
+        "Motor Output (Power)": "55 kW (74 bhp)",
+        "Peak Torque": "170 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "12.0 sec",
+        "Charging Time (DC Fast)": "59 min (10-80%, 25 kW)",
+        "Standard AC Charging": "8.5 hrs (10-100%, 3.3 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "316 Litres",
+        "Ground Clearance": "172 mm",
+        "Dimensions": "3993 x 1677 x 1532 mm",
+        "Safety Rating": "4-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "Rear Parking Camera",
+        "Infotainment System": "7-inch Harman Touchscreen, 8 Speakers, Smart App Connectivity",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "XZ Plus LUX": {
+        "Ex-Showroom Price": "₹13.75 Lakh",
+        "Est. On-Road Price": "₹14.80 Lakh",
+        "Battery Capacity": "26 kWh",
+        "Claimed Range": "315 km",
+        "Real-World Range": "220 km",
+        "Motor Output (Power)": "55 kW (74 bhp)",
+        "Peak Torque": "170 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "12.0 sec",
+        "Charging Time (DC Fast)": "59 min (10-80%, 25 kW)",
+        "Standard AC Charging": "8.5 hrs (10-100%, 3.3 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "316 Litres",
+        "Ground Clearance": "172 mm",
+        "Dimensions": "3993 x 1677 x 1532 mm",
+        "Safety Rating": "4-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "Rear Parking Camera",
+        "Infotainment System": "7-inch Harman Touchscreen, Leatherette Seats, Connected Car Tech",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Punch.ev": {
+      "Smart": {
+        "Ex-Showroom Price": "₹9.69 Lakh",
+        "Est. On-Road Price": "₹10.45 Lakh",
+        "Battery Capacity": "30 kWh",
+        "Claimed Range": "355 km",
+        "Real-World Range": "260 km",
+        "Motor Output (Power)": "60 kW (80 bhp)",
+        "Peak Torque": "114 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "10.8 sec",
+        "Charging Time (DC Fast)": "26 min (20-80%, 50 kW)",
+        "Standard AC Charging": "4.5 hrs (10-100%, 7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "366 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "3857 x 1742 x 1633 mm",
+        "Safety Rating": "5-Star Bharat NCAP / Global NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, Hill Hold",
+        "Infotainment System": "Digital Driver Display, 4 Speakers",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Smart Plus": {
+        "Ex-Showroom Price": "₹10.29 Lakh",
+        "Est. On-Road Price": "₹11.10 Lakh",
+        "Battery Capacity": "30 kWh / 40 kWh",
+        "Claimed Range": "355 km / 468 km",
+        "Real-World Range": "260 km / 320 km",
+        "Motor Output (Power)": "90 kW (121 bhp)",
+        "Peak Torque": "190 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "26 min (20-80%, 50 kW)",
+        "Standard AC Charging": "5.0 hrs (10-100%, 7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "366 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "3857 x 1742 x 1633 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, Electronic Parking Brake with Auto Hold",
+        "Infotainment System": "7-inch Touchscreen, Steering Controls, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Adventure": {
+        "Ex-Showroom Price": "₹11.59 Lakh",
+        "Est. On-Road Price": "₹12.50 Lakh",
+        "Battery Capacity": "40 kWh",
+        "Claimed Range": "468 km",
+        "Real-World Range": "330 km",
+        "Motor Output (Power)": "90 kW (121 bhp)",
+        "Peak Torque": "190 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "26 min (20-80%, 50 kW)",
+        "Standard AC Charging": "5.0 hrs (10-100%, 7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "366 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "3857 x 1742 x 1633 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Hill Descent Control, Rear Parking Camera",
+        "Infotainment System": "10.25-inch Touchscreen, Wireless Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered": {
+        "Ex-Showroom Price": "₹12.29 Lakh",
+        "Est. On-Road Price": "₹13.25 Lakh",
+        "Battery Capacity": "40 kWh",
+        "Claimed Range": "468 km",
+        "Real-World Range": "335 km",
+        "Motor Output (Power)": "90 kW (121 bhp)",
+        "Peak Torque": "190 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "26 min (20-80%, 50 kW)",
+        "Standard AC Charging": "5.0 hrs (10-100%, 7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "366 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "3857 x 1742 x 1633 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "360-Degree Camera, Blind Spot Monitor",
+        "Infotainment System": "10.25-inch Digital Cockpit + 10.25-inch Main Screen, Arcade.ev App Suite",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered Plus S": {
+        "Ex-Showroom Price": "₹12.59 Lakh",
+        "Est. On-Road Price": "₹13.60 Lakh",
+        "Battery Capacity": "40 kWh",
+        "Claimed Range": "468 km",
+        "Real-World Range": "335 km",
+        "Motor Output (Power)": "90 kW (121 bhp)",
+        "Peak Torque": "190 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "26 min (20-80%, 50 kW)",
+        "Standard AC Charging": "5.0 hrs (10-100%, 7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "366 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "3857 x 1742 x 1633 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "360-Degree Camera, Blind Spot Monitor, Electronic Parking Brake with Auto Hold",
+        "Infotainment System": "10.25-inch Screen, Voice-Activated Sunroof, Ventilated Seats, Wireless Charging",
+        "Warranty": "Lifetime HV Battery Warranty"
+      }
+    },
+    "Nexon.ev": {
+      "Creative": {
+        "Ex-Showroom Price": "₹14.49 Lakh",
+        "Est. On-Road Price": "₹15.60 Lakh",
+        "Battery Capacity": "30 kWh (Medium Range)",
+        "Claimed Range": "325 km",
+        "Real-World Range": "260 km",
+        "Motor Output (Power)": "95 kW (127 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.2 sec",
+        "Charging Time (DC Fast)": "43 min (10-80%, 50 kW)",
+        "Standard AC Charging": "4.3 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "350 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Stability Control (ESC), All-Wheel Disc Brakes",
+        "Infotainment System": "10.25-inch Touchscreen, Android Auto & Apple CarPlay, 4 Speakers",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Creative Plus": {
+        "Ex-Showroom Price": "₹14.99 Lakh",
+        "Est. On-Road Price": "₹16.15 Lakh",
+        "Battery Capacity": "30 kWh (Medium Range)",
+        "Claimed Range": "325 km",
+        "Real-World Range": "260 km",
+        "Motor Output (Power)": "95 kW (127 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.2 sec",
+        "Charging Time (DC Fast)": "43 min (10-80%, 50 kW)",
+        "Standard AC Charging": "4.3 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "350 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Hill Hold & Descent Control, Rear Parking Camera",
+        "Infotainment System": "10.25-inch Touchscreen + Digital Cluster, Multi-Mode Regen Paddles",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Fearless": {
+        "Ex-Showroom Price": "₹16.99 Lakh",
+        "Est. On-Road Price": "₹18.30 Lakh",
+        "Battery Capacity": "40.5 kWh (Long Range)",
+        "Claimed Range": "465 km",
+        "Real-World Range": "370 km",
+        "Motor Output (Power)": "106 kW (142 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.9 sec",
+        "Charging Time (DC Fast)": "56 min (10-80%, 50 kW)",
+        "Standard AC Charging": "6.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "350 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Parking Brake with Auto Hold, Blind Spot View Monitor",
+        "Infotainment System": "12.3-inch Cinematic Touchscreen, Arcade.ev App Suite, JBL Sound System",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Fearless Plus": {
+        "Ex-Showroom Price": "₹17.99 Lakh",
+        "Est. On-Road Price": "₹19.40 Lakh",
+        "Battery Capacity": "40.5 kWh (Long Range)",
+        "Claimed Range": "465 km",
+        "Real-World Range": "375 km",
+        "Motor Output (Power)": "106 kW (142 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.9 sec",
+        "Charging Time (DC Fast)": "56 min (10-80%, 50 kW)",
+        "Standard AC Charging": "6.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "350 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Forward Collision Warning, Autonomous Emergency Braking, Lane Keep Assist",
+        "Infotainment System": "12.3-inch Touchscreen + 10.25-inch Digital Cluster, 9-Speaker JBL Sound, Wireless Charging",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered": {
+        "Ex-Showroom Price": "₹18.99 Lakh",
+        "Est. On-Road Price": "₹20.45 Lakh",
+        "Battery Capacity": "40.5 kWh / 45 kWh",
+        "Claimed Range": "489 km",
+        "Real-World Range": "385 km",
+        "Motor Output (Power)": "106 kW (142 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.9 sec",
+        "Charging Time (DC Fast)": "56 min (10-80%, 50 kW)",
+        "Standard AC Charging": "6.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "350 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "360-Degree Camera, Front Parking Sensors, Blind Spot Monitoring",
+        "Infotainment System": "12.3-inch Cinematic Touchscreen, Ventilated Front Seats, Voice-Assisted Sunroof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered Plus A": {
+        "Ex-Showroom Price": "₹19.49 Lakh",
+        "Est. On-Road Price": "₹21.00 Lakh",
+        "Battery Capacity": "45 kWh (High Range)",
+        "Claimed Range": "489 km",
+        "Real-World Range": "385 km",
+        "Motor Output (Power)": "110 kW (148 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.6 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "6.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "350 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5-Star Bharat NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Full Level 2 ADAS Suite, 360-Degree Camera, V2L & V2V Charging Support",
+        "Infotainment System": "12.3-inch Cinematic Display, 9-Speaker JBL Audio, Ventilated Front Seats, Panoramic Sunroof",
+        "Warranty": "Lifetime HV Battery Warranty (Private)"
+      }
+    },
+    "Curvv.ev": {
+      "Creative": {
+        "Ex-Showroom Price": "₹17.49 Lakh",
+        "Est. On-Road Price": "₹18.80 Lakh",
+        "Battery Capacity": "45 kWh",
+        "Claimed Range": "502 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "110 kW (148 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.6 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "6.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres + 11.6L Frunk",
+        "Ground Clearance": "186 mm",
+        "Dimensions": "4308 x 1810 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, All-Wheel Disc Brakes, ISOFIX Anchors",
+        "Infotainment System": "10.25-inch Touchscreen, Android Auto & Apple CarPlay, 4 Speakers",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Accomplished": {
+        "Ex-Showroom Price": "₹18.49 Lakh",
+        "Est. On-Road Price": "₹19.85 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "465 km",
+        "Motor Output (Power)": "123 kW (165 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.4 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "7.9 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres + 11.6L Frunk",
+        "Ground Clearance": "186 mm",
+        "Dimensions": "4308 x 1810 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Hill Descent Control, Reverse Camera Assist, Electronic Stability Control",
+        "Infotainment System": "10.25-inch Touchscreen + Digital Cluster, Wireless Charging, Auto Climate Control",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Accomplished Plus S": {
+        "Ex-Showroom Price": "₹19.29 Lakh",
+        "Est. On-Road Price": "₹20.75 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "465 km",
+        "Motor Output (Power)": "123 kW (165 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.4 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "7.9 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres + 11.6L Frunk",
+        "Ground Clearance": "186 mm",
+        "Dimensions": "4308 x 1810 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Parking Brake with Auto Hold, 360-Degree Camera",
+        "Infotainment System": "12.3-inch Cinematic Touchscreen, Arcade.ev App Suite, Panoramic Sunroof, Rain-Sensing Wipers",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered Plus": {
+        "Ex-Showroom Price": "₹19.99 Lakh",
+        "Est. On-Road Price": "₹21.50 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "465 km",
+        "Motor Output (Power)": "123 kW (165 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.4 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "7.9 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres + 11.6L Frunk",
+        "Ground Clearance": "186 mm",
+        "Dimensions": "4308 x 1810 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, Blind Spot Monitoring, 360-Degree 3D Camera",
+        "Infotainment System": "12.3-inch Touchscreen, Powered Gesture Tailgate (Hands-Free), Ventilated Front Seats",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered Plus A": {
+        "Ex-Showroom Price": "₹21.25 Lakh",
+        "Est. On-Road Price": "₹22.90 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "465 km",
+        "Motor Output (Power)": "123 kW (165 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.4 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "7.9 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres + 11.6L Frunk",
+        "Ground Clearance": "186 mm",
+        "Dimensions": "4308 x 1810 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Full Level 2 ADAS (Adaptive Cruise Control, Lane Keep Assist, Stop & Go), Electronic Parking Brake",
+        "Infotainment System": "12.3-inch Touchscreen, 9-Speaker JBL Audio with Spatial Sound, Powered Tailgate, R-Comfort Ventilated Seats",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Empowered Plus A Dark": {
+        "Ex-Showroom Price": "₹21.99 Lakh",
+        "Est. On-Road Price": "₹23.70 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "465 km",
+        "Motor Output (Power)": "123 kW (165 hp)",
+        "Peak Torque": "215 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.4 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 70 kW)",
+        "Standard AC Charging": "7.9 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "500 Litres + 11.6L Frunk",
+        "Ground Clearance": "186 mm",
+        "Dimensions": "4308 x 1810 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Full Level 2 ADAS Suite, 360-Degree Surround Camera, Blind Spot Detection",
+        "Infotainment System": "12.3-inch Touchscreen, Dark-Themed Interior Accents, 9-Speaker JBL Audio, Ventilated Seats, Powered Tailgate",
+        "Warranty": "Lifetime HV Battery Warranty (Private)"
+      }
+    },
+    "Nexon EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹13.34 Lakh",
+        "Est. On-Road Price": "₹14.41 Lakh",
+        "Battery Capacity": "40.5 kWh",
+        "Claimed Range": "465 km",
+        "Real-World Range": "372 km",
+        "Motor Output (Power)": "143 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "56 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5 Stars (BNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹16.24 Lakh",
+        "Est. On-Road Price": "₹17.54 Lakh",
+        "Battery Capacity": "40.5 kWh",
+        "Claimed Range": "465 km",
+        "Real-World Range": "372 km",
+        "Motor Output (Power)": "143 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "56 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3994 x 1811 x 1616 mm",
+        "Safety Rating": "5 Stars (BNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Punch EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹10.11 Lakh",
+        "Est. On-Road Price": "₹10.92 Lakh",
+        "Battery Capacity": "35 kWh",
+        "Claimed Range": "421 km",
+        "Real-World Range": "336 km",
+        "Motor Output (Power)": "122 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "56 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3827 x 1742 x 1615 mm",
+        "Safety Rating": "5 Stars (BNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹12.31 Lakh",
+        "Est. On-Road Price": "₹13.29 Lakh",
+        "Battery Capacity": "35 kWh",
+        "Claimed Range": "421 km",
+        "Real-World Range": "336 km",
+        "Motor Output (Power)": "122 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "56 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3827 x 1742 x 1615 mm",
+        "Safety Rating": "5 Stars (BNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Harrier EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹20.24 Lakh",
+        "Est. On-Road Price": "₹21.86 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "218 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4605 x 1922 x 1718 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹24.64 Lakh",
+        "Est. On-Road Price": "₹26.61 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "218 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4605 x 1922 x 1718 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Curvv EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹16.09 Lakh",
+        "Est. On-Road Price": "₹17.38 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "468 km",
+        "Motor Output (Power)": "167 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4310 x 1810 x 1637 mm",
+        "Safety Rating": "5 Stars (BNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹19.59 Lakh",
+        "Est. On-Road Price": "₹21.16 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "585 km",
+        "Real-World Range": "468 km",
+        "Motor Output (Power)": "167 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4310 x 1810 x 1637 mm",
+        "Safety Rating": "5 Stars (BNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Tiago EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹7.99 Lakh",
+        "Est. On-Road Price": "₹8.63 Lakh",
+        "Battery Capacity": "24 kWh",
+        "Claimed Range": "315 km",
+        "Real-World Range": "252 km",
+        "Motor Output (Power)": "74 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "58 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3769 x 1677 x 1536 mm",
+        "Safety Rating": "4 Stars (GNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹9.73 Lakh",
+        "Est. On-Road Price": "₹10.51 Lakh",
+        "Battery Capacity": "24 kWh",
+        "Claimed Range": "315 km",
+        "Real-World Range": "252 km",
+        "Motor Output (Power)": "74 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "58 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3769 x 1677 x 1536 mm",
+        "Safety Rating": "4 Stars (GNCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Avinya EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹32.20 Lakh",
+        "Est. On-Road Price": "₹34.78 Lakh",
+        "Battery Capacity": "80 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "350 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4600 x 1900 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹35.70 Lakh",
+        "Est. On-Road Price": "₹38.56 Lakh",
+        "Battery Capacity": "80 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "350 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4600 x 1900 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹39.20 Lakh",
+        "Est. On-Road Price": "₹42.34 Lakh",
+        "Battery Capacity": "80 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "350 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4600 x 1900 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Sierra EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹23.00 Lakh",
+        "Est. On-Road Price": "₹24.84 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "200 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4350 x 1850 x 1700 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹28.00 Lakh",
+        "Est. On-Road Price": "₹30.24 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "200 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4350 x 1850 x 1700 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "BYD": {
+    "eMax 7": {
+      "Comfort": {
+        "Ex-Showroom Price": "₹27.90 Lakh",
+        "Est. On-Road Price": "₹30.10 Lakh",
+        "Battery Capacity": "71.8 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.6 sec",
+        "Charging Time (DC Fast)": "37 min (0-80%, 115 kW)",
+        "Standard AC Charging": "9.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous AC Motor",
+        "Seating Capacity": "6 / 7 Seats",
+        "Boot Space": "180 Litres (580 Litres with folded rear seats)",
+        "Ground Clearance": "170 mm",
+        "Dimensions": "4710 x 1810 x 1690 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Stability Control, Traction Control System, Hill Hold Assist",
+        "Infotainment System": "12.8-inch Rotatable Touchscreen, Wireless Apple CarPlay & Android Auto",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Premium": {
+        "Ex-Showroom Price": "₹26.90 Lakh",
+        "Est. On-Road Price": "₹29.00 Lakh",
+        "Battery Capacity": "55.4 kWh",
+        "Claimed Range": "420 km",
+        "Real-World Range": "340 km",
+        "Motor Output (Power)": "120 kW (161 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.9 sec",
+        "Charging Time (DC Fast)": "35 min (30-80%)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous AC Motor",
+        "Seating Capacity": "6 / 7 Seats",
+        "Boot Space": "180 Litres",
+        "Ground Clearance": "170 mm",
+        "Dimensions": "4710 x 1810 x 1690 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ABS with EBD, Electronic Stability Program, 360-Degree Camera",
+        "Infotainment System": "12.8-inch Rotating Touchscreen, NFC Card Key, Wireless Phone Charging",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Superior": {
+        "Ex-Showroom Price": "₹29.30 Lakh",
+        "Est. On-Road Price": "₹31.50 Lakh",
+        "Battery Capacity": "71.8 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.6 sec",
+        "Charging Time (DC Fast)": "37 min (0-80%, 115 kW)",
+        "Standard AC Charging": "9.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous AC Motor",
+        "Seating Capacity": "6 / 7 Seats",
+        "Boot Space": "180 Litres",
+        "Ground Clearance": "170 mm",
+        "Dimensions": "4710 x 1810 x 1690 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Full Level 2 ADAS Suite (Adaptive Cruise Control, Autonomous Emergency Braking, Lane Keep Assist, Blind Spot Monitoring)",
+        "Infotainment System": "12.8-inch Rotatable Touchscreen, Ventilated Front Seats, Panoramic Glass Roof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Atto 3": {
+      "Dynamic": {
+        "Ex-Showroom Price": "₹24.99 Lakh",
+        "Est. On-Road Price": "₹27.00 Lakh",
+        "Battery Capacity": "49.92 kWh",
+        "Claimed Range": "410 km",
+        "Real-World Range": "330 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "50 min (0-80%, 80 kW)",
+        "Standard AC Charging": "8.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "440 Litres",
+        "Ground Clearance": "175 mm",
+        "Dimensions": "4455 x 1875 x 1615 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 ADAS, Forward Collision Warning, Lane Keep Assist",
+        "Infotainment System": "12.8-inch Intelligent Rotating Touchscreen, Dirac HD Audio",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Premium": {
+        "Ex-Showroom Price": "₹29.00 Lakh",
+        "Est. On-Road Price": "₹31.20 Lakh",
+        "Battery Capacity": "60.48 kWh",
+        "Claimed Range": "521 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "50 min (0-80%, 80 kW)",
+        "Standard AC Charging": "10 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "440 Litres",
+        "Ground Clearance": "175 mm",
+        "Dimensions": "4455 x 1875 x 1615 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, Adaptive Cruise Control, Rear Cross Traffic Alert",
+        "Infotainment System": "15.6-inch Rotatable Touchscreen, Ambient Lighting, NFC Card Key",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Superior": {
+        "Ex-Showroom Price": "₹33.99 Lakh",
+        "Est. On-Road Price": "₹36.50 Lakh",
+        "Battery Capacity": "60.48 kWh",
+        "Claimed Range": "521 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "50 min (0-80%, 80 kW)",
+        "Standard AC Charging": "10 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "440 Litres",
+        "Ground Clearance": "175 mm",
+        "Dimensions": "4455 x 1875 x 1615 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Full Level 2 ADAS Suite, Autonomous Parking Assist, Intelligent Cruise Control",
+        "Infotainment System": "15.6-inch Rotating Screen, Voice Control, Premium Sound, Panoramic Sunroof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Sealion 6": {
+      "Supreme": {
+        "Ex-Showroom Price": "₹26.50 Lakh",
+        "Est. On-Road Price": "₹28.50 Lakh",
+        "Battery Capacity": "18.3 kWh (Plug-In Hybrid / DM-i)",
+        "Claimed Range": "1080 km Combined Range",
+        "Real-World Range": "900 km",
+        "Motor Output (Power)": "238 kW (318 hp combined)",
+        "Peak Torque": "565 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "5.9 sec",
+        "Charging Time (DC Fast)": "35 min (30-80%)",
+        "Standard AC Charging": "3.0 hrs",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "DM-i Dual Motor Plug-In Hybrid System",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "425 Litres",
+        "Ground Clearance": "170 mm",
+        "Dimensions": "4775 x 1890 x 1670 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "DiPilot Level 2 ADAS, Lane Keep Assist, Adaptive Cruise Control, Automatic Emergency Braking",
+        "Infotainment System": "15.6-inch Rotatable Touchscreen, Connected Car Tech, Panoramic Sunroof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "BYD Seal": {
+      "Dynamic": {
+        "Ex-Showroom Price": "₹41.00 Lakh",
+        "Est. On-Road Price": "₹44.10 Lakh",
+        "Battery Capacity": "61.44 kWh",
+        "Claimed Range": "510 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.5 sec",
+        "Charging Time (DC Fast)": "37 min (10-80%, 110 kW)",
+        "Standard AC Charging": "8.5 hrs (7 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "RWD",
+        "Motor Type": "PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "400 Litres",
+        "Ground Clearance": "145 mm",
+        "Dimensions": "4800 x 1875 x 1460 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "9 Airbags",
+        "ADAS Features": "Level 2 ADAS",
+        "Infotainment System": "15.6-inch Rotating Screen",
+        "Warranty": "8 Years / 1,60,000 km"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹53.00 Lakh",
+        "Est. On-Road Price": "₹56.90 Lakh",
+        "Battery Capacity": "82.56 kWh",
+        "Claimed Range": "650 km",
+        "Real-World Range": "520 km",
+        "Motor Output (Power)": "390 kW (523 hp)",
+        "Peak Torque": "670 Nm",
+        "Top Speed": "240 km/h",
+        "0–100 km/h Acceleration": "3.8 sec",
+        "Charging Time (DC Fast)": "37 min (10-80%, 150 kW)",
+        "Standard AC Charging": "12.0 hrs (7 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual PMSM Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "400 Litres",
+        "Ground Clearance": "145 mm",
+        "Dimensions": "4800 x 1875 x 1460 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "9 Airbags",
+        "ADAS Features": "Level 2 ADAS, Dynamic Torque Control",
+        "Infotainment System": "15.6-inch Rotating Screen, Dynaudio 12-Speaker Sound",
+        "Warranty": "8 Years / 1,60,000 km"
+      }
+    },
+    "BYD Atto 3": {
+      "Dynamic": {
+        "Ex-Showroom Price": "₹24.99 Lakh",
+        "Est. On-Road Price": "₹26.90 Lakh",
+        "Battery Capacity": "49.92 kWh",
+        "Claimed Range": "468 km",
+        "Real-World Range": "350 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "45 min (0-80%, 80 kW)",
+        "Standard AC Charging": "8.0 hrs (7 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "BYD Blade Battery & PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "440 Litres",
+        "Ground Clearance": "175 mm",
+        "Dimensions": "4455 x 1875 x 1615 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite",
+        "Infotainment System": "12.8-inch Rotating Touchscreen",
+        "Warranty": "8 Years / 1,60,000 km"
+      },
+      "Superior": {
+        "Ex-Showroom Price": "₹33.99 Lakh",
+        "Est. On-Road Price": "₹36.50 Lakh",
+        "Battery Capacity": "60.48 kWh",
+        "Claimed Range": "521 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "45 min (0-80%, 80 kW)",
+        "Standard AC Charging": "9.5 hrs (7 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "BYD Blade Battery & PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "440 Litres",
+        "Ground Clearance": "175 mm",
+        "Dimensions": "4455 x 1875 x 1615 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Full Level 2 ADAS, Blind Spot Detection",
+        "Infotainment System": "15.6-inch Rotating Screen, Panoramic Sunroof, Power Tailgate",
+        "Warranty": "8 Years / 1,60,000 km"
+      }
+    },
+    "Sealion 7": {
+      "Standard": {
+        "Ex-Showroom Price": "₹45.91 Lakh",
+        "Est. On-Road Price": "₹49.58 Lakh",
+        "Battery Capacity": "82.56 kWh",
+        "Claimed Range": "567 km",
+        "Real-World Range": "453 km",
+        "Motor Output (Power)": "523 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "215 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "24 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4830 x 1925 x 1620 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹50.90 Lakh",
+        "Est. On-Road Price": "₹54.97 Lakh",
+        "Battery Capacity": "82.56 kWh",
+        "Claimed Range": "567 km",
+        "Real-World Range": "453 km",
+        "Motor Output (Power)": "523 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "215 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "24 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4830 x 1925 x 1620 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹55.89 Lakh",
+        "Est. On-Road Price": "₹60.36 Lakh",
+        "Battery Capacity": "82.56 kWh",
+        "Claimed Range": "567 km",
+        "Real-World Range": "453 km",
+        "Motor Output (Power)": "523 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "215 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "24 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4830 x 1925 x 1620 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Hyundai": {
+    "Creta EV": {
+      "Executive": {
+        "Ex-Showroom Price": "₹17.99 Lakh",
+        "Est. On-Road Price": "₹19.40 Lakh",
+        "Battery Capacity": "42 kWh",
+        "Claimed Range": "420 km",
+        "Real-World Range": "330 km",
+        "Motor Output (Power)": "135 kW (181 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.2 sec",
+        "Charging Time (DC Fast)": "45 min (10-80%, 80 kW)",
+        "Standard AC Charging": "6.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "433 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "4340 x 1790 x 1655 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Stability Control, Hill Start Assist, Rear Parking Camera",
+        "Infotainment System": "10.25-inch Touchscreen, Wired Apple CarPlay & Android Auto, 4 Speakers",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Smart": {
+        "Ex-Showroom Price": "₹18.99 Lakh",
+        "Est. On-Road Price": "₹20.45 Lakh",
+        "Battery Capacity": "42 kWh",
+        "Claimed Range": "420 km",
+        "Real-World Range": "330 km",
+        "Motor Output (Power)": "135 kW (181 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.2 sec",
+        "Charging Time (DC Fast)": "45 min (10-80%, 80 kW)",
+        "Standard AC Charging": "6.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "433 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "4340 x 1790 x 1655 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESC, Hill Descent Control, Tyre Pressure Monitoring System (TPMS)",
+        "Infotainment System": "10.25-inch Infotainment + Digital Cluster, Bluelink Connected Car Tech",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Smart (O)": {
+        "Ex-Showroom Price": "₹19.49 Lakh",
+        "Est. On-Road Price": "₹21.00 Lakh",
+        "Battery Capacity": "42 kWh / 51.4 kWh (Long Range)",
+        "Claimed Range": "420 km - 510 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "135 kW (181 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "48 min (10-80%, 80 kW)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "433 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "4340 x 1790 x 1655 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS (Forward Collision Avoidance, Lane Keep Assist, Smart Cruise Control)",
+        "Infotainment System": "10.25-inch Dual Widescreen Display, Wireless Charging, Bose Premium Sound",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Premium": {
+        "Ex-Showroom Price": "₹21.50 Lakh",
+        "Est. On-Road Price": "₹23.20 Lakh",
+        "Battery Capacity": "42 kWh",
+        "Claimed Range": "420 km",
+        "Real-World Range": "330 km",
+        "Motor Output (Power)": "135 kW (181 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.2 sec",
+        "Charging Time (DC Fast)": "45 min (10-80%, 80 kW)",
+        "Standard AC Charging": "6.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "433 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "4340 x 1790 x 1655 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, Surround View Monitor, Blind Spot View Monitor",
+        "Infotainment System": "Panoramic Sunroof, Ventilated Front Seats, Dual-Zone Climate Control",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Excellence": {
+        "Ex-Showroom Price": "₹23.50 Lakh",
+        "Est. On-Road Price": "₹25.30 Lakh",
+        "Battery Capacity": "51.4 kWh (Long Range)",
+        "Claimed Range": "510 km",
+        "Real-World Range": "410 km",
+        "Motor Output (Power)": "135 kW (181 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "48 min (10-80%, 80 kW)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "433 Litres",
+        "Ground Clearance": "190 mm",
+        "Dimensions": "4340 x 1790 x 1655 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Full Level 2+ ADAS Suite, Remote Smart Parking Assist, Autonomous Braking",
+        "Infotainment System": "10.25-inch Dual Integrated Screens, Bose 8-Speaker Audio, Powered Driver Seat, Ventilated Seats",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Ioniq 5": {
+      "RWD": {
+        "Ex-Showroom Price": "₹46.05 Lakh",
+        "Est. On-Road Price": "₹49.80 Lakh",
+        "Battery Capacity": "72.6 kWh",
+        "Claimed Range": "631 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "160 kW (214 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "7.4 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW 800V)",
+        "Standard AC Charging": "6.7 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "RWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor (E-GMP Platform)",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "527 Litres + 57L Frunk",
+        "Ground Clearance": "160 mm",
+        "Dimensions": "4635 x 1890 x 1625 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 Hyundai SmartSense, Forward Collision-Avoidance, Blind-Spot Collision Avoidance",
+        "Infotainment System": "Dual 12.3-inch Panoramic Screens, Bose Premium Sound, V2L (Vehicle-to-Load)",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Ioniq 6": {
+      "RWD": {
+        "Ex-Showroom Price": "₹55.00 Lakh (Expected)",
+        "Est. On-Road Price": "₹59.50 Lakh",
+        "Battery Capacity": "77.4 kWh",
+        "Claimed Range": "614 km",
+        "Real-World Range": "510 km",
+        "Motor Output (Power)": "168 kW (225 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "7.4 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW 800V)",
+        "Standard AC Charging": "7.2 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "RWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "401 Litres + 45L Frunk",
+        "Ground Clearance": "141 mm",
+        "Dimensions": "4855 x 1880 x 1495 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 SmartSense ADAS, Highway Driving Assist 2, Remote Smart Parking Assist",
+        "Infotainment System": "Dual 12.3-inch Screens, Bose Surround Sound, Dual Color Ambient Lighting",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "AWD": {
+        "Ex-Showroom Price": "₹62.00 Lakh (Expected)",
+        "Est. On-Road Price": "₹67.00 Lakh",
+        "Battery Capacity": "77.4 kWh",
+        "Claimed Range": "583 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "239 kW (320 hp)",
+        "Peak Torque": "605 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "5.1 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW 800V)",
+        "Standard AC Charging": "7.2 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "401 Litres + 14L Frunk (AWD)",
+        "Ground Clearance": "141 mm",
+        "Dimensions": "4855 x 1880 x 1495 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2+ SmartSense ADAS, Blind-Spot View Monitor, Surround View Camera",
+        "Infotainment System": "Dual 12.3-inch Widescreens, Bose Audio System, Vehicle-to-Load (V2L) Outlets",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Inster": {
+      "Standard": {
+        "Ex-Showroom Price": "₹11.00 Lakh (Expected)",
+        "Est. On-Road Price": "₹12.00 Lakh",
+        "Battery Capacity": "42 kWh",
+        "Claimed Range": "300 km",
+        "Real-World Range": "240 km",
+        "Motor Output (Power)": "71 kW (95 hp)",
+        "Peak Torque": "147 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "11.7 sec",
+        "Charging Time (DC Fast)": "30 min (10-80%, 120 kW)",
+        "Standard AC Charging": "4.0 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "4 Seats",
+        "Boot Space": "280 Litres",
+        "Ground Clearance": "170 mm",
+        "Dimensions": "3825 x 1610 x 1575 mm",
+        "Safety Rating": "4-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Forward Collision-Avoidance Assist, Lane Keeping Assist, High Beam Assist",
+        "Infotainment System": "10.25-inch Touchscreen Display, Digital Instrument Cluster, Smartphone Integration",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹13.00 Lakh (Expected)",
+        "Est. On-Road Price": "₹14.10 Lakh",
+        "Battery Capacity": "49 kWh",
+        "Claimed Range": "355 km",
+        "Real-World Range": "285 km",
+        "Motor Output (Power)": "84 kW (113 hp)",
+        "Peak Torque": "147 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "10.6 sec",
+        "Charging Time (DC Fast)": "30 min (10-80%, 120 kW)",
+        "Standard AC Charging": "4.5 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "4 Seats",
+        "Boot Space": "280 Litres",
+        "Ground Clearance": "170 mm",
+        "Dimensions": "3825 x 1610 x 1575 mm",
+        "Safety Rating": "4-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Highway Driving Assist 1.5, Smart Cruise Control, Blind-Spot Collision Avoidance",
+        "Infotainment System": "Dual 10.25-inch Displays, Wireless Phone Charging, V2L Exterior/Interior Power",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Kia": {
+    "Carens EV": {
+      "Prestige": {
+        "Ex-Showroom Price": "₹18.00 Lakh",
+        "Est. On-Road Price": "₹19.40 Lakh",
+        "Battery Capacity": "51.4 kWh",
+        "Claimed Range": "404 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "125 kW (167 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "165 km/h",
+        "0–100 km/h Acceleration": "8.8 sec",
+        "Charging Time (DC Fast)": "40 min (10-80%, 100 kW)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "6 / 7 Seats",
+        "Boot Space": "216 Litres (Expandable)",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "4540 x 1800 x 1700 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Stability Control, Hill-Start Assist Control, All-Wheel Disc Brakes",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Luxury": {
+        "Ex-Showroom Price": "₹20.50 Lakh",
+        "Est. On-Road Price": "₹22.10 Lakh",
+        "Battery Capacity": "61.4 kWh",
+        "Claimed Range": "490 km",
+        "Real-World Range": "390 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "8.0 sec",
+        "Charging Time (DC Fast)": "42 min (10-80%, 100 kW)",
+        "Standard AC Charging": "9.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "6 / 7 Seats",
+        "Boot Space": "216 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "4540 x 1800 x 1700 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, Lane Keep Assist, Forward Collision Avoidance, Surround View Monitor",
+        "Infotainment System": "10.25-inch Touchscreen, Fully Digital Cluster, Ventilated Front Seats, Ambient Mood Lighting",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Luxury Plus": {
+        "Ex-Showroom Price": "₹23.00 Lakh",
+        "Est. On-Road Price": "₹24.80 Lakh",
+        "Battery Capacity": "61.4 kWh",
+        "Claimed Range": "490 km",
+        "Real-World Range": "390 km",
+        "Motor Output (Power)": "150 kW (201 hp)",
+        "Peak Torque": "255 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "8.0 sec",
+        "Charging Time (DC Fast)": "42 min (10-80%, 100 kW)",
+        "Standard AC Charging": "9.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "6 / 7 Seats",
+        "Boot Space": "216 Litres",
+        "Ground Clearance": "195 mm",
+        "Dimensions": "4540 x 1800 x 1700 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Full Level 2 ADAS, Smart Cruise Control with Stop & Go, Blind Spot Collision Warning",
+        "Infotainment System": "10.25-inch Infotainment Screen, Bose Premium Sound System, Powered Driver Seat, One-Touch Electric Tumble Second Row",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "EV6": {
+      "GT-Line RWD": {
+        "Ex-Showroom Price": "₹60.95 Lakh",
+        "Est. On-Road Price": "₹65.80 Lakh",
+        "Battery Capacity": "77.4 kWh",
+        "Claimed Range": "708 km",
+        "Real-World Range": "530 km",
+        "Motor Output (Power)": "168 kW (225 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW 800V)",
+        "Standard AC Charging": "7.2 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "RWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "520 Litres + 52L Frunk",
+        "Ground Clearance": "178 mm",
+        "Dimensions": "4695 x 1890 x 1550 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "8 Airbags",
+        "ADAS Features": "Level 2 ADAS, Forward Collision-Avoidance, Lane Following Assist, Blind-Spot View Monitor",
+        "Infotainment System": "Dual 12.3-inch Curved Displays, Meridian 14-Speaker Sound System, Augmented Reality HUD",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "GT-Line AWD": {
+        "Ex-Showroom Price": "₹65.95 Lakh",
+        "Est. On-Road Price": "₹71.20 Lakh",
+        "Battery Capacity": "77.4 kWh",
+        "Claimed Range": "590 km",
+        "Real-World Range": "465 km",
+        "Motor Output (Power)": "239 kW (320 hp)",
+        "Peak Torque": "605 Nm",
+        "Top Speed": "192 km/h",
+        "0–100 km/h Acceleration": "5.2 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW 800V)",
+        "Standard AC Charging": "7.2 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "520 Litres + 20L Frunk (AWD)",
+        "Ground Clearance": "178 mm",
+        "Dimensions": "4695 x 1890 x 1550 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "8 Airbags",
+        "ADAS Features": "Level 2+ ADAS Suite, Smart Cruise Control with Stop & Go, Surround View Monitor, Remote Smart Parking Assist",
+        "Infotainment System": "Dual 12.3-inch Screens, Meridian Premium Sound System, Vehicle-to-Load (V2L) capability",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "EV9": {
+      "GT-Line": {
+        "Ex-Showroom Price": "₹1.30 Crore",
+        "Est. On-Road Price": "₹1.41 Crore",
+        "Battery Capacity": "99.8 kWh",
+        "Claimed Range": "561 km",
+        "Real-World Range": "450 km",
+        "Motor Output (Power)": "283 kW (379 hp)",
+        "Peak Torque": "700 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "5.3 sec",
+        "Charging Time (DC Fast)": "24 min (10-80%, 350 kW 800V)",
+        "Standard AC Charging": "9.5 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "6 Seats (Swivel/Captain Configuration)",
+        "Boot Space": "333 Litres (Expandable up to 2318L)",
+        "Ground Clearance": "177 mm",
+        "Dimensions": "5015 x 1980 x 1780 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "10 Airbags",
+        "ADAS Features": "Level 3 Autonomous Driving Readiness, Highway Driving Pilot, Remote Smart Parking Assist 2, Forward Collision-Avoidance 2",
+        "Infotainment System": "Triple Screen Layout (Dual 12.3-inch Displays + 5-inch Climate Panel), Meridian 14-Speaker Audio, Dual Sunroofs",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Syros EV": {
+      "Choice": {
+        "Ex-Showroom Price": "₹13.49 Lakh",
+        "Est. On-Road Price": "₹14.60 Lakh",
+        "Battery Capacity": "42 kWh",
+        "Claimed Range": "443 km",
+        "Real-World Range": "350 km",
+        "Motor Output (Power)": "125 kW (167 hp)",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.9 sec",
+        "Charging Time (DC Fast)": "39 min (10-80%, 100 kW)",
+        "Standard AC Charging": "6.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "415 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4280 x 1780 x 1650 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Electronic Stability Control (ESC), Hill-Start Assist, All-Wheel Disc Brakes",
+        "Infotainment System": "76.20 cm (30-inch) Wide Trinity Panoramic Display Panel, Smart Dashcam",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Preferred": {
+        "Ex-Showroom Price": "₹15.99 Lakh",
+        "Est. On-Road Price": "₹17.30 Lakh",
+        "Battery Capacity": "42 kWh",
+        "Claimed Range": "443 km",
+        "Real-World Range": "350 km",
+        "Motor Output (Power)": "125 kW (167 hp)",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.9 sec",
+        "Charging Time (DC Fast)": "39 min (10-80%, 100 kW)",
+        "Standard AC Charging": "6.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "415 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4280 x 1780 x 1650 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESC, Rear View Camera, TPMS, Front and Rear Parking Sensors",
+        "Infotainment System": "30-inch Trinity Panoramic Display Panel, Kia Connect 2.0, Paddle Shifters for i-Pedal",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Supreme": {
+        "Ex-Showroom Price": "₹19.99 Lakh",
+        "Est. On-Road Price": "₹21.60 Lakh",
+        "Battery Capacity": "51.4 kWh (Extended Range)",
+        "Claimed Range": "526 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "125 kW (171 hp)",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.2 sec",
+        "Charging Time (DC Fast)": "39 min (10-80%, 100 kW)",
+        "Standard AC Charging": "7.5 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "415 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4280 x 1780 x 1650 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS (16 Features: Forward Collision Avoidance, Lane Keeping Assist, Smart Cruise Control with Stop & Go, Blind View Monitor)",
+        "Infotainment System": "30-inch Trinity Display Panel, Dual-Pane Panoramic Sunroof, Smart Dual Camera Dashcam, Shift-by-Wire Column",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Kia EV6": {
+      "GT Line RWD": {
+        "Ex-Showroom Price": "₹60.95 Lakh",
+        "Est. On-Road Price": "₹65.50 Lakh",
+        "Battery Capacity": "77.4 kWh",
+        "Claimed Range": "708 km",
+        "Real-World Range": "520 km",
+        "Motor Output (Power)": "168 kW (225 hp)",
+        "Peak Torque": "350 Nm",
+        "Top Speed": "192 km/h",
+        "0–100 km/h Acceleration": "7.3 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW)",
+        "Standard AC Charging": "7.3 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "RWD",
+        "Motor Type": "PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "520 Litres",
+        "Ground Clearance": "178 mm",
+        "Dimensions": "4695 x 1890 x 1550 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "8 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite",
+        "Infotainment System": "Dual 12.3-inch Curved Displays, Meridian 14-Speaker Sound",
+        "Warranty": "8 Years / 1,60,000 km"
+      },
+      "GT Line AWD": {
+        "Ex-Showroom Price": "₹65.95 Lakh",
+        "Est. On-Road Price": "₹70.80 Lakh",
+        "Battery Capacity": "77.4 kWh",
+        "Claimed Range": "708 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "239 kW (320 hp)",
+        "Peak Torque": "605 Nm",
+        "Top Speed": "192 km/h",
+        "0–100 km/h Acceleration": "5.2 sec",
+        "Charging Time (DC Fast)": "18 min (10-80%, 350 kW)",
+        "Standard AC Charging": "7.3 hrs (11 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual PMSM Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "520 Litres",
+        "Ground Clearance": "178 mm",
+        "Dimensions": "4695 x 1890 x 1550 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "8 Airbags",
+        "ADAS Features": "Full Level 2 ADAS with Blind Spot Avoidance & Remote Smart Park",
+        "Infotainment System": "Dual 12.3-inch Screen, Meridian Audio, AR Head-Up Display",
+        "Warranty": "8 Years / 1,60,000 km"
+      }
+    }
+  },
+  "Mahindra": {
+    "XUV400": {
+      "EC Pro": {
+        "Ex-Showroom Price": "₹15.49 Lakh",
+        "Est. On-Road Price": "₹16.70 Lakh",
+        "Battery Capacity": "34.5 kWh",
+        "Claimed Range": "375 km",
+        "Real-World Range": "270 km",
+        "Motor Output (Power)": "110 kW (147 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.3 sec",
+        "Charging Time (DC Fast)": "50 min (0-80%, 50 kW)",
+        "Standard AC Charging": "6.0 hrs (3.3 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "378 Litres",
+        "Ground Clearance": "200 mm",
+        "Dimensions": "4200 x 1821 x 1634 mm",
+        "Safety Rating": "5-Star Global NCAP",
+        "Airbags": "2 Airbags",
+        "ADAS Features": "ESP, Rear Sensors, ABS with EBD",
+        "Infotainment System": "7-inch Touchscreen, Bluetooth Connectivity",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "EL Pro": {
+        "Ex-Showroom Price": "₹17.49 Lakh",
+        "Est. On-Road Price": "₹18.85 Lakh",
+        "Battery Capacity": "39.4 kWh",
+        "Claimed Range": "456 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "110 kW (147 hp)",
+        "Peak Torque": "310 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.3 sec",
+        "Charging Time (DC Fast)": "50 min (0-80%, 50 kW)",
+        "Standard AC Charging": "6.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "378 Litres",
+        "Ground Clearance": "200 mm",
+        "Dimensions": "4200 x 1821 x 1634 mm",
+        "Safety Rating": "5-Star Global NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, Reverse Parking Camera, Hill Hold Assist",
+        "Infotainment System": "10.25-inch Touchscreen, Wireless Android Auto & Apple CarPlay, Sunroof",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "BE6": {
+      "Pack 1": {
+        "Ex-Showroom Price": "₹18.90 Lakh",
+        "Est. On-Road Price": "₹20.35 Lakh",
+        "Battery Capacity": "59 kWh",
+        "Claimed Range": "480 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "170 kW (228 hp)",
+        "Peak Torque": "380 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "6.7 sec",
+        "Charging Time (DC Fast)": "20 min (20-80%, 175 kW)",
+        "Standard AC Charging": "8.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "RWD",
+        "Motor Type": "Rear PMSM Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "450 Litres",
+        "Ground Clearance": "207 mm",
+        "Dimensions": "4370 x 1900 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite",
+        "Infotainment System": "Dual 12.3-inch Screens, Panoramic Glass Roof",
+        "Warranty": "Lifetime HV Battery Warranty"
+      },
+      "Pack 2 (AWD)": {
+        "Ex-Showroom Price": "₹22.50 Lakh",
+        "Est. On-Road Price": "₹24.20 Lakh",
+        "Battery Capacity": "79 kWh",
+        "Claimed Range": "650 km",
+        "Real-World Range": "510 km",
+        "Motor Output (Power)": "250 kW (335 hp)",
+        "Peak Torque": "560 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "4.9 sec",
+        "Charging Time (DC Fast)": "20 min (20-80%, 175 kW)",
+        "Standard AC Charging": "11.0 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "450 Litres",
+        "Ground Clearance": "207 mm",
+        "Dimensions": "4370 x 1900 x 1630 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2+ ADAS, 360-Degree Vision, Auto Parking Assist",
+        "Infotainment System": "Dual 12.3-inch Cockpit, Harman Kardon Sound, Head-Up Display",
+        "Warranty": "Lifetime HV Battery Warranty"
+      }
+    },
+    "XEV 9e": {
+      "Standard": {
+        "Ex-Showroom Price": "₹34.96 Lakh",
+        "Est. On-Road Price": "₹37.76 Lakh",
+        "Battery Capacity": "79 kWh",
+        "Claimed Range": "533 km",
+        "Real-World Range": "426 km",
+        "Motor Output (Power)": "286 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "35 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4790 x 1905 x 1690 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹38.76 Lakh",
+        "Est. On-Road Price": "₹41.86 Lakh",
+        "Battery Capacity": "79 kWh",
+        "Claimed Range": "533 km",
+        "Real-World Range": "426 km",
+        "Motor Output (Power)": "286 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "35 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4790 x 1905 x 1690 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹42.56 Lakh",
+        "Est. On-Road Price": "₹45.96 Lakh",
+        "Battery Capacity": "79 kWh",
+        "Claimed Range": "533 km",
+        "Real-World Range": "426 km",
+        "Motor Output (Power)": "286 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "35 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4790 x 1905 x 1690 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Thar.e": {
+      "Standard": {
+        "Ex-Showroom Price": "₹25.00 Lakh",
+        "Est. On-Road Price": "₹27.00 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "450 km",
+        "Real-World Range": "365 km",
+        "Motor Output (Power)": "170 kW (228 hp)",
+        "Peak Torque": "380 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 100 kW)",
+        "Standard AC Charging": "8.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Dual PMSM Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "400 Litres",
+        "Ground Clearance": "225 mm",
+        "Dimensions": "4420 x 1900 x 1800 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Off-Road ADAS, Electronic Stability Control, Hill Hold & Descent Control",
+        "Infotainment System": "10.25-inch Rugged Touchscreen, Wireless Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Adventure Edition": {
+        "Ex-Showroom Price": "₹28.50 Lakh",
+        "Est. On-Road Price": "₹30.70 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "425 km",
+        "Motor Output (Power)": "210 kW (282 hp)",
+        "Peak Torque": "450 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "6.8 sec",
+        "Charging Time (DC Fast)": "35 min (10-80%, 150 kW)",
+        "Standard AC Charging": "10.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD with Terrain Response",
+        "Motor Type": "Dual Permanent Magnet Synchronous Motors",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "400 Litres",
+        "Ground Clearance": "235 mm",
+        "Dimensions": "4420 x 1900 x 1800 mm",
+        "Safety Rating": "5-Star Bharat NCAP Expected",
+        "Airbags": "7 Airbags",
+        "ADAS Features": "Level 2 ADAS, 360-Degree Camera with Underbody Cam, Crawl Control",
+        "Infotainment System": "12.3-inch Touchscreen, Premium Audio, Waterproof Floor Covers, Off-Road Telemetry",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "BE 07": {
+      "Standard": {
+        "Ex-Showroom Price": "₹26.68 Lakh",
+        "Est. On-Road Price": "₹28.81 Lakh",
+        "Battery Capacity": "80 kWh",
+        "Claimed Range": "450 km",
+        "Real-World Range": "360 km",
+        "Motor Output (Power)": "285 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4565 x 1900 x 1660 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹32.48 Lakh",
+        "Est. On-Road Price": "₹35.08 Lakh",
+        "Battery Capacity": "80 kWh",
+        "Claimed Range": "450 km",
+        "Real-World Range": "360 km",
+        "Motor Output (Power)": "285 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4565 x 1900 x 1660 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "XEV 9s": {
+      "Standard": {
+        "Ex-Showroom Price": "₹18.35 Lakh",
+        "Est. On-Road Price": "₹19.82 Lakh",
+        "Battery Capacity": "79 kWh",
+        "Claimed Range": "679 km",
+        "Real-World Range": "543 km",
+        "Motor Output (Power)": "378 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "202 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4737 x 1900 x 1747 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹22.34 Lakh",
+        "Est. On-Road Price": "₹24.13 Lakh",
+        "Battery Capacity": "79 kWh",
+        "Claimed Range": "679 km",
+        "Real-World Range": "543 km",
+        "Motor Output (Power)": "378 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "202 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4737 x 1900 x 1747 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "XUV 3XO EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹12.78 Lakh",
+        "Est. On-Road Price": "₹13.80 Lakh",
+        "Battery Capacity": "39.4 kWh",
+        "Claimed Range": "456 km",
+        "Real-World Range": "364 km",
+        "Motor Output (Power)": "198 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3990 x 1821 x 1653 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹15.56 Lakh",
+        "Est. On-Road Price": "₹16.80 Lakh",
+        "Battery Capacity": "39.4 kWh",
+        "Claimed Range": "456 km",
+        "Real-World Range": "364 km",
+        "Motor Output (Power)": "198 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3990 x 1821 x 1653 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "MG": {
+    "Cyberster": {
+      "Standard": {
+        "Ex-Showroom Price": "₹75.90 Lakh",
+        "Est. On-Road Price": "₹81.97 Lakh",
+        "Battery Capacity": "77 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "503 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4535 x 1913 x 1329 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹84.15 Lakh",
+        "Est. On-Road Price": "₹90.88 Lakh",
+        "Battery Capacity": "77 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "503 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4535 x 1913 x 1329 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹92.40 Lakh",
+        "Est. On-Road Price": "₹99.79 Lakh",
+        "Battery Capacity": "77 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "503 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4535 x 1913 x 1329 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "M9 EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹73.55 Lakh",
+        "Est. On-Road Price": "₹79.44 Lakh",
+        "Battery Capacity": "90 kWh",
+        "Claimed Range": "548 km",
+        "Real-World Range": "438 km",
+        "Motor Output (Power)": "242 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "90 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5200 x 2000 x 1800 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹81.55 Lakh",
+        "Est. On-Road Price": "₹88.07 Lakh",
+        "Battery Capacity": "90 kWh",
+        "Claimed Range": "548 km",
+        "Real-World Range": "438 km",
+        "Motor Output (Power)": "242 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "90 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5200 x 2000 x 1800 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹89.54 Lakh",
+        "Est. On-Road Price": "₹96.71 Lakh",
+        "Battery Capacity": "90 kWh",
+        "Claimed Range": "548 km",
+        "Real-World Range": "438 km",
+        "Motor Output (Power)": "242 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "90 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5200 x 2000 x 1800 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "ZS EV": {
+      "Executive": {
+        "Ex-Showroom Price": "₹18.98 Lakh",
+        "Est. On-Road Price": "₹20.40 Lakh",
+        "Battery Capacity": "50.3 kWh",
+        "Claimed Range": "461 km",
+        "Real-World Range": "340 km",
+        "Motor Output (Power)": "130 kW (174 hp)",
+        "Peak Torque": "280 Nm",
+        "Top Speed": "175 km/h",
+        "0–100 km/h Acceleration": "8.5 sec",
+        "Charging Time (DC Fast)": "60 min (0-80%, 50 kW)",
+        "Standard AC Charging": "8.5 hrs (7.4 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "448 Litres",
+        "Ground Clearance": "177 mm",
+        "Dimensions": "4323 x 1809 x 1649 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "ESP, Reverse Parking Camera",
+        "Infotainment System": "10.1-inch HD Touchscreen",
+        "Warranty": "8 Years / 1,60,000 km"
+      },
+      "Exclusive Plus": {
+        "Ex-Showroom Price": "₹24.99 Lakh",
+        "Est. On-Road Price": "₹26.90 Lakh",
+        "Battery Capacity": "50.3 kWh",
+        "Claimed Range": "461 km",
+        "Real-World Range": "350 km",
+        "Motor Output (Power)": "130 kW (174 hp)",
+        "Peak Torque": "280 Nm",
+        "Top Speed": "175 km/h",
+        "0–100 km/h Acceleration": "8.5 sec",
+        "Charging Time (DC Fast)": "60 min (0-80%, 50 kW)",
+        "Standard AC Charging": "8.5 hrs (7.4 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "PMSM",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "448 Litres",
+        "Ground Clearance": "177 mm",
+        "Dimensions": "4323 x 1809 x 1649 mm",
+        "Safety Rating": "5-Star Euro NCAP",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS, 360-Degree Camera",
+        "Infotainment System": "10.1-inch Screen, Dual-Pane Panoramic Sunroof, i-SMART 75+ Connected Features",
+        "Warranty": "8 Years / 1,60,000 km"
+      }
+    },
+    "Comet EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹7.18 Lakh",
+        "Est. On-Road Price": "₹7.75 Lakh",
+        "Battery Capacity": "17.3 kWh",
+        "Claimed Range": "230 km",
+        "Real-World Range": "184 km",
+        "Motor Output (Power)": "42 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "100 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "3.5 hours (AC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "2974 x 1505 x 1640 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹8.74 Lakh",
+        "Est. On-Road Price": "₹9.43 Lakh",
+        "Battery Capacity": "17.3 kWh",
+        "Claimed Range": "230 km",
+        "Real-World Range": "184 km",
+        "Motor Output (Power)": "42 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "100 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "3.5 hours (AC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "2974 x 1505 x 1640 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "BMW": {
+    "BMW i4": {
+      "Standard": {
+        "Ex-Showroom Price": "₹66.70 Lakh",
+        "Est. On-Road Price": "₹72.04 Lakh",
+        "Battery Capacity": "83.9 kWh",
+        "Claimed Range": "590 km",
+        "Real-World Range": "472 km",
+        "Motor Output (Power)": "340 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "190 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4783 x 1852 x 1448 mm",
+        "Safety Rating": "4 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹73.95 Lakh",
+        "Est. On-Road Price": "₹79.87 Lakh",
+        "Battery Capacity": "83.9 kWh",
+        "Claimed Range": "590 km",
+        "Real-World Range": "472 km",
+        "Motor Output (Power)": "340 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "190 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4783 x 1852 x 1448 mm",
+        "Safety Rating": "4 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹81.20 Lakh",
+        "Est. On-Road Price": "₹87.70 Lakh",
+        "Battery Capacity": "83.9 kWh",
+        "Claimed Range": "590 km",
+        "Real-World Range": "472 km",
+        "Motor Output (Power)": "340 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "190 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4783 x 1852 x 1448 mm",
+        "Safety Rating": "4 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "i7": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.89 Crore",
+        "Est. On-Road Price": "₹2.04 Crore",
+        "Battery Capacity": "101.7 kWh",
+        "Claimed Range": "625 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "536 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5391 x 1950 x 1544 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹2.09 Crore",
+        "Est. On-Road Price": "₹2.26 Crore",
+        "Battery Capacity": "101.7 kWh",
+        "Claimed Range": "625 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "536 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5391 x 1950 x 1544 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹2.30 Crore",
+        "Est. On-Road Price": "₹2.48 Crore",
+        "Battery Capacity": "101.7 kWh",
+        "Claimed Range": "625 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "536 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5391 x 1950 x 1544 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "iX": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.29 Crore",
+        "Est. On-Road Price": "₹1.39 Crore",
+        "Battery Capacity": "111.5 kWh",
+        "Claimed Range": "575 km",
+        "Real-World Range": "460 km",
+        "Motor Output (Power)": "516 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "35 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4953 x 1967 x 1695 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.43 Crore",
+        "Est. On-Road Price": "₹1.54 Crore",
+        "Battery Capacity": "111.5 kWh",
+        "Claimed Range": "575 km",
+        "Real-World Range": "460 km",
+        "Motor Output (Power)": "516 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "35 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4953 x 1967 x 1695 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.57 Crore",
+        "Est. On-Road Price": "₹1.69 Crore",
+        "Battery Capacity": "111.5 kWh",
+        "Claimed Range": "575 km",
+        "Real-World Range": "460 km",
+        "Motor Output (Power)": "516 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "35 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4953 x 1967 x 1695 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "iX1 LWB": {
+      "Standard": {
+        "Ex-Showroom Price": "₹47.29 Lakh",
+        "Est. On-Road Price": "₹51.07 Lakh",
+        "Battery Capacity": "66.4 kWh",
+        "Claimed Range": "531 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "175 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4616 x 1845 x 1612 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹52.43 Lakh",
+        "Est. On-Road Price": "₹56.62 Lakh",
+        "Battery Capacity": "66.4 kWh",
+        "Claimed Range": "531 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "175 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4616 x 1845 x 1612 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹57.57 Lakh",
+        "Est. On-Road Price": "₹62.17 Lakh",
+        "Battery Capacity": "66.4 kWh",
+        "Claimed Range": "531 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "175 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4616 x 1845 x 1612 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "i5 M60": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.10 Crore",
+        "Est. On-Road Price": "₹1.19 Crore",
+        "Battery Capacity": "83.9 kWh",
+        "Claimed Range": "516 km",
+        "Real-World Range": "412 km",
+        "Motor Output (Power)": "592 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "230 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5060 x 1900 x 1505 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.22 Crore",
+        "Est. On-Road Price": "₹1.32 Crore",
+        "Battery Capacity": "83.9 kWh",
+        "Claimed Range": "516 km",
+        "Real-World Range": "412 km",
+        "Motor Output (Power)": "592 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "230 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5060 x 1900 x 1505 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.34 Crore",
+        "Est. On-Road Price": "₹1.45 Crore",
+        "Battery Capacity": "83.9 kWh",
+        "Claimed Range": "516 km",
+        "Real-World Range": "412 km",
+        "Motor Output (Power)": "592 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "230 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5060 x 1900 x 1505 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Audi": {
+    "Q6 e-tron": {
+      "Standard": {
+        "Ex-Showroom Price": "₹80.96 Lakh",
+        "Est. On-Road Price": "₹87.44 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "625 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "380 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4771 x 1939 x 1648 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹89.76 Lakh",
+        "Est. On-Road Price": "₹96.94 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "625 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "380 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4771 x 1939 x 1648 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹98.56 Lakh",
+        "Est. On-Road Price": "₹106.44 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "625 km",
+        "Real-World Range": "500 km",
+        "Motor Output (Power)": "380 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4771 x 1939 x 1648 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "e-tron GT": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.58 Crore",
+        "Est. On-Road Price": "₹1.71 Crore",
+        "Battery Capacity": "93.4 kWh",
+        "Claimed Range": "488 km",
+        "Real-World Range": "390 km",
+        "Motor Output (Power)": "523 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "245 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "22.5 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4989 x 1964 x 1418 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.75 Crore",
+        "Est. On-Road Price": "₹1.89 Crore",
+        "Battery Capacity": "93.4 kWh",
+        "Claimed Range": "488 km",
+        "Real-World Range": "390 km",
+        "Motor Output (Power)": "523 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "245 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "22.5 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4989 x 1964 x 1418 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.93 Crore",
+        "Est. On-Road Price": "₹2.08 Crore",
+        "Battery Capacity": "93.4 kWh",
+        "Claimed Range": "488 km",
+        "Real-World Range": "390 km",
+        "Motor Output (Power)": "523 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "245 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "22.5 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4989 x 1964 x 1418 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "A6 e-tron": {
+      "Standard": {
+        "Ex-Showroom Price": "₹69.00 Lakh",
+        "Est. On-Road Price": "₹74.52 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "756 km",
+        "Real-World Range": "604 km",
+        "Motor Output (Power)": "367 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4928 x 1923 x 1487 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹76.50 Lakh",
+        "Est. On-Road Price": "₹82.62 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "756 km",
+        "Real-World Range": "604 km",
+        "Motor Output (Power)": "367 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4928 x 1923 x 1487 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹84.00 Lakh",
+        "Est. On-Road Price": "₹90.72 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "756 km",
+        "Real-World Range": "604 km",
+        "Motor Output (Power)": "367 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4928 x 1923 x 1487 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Blink": {
+    "Ryde": {
+      "Standard": {
+        "Ex-Showroom Price": "₹11.50 Lakh",
+        "Est. On-Road Price": "₹12.42 Lakh",
+        "Battery Capacity": "28.8 kWh",
+        "Claimed Range": "312 km",
+        "Real-World Range": "249 km",
+        "Motor Output (Power)": "74 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3895 x 1720 x 1580 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹14.00 Lakh",
+        "Est. On-Road Price": "₹15.12 Lakh",
+        "Battery Capacity": "28.8 kWh",
+        "Claimed Range": "312 km",
+        "Real-World Range": "249 km",
+        "Motor Output (Power)": "74 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "120 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3895 x 1720 x 1580 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Genesis": {
+    "GV60": {
+      "Standard": {
+        "Ex-Showroom Price": "₹59.80 Lakh",
+        "Est. On-Road Price": "₹64.58 Lakh",
+        "Battery Capacity": "84 kWh",
+        "Claimed Range": "481 km",
+        "Real-World Range": "384 km",
+        "Motor Output (Power)": "429 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "235 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4515 x 1890 x 1580 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹66.30 Lakh",
+        "Est. On-Road Price": "₹71.60 Lakh",
+        "Battery Capacity": "84 kWh",
+        "Claimed Range": "481 km",
+        "Real-World Range": "384 km",
+        "Motor Output (Power)": "429 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "235 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4515 x 1890 x 1580 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹72.80 Lakh",
+        "Est. On-Road Price": "₹78.62 Lakh",
+        "Battery Capacity": "84 kWh",
+        "Claimed Range": "481 km",
+        "Real-World Range": "384 km",
+        "Motor Output (Power)": "429 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "235 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4515 x 1890 x 1580 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Citroën": {
+    "eC3 X": {
+      "Standard": {
+        "Ex-Showroom Price": "₹11.03 Lakh",
+        "Est. On-Road Price": "₹11.91 Lakh",
+        "Battery Capacity": "29.2 kWh",
+        "Claimed Range": "325 km",
+        "Real-World Range": "260 km",
+        "Motor Output (Power)": "56 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "107 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "57 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3981 x 1733 x 1604 mm",
+        "Safety Rating": "3 Stars (Global NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹13.43 Lakh",
+        "Est. On-Road Price": "₹14.50 Lakh",
+        "Battery Capacity": "29.2 kWh",
+        "Claimed Range": "325 km",
+        "Real-World Range": "260 km",
+        "Motor Output (Power)": "56 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "107 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "57 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3981 x 1733 x 1604 mm",
+        "Safety Rating": "3 Stars (Global NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Ferrari": {
+    "Luce": {
+      "Standard": {
+        "Ex-Showroom Price": "₹5.61 Crore",
+        "Est. On-Road Price": "₹6.06 Crore",
+        "Battery Capacity": "122 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "1035 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "310 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5026 x 1999 x 1544 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹6.22 Crore",
+        "Est. On-Road Price": "₹6.72 Crore",
+        "Battery Capacity": "122 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "1035 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "310 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5026 x 1999 x 1544 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹6.83 Crore",
+        "Est. On-Road Price": "₹7.38 Crore",
+        "Battery Capacity": "122 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "1035 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "310 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5026 x 1999 x 1544 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Honda": {
+    "Elevate EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹16.56 Lakh",
+        "Est. On-Road Price": "₹17.88 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "470 km",
+        "Real-World Range": "376 km",
+        "Motor Output (Power)": "174 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4312 x 1790 x 1650 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹20.16 Lakh",
+        "Est. On-Road Price": "₹21.77 Lakh",
+        "Battery Capacity": "55 kWh",
+        "Claimed Range": "470 km",
+        "Real-World Range": "376 km",
+        "Motor Output (Power)": "174 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4312 x 1790 x 1650 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "0 Alpha": {
+      "Standard": {
+        "Ex-Showroom Price": "₹18.40 Lakh",
+        "Est. On-Road Price": "₹19.87 Lakh",
+        "Battery Capacity": "65 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "241 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "15 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4350 x 1810 x 1520 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹22.40 Lakh",
+        "Est. On-Road Price": "₹24.19 Lakh",
+        "Battery Capacity": "65 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "241 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "15 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4350 x 1810 x 1520 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "0 SUV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹38.64 Lakh",
+        "Est. On-Road Price": "₹41.73 Lakh",
+        "Battery Capacity": "85 kWh",
+        "Claimed Range": "480 km",
+        "Real-World Range": "384 km",
+        "Motor Output (Power)": "480 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4750 x 1930 x 1640 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹42.84 Lakh",
+        "Est. On-Road Price": "₹46.27 Lakh",
+        "Battery Capacity": "85 kWh",
+        "Claimed Range": "480 km",
+        "Real-World Range": "384 km",
+        "Motor Output (Power)": "480 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4750 x 1930 x 1640 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹47.04 Lakh",
+        "Est. On-Road Price": "₹50.80 Lakh",
+        "Battery Capacity": "85 kWh",
+        "Claimed Range": "480 km",
+        "Real-World Range": "384 km",
+        "Motor Output (Power)": "480 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4750 x 1930 x 1640 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Isuzu": {
+    "D-Max EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹32.20 Lakh",
+        "Est. On-Road Price": "₹34.78 Lakh",
+        "Battery Capacity": "66.3 kWh",
+        "Claimed Range": "300 km",
+        "Real-World Range": "240 km",
+        "Motor Output (Power)": "175 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "130 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5375 x 1870 x 1810 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹35.70 Lakh",
+        "Est. On-Road Price": "₹38.56 Lakh",
+        "Battery Capacity": "66.3 kWh",
+        "Claimed Range": "300 km",
+        "Real-World Range": "240 km",
+        "Motor Output (Power)": "175 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "130 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5375 x 1870 x 1810 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹39.20 Lakh",
+        "Est. On-Road Price": "₹42.34 Lakh",
+        "Battery Capacity": "66.3 kWh",
+        "Claimed Range": "300 km",
+        "Real-World Range": "240 km",
+        "Motor Output (Power)": "175 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "130 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5375 x 1870 x 1810 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Nissan": {
+    "Ariya": {
+      "Standard": {
+        "Ex-Showroom Price": "₹55.20 Lakh",
+        "Est. On-Road Price": "₹59.62 Lakh",
+        "Battery Capacity": "87 kWh",
+        "Claimed Range": "529 km",
+        "Real-World Range": "423 km",
+        "Motor Output (Power)": "389 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4595 x 1850 x 1660 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹61.20 Lakh",
+        "Est. On-Road Price": "₹66.10 Lakh",
+        "Battery Capacity": "87 kWh",
+        "Claimed Range": "529 km",
+        "Real-World Range": "423 km",
+        "Motor Output (Power)": "389 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4595 x 1850 x 1660 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹67.20 Lakh",
+        "Est. On-Road Price": "₹72.58 Lakh",
+        "Battery Capacity": "87 kWh",
+        "Claimed Range": "529 km",
+        "Real-World Range": "423 km",
+        "Motor Output (Power)": "389 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "40 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4595 x 1850 x 1660 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Leaf": {
+      "Standard": {
+        "Ex-Showroom Price": "₹36.80 Lakh",
+        "Est. On-Road Price": "₹39.74 Lakh",
+        "Battery Capacity": "40 kWh",
+        "Claimed Range": "363 km",
+        "Real-World Range": "290 km",
+        "Motor Output (Power)": "147 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "144 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "60 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4490 x 1788 x 1540 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹40.80 Lakh",
+        "Est. On-Road Price": "₹44.06 Lakh",
+        "Battery Capacity": "40 kWh",
+        "Claimed Range": "363 km",
+        "Real-World Range": "290 km",
+        "Motor Output (Power)": "147 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "144 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "60 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4490 x 1788 x 1540 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹44.80 Lakh",
+        "Est. On-Road Price": "₹48.38 Lakh",
+        "Battery Capacity": "40 kWh",
+        "Claimed Range": "363 km",
+        "Real-World Range": "290 km",
+        "Motor Output (Power)": "147 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "144 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "60 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4490 x 1788 x 1540 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Mini": {
+    "Countryman Electric": {
+      "Standard": {
+        "Ex-Showroom Price": "₹50.51 Lakh",
+        "Est. On-Road Price": "₹54.55 Lakh",
+        "Battery Capacity": "66.45 kWh",
+        "Claimed Range": "462 km",
+        "Real-World Range": "369 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "29 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4445 x 1843 x 1635 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹56.00 Lakh",
+        "Est. On-Road Price": "₹60.48 Lakh",
+        "Battery Capacity": "66.45 kWh",
+        "Claimed Range": "462 km",
+        "Real-World Range": "369 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "29 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4445 x 1843 x 1635 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹61.49 Lakh",
+        "Est. On-Road Price": "₹66.41 Lakh",
+        "Battery Capacity": "66.45 kWh",
+        "Claimed Range": "462 km",
+        "Real-World Range": "369 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "170 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "29 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4445 x 1843 x 1635 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Jeep": {
+    "Avenger EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹23.00 Lakh",
+        "Est. On-Road Price": "₹24.84 Lakh",
+        "Battery Capacity": "54 kWh",
+        "Claimed Range": "400 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "154 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "34 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4084 x 1776 x 1528 mm",
+        "Safety Rating": "3 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹28.00 Lakh",
+        "Est. On-Road Price": "₹30.24 Lakh",
+        "Battery Capacity": "54 kWh",
+        "Claimed Range": "400 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "154 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "34 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4084 x 1776 x 1528 mm",
+        "Safety Rating": "3 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Lexus": {
+    "ES 500e": {
+      "Standard": {
+        "Ex-Showroom Price": "₹82.79 Lakh",
+        "Est. On-Road Price": "₹89.41 Lakh",
+        "Battery Capacity": "74.68 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "338 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5145 x 1920 x 1575 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹91.79 Lakh",
+        "Est. On-Road Price": "₹99.13 Lakh",
+        "Battery Capacity": "74.68 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "338 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5145 x 1920 x 1575 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.01 Crore",
+        "Est. On-Road Price": "₹1.09 Crore",
+        "Battery Capacity": "74.68 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "338 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5145 x 1920 x 1575 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Lotus": {
+    "Eletre R": {
+      "Standard": {
+        "Ex-Showroom Price": "₹2.35 Crore",
+        "Est. On-Road Price": "₹2.53 Crore",
+        "Battery Capacity": "112 kWh",
+        "Claimed Range": "490 km",
+        "Real-World Range": "392 km",
+        "Motor Output (Power)": "905 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "265 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5103 x 2135 x 1630 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹2.60 Crore",
+        "Est. On-Road Price": "₹2.81 Crore",
+        "Battery Capacity": "112 kWh",
+        "Claimed Range": "490 km",
+        "Real-World Range": "392 km",
+        "Motor Output (Power)": "905 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "265 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5103 x 2135 x 1630 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹2.86 Crore",
+        "Est. On-Road Price": "₹3.08 Crore",
+        "Battery Capacity": "112 kWh",
+        "Claimed Range": "490 km",
+        "Real-World Range": "392 km",
+        "Motor Output (Power)": "905 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "265 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5103 x 2135 x 1630 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Emeya GT": {
+      "Standard": {
+        "Ex-Showroom Price": "₹2.15 Crore",
+        "Est. On-Road Price": "₹2.33 Crore",
+        "Battery Capacity": "102 kWh",
+        "Claimed Range": "610 km",
+        "Real-World Range": "488 km",
+        "Motor Output (Power)": "905 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "14 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5139 x 2241 x 1459 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹2.39 Crore",
+        "Est. On-Road Price": "₹2.58 Crore",
+        "Battery Capacity": "102 kWh",
+        "Claimed Range": "610 km",
+        "Real-World Range": "488 km",
+        "Motor Output (Power)": "905 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "14 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5139 x 2241 x 1459 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹2.62 Crore",
+        "Est. On-Road Price": "₹2.83 Crore",
+        "Battery Capacity": "102 kWh",
+        "Claimed Range": "610 km",
+        "Real-World Range": "488 km",
+        "Motor Output (Power)": "905 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "14 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5139 x 2241 x 1459 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Maruti Suzuki": {
+    "e Vitara": {
+      "Standard": {
+        "Ex-Showroom Price": "₹14.71 Lakh",
+        "Est. On-Road Price": "₹15.89 Lakh",
+        "Battery Capacity": "61 kWh",
+        "Claimed Range": "543 km",
+        "Real-World Range": "434 km",
+        "Motor Output (Power)": "181 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4275 x 1800 x 1635 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹17.91 Lakh",
+        "Est. On-Road Price": "₹19.34 Lakh",
+        "Battery Capacity": "61 kWh",
+        "Claimed Range": "543 km",
+        "Real-World Range": "434 km",
+        "Motor Output (Power)": "181 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4275 x 1800 x 1635 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Fronx EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹11.04 Lakh",
+        "Est. On-Road Price": "₹11.92 Lakh",
+        "Battery Capacity": "48 kWh",
+        "Claimed Range": "400 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "138 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3995 x 1765 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹13.44 Lakh",
+        "Est. On-Road Price": "₹14.52 Lakh",
+        "Battery Capacity": "48 kWh",
+        "Claimed Range": "400 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "138 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3995 x 1765 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Jimny EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹16.56 Lakh",
+        "Est. On-Road Price": "₹17.88 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "350 km",
+        "Real-World Range": "280 km",
+        "Motor Output (Power)": "156 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "130 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3985 x 1645 x 1720 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹20.16 Lakh",
+        "Est. On-Road Price": "₹21.77 Lakh",
+        "Battery Capacity": "60 kWh",
+        "Claimed Range": "350 km",
+        "Real-World Range": "280 km",
+        "Motor Output (Power)": "156 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "130 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3985 x 1645 x 1720 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Mercedes Benz": {
+    "CLA EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹50.60 Lakh",
+        "Est. On-Road Price": "₹54.65 Lakh",
+        "Battery Capacity": "85.5 kWh",
+        "Claimed Range": "792 km",
+        "Real-World Range": "633 km",
+        "Motor Output (Power)": "268 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4685 x 1855 x 1430 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹56.10 Lakh",
+        "Est. On-Road Price": "₹60.59 Lakh",
+        "Battery Capacity": "85.5 kWh",
+        "Claimed Range": "792 km",
+        "Real-World Range": "633 km",
+        "Motor Output (Power)": "268 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4685 x 1855 x 1430 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹61.60 Lakh",
+        "Est. On-Road Price": "₹66.53 Lakh",
+        "Battery Capacity": "85.5 kWh",
+        "Claimed Range": "792 km",
+        "Real-World Range": "633 km",
+        "Motor Output (Power)": "268 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "20 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4685 x 1855 x 1430 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "EQS SUV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.30 Crore",
+        "Est. On-Road Price": "₹1.40 Crore",
+        "Battery Capacity": "118 kWh",
+        "Claimed Range": "609 km",
+        "Real-World Range": "487 km",
+        "Motor Output (Power)": "536 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5125 x 1959 x 1718 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.44 Crore",
+        "Est. On-Road Price": "₹1.55 Crore",
+        "Battery Capacity": "118 kWh",
+        "Claimed Range": "609 km",
+        "Real-World Range": "487 km",
+        "Motor Output (Power)": "536 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5125 x 1959 x 1718 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.58 Crore",
+        "Est. On-Road Price": "₹1.71 Crore",
+        "Battery Capacity": "118 kWh",
+        "Claimed Range": "609 km",
+        "Real-World Range": "487 km",
+        "Motor Output (Power)": "536 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5125 x 1959 x 1718 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "G-Class EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹2.48 Crore",
+        "Est. On-Road Price": "₹2.68 Crore",
+        "Battery Capacity": "116 kWh",
+        "Claimed Range": "473 km",
+        "Real-World Range": "378 km",
+        "Motor Output (Power)": "579 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "32 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4624 x 1931 x 1986 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹2.75 Crore",
+        "Est. On-Road Price": "₹2.97 Crore",
+        "Battery Capacity": "116 kWh",
+        "Claimed Range": "473 km",
+        "Real-World Range": "378 km",
+        "Motor Output (Power)": "579 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "32 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4624 x 1931 x 1986 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹3.02 Crore",
+        "Est. On-Road Price": "₹3.27 Crore",
+        "Battery Capacity": "116 kWh",
+        "Claimed Range": "473 km",
+        "Real-World Range": "378 km",
+        "Motor Output (Power)": "579 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "32 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4624 x 1931 x 1986 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "AMG EQS 53": {
+      "Standard": {
+        "Ex-Showroom Price": "₹2.25 Crore",
+        "Est. On-Road Price": "₹2.43 Crore",
+        "Battery Capacity": "107.8 kWh",
+        "Claimed Range": "526 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "751 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5223 x 2125 x 1518 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹2.50 Crore",
+        "Est. On-Road Price": "₹2.70 Crore",
+        "Battery Capacity": "107.8 kWh",
+        "Claimed Range": "526 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "751 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5223 x 2125 x 1518 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹2.74 Crore",
+        "Est. On-Road Price": "₹2.96 Crore",
+        "Battery Capacity": "107.8 kWh",
+        "Claimed Range": "526 km",
+        "Real-World Range": "420 km",
+        "Motor Output (Power)": "751 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5223 x 2125 x 1518 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "C-Class EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹73.60 Lakh",
+        "Est. On-Road Price": "₹79.49 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "762 km",
+        "Real-World Range": "609 km",
+        "Motor Output (Power)": "360 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "22 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4755 x 1820 x 1440 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹81.60 Lakh",
+        "Est. On-Road Price": "₹88.13 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "762 km",
+        "Real-World Range": "609 km",
+        "Motor Output (Power)": "360 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "22 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4755 x 1820 x 1440 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹89.60 Lakh",
+        "Est. On-Road Price": "₹96.77 Lakh",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "762 km",
+        "Real-World Range": "609 km",
+        "Motor Output (Power)": "360 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "22 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4755 x 1820 x 1440 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Maybach EQS SUV 680": {
+      "Standard": {
+        "Ex-Showroom Price": "₹2.21 Crore",
+        "Est. On-Road Price": "₹2.38 Crore",
+        "Battery Capacity": "122 kWh",
+        "Claimed Range": "611 km",
+        "Real-World Range": "488 km",
+        "Motor Output (Power)": "649 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5125 x 2157 x 1721 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹2.45 Crore",
+        "Est. On-Road Price": "₹2.64 Crore",
+        "Battery Capacity": "122 kWh",
+        "Claimed Range": "611 km",
+        "Real-World Range": "488 km",
+        "Motor Output (Power)": "649 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5125 x 2157 x 1721 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹2.69 Crore",
+        "Est. On-Road Price": "₹2.90 Crore",
+        "Battery Capacity": "122 kWh",
+        "Claimed Range": "611 km",
+        "Real-World Range": "488 km",
+        "Motor Output (Power)": "649 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "31 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5125 x 2157 x 1721 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Pmv": {
+    "EaS-E": {
+      "Standard": {
+        "Ex-Showroom Price": "₹4.41 Lakh",
+        "Est. On-Road Price": "₹4.76 Lakh",
+        "Battery Capacity": "10 kWh",
+        "Claimed Range": "160 km",
+        "Real-World Range": "128 km",
+        "Motor Output (Power)": "13.4 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "70 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "4 hours (AC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "2915 x 1157 x 1600 mm",
+        "Safety Rating": "4 Stars (Global NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹5.36 Lakh",
+        "Est. On-Road Price": "₹5.79 Lakh",
+        "Battery Capacity": "10 kWh",
+        "Claimed Range": "160 km",
+        "Real-World Range": "128 km",
+        "Motor Output (Power)": "13.4 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "70 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "4 hours (AC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "2915 x 1157 x 1600 mm",
+        "Safety Rating": "4 Stars (Global NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Renault": {
+    "Kwid EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹8.74 Lakh",
+        "Est. On-Road Price": "₹9.44 Lakh",
+        "Battery Capacity": "26.8 kWh",
+        "Claimed Range": "271 km",
+        "Real-World Range": "216 km",
+        "Motor Output (Power)": "44 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "110 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3734 x 1579 x 1516 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹10.64 Lakh",
+        "Est. On-Road Price": "₹11.49 Lakh",
+        "Battery Capacity": "26.8 kWh",
+        "Claimed Range": "271 km",
+        "Real-World Range": "216 km",
+        "Motor Output (Power)": "44 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "110 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "50 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3734 x 1579 x 1516 mm",
+        "Safety Rating": "4 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Porsche": {
+    "Macan EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.52 Crore",
+        "Est. On-Road Price": "₹1.64 Crore",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "613 km",
+        "Real-World Range": "490 km",
+        "Motor Output (Power)": "402 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "220 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4784 x 1938 x 1622 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.68 Crore",
+        "Est. On-Road Price": "₹1.82 Crore",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "613 km",
+        "Real-World Range": "490 km",
+        "Motor Output (Power)": "402 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "220 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4784 x 1938 x 1622 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.85 Crore",
+        "Est. On-Road Price": "₹2.00 Crore",
+        "Battery Capacity": "100 kWh",
+        "Claimed Range": "613 km",
+        "Real-World Range": "490 km",
+        "Motor Output (Power)": "402 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "220 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "21 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4784 x 1938 x 1622 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Taycan": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.74 Crore",
+        "Est. On-Road Price": "₹1.88 Crore",
+        "Battery Capacity": "105 kWh",
+        "Claimed Range": "678 km",
+        "Real-World Range": "542 km",
+        "Motor Output (Power)": "429 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4963 x 1966 x 1379 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.93 Crore",
+        "Est. On-Road Price": "₹2.08 Crore",
+        "Battery Capacity": "105 kWh",
+        "Claimed Range": "678 km",
+        "Real-World Range": "542 km",
+        "Motor Output (Power)": "429 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4963 x 1966 x 1379 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹2.12 Crore",
+        "Est. On-Road Price": "₹2.29 Crore",
+        "Battery Capacity": "105 kWh",
+        "Claimed Range": "678 km",
+        "Real-World Range": "542 km",
+        "Motor Output (Power)": "429 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "18 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4963 x 1966 x 1379 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Cayenne Electric": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.63 Crore",
+        "Est. On-Road Price": "₹1.76 Crore",
+        "Battery Capacity": "113 kWh",
+        "Claimed Range": "642 km",
+        "Real-World Range": "513 km",
+        "Motor Output (Power)": "436 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "230 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "16 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4985 x 1980 x 1674 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.81 Crore",
+        "Est. On-Road Price": "₹1.95 Crore",
+        "Battery Capacity": "113 kWh",
+        "Claimed Range": "642 km",
+        "Real-World Range": "513 km",
+        "Motor Output (Power)": "436 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "230 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "16 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4985 x 1980 x 1674 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.98 Crore",
+        "Est. On-Road Price": "₹2.14 Crore",
+        "Battery Capacity": "113 kWh",
+        "Claimed Range": "642 km",
+        "Real-World Range": "513 km",
+        "Motor Output (Power)": "436 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "230 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "16 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4985 x 1980 x 1674 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Rolls Royce": {
+    "Spectre": {
+      "Standard": {
+        "Ex-Showroom Price": "₹6.90 Crore",
+        "Est. On-Road Price": "₹7.45 Crore",
+        "Battery Capacity": "102 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "584 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "34 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5475 x 2017 x 1559 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹7.65 Crore",
+        "Est. On-Road Price": "₹8.26 Crore",
+        "Battery Capacity": "102 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "584 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "34 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5475 x 2017 x 1559 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹8.40 Crore",
+        "Est. On-Road Price": "₹9.07 Crore",
+        "Battery Capacity": "102 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "584 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "250 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "34 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5475 x 2017 x 1559 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Toyota": {
+    "bZ4X": {
+      "Standard": {
+        "Ex-Showroom Price": "₹55.20 Lakh",
+        "Est. On-Road Price": "₹59.62 Lakh",
+        "Battery Capacity": "71.4 kWh",
+        "Claimed Range": "516 km",
+        "Real-World Range": "412 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4690 x 1859 x 1651 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹61.20 Lakh",
+        "Est. On-Road Price": "₹66.10 Lakh",
+        "Battery Capacity": "71.4 kWh",
+        "Claimed Range": "516 km",
+        "Real-World Range": "412 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4690 x 1859 x 1651 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹67.20 Lakh",
+        "Est. On-Road Price": "₹72.58 Lakh",
+        "Battery Capacity": "71.4 kWh",
+        "Claimed Range": "516 km",
+        "Real-World Range": "412 km",
+        "Motor Output (Power)": "204 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "160 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4690 x 1859 x 1651 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Urban Cruiser Taisor EV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹11.50 Lakh",
+        "Est. On-Road Price": "₹12.42 Lakh",
+        "Battery Capacity": "48 kWh",
+        "Claimed Range": "400 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "138 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3995 x 1765 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹14.00 Lakh",
+        "Est. On-Road Price": "₹15.12 Lakh",
+        "Battery Capacity": "48 kWh",
+        "Claimed Range": "400 km",
+        "Real-World Range": "320 km",
+        "Motor Output (Power)": "138 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "140 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3995 x 1765 x 1550 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Tesla": {
+    "Model Y": {
+      "Standard": {
+        "Ex-Showroom Price": "₹46.83 Lakh",
+        "Est. On-Road Price": "₹50.57 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "533 km",
+        "Real-World Range": "426 km",
+        "Motor Output (Power)": "384 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "217 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "27 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4751 x 1921 x 1624 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹51.92 Lakh",
+        "Est. On-Road Price": "₹56.07 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "533 km",
+        "Real-World Range": "426 km",
+        "Motor Output (Power)": "384 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "217 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "27 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4751 x 1921 x 1624 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹57.01 Lakh",
+        "Est. On-Road Price": "₹61.57 Lakh",
+        "Battery Capacity": "75 kWh",
+        "Claimed Range": "533 km",
+        "Real-World Range": "426 km",
+        "Motor Output (Power)": "384 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "217 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "27 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4751 x 1921 x 1624 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Skoda": {
+    "Elroq": {
+      "Standard": {
+        "Ex-Showroom Price": "₹27.60 Lakh",
+        "Est. On-Road Price": "₹29.81 Lakh",
+        "Battery Capacity": "77 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "25 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4488 x 1888 x 1625 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹33.60 Lakh",
+        "Est. On-Road Price": "₹36.29 Lakh",
+        "Battery Capacity": "77 kWh",
+        "Claimed Range": "580 km",
+        "Real-World Range": "464 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "25 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4488 x 1888 x 1625 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "Enyaq iV": {
+      "Standard": {
+        "Ex-Showroom Price": "₹46.00 Lakh",
+        "Est. On-Road Price": "₹49.68 Lakh",
+        "Battery Capacity": "82 kWh",
+        "Claimed Range": "550 km",
+        "Real-World Range": "440 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4649 x 1879 x 1616 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹51.00 Lakh",
+        "Est. On-Road Price": "₹55.08 Lakh",
+        "Battery Capacity": "82 kWh",
+        "Claimed Range": "550 km",
+        "Real-World Range": "440 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4649 x 1879 x 1616 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹56.00 Lakh",
+        "Est. On-Road Price": "₹60.48 Lakh",
+        "Battery Capacity": "82 kWh",
+        "Claimed Range": "550 km",
+        "Real-World Range": "440 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4649 x 1879 x 1616 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Strom Motors": {
+    "R3": {
+      "Standard": {
+        "Ex-Showroom Price": "₹4.14 Lakh",
+        "Est. On-Road Price": "₹4.47 Lakh",
+        "Battery Capacity": "30 kWh",
+        "Claimed Range": "200 km",
+        "Real-World Range": "160 km",
+        "Motor Output (Power)": "20 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "80 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "3 hours (AC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "2907 x 1450 x 1572 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹5.04 Lakh",
+        "Est. On-Road Price": "₹5.44 Lakh",
+        "Battery Capacity": "30 kWh",
+        "Claimed Range": "200 km",
+        "Real-World Range": "160 km",
+        "Motor Output (Power)": "20 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "80 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "3 hours (AC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "2907 x 1450 x 1572 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Pravaig": {
+    "Defy": {
+      "Standard": {
+        "Ex-Showroom Price": "₹36.34 Lakh",
+        "Est. On-Road Price": "₹39.25 Lakh",
+        "Battery Capacity": "90.9 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "402 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4940 x 1940 x 1650 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹40.29 Lakh",
+        "Est. On-Road Price": "₹43.51 Lakh",
+        "Battery Capacity": "90.9 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "402 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4940 x 1940 x 1650 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹44.24 Lakh",
+        "Est. On-Road Price": "₹47.78 Lakh",
+        "Battery Capacity": "90.9 kWh",
+        "Claimed Range": "500 km",
+        "Real-World Range": "400 km",
+        "Motor Output (Power)": "402 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "210 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4940 x 1940 x 1650 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Volvo": {
+    "EC40": {
+      "Standard": {
+        "Ex-Showroom Price": "₹57.50 Lakh",
+        "Est. On-Road Price": "₹62.10 Lakh",
+        "Battery Capacity": "78 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "408 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "27 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4440 x 1873 x 1591 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹63.75 Lakh",
+        "Est. On-Road Price": "₹68.85 Lakh",
+        "Battery Capacity": "78 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "408 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "27 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4440 x 1873 x 1591 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹70.00 Lakh",
+        "Est. On-Road Price": "₹75.60 Lakh",
+        "Battery Capacity": "78 kWh",
+        "Claimed Range": "530 km",
+        "Real-World Range": "424 km",
+        "Motor Output (Power)": "408 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "27 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4440 x 1873 x 1591 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "EX30": {
+      "Standard": {
+        "Ex-Showroom Price": "₹41.40 Lakh",
+        "Est. On-Road Price": "₹44.71 Lakh",
+        "Battery Capacity": "69 kWh",
+        "Claimed Range": "476 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "272 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "26 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4233 x 1836 x 1549 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹45.90 Lakh",
+        "Est. On-Road Price": "₹49.57 Lakh",
+        "Battery Capacity": "69 kWh",
+        "Claimed Range": "476 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "272 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "26 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4233 x 1836 x 1549 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹50.40 Lakh",
+        "Est. On-Road Price": "₹54.43 Lakh",
+        "Battery Capacity": "69 kWh",
+        "Claimed Range": "476 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "272 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "26 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4233 x 1836 x 1549 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "EX40": {
+      "Standard": {
+        "Ex-Showroom Price": "₹51.61 Lakh",
+        "Est. On-Road Price": "₹55.74 Lakh",
+        "Battery Capacity": "69 kWh",
+        "Claimed Range": "475 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "238 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4440 x 1863 x 1647 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹57.22 Lakh",
+        "Est. On-Road Price": "₹61.80 Lakh",
+        "Battery Capacity": "69 kWh",
+        "Claimed Range": "475 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "238 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4440 x 1863 x 1647 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹62.83 Lakh",
+        "Est. On-Road Price": "₹67.86 Lakh",
+        "Battery Capacity": "69 kWh",
+        "Claimed Range": "475 km",
+        "Real-World Range": "380 km",
+        "Motor Output (Power)": "238 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4440 x 1863 x 1647 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "EX90": {
+      "Standard": {
+        "Ex-Showroom Price": "₹1.10 Crore",
+        "Est. On-Road Price": "₹1.19 Crore",
+        "Battery Capacity": "111 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "517 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5037 x 1964 x 1744 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹1.22 Crore",
+        "Est. On-Road Price": "₹1.32 Crore",
+        "Battery Capacity": "111 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "517 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5037 x 1964 x 1744 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹1.34 Crore",
+        "Est. On-Road Price": "₹1.45 Crore",
+        "Battery Capacity": "111 kWh",
+        "Claimed Range": "600 km",
+        "Real-World Range": "480 km",
+        "Motor Output (Power)": "517 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "5037 x 1964 x 1744 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Volkswagen": {
+    "ID.4": {
+      "Standard": {
+        "Ex-Showroom Price": "₹38.64 Lakh",
+        "Est. On-Road Price": "₹41.73 Lakh",
+        "Battery Capacity": "82 kWh",
+        "Claimed Range": "520 km",
+        "Real-World Range": "416 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "26 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4584 x 1852 x 1636 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹42.84 Lakh",
+        "Est. On-Road Price": "₹46.27 Lakh",
+        "Battery Capacity": "82 kWh",
+        "Claimed Range": "520 km",
+        "Real-World Range": "416 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "26 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4584 x 1852 x 1636 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹47.04 Lakh",
+        "Est. On-Road Price": "₹50.80 Lakh",
+        "Battery Capacity": "82 kWh",
+        "Claimed Range": "520 km",
+        "Real-World Range": "416 km",
+        "Motor Output (Power)": "282 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "180 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "26 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4584 x 1852 x 1636 mm",
+        "Safety Rating": "5 Stars (Euro NCAP)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Vayve Mobility": {
+    "Eva": {
+      "Standard": {
+        "Ex-Showroom Price": "₹3.67 Lakh",
+        "Est. On-Road Price": "₹3.96 Lakh",
+        "Battery Capacity": "14 kWh",
+        "Claimed Range": "250 km",
+        "Real-World Range": "200 km",
+        "Motor Output (Power)": "16 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "70 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3060 x 1150 x 1560 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹4.47 Lakh",
+        "Est. On-Road Price": "₹4.83 Lakh",
+        "Battery Capacity": "14 kWh",
+        "Claimed Range": "250 km",
+        "Real-World Range": "200 km",
+        "Motor Output (Power)": "16 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "70 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "45 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3060 x 1150 x 1560 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  },
+  "Vinfast": {
+    "VF 3": {
+      "Standard": {
+        "Ex-Showroom Price": "₹9.19 Lakh",
+        "Est. On-Road Price": "₹9.93 Lakh",
+        "Battery Capacity": "18.4 kWh",
+        "Claimed Range": "210 km",
+        "Real-World Range": "168 km",
+        "Motor Output (Power)": "43 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "100 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "36 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3190 x 1679 x 1622 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹11.19 Lakh",
+        "Est. On-Road Price": "₹12.08 Lakh",
+        "Battery Capacity": "18.4 kWh",
+        "Claimed Range": "210 km",
+        "Real-World Range": "168 km",
+        "Motor Output (Power)": "43 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "100 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "36 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "3190 x 1679 x 1622 mm",
+        "Safety Rating": "Not Rated",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "VF 6": {
+      "Standard": {
+        "Ex-Showroom Price": "₹20.24 Lakh",
+        "Est. On-Road Price": "₹21.86 Lakh",
+        "Battery Capacity": "59.6 kWh",
+        "Claimed Range": "399 km",
+        "Real-World Range": "319 km",
+        "Motor Output (Power)": "174 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4238 x 1820 x 1594 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Long Range": {
+        "Ex-Showroom Price": "₹24.64 Lakh",
+        "Est. On-Road Price": "₹26.61 Lakh",
+        "Battery Capacity": "59.6 kWh",
+        "Claimed Range": "399 km",
+        "Real-World Range": "319 km",
+        "Motor Output (Power)": "174 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "150 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "30 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4238 x 1820 x 1594 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "VF 7": {
+      "Standard": {
+        "Ex-Showroom Price": "₹29.44 Lakh",
+        "Est. On-Road Price": "₹31.80 Lakh",
+        "Battery Capacity": "75.3 kWh",
+        "Claimed Range": "431 km",
+        "Real-World Range": "344 km",
+        "Motor Output (Power)": "348 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "25 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4545 x 1890 x 1636 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹32.64 Lakh",
+        "Est. On-Road Price": "₹35.25 Lakh",
+        "Battery Capacity": "75.3 kWh",
+        "Claimed Range": "431 km",
+        "Real-World Range": "344 km",
+        "Motor Output (Power)": "348 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "25 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4545 x 1890 x 1636 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹35.84 Lakh",
+        "Est. On-Road Price": "₹38.71 Lakh",
+        "Battery Capacity": "75.3 kWh",
+        "Claimed Range": "431 km",
+        "Real-World Range": "344 km",
+        "Motor Output (Power)": "348 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "200 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "25 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4545 x 1890 x 1636 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    },
+    "VF MPV 7": {
+      "Standard": {
+        "Ex-Showroom Price": "₹33.12 Lakh",
+        "Est. On-Road Price": "₹35.77 Lakh",
+        "Battery Capacity": "75.3 kWh",
+        "Claimed Range": "418 km",
+        "Real-World Range": "334 km",
+        "Motor Output (Power)": "348 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "9.5 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "FWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4620 x 1900 x 1680 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Extended Range": {
+        "Ex-Showroom Price": "₹36.72 Lakh",
+        "Est. On-Road Price": "₹39.66 Lakh",
+        "Battery Capacity": "75.3 kWh",
+        "Claimed Range": "418 km",
+        "Real-World Range": "334 km",
+        "Motor Output (Power)": "348 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "8.7 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4620 x 1900 x 1680 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      },
+      "Performance AWD": {
+        "Ex-Showroom Price": "₹40.32 Lakh",
+        "Est. On-Road Price": "₹43.55 Lakh",
+        "Battery Capacity": "75.3 kWh",
+        "Claimed Range": "418 km",
+        "Real-World Range": "334 km",
+        "Motor Output (Power)": "348 hp",
+        "Peak Torque": "250 Nm",
+        "Top Speed": "185 km/h",
+        "0–100 km/h Acceleration": "7.9 sec",
+        "Charging Time (DC Fast)": "28 min (DC)",
+        "Standard AC Charging": "7.5 hrs (7.2 kW)",
+        "Fast Charging Support": "Yes",
+        "Drive Type": "AWD",
+        "Motor Type": "Permanent Magnet Synchronous Motor",
+        "Seating Capacity": "5 Seats",
+        "Boot Space": "380 Litres",
+        "Ground Clearance": "185 mm",
+        "Dimensions": "4620 x 1900 x 1680 mm",
+        "Safety Rating": "5 Stars (Expected)",
+        "Airbags": "6 Airbags",
+        "ADAS Features": "Level 2 ADAS Suite, ESP, Electronic Parking Brake",
+        "Infotainment System": "10.25-inch Touchscreen Navigation, Android Auto & Apple CarPlay",
+        "Warranty": "8 Years / 1,60,000 km (Battery)"
+      }
+    }
+  }
+};
+
+async function loadVariantFullDatabase() {
+  const urls = ['/data/ev_full_variant_database.json', '/public/data/ev_full_variant_database.json'];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const remoteDb = await res.json();
+        if (remoteDb && Object.keys(remoteDb).length > 0) {
+          EV_VARIANT_FULL_DB = remoteDb;
+          console.log('Remote EV_VARIANT_FULL_DB synced with', Object.keys(EV_VARIANT_FULL_DB).length, 'brands');
+          await loadVariantFullDatabase();
+        enrichDatabase();
+        }
+        break;
+      }
+    } catch (_) {}
+  }
+}
+
+
+
+
+function getVariantsForCar(car) {
+  if (!car) return [];
+  const brandNorm = (car.brand || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const nameNorm = (car.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+  let brandObj = null;
+  if (EV_VARIANT_FULL_DB && typeof EV_VARIANT_FULL_DB === 'object') {
+    for (const bKey in EV_VARIANT_FULL_DB) {
+      const bNorm = bKey.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (bNorm === brandNorm || bNorm.includes(brandNorm) || brandNorm.includes(bNorm)) {
+        brandObj = EV_VARIANT_FULL_DB[bKey];
+        break;
+      }
+    }
+  }
+
+  if (brandObj) {
+    let modelMap = null;
+    for (const mKey in brandObj) {
+      const mNorm = mKey.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (mNorm === nameNorm || mNorm.includes(nameNorm) || nameNorm.includes(mNorm)) {
+        modelMap = brandObj[mKey];
+        break;
+      }
+    }
+
+    if (modelMap) {
+      return Object.keys(modelMap).map(vName => {
+        const vSpec = modelMap[vName] || {};
+        const priceStr = vSpec["Ex-Showroom Price"] || car.price || '₹15.00 Lakh';
+        let numPrice = parseFloat(priceStr.replace(/[^0-9.]/g, '')) || car.priceVal || 15.0;
+        if (priceStr.includes('Crore')) numPrice = numPrice * 100;
+
+        return {
+          name: vName,
+          price: priceStr,
+          priceVal: numPrice,
+          battery: vSpec["Battery Capacity"] || (car.battery ? car.battery + ' kWh' : '35 kWh'),
+          range: vSpec["Claimed Range"] || (car.range ? car.range + ' km' : '350 km'),
+          real_world_range: vSpec["Real-World Range"] || '280 km',
+          charging: vSpec["Charging Time (DC Fast)"] || car.charging || '45 min (DC)',
+          chargingAC: vSpec["Standard AC Charging"] || '7.5 hrs (7.2 kW)',
+          power: vSpec["Motor Output (Power)"] || (car.power ? car.power + ' hp' : '150 hp'),
+          speed: vSpec["Top Speed"] || (car.speed ? car.speed + ' km/h' : '150 km/h'),
+          drivetrain: vSpec["Drive Type"] || 'FWD',
+          torque: vSpec["Peak Torque"] || (car.torque ? car.torque + ' Nm' : '250 Nm'),
+          acceleration: vSpec["0–100 km/h Acceleration"] || '7.5 sec',
+          wheels: '18 inch Alloy',
+          safety: vSpec["Safety Rating"] || car.safety || '5 Stars',
+          dimensions: vSpec["Dimensions"] || car.dimensions || '4300 x 1800 x 1600 mm',
+          clearance: vSpec["Ground Clearance"] || '190 mm',
+          bootSpace: vSpec["Boot Space"] || '380 Litres',
+          seating: vSpec["Seating Capacity"] || '5 Seats',
+          warranty: vSpec["Warranty"] || '8 Years / 1,60,000 km',
+          rawSpec: vSpec
+        };
+      });
+    }
+  }
+
+  return [{
+    name: 'Standard',
+    price: car.price || '₹15.00 Lakh',
+    priceVal: car.priceVal || 15.0,
+    battery: car.battery ? car.battery + ' kWh' : '35 kWh',
+    range: car.range ? car.range + ' km' : '350 km',
+    real_world_range: '280 km',
+    charging: car.charging || '45 min (DC)',
+    chargingAC: '7.5 hrs (7.2 kW)',
+    power: car.power ? car.power + ' hp' : '150 hp',
+    speed: car.speed ? car.speed + ' km/h' : '150 km/h',
+    drivetrain: 'FWD',
+    torque: car.torque ? car.torque + ' Nm' : '250 Nm',
+    acceleration: '7.5 sec',
+    wheels: '17 inch Alloy',
+    safety: car.safety || '5 Stars',
+    dimensions: car.dimensions || '4300 x 1800 x 1600 mm',
+    clearance: '190 mm',
+    bootSpace: '380 Litres',
+    seating: '5 Seats',
+    warranty: '8 Years / 1,60,000 km'
+  }];
+}
+
+
+
 document.body.classList.add('loaded');
 /**
  * app.js - EV Car Wale Marketplace Core Logic
@@ -6,121 +6789,91 @@ document.body.classList.add('loaded');
  */
 
 const S3_IMAGE_MAPPING = {
-      "audi-a6-e-tron": "car_images/AUDI/AUDI-A6-ETRON.png",
-      "audi-e-tron-gt": "car_images/AUDI/audi_etron_gt.jpg",
-      "audi-q6-e-tron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
-      "audi-q6-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
-      "audi-q8-etron": "car_images/AUDI/Audi Q6 e-tron.jpeg",
-      "avinya-ev": "car_images/tata/tata_avinya_ev.jpeg",
-      "be-07": "car_images/mahindra/mahindra_BE_07.jpeg",
-      "be07": "car_images/mahindra/mahindra_BE_07.jpeg",
-      "be6": "car_images/mahindra/mahindra-BE6.jpg",
-      "bmw-i4": "car_images/BMW/bmw_i4.jpeg",
-      "bmw-i5": "car_images/BMW/BMW-I5.jpeg",
-      "bmw-i7": "car_images/BMW/bmw_i7.jpeg",
-      "bmw-ix": "car_images/BMW/BMW iX.JPG",
-      "bmw-ix1": "car_images/BMW/BMW iX1 LWB.jpeg",
-      "bmw-ix1-lwb": "car_images/BMW/BMW iX1 LWB.jpeg",
-      "byd-atto3": "car_images/BYD/BYD_atto.jpeg",
-      "byd-emax-7": "car_images/BYD/BYD_eMAX_7.jpeg",
-      "byd-emax7": "car_images/BYD/BYD_eMAX_7.jpeg",
-      "byd-seal": "car_images/BYD/byd_seal.jpeg",
-      "byd-sealion-6": "car_images/BYD/BYD-SEALION-6.jpeg",
-      "byd-sealion-7": "car_images/BYD/BYD SEALION 7.jpeg",
-      "byd-sealion7": "car_images/BYD/BYD SEALION 7.jpeg",
-      "citroen-ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
-      "comet-ev": "car_images/MG/mg_comet_ev.webp",
-      "creta-ev": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
-      "curvv-ev": "car_images/tata/CURVE.jpeg",
-      "cyberster": "car_images/MG/MG_Cyberster.jpeg",
-      "d-max-ev": "car_images/ISUZU/D-MAX-EV.jpeg",
-      "ec3": "car_images/CITROEN/Citroen_eC3.jpeg",
-      "elevate-ev": "car_images/HONDA/honda_elevate_EV.jpeg",
-      "etron-gt": "car_images/AUDI/audi_etron_gt.jpg",
-      "ev6": "car_images/KIA/kia_ev6.jpeg",
-      "ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
-      "fronx-ev": "car_images/maruti suzuki/fronx_ev.jpeg",
-      "gv60": "car_images/GENESIS/GV60.jpeg",
-      "harrier-ev": "car_images/tata/HARRIER.webp",
-      "hyundai-creta-electric": "car_images/hyundai/Hyundai_Creta_Electric.jpeg",
-      "ioniq-5": "car_images/hyundai/hyundai_ioniq5.jpeg",
-      "ioniq-6": "car_images/hyundai/Hyundai_IONIQ6.jpeg",
-      "jeep-avengers": "car_images/JEEP/Avengers.jpeg",
-      "kia-carens-clavis-ev": "car_images/KIA/Kia Carens Clavis EV.WEBP",
-      "kia-ev6": "car_images/KIA/kia_ev6.jpeg",
-      "kia-ev9": "car_images/KIA/kia_ev9.jpeg",
-      "lexus-es": "car_images/LEXUS/ES.jpeg",
-      "lotus-eletre": "car_images/LOTUS/ELETRE.webp",
-      "lotus-emeya": "car_images/LOTUS/EMEYA.jpeg",
-      "luce": "car_images/ferrari/LUCE.jpeg",
-      "m9-ev": "car_images/MG/MG_M9.jpeg",
-      "macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
-      "mahindra-thar-e": "car_images/mahindra/thar.e.jpeg",
-      "mahindra-xev-7e": "car_images/mahindra/mahindra_XEV_9e.webp",
-      "maruti-e-vitara": "car_images/maruti suzuki/maruti_evitara.jpeg",
-      "maruti-jimny": "car_images/maruti suzuki/jimny.png",
-      "mercedes-benz-amg-eqs": "car_images/MERCEDES_BENZ/AMG-EQS.jpeg",
-      "mercedes-benz-c-class-ev": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
-      "mercedes-benz-cla-ev": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
-      "mercedes-benz-eqs-maybach": "car_images/MERCEDES_BENZ/EQS=MAYBACH.webp",
-      "mercedes-benz-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
-      "mercedes-benz-eqs-suv-standard": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
-      "mercedes-benz-g-class-ev": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
-      "mercedes-cla-electric": "car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
-      "mercedes-eqa": "car_images/MERCEDES_BENZ/C-CLASS.jpeg",
-      "mercedes-eqe-suv": "car_images/MERCEDES_BENZ/EQS_SUV.jpeg",
-      "mercedes-eqs": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
-      "mercedes-eqs-suv": "car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
-      "mercedes-g-class-electric": "car_images/MERCEDES_BENZ/Mercedes-Benz_G-Class.jpeg",
-      "mg-cyberster": "car_images/MG/MG_Cyberster.jpeg",
-      "mg-m9": "car_images/MG/MG_M9.jpeg",
-      "mg-zs-ev": "car_images/MG/MG ZS EV.JPG",
-      "mini-countryman-electric": "car_images/MINI /COUNTRYMAN-ELECTRIC.jpeg",
-      "nexon-ev": "car_images/tata/NEXON.jpeg",
-      "nissan-ariya": "car_images/NISSAN/Nissan_Ariya.jpeg",
-      "nissan-leaf": "car_images/NISSAN/nissan_leaf.JPG",
-      "pmv-eas-e": "car_images/PMV/EAS-E.jpeg",
-      "porsche-cayenne-electric": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
-      "porsche-cayenne-ev": "car_images/PORSCHE/PORSCHE_CAYENNE.jpeg",
-      "porsche-macan-ev": "car_images/PORSCHE/porsche_maccan_EV.jpeg",
-      "porsche-taycan": "car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
-      "pravaig-defy": "car_images/PRAVAIG/DEFY.jpeg",
-      "punch-ev": "car_images/tata/PUNCH.jpeg",
-      "renault-kwid-ev": "car_images/RENAULT/renault_kwid_ev.JPG",
-      "rolls-royce-spectre": "car_images/ROLLS_ROYCE/Rolls-Royce Spectre.jpeg",
-      "ryde": "car_images/BLINQ/RYDE.jpeg",
-      "sierra-ev": "car_images/tata/SIERRA.jpeg",
-      "skoda-elroq": "car_images/SKODA/Skoda_Elroq.jpeg",
-      "skoda-enyaq": "car_images/SKODA/Skoda_Enyaq.JPG",
-      "strom-r3": "car_images/STROM_MOTORS/R3.jpeg",
-      "syros-ev": "car_images/KIA/Kia_syros_ev.jpeg",
-      "tata-sierra-ev": "car_images/tata/SIERRA.jpeg",
-      "tata-tigor-ev": "car_images/tata/TIAGO.jpeg",
-      "tesla-model-y": "car_images/TESLA/MODEL-Y.jpeg",
-      "thar-e": "car_images/mahindra/thar.e.jpeg",
-      "tiago-ev": "car_images/tata/TIAGO.jpeg",
-      "toyota-bz4x": "car_images/TOYOTA/Toyota_bZ4X.jpeg",
-      "toyota-taisor-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
-      "toyota-urban-cruiser-ev": "car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
-      "vayve-mobility-eva": "car_images/VAYVE_MOBILITY/eva.jpeg",
-      "vinfast-vf-mpv7": "car_images/VINFAST/VinFast VF MPV7.JPG",
-      "vinfast-vf3": "car_images/VINFAST/vin_fast_vf3.jpeg",
-      "vinfast-vf6": "car_images/VINFAST/VinFast VF 6.jpeg",
-      "vinfast-vf7": "car_images/VINFAST/vin_fast_vf7.jpeg",
-      "volkswagen-id4": "car_images/VOLKSWAGAN/id_4.jpeg",
-      "volvo-ec40": "car_images/VOLVO/volvo_EC40.WEBP",
-      "volvo-ex30": "car_images/VOLVO/VOLVO_EX30.jpeg",
-      "volvo-ex40": "car_images/VOLVO/VOLVO_EX40.JPG",
-      "volvo-ex90": "car_images/VOLVO/Volvo_EX90.jpeg",
-      "windsor-ev": "car_images/MG/MG_windsor_EV.jpeg",
-      "xev-9e": "car_images/mahindra/mahindra_XEV_9e.webp",
-      "xev-9s": "car_images/mahindra/Mahindra XEV 9s.png",
-      "xpres-t-ev": "car_images/tata/EXPRESS-T.jpeg",
-      "xuv-3xo-ev": "car_images/mahindra/3X0.jpeg",
-      "xuv400": "car_images/mahindra/mahindra_XUV_400.jpg",
-      "zero-alpha": "car_images/HONDA/ZERO_ALPHA.jpeg",
-      "zero-suv": "car_images/HONDA/honda_elevate_EV.jpeg",
-      "zs-ev": "car_images/MG/MG ZS EV.JPG",
+  "nexon-ev": "/car_images/tata/NEXON.jpeg",
+  "punch-ev": "/car_images/tata/PUNCH.jpeg",
+  "harrier-ev": "/car_images/tata/HARRIER.webp",
+  "curvv-ev": "/car_images/tata/CURVE.jpeg",
+  "tiago-ev": "/car_images/tata/TIAGO.jpeg",
+  "avinya-ev": "/car_images/tata/tata_avinya_ev.jpeg",
+  "xpres-t-ev": "/car_images/tata/EXPRESS-T.jpeg",
+  "sierra-ev": "/car_images/tata/SIERRA.jpeg",
+  "xuv400": "/car_images/mahindra/mahindra_XUV_400.jpg",
+  "be6": "/car_images/mahindra/mahindra-BE6.jpg",
+  "xev-9e": "/car_images/mahindra/mahindra_XEV_9e.webp",
+  "thar-e": "/car_images/mahindra/thar.e.jpeg",
+  "be-07": "/car_images/mahindra/mahindra_BE_07.jpeg",
+  "xev-9s": "/car_images/mahindra/Mahindra XEV 9s.png",
+  "xuv-3xo-ev": "/car_images/mahindra/3X0.jpeg",
+  "cyberster": "/car_images/MG/MG_Cyberster.jpeg",
+  "m9-ev": "/car_images/MG/MG_M9.jpeg",
+  "zs-ev": "/car_images/MG/MG ZS EV.JPG",
+  "comet-ev": "/car_images/MG/mg_comet_ev.webp",
+  "ioniq-5": "/car_images/hyundai/hyundai_ioniq5.jpeg",
+  "ioniq-6": "/car_images/hyundai/Hyundai_IONIQ6.jpeg",
+  "creta-ev": "/car_images/hyundai/Hyundai_Creta_Electric.jpeg",
+  "byd-seal": "/car_images/BYD/byd_seal.jpeg",
+  "byd-atto3": "/car_images/BYD/BYD_atto.jpeg",
+  "byd-sealion-6": "/car_images/BYD/BYD-SEALION-6.jpeg",
+  "byd-emax-7": "/car_images/BYD/BYD_eMAX_7.jpeg",
+  "byd-sealion-7": "/car_images/BYD/BYD SEALION 7.jpeg",
+  "kia-ev6": "/car_images/KIA/kia_ev6.jpeg",
+  "kia-ev9": "/car_images/KIA/kia_ev9.jpeg",
+  "syros-ev": "/car_images/KIA/Kia_syros_ev.jpeg",
+  "bmw-i4": "/car_images/BMW/bmw_i4.jpeg",
+  "bmw-i7": "/car_images/BMW/bmw_i7.jpeg",
+  "bmw-ix": "/car_images/BMW/BMW iX.JPG",
+  "bmw-ix1": "/car_images/BMW/BMW iX1 LWB.jpeg",
+  "bmw-i5": "/car_images/MG/IM5.jpeg",
+  "audi-q6-e-tron": "/car_images/AUDI/Audi Q6 e-tron.jpeg",
+  "audi-e-tron-gt": "/car_images/AUDI/audi_etron_gt.jpg",
+  "audi-a6-e-tron": "/car_images/AUDI/AUDI-A6-ETRON.png",
+  "ryde": "/car_images/BLINQ/RYDE.jpeg",
+  "gv60": "/car_images/GENESIS/GV60.jpeg",
+  "ec3": "/car_images/CITROEN/Citroen_eC3.jpeg",
+  "luce": "/car_images/ferrari/LUCE.jpeg",
+  "elevate-ev": "/car_images/HONDA/honda_elevate_EV.jpeg",
+  "zero-alpha": "/car_images/HONDA/ZERO_ALPHA.jpeg",
+  "zero-suv": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "d-max-ev": "/car_images/ISUZU/D-MAX-EV.jpeg",
+  "nissan-ariya": "/car_images/NISSAN/Nissan_Ariya.jpeg",
+  "nissan-leaf": "/car_images/NISSAN/nissan_leaf.JPG",
+  "mini-countryman-electric": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "jeep-avengers": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+  "lexus-es": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "lotus-eletre": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "lotus-emeya": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "maruti-e-vitara": "/car_images/maruti suzuki/maruti_evitara.jpeg",
+  "fronx-ev": "/car_images/maruti suzuki/fronx_ev.jpeg",
+  "jimny-ev": "/car_images/maruti suzuki/IMG_2402.jpeg",
+  "mercedes-benz-cla-ev": "/car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+  "mercedes-benz-eqs-suv": "/car_images/MERCEDES_BENZ/Mercedes-Benz_EQS_SUV.jpeg",
+  "mercedes-benz-g-class-ev": "/car_images/MERCEDES_BENZ/Mercedes_Benz_CLA.jpeg",
+  "mercedes-benz-amg-eqs": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "mercedes-benz-c-class-ev": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "mercedes-benz-eqs-maybach": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "pmv-eas-e": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "renault-kwid-ev": "/car_images/RENAULT/renault_kwid_ev.JPG",
+  "porsche-macan-ev": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+  "porsche-taycan": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+  "porsche-cayenne-ev": "/car_images/PORSCHE/PORSCHE_TAYCAN.JPG",
+  "rolls-royce-spectre": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "toyota-bz4x": "/car_images/TOYOTA/Toyota_bZ4X.jpeg",
+  "toyota-taisor-ev": "/car_images/TOYOTA/Toyota_Urban_Cruiser_Ebella.jpeg",
+  "tesla-model-y": "/car_images/PORSCHE/cayenne_ev-COLORS/Carrara White Metallic.webp",
+  "skoda-elroq": "/car_images/SKODA/Skoda_Elroq.jpeg",
+  "skoda-enyaq": "/car_images/SKODA/Skoda_Enyaq.JPG",
+  "strom-r3": "/car_images/VINFAST/vin_fast_vf3.jpeg",
+  "pravaig-defy": "/car_images/PORSCHE/porsche_maccan_EV.jpeg",
+  "volvo-ec40": "/car_images/VOLVO/volvo_EC40.WEBP",
+  "volvo-ex30": "/car_images/VOLVO/VOLVO_EX30.jpeg",
+  "volvo-ex40": "/car_images/maruti suzuki/IMG_2402.jpeg",
+  "volvo-ex90": "/car_images/VOLVO/Volvo_EX90.jpeg",
+  "volkswagen-id4": "/car_images/tata/NEXON.jpeg",
+  "vayve-mobility-eva": "/car_images/VAYVE_MOBILITY/eva.jpeg",
+  "vinfast-vf3": "/car_images/VINFAST/vin_fast_vf3.jpeg",
+  "vinfast-vf6": "/car_images/VINFAST/VinFast VF 6.jpeg",
+  "vinfast-vf7": "/car_images/VINFAST/vin_fast_vf7.jpeg",
+  "vinfast-vf-mpv7": "/car_images/VINFAST/VinFast VF MPV7.JPG",
 };
 
 // Reusable image helper/utility for Amazon S3 integration
@@ -555,126 +7308,92 @@ const CITY_DISTANCE_DATABASE = {
  */
 const ROUTE_STATIONS = {
   'delhi-mumbai': [
-    { city: 'Jaipur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-    { city: 'Ajmer', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-    { city: 'Ahmedabad', chargerType: 'DC 100 kW', network: 'EESL / Statiq' },
-    { city: 'Surat', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-    { city: 'Vadodara', chargerType: 'DC 50 kW', network: 'EESL CCS2' },
-    { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' },
+    { title: 'DLF Cyber City EV Fast Charger', city: 'Gurgaon', address: 'NH48 Expressway, Gurgaon', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 28.4950, lng: 77.0895 },
+    { title: 'Neemrana Highway Food Plaza Charger', city: 'Neemrana', address: 'NH48 Delhi-Jaipur Highway', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 27.9890, lng: 76.3860 },
+    { title: 'Jaipur Marriott EV Charging Hub', city: 'Jaipur', address: 'Ashram Marg, Near Jawahar Circle', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 26.8524, lng: 75.8054 },
+    { title: 'Ajmer Highway Plaza Charger', city: 'Ajmer', address: 'NH48 Ajmer Expressway', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 26.4499, lng: 74.6399 },
+    { title: 'Beawar Statiq Fast Charging Station', city: 'Beawar', address: 'NH48 Bypass, Beawar', chargerType: 'DC 50 kW', network: 'Statiq', lat: 26.1012, lng: 74.3184 },
+    { title: 'Pali EV Charge Hub', city: 'Pali', address: 'Jodhpur Road, Pali', chargerType: 'DC 50 kW', network: 'Tata Power EV', lat: 25.7711, lng: 73.3234 },
+    { title: 'Udaipur Highway Fast Charging Hub', city: 'Udaipur', address: 'Sukher Bypass, NH48', chargerType: 'DC 100 kW', network: 'Statiq', lat: 24.5854, lng: 73.7125 },
+    { title: 'Himatnagar Highway Plaza Charger', city: 'Himatnagar', address: 'NH48 Gujarat Highway', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 23.5979, lng: 72.9698 },
+    { title: 'Statiq Fast Charging Hub - Ahmedabad', city: 'Ahmedabad', address: 'SG Highway, Bodakdev', chargerType: 'DC 100 kW', network: 'EESL / Statiq', lat: 23.0225, lng: 72.5714 },
+    { title: 'Zeon EV Fast Charger - Vadodara', city: 'Vadodara', address: 'Expressway Food Plaza, NH48', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 22.3072, lng: 73.1812 },
+    { title: 'Bharuch Narmada Bridge Charger', city: 'Bharuch', address: 'NH48 Expressway Plaza', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 21.7051, lng: 72.9959 },
+    { title: 'Tata Power Charging Station - Surat', city: 'Surat', address: 'Dumas Road, Piplod', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 21.1702, lng: 72.8311 },
+    { title: 'Navsari Statiq Fast Station', city: 'Navsari', address: 'NH48 Surat-Mumbai Highway', chargerType: 'DC 50 kW', network: 'Statiq', lat: 20.9467, lng: 72.9520 },
+    { title: 'Vapi EV Highway Charging Hub', city: 'Vapi', address: 'GIDC Char Rasta, NH48', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 20.3721, lng: 72.9106 },
+    { title: 'Manor Expressway Food Hub', city: 'Manor', address: 'Mumbai-Ahmedabad Highway Plaza', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 19.7420, lng: 72.9150 }
   ],
   'bengaluru-delhi': [
-    { city: 'Hyderabad', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
-    { city: 'Nagpur', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-    { city: 'Bhopal', chargerType: 'DC 50 kW', network: 'EESL CCS2' },
-    { city: 'Agra', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-    { city: 'Gwalior', chargerType: 'DC 50 kW', network: 'Statiq' },
+    { title: 'Anantapur NH44 Fast Charging Hub', city: 'Anantapur', address: 'NH44 Expressway', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 14.6819, lng: 77.6006 },
+    { title: 'Kurnool Highway Fast Station', city: 'Kurnool', address: 'NH44 Expressway Plaza', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 15.8281, lng: 78.0373 },
+    { title: 'Tata Power EV Hub - Gachibowli', city: 'Hyderabad', address: 'Financial District, Gachibowli', chargerType: 'DC 100 kW', network: 'Tata Power EV', lat: 17.4401, lng: 78.3489 },
+    { title: 'Kamareddy Highway Charger', city: 'Kamareddy', address: 'NH44 Hyderabad-Nagpur Route', chargerType: 'DC 50 kW', network: 'Statiq', lat: 18.3223, lng: 78.3444 },
+    { title: 'Nizamabad EV Station', city: 'Nizamabad', address: 'NH44 Bypass', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 18.6725, lng: 78.0941 },
+    { title: 'Adilabad NH44 Charge Hub', city: 'Adilabad', address: 'Telangana-Maharashtra Border', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 19.6641, lng: 78.5320 },
+    { title: 'Nagpur Expressway Charger', city: 'Nagpur', address: 'Wardha Road, Nagpur', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 21.1458, lng: 79.0882 },
+    { title: 'Seoni Statiq Fast Hub', city: 'Seoni', address: 'NH44 MP Highway', chargerType: 'DC 50 kW', network: 'Statiq', lat: 22.0850, lng: 79.5440 },
+    { title: 'Bhopal Fast Charge Plaza', city: 'Bhopal', address: 'Hoshangabad Road', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 23.2599, lng: 77.4126 },
+    { title: 'Jhansi Bypass EV Charger', city: 'Jhansi', address: 'Gwalior Highway Bypass', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 25.4484, lng: 78.5685 },
+    { title: 'Gwalior Statiq Fast Hub', city: 'Gwalior', address: 'City Centre, Gwalior', chargerType: 'DC 50 kW', network: 'Statiq', lat: 26.2183, lng: 78.1828 },
+    { title: 'Agra Yamuna Expressway Charger', city: 'Agra', address: 'Toll Plaza 2, Yamuna Expressway', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 27.1767, lng: 78.0081 }
   ],
   'bengaluru-mumbai': [
-    { city: 'Hubli', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-    { city: 'Kolhapur', chargerType: 'DC 50 kW', network: 'EESL CCS2' },
-    { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' },
+    { title: 'Tumkur NH48 Food Plaza Charger', city: 'Tumkur', address: 'Bengaluru-Pune Highway', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 13.3409, lng: 77.1006 },
+    { title: 'Chitradurga Bypass Charger', city: 'Chitradurga', address: 'NH48 Toll Plaza', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 14.2251, lng: 76.3980 },
+    { title: 'Davanagere Highway Hub', city: 'Davanagere', address: 'NH48 Expressway', chargerType: 'DC 50 kW', network: 'Statiq', lat: 14.4644, lng: 75.9218 },
+    { title: 'Tata Power EV Hub - Hubli', city: 'Hubli', address: 'Gokul Road, Hubli', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 15.3647, lng: 75.1240 },
+    { title: 'Dharwad Bypass Charger', city: 'Dharwad', address: 'NH48 Highway', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 15.4589, lng: 75.0078 },
+    { title: 'Belagavi Statiq Fast Station', city: 'Belagavi', address: 'NH48 Karnataka Border', chargerType: 'DC 100 kW', network: 'Statiq', lat: 15.8497, lng: 74.4977 },
+    { title: 'Kolhapur NH48 Fast Charger', city: 'Kolhapur', address: 'NH48 Highway Plaza', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 16.7050, lng: 74.2433 },
+    { title: 'Karad Expressway Charger', city: 'Karad', address: 'Satara Highway Plaza', chargerType: 'DC 50 kW', network: 'Tata Power EV', lat: 17.2858, lng: 74.1837 },
+    { title: 'Satara Highway Fast Station', city: 'Satara', address: 'NH48 Expressway', chargerType: 'DC 60 kW', network: 'Statiq', lat: 17.6805, lng: 74.0183 },
+    { title: 'Tata Power Supercharger - Pune', city: 'Pune', address: 'Mumbai-Pune Expressway Plaza', chargerType: 'DC 150 kW', network: 'Tata Power EV', lat: 18.5204, lng: 73.8567 },
+    { title: 'Lonavala Expressway Fast Charger', city: 'Lonavala', address: 'Mumbai-Pune Expressway Toll Plaza', chargerType: 'DC 50 kW', network: 'Statiq', lat: 18.7557, lng: 73.4091 }
   ],
   'bengaluru-chennai': [
-    { city: 'Vellore', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
+    { title: 'Hosur Border EV Station', city: 'Hosur', address: 'NH44 State Border', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 12.7409, lng: 77.8253 },
+    { title: 'Krishnagiri Highway Hub', city: 'Krishnagiri', address: 'NH48 Highway Plaza', chargerType: 'DC 50 kW', network: 'Statiq', lat: 12.5266, lng: 78.2144 },
+    { title: 'Vellore Highway EV Station', city: 'Vellore', address: 'Chennai-Bengaluru Highway', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 12.9165, lng: 79.1325 },
+    { title: 'Kanchipuram Fast Station', city: 'Kanchipuram', address: 'Chennai Bypass', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 12.8342, lng: 79.7036 }
   ],
   'delhi-kolkata': [
-    { city: 'Kanpur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-    { city: 'Varanasi', chargerType: 'DC 50 kW', network: 'EESL CCS2' },
-    { city: 'Patna', chargerType: 'DC 60 kW', network: 'Statiq' },
-    { city: 'Asansol', chargerType: 'DC 50 kW', network: 'EESL CCS2' },
+    { title: 'Greater Noida Pari Chowk Charger', city: 'Greater Noida', address: 'Yamuna Expressway Entrance', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 28.4670, lng: 77.5140 },
+    { title: 'Agra Yamuna Toll Charger', city: 'Agra', address: 'Toll Plaza 2, Yamuna Expressway', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 27.1767, lng: 78.0081 },
+    { title: 'Kanpur GT Road EV Station', city: 'Kanpur', address: 'GT Road, Kanpur', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 26.4499, lng: 80.3319 },
+    { title: 'Prayagraj Bypass Hub', city: 'Prayagraj', address: 'Varanasi Highway', chargerType: 'DC 50 kW', network: 'Statiq', lat: 25.4358, lng: 81.8463 },
+    { title: 'Varanasi Bypass EV Hub', city: 'Varanasi', address: 'Ring Road Bypass', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 25.3176, lng: 82.9739 },
+    { title: 'Dehri on Sone Expressway', city: 'Dehri', address: 'NH19 Bihar Route', chargerType: 'DC 50 kW', network: 'Tata Power EV', lat: 24.9100, lng: 84.1850 },
+    { title: 'Patna Statiq Fast Charger', city: 'Patna', address: 'Boring Road, Patna', chargerType: 'DC 60 kW', network: 'Statiq', lat: 25.5941, lng: 85.1376 },
+    { title: 'Dhanbad Highway Hub', city: 'Dhanbad', address: 'NH19 GT Road', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 23.7957, lng: 86.4304 },
+    { title: 'Asansol Highway EV Station', city: 'Asansol', address: 'NH19 Bypass', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 23.6889, lng: 86.9661 },
+    { title: 'Durgapur City Centre Hub', city: 'Durgapur', address: 'NH19 Bengal Highway', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 23.5204, lng: 87.3119 }
   ],
   'chennai-mumbai': [
-    { city: 'Bengaluru', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
-    { city: 'Hubli', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-    { city: 'Kolhapur', chargerType: 'DC 50 kW', network: 'EESL CCS2' },
-    { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' },
+    { title: 'Vellore Highway EV Station', city: 'Vellore', address: 'Chennai-Bengaluru Highway', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 12.9165, lng: 79.1325 },
+    { title: 'Tata Power EV Hub - Electronic City', city: 'Bengaluru', address: 'Hosur Main Road, Electronic City', chargerType: 'DC 100 kW', network: 'Tata Power EV', lat: 12.8399, lng: 77.6770 },
+    { title: 'Hubli Highway EV Plaza', city: 'Hubli', address: 'Gokul Road', chargerType: 'DC 60 kW', network: 'EESL CCS2', lat: 15.3647, lng: 75.1240 },
+    { title: 'Kolhapur NH48 Fast Charger', city: 'Kolhapur', address: 'NH48 Expressway', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 16.7050, lng: 74.2433 },
+    { title: 'Tata Power Supercharger - Pune', city: 'Pune', address: 'Pune Expressway', chargerType: 'DC 150 kW', network: 'Tata Power EV', lat: 18.5204, lng: 73.8567 }
   ],
   'bengaluru-hyderabad': [
-    { city: 'Kurnool', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
+    { title: 'Chikkaballapur Highway Station', city: 'Chikkaballapur', address: 'NH44 Expressway', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 13.4355, lng: 77.7279 },
+    { title: 'Anantapur NH44 Fast Charging Hub', city: 'Anantapur', address: 'NH44 Expressway', chargerType: 'DC 60 kW', network: 'Statiq', lat: 14.6819, lng: 77.6006 },
+    { title: 'Kurnool Highway Fast Station', city: 'Kurnool', address: 'NH44 Expressway Plaza', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 15.8281, lng: 78.0373 },
+    { title: 'Jadcherla Toll Plaza Charger', city: 'Jadcherla', address: 'NH44 Hyderabad Approach', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 16.7644, lng: 78.1360 }
   ],
   'hyderabad-mumbai': [
-    { city: 'Solapur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-    { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' },
+    { title: 'Zaheerabad Highway Station', city: 'Zaheerabad', address: 'NH65 Expressway', chargerType: 'DC 50 kW', network: 'Statiq', lat: 17.6833, lng: 77.6083 },
+    { title: 'Solapur Fast Charging Hub', city: 'Solapur', address: 'Pune-Solapur Highway', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 17.6599, lng: 75.9064 },
+    { title: 'Indapur Highway Plaza', city: 'Indapur', address: 'NH65 Expressway Plaza', chargerType: 'DC 50 kW', network: 'EESL CCS2', lat: 18.1167, lng: 75.0333 },
+    { title: 'Tata Power Supercharger - Pune', city: 'Pune', address: 'Mumbai-Pune Expressway', chargerType: 'DC 150 kW', network: 'Tata Power EV', lat: 18.5204, lng: 73.8567 },
+    { title: 'Lonavala Toll Plaza Charger', city: 'Lonavala', address: 'Mumbai-Pune Expressway', chargerType: 'DC 50 kW', network: 'Statiq', lat: 18.7557, lng: 73.4091 }
   ],
   'mumbai-pune': [
-    { city: 'Lonavala', chargerType: 'DC 50 kW', network: 'Statiq' },
-  
-  ],
-  'delhi-pune': [
-  { city: 'Jaipur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Ajmer', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Udaipur', chargerType: 'DC 100 kW', network: 'Statiq' },
-  { city: 'Ahmedabad', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
-  { city: 'Vadodara', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Surat', chargerType: 'DC 60 kW', network: 'Tata Power EV' }
-],
-'delhi-hyderabad': [
-  { city: 'Agra', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Gwalior', chargerType: 'DC 50 kW', network: 'Statiq' },
-  { city: 'Nagpur', chargerType: 'DC 100 kW', network: 'Tata Power EV' }
-],
-'delhi-lucknow': [
-  { city: 'Ghaziabad', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Kanpur', chargerType: 'DC 60 kW', network: 'Tata Power EV' }
-],
-'delhi-varanasi': [
-  { city: 'Kanpur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Prayagraj', chargerType: 'DC 100 kW', network: 'Statiq' }
-],
-'delhi-srinagar': [
-  { city: 'Panipat', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Ludhiana', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
-  { city: 'Jammu', chargerType: 'DC 60 kW', network: 'Statiq' }
-],
-'mumbai-goa': [
-  { city: 'Panvel', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Kolhapur', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Belagavi', chargerType: 'DC 100 kW', network: 'Statiq' }
-],
-'mumbai-nagpur': [
-  { city: 'Nashik', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Aurangabad', chargerType: 'DC 100 kW', network: 'Statiq' },
-  { city: 'Amravati', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
-],
-'mumbai-ahmedabad': [
-  { city: 'Vapi', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Surat', chargerType: 'DC 100 kW', network: 'Statiq' },
-  { city: 'Vadodara', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
-],
-'chennai-hyderabad': [
-  { city: 'Nellore', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Ongole', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Vijayawada', chargerType: 'DC 100 kW', network: 'Statiq' }
-],
-'chennai-kochi': [
-  { city: 'Coimbatore', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
-  { city: 'Palakkad', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
-],
-'hyderabad-pune': [
-  { city: 'Solapur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' }
-],
-'hyderabad-mumbai': [
-  { city: 'Solapur', chargerType: 'DC 60 kW', network: 'Statiq' },
-  { city: 'Pune', chargerType: 'DC 150 kW', network: 'Tata Power EV' }
-],
-'kolkata-bhubaneswar': [
-  { city: 'Kharagpur', chargerType: 'DC 60 kW', network: 'EESL CCS2' },
-  { city: 'Balasore', chargerType: 'DC 60 kW', network: 'Tata Power EV' }
-],
-'kolkata-visakhapatnam': [
-  { city: 'Bhubaneswar', chargerType: 'DC 100 kW', network: 'Tata Power EV' },
-  { city: 'Berhampur', chargerType: 'DC 60 kW', network: 'Statiq' },
-  { city: 'Srikakulam', chargerType: 'DC 60 kW', network: 'EESL CCS2' }
-],
-'bengaluru-hyderabad': [
-  { city: 'Anantapur', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Kurnool', chargerType: 'DC 100 kW', network: 'Statiq' }
-],
-'bengaluru-kochi': [
-  { city: 'Mysuru', chargerType: 'DC 60 kW', network: 'Tata Power EV' },
-  { city: 'Kozhikode', chargerType: 'DC 100 kW', network: 'EESL CCS2' }
-]
+    { title: 'Vashi Toll Plaza Fast Charger', city: 'Navi Mumbai', address: 'Sion-Panvel Highway', chargerType: 'DC 60 kW', network: 'Tata Power EV', lat: 19.0657, lng: 72.9984 },
+    { title: 'Lonavala Expressway Fast Charger', city: 'Lonavala', address: 'Mumbai-Pune Expressway Toll Plaza', chargerType: 'DC 50 kW', network: 'Statiq', lat: 18.7557, lng: 73.4091 },
+    { title: 'Wakad EV Supercharge Station', city: 'Pune', address: 'Wakad Highway Junction', chargerType: 'DC 150 kW', network: 'Tata Power EV', lat: 18.5987, lng: 73.7689 }
+  ]
 };
 
 /** Ordered list of cities available in the trip planner dropdowns */
@@ -1765,135 +8484,11 @@ function showToast(message) {
 
 // --- Database Enrichment for Car Details Pages ---
 function enrichDatabase() {
-  EV_DATABASE.forEach(car => {
-    // 1. Add variants dynamically based on VARIANTS_DATABASE
-    let variantNames = [];
-    const carBrandNorm = normalizeKey(car.brand);
-    let matchedBrandKey = null;
-
-    if (VARIANTS_DATABASE && typeof VARIANTS_DATABASE === 'object') {
-      for (const bKey of Object.keys(VARIANTS_DATABASE)) {
-        if (normalizeKey(bKey) === carBrandNorm) {
-          matchedBrandKey = bKey;
-          break;
-        }
-      }
-    }
-
-    if (matchedBrandKey) {
-      const carModelNorm = normalizeKey(car.name);
-      const brandVariants = VARIANTS_DATABASE[matchedBrandKey];
-      for (const mKey of Object.keys(brandVariants)) {
-        if (normalizeKey(mKey) === carModelNorm) {
-          variantNames = brandVariants[mKey];
-          break;
-        }
-      }
-    }
-
-    if (!variantNames || variantNames.length === 0) {
-      variantNames = ['Standard'];
-    }
-
-    const N = variantNames.length;
-    car.variants = variantNames.map((vName, idx) => {
-      const factor = N > 1 ? 0.9 + 0.25 * (idx / (N - 1)) : 1.0;
-      const priceBase = car.priceVal;
-      const isCrore = car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'mercedes-benz' || car.brand === 'porsche' || car.brand === 'lotus' || car.brand === 'rolls-royce';
-      
-      const variantPriceVal = priceBase * factor;
-      const priceStr = isCrore ? `₹${variantPriceVal.toFixed(2)} Crore` : `₹${variantPriceVal.toFixed(2)} Lakh`;
-      
-      const batteryVal = parseFloat(car.battery);
-      const batteryStr = batteryVal ? `${(batteryVal * (N > 1 ? 0.85 + 0.3 * (idx / (N - 1)) : 1.0)).toFixed(1)} kWh` : car.battery;
-      
-      const rangeVal = parseFloat(car.range);
-      const rangeStr = rangeVal ? `${Math.floor(rangeVal * (N > 1 ? 0.85 + 0.25 * (idx / (N - 1)) : 1.0))} km` : car.range;
-      
-      const powerVal = parseInt(car.power);
-      const powerStr = powerVal ? `${Math.floor(powerVal * (N > 1 ? 0.85 + 0.35 * (idx / (N - 1)) : 1.0))} hp` : car.power;
-      
-      const torqueVal = parseInt(car.torque) || 250;
-      const torqueStr = `${Math.floor(torqueVal * (N > 1 ? 0.85 + 0.3 * (idx / (N - 1)) : 1.0))} Nm`;
-      
-      const speedVal = parseInt(car.speed) || 150;
-      const speedStr = `${Math.floor(speedVal * (N > 1 ? 0.9 + 0.2 * (idx / (N - 1)) : 1.0))} km/h`;
-      
-      const drivetrainStr = (car.brand === 'bmw' || car.brand === 'audi' || car.brand === 'mercedes-benz' || car.brand === 'kia' || car.brand === 'byd' || car.brand === 'porsche' || car.brand === 'lotus') 
-        ? (idx === N - 1 ? 'AWD' : 'RWD') 
-        : (idx === N - 1 ? 'AWD' : 'FWD');
-        
-      const accel = N > 1 ? (8.5 - 3.5 * (idx / (N - 1))).toFixed(1) : '7.5';
-      const accelerationStr = `${accel} sec`;
-      
-      const wheelsStr = N > 1 ? `${15 + Math.floor(4 * (idx / (N - 1)))} inch Alloy` : '15 inch Steel';
-
-      const safetyStr = car.safety || '5 Stars (Expected)';
-      const dimensionsStr = car.dimensions || '3994 x 1811 x 1616 mm';
-      const clearanceStr = car.brand === 'tata' || car.brand === 'mahindra' ? '190 mm' : '150 mm';
-      const bootSpaceStr = '380 Litres';
-      const seatingStr = '5 Seater';
-      const warrantyStr = '8 Years / 1,60,000 km';
-      
-      return {
-        name: vName,
-        price: priceStr,
-        priceVal: variantPriceVal,
-        battery: batteryStr,
-        range: rangeStr,
-        charging: car.charging || '45 min (DC)',
-        power: powerStr,
-        speed: speedStr,
-        drivetrain: drivetrainStr,
-        torque: torqueStr,
-        acceleration: accelerationStr,
-        wheels: wheelsStr,
-        safety: safetyStr,
-        dimensions: dimensionsStr,
-        clearance: clearanceStr,
-        bootSpace: bootSpaceStr,
-        seating: seatingStr,
-        warranty: warrantyStr,
-        features: car.features || ''
-      };
+  if (typeof EV_DATABASE !== 'undefined' && Array.isArray(EV_DATABASE)) {
+    EV_DATABASE.forEach(car => {
+      car.variants = getVariantsForCar(car);
     });
-
-    // 2. Add extra specifications if missing (fallbacks for main object)
-    if (!car.torque) car.torque = car.brand === 'tata' || car.brand === 'mahindra' ? '250 Nm' : '350 Nm';
-    if (!car.chargingAC) car.chargingAC = '7.5 hours (7.2 kW AC)';
-    if (!car.clearance) car.clearance = car.brand === 'tata' || car.brand === 'mahindra' ? '190 mm' : '150 mm';
-    if (!car.bootSpace) car.bootSpace = '380 Litres';
-    if (!car.seating) car.seating = '5 Seater';
-    if (!car.warranty) car.warranty = '8 Years / 1,60,000 km';
-    
-    // 4. Add expert review if missing
-    if (!car.expertReview) {
-      car.expertReview = {
-        rating: car.id === 'ioniq-5' ? '4.8 / 5' : '4.5 / 5',
-        verdict: `A highly competent and premium EV that represents the absolute future of zero-emission mobility in its category. Highly recommended.`,
-        pros: ['Exceptional ride stability', 'Class-leading charging speed', 'Futuristic design aesthetics'],
-        cons: ['Limited rear visibility', 'Steering feedback is muted']
-      };
-    }
-    
-    // 5. Add customer reviews if missing
-    if (!car.customerReviews) {
-      car.customerReviews = [
-        {
-          author: 'Aniruddh D.',
-          duration: '6 Months',
-          score: '5.0 / 5',
-          feedback: `Running costs dropped significantly. Charging at home overnight is extremely convenient. Driving dynamics in sports mode are punchy.`
-        },
-        {
-          author: 'Kabir M.',
-          duration: '12 Months',
-          score: '4.5 / 5',
-          feedback: `Outstanding highway range. I regularly get over 500 km on a single charge. Cabin build quality feels incredibly high-end.`
-        }
-      ];
-    }
-  });
+  }
 }
 enrichDatabase();
 
@@ -2554,15 +9149,15 @@ function populateCompareDropdowns() {
   
   var placeholderA = document.createElement('option');
   placeholderA.value = '';
-  placeholderA.textContent = 'Select Vehicle';
-  placeholderA.disabled = true;
+  placeholderA.textContent = '-- Select Vehicle 1 --';
+  placeholderA.disabled = false;
   placeholderA.selected = true;
   compSelectA.appendChild(placeholderA);
 
   var placeholderB = document.createElement('option');
   placeholderB.value = '';
-  placeholderB.textContent = 'Select Vehicle';
-  placeholderB.disabled = true;
+  placeholderB.textContent = '-- Select Vehicle 2 --';
+  placeholderB.disabled = false;
   placeholderB.selected = true;
   compSelectB.appendChild(placeholderB);
 
@@ -2581,26 +9176,49 @@ function populateCompareDropdowns() {
     });
   }
 
-  // Pre-select default cars if available (e.g. Nexon EV vs MG ZS EV)
-  if (compSelectA.options.length > 1) {
-    const defaultA = Array.from(compSelectA.options).find(o => o.value.includes('nexon') || o.value.includes('tata'));
-    if (defaultA) compSelectA.value = defaultA.value;
-    else compSelectA.selectedIndex = 1;
+  // Check URL query parameters for pre-selected cars (e.g. compare.html?car1=nexon-ev&car2=punch-ev)
+  var urlParams = new URLSearchParams(window.location.search);
+  var car1Param = urlParams.get('car1') || urlParams.get('carA');
+  var car2Param = urlParams.get('car2') || urlParams.get('carB');
+
+  if (car1Param && Array.from(compSelectA.options).some(o => o.value === car1Param)) {
+    compSelectA.value = car1Param;
+  } else {
+    compSelectA.value = '';
   }
-  if (compSelectB.options.length > 2) {
-    const defaultB = Array.from(compSelectB.options).find(o => o.value.includes('mg') || o.value.includes('zs') || o.value.includes('punch'));
-    if (defaultB && defaultB.value !== compSelectA.value) compSelectB.value = defaultB.value;
-    else compSelectB.selectedIndex = 2;
+
+  if (car2Param && Array.from(compSelectB.options).some(o => o.value === car2Param)) {
+    compSelectB.value = car2Param;
+  } else {
+    compSelectB.value = '';
   }
 
   // Attach change event listeners dynamically
   if (!compSelectA._hasCompareListener) {
-    compSelectA.addEventListener('change', updateCompareTable);
+    compSelectA.addEventListener('change', function() {
+      updateCompareVariantDropdowns('a');
+      updateCompareTable();
+    });
     compSelectA._hasCompareListener = true;
   }
   if (!compSelectB._hasCompareListener) {
-    compSelectB.addEventListener('change', updateCompareTable);
+    compSelectB.addEventListener('change', function() {
+      updateCompareVariantDropdowns('b');
+      updateCompareTable();
+    });
     compSelectB._hasCompareListener = true;
+  }
+
+  const varSelectA = document.getElementById('comp-variant-select-a');
+  if (varSelectA && !varSelectA._hasCompareListener) {
+    varSelectA.addEventListener('change', updateCompareTable);
+    varSelectA._hasCompareListener = true;
+  }
+
+  const varSelectB = document.getElementById('comp-variant-select-b');
+  if (varSelectB && !varSelectB._hasCompareListener) {
+    varSelectB.addEventListener('change', updateCompareTable);
+    varSelectB._hasCompareListener = true;
   }
 
   const compStateSelect = document.getElementById('comp-state-select');
@@ -2609,6 +9227,96 @@ function populateCompareDropdowns() {
     compStateSelect._hasCompareListener = true;
   }
 }
+
+
+function updateCompareVariantDropdowns(changedSuffix) {
+  const compSelectA = getCompSelectA();
+  const compSelectB = getCompSelectB();
+  if (!compSelectA || !compSelectB) return;
+
+  const carIdA = compSelectA.value;
+  const carIdB = compSelectB.value;
+
+  const carA = EV_DATABASE.find(c => c.id === carIdA);
+  const carB = EV_DATABASE.find(c => c.id === carIdB);
+
+  // Vehicle 1 Variants Setup
+  const wrapA = document.getElementById('comp-variant-wrap-a');
+  const selA = document.getElementById('comp-variant-select-a');
+  if (carA && wrapA && selA) {
+    if (!carA.variants || carA.variants.length === 0) {
+      carA.variants = getVariantsForCar(carA);
+    }
+    var prevValA = selA.value;
+    selA.innerHTML = '';
+    if (carA.variants && carA.variants.length > 0) {
+      wrapA.classList.remove('hidden');
+      carA.variants.forEach(function(v, idx) {
+        var opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = v.name + (v.price ? (' - ' + v.price) : '');
+        selA.appendChild(opt);
+      });
+      if (prevValA !== '' && parseInt(prevValA) < carA.variants.length) {
+        selA.value = prevValA;
+      } else {
+        selA.value = 0;
+      }
+    } else {
+      wrapA.classList.add('hidden');
+    }
+  } else if (wrapA) {
+    wrapA.classList.add('hidden');
+  }
+
+  // Vehicle 2 Variants Setup
+  const wrapB = document.getElementById('comp-variant-wrap-b');
+  const selB = document.getElementById('comp-variant-select-b');
+  if (carB && wrapB && selB) {
+    if (!carB.variants || carB.variants.length === 0) {
+      carB.variants = getVariantsForCar(carB);
+    }
+    var prevValB = selB.value;
+    selB.innerHTML = '';
+    if (carB.variants && carB.variants.length > 0) {
+      wrapB.classList.remove('hidden');
+      carB.variants.forEach(function(v, idx) {
+        var opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = v.name + (v.price ? (' - ' + v.price) : '');
+        
+        // If same car is selected for both vehicles, disable the exact variant selected in Vehicle 1
+        if (carA && carB && carA.id === carB.id && selA && parseInt(selA.value) === idx) {
+          opt.disabled = true;
+          opt.textContent += ' (Selected in Vehicle 1)';
+        }
+        
+        selB.appendChild(opt);
+      });
+
+      // If both cars are the same, make sure Vehicle 2 doesn't default to the exact same variant as Vehicle 1
+      if (carA && carB && carA.id === carB.id && selA) {
+        var idxA = parseInt(selA.value || 0);
+        var idxB = parseInt(prevValB || 0);
+        if (idxB === idxA) {
+          var altIdx = (idxA + 1) % carB.variants.length;
+          selB.value = altIdx;
+        } else {
+          selB.value = idxB < carB.variants.length ? idxB : 0;
+        }
+      } else if (prevValB !== '' && parseInt(prevValB) < carB.variants.length) {
+        selB.value = prevValB;
+      } else {
+        selB.value = 0;
+      }
+    } else {
+      wrapB.classList.add('hidden');
+    }
+  } else if (wrapB) {
+    wrapB.classList.add('hidden');
+  }
+}
+
 
 function updateCompareTable() {
   const compSelectA = getCompSelectA();
@@ -2623,15 +9331,47 @@ function updateCompareTable() {
   const carA = EV_DATABASE.find(c => c.id === carIdA);
   const carB = EV_DATABASE.find(c => c.id === carIdB);
   
-  if (!carA || !carB) return;
+  const compEmptyContainer = document.getElementById('comp-empty-container');
+  const compDetailsWrapper  = document.getElementById('comp-details-wrapper');
+
+  // Update individual vehicle info cards
+  updateCompareCards(carA, carB);
+
+  // If less than 2 cars are selected, show empty state prompt and hide comparison table
+  if (!carA || !carB) {
+    if (compEmptyContainer) compEmptyContainer.classList.remove('hidden');
+    if (compDetailsWrapper)  compDetailsWrapper.classList.add('hidden');
+    return;
+  }
+
+  // 2 cars selected: hide empty state prompt and reveal comparison table
+  if (compEmptyContainer) compEmptyContainer.classList.add('hidden');
+  if (compDetailsWrapper)  compDetailsWrapper.classList.remove('hidden');
   
   compHdrA.textContent = getDisplayCarName(carA);
   compHdrB.textContent = getDisplayCarName(carB);
   
   const compStateKey = document.getElementById('comp-state-select') ? document.getElementById('comp-state-select').value : 'delhi';
 
-  const variantA = (carA.variants && carA.variants[0]) || {};
-  const variantB = (carB.variants && carB.variants[0]) || {};
+  updateCompareVariantDropdowns();
+
+  const varSelectA = document.getElementById('comp-variant-select-a');
+  const varSelectB = document.getElementById('comp-variant-select-b');
+
+  const varIdxA = parseInt((varSelectA && varSelectA.value) || 0, 10);
+  const varIdxB = parseInt((varSelectB && varSelectB.value) || 0, 10);
+
+  // If same car & same variant is somehow selected, enforce different variant
+  if (carA && carB && carA.id === carB.id && varIdxA === varIdxB && carA.variants && carA.variants.length > 1) {
+    const nextIdx = (varIdxA + 1) % carA.variants.length;
+    if (varSelectB) varSelectB.value = nextIdx;
+  }
+
+  const activeVarIdxA = parseInt((varSelectA && varSelectA.value) || 0, 10);
+  const activeVarIdxB = parseInt((varSelectB && varSelectB.value) || 0, 10);
+
+  const variantA = (carA.variants && carA.variants[activeVarIdxA]) || (carA.variants && carA.variants[0]) || {};
+  const variantB = (carB.variants && carB.variants[activeVarIdxB]) || (carB.variants && carB.variants[0]) || {};
 
   const dataA = getOnRoadPriceData(variantA.priceVal || carA.priceVal || 0, compStateKey);
   const dataB = getOnRoadPriceData(variantB.priceVal || carB.priceVal || 0, compStateKey);
@@ -2922,10 +9662,18 @@ function updateCompareCards(carA, carB) {
   var cardEls = [cardA, cardB];
 
   cars.forEach(function(car, idx) {
-    if (!car) return;
     var suffix = idx === 0 ? 'a' : 'b';
-    var variant = (car.variants && car.variants[0]) || {};
     var badgeEl = document.getElementById('comp-badge-' + (idx + 1));
+
+    if (!car) {
+      cardEls[idx].classList.add('hidden');
+      if (badgeEl) badgeEl.classList.add('hidden');
+      return;
+    }
+
+    var varSelect = document.getElementById('comp-variant-select-' + suffix);
+    var activeIdx = parseInt((varSelect && varSelect.value) || 0, 10);
+    var variant = (car.variants && car.variants[activeIdx]) || (car.variants && car.variants[0]) || {};
 
     cardEls[idx].classList.remove('hidden');
     if (badgeEl) badgeEl.classList.remove('hidden');
@@ -4374,6 +11122,11 @@ async function getVehicleImages(car) {
 // Redirect openCarDetails to SPA path for detailed page view
 function openCarDetails(carId) {
   if (!carId) return;
+  var curY = window.scrollY || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+  if (curY > 0) {
+    window.savedHomeScrollY = curY;
+    try { sessionStorage.setItem('homeScrollY', String(curY)); } catch(e) {}
+  }
   window.location.hash = `#/cars/${carId}`;
 }
 
@@ -4753,6 +11506,7 @@ if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
   // Initialize engine and wire selectors
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+  initScrollDividers();
       TranslationEngine.init();
       wireSelectors();
     });
@@ -5629,6 +12383,29 @@ async function handleRouting() {
     if (!window.location.pathname.endsWith('compare.html')) {
       window.location.href = 'compare.html';
     }
+    return;
+    } else if (route === 'upcoming' || route === '/upcoming' || route === '#upcoming' || route === 'launches' || route === '/launches') {
+    restoreHomepage(true);
+    setTimeout(() => {
+      const targetId = (route.includes('upcoming') || route === 'upcoming') ? 'upcoming' : 'launches';
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+    return;
+  } else if (route === 'trip-planner' || route === '/trip-planner' || route === '#trip-planner') {
+    restoreHomepage(true);
+    setTimeout(() => {
+      const el = document.getElementById('trip-planner');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+    return;
+  } else if (route === 'popular-evs' || route === '/popular-evs' || route === 'browse' || route === '/browse') {
+    restoreHomepage(true);
+    setTimeout(() => {
+      const targetId = route.includes('popular') ? 'popular-evs' : 'browse';
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
     return;
   } else if (route === '/videos') {
     restoreHomepage();
@@ -8792,6 +15569,15 @@ function renderBlogArticlePage(article) {
 
 // Dynamic Detail Page HTML Generator
 async function renderCarDetailsPage(car) {
+  var homeElCheck = document.getElementById('homepage-content');
+  if (homeElCheck && !homeElCheck.classList.contains('hidden')) {
+    var curY = window.scrollY || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
+    if (curY > 0) {
+      window.savedHomeScrollY = curY;
+      try { sessionStorage.setItem('homeScrollY', String(curY)); } catch(e) {}
+    }
+  }
+  car.variants = getVariantsForCar(car);
   currentDetailsCarId = car.id;
   addToRecentlyViewed(car.id);
   // Track activity for Profile -> My Activity
@@ -9137,7 +15923,7 @@ async function renderCarDetailsPage(car) {
         <div class="flex flex-col gap-2">
           <label for="gallery-color-select" class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest">Available Colours</label>
           <div class="relative w-full md:w-72">
-            <select id="gallery-color-select" class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors cursor-pointer appearance-none rounded-xl" style="border-radius: 12px">
+            <select id="gallery-color-select" class="w-full bg-zinc-50 border-2 border-emerald-500 px-4 py-3 text-xs font-mono text-zinc-800 outline-none focus:border-emerald-600 transition-colors cursor-pointer appearance-none rounded-xl shadow-xs" style="border-radius: 12px">
               ${colorOptionsHtml}
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-500">
@@ -9171,7 +15957,7 @@ async function renderCarDetailsPage(car) {
               <div class="flex flex-col gap-2 mt-4 border-t border-zinc-150 pt-4">
                 <label for="detail-variant-select" class="font-mono text-[9px] text-zinc-450 uppercase tracking-widest">Variant</label>
                 <div class="relative w-full">
-                  <select id="detail-variant-select" class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors cursor-pointer appearance-none rounded-xl" style="border-radius: 12px">
+                  <select id="detail-variant-select" class="w-full bg-zinc-50 border-2 border-emerald-500 px-4 py-3 text-xs font-mono text-zinc-800 outline-none focus:border-emerald-600 transition-colors cursor-pointer appearance-none rounded-xl shadow-xs" style="border-radius: 12px">
                     ${variantsOptionsHtml}
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-500">
@@ -9584,6 +16370,7 @@ if (detailCompBtn) detailCompBtn.addEventListener('click', () => {
       });
     }
 
+    
     function updateSpecsAndCalculators() {
       const v = car.variants[activeVariantIdx];
       if (!v) return;
@@ -9599,6 +16386,9 @@ if (detailCompBtn) detailCompBtn.addEventListener('click', () => {
 
       const specCharging = document.getElementById('detail-spec-charging');
       if (specCharging) specCharging.textContent = v.charging;
+
+      const specChargingAC = document.getElementById('detail-spec-chargingAC');
+      if (specChargingAC) specChargingAC.textContent = v.chargingAC || '7.5 hrs (7.2 kW)';
 
       const specPower = document.getElementById('detail-spec-power');
       if (specPower) specPower.textContent = v.power;
@@ -9624,13 +16414,25 @@ if (detailCompBtn) detailCompBtn.addEventListener('click', () => {
       const specDimensions = document.getElementById('detail-spec-dimensions');
       if (specDimensions) specDimensions.textContent = v.dimensions;
 
+      const specClearance = document.getElementById('detail-spec-clearance');
+      if (specClearance) specClearance.textContent = v.clearance;
+
+      const specBoot = document.getElementById('detail-spec-bootSpace');
+      if (specBoot) specBoot.textContent = v.bootSpace;
+
+      const specSeating = document.getElementById('detail-spec-seating');
+      if (specSeating) specSeating.textContent = v.seating;
+
+      const specWarranty = document.getElementById('detail-spec-warranty');
+      if (specWarranty) specWarranty.textContent = v.warranty;
+
       const emiPriceLabel = document.getElementById('detail-emi-price-label');
       if (emiPriceLabel) emiPriceLabel.textContent = v.price;
 
-      renderOnRoadBreakdown();
-      updateDetailEMI();
-      updateRealWorldRange();
-      updateDetailsSavings();
+      if (typeof renderOnRoadBreakdown === 'function') renderOnRoadBreakdown();
+      if (typeof updateDetailEMI === 'function') updateDetailEMI();
+      if (typeof updateRealWorldRange === 'function') updateRealWorldRange();
+      if (typeof updateDetailsSavings === 'function') updateDetailsSavings();
     }
 
     // Variant dropdown change
@@ -9642,7 +16444,7 @@ if (detailCompBtn) detailCompBtn.addEventListener('click', () => {
         if (selectedVariant) {
           localStorage.setItem(`ev_selected_variant_${car.id}`, selectedVariant.name);
           const baseHash = window.location.hash.split('?')[0];
-          window.location.hash = `${baseHash}?variant=${encodeURIComponent(selectedVariant.name)}`;
+          // Updated variant in place without hash redirect
         }
         updateSpecsAndCalculators();
       });
@@ -10291,15 +17093,27 @@ function renderTripResults(data) {
   var stationsList = document.getElementById('trip-stations-list');
   if (stations.length > 0) {
     stationsList.innerHTML = stations.map(function(s, i) {
-      return '<div class="flex items-center gap-3 border border-zinc-200 bg-white hover:border-black transition-all duration-300 p-3" style="animation:tripCardIn 0.4s ' + (0.05 + i * 0.07).toFixed(2) + 's both cubic-bezier(0.16,1,0.3,1)">' +
-        '<div class="w-6 h-6 border border-zinc-300 flex items-center justify-center flex-shrink-0">' +
-          '<span class="font-mono text-[8px] text-zinc-500">' + (i + 1) + '</span>' +
+      var stationName = s.title || (s.network + ' Fast Charger - ' + s.city);
+      var addressText = s.address ? (s.city + ' &nbsp;&middot;&nbsp; ' + s.address) : (s.city + ' Highway Plaza');
+      var mapUrl = s.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(stationName + ' ' + s.city));
+      
+      return '<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-zinc-200 bg-white hover:border-black transition-all duration-300 p-4 shadow-sm rounded-xl" style="animation:tripCardIn 0.4s ' + (0.05 + i * 0.07).toFixed(2) + 's both cubic-bezier(0.16,1,0.3,1)">' +
+        '<div class="flex items-center gap-3">' +
+          '<div class="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-black">' +
+            (i + 1) +
+          '</div>' +
+          '<div class="flex flex-col gap-0.5">' +
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<span class="font-mono text-xs text-black font-bold">' + stationName + '</span>' +
+              '<span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-[9px] font-semibold uppercase tracking-wider rounded-md">⚡ ' + s.chargerType + '</span>' +
+            '</div>' +
+            '<span class="font-mono text-[10px] text-zinc-500">' + addressText + ' &nbsp;&middot;&nbsp; <strong class="text-zinc-700">' + s.network + '</strong></span>' +
+          '</div>' +
         '</div>' +
-        '<div class="flex flex-col gap-0.5">' +
-          '<span class="font-mono text-[9px] text-black font-semibold">' + s.city + '</span>' +
-          '<span class="font-mono text-[7.5px] text-zinc-400">' + s.chargerType + ' &nbsp;&middot;&nbsp; ' + s.network + '</span>' +
-        '</div>' +
-        '<div class="ml-auto"><svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-2 text-zinc-400" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>' +
+        '<a href="' + mapUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-black text-white hover:bg-emerald-600 font-mono text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm whitespace-nowrap self-start sm:self-auto">' +
+          '<span>Get Directions</span>' +
+          '<svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-none stroke-current stroke-2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>' +
+        '</a>' +
       '</div>';
     }).join('');
   } else {
@@ -10352,7 +17166,7 @@ function renderTripMapRoute(fromKey, toKey, stations) {
 
   function draw() {
     if (!tripMapInstance) {
-      tripMapInstance = L.map('trip-leaflet-map').setView([20.5937, 78.9629], 5);
+      tripMapInstance = L.map('trip-leaflet-map', { zoomControl: true }).setView([20.5937, 78.9629], 5);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
@@ -10360,7 +17174,7 @@ function renderTripMapRoute(fromKey, toKey, stations) {
       tripMapMarkers = L.layerGroup().addTo(tripMapInstance);
     }
 
-    var startCoord = CITY_COORDS[fromKey] || [12.9716, 77.5946];
+    var startCoord = CITY_COORDS[fromKey] || [28.6139, 77.2090];
     var endCoord = CITY_COORDS[toKey] || [19.0760, 72.8777];
 
     tripMapMarkers.clearLayers();
@@ -10368,36 +17182,67 @@ function renderTripMapRoute(fromKey, toKey, stations) {
       tripMapInstance.removeLayer(tripRoutePolyline);
     }
 
-    // Add Start & End Markers
-    L.marker(startCoord).addTo(tripMapMarkers).bindPopup('<b>Start: ' + (fromKey || 'DELHI').toUpperCase() + '</b>');
-    L.marker(endCoord).addTo(tripMapMarkers).bindPopup('<b>Destination: ' + (toKey || 'MUMBAI').toUpperCase() + '</b>');
+    var startName = (fromKey || 'DELHI').toUpperCase();
+    var endName = (toKey || 'MUMBAI').toUpperCase();
 
-    // Add Intermediate Charging Stations Markers
-    if (stations && stations.length > 0) {
-      stations.forEach(function(s, idx) {
-        var lat = startCoord[0] + (endCoord[0] - startCoord[0]) * ((idx + 1) / (stations.length + 1));
-        var lng = startCoord[1] + (endCoord[1] - startCoord[1]) * ((idx + 1) / (stations.length + 1));
-        L.marker([lat, lng]).addTo(tripMapMarkers).bindPopup('<b>⚡ Charger Stop ' + (idx + 1) + ': ' + s.city + '</b><br>' + s.network);
-      });
-    }
+    // Start & End City Markers
+    var startIcon = L.divIcon({
+      html: '<div class="px-3 py-1 bg-emerald-600 text-white font-mono text-[9px] font-bold uppercase rounded-md shadow-md border border-white flex items-center gap-1 whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-white animate-ping"></span>📍 ' + startName + '</div>',
+      className: '',
+      iconSize: [90, 26],
+      iconAnchor: [45, 26],
+      popupAnchor: [0, -26]
+    });
 
-    // Draw Glowing Green Route Polyline
+    var endIcon = L.divIcon({
+      html: '<div class="px-3 py-1 bg-black text-white font-mono text-[9px] font-bold uppercase rounded-md shadow-md border border-emerald-400 flex items-center gap-1 whitespace-nowrap">🏁 ' + endName + '</div>',
+      className: '',
+      iconSize: [90, 26],
+      iconAnchor: [45, 26],
+      popupAnchor: [0, -26]
+    });
+
+    L.marker(startCoord, { icon: startIcon }).addTo(tripMapMarkers).bindPopup('<div class="font-mono text-xs p-1"><b>📍 Start: ' + startName + '</b></div>');
+    L.marker(endCoord, { icon: endIcon }).addTo(tripMapMarkers).bindPopup('<div class="font-mono text-xs p-1"><b>🏁 Destination: ' + endName + '</b></div>');
+
     var latlngs = [startCoord];
+
+    // Charging station markers: BLUE background circular pin with JUST ONE charge emoji ⚡
     if (stations && stations.length > 0) {
       stations.forEach(function(s, idx) {
-        var lat = startCoord[0] + (endCoord[0] - startCoord[0]) * ((idx + 1) / (stations.length + 1));
-        var lng = startCoord[1] + (endCoord[1] - startCoord[1]) * ((idx + 1) / (stations.length + 1));
-        latlngs.push([lat, lng]);
+        var stationLat = s.lat || (startCoord[0] + (endCoord[0] - startCoord[0]) * ((idx + 1) / (stations.length + 1)));
+        var stationLng = s.lng || (startCoord[1] + (endCoord[1] - startCoord[1]) * ((idx + 1) / (stations.length + 1)));
+        var stationPos = [stationLat, stationLng];
+        latlngs.push(stationPos);
+
+        var stationName = s.title || (s.network + ' - ' + s.city);
+        var locationStr = s.address || s.city;
+
+        var blueChargerIcon = L.divIcon({
+          html: '<div class="w-7 h-7 rounded-full bg-blue-600 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-bold transform hover:scale-125 transition-transform cursor-pointer">⚡</div>',
+          className: '',
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+          popupAnchor: [0, -14]
+        });
+
+        var simplePopupHtml = '<div class="font-sans p-1 text-zinc-900 leading-tight">' +
+          '<strong class="font-bold text-xs text-black block mb-0.5">' + stationName + '</strong>' +
+          '<span class="text-[10px] text-zinc-500 font-mono block">' + locationStr + '</span>' +
+        '</div>';
+
+        L.marker(stationPos, { icon: blueChargerIcon }).addTo(tripMapMarkers).bindPopup(simplePopupHtml);
       });
     }
     latlngs.push(endCoord);
 
+    // Glowing Blue-Green Route Polyline connecting all chargers accordingly
     tripRoutePolyline = L.polyline(latlngs, {
-      color: '#22C55E',
-      weight: 6,
+      color: '#2563EB',
+      weight: 5,
       opacity: 0.9,
-      dashArray: '10, 10',
-      lineCap: 'round'
+      lineCap: 'round',
+      lineJoin: 'round'
     }).addTo(tripMapInstance);
 
     tripMapInstance.fitBounds(L.latLngBounds(latlngs), { padding: [40, 40] });
@@ -10524,21 +17369,51 @@ function initTripPlanner() {
       return;
     }
 
-    var selectedCar = EV_DATABASE.find(function(c) { return c.id === carId; }) || EV_DATABASE[0];
-    var stations = getRouteStations(fromKey, toKey);
-    
-    // Update stats grid and route display
-    var routeHeading = document.getElementById('trip-res-route');
-    if (routeHeading) routeHeading.textContent = fromKey.toUpperCase() + ' ➔ ' + toKey.toUpperCase();
-    
-    renderTripResults({
-      car: selectedCar,
-      fromKey: fromKey,
-      toKey: toKey,
-      batteryKWh: selectedCar.batteryVal || 40,
-      dcChargeKW: selectedCar.dcChargeVal || 50,
-      days: daysSlider ? daysSlider.value : 3
-    });
+    var numDays = daysSlider ? parseInt(daysSlider.value, 10) : 3;
+    var numPax  = paxSlider ? parseInt(paxSlider.value, 10) : 2;
+
+    var activeAcBtn = acGroup ? acGroup.querySelector('.trip-toggle-btn.trip-active') : null;
+    var acUsage = activeAcBtn ? (activeAcBtn.textContent || '').trim().toLowerCase() : 'medium';
+
+    var activeStyleBtn = styleGroup ? styleGroup.querySelector('.trip-toggle-btn.trip-active') : null;
+    var drivingStyle = activeStyleBtn ? (activeStyleBtn.textContent || '').trim().toLowerCase() : 'normal';
+
+    var calculatedData = (typeof calcTripData === 'function') ? calcTripData(carId, fromKey, toKey, numDays, numPax, acUsage, drivingStyle) : null;
+
+    if (!calculatedData) {
+      var selectedCar = EV_DATABASE.find(function(c) { return c.id === carId; }) || EV_DATABASE[0];
+      var defaultHw = (typeof getHighwayReadinessData === 'function') ? getHighwayReadinessData(selectedCar) : {
+        category: 'HIGHWAY CAPABLE EV',
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-300',
+        icon: '⚡',
+        recommendation: 'Ready for long-distance intercity trips'
+      };
+
+      calculatedData = {
+        car: selectedCar,
+        fromKey: fromKey,
+        toKey: toKey,
+        days: numDays,
+        distance: 1420,
+        driveTimeHours: 24,
+        realRange: selectedCar.rangeVal || 350,
+        chargingStops: 3,
+        chargingTimePerStopMins: 45,
+        totalChargingHrs: 2,
+        totalChargingRemMins: 15,
+        totalKWh: 180,
+        dcChargeKW: 50,
+        evChargingCost: 3600,
+        petrolCost: 9940,
+        savings: 6340,
+        savingsPct: 64,
+        totalTripHours: 26.25,
+        batteryKWh: selectedCar.batteryVal || 40,
+        hwData: defaultHw
+      };
+    }
+
+    renderTripResults(calculatedData);
   };
 
   // Render initial map immediately on mount
@@ -11142,10 +18017,46 @@ function renderChargingStationsPage() {
   const breadcrumbs = ['TOOLS', 'UTILITIES', 'CHARGING STATIONS'];
 
   const contentHtml = `
-    <div class="max-w-6xl mx-auto flex flex-col gap-8 pt-6 font-sans text-zinc-900">
+    <div class="max-w-6xl mx-auto flex flex-col gap-8 pt-6 font-sans text-zinc-900 relative">
+      <!-- Aesthetic Location Permission Modal -->
+      <div id="location-permission-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md transition-all duration-300 hidden">
+        <div class="bg-white border border-zinc-200 rounded-3xl max-w-md w-full p-6 md:p-8 flex flex-col items-center text-center shadow-2xl relative">
+          <div class="w-16 h-16 rounded-full bg-emerald-50 text-[#22C55E] flex items-center justify-center text-3xl mb-4 border border-emerald-100 shadow-xs">
+            📍
+          </div>
+          <h3 class="text-xl font-extrabold text-black tracking-tight font-sans">Location Permission Required</h3>
+          <p class="text-xs text-zinc-500 font-mono mt-2 leading-relaxed">
+            EVCarWale needs your location to search nearby ChargeZone & fast-charging hubs around your exact area.
+          </p>
+
+          <div class="w-full bg-zinc-50 p-3.5 rounded-2xl border border-zinc-150 my-4 text-left font-mono text-[10px] text-zinc-600">
+            <div class="flex items-center gap-2 font-bold text-black mb-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ChargeZone API Integration Active
+            </div>
+            <div>• Real-time distance calculation from your GPS coordinates</div>
+            <div>• Ranks nearest CPO stations & fast DC chargers</div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 w-full mt-2 font-mono">
+            <button id="modal-deny-location-btn" class="w-full py-3.5 px-4 border border-zinc-300 text-zinc-700 text-xs font-bold uppercase tracking-wider rounded-2xl hover:bg-zinc-100 transition-all cursor-pointer">
+              DENY
+            </button>
+            <button id="modal-allow-location-btn" class="w-full py-3.5 px-4 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-2xl hover:bg-[#22C55E] transition-all cursor-pointer shadow-md">
+              ALLOW
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aesthetic Toast Notification -->
+      <div id="location-toast" class="fixed top-24 right-6 z-50 bg-black text-white border border-zinc-700 px-5 py-3.5 rounded-2xl shadow-xl font-mono text-xs hidden flex items-center gap-3">
+        <span id="toast-icon">⚠️</span>
+        <span id="toast-message">Permission Denied</span>
+      </div>
+
       <div class="text-center max-w-3xl mx-auto">
         <h1 class="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight">Find EV Charging Stations</h1>
-        <p class="text-xs md:text-sm text-zinc-600 mt-2 leading-relaxed">Locate nearby AC and DC fast charging stations across India.</p>
+        <p class="text-xs md:text-sm text-zinc-600 mt-2 leading-relaxed">Locate nearby AC and DC fast charging stations across India using ChargeZone & OpenChargeMap.</p>
       </div>
 
       <!-- Search Bar & Action Buttons -->
@@ -11188,7 +18099,7 @@ function renderChargingStationsPage() {
         <div class="lg:col-span-5 flex flex-col gap-4 min-h-[480px]" id="station-results-container">
           <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-12 flex flex-col items-center justify-center text-center h-full min-h-[480px]">
             <div class="w-12 h-12 rounded-full bg-zinc-200 flex items-center justify-center text-xl text-zinc-500 mb-3">🔌</div>
-            <p class="text-xs text-zinc-500 font-mono">Enter a city name above to find charging stations.</p>
+            <p class="text-xs text-zinc-500 font-mono">Enter a city name above or use your location to find charging stations.</p>
           </div>
         </div>
 
@@ -11218,12 +18129,17 @@ function bindChargingStationsLogic() {
   };
 
   const STATIONS_DB = [
+    { name: 'ChargeZone Fast Hub - Cyber City', city: 'delhi', cpo: 'ChargeZone', power: '120 kW Dual DC Fast', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895 },
+    { name: 'ChargeZone Supercharger - Select CITYWALK', city: 'delhi', cpo: 'ChargeZone', power: '150 kW Ultra Fast DC', location: 'Saket District Centre, New Delhi', status: 'Available', tariff: '₹19/kWh', lat: 28.5284, lng: 77.2190 },
     { name: 'Tata Power Fast Charger - Select CITYWALK', city: 'delhi', cpo: 'Tata Power', power: '60 kW DC CCS2', location: 'Saket, New Delhi', status: 'Available', tariff: '₹18/kWh', lat: 28.5284, lng: 77.2190 },
     { name: 'Jio-bp Pulse Station - BKC Hub', city: 'mumbai', cpo: 'Jio-bp', power: '120 kW Dual Gun DC', location: 'Bandra Kurla Complex, Mumbai', status: 'Available', tariff: '₹20/kWh', lat: 19.0657, lng: 72.8687 },
-    { name: 'ChargeZone Highway Hub - Expressway', city: 'bengaluru', cpo: 'ChargeZone', power: '60 kW DC Dual', location: 'Bengaluru-Mysuru Expressway, Bidadi', status: 'Available', tariff: '₹19/kWh', lat: 12.7981, lng: 77.3878 },
+    { name: 'ChargeZone BKC Premium Hub', city: 'mumbai', cpo: 'ChargeZone', power: '120 kW Dual Gun DC', location: 'G Block, BKC, Mumbai', status: 'Available', tariff: '₹20.5/kWh', lat: 19.0657, lng: 72.8687 },
+    { name: 'ChargeZone Highway Hub - Expressway', city: 'bengaluru', cpo: 'ChargeZone', power: '60 kW DC Dual', location: 'Bengaluru-Mysuru Expressway, Bidadi', status: 'Available', tariff: '₹19.5/kWh', lat: 12.7981, lng: 77.3878 },
     { name: 'Statiq Charging Hub - Cyber City', city: 'delhi', cpo: 'Statiq', power: '60 kW DC + 22 kW AC', location: 'DLF Cyber City, Gurugram', status: 'Available', tariff: '₹18.5/kWh', lat: 28.4950, lng: 77.0895 },
     { name: 'Tata Power EZ Charger - Express Avenue', city: 'chennai', cpo: 'Tata Power', power: '50 kW DC CCS2', location: 'Royapettah, Chennai', status: 'Available', tariff: '₹17.5/kWh', lat: 13.0587, lng: 80.2642 },
+    { name: 'ChargeZone Chennai Bypass Hub', city: 'chennai', cpo: 'ChargeZone', power: '60 kW DC Fast', location: 'Poonamallee High Road, Chennai', status: 'Available', tariff: '₹18/kWh', lat: 13.0587, lng: 80.2642 },
     { name: 'Jio-bp Pulse Hub - Gachibowli', city: 'hyderabad', cpo: 'Jio-bp', power: '120 kW Fast Charger', location: 'Financial District, Gachibowli', status: 'Available', tariff: '₹19/kWh', lat: 17.4401, lng: 78.3489 },
+    { name: 'ChargeZone Gachibowli Hub', city: 'hyderabad', cpo: 'ChargeZone', power: '60 kW DC Fast', location: 'Nanakramguda, Hyderabad', status: 'Available', tariff: '₹18.5/kWh', lat: 17.4401, lng: 78.3489 },
     { name: 'ChargeZone Fast Station - Pune Toll', city: 'pune', cpo: 'ChargeZone', power: '60 kW DC CCS2', location: 'Mumbai-Pune Expressway, Urse Toll', status: 'Available', tariff: '₹21/kWh', lat: 18.7180, lng: 73.6520 }
   ];
 
@@ -11231,9 +18147,25 @@ function bindChargingStationsLogic() {
   const btnSearch = document.getElementById('btn-search-stations');
   const btnLocate = document.getElementById('btn-use-location');
   const resultsContainer = document.getElementById('station-results-container');
+  const modal = document.getElementById('location-permission-modal');
+  const btnAllow = document.getElementById('modal-allow-location-btn');
+  const btnDeny = document.getElementById('modal-deny-location-btn');
+  const toast = document.getElementById('location-toast');
 
   let map = null;
   let markersGroup = null;
+
+  function showToast(msg, isError = false) {
+    if (!toast) return;
+    const msgEl = document.getElementById('toast-message');
+    const iconEl = document.getElementById('toast-icon');
+    if (msgEl) msgEl.textContent = msg;
+    if (iconEl) iconEl.textContent = isError ? '⚠️' : '📍';
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 3500);
+  }
 
   function initMap() {
     if (typeof L === 'undefined') {
@@ -11259,13 +18191,65 @@ function bindChargingStationsLogic() {
     markersGroup = L.layerGroup().addTo(map);
   }
 
+  function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  function renderStationCards(stationsList, titleHeader) {
+    if (!resultsContainer) return;
+    if (stationsList.length === 0) {
+      resultsContainer.innerHTML = `
+        <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-8 text-center text-xs font-mono text-zinc-500">
+          No charging stations found.
+        </div>
+      `;
+    } else {
+      resultsContainer.innerHTML = `
+        <div class="flex flex-col gap-4">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">${titleHeader}</span>
+          ${stationsList.map(s => `
+            <div class="border border-zinc-200 bg-white p-5 rounded-2xl flex flex-col justify-between hover:border-black transition-all shadow-xs">
+              <div>
+                <div class="flex items-center justify-between border-b border-zinc-150 pb-2 mb-2">
+                  <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo}</span>
+                  <div class="flex items-center gap-2">
+                    ${s.distanceKm !== undefined ? `<span class="text-[9px] font-bold text-blue-600 font-mono bg-blue-50 px-2 py-0.5 rounded-full border border-blue-150">${s.distanceKm} km away</span>` : ''}
+                    <span class="text-[9px] text-[#22C55E] font-bold uppercase tracking-wider flex items-center gap-1 font-mono">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span> ${s.status || 'Available'}
+                    </span>
+                  </div>
+                </div>
+                <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name}</h3>
+                <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location}</p>
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
+                  <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power}</strong></div>
+                  <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff}</strong></div>
+                </div>
+              </div>
+              <a href="https://maps.google.com/?q=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" rel="noopener" class="mt-3 py-2 bg-black text-white text-[10px] font-mono font-bold uppercase tracking-wider text-center rounded-xl hover:bg-zinc-800 transition-all block">
+                NAVIGATE VIA MAPS ➔
+              </a>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+  }
+
   function searchCity(query) {
     if (!query) return;
     const cleanQuery = query.toLowerCase().trim();
     let matchedCityKey = Object.keys(CITY_COORDS).find(k => cleanQuery.includes(k) || CITY_COORDS[k].name.toLowerCase().includes(cleanQuery));
 
     if (!matchedCityKey) {
-      matchedCityKey = 'delhi'; // default fallback
+      matchedCityKey = 'delhi';
     }
 
     const cityData = CITY_COORDS[matchedCityKey];
@@ -11275,7 +18259,6 @@ function bindChargingStationsLogic() {
 
     const cityStations = STATIONS_DB.filter(s => s.city === matchedCityKey);
     
-    // Render markers
     if (markersGroup && map) {
       markersGroup.clearLayers();
       cityStations.forEach(s => {
@@ -11285,43 +18268,105 @@ function bindChargingStationsLogic() {
       });
     }
 
-    // Render left side cards
-    if (resultsContainer) {
-      if (cityStations.length === 0) {
-        resultsContainer.innerHTML = `
-          <div class="border border-zinc-200 bg-zinc-50 rounded-3xl p-8 text-center text-xs font-mono text-zinc-500">
-            No charging stations found in "${query}". Try searching Delhi, Mumbai, Bengaluru, Hyderabad, Chennai, or Pune.
-          </div>
-        `;
+    renderStationCards(cityStations, `${cityStations.length} STATIONS FOUND IN ${cityData.name.toUpperCase()}`);
+  }
+
+  // Location Permission Modal Logic
+  if (btnLocate) {
+    btnLocate.addEventListener('click', () => {
+      if (modal) modal.classList.remove('hidden');
+    });
+  }
+
+  if (btnDeny) {
+    btnDeny.addEventListener('click', () => {
+      if (modal) modal.classList.add('hidden');
+      showToast('Permission Denied', true);
+      if (searchInput) searchInput.value = 'All Charging Stations';
+      renderAllGeneralStations();
+    });
+  }
+
+  if (btnAllow) {
+    btnAllow.addEventListener('click', () => {
+      if (modal) modal.classList.add('hidden');
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            if (searchInput) searchInput.value = `Near My Location (${lat.toFixed(3)}, ${lng.toFixed(3)})`;
+
+            let stationsWithDist = [];
+            try {
+              const res = await fetch(`/api/chargers/openchargemap?latitude=${lat}&longitude=${lng}&distance=100&maxresults=100`);
+              const data = await res.json();
+              if (data && data.success && Array.isArray(data.data) && data.data.length > 0) {
+                stationsWithDist = data.data;
+              }
+            } catch (e) {
+              console.error('Error fetching chargers API:', e);
+            }
+
+            if (!stationsWithDist || stationsWithDist.length === 0) {
+              stationsWithDist = STATIONS_DB.map(s => {
+                const dist = calculateDistanceKm(lat, lng, s.lat, s.lng);
+                return { ...s, distanceKm: parseFloat(dist.toFixed(1)) };
+              }).sort((a, b) => a.distanceKm - b.distanceKm);
+            }
+
+            if (map) {
+              map.setView([lat, lng], 12);
+            }
+
+            if (markersGroup && map) {
+              markersGroup.clearLayers();
+              
+              // Place Current Location Marker
+              L.circleMarker([lat, lng], {
+                radius: 10,
+                color: '#3B82F6',
+                fillColor: '#3B82F6',
+                fillOpacity: 0.8
+              }).addTo(markersGroup).bindPopup('<b>YOUR CURRENT LOCATION</b>').openPopup();
+
+              stationsWithDist.forEach(s => {
+                L.marker([s.lat, s.lng])
+                  .addTo(markersGroup)
+                  .bindPopup(`<b>${s.name || s.title}</b> (${s.distanceKm} km away)<br>${s.power}<br>${s.tariff || '₹18.5/kWh'}`);
+              });
+            }
+
+            renderStationCards(stationsWithDist, `📍 NEARBY CHARGING STATIONS WITHIN 100 KM (${stationsWithDist.length} STATIONS FOUND)`);
+            showToast(`Location Access Granted! Found ${stationsWithDist.length} stations within 100 km radius.`);
+          },
+          (err) => {
+            showToast('Permission Denied: Browser blocked location access.', true);
+            if (searchInput) searchInput.value = 'All Charging Stations';
+            renderAllGeneralStations();
+          },
+          { enableHighAccuracy: true, timeout: 10000 }
+        );
       } else {
-        resultsContainer.innerHTML = `
-          <div class="flex flex-col gap-4">
-            <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">${cityStations.length} STATIONS FOUND IN ${cityData.name.toUpperCase()}</span>
-            ${cityStations.map(s => `
-              <div class="border border-zinc-200 bg-white p-5 rounded-2xl flex flex-col justify-between hover:border-black transition-all shadow-xs">
-                <div>
-                  <div class="flex items-center justify-between border-b border-zinc-150 pb-2 mb-2">
-                    <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo}</span>
-                    <span class="text-[9px] text-[#22C55E] font-bold uppercase tracking-wider flex items-center gap-1 font-mono">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span> ${s.status}
-                    </span>
-                  </div>
-                  <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name}</h3>
-                  <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location}</p>
-                  <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
-                    <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power}</strong></div>
-                    <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff}</strong></div>
-                  </div>
-                </div>
-                <a href="https://maps.google.com/?q=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" rel="noopener" class="mt-3 py-2 bg-black text-white text-[10px] font-mono font-bold uppercase tracking-wider text-center rounded-xl hover:bg-zinc-800 transition-all block">
-                  NAVIGATE VIA MAPS ➔
-                </a>
-              </div>
-            `).join('')}
-          </div>
-        `;
+        showToast('Geolocation is not supported by your browser.', true);
+        renderAllGeneralStations();
       }
+    });
+  }
+
+  function renderAllGeneralStations() {
+    if (searchInput) searchInput.value = 'All Stations (India)';
+    if (map) map.setView([20.5937, 78.9629], 5);
+    if (markersGroup && map) {
+      markersGroup.clearLayers();
+      STATIONS_DB.forEach(s => {
+        L.marker([s.lat, s.lng])
+          .addTo(markersGroup)
+          .bindPopup(`<b>${s.name}</b><br>${s.power}<br>${s.tariff}`);
+      });
     }
+    renderStationCards(STATIONS_DB, `ALL ${STATIONS_DB.length} FAST CHARGING STATIONS IN INDIA`);
   }
 
   if (btnSearch) {
@@ -11338,59 +18383,14 @@ function bindChargingStationsLogic() {
     });
   }
 
-  if (btnLocate) {
-    btnLocate.addEventListener('click', () => {
-      if (searchInput) searchInput.value = 'Delhi NCR';
-      searchCity('Delhi NCR');
-    });
-  }
-
   const btnAll = document.getElementById('btn-all-stations');
   if (btnAll) {
-    btnAll.addEventListener('click', () => {
-      if (searchInput) searchInput.value = 'All Stations (India)';
-      if (map) map.setView([20.5937, 78.9629], 5);
-      if (markersGroup && map) {
-        markersGroup.clearLayers();
-        STATIONS_DB.forEach(s => {
-          L.marker([s.lat, s.lng])
-            .addTo(markersGroup)
-            .bindPopup(`<b>${s.name}</b><br>${s.power}<br>${s.tariff}`);
-        });
-      }
-      if (resultsContainer) {
-        resultsContainer.innerHTML = `
-          <div class="flex flex-col gap-4">
-            <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest font-mono">ALL ${STATIONS_DB.length} FAST CHARGING STATIONS IN INDIA</span>
-            ${STATIONS_DB.map(s => `
-              <div class="border border-zinc-200 bg-white p-5 rounded-2xl flex flex-col justify-between hover:border-black transition-all shadow-xs">
-                <div>
-                  <div class="flex items-center justify-between border-b border-zinc-150 pb-2 mb-2">
-                    <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-zinc-100 px-2.5 py-0.5 rounded-full font-mono">${s.cpo}</span>
-                    <span class="text-[9px] text-[#22C55E] font-bold uppercase tracking-wider flex items-center gap-1 font-mono">
-                      <span class="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse"></span> ${s.status}
-                    </span>
-                  </div>
-                  <h3 class="font-bold text-sm text-black mb-1 font-mono">${s.name}</h3>
-                  <p class="text-xs text-zinc-500 mb-3 font-mono">${s.location}</p>
-                  <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-50 p-2.5 rounded-xl border border-zinc-200">
-                    <div><span class="text-zinc-400 block text-[8px] uppercase">Power Rating</span><strong class="text-black">${s.power}</strong></div>
-                    <div><span class="text-zinc-400 block text-[8px] uppercase">Tariff Rate</span><strong class="text-[#22C55E]">${s.tariff}</strong></div>
-                  </div>
-                </div>
-                <a href="https://maps.google.com/?q=${encodeURIComponent(s.name + ' ' + s.location)}" target="_blank" rel="noopener" class="mt-3 py-2 bg-black text-white text-[10px] font-mono font-bold uppercase tracking-wider text-center rounded-xl hover:bg-zinc-800 transition-all block">
-                  NAVIGATE VIA MAPS ➔
-                </a>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      }
-    });
+    btnAll.addEventListener('click', renderAllGeneralStations);
   }
 
   initMap();
 }
+
 
 function renderResourcePage(slug, article) {
   const breadcrumbs = ['RESOURCES', article.title];
@@ -11671,12 +18671,6 @@ document.addEventListener('click', (e) => {
     }
     
     if (typeof restoreHomepage === 'function') restoreHomepage();
-
-    // Instant scroll to top of homepage
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
   }
 });
 
@@ -11880,3 +18874,75 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
+
+// =========================================================
+// HARDWARE-ACCELERATED ANIMATED SCROLL DIVIDERS (SMOOTH LINES)
+// =========================================================
+let scrollDividers = [];
+let dividerAnimFrame = null;
+
+function updateDividerPositions() {
+  const viewportHeight = window.innerHeight;
+
+  scrollDividers.forEach(div => {
+    if (!div.element) return;
+    const dividerRect = div.element.getBoundingClientRect();
+    
+    const nextSection = div.element.nextElementSibling;
+    const heading = nextSection ? nextSection.querySelector('h2') : null;
+    
+    let H = 150; // default height difference
+    let headingTop = dividerRect.top + H;
+    
+    if (heading) {
+      const headingRect = heading.getBoundingClientRect();
+      headingTop = headingRect.top;
+      H = Math.max(0, headingRect.top - dividerRect.top);
+    }
+    
+    const startHeadingTop = viewportHeight + H;
+    const endHeadingTop = viewportHeight * 0.4;
+    const travelDistance = Math.max(1, startHeadingTop - endHeadingTop);
+    
+    let progress = 0;
+    if (headingTop <= startHeadingTop) {
+      if (headingTop <= endHeadingTop) {
+        progress = 1;
+      } else {
+        const raw = (startHeadingTop - headingTop) / travelDistance;
+        // Premium Apple-like easing (easeOutQuart)
+        progress = 1 - Math.pow(1 - raw, 4);
+      }
+    } else {
+      progress = 0;
+    }
+    
+    div.element.style.setProperty('--divider-progress', progress.toFixed(4));
+  });
+}
+
+function handleScrollDividerEvent() {
+  if (dividerAnimFrame) return;
+  dividerAnimFrame = requestAnimationFrame(() => {
+    updateDividerPositions();
+    dividerAnimFrame = null;
+  });
+}
+
+function initScrollDividers() {
+  const divs = document.querySelectorAll('.section-divider');
+  scrollDividers = Array.from(divs).map(div => {
+    div.style.setProperty('--divider-progress', '0');
+    return { element: div };
+  });
+  
+  // Trigger initial position calculations
+  updateDividerPositions();
+}
+
+// Bind global scroll & resize listeners for section line animations
+window.removeEventListener('scroll', handleScrollDividerEvent);
+window.removeEventListener('resize', handleScrollDividerEvent);
+window.addEventListener('scroll', handleScrollDividerEvent, { passive: true });
+window.addEventListener('resize', handleScrollDividerEvent, { passive: true });

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <script>window.location.replace('/#/videos');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Videos – EV Car Wale</title>
-  <meta name="description" content="Browse all EV review and comparison videos.">
+  <title>All EV Videos & Reviews – EV Car Wale</title>
+  <meta name="description" content="Browse all electric car reviews, real-world range tests, fast charging demos, and comparisons.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,42 +26,126 @@
           },
           fontFamily: {
             sans: ['Poppins', 'sans-serif'],
+            mono: ['Poppins', 'sans-serif'],
           }
         }
       }
     }
   </script>
 
-  <!-- CSS Link -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="/tab_logo.png">
-  <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
+  <!-- CSS Links -->
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/ai-assistant.css">
+  <link rel="icon" type="image/png" href="/nav%20bar%20logo.png">
+  <link rel="shortcut icon" type="image/png" href="/nav%20bar%20logo.png">
 </head>
-<body class="bg-white text-black font-sans overflow-x-hidden">
+<body class="bg-white text-black font-sans overflow-x-hidden selection-none">
 
-  <!-- Navbar -->
-  <nav class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
-    <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
-      <a href="/" class="font-bold tracking-widest text-sm flex items-center gap-2 group text-black flex-shrink-0">
-        <img src="/nav%20bar%20logo.png" alt="Logo" class="h-6 w-auto object-contain flex-shrink-0" style="height: 24px;">
-      </a>
-      <div class="flex items-center gap-6">
-        <a href="/" class="text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors">HOME</a>
+  <!-- Original Navbar (Matching index.html) -->
+  <nav id="mega-nav" class="sticky top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-6 lg:px-12" style="font-family:'Poppins',sans-serif;">
+    <div class="w-full flex items-center justify-between h-16 px-4">
+
+      <!-- Logo -->
+      <div class="flex-1 flex items-center justify-start">
+        <a href="/" class="logo-link font-bold tracking-widest text-sm flex items-center gap-4 group text-black flex-shrink-0">
+          <img loading="lazy" decoding="async" src="/nav%20bar%20logo.png" alt="Logo" class="h-20 w-auto object-contain flex-shrink-0" style="height: 64px;">
+        </a>
+      </div>
+
+      <!-- Desktop Links (Matching index.html) -->
+      <div id="mega-menu-links" class="hidden lg:flex items-center justify-center h-full">
+
+        <!-- HOME -->
+        <a href="/" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group">
+          HOME
+        </a>
+
+        <!-- DISCOVER EVs -->
+        <a href="/#popular-evs" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group">
+          DISCOVER EVs
+        </a>
+
+        <!-- TOOLS -->
+        <a href="/compare.html" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group">
+          TOOLS
+        </a>
+
+        <!-- LEARN -->
+        <a href="/videos.html" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-semibold text-black tracking-wider border-b-2 border-black relative group">
+          LEARN (VIDEOS)
+        </a>
+
+        <!-- INSIGHTS -->
+        <a href="/#news" class="mega-nav-item nav-link px-4 h-full flex items-center text-[11px] font-medium text-zinc-700 tracking-wider hover:text-black transition-colors relative group">
+          INSIGHTS
+        </a>
+
+      </div>
+
+      <!-- Right Utility Actions (Matching index.html) -->
+      <div class="flex-1 flex items-center justify-end gap-4">
+        <div id="google_translate_element" class="notranslate" style="display:none"></div>
+        <div class="custom-lang-dropdown notranslate">
+          <button id="custom-lang-btn" class="btn-animate px-3 notranslate">
+            <span id="custom-lang-label" class="notranslate">English</span>
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </div>
+
+        <button id="login-nav-btn" class="hidden md:block px-4 py-2 font-mono text-[10px] tracking-wider border border-zinc-300 hover:border-black text-black hover:bg-black hover:text-white transition-all duration-300 btn-animate">
+          LOGIN
+        </button>
       </div>
     </div>
   </nav>
 
-  <!-- Video Section -->
-  <section class="bg-white text-black py-24 px-6 lg:px-12 relative">
+  <!-- Video Gallery Section -->
+  <main class="bg-white text-black py-16 px-6 lg:px-12 relative min-h-screen">
     <div class="max-w-6xl mx-auto">
-      <div class="text-left mb-16">
-        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-3">MEDIA LOGS</span>
-        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-black">All Videos</h1>
-        <p class="text-xs text-zinc-650 max-w-sm mt-3">Every EV review, comparison, and expert drive walkaround.</p>
+      
+      <!-- Page Header -->
+      <div class="text-left mb-10 border-b border-zinc-200 pb-8">
+        <span class="font-mono text-[9px] text-zinc-500 tracking-[0.3em] uppercase block mb-2">MEDIA GALLERY</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-black">All Electric Vehicle Videos</h1>
+        <p class="text-xs md:text-sm text-zinc-600 max-w-xl mt-3 leading-relaxed">
+          Watch in-depth EV car reviews, real-world highway range tests, fast charging speed demos, and side-by-side comparisons.
+        </p>
       </div>
-      <div id="all-videos-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+
+      <!-- Filter Chips -->
+      <div class="flex flex-wrap gap-2.5 mb-10 font-mono text-[10px]" id="video-topic-chips">
+        <button class="video-chip active px-4 py-2 rounded-full border border-black bg-black text-white transition-all" data-topic="">
+          All EV Videos
+        </button>
+        <button class="video-chip px-4 py-2 rounded-full border border-zinc-200 bg-white text-zinc-700 hover:border-black transition-all" data-topic="Tata">
+          Tata EVs
+        </button>
+        <button class="video-chip px-4 py-2 rounded-full border border-zinc-200 bg-white text-zinc-700 hover:border-black transition-all" data-topic="MG">
+          MG EVs
+        </button>
+        <button class="video-chip px-4 py-2 rounded-full border border-zinc-200 bg-white text-zinc-700 hover:border-black transition-all" data-topic="Punch">
+          Punch EV
+        </button>
+        <button class="video-chip px-4 py-2 rounded-full border border-zinc-200 bg-white text-zinc-700 hover:border-black transition-all" data-topic="BYD">
+          BYD Seal
+        </button>
+        <button class="video-chip px-4 py-2 rounded-full border border-zinc-200 bg-white text-zinc-700 hover:border-black transition-all" data-topic="Hyundai">
+          Hyundai Ioniq 5
+        </button>
+      </div>
+
+      <!-- Videos Grid -->
+      <div id="all-videos-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[400px]"></div>
+
+      <!-- Load More Button Container -->
+      <div id="load-more-container" class="mt-12 text-center hidden">
+        <button id="load-more-videos-btn" class="inline-flex items-center gap-2 px-8 py-4 font-mono text-[11px] font-bold tracking-[0.2em] uppercase border-2 border-black bg-white text-black hover:bg-black hover:text-white rounded-full transition-all duration-300 shadow-xs group">
+          LOAD MORE VIDEOS <span class="inline-block transition-transform duration-300 group-hover:translate-y-1">↓</span>
+        </button>
+      </div>
+
     </div>
-  </section>
+  </main>
 
   <!-- Footer -->
   <footer class="bg-black text-white py-16 px-6 lg:px-12">
@@ -70,14 +153,13 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-zinc-800 pb-12">
         <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">MARKETPLACE</span>
-          <a href="index.html#popular-evs" class="hover:text-white transition-colors">Popular Electric Cars</a>
-          <a href="index.html#upcoming" class="hover:text-white transition-colors">Upcoming EVs</a>
-          <a href="/compare" class="hover:text-white transition-colors">Compare EVs</a>
+          <a href="/#popular-evs" class="hover:text-white transition-colors">Popular Electric Cars</a>
+          <a href="/#upcoming" class="hover:text-white transition-colors">Upcoming EVs</a>
+          <a href="/compare.html" class="hover:text-white transition-colors">Compare EVs</a>
         </div>
         <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
           <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">RESOURCES</span>
-          <a href="index.html#news" class="hover:text-white transition-colors">Latest News</a>
-          <a href="index.html#reviews" class="hover:text-white transition-colors">Expert Reviews</a>
+          <a href="/videos.html" class="hover:text-white transition-colors">All Videos</a>
           <a href="/charging-stations" class="hover:text-white transition-colors">Charging Stations</a>
         </div>
         <div class="flex flex-col gap-3 font-mono text-[10px] text-zinc-400">
@@ -85,34 +167,44 @@
           <a href="/" class="hover:text-white transition-colors">About Us</a>
           <a href="/" class="hover:text-white transition-colors">Contact Support</a>
           <a href="/" class="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="/" class="hover:text-white transition-colors">Terms & Conditions</a>
         </div>
-        <div class="flex flex-col gap-3">
-          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1 font-mono">NEWSLETTER</span>
-          <span class="font-bold tracking-tight text-white text-sm font-mono">Subscribe to Dispatch</span>
-          <form id="newsletter-form" class="flex flex-col gap-2 mt-1">
-            <input type="email" placeholder="Type email address..." required class="bg-zinc-900 border border-zinc-700 text-xs p-2.5 text-white outline-none focus:border-white transition-all rounded-none placeholder-zinc-500 font-mono">
-            <button type="submit" class="px-4 py-2 bg-white text-black hover:bg-zinc-200 transition-colors font-mono text-[9px] tracking-widest uppercase font-semibold">SUBSCRIBE</button>
+        <div class="flex flex-col gap-3 font-mono text-[10px]">
+          <span class="text-[9px] text-zinc-500 uppercase tracking-widest font-semibold block mb-1">NEWSLETTER</span>
+          <span class="font-bold tracking-tight text-white text-sm">Subscribe to Dispatch</span>
+          <form class="flex flex-col gap-2 mt-1">
+            <input type="email" placeholder="Type email address..." required class="bg-zinc-900 border border-zinc-700 text-xs p-2.5 text-white outline-none focus:border-white transition-all rounded-none placeholder-zinc-500">
+            <button type="submit" class="px-4 py-2 bg-white text-black hover:bg-zinc-200 transition-colors text-[9px] tracking-widest uppercase font-semibold">SUBSCRIBE</button>
           </form>
         </div>
       </div>
       <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 font-mono text-[9px] text-zinc-500">
-        <span>© 2026 EV CAR WALE GROUP. NO COLOUR ACCENTS.</span>
-        <div class="flex gap-6">
-          <a href="#" class="hover:text-white transition-colors">TWITTER</a>
-          <a href="#" class="hover:text-white transition-colors">LINKEDIN</a>
-          <a href="#" class="hover:text-white transition-colors">GITHUB</a>
-        </div>
+        <span>© 2026 EV CAR WALE GROUP. ALL RIGHTS RESERVED.</span>
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script src="videoIntegration.js"></script>
+  <script src="/videoIntegration.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (window.VideoIntegration) {
-        VideoIntegration.loadVideos('all-videos-grid', '');
+        VideoIntegration.loadVideos('all-videos-grid', '', { skeletonCount: 6, pageSize: 12, enablePagination: true });
+
+        // Chip topic filtering
+        const chips = document.querySelectorAll('#video-topic-chips .video-chip');
+        chips.forEach(chip => {
+          chip.addEventListener('click', function () {
+            chips.forEach(c => {
+              c.classList.remove('active', 'bg-black', 'text-white', 'border-black');
+              c.classList.add('bg-white', 'text-zinc-700', 'border-zinc-200');
+            });
+            this.classList.add('active', 'bg-black', 'text-white', 'border-black');
+            this.classList.remove('bg-white', 'text-zinc-700', 'border-zinc-200');
+            
+            const topic = this.getAttribute('data-topic') || '';
+            VideoIntegration.loadVideos('all-videos-grid', topic, { skeletonCount: 6, pageSize: 12, enablePagination: true });
+          });
+        });
       }
     });
   </script>

@@ -127,29 +127,63 @@ function createApp(options = {}) {
 
   // Serve local vehicle images and brand logos if available, otherwise redirect to S3
   app.get(/^\/(LOGOS|public\/car_images|car_images)\/(.+)$/i, (req, res) => {
-    let cleanPath = req.path;
+    let cleanPath = decodeURIComponent(req.path);
     if (cleanPath.startsWith('/')) {
       cleanPath = cleanPath.substring(1);
     }
 
-    // 1. Direct file check
-    const localFile = path.join(frontendRoot, cleanPath);
-    if (fs.existsSync(localFile) && fs.statSync(localFile).isFile()) {
-      return res.sendFile(localFile);
-    }
+    // Try candidate paths in workspace
+    const candidatePaths = [
+      path.join(frontendRoot, cleanPath),
+      path.join(frontendRoot, 'public', cleanPath),
+      path.join(frontendRoot, 'public', cleanPath.replace(/^public\//i, ''))
+    ];
 
-    // 2. Case-insensitive local file check
-    const dirPath = path.dirname(localFile);
-    const targetBase = path.basename(localFile).toLowerCase();
-    if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
-      const files = fs.readdirSync(dirPath);
-      const matched = files.find(f => f.toLowerCase() === targetBase || f.toLowerCase().replace(/\.[^/.]+$/, '') === targetBase.replace(/\.[^/.]+$/, ''));
-      if (matched) {
-        return res.sendFile(path.join(dirPath, matched));
+    for (const localFile of candidatePaths) {
+      if (fs.existsSync(localFile) && fs.statSync(localFile).isFile()) {
+        return res.sendFile(localFile);
+      }
+
+      // Case-insensitive check in directory
+      const dirPath = path.dirname(localFile);
+      const targetBase = path.basename(localFile).toLowerCase();
+      if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
+        const files = fs.readdirSync(dirPath);
+        const matched = files.find(f => 
+          f.toLowerCase() === targetBase || 
+          f.toLowerCase().replace(/\.[^/.]+$/, '') === targetBase.replace(/\.[^/.]+$/, '')
+        );
+        if (matched) {
+          return res.sendFile(path.join(dirPath, matched));
+        }
       }
     }
 
-    // 3. Fallback to S3 bucket redirect
+    // Fallback search across public/car_images recursively for filename match
+    const baseTargetName = path.basename(cleanPath).toLowerCase();
+    const publicCarImagesDir = path.join(frontendRoot, 'public', 'car_images');
+    if (fs.existsSync(publicCarImagesDir)) {
+      const searchRecursive = (dir) => {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          const fullP = path.join(dir, entry.name);
+          if (entry.isDirectory()) {
+            const found = searchRecursive(fullP);
+            if (found) return found;
+          } else if (entry.isFile() && entry.name.toLowerCase() === baseTargetName) {
+            return fullP;
+          }
+        }
+        return null;
+      };
+
+      const foundFile = searchRecursive(publicCarImagesDir);
+      if (foundFile) {
+        return res.sendFile(foundFile);
+      }
+    }
+
+    // Fallback to S3 bucket redirect
     const s3BaseUrl = process.env.VITE_S3_BASE_URL || process.env.AWS_S3_PUBLIC_BASE_URL || 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
     res.redirect(`${s3BaseUrl}/${cleanPath}`);
   });

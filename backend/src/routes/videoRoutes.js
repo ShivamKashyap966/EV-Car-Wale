@@ -242,26 +242,227 @@ router.get('/', async (req, res) => {
       return res.json(stale.data);
     }
 
-    res.json([
-  {
-    id: 'nexon_ev_review',
-    title: 'Tata Nexon EV Max Review & Real-World Range Test',
-    channelName: 'EV Car Wale',
-    published: new Date().toISOString(),
-    thumbnail: '/ev_hero.png',
-    duration: '14:20',
-    url: 'https://www.youtube.com'
-  },
-  {
-    id: 'mg_comet_review',
-    title: 'MG Comet EV Real World Drive & Charging Speed Test',
-    channelName: 'EV Car Wale',
-    published: new Date().toISOString(),
-    thumbnail: '/ev_hero.png',
-    duration: '10:15',
-    url: 'https://www.youtube.com'
-  }
-]);
+    const FALLBACK_EV_VIDEOS = [
+      {
+        id: 'bTzuy-pAX2A',
+        title: '2023 Tata Nexon EV review - New look, new motor, new features! | Autocar India',
+        channelName: 'Autocar India',
+        published: '2025-11-15T08:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/bTzuy-pAX2A/hqdefault.jpg',
+        duration: '18:45',
+        url: 'https://www.youtube.com/watch?v=bTzuy-pAX2A'
+      },
+      {
+        id: '1V5_AqYuHLU',
+        title: 'Tata Nexon EV 45 | REAL-WORLD Range Test & New Features Review!',
+        channelName: 'CarWale',
+        published: '2025-12-01T10:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/1V5_AqYuHLU/hqdefault.jpg',
+        duration: '16:20',
+        url: 'https://www.youtube.com/watch?v=1V5_AqYuHLU'
+      },
+      {
+        id: 'Zu9rfb7xNJY',
+        title: 'MG Comet EV Long-Term Review | OVERDRIVE',
+        channelName: 'OVERDRIVE',
+        published: '2025-10-20T14:30:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/Zu9rfb7xNJY/hqdefault.jpg',
+        duration: '12:30',
+        url: 'https://www.youtube.com/watch?v=Zu9rfb7xNJY'
+      },
+      {
+        id: '5aYIBdS95WA',
+        title: 'MG Comet - 10,000 KMs Long Term Review | MotorBeam',
+        channelName: 'MotorBeam',
+        published: '2025-09-12T11:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/5aYIBdS95WA/hqdefault.jpg',
+        duration: '14:10',
+        url: 'https://www.youtube.com/watch?v=5aYIBdS95WA'
+      },
+      {
+        id: 'w05eYM7EaJo',
+        title: '2026 Tata Punch EV review - More for less | First Drive | Autocar India',
+        channelName: 'Autocar India',
+        published: '2026-01-10T12:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/w05eYM7EaJo/hqdefault.jpg',
+        duration: '15:20',
+        url: 'https://www.youtube.com/watch?v=w05eYM7EaJo'
+      },
+      {
+        id: 'N2WpjWelbFw',
+        title: "India's Most Affordable Electric SUV - Drive Review with All Details | Punch EV",
+        channelName: 'Team Car Delight',
+        published: '2026-01-25T09:15:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/N2WpjWelbFw/hqdefault.jpg',
+        duration: '13:45',
+        url: 'https://www.youtube.com/watch?v=N2WpjWelbFw'
+      },
+      {
+        id: 'fi3NEYxR5Kk',
+        title: 'BYD Seal India Review - Still want that luxury sedan? | Autocar India',
+        channelName: 'Autocar India',
+        published: '2026-02-01T11:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/fi3NEYxR5Kk/hqdefault.jpg',
+        duration: '21:15',
+        url: 'https://www.youtube.com/watch?v=fi3NEYxR5Kk'
+      },
+      {
+        id: 'mpUvQ54f33A',
+        title: 'BYD Seal Electric Sedan: Worth your money? | carandbike',
+        channelName: 'carandbike',
+        published: '2026-02-15T15:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/mpUvQ54f33A/hqdefault.jpg',
+        duration: '17:40',
+        url: 'https://www.youtube.com/watch?v=mpUvQ54f33A'
+      },
+      {
+        id: '6Lxk_18aNrE',
+        title: 'Hyundai Ioniq 5 review - This electric car is VFM at Rs 45 lakh! | Autocar India',
+        channelName: 'Autocar India',
+        published: '2025-09-18T09:15:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/6Lxk_18aNrE/hqdefault.jpg',
+        duration: '16:50',
+        url: 'https://www.youtube.com/watch?v=6Lxk_18aNrE'
+      },
+      {
+        id: 'yEf6UwTZxB8',
+        title: 'Hyundai IONIQ 5 - RWD EV Is VFM & Practical | Faisal Khan',
+        channelName: 'Faisal Khan',
+        published: '2025-08-22T16:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/yEf6UwTZxB8/hqdefault.jpg',
+        duration: '19:10',
+        url: 'https://www.youtube.com/watch?v=yEf6UwTZxB8'
+      },
+      {
+        id: '55b7p7m7hHU',
+        title: 'WATCH THIS before buying MG COMET EV! | CarWale',
+        channelName: 'CarWale',
+        published: '2025-07-30T10:45:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/55b7p7m7hHU/hqdefault.jpg',
+        duration: '11:05',
+        url: 'https://www.youtube.com/watch?v=55b7p7m7hHU'
+      },
+      {
+        id: '8Lcz5Fg1GyY',
+        title: 'BYD Seal Vs Speed Breaker, How it performs? | ZigWheels',
+        channelName: 'ZigWheels',
+        published: '2026-03-01T12:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/8Lcz5Fg1GyY/hqdefault.jpg',
+        duration: '10:15',
+        url: 'https://www.youtube.com/watch?v=8Lcz5Fg1GyY'
+      },
+      {
+        id: '-O2Ybi_HhP8',
+        title: '5 Problems After 50,000 KM in Tata Nexon EV! Worth Buying?',
+        channelName: 'EV YATRA',
+        published: '2025-06-14T13:20:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/-O2Ybi_HhP8/hqdefault.jpg',
+        duration: '15:50',
+        url: 'https://www.youtube.com/watch?v=-O2Ybi_HhP8'
+      },
+      {
+        id: 'u6RA0PQzILM',
+        title: 'Hyundai Ioniq 5 Real-World Review & Range Test | MotorOctane',
+        channelName: 'MotorOctane',
+        published: '2025-05-10T11:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/u6RA0PQzILM/hqdefault.jpg',
+        duration: '18:30',
+        url: 'https://www.youtube.com/watch?v=u6RA0PQzILM'
+      },
+      {
+        id: 'mfOoY_2gGj4',
+        title: 'MG Comet 3 Pros and Cons | Gagan Choudhary',
+        channelName: 'Gagan Choudhary',
+        published: '2025-04-12T15:00:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/mfOoY_2gGj4/hqdefault.jpg',
+        duration: '16:20',
+        url: 'https://www.youtube.com/watch?v=mfOoY_2gGj4'
+      },
+      {
+        id: '2OQ8lpdt18Y',
+        title: 'Tata Punch EV Top Model Owner Review',
+        channelName: 'GAURAV INDIA',
+        published: '2025-03-25T06:55:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/2OQ8lpdt18Y/hqdefault.jpg',
+        duration: '10:44',
+        url: 'https://www.youtube.com/watch?v=2OQ8lpdt18Y'
+      },
+      {
+        id: 'J9XAzNiza1o',
+        title: 'Tata Punch EV – Reality Check! ⚠️',
+        channelName: 'SearchEV',
+        published: '2025-06-01T22:50:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/J9XAzNiza1o/hqdefault.jpg',
+        duration: '10:47',
+        url: 'https://www.youtube.com/watch?v=J9XAzNiza1o'
+      },
+      {
+        id: 'DHRxnTPrzOQ',
+        title: 'NEW BYD Seal review – is this Chinese EV REALLY better than a Tesla?',
+        channelName: 'What Car?',
+        published: '2025-06-17T06:09:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/DHRxnTPrzOQ/hqdefault.jpg',
+        duration: '12:30',
+        url: 'https://www.youtube.com/watch?v=DHRxnTPrzOQ'
+      },
+      {
+        id: 'B26nz0YrV9k',
+        title: 'BYD SEAL - Chinese EV, Global Standards, Indian Aspirations | PowerDrift',
+        channelName: 'PowerDrift',
+        published: '2025-04-19T19:34:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/B26nz0YrV9k/hqdefault.jpg',
+        duration: '10:38',
+        url: 'https://www.youtube.com/watch?v=B26nz0YrV9k'
+      },
+      {
+        id: 'K6nXIIZU52g',
+        title: 'HYUNDAI IONIQ 5 | Driving Range 631Km - Detailed Review',
+        channelName: 'Manojprabakarantalks',
+        published: '2025-03-19T16:03:00Z',
+        thumbnail: 'https://i.ytimg.com/vi/K6nXIIZU52g/hqdefault.jpg',
+        duration: '18:10',
+        url: 'https://www.youtube.com/watch?v=K6nXIIZU52g'
+      }
+    ];
+
+    let filtered = FALLBACK_EV_VIDEOS;
+    if (topic) {
+      const queryLower = topic.toLowerCase().trim();
+      
+      if (queryLower.includes('cost') || queryLower.includes('saving') || queryLower.includes('finan') || queryLower.includes('price') || queryLower.includes('bill') || queryLower.includes('petrol')) {
+        filtered = FALLBACK_EV_VIDEOS.filter(v => {
+          const t = v.title.toLowerCase();
+          return t.includes('cost') || t.includes('saving') || t.includes('problem') || t.includes('review') || t.includes('pros') || t.includes('vfm') || t.includes('nexon') || t.includes('comet') || t.includes('worth');
+        });
+      } else if (queryLower.includes('charg') || queryLower.includes('noc') || queryLower.includes('apartment') || queryLower.includes('meter') || queryLower.includes('station') || queryLower.includes('infrastr')) {
+        filtered = FALLBACK_EV_VIDEOS.filter(v => {
+          const t = v.title.toLowerCase();
+          return t.includes('charg') || t.includes('range') || t.includes('speed') || t.includes('test') || t.includes('motor') || t.includes('nexon') || t.includes('ioniq');
+        });
+      } else if (queryLower.includes('batter') || queryLower.includes('soh') || queryLower.includes('lfp') || queryLower.includes('nmc') || queryLower.includes('degrad') || queryLower.includes('cell')) {
+        filtered = FALLBACK_EV_VIDEOS.filter(v => {
+          const t = v.title.toLowerCase();
+          return t.includes('batter') || t.includes('km') || t.includes('range') || t.includes('problem') || t.includes('nexon') || t.includes('comet') || t.includes('ioniq');
+        });
+      } else if (queryLower.includes('guid') || queryLower.includes('buyer') || queryLower.includes('policy') || queryLower.includes('subsid') || queryLower.includes('govern')) {
+        filtered = FALLBACK_EV_VIDEOS.filter(v => {
+          const t = v.title.toLowerCase();
+          return t.includes('buying') || t.includes('review') || t.includes('worth') || t.includes('first') || t.includes('reality') || t.includes('seal') || t.includes('punch');
+        });
+      } else {
+        const words = queryLower.split(/\s+/).filter(w => w.length > 2);
+        filtered = FALLBACK_EV_VIDEOS.filter(v => {
+          const t = (v.title + ' ' + v.channelName).toLowerCase();
+          return words.some(w => t.includes(w));
+        });
+      }
+
+      if (filtered.length < 4) {
+        filtered = FALLBACK_EV_VIDEOS;
+      }
+    }
+
+    res.json(filtered);
   }
 });
 
