@@ -93,6 +93,9 @@
       if (input) input.value = '';
       showTyping();
 
+      var payload = { messages: conversationHistory };
+      console.log('[AI Assistant Widget] Sending request to POST /api/chat:', payload);
+
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/api/chat', true);
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -100,6 +103,7 @@
 
       xhr.onload = function() {
         hideTyping();
+        console.log('[AI Assistant Widget] Received response [HTTP ' + xhr.status + ']:', xhr.responseText);
         if (xhr.status === 200) {
           try {
             var data = JSON.parse(xhr.responseText);
@@ -107,6 +111,7 @@
             conversationHistory.push({ role: 'assistant', content: reply });
             addMessage(reply, 'ai-bot-message');
           } catch (e) {
+            console.error('[AI Assistant Widget Parsing Error]:', e);
             addMessage('Sorry, I had trouble processing that response. Please try again.', 'ai-bot-message');
           }
         } else {
@@ -119,17 +124,19 @@
         }
       };
 
-      xhr.onerror = function() {
+      xhr.onerror = function(err) {
         hideTyping();
+        console.error('[AI Assistant Widget Network Error]:', err);
         addMessage('Oops! Looks like you\'re offline. Please check your connection and try again.', 'ai-bot-message');
       };
 
       xhr.ontimeout = function() {
         hideTyping();
+        console.warn('[AI Assistant Widget Timeout]');
         addMessage('The request timed out. Please try again.', 'ai-bot-message');
       };
 
-      xhr.send(JSON.stringify({ messages: conversationHistory }));
+      xhr.send(JSON.stringify(payload));
     }
 
     if (sendBtn) {

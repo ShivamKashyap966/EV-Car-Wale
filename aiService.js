@@ -9,11 +9,20 @@ function sleep(ms) {
 }
 
 async function handleAIChat(messages) {
+  console.log('[STAGE 3: aiService entered] handleAIChat() invoked');
   var geminiKey = process.env.GEMINI_API_KEY;
+  var provider = process.env.AI_PROVIDER || 'gemini';
+  var modelSetting = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+
+  var maskedKey = geminiKey ? (geminiKey.slice(0, 8) + '... (len=' + geminiKey.length + ')') : 'NOT SET';
+  console.log('\n=================== AI SERVICE DIAGNOSTICS ===================');
+  console.log('[AI Service] Provider:', provider);
+  console.log('[AI Service] Configured Model:', modelSetting);
+  console.log('[AI Service] GEMINI_API_KEY (first 8 chars):', maskedKey);
 
   if (!geminiKey) {
-    console.warn("WARNING: GEMINI_API_KEY is not defined in environment.");
-    return "I'm having trouble connecting to my brain right now. Please try again in a moment!";
+    console.error('[AI Service Error] GEMINI_API_KEY is not defined in environment variables.');
+    return "I'm having trouble connecting to my brain right now. GEMINI_API_KEY is missing from environment variables!";
   }
 
   var systemInstruction = [
@@ -65,13 +74,10 @@ async function handleAIChat(messages) {
 
   // Model fallback chain: env value first, then known-working models
   var rawModels = [
-    process.env.GEMINI_MODEL,
-    'gemini-2.0-flash',
-    'gemini-2.0-flash-lite',
+    modelSetting,
     'gemini-flash-latest',
-    'gemini-3.1-flash-lite',
-    'gemini-3.5-flash',
-    'gemini-flash-lite-latest'
+    'gemini-2.0-flash',
+    'gemini-2.0-flash-lite'
   ].filter(Boolean);
 
   var models = [];
@@ -95,7 +101,7 @@ async function handleAIChat(messages) {
                   encodeURIComponent(modelName) + ':generateContent?key=' +
                   encodeURIComponent(geminiKey);
 
-        var response = await axios.post(url, {
+        var requestPayload = {
           contents: contents,
           systemInstruction: {
             parts: [{ text: systemInstruction }]
@@ -106,12 +112,19 @@ async function handleAIChat(messages) {
             topP: 0.9,
             topK: 40
           }
-        }, {
+        };
+
+        console.log('[STAGE 4: Gemini request started] Sending axios.post to Gemini API...');
+        console.log('[AI Service] Attempting request to model:', modelName);
+        console.log('[AI Service] Endpoint URL:', url.replace(geminiKey, maskedKey));
+
+        var response = await axios.post(url, requestPayload, {
           timeout: 25000,
           headers: { 'Content-Type': 'application/json' }
         });
 
         var data = response.data;
+        console.log('[STAGE 5: Gemini response received] Status:', response.status, response.statusText);
 
         if (data.candidates && data.candidates.length > 0 &&
             data.candidates[0].content && data.candidates[0].content.parts) {
@@ -119,41 +132,67 @@ async function handleAIChat(messages) {
             .map(function(p) { return p.text; })
             .join('');
           if (text && text.trim()) {
-            console.log('Gemini success using model: ' + modelName);
+            console.log('[AI Service Success] Gemini returned response using model: ' + modelName);
+            console.log('==============================================================\n');
             return text.trim();
           }
         }
 
-        console.warn('Gemini model ' + modelName + ' returned empty response');
-        lastError = { model: modelName, status: 200, message: 'Empty response' };
+        console.warn('[AI Service Warning] Model ' + modelName + ' returned empty candidates array');
+        lastError = { model: modelName, status: response.status, message: 'Empty candidates response' };
 
       } catch (err) {
-        var status = err.response ? err.response.status : 0;
-        var errBody = err.response && err.response.data ? err.response.data : null;
-        var errMsg = errBody && errBody.error ? JSON.stringify(errBody.error) : err.message;
+        var status = err.response ? err.response.status : (err.status || 0);
+        var statusText = err.response ? err.response.statusText : '';
+        var errData = err.response && err.response.data ? err.response.data : null;
+        var errDetails = errData && errData.error ? errData.error : null;
+        var errMsg = errDetails ? (errDetails.message || JSON.stringify(errDetails)) : err.message;
 
-        console.warn('Gemini model ' + modelName + ' failed [HTTP ' + status + ']: ' + errMsg);
+        console.error('\n[STAGE 6: Gemini failed (full error)] --- GEMINI API ERROR DETAILS ---');
+        console.error('Model Target:', modelName);
+        console.error('HTTP Status:', status, statusText);
+        console.error('Error Code:', errDetails ? errDetails.code : (err.code || 'UNKNOWN'));
+        console.error('Error Status:', errDetails ? errDetails.status : 'N/A');
+        console.error('Error Message:', errMsg);
+        if (errDetails && errDetails.details) {
+          console.error('Error Details:', JSON.stringify(errDetails.details, null, 2));
+        }
+        console.error('Full Stack Trace:', err.stack);
+        console.error('------------------------------------------------------------\n');
 
-        lastError = { model: modelName, status: status, message: errMsg };
+        lastError = {
+          model: modelName,
+          status: status,
+          code: errDetails ? errDetails.code : err.code,
+          message: errMsg,
+          details: errDetails
+        };
       }
     }
 
     if (lastError && lastError.status === 429 && retryCount < maxRetries) {
       retryCount++;
       var waitMs = retryCount * 3000;
-      console.warn('Rate limited. Retry ' + retryCount + '/' + maxRetries + ' after ' + waitMs + 'ms...');
+      console.warn('[AI Service] Rate limited. Retrying ' + retryCount + '/' + maxRetries + ' after ' + waitMs + 'ms...');
       await sleep(waitMs);
     } else {
       break;
     }
   }
 
-  console.error('All Gemini models failed. Last error:', JSON.stringify(lastError));
+  console.error('[AI Service Failure] All Gemini models failed. Last error:', JSON.stringify(lastError, null, 2));
+  console.log('==============================================================\n');
+
+  if (lastError && lastError.status === 400 && lastError.message.includes('API key not valid')) {
+    return "AI Error: The GEMINI_API_KEY in backend/.env is invalid. Please make sure your key starts with 'AIzaSy...' from Google AI Studio.";
+  }
 
   if (lastError && lastError.status === 429) {
     return "I'm currently experiencing high demand. Please wait a moment and try again!";
   }
-  return 'Sorry, I encountered an issue. Please try again in a moment!';
+
+  return 'Sorry, I encountered an issue (' + (lastError ? lastError.message : 'Unknown error') + '). Please try again in a moment!';
 }
 
 module.exports = { handleAIChat };
+

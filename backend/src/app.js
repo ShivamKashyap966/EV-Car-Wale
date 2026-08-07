@@ -11,23 +11,24 @@ const chargerRoutes = require('./routes/chargerRoutes');
 const { requestLogger } = require('./middleware/requestLogger');
 const { notFound } = require('./middleware/notFound');
 const { errorHandler } = require('./middleware/errorHandler');
-
-// Configure Passport Google Strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8081/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    const user = {
-      id: profile.id,
-      name: profile.displayName,
-      email: profile.emails && profile.emails.length > 0 ? profile.emails[0].value : '',
-      picture: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : ''
-    };
-    return done(null, user);
-  }
-));
+// Configure Passport Google Strategy (if GOOGLE_CLIENT_ID is configured)
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  passport.use(new GoogleStrategy({
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:8081/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+      const user = {
+        id: profile.id,
+        name: profile.displayName,
+        email: profile.emails && profile.emails.length > 0 ? profile.emails[0].value : '',
+        picture: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : ''
+      };
+      return done(null, user);
+    }
+  ));
+}
 
 passport.serializeUser((user, done) => {
   done(null, user);

@@ -6881,7 +6881,7 @@ function getBrandDisplay(brand) {
     'porsche': 'Porsche', 'vinfast': 'VinFast','tesla': 'Tesla'
     ,'lexus': 'Lexus','ferrari': 'Ferrari','genesis': 'Genesis',
     'lotus': 'Lotus','mini': 'MINI','pmv': 'PMV','pravaig': 'Pravaig', 
-    'vayve': 'Vayve','blinq': 'Blinq','strom': 'Strom'
+    'vayve': 'Vayve','blinq': 'Blinq','blink': 'Blinq','strom': 'Strom'
   };
   const lower = brand.toLowerCase().trim();
   return brandNameMap[lower] || brand.charAt(0).toUpperCase() + brand.slice(1);
@@ -7905,11 +7905,12 @@ const BRAND_LOGO_MAP = {
   'lotus': 'LOTUS_LOGO.png',
   'lexus': 'LEXUS_LOGO.jpeg',
   'mini': 'MINI_LOGO.JPG',
-  'pmv': 'PMV_LOGO.png',
+  'pmv': 'PMV_LOGO.jpeg',
   'pravaig': 'PRAVAIG_LOGO.png',
   'rolls-royce': 'ROLLS_ROYCLE.JPG',
   'vayve': 'VAYVE_LOGO.jpeg',
   'blinq': 'BLINQ_LOGO.jpeg',
+  'blink': 'BLINQ_LOGO.jpeg',
   'strom': 'STROM_LOGO.jpeg',
 };
 function getBrandLogoUrl(brandId) {
@@ -8582,16 +8583,25 @@ let activeBudget = null;
 let activeRecentlyViewed = false;
 
 function addToRecentlyViewed(carId) {
+  if (!carId) return;
   try {
     let list = JSON.parse(localStorage.getItem('recently_viewed_evs') || '[]');
     list = list.filter(id => id !== carId);
     list.unshift(carId);
-    if (list.length > 6) list.pop();
+    if (list.length > 12) list.pop();
     localStorage.setItem('recently_viewed_evs', JSON.stringify(list));
+
+    // Post to backend API silently
+    fetch('/api/recently-viewed', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ carId: carId })
+    }).catch(function() {});
   } catch (e) {
     console.error(e);
   }
 }
+window.addToRecentlyViewed = addToRecentlyViewed;
 
 const carCarouselViewport = document.getElementById('car-carousel-viewport');
 const brandChips = document.querySelectorAll('.brand-chip');
@@ -10952,6 +10962,7 @@ async function getVehicleImages(car) {
 // Redirect openCarDetails to SPA path for detailed page view
 function openCarDetails(carId) {
   if (!carId) return;
+  addToRecentlyViewed(carId);
   var curY = window.scrollY || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || 0;
   if (curY > 0) {
     window.savedHomeScrollY = curY;
@@ -11578,7 +11589,7 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
       }
       
       try {
-        history.pushState('', document.title, '/' + window.location.search);
+        history.replaceState('', document.title, '/' + window.location.search);
       } catch (err) {}
 
       if (typeof restoreHomepage === 'function') {
@@ -11868,7 +11879,7 @@ function getDetailsEl() { return document.getElementById('details-page-content')
 
 function navigateTo(url) {
   try {
-    history.pushState(null, '', url);
+    history.replaceState(null, '', url);
   } catch (e) {
     // Fallback to hash routing for file:// protocol or direct static server limits
     window.location.hash = url.startsWith('/') ? '#' + url : '#/' + url;
@@ -11944,7 +11955,21 @@ if (subpageBackBtn) subpageBackBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
   if (typeof handleNavbarTheme === 'function') handleNavbarTheme();
-  if (typeof applyJargonBuster === 'function') if (typeof applyJargonBuster === "function") applyJargonBuster();
+  if (typeof applyJargonBuster === 'function') applyJargonBuster();
+  trackGAPageView();
+}
+
+function trackGAPageView(customPath) {
+  try {
+    if (typeof window.gtag === 'function') {
+      const pagePath = customPath || (window.location.pathname + window.location.hash);
+      window.gtag('config', 'G-VX80WKG1WG', {
+        page_path: pagePath,
+        page_title: document.title || 'EV Car Wale',
+        page_location: window.location.href
+      });
+    }
+  } catch (e) {}
 }
 
 async function handleRouting() {
@@ -12295,11 +12320,11 @@ function restoreHomepage(keepScroll, skipScrollRestore, forceTop) {
   // Clean up URL to standard clean path without index.html
   if (window.location.pathname.endsWith('/index.html') || window.location.pathname.endsWith('index.html')) {
     try {
-      history.pushState('', document.title, '/' + window.location.search + (forceTop ? '' : window.location.hash));
+      history.replaceState('', document.title, '/' + window.location.search + (forceTop ? '' : window.location.hash));
     } catch (e) {}
   } else if (window.location.hash) {
     try {
-      history.pushState('', document.title, window.location.pathname + window.location.search);
+      history.replaceState('', document.title, window.location.pathname + window.location.search);
     } catch (e) {
       window.location.hash = '#/';
     }
@@ -13303,7 +13328,7 @@ function renderHubArticlePage(key) {
   } else if (key === 'apartment-charging') {
     inBodyDiagramImg = '/everything_u_need/FAST_VS_SLOW_CHARGING.jpeg';
   } else if (key === 'regen-braking' || key === 'ac-dc' || key === 'v2l') {
-    inBodyDiagramImg = '/WHY_BUY_EV.jpeg';
+    inBodyDiagramImg = '/why_ev_illustration.jpeg';
   }
   
   const articleInfo = {
@@ -19144,7 +19169,7 @@ document.addEventListener('click', (e) => {
     if (homeEl) homeEl.classList.remove('hidden');
 
     try {
-      history.pushState('', document.title, '/' + window.location.search);
+      history.replaceState('', document.title, '/' + window.location.search);
     } catch (err) {}
     
     if (typeof restoreHomepage === 'function') restoreHomepage(false, false, true);
@@ -19187,6 +19212,7 @@ function renderBrandPage(brandId) {
     if (carB === normalizedSearch) return true;
     if (carB.includes(normalizedSearch) || normalizedSearch.includes(carB)) return true;
     if ((normalizedSearch.includes('maruti') || normalizedSearch.includes('suzuki')) && (carB.includes('maruti') || carB.includes('suzuki'))) return true;
+    if ((normalizedSearch === 'blinq' || normalizedSearch === 'blink') && (carB === 'blinq' || carB === 'blink')) return true;
     return false;
   });
 
@@ -19235,7 +19261,7 @@ function renderBrandPage(brandId) {
       <div class="border border-zinc-200 bg-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
         <div class="flex items-center gap-6 text-left">
           <div class="w-20 h-20 bg-zinc-50 border border-zinc-200 rounded-2xl flex items-center justify-center p-3 flex-shrink-0">
-            <img src="${logoUrl}" alt="${displayName}" class="w-full h-full object-contain" onerror="this.src='/LOGOS/tata.png'">
+            <img src="${logoUrl}" alt="${displayName}" class="w-full h-full object-contain" onerror="this.src='/LOGOS/TATA_LOGO.jpeg'">
           </div>
           <div>
             <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block">ELECTRIC VEHICLE MANUFACTURER</span>

@@ -36,7 +36,10 @@ function apiRoutes(options = {}) {
   router.use('/payments', placeholderRoutes('Payments'));
   router.use('/notifications', placeholderRoutes('Notifications'));
   router.use('/admin', placeholderRoutes('Admin Dashboard'));
-  router.post('/chat', createChatController(options.aiServicePath));
+  router.post('/chat', (req, res, next) => {
+    console.log('[STAGE 2: Route entered] /api/chat route entered in backend/src/routes/index.js');
+    next();
+  }, createChatController(options.aiServicePath));
 
   return router;
 }

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VX80WKG1WG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VX80WKG1WG');
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account - EV Car Wale</title>
@@ -31,6 +40,26 @@
   <link rel="stylesheet" href="ai-assistant.css">
   <link rel="icon" type="image/png" href="/tab_logo.png">
   <link rel="shortcut icon" type="image/png" href="/tab_logo.png">
+  <link rel="canonical" href="https://www.evcarwale.com/profile" />
+  <meta property="og:site_name" content="EV Car Wale" />
+  <meta property="og:title" content="Profile - EV Car Wale" />
+  <meta property="og:description" content="Official information regarding Profile on EV Car Wale." />
+  <meta property="og:url" content="https://www.evcarwale.com/profile" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.evcarwale.com/LOGO/EVCarWale_Logo.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Profile - EV Car Wale" />
+  <meta name="twitter:description" content="Official information regarding Profile on EV Car Wale." />
+  <meta name="twitter:image" content="https://www.evcarwale.com/LOGO/EVCarWale_Logo.jpeg" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Profile - EV Car Wale",
+  "description": "Official information regarding Profile on EV Car Wale.",
+  "url": "https://www.evcarwale.com/profile"
+}
+  </script>
 </head>
 <body class="bg-white text-black font-sans overflow-x-hidden">
 
@@ -183,20 +212,20 @@
             <p class="text-xs text-zinc-400 font-mono mt-1">Manage your personal information and preferences.</p>
           </div>
           <div class="border border-zinc-200 rounded-2xl p-6 lg:p-8">
-            <form class="flex flex-col gap-5 max-w-lg">
+            <form id="profile-settings-form" class="flex flex-col gap-5 max-w-lg">
               <div class="flex flex-col gap-1.5">
-                <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Full Name</label>
-                <input type="text" value="User" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors">
+                <label for="profile-full-name" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Full Name</label>
+                <input type="text" id="profile-full-name" placeholder="Enter your full name" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors">
               </div>
               <div class="flex flex-col gap-1.5">
-                <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
-                <input type="email" value="user@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors">
+                <label for="profile-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
+                <input type="email" id="profile-email" placeholder="Enter your email" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors">
               </div>
               <div class="flex flex-col gap-1.5">
-                <label class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Phone Number</label>
-                <input type="tel" placeholder="+91 XXX XXX XXXX" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
+                <label for="profile-phone" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Phone Number</label>
+                <input type="tel" id="profile-phone" placeholder="+91 XXX XXX XXXX" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
               </div>
-              <button type="submit" class="self-start px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Save Changes</button>
+              <button type="submit" id="btn-save-profile" class="self-start px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors cursor-pointer">Save Changes</button>
             </form>
           </div>
         </div>
@@ -569,27 +598,176 @@
       }
     }
 
+    let recentlyViewedIds = [];
+
+    async function loadActivityData() {
+      try {
+        let localList = JSON.parse(localStorage.getItem('recently_viewed_evs') || '[]');
+        try {
+          const rvRes = await fetch('/api/recently-viewed');
+          if (rvRes.ok) {
+            const rvData = await rvRes.json();
+            if (rvData.success && Array.isArray(rvData.data)) {
+              localList = Array.from(new Set([...localList, ...rvData.data]));
+            }
+          }
+        } catch (e) {}
+
+        recentlyViewedIds = localList;
+
+        if (!allCars || allCars.length === 0) {
+          const carsRes = await fetch('/data/cars.json');
+          if (carsRes.ok) {
+            const text = await carsRes.text();
+            const cleanText = text.replace(/,(\s*[\]}])/g, '$1');
+            allCars = JSON.parse(cleanText);
+          }
+        }
+
+        renderActivity();
+      } catch (err) {
+        console.error('Failed to load activity data:', err);
+      }
+    }
+
+    function renderActivity() {
+      const container = document.getElementById('section-activity');
+      if (!container) return;
+
+      const viewedCars = recentlyViewedIds
+        .map(id => allCars.find(car => car.id === id))
+        .filter(Boolean);
+
+      let html = `
+        <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl lg:text-2xl font-black tracking-tight text-black">My Activity</h1>
+            <p class="text-xs text-zinc-400 font-mono mt-1">Your recently viewed electric vehicles.</p>
+          </div>
+          ${viewedCars.length > 0 ? `
+            <button id="btn-clear-activity" class="px-4 py-2 border border-zinc-200 hover:border-black font-mono text-[9px] uppercase tracking-wider text-zinc-600 hover:text-black rounded-lg transition-all self-start md:self-auto cursor-pointer">
+              Clear Activity History
+            </button>
+          ` : ''}
+        </div>
+      `;
+
+      if (viewedCars.length === 0) {
+        html += `
+          <div class="border border-zinc-200 rounded-2xl p-10 text-center">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-zinc-100 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-zinc-400 fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <p class="font-mono text-[10px] text-zinc-500 uppercase font-bold">No recent activity yet.</p>
+            <p class="font-mono text-[9px] text-zinc-400 mt-1">Vehicles you view across the site will automatically show up here.</p>
+            <a href="index.html#/view-all/all" class="inline-block mt-6 px-6 py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors">Explore All EVs</a>
+          </div>
+        `;
+      } else {
+        html += `
+          <div class="flex items-center justify-between mb-4 border-b border-zinc-100 pb-3">
+            <span class="font-mono text-[10px] text-zinc-500 font-bold uppercase tracking-wider">
+              RECENTLY VIEWED EVS (${viewedCars.length})
+            </span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        `;
+
+        viewedCars.forEach(car => {
+          const imgUrl = getS3ImageUrl(car);
+          const displayBrand = getBrandDisplay(car.brand);
+          
+          let cleanedName = car.name;
+          if (cleanedName.toLowerCase().startsWith(displayBrand.toLowerCase())) {
+            cleanedName = cleanedName.substring(displayBrand.length).trim();
+          }
+
+          html += `
+            <div class="car-card border border-zinc-200 bg-white p-6 flex flex-col justify-between h-[420px] relative group hover:border-black transition-all shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] cursor-pointer" data-car-id="${car.id}">
+              <div class="h-44 bg-white mb-4 relative overflow-hidden rounded-[14px] border border-zinc-100">
+                <img src="${imgUrl}" alt="${car.name}" class="w-full h-full transition-transform duration-500 group-hover:scale-105" onerror="handleImageError(this)">
+              </div>
+              <div>
+                <div class="flex justify-between items-start text-black">
+                  <div>
+                    <span class="font-mono text-[9px] text-zinc-500 uppercase notranslate">${displayBrand}</span>
+                    <h3 class="text-lg font-bold mt-0.5 text-black notranslate">${cleanedName}</h3>
+                  </div>
+                  <span class="font-mono text-sm font-bold text-black notranslate">${car.price}</span>
+                </div>
+                <div class="grid grid-cols-2 gap-y-1.5 gap-x-4 my-3 text-[10px] text-zinc-500 border-t border-zinc-100 pt-3 font-mono">
+                  <div>RANGE: ${car.range}</div>
+                  <div>BATTERY: ${car.battery}</div>
+                </div>
+              </div>
+              <a href="index.html#/cars/${car.id}" class="w-full py-2.5 border border-zinc-200 hover:border-black text-center text-zinc-500 hover:text-white hover:bg-black font-mono text-[9px] uppercase tracking-widest transition-all notranslate">
+                VIEW DETAILS
+              </a>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+
+      const clearBtn = container.querySelector('#btn-clear-activity');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          localStorage.removeItem('recently_viewed_evs');
+          recentlyViewedIds = [];
+          renderActivity();
+          showToast('Cleared Activity History');
+        });
+      }
+
+      container.querySelectorAll('.car-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.tagName.toLowerCase() === 'a') return;
+          const carId = card.getAttribute('data-car-id');
+          window.location.href = `index.html#/cars/${carId}`;
+        });
+      });
+    }
+
     // Verify user session using backend OAuth /api/auth/me
     async function verifyAuth() {
       try {
         const response = await fetch('/api/auth/me');
         const data = await response.json();
         if (data.loggedIn && data.user) {
-          // User is authenticated
           const sidebarProfileImg = document.querySelector('aside .rounded-full');
           const sidebarName = document.querySelector('aside p.font-bold');
+          
+          const savedName = localStorage.getItem('evcarwale_user_name') || data.user.name || '';
+          const savedEmail = localStorage.getItem('evcarwale_user_email') || data.user.email || '';
+          const savedPhone = localStorage.getItem('evcarwale_user_phone') || '';
+
           if (sidebarProfileImg && data.user.picture) {
-            sidebarProfileImg.innerHTML = `<img src="${data.user.picture}" alt="${data.user.name}" class="w-full h-full rounded-full object-cover" onerror="this.style.display='none';">`;
+            sidebarProfileImg.innerHTML = `<img src="${data.user.picture}" alt="${savedName}" class="w-full h-full rounded-full object-cover" onerror="this.style.display='none';">`;
           }
-          if (sidebarName && data.user.name) {
-            sidebarName.textContent = data.user.name;
+          if (sidebarName) {
+            sidebarName.textContent = savedName || 'EV Car Wale User';
           }
+
+          const nameInput = document.getElementById('profile-full-name');
+          const emailInput = document.getElementById('profile-email');
+          const phoneInput = document.getElementById('profile-phone');
+
+          if (nameInput) nameInput.value = savedName;
+          if (emailInput) emailInput.value = savedEmail;
+          if (phoneInput) phoneInput.value = savedPhone;
+
           // Reveal profile layout once auth is confirmed
           const wrapper = document.getElementById('profile-page-wrapper');
           if (wrapper) wrapper.classList.remove('hidden');
           
-          // Load shortlisted vehicles data
+          // Load shortlisted vehicles data & activity history
           loadShortlistData();
+          loadActivityData();
         } else {
           // Redirect to login if unauthenticated
           window.location.href = 'index.html#/login';
@@ -601,6 +779,35 @@
     }
     verifyAuth();
 
+    // Profile Settings Form Save Handler
+    const settingsForm = document.getElementById('profile-settings-form');
+    if (settingsForm) {
+      settingsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameInput = document.getElementById('profile-full-name');
+        const emailInput = document.getElementById('profile-email');
+        const phoneInput = document.getElementById('profile-phone');
+
+        const nameVal = nameInput ? nameInput.value.trim() : '';
+        const emailVal = emailInput ? emailInput.value.trim() : '';
+        const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+
+        if (!nameVal) {
+          showToast('Please enter your full name');
+          return;
+        }
+
+        localStorage.setItem('evcarwale_user_name', nameVal);
+        if (emailVal) localStorage.setItem('evcarwale_user_email', emailVal);
+        if (phoneVal) localStorage.setItem('evcarwale_user_phone', phoneVal);
+
+        const sidebarName = document.querySelector('aside p.font-bold');
+        if (sidebarName) sidebarName.textContent = nameVal;
+
+        showToast('Profile settings saved successfully!');
+      });
+    }
+
     // Sidebar navigation switching
     document.querySelectorAll('.profile-nav-item').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -610,6 +817,9 @@
         document.querySelectorAll('.profile-section').forEach(s => s.classList.add('hidden'));
         const section = document.getElementById('section-' + btn.dataset.section);
         if (section) section.classList.remove('hidden');
+        if (btn.dataset.section === 'activity') {
+          loadActivityData();
+        }
       });
     });
 

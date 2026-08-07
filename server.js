@@ -9,7 +9,7 @@ for (const key of Object.keys(process.env)) {
   }
 }
 
-require('dotenv').config({ path: path.join(__dirname, 'backend', '.env') });
+require('dotenv').config({ path: path.join(__dirname, 'backend', '.env'), override: true });
 
 const { createApp } = require('./backend/src/app');
 const { initializeDataServices } = require('./backend/src/config/aws');

@@ -97,7 +97,7 @@ module.exports = {
       'porsche': 'Porsche', 'vinfast': 'VinFast','tesla': 'Tesla'
       ,'lexus': 'Lexus','ferrari': 'Ferrari','genesis': 'Genesis',
       'lotus': 'Lotus','mini': 'MINI','pmv': 'PMV','pravaig': 'Pravaig', 
-      'vayve': 'Vayve','blinq': 'Blinq','strom': 'Strom'
+      'vayve': 'Vayve','blinq': 'Blinq','blink': 'Blinq','strom': 'Strom'
     };
     const lower = brand.toLowerCase().trim();
     return brandNameMap[lower] || brand.charAt(0).toUpperCase() + brand.slice(1);
