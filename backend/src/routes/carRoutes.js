@@ -6,8 +6,8 @@ const router = express.Router();
 // This automatically targets your Cars.json file in this routes folder.
 const jsonPath = path.join(__dirname, 'Cars.json');
 
-// This handles fetching the models
-router.get('/ev-models', (req, res) => {
+// Helper to serve cars JSON
+const serveCarsJson = (req, res) => {
     fs.readFile(jsonPath, 'utf8', (err, data) => {
         if (err) {
             console.error("Error reading Cars.json:", err);
@@ -23,7 +23,7 @@ router.get('/ev-models', (req, res) => {
         }
         const { brand } = req.query;
 
-        // If your frontend sends a brand filter (e.g., /api/cars/ev-models?brand=Tata)
+        // If your frontend sends a brand filter (e.g., /api/cars?brand=Tata)
         if (brand) {
             const filteredCars = cars.filter(car => car.brand.toLowerCase() === brand.toLowerCase());
             return res.json(filteredCars);
@@ -32,6 +32,9 @@ router.get('/ev-models', (req, res) => {
         // Default: return all cars
         res.json(cars);
     });
-});
+};
+
+router.get('/', serveCarsJson);
+router.get('/ev-models', serveCarsJson);
 
 module.exports = router;

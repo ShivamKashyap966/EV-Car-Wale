@@ -121,22 +121,33 @@ function createApp(options = {}) {
     }
   });
 
-  // Route alias for navbar-logo.png to support both nav bar logo.png and navbar-logo.png
-  app.get('/navbar-logo.png', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'nav bar logo.png'));
+  // Route aliases for site logos and common root assets
+  app.get(['/navbar-logo.png', '/nav bar logo.png', '/nav%20bar%20logo.png', '/nav%20bar%20logo', '/LOGOS/nav bar logo.png'], (req, res) => {
+    const candidatePaths = [
+      path.join(frontendRoot, 'nav bar logo.png'),
+      path.join(frontendRoot, 'public', 'nav bar logo.png'),
+      path.join(process.cwd(), 'nav bar logo.png')
+    ];
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p) && fs.statSync(p).isFile()) {
+        return res.sendFile(p);
+      }
+    }
+    res.status(404).send('Logo not found');
   });
 
-  // Serve local vehicle images and brand logos if available, otherwise redirect to S3
-  app.get(/^\/(LOGOS|public\/car_images|car_images)\/(.+)$/i, (req, res) => {
+  // Serve local vehicle images, brand logos, insights images, and asset folders case-insensitively
+  app.get(/^\/(LOGOS|public\/car_images|car_images|insights_images|everything_u_need|Learn_Electric_Vehicles)\/(.+)$/i, (req, res) => {
     let cleanPath = decodeURIComponent(req.path);
     if (cleanPath.startsWith('/')) {
       cleanPath = cleanPath.substring(1);
     }
 
-    // Try candidate paths in workspace
     const candidatePaths = [
       path.join(frontendRoot, cleanPath),
+      path.join(process.cwd(), cleanPath),
       path.join(frontendRoot, 'public', cleanPath),
+      path.join(process.cwd(), 'public', cleanPath),
       path.join(frontendRoot, 'public', cleanPath.replace(/^public\//i, ''))
     ];
 
@@ -162,25 +173,33 @@ function createApp(options = {}) {
 
     // Fallback search across public/car_images recursively for filename match
     const baseTargetName = path.basename(cleanPath).toLowerCase();
-    const publicCarImagesDir = path.join(frontendRoot, 'public', 'car_images');
-    if (fs.existsSync(publicCarImagesDir)) {
-      const searchRecursive = (dir) => {
-        const entries = fs.readdirSync(dir, { withFileTypes: true });
-        for (const entry of entries) {
-          const fullP = path.join(dir, entry.name);
-          if (entry.isDirectory()) {
-            const found = searchRecursive(fullP);
-            if (found) return found;
-          } else if (entry.isFile() && entry.name.toLowerCase() === baseTargetName) {
-            return fullP;
-          }
-        }
-        return null;
-      };
+    const publicCarImagesDirs = [
+      path.join(frontendRoot, 'public', 'car_images'),
+      path.join(process.cwd(), 'public', 'car_images'),
+      path.join(frontendRoot, 'LOGOS'),
+      path.join(process.cwd(), 'LOGOS')
+    ];
 
-      const foundFile = searchRecursive(publicCarImagesDir);
-      if (foundFile) {
-        return res.sendFile(foundFile);
+    for (const carDir of publicCarImagesDirs) {
+      if (fs.existsSync(carDir)) {
+        const searchRecursive = (dir) => {
+          const entries = fs.readdirSync(dir, { withFileTypes: true });
+          for (const entry of entries) {
+            const fullP = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+              const found = searchRecursive(fullP);
+              if (found) return found;
+            } else if (entry.isFile() && entry.name.toLowerCase() === baseTargetName) {
+              return fullP;
+            }
+          }
+          return null;
+        };
+
+        const foundFile = searchRecursive(carDir);
+        if (foundFile) {
+          return res.sendFile(foundFile);
+        }
       }
     }
 
