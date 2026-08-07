@@ -112,12 +112,35 @@ function createApp(options = {}) {
   // Intercept app.js to inject environment variables
   app.get('/app.js', (req, res) => {
     try {
-      let content = fs.readFileSync(path.join(frontendRoot, 'app.js'), 'utf8');
+      const candidatePaths = [
+        path.join(frontendRoot, 'public', 'app.js'),
+        path.join(frontendRoot, 'app.js'),
+        path.join(process.cwd(), 'public', 'app.js'),
+        path.join(process.cwd(), 'app.js'),
+        path.join(__dirname, '..', '..', 'public', 'app.js'),
+        path.join(__dirname, '..', '..', 'app.js')
+      ];
+
+      let targetPath = null;
+      for (const p of candidatePaths) {
+        if (fs.existsSync(p) && fs.statSync(p).isFile()) {
+          targetPath = p;
+          break;
+        }
+      }
+
+      if (!targetPath) {
+        console.error(`[Server Error] app.js not found. Checked paths:`, candidatePaths);
+        return res.status(500).send('Error loading app.js: File not found');
+      }
+
+      let content = fs.readFileSync(targetPath, 'utf8');
       const s3Url = process.env.VITE_S3_BASE_URL || process.env.AWS_S3_PUBLIC_BASE_URL || 'https://ev-car-wale.s3.ap-south-1.amazonaws.com';
       content = content.replace(/'https:\/\/ev-car-wale\.s3\.ap-south-1\.amazonaws\.com'/g, JSON.stringify(s3Url));
       res.type('application/javascript').send(content);
     } catch (err) {
-      res.status(500).send('Error loading app.js');
+      console.error('[Server Error] Error loading app.js:', err);
+      res.status(500).send('Error loading app.js: ' + err.message);
     }
   });
 

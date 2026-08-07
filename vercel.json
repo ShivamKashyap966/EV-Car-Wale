@@ -1,14 +1,13 @@
 {
   "version": 2,
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "index.html,*.html,insights/**,insights_images/**,everything_u_need/**,Learn_Electric_Vehicles/**,data/**,public/**,LOGOS/**,car_images/**,app.js,app/**,backend/src/routes/Cars.json,nav bar logo.png,navbar-logo.png,tab_logo.png,style.css,ai-assistant.css,ai-assistant.js,auth-helper.js,videoIntegration.js,blogsDatabase.js,aiService.js,ai_robot_avatar.png"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "api/index.js"
+      "source": "/api/:path*",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/auth/:path*",
+      "destination": "/api/index.js"
     }
   ]
 }
