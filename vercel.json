@@ -1,25 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "index.html",
-          "*.html",
-          "insights/**",
-          "data/**",
-          "public/**",
-          "LOGOS/**",
-          "app.js",
-          "app/**",
-          "backend/src/routes/Cars.json",
-          "nav bar logo.png"
-        ]
-      }
-    }
-  ],
   "functions": {
     "api/index.js": {
       "includeFiles": "index.html,*.html,insights/**,data/**,public/**,LOGOS/**,app.js,app/**,backend/src/routes/Cars.json,nav bar logo.png"
