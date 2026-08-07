@@ -2,7 +2,7 @@
   "name": "evcarwale",
   "version": "1.0.0",
   "description": "India's Smart Electric Vehicle Marketplace",
-  "main": "index.html",
+  "main": "server.js",
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
