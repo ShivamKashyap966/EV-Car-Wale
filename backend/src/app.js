@@ -192,12 +192,33 @@ function createApp(options = {}) {
   // Inject API key into index.html
   function injectMapsKeyIntoHtml(req, res) {
     try {
-      let content = fs.readFileSync(path.join(frontendRoot, 'index.html'), 'utf8');
+      const candidatePaths = [
+        path.join(frontendRoot, 'index.html'),
+        path.join(process.cwd(), 'index.html'),
+        path.join(__dirname, '..', '..', 'index.html'),
+        path.join(__dirname, '..', 'index.html')
+      ];
+
+      let targetPath = null;
+      for (const p of candidatePaths) {
+        if (fs.existsSync(p) && fs.statSync(p).isFile()) {
+          targetPath = p;
+          break;
+        }
+      }
+
+      if (!targetPath) {
+        console.error(`[Server Error] index.html not found. Checked candidate paths:`, candidatePaths);
+        return res.status(500).send(`Error loading index.html: File not found in deployment container`);
+      }
+
+      let content = fs.readFileSync(targetPath, 'utf8');
       const mapsKey = process.env.GOOGLE_MAPS_API_KEY || env.GOOGLE_MAPS_API_KEY || '';
       content = content.replace(/__GOOGLE_MAPS_API_KEY__/g, mapsKey);
       res.type('text/html').send(content);
     } catch (err) {
-      res.status(500).send('Error loading index.html');
+      console.error('[Server Error] Error reading index.html:', err);
+      res.status(500).send('Error loading index.html: ' + err.message);
     }
   }
   app.get('/index.html', injectMapsKeyIntoHtml);
