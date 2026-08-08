@@ -40,6 +40,7 @@ passport.deserializeUser((user, done) => {
 
 function createApp(options = {}) {
   const app = express();
+  app.set('trust proxy', 1);
   const frontendRoot = options.frontendRoot || path.join(__dirname, '..', '..');
 
   app.use(cors({
@@ -74,7 +75,13 @@ function createApp(options = {}) {
   app.get('/auth/google/callback', 
     passport.authenticate('google', { failureRedirect: '/login.html' }),
     (req, res) => {
-      const redirectTarget = (req.session && req.session.returnTo) ? req.session.returnTo : '/profile.html';
+      let redirectTarget = '/profile.html';
+      if (req.session && typeof req.session.returnTo === 'string') {
+        const candidate = req.session.returnTo.trim();
+        if (candidate.startsWith('/') && !candidate.startsWith('//')) {
+          redirectTarget = candidate;
+        }
+      }
       res.redirect(redirectTarget);
     }
   );
