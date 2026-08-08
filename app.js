@@ -11877,9 +11877,13 @@ let detailsPageContent = document.getElementById('details-page-content');
 function getHomepageEl() { return document.getElementById('homepage-content') || homepageContent; }
 function getDetailsEl() { return document.getElementById('details-page-content') || detailsPageContent; }
 
-function navigateTo(url) {
+function navigateTo(url, replace = false) {
   try {
-    history.replaceState(null, '', url);
+    if (replace || url === '/' || url === '' || url === '/#') {
+      history.replaceState(null, '', url);
+    } else {
+      history.pushState(null, '', url);
+    }
   } catch (e) {
     // Fallback to hash routing for file:// protocol or direct static server limits
     window.location.hash = url.startsWith('/') ? '#' + url : '#/' + url;
@@ -14997,11 +15001,7 @@ function renderLoginPage() {
           }
         }
         
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          navigateTo('/');
-        }
+        navigateTo('/');
       });
     }
   }
