@@ -11021,20 +11021,31 @@ function openCarDetails(carId) {
       });
     }
 
-    // 2. Inject Go-to-Top Floating Button if missing
+    // 2. Inject Go-to-Top Control horizontally centered in whitespace before footer
     if (!document.getElementById('btn-go-to-top')) {
+      const wrapper = document.createElement('div');
+      wrapper.id = 'go-to-top-wrapper';
+      wrapper.className = 'w-full flex items-center justify-center py-6 bg-transparent relative z-20 pointer-events-none';
+
       const topBtn = document.createElement('button');
       topBtn.id = 'btn-go-to-top';
       topBtn.type = 'button';
       topBtn.setAttribute('aria-label', 'Back to top');
-      topBtn.className = 'fixed bottom-24 right-7 z-[9980] w-11 h-11 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white shadow-lg hover:shadow-xl hover:border-emerald-500 hover:text-emerald-600 dark:hover:border-emerald-400 dark:hover:text-emerald-400 flex items-center justify-center transition-all duration-300 ease-out opacity-0 translate-y-4 pointer-events-none focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white';
+      topBtn.className = 'w-12 h-12 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white shadow-md hover:shadow-xl hover:border-black dark:hover:border-white hover:scale-105 active:scale-95 flex items-center justify-center transition-all duration-300 ease-out opacity-0 translate-y-3 pointer-events-none focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white';
       topBtn.innerHTML = `
         <svg class="w-5 h-5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="19" x2="12" y2="5"></line>
           <polyline points="5 12 12 5 19 12"></polyline>
         </svg>
       `;
-      document.body.appendChild(topBtn);
+      wrapper.appendChild(topBtn);
+
+      const footer = document.querySelector('footer');
+      if (footer && footer.parentNode) {
+        footer.parentNode.insertBefore(wrapper, footer);
+      } else {
+        document.body.appendChild(wrapper);
+      }
 
       topBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -11101,19 +11112,26 @@ function openCarDetails(carId) {
     const topBtn = document.getElementById('btn-go-to-top');
     if (!topBtn) return;
 
+    // Do not reveal during preloader loading state
+    if (document.getElementById('preloader') && !document.body.classList.contains('loaded')) {
+      topBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      topBtn.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+      return;
+    }
+
     const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
     const docHeight = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
     const winHeight = window.innerHeight || 0;
 
-    // Show button ONLY near the bottom / footer area (e.g. within 1100px of page bottom AND scrollY > 600px)
-    const isNearBottom = (scrollY + winHeight >= docHeight - 1100) && (scrollY > 600);
+    // Show button ONLY near the bottom / footer area (e.g. within 1100px of page bottom AND scrollY > 500px)
+    const isNearBottom = (scrollY + winHeight >= docHeight - 1100) && (scrollY > 500);
 
     if (isNearBottom) {
-      topBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      topBtn.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
       topBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
     } else {
       topBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-      topBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      topBtn.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
     }
   }
 
