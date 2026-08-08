@@ -7880,7 +7880,7 @@ const BRAND_LOGO_MAP = {
   'audi': 'AUDI_LOGO.JPG',
   'bmw': 'BMW_LOGO.jpeg',
   'byd': 'BYD_LOGO.jpeg',
-  'citroen': 'CITROEN_LOGO.JPG',
+  'citroen': 'CITROEN_logo.jpg',
   'honda': 'HONDA_LOGO.JPEG',
   'hyundai': 'HYUNDAI_LOGO.jpeg',
   'isuzu': 'isuzu_logo.jpeg',
@@ -7905,7 +7905,7 @@ const BRAND_LOGO_MAP = {
   'lotus': 'LOTUS_LOGO.png',
   'lexus': 'LEXUS_LOGO.jpeg',
   'mini': 'MINI_LOGO.JPG',
-  'pmv': 'PMV_LOGO.jpeg',
+  'pmv': 'PMV_LOGO.png',
   'pravaig': 'PRAVAIG_LOGO.png',
   'rolls-royce': 'ROLLS_ROYCLE.JPG',
   'vayve': 'VAYVE_LOGO.jpeg',
@@ -13133,8 +13133,8 @@ function renderNewsArticlePage(article) {
 
 function renderNewsPage() {
   var allArticles = (newsCache && newsCache.length > 0) ? newsCache : NEWS_DATABASE;
-  var currentPage = 1;
-  var perPage = 9;
+  var BATCH_SIZE = 9;
+  var visibleCount = BATCH_SIZE;
   var searchTerm = '';
   var activeFilter = 'all';
 
@@ -13152,23 +13152,16 @@ function renderNewsPage() {
     return list;
   }
 
-  function render() {
-    var filtered = getFilteredArticles();
-    var totalPages = Math.ceil(filtered.length / perPage) || 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-    var start = (currentPage - 1) * perPage;
-    var pageItems = filtered.slice(start, start + perPage);
-
+  function buildCardsHtml(articles, startIndex) {
     var cardsHtml = '';
-    pageItems.forEach(function(article, idx) {
+    articles.forEach(function(article, idx) {
       var topic = (article.category || '').toUpperCase();
       var date = formatNewsDate(article.published || '');
-      var id = 'news-page-' + start + '-' + idx;
       cardsHtml +=
         '<div class="border border-zinc-200 bg-white p-6 flex flex-col group hover:border-black hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)] news-card rounded-xl">' +
           '<div class="flex flex-col flex-1">' +
             '<div class="aspect-[16/9] bg-zinc-50 border border-zinc-100 flex items-center justify-center mb-4 overflow-hidden rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">' +
-              getNewsImageHtml(article.image || '', article.title, start + idx) +
+              getNewsImageHtml(article.image || '', article.title, startIndex + idx) +
             '</div>' +
             '<div class="flex justify-between items-center text-[8px] text-zinc-400 font-mono mb-2.5">' +
               '<span class="bg-zinc-100 px-2 py-0.5 rounded">' + topic + '</span>' +
@@ -13180,6 +13173,48 @@ function renderNewsPage() {
           '<button class="font-mono text-[10px] tracking-wider text-zinc-400 hover:text-black transition-colors self-end mt-4 btn-news-page-open" data-url="' + (article.url || '') + '">Read More <span class="inline-block transition-transform group-hover:translate-x-0.5">\u2192</span></button>' +
         '</div>';
     });
+    return cardsHtml;
+  }
+
+  function bindReadMoreHandlers() {
+    document.querySelectorAll('.btn-news-page-open').forEach(function(btn) {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function() {
+        var url = this.getAttribute('data-url');
+        if (url) window.open(url, '_blank', 'noopener');
+      });
+    });
+  }
+
+  function updateLoadMoreButton(filtered) {
+    var container = document.getElementById('news-load-more-container');
+    if (!container) return;
+    var hasMore = filtered.length > visibleCount;
+    if (hasMore) {
+      container.classList.remove('hidden');
+    } else {
+      container.classList.add('hidden');
+    }
+  }
+
+  function loadMore() {
+    var filtered = getFilteredArticles();
+    var grid = document.getElementById('news-page-grid');
+    var nextCount = Math.min(visibleCount + BATCH_SIZE, filtered.length);
+    var nextItems = filtered.slice(visibleCount, nextCount);
+    if (grid && nextItems.length > 0) {
+      grid.insertAdjacentHTML('beforeend', buildCardsHtml(nextItems, visibleCount));
+    }
+    visibleCount = nextCount;
+    bindReadMoreHandlers();
+    updateLoadMoreButton(filtered);
+  }
+
+  function render() {
+    var filtered = getFilteredArticles();
+    visibleCount = Math.min(BATCH_SIZE, filtered.length);
+    var cardsHtml = buildCardsHtml(filtered.slice(0, visibleCount), 0);
 
     if (!cardsHtml) {
       cardsHtml = '<div class="col-span-full text-center py-20"><p class="text-zinc-400 font-mono text-xs">No articles match your criteria.</p></div>';
@@ -13193,16 +13228,14 @@ function renderNewsPage() {
       filterBtnsHtml += '<button class="px-4 py-2 text-[10px] font-mono tracking-wider uppercase border transition-all ' + activeClass + ' btn-news-filter" data-filter="' + f + '">' + filterLabels[f] + '</button>';
     });
 
-    var paginationHtml = '';
-    if (totalPages > 1) {
-      paginationHtml += '<div class="flex items-center justify-center gap-3 mt-10 font-mono text-xs">';
-      paginationHtml += '<button class="px-4 py-2 border border-zinc-200 text-zinc-500 hover:border-black hover:text-black transition-all btn-news-page-prev" ' + (currentPage <= 1 ? 'disabled style="opacity:0.3;cursor:default;"' : '') + '>Previous</button>';
-      for (var p = 1; p <= totalPages; p++) {
-        var activeP = p === currentPage ? 'bg-black text-white border-black' : 'bg-white text-zinc-500 border-zinc-200 hover:border-zinc-400';
-        paginationHtml += '<button class="px-3 py-1.5 border transition-all ' + activeP + ' btn-news-page-num" data-page="' + p + '">' + p + '</button>';
-      }
-      paginationHtml += '<button class="px-4 py-2 border border-zinc-200 text-zinc-500 hover:border-black hover:text-black transition-all btn-news-page-next" ' + (currentPage >= totalPages ? 'disabled style="opacity:0.3;cursor:default;"' : '') + '>Next</button>';
-      paginationHtml += '</div>';
+    var loadMoreHtml = '';
+    if (filtered.length > visibleCount) {
+      loadMoreHtml = '<div class="flex items-center justify-center mt-10" id="news-load-more-container">' +
+        '<button id="news-load-more-btn" class="inline-flex items-center gap-2 px-8 py-4 font-mono text-[11px] font-bold tracking-[0.2em] uppercase border-2 border-black bg-white text-black hover:bg-black hover:text-white rounded-full transition-all duration-300 shadow-xs group">' +
+        'LOAD MORE NEWS <span class="inline-block transition-transform duration-300 group-hover:translate-y-1">\u2193</span></button>' +
+      '</div>';
+    } else {
+      loadMoreHtml = '<div class="hidden" id="news-load-more-container"></div>';
     }
 
     var contentHtml =
@@ -13220,7 +13253,7 @@ function renderNewsPage() {
         '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2" id="news-page-grid">' +
           cardsHtml +
         '</div>' +
-        paginationHtml +
+        loadMoreHtml +
       '</div>';
 
     renderSubpage('Latest EV News', ['RESOURCES', 'LATEST NEWS'], contentHtml, '/');
@@ -13228,7 +13261,6 @@ function renderNewsPage() {
     document.querySelectorAll('.btn-news-filter').forEach(function(btn) {
       btn.addEventListener('click', function() {
         activeFilter = this.getAttribute('data-filter');
-        currentPage = 1;
         render();
       });
     });
@@ -13237,36 +13269,16 @@ function renderNewsPage() {
     if (searchInput) {
       searchInput.addEventListener('input', function() {
         searchTerm = this.value;
-        currentPage = 1;
         render();
       });
     }
 
-    document.querySelectorAll('.btn-news-page-open').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var url = this.getAttribute('data-url');
-        if (url) window.open(url, '_blank', 'noopener');
-      });
-    });
+    bindReadMoreHandlers();
 
-    document.querySelectorAll('.btn-news-page-num').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        currentPage = parseInt(this.getAttribute('data-page'), 10);
-        render();
-      });
-    });
-
-    var prevBtn = document.querySelector('.btn-news-page-prev');
-    if (prevBtn && !prevBtn.hasAttribute('disabled')) {
-      prevBtn.addEventListener('click', function() {
-        if (currentPage > 1) { currentPage--; render(); }
-      });
-    }
-
-    var nextBtn = document.querySelector('.btn-news-page-next');
-    if (nextBtn && !nextBtn.hasAttribute('disabled')) {
-      nextBtn.addEventListener('click', function() {
-        if (currentPage < totalPages) { currentPage++; render(); }
+    var loadMoreBtn = document.getElementById('news-load-more-btn');
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', function() {
+        loadMore();
       });
     }
   }
@@ -14066,7 +14078,7 @@ function renderHubArticlePage(key) {
             <span class="font-mono text-xs text-[#22C55E] font-bold tracking-widest uppercase block mb-1">VIDEO EXPLAINERS</span>
             <h2 class="text-xl md:text-2xl font-bold text-black font-sans">Top Video Guides</h2>
           </div>
-          <a href="/index.html#videos" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">WATCH ALL VIDEOS →</a>
+          <a href="/videos.html" class="font-mono text-xs text-zinc-500 hover:text-[#22C55E] uppercase tracking-wider">WATCH ALL VIDEOS →</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           ${videosHtml}
@@ -19271,7 +19283,7 @@ function renderBrandPage(brandId) {
       <div class="border border-zinc-200 bg-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
         <div class="flex items-center gap-6 text-left">
           <div class="w-20 h-20 bg-zinc-50 border border-zinc-200 rounded-2xl flex items-center justify-center p-3 flex-shrink-0">
-            <img src="${logoUrl}" alt="${displayName}" class="w-full h-full object-contain" onerror="this.src='/LOGOS/TATA_LOGO.jpeg'">
+            <img src="${logoUrl}" alt="${displayName}" class="w-full h-full object-contain" onerror="this.src='https://ev-car-wale.s3.ap-south-1.amazonaws.com/LOGOS/TATA_LOGO.jpeg'">
           </div>
           <div>
             <span class="font-mono text-[9px] text-zinc-400 uppercase tracking-widest block">ELECTRIC VEHICLE MANUFACTURER</span>
