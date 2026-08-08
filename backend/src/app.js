@@ -16,7 +16,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   passport.use(new GoogleStrategy({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:8081/auth/google/callback"
+      callbackURL: process.env.GOOGLE_CALLBACK_URL || "/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       const user = {
@@ -72,9 +72,10 @@ function createApp(options = {}) {
   }));
 
   app.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/' }),
+    passport.authenticate('google', { failureRedirect: '/login.html' }),
     (req, res) => {
-      res.redirect('/');
+      const redirectTarget = (req.session && req.session.returnTo) ? req.session.returnTo : '/profile.html';
+      res.redirect(redirectTarget);
     }
   );
 
