@@ -10972,13 +10972,158 @@ function openCarDetails(carId) {
 }
 
 
-// --- Newsletter Form Submission ---
-const newsletterForm = document.getElementById('newsletter-form');
-if (newsletterForm) newsletterForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  alert('NEWSLETTER REGISTRATION SECURE. THANKS FOR SUBSCRIBING.');
-  e.target.reset();
-});
+// ========================================================
+//      CUSTOM NEWSLETTER SUCCESS MODAL & GO-TO-TOP BUTTON
+// ========================================================
+(function initNewsletterAndGoToTop() {
+  function ensureDOMElements() {
+    // 1. Inject Newsletter Success Modal if missing
+    if (!document.getElementById('newsletter-modal-overlay')) {
+      const modalDiv = document.createElement('div');
+      modalDiv.id = 'newsletter-modal-overlay';
+      modalDiv.className = 'fixed inset-0 bg-black/60 backdrop-blur-sm z-[10000] hidden items-center justify-center p-4 transition-all duration-300 opacity-0';
+      modalDiv.setAttribute('role', 'dialog');
+      modalDiv.setAttribute('aria-modal', 'true');
+      modalDiv.setAttribute('aria-labelledby', 'newsletter-modal-title');
+      modalDiv.innerHTML = `
+        <div id="newsletter-modal-card" class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-all duration-300 flex flex-col items-center text-center">
+          <div class="w-14 h-14 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center mb-4 text-emerald-600 dark:text-emerald-400">
+            <svg class="w-7 h-7 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h3 id="newsletter-modal-title" class="text-xl font-bold tracking-tight text-black dark:text-white font-mono mb-2">
+            You're subscribed!
+          </h3>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed mb-3">
+            Thank you for subscribing to the EV Car Wale newsletter. You'll now receive the latest EV updates, insights, launches, and stories straight to your inbox.
+          </p>
+          <p class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 font-mono mb-6">
+            Thanks for subscribing.
+          </p>
+          <button id="newsletter-modal-close" type="button" class="w-full py-3 bg-black dark:bg-white text-white dark:text-black font-mono text-[10px] uppercase tracking-widest font-semibold rounded-xl hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white">
+            OK / Done
+          </button>
+        </div>
+      `;
+      document.body.appendChild(modalDiv);
+
+      // Event listeners for modal close
+      const closeBtn = modalDiv.querySelector('#newsletter-modal-close');
+      if (closeBtn) closeBtn.addEventListener('click', hideNewsletterModal);
+      modalDiv.addEventListener('click', (e) => {
+        if (e.target === modalDiv) hideNewsletterModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modalDiv.classList.contains('hidden')) {
+          hideNewsletterModal();
+        }
+      });
+    }
+
+    // 2. Inject Go-to-Top Floating Button if missing
+    if (!document.getElementById('btn-go-to-top')) {
+      const topBtn = document.createElement('button');
+      topBtn.id = 'btn-go-to-top';
+      topBtn.type = 'button';
+      topBtn.setAttribute('aria-label', 'Back to top');
+      topBtn.className = 'fixed bottom-24 right-7 z-[9980] w-11 h-11 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white shadow-lg hover:shadow-xl hover:border-emerald-500 hover:text-emerald-600 dark:hover:border-emerald-400 dark:hover:text-emerald-400 flex items-center justify-center transition-all duration-300 ease-out opacity-0 translate-y-4 pointer-events-none focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white';
+      topBtn.innerHTML = `
+        <svg class="w-5 h-5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+      `;
+      document.body.appendChild(topBtn);
+
+      topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }
+
+  let lastActiveElement = null;
+
+  function showNewsletterModal() {
+    ensureDOMElements();
+    const overlay = document.getElementById('newsletter-modal-overlay');
+    const card = document.getElementById('newsletter-modal-card');
+    if (!overlay || !card) return;
+
+    lastActiveElement = document.activeElement;
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    
+    // Force reflow for smooth CSS transitions
+    void overlay.offsetWidth;
+    overlay.classList.remove('opacity-0');
+    overlay.classList.add('opacity-100');
+    card.classList.remove('scale-95');
+    card.classList.add('scale-100');
+
+    const closeBtn = document.getElementById('newsletter-modal-close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function hideNewsletterModal() {
+    const overlay = document.getElementById('newsletter-modal-overlay');
+    const card = document.getElementById('newsletter-modal-card');
+    if (!overlay || !card) return;
+
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0');
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+
+    setTimeout(() => {
+      overlay.classList.remove('flex');
+      overlay.classList.add('hidden');
+      if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+        lastActiveElement.focus();
+      }
+    }, 200);
+  }
+
+  // Delegated submit handler for newsletter forms across pages
+  document.addEventListener('submit', (e) => {
+    if (e.target && (e.target.id === 'newsletter-form' || e.target.classList.contains('newsletter-form'))) {
+      e.preventDefault();
+      const emailInput = e.target.querySelector('input[type="email"]');
+      if (emailInput && !emailInput.value.trim()) return;
+      showNewsletterModal();
+      e.target.reset();
+    }
+  });
+
+  // Scroll listener for Go-to-Top Button visibility
+  function checkGoToTopVisibility() {
+    ensureDOMElements();
+    const topBtn = document.getElementById('btn-go-to-top');
+    if (!topBtn) return;
+
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    const docHeight = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
+    const winHeight = window.innerHeight || 0;
+
+    // Show button ONLY near the bottom / footer area (e.g. within 1100px of page bottom AND scrollY > 600px)
+    const isNearBottom = (scrollY + winHeight >= docHeight - 1100) && (scrollY > 600);
+
+    if (isNearBottom) {
+      topBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      topBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+    } else {
+      topBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      topBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    }
+  }
+
+  window.addEventListener('scroll', checkGoToTopVisibility, { passive: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureDOMElements);
+  } else {
+    ensureDOMElements();
+  }
+})();
 
 
 // --- Language Selector Module ---
