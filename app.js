@@ -7880,7 +7880,7 @@ const BRAND_LOGO_MAP = {
   'audi': 'AUDI_LOGO.JPG',
   'bmw': 'BMW_LOGO.jpeg',
   'byd': 'BYD_LOGO.jpeg',
-  'citroen': 'CITROEN_logo.jpg',
+  'citroen': 'CITROEN_LOGO.JPG',
   'honda': 'HONDA_LOGO.JPEG',
   'hyundai': 'HYUNDAI_LOGO.jpeg',
   'isuzu': 'isuzu_logo.jpeg',
@@ -11021,22 +11021,49 @@ function openCarDetails(carId) {
       });
     }
 
+    // 0. Enforce persistent fixed top navigation header on scroll
+    if (!document.getElementById('header-fixed-style')) {
+      const fixedHeaderStyle = document.createElement('style');
+      fixedHeaderStyle.id = 'header-fixed-style';
+      fixedHeaderStyle.textContent = `
+        nav#mega-nav, nav.sticky, nav[class*="sticky"] {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          width: 100% !important;
+          z-index: 50 !important;
+        }
+      `;
+      document.head.appendChild(fixedHeaderStyle);
+    }
+
     // 2. Inject Go-to-Top Control horizontally centered in whitespace before footer
     if (!document.getElementById('btn-go-to-top')) {
       const wrapper = document.createElement('div');
       wrapper.id = 'go-to-top-wrapper';
-      wrapper.className = 'w-full flex items-center justify-center py-6 bg-transparent relative z-20 pointer-events-none';
+      wrapper.className = 'w-full flex flex-col items-center justify-center py-8 bg-transparent relative z-20 pointer-events-none group';
+
+      // Subtle hover-only tooltip: "Want To Go To Top?"
+      const tooltipDiv = document.createElement('div');
+      tooltipDiv.id = 'go-to-top-tooltip';
+      tooltipDiv.className = 'mb-2 flex flex-col items-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 ease-out pointer-events-none';
+      tooltipDiv.innerHTML = `
+        <div class="bg-zinc-900 border border-zinc-700 text-white text-[11px] font-medium tracking-wide px-3.5 py-1.5 rounded-lg shadow-xl whitespace-nowrap">
+          Want To Go To Top?
+        </div>
+        <div class="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-zinc-700 -mt-[1px]"></div>
+      `;
+      wrapper.appendChild(tooltipDiv);
 
       const topBtn = document.createElement('button');
       topBtn.id = 'btn-go-to-top';
       topBtn.type = 'button';
       topBtn.setAttribute('aria-label', 'Back to top');
-      topBtn.className = 'w-12 h-12 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white shadow-md hover:shadow-xl hover:border-black dark:hover:border-white hover:scale-105 active:scale-95 flex items-center justify-center transition-all duration-300 ease-out opacity-0 translate-y-3 pointer-events-none focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white';
+      topBtn.className = 'w-12 h-12 rounded-full bg-black text-white border border-zinc-800 hover:border-zinc-500 shadow-xl hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-300 ease-out opacity-0 translate-y-3 pointer-events-none focus:outline-none focus:ring-2 focus:ring-white relative z-30';
+      topBtn.style.cssText = 'background-color: #0A0A0A !important; color: #FFFFFF !important; border: 1px solid #3F3F46 !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 0 !important; cursor: pointer !important;';
       topBtn.innerHTML = `
-        <svg class="w-5 h-5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="19" x2="12" y2="5"></line>
-          <polyline points="5 12 12 5 19 12"></polyline>
-        </svg>
+        <span style="display: inline-block !important; width: 10px !important; height: 10px !important; border-top: 2.5px solid #FFFFFF !important; border-left: 2.5px solid #FFFFFF !important; transform: rotate(45deg) translate(2px, 2px) !important; margin: 0 !important; padding: 0 !important; pointer-events: none !important; box-sizing: border-box !important;"></span>
       `;
       wrapper.appendChild(topBtn);
 
@@ -12412,14 +12439,8 @@ async function handleRouting() {
       renderBlogArticlePage(article);
       return;
     }
-  } else if (route === '/login') {
+  } else if (route === '/login' || route === '/signup' || route === '/forgot-password') {
     renderLoginPage();
-    return;
-  } else if (route === '/signup') {
-    renderSignupPage();
-    return;
-  } else if (route === '/forgot-password') {
-    renderForgotPasswordPage();
     return;
   } else if (route === '/about' || route.startsWith('/about/') ||
              route === '/contact' || route.startsWith('/contact') ||
@@ -15091,50 +15112,14 @@ function renderLoginPage() {
             ← BACK
           </button>
           
-          <div class="max-w-sm mx-auto w-full pt-10 md:pt-4">
+          <div class="max-w-sm mx-auto w-full pt-10 md:pt-4 text-center">
             <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
             <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Welcome</h1>
-            <p class="text-xs text-zinc-500 font-mono mt-1 mb-8">Sign in to continue exploring EV Car Wale.</p>
-            <form id="login-form" class="flex flex-col gap-5" novalidate>
-              <div class="flex flex-col gap-1.5">
-                <label for="login-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
-                <input type="email" id="login-email" placeholder="you@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300" required>
-                <span class="font-mono text-[9px] text-red-500 hidden" id="login-email-error"></span>
-              </div>
-              <div class="flex flex-col gap-1.5">
-                <label for="login-password" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Password</label>
-                <div class="relative">
-                  <input type="password" id="login-password" placeholder="••••••••" class="w-full px-4 py-3 pr-10 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300" required>
-                  <button type="button" id="toggle-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-black transition-colors">
-                    <svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                      <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                  </button>
-                </div>
-                <span class="font-mono text-[9px] text-red-500 hidden" id="login-password-error"></span>
-              </div>
-              <div class="flex items-center justify-between">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" id="login-remember" class="w-3.5 h-3.5 rounded border-zinc-300 text-black focus:ring-black">
-                  <span class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Remember Me</span>
-                </label>
-                <a href="/forgot-password" class="font-mono text-[9px] text-zinc-600 hover:text-black uppercase tracking-wider transition-colors">Forgot Password?</a>
-              </div>
-              <button type="submit" class="w-full py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors btn-animate">Login</button>
-              <div class="flex items-center gap-3">
-                <span class="flex-1 h-px bg-zinc-200"></span>
-                <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-wider">OR</span>
-                <span class="flex-1 h-px bg-zinc-200"></span>
-              </div>
-              <button type="button" id="google-login-btn" class="w-full py-3 border border-zinc-200 rounded-xl font-mono text-[10px] text-zinc-700 hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2">
-                <svg viewBox="0 0 24 24" class="w-4 h-4"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                Continue with Google
-              </button>
-              <p class="text-center font-mono text-[9px] text-zinc-500">
-                Don't have an account? <a href="/signup" class="text-black font-bold hover:underline">Sign Up</a>
-              </p>
-            </form>
+            <p class="text-xs text-zinc-500 font-mono mt-1 mb-8">Sign in with Google to continue exploring EV Car Wale.</p>
+            <button type="button" id="google-login-btn" class="w-full py-4 border border-zinc-200 rounded-xl font-mono text-[11px] text-zinc-800 hover:border-black hover:bg-zinc-50 transition-all flex items-center justify-center gap-3 shadow-sm btn-animate">
+              <svg viewBox="0 0 24 24" class="w-5 h-5"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Continue with Google
+            </button>
           </div>
         </div>
       </div>
@@ -15174,145 +15159,7 @@ function renderLoginPage() {
   if (typeof applyJargonBuster === "function") applyJargonBuster();
 }
 
-function renderSignupPage() {
-  const contentHtml = `
-    <div class="min-h-screen flex items-center justify-center px-6 py-12" id="signup-page-wrapper">
-      <div class="w-full max-w-md mx-auto">
-        <div class="text-center mb-8">
-          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
-          <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Create Account</h1>
-          <p class="text-xs text-zinc-500 font-mono mt-1">Sign up to explore EV Car Wale.</p>
-        </div>
-        <div class="border border-zinc-200 bg-white rounded-2xl p-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.06)]">
-          <form class="flex flex-col gap-5">
-            <div class="flex flex-col gap-1.5">
-              <label for="signup-name" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Full Name</label>
-              <input type="text" id="signup-name" placeholder="John Doe" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
-            </div>
-            <div class="flex flex-col gap-1.5">
-              <label for="signup-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
-              <input type="email" id="signup-email" placeholder="you@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
-            </div>
-            <div class="flex flex-col gap-1.5">
-              <label for="signup-password" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Password</label>
-              <input type="password" id="signup-password" placeholder="••••••••" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
-            </div>
-            <button type="submit" class="w-full py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors btn-animate">Create Account</button>
-            <div class="flex items-center gap-3">
-              <span class="flex-1 h-px bg-zinc-200"></span>
-              <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-wider">OR</span>
-              <span class="flex-1 h-px bg-zinc-200"></span>
-            </div>
-            <button type="button" id="google-signup-btn" class="w-full py-3 border border-zinc-200 rounded-xl font-mono text-[10px] text-zinc-700 hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2">
-              <svg viewBox="0 0 24 24" class="w-4 h-4"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-              Continue with Google
-            </button>
-            <p class="text-center font-mono text-[9px] text-zinc-500">
-              Already have an account? <a href="/login" class="text-black font-bold hover:underline">Login</a>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
-  `;
-  renderSubpage('Sign Up', ['SIGNUP'], contentHtml, '/');
-  setupSignupForm();
-}
-
-function setupSignupForm() {
-  const wrapper = document.getElementById('signup-page-wrapper');
-  if (wrapper) {
-    const form = wrapper.querySelector('form');
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        showToast('EMAIL SIGNUP NOT SUPPORTED. PLEASE USE "CONTINUE WITH GOOGLE".');
-      });
-    }
-  }
-  const googleBtn = document.getElementById('google-signup-btn');
-  if (googleBtn) {
-    googleBtn.addEventListener('click', () => {
-      window.location.href = '/auth/google';
-    });
-  }
-}
-
-function renderForgotPasswordPage() {
-  const contentHtml = `
-    <div class="min-h-screen flex items-center justify-center px-6 py-12">
-      <div class="w-full max-w-md mx-auto">
-        <div class="text-center mb-8">
-          <span class="font-mono text-[8px] text-zinc-400 uppercase tracking-widest block mb-1">EV CAR WALE</span>
-          <h1 class="text-2xl md:text-3xl font-black tracking-tight text-black">Reset Password</h1>
-          <p class="text-xs text-zinc-500 font-mono mt-1">Enter your email and we'll send you a reset link.</p>
-        </div>
-        <div class="border border-zinc-200 bg-white rounded-2xl p-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.06)]">
-          <form class="flex flex-col gap-5">
-            <div class="flex flex-col gap-1.5">
-              <label for="reset-email" class="font-mono text-[9px] text-zinc-500 uppercase tracking-wider">Email Address</label>
-              <input type="email" id="reset-email" placeholder="you@example.com" class="w-full px-4 py-3 border border-zinc-200 rounded-xl text-xs font-mono text-zinc-800 outline-none focus:border-black transition-colors placeholder-zinc-300">
-            </div>
-            <button type="submit" class="w-full py-3 bg-black text-white font-mono text-[10px] uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors btn-animate">Send Reset Link</button>
-            <p class="text-center font-mono text-[9px] text-zinc-500">
-              Remember your password? <a href="/login" class="text-black font-bold hover:underline">Login</a>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
-  `;
-  renderSubpage('Reset Password', ['FORGOT PASSWORD'], contentHtml, '/');
-}
-
 function setupLoginForm() {
-  const form = document.getElementById('login-form');
-  if (!form) return;
-  const emailInput = document.getElementById('login-email');
-  const passwordInput = document.getElementById('login-password');
-  const emailError = document.getElementById('login-email-error');
-  const passwordError = document.getElementById('login-password-error');
-  const toggleBtn = document.getElementById('toggle-password');
-
-  if (toggleBtn && passwordInput) {
-    toggleBtn.addEventListener('click', () => {
-      const isPassword = passwordInput.type === 'password';
-      passwordInput.type = isPassword ? 'text' : 'password';
-      toggleBtn.innerHTML = isPassword
-        ? '<svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
-        : '<svg viewBox="0 0 24 24" class="w-4 h-4 stroke-current fill-none stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
-    });
-  }
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let valid = true;
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-
-    emailError.classList.add('hidden');
-    passwordError.classList.add('hidden');
-
-    if (!email) {
-      emailError.textContent = 'Email is required.';
-      emailError.classList.remove('hidden');
-      valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      emailError.textContent = 'Please enter a valid email address.';
-      emailError.classList.remove('hidden');
-      valid = false;
-    }
-    if (!password) {
-      passwordError.textContent = 'Password is required.';
-      passwordError.classList.remove('hidden');
-      valid = false;
-    }
-
-    if (valid) {
-      showToast('EMAIL LOGIN NOT SUPPORTED. PLEASE USE "CONTINUE WITH GOOGLE".');
-    }
-  });
-
   const googleBtn = document.getElementById('google-login-btn');
   if (googleBtn) {
     googleBtn.addEventListener('click', () => {

@@ -811,7 +811,7 @@ nav.nav-light-theme #login-nav-btn:hover {
 .section-divider {
   position: relative;
   width: 90% !important;
-  max-width: 1360px !important;
+  max-width: 90% !important;
   margin: 48px auto !important;
   height: 1px !important;
   background: transparent !important;
@@ -833,13 +833,13 @@ nav.nav-light-theme #login-nav-btn:hover {
 }
 .section-divider::before {
   left: 0;
-  /* Animates from -100% + 80px to 0 */
-  transform: translateX(calc(-100% + 80px + (var(--divider-progress) * (100% - 80px)))) translateZ(0);
+  /* Animates from -100% (far left end) to 0 (center) */
+  transform: translateX(calc(-100% * (1 - var(--divider-progress)))) translateZ(0);
 }
 .section-divider::after {
   right: 0;
-  /* Animates from 100% - 80px to 0 */
-  transform: translateX(calc(100% - 80px - (var(--divider-progress) * (100% - 80px)))) translateZ(0);
+  /* Animates from 100% (far right end) to 0 (center) */
+  transform: translateX(calc(100% * (1 - var(--divider-progress)))) translateZ(0);
 }
 
 /* Layout Gutters - Expand max-width containers to 90% of screen width on large displays */

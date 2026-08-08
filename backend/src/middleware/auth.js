@@ -6,6 +6,7 @@ async function optionalAuth(req, res, next) {
   const token = authHeader.startsWith('Bearer ') ? authHeader.substring(7) : '';
 
   if (!token) {
+    // Passport user (Google OAuth)
     if (req.isAuthenticated && req.isAuthenticated() && req.user) {
       req.firebaseUser = {
         uid: req.user.id || req.user.email,
@@ -17,6 +18,7 @@ async function optionalAuth(req, res, next) {
     return next();
   }
 
+  // Bearer Token (Firebase Admin)
   const admin = getFirebaseAdmin();
   if (!admin) return next(new ApiError(503, 'Firebase Admin is not configured on the server.'));
 
