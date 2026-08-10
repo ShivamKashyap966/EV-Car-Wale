@@ -15,6 +15,75 @@ function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
+function parseChargerDetails(poi) {
+  const conns = poi.Connections || [];
+  let isDcFast = false;
+  let maxDcKw = 0;
+  let hasCcs2 = false;
+  let hasChademo = false;
+  let hasGbtDc = false;
+  let connectorTitles = [];
+
+  conns.forEach(c => {
+    const powerKW = parseFloat(c.PowerKW) || 0;
+    const connTitle = (c.ConnectionType?.Title || '').toUpperCase();
+    const connTypeId = c.ConnectionTypeID || 0;
+    const currTitle = (c.CurrentType?.Title || '').toUpperCase();
+    const currTypeId = c.CurrentTypeID || 0;
+
+    const isExplicitDcType = currTypeId === 30 || currTitle.includes('DC') || currTitle.includes('DIRECT CURRENT');
+    const isExplicitAcType = currTypeId === 10 || currTypeId === 20 || currTitle.includes('AC') || currTitle.includes('SINGLE-PHASE') || currTitle.includes('THREE-PHASE');
+
+    const isCcs = connTypeId === 33 || connTitle.includes('CCS');
+    const isChademoConn = connTypeId === 2 || connTitle.includes('CHADEMO');
+    const isGbt = connTypeId === 1037 || connTitle.includes('GB/T DC') || connTitle.includes('GBT DC');
+
+    if (isCcs) hasCcs2 = true;
+    if (isChademoConn) hasChademo = true;
+    if (isGbt) hasGbtDc = true;
+
+    const isDcConn = (isCcs || isChademoConn || isGbt || isExplicitDcType) && !isExplicitAcType;
+    const isFastPower = powerKW >= 20 || (powerKW === 0 && isDcConn);
+
+    if (isDcConn && isFastPower) {
+      isDcFast = true;
+      if (powerKW > maxDcKw) {
+        maxDcKw = powerKW;
+      }
+      if (isCcs) connectorTitles.push('CCS (Type 2)');
+      else if (isChademoConn) connectorTitles.push('CHAdeMO');
+      else if (isGbt) connectorTitles.push('GB/T DC');
+      else if (connTitle) connectorTitles.push(c.ConnectionType.Title);
+    }
+  });
+
+  const poiTitle = (poi.AddressInfo?.Title || poi.title || '').toUpperCase();
+  if (!isDcFast && (poiTitle.includes('DC FAST') || poiTitle.includes('CCS2') || poiTitle.includes('120KW') || poiTitle.includes('60KW') || poiTitle.includes('30KW') || poiTitle.includes('25KW'))) {
+    if (!poiTitle.includes('3.3') && !poiTitle.includes('7.2') && !poiTitle.includes('AC')) {
+      isDcFast = true;
+    }
+  }
+
+  let powerDisplay = '';
+  let connDisplay = connectorTitles.length > 0 ? Array.from(new Set(connectorTitles)).join(' / ') : (hasCcs2 ? 'CCS (Type 2)' : 'DC Fast Connector');
+
+  if (maxDcKw > 0) {
+    powerDisplay = `${maxDcKw} kW DC Fast`;
+  } else if (hasCcs2) {
+    powerDisplay = 'CCS (Type 2) DC Fast';
+  } else {
+    powerDisplay = 'DC Fast Charger';
+  }
+
+  return {
+    isDcFast,
+    maxDcKw,
+    hasCcs2,
+    powerDisplay,
+    connDisplay
+  };
+}
+
 router.get('/openchargemap', (req, res) => {
   const userLat = parseFloat(req.query.latitude || req.query.lat || '28.6139');
   const userLng = parseFloat(req.query.longitude || req.query.lng || '77.2090');
@@ -38,11 +107,8 @@ router.get('/openchargemap', (req, res) => {
             const longitude = parseFloat(info.Longitude || userLng);
             let operator = (p.OperatorInfo && p.OperatorInfo.Title && p.OperatorInfo.Title !== '(Unknown Operator)') ? p.OperatorInfo.Title : 'ChargeZone / Tata Power';
             
-            let kw = '60 kW DC Fast';
-            if (p.Connections && p.Connections.length > 0) {
-              const maxKw = Math.max(...p.Connections.map(c => c.PowerKW || 0));
-              if (maxKw > 0) kw = `${maxKw} kW DC Fast`;
-            }
+            const parsed = parseChargerDetails(p);
+            if (!parsed.isDcFast) return null; // Filter out slow AC / 3.3kW chargers
 
             const distKm = calculateDistanceKm(userLat, userLng, latitude, longitude);
 
@@ -51,10 +117,14 @@ router.get('/openchargemap', (req, res) => {
               title: title,
               address: addr,
               location: `${addr}, ${info.Town || ''}`.trim().replace(/^,\s*/, ''),
-              city: info.Town || 'Bengaluru',
+              city: info.Town || 'Highway Hub',
               cpo: operator,
               network: operator,
-              power: kw,
+              power: parsed.powerDisplay,
+              chargerType: parsed.powerDisplay,
+              connectorType: parsed.connDisplay,
+              hasCcs2: parsed.hasCcs2,
+              maxDcKw: parsed.maxDcKw,
               tariff: '₹18.5/kWh',
               status: 'Available',
               distanceKm: parseFloat(distKm.toFixed(1)),
@@ -62,7 +132,7 @@ router.get('/openchargemap', (req, res) => {
               lng: longitude,
               mapUrl: `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
             };
-          }).sort((a, b) => a.distanceKm - b.distanceKm);
+          }).filter(Boolean).sort((a, b) => a.distanceKm - b.distanceKm);
 
           return res.json({ success: true, count: stations.length, data: stations });
         }

@@ -16915,7 +16915,7 @@ function fmtHours(h) {
 }
 
 /** Render trip results into the pre-built DOM result panel */
-function renderTripResults(data) {
+async function renderTripResults(data) {
   if (!data) return;
 
   var fromCity = (TRIP_CITIES.find(function(c) { return c.key === data.fromKey; }) || {}).label || data.fromKey;
@@ -16963,28 +16963,29 @@ function renderTripResults(data) {
     document.getElementById('trip-bar-petrol').style.width = '100%';
   }, 400);
 
-  // Details row
-  var detailsRow = document.getElementById('trip-details-row');
-  var paxEl = document.getElementById('trip-pax');
-  var paxCount = paxEl ? paxEl.value : '?';
-
-  // Charging stations (light theme borders and colors)
+  // Fetch real chargers along route polyline asynchronously
   var stations = [];
-  if (data.geometry && data.geometry.coordinates) {
-    stations = (typeof findChargersAlongPolyline === 'function') 
-      ? findChargersAlongPolyline(data.fromKey, data.toKey, data.geometry.coordinates, data.chargingStops)
-      : getRouteStations(data.fromKey, data.toKey);
+  if (data.geometry && data.geometry.coordinates && Array.isArray(data.geometry.coordinates)) {
+    if (typeof findChargersAlongPolylineAsync === 'function') {
+      stations = await findChargersAlongPolylineAsync(data.fromKey, data.toKey, data.geometry.coordinates, data.chargingStops);
+    } else if (typeof findChargersAlongPolyline === 'function') {
+      stations = findChargersAlongPolyline(data.fromKey, data.toKey, data.geometry.coordinates, data.chargingStops);
+    } else {
+      stations = getRouteStations(data.fromKey, data.toKey);
+    }
   } else {
     stations = getRouteStations(data.fromKey, data.toKey);
   }
 
   var stationsList = document.getElementById('trip-stations-list');
-  if (stations.length > 0) {
+  if (stations && stations.length > 0) {
     stationsList.innerHTML = stations.map(function(s, i) {
-      var stationName = s.title || (s.network + ' Fast Charger - ' + s.city);
+      var stationName = s.title || s.name || (s.network + ' Fast Charger - ' + s.city);
       var addressText = s.address ? (s.city + ' &nbsp;&middot;&nbsp; ' + s.address) : (s.city + ' Highway Plaza');
-      var mapUrl = s.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(stationName + ' ' + s.city));
-      
+      var mapUrl = s.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + (s.lat || s.latitude) + ',' + (s.lng || s.longitude));
+      var cpoName = s.network || s.cpo || 'EV Charger';
+      var pwrName = s.power || s.chargerType || '60 kW DC Fast';
+
       return '<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-zinc-200 bg-white hover:border-black transition-all duration-300 p-4 shadow-sm rounded-xl" style="animation:tripCardIn 0.4s ' + (0.05 + i * 0.07).toFixed(2) + 's both cubic-bezier(0.16,1,0.3,1)">' +
         '<div class="flex items-center gap-3">' +
           '<div class="w-8 h-8 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-black">' +
@@ -16993,9 +16994,9 @@ function renderTripResults(data) {
           '<div class="flex flex-col gap-0.5">' +
             '<div class="flex items-center gap-2 flex-wrap">' +
               '<span class="font-mono text-xs text-black font-bold">' + stationName + '</span>' +
-              '<span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-[9px] font-semibold uppercase tracking-wider rounded-md">⚡ ' + s.chargerType + '</span>' +
+              '<span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-[9px] font-semibold uppercase tracking-wider rounded-md">⚡ ' + pwrName + '</span>' +
             '</div>' +
-            '<span class="font-mono text-[10px] text-zinc-500">' + addressText + ' &nbsp;&middot;&nbsp; <strong class="text-zinc-700">' + s.network + '</strong></span>' +
+            '<span class="font-mono text-[10px] text-zinc-500">' + addressText + ' &nbsp;&middot;&nbsp; <strong class="text-zinc-700">' + cpoName + '</strong></span>' +
           '</div>' +
         '</div>' +
         '<a href="' + mapUrl + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-blue-600 font-semibold hover:text-blue-700 hover:underline transition-colors font-mono text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm whitespace-nowrap self-start sm:self-auto">' +
@@ -17004,11 +17005,17 @@ function renderTripResults(data) {
         '</a>' +
       '</div>';
     }).join('');
+  } else if (data.chargingStops === 0) {
+    stationsList.innerHTML =
+      '<div class="col-span-2 font-mono text-xs text-zinc-600 border border-zinc-200 bg-zinc-50 p-4 rounded-xl text-center leading-relaxed">' +
+        '<strong class="text-black font-bold">Single Charge Sufficient</strong> &nbsp;&middot;&nbsp; No charging stops are required for this trip distance.' +
+      '</div>';
   } else {
     stationsList.innerHTML =
-      '<div class="col-span-2 font-mono text-[8.5px] text-zinc-500 border border-zinc-200 bg-zinc-50 p-4 leading-relaxed">' +
-        '<span class="text-black block mb-1 font-bold">Charging station data</span>' +
-        'Tata Power EV, Statiq, and EESL CCS2 chargers are available in most major cities along this route.' +
+      '<div class="col-span-2 font-mono text-xs text-zinc-600 border border-zinc-200 bg-zinc-50 p-5 rounded-xl text-center leading-relaxed">' +
+        '<span class="text-lg block mb-1">🔌</span>' +
+        '<strong class="text-black block mb-1 font-bold">No verified charging stations found along this specific route</strong>' +
+        '<span class="text-[10px] text-zinc-500">We could not verify live CCS2 DC fast chargers near the sampled route waypoints. Please check local CPO apps (Tata Power EZ Charge, ChargeZone, Statiq) before traveling.</span>' +
       '</div>';
   }
 
@@ -17388,8 +17395,13 @@ function renderTripMapRoute(fromKey, toKey, stations, routeGeometry) {
       tripMapMarkers = L.layerGroup().addTo(tripMapInstance);
     }
 
-    var startCoord = CITY_COORDS[fromKey] || [28.6139, 77.2090];
-    var endCoord = CITY_COORDS[toKey] || [19.0760, 72.8777];
+    var startCoord = (routeGeometry && routeGeometry.coordinates && routeGeometry.coordinates.length > 0)
+      ? [routeGeometry.coordinates[0][1], routeGeometry.coordinates[0][0]]
+      : (CITY_COORDS[fromKey] || [28.6139, 77.2090]);
+
+    var endCoord = (routeGeometry && routeGeometry.coordinates && routeGeometry.coordinates.length > 0)
+      ? [routeGeometry.coordinates[routeGeometry.coordinates.length - 1][1], routeGeometry.coordinates[routeGeometry.coordinates.length - 1][0]]
+      : (CITY_COORDS[toKey] || [19.0760, 72.8777]);
 
     tripMapMarkers.clearLayers();
     if (tripRoutePolyline) {
@@ -17421,23 +17433,29 @@ function renderTripMapRoute(fromKey, toKey, stations, routeGeometry) {
 
     // Charging station markers
     if (stations && stations.length > 0) {
-      stations.forEach(function(s) {
-        if (!s.lat || !s.lng) return;
-        var stationPos = [s.lat, s.lng];
-        var stationName = s.title || (s.network + ' - ' + s.city);
-        var locationStr = s.address || s.city;
+      stations.forEach(function(s, idx) {
+        var sLat = parseFloat(s.lat || s.latitude);
+        var sLng = parseFloat(s.lng || s.longitude);
+        if (isNaN(sLat) || isNaN(sLng)) return;
+        var stationPos = [sLat, sLng];
+        var stationName = s.title || s.name || (s.network + ' - ' + s.city);
+        var locationStr = s.address || s.location || s.city;
+        var pwrName = s.power || s.chargerType || '60 kW DC Fast';
+        var cpoName = s.network || s.cpo || 'EV Charger';
 
         var blueChargerIcon = L.divIcon({
-          html: '<div class="w-7 h-7 rounded-full bg-blue-600 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-bold transform hover:scale-125 transition-transform cursor-pointer">⚡</div>',
+          html: '<div class="w-8 h-8 rounded-full bg-blue-600 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-bold transform hover:scale-125 transition-transform cursor-pointer">⚡</div>',
           className: '',
-          iconSize: [28, 28],
-          iconAnchor: [14, 14],
-          popupAnchor: [0, -14]
+          iconSize: [32, 32],
+          iconAnchor: [16, 16],
+          popupAnchor: [0, -16]
         });
 
-        var simplePopupHtml = '<div class="font-sans p-1 text-zinc-900 leading-tight">' +
-          '<strong class="font-bold text-xs text-black block mb-0.5">' + stationName + '</strong>' +
-          '<span class="text-[10px] text-zinc-500 font-mono block">' + locationStr + '</span>' +
+        var simplePopupHtml = '<div class="font-sans p-1 text-zinc-900 leading-tight min-w-[180px]">' +
+          '<div class="text-[9px] font-bold font-mono text-blue-600 uppercase mb-0.5">STOP ' + (idx + 1) + ' &nbsp;&middot;&nbsp; ' + cpoName + '</div>' +
+          '<strong class="font-bold text-xs text-black block mb-1">' + stationName + '</strong>' +
+          '<span class="text-[10px] text-zinc-500 font-mono block mb-1">' + locationStr + '</span>' +
+          '<span class="inline-block px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-[9px] font-semibold uppercase tracking-wider rounded">⚡ ' + pwrName + '</span>' +
         '</div>';
 
         L.marker(stationPos, { icon: blueChargerIcon }).addTo(tripMapMarkers).bindPopup(simplePopupHtml);
@@ -17653,7 +17671,7 @@ function initTripPlanner() {
         if (!res.ok) throw new Error('Route API failed with status ' + res.status);
         return res.json();
       })
-      .then(function(routeResult) {
+      .then(async function(routeResult) {
         planBtn.disabled = false;
         planBtn.innerHTML = origBtnText;
 
@@ -17666,7 +17684,7 @@ function initTripPlanner() {
           alert('Unable to calculate trip data for selected options.');
           return;
         }
-        renderTripResults(calculatedData);
+        await renderTripResults(calculatedData);
       })
       .catch(function(err) {
         planBtn.disabled = false;

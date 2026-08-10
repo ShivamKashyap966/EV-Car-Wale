@@ -1297,6 +1297,18 @@ const TRIP_CITIES = [
   { key: 'visakhapatnam', label: 'Visakhapatnam, AP' },
 ];
 
+function getRouteData(fromKey, toKey) {
+  const k1 = fromKey + '-' + toKey;
+  const k2 = toKey + '-' + fromKey;
+  return CITY_DISTANCE_DATABASE[k1] || CITY_DISTANCE_DATABASE[k2] || null;
+}
+
+function getRouteStations(fromKey, toKey) {
+  const k1 = fromKey + '-' + toKey;
+  const k2 = toKey + '-' + fromKey;
+  return ROUTE_STATIONS[k1] || ROUTE_STATIONS[k2] || [];
+}
+
 function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   var R = 6371;
   var dLat = (lat2 - lat1) * Math.PI / 180;
@@ -1312,7 +1324,7 @@ function findChargersAlongPolyline(fromKey, toKey, coordinates, numStops) {
   const k1 = (fromKey || '').toLowerCase() + '-' + (toKey || '').toLowerCase();
   const k2 = (toKey || '').toLowerCase() + '-' + (fromKey || '').toLowerCase();
   const predefined = ROUTE_STATIONS[k1] || ROUTE_STATIONS[k2] || [];
-  if (predefined.length > 0) return predefined;
+  if (predefined.length >= (numStops || 1)) return predefined;
 
   var allStations = [];
   if (typeof OPENCHARGEMAP_STATIONS !== 'undefined') {
@@ -1326,8 +1338,9 @@ function findChargersAlongPolyline(fromKey, toKey, coordinates, numStops) {
             city: st.city || cityKey,
             network: st.network || 'TATA POWER / STATIQ',
             chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
-            lat: st.lat,
-            lng: st.lng,
+            power: st.chargerType || '60 kW DC Fast',
+            lat: parseFloat(st.lat),
+            lng: parseFloat(st.lng),
             mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng)
           });
         });
@@ -1336,31 +1349,28 @@ function findChargersAlongPolyline(fromKey, toKey, coordinates, numStops) {
   }
 
   if (!coordinates || !Array.isArray(coordinates) || coordinates.length === 0) {
-    return getRouteStations(fromKey, toKey);
+    return predefined.length > 0 ? predefined : [];
   }
 
   var targetCount = Math.max(1, numStops || 1);
-  var sampleWaypoints = [];
   var totalPoints = coordinates.length;
+  var selected = [];
+  var usedTitles = {};
 
   for (var i = 1; i <= targetCount; i++) {
     var fraction = i / (targetCount + 1);
     var index = Math.floor(fraction * totalPoints);
     if (index >= totalPoints) index = totalPoints - 1;
     var pt = coordinates[index]; // [lng, lat]
-    sampleWaypoints.push({ lat: pt[1], lng: pt[0] });
-  }
+    var wpLat = pt[1];
+    var wpLng = pt[0];
 
-  var selected = [];
-  var usedTitles = {};
-
-  sampleWaypoints.forEach(function(wp) {
     var closest = null;
     var minDist = Infinity;
 
     allStations.forEach(function(st) {
       if (usedTitles[st.title]) return;
-      var d = calculateDistanceKm(wp.lat, wp.lng, st.lat, st.lng);
+      var d = calculateDistanceKm(wpLat, wpLng, st.lat, st.lng);
       if (d < minDist) {
         minDist = d;
         closest = st;
@@ -1371,10 +1381,432 @@ function findChargersAlongPolyline(fromKey, toKey, coordinates, numStops) {
       usedTitles[closest.title] = true;
       selected.push(closest);
     }
-  });
+  }
 
   if (selected.length > 0) return selected;
-  return getRouteStations(fromKey, toKey);
+  return predefined.length > 0 ? predefined : [];
+}
+
+function parseChargerDetails(poi) {
+  var conns = poi.Connections || [];
+  var isDcFast = false;
+  var maxDcKw = 0;
+  var hasCcs2 = false;
+  var hasChademo = false;
+  var hasGbtDc = false;
+  var connectorTitles = [];
+
+  conns.forEach(function(c) {
+    var powerKW = parseFloat(c.PowerKW) || 0;
+    var connTitle = (c.ConnectionType && c.ConnectionType.Title ? c.ConnectionType.Title : '').toUpperCase();
+    var connTypeId = c.ConnectionTypeID || 0;
+    var currTitle = (c.CurrentType && c.CurrentType.Title ? c.CurrentType.Title : '').toUpperCase();
+    var currTypeId = c.CurrentTypeID || 0;
+
+    var isExplicitDcType = currTypeId === 30 || currTitle.indexOf('DC') !== -1 || currTitle.indexOf('DIRECT CURRENT') !== -1;
+    var isExplicitAcType = currTypeId === 10 || currTypeId === 20 || currTitle.indexOf('AC') !== -1 || currTitle.indexOf('SINGLE-PHASE') !== -1 || currTitle.indexOf('THREE-PHASE') !== -1;
+
+    var isCcs = connTypeId === 33 || connTitle.indexOf('CCS') !== -1;
+    var isChademoConn = connTypeId === 2 || connTitle.indexOf('CHADEMO') !== -1;
+    var isGbt = connTypeId === 1037 || connTitle.indexOf('GB/T DC') !== -1 || connTitle.indexOf('GBT DC') !== -1;
+
+    if (isCcs) hasCcs2 = true;
+    if (isChademoConn) hasChademo = true;
+    if (isGbt) hasGbtDc = true;
+
+    var isDcConn = (isCcs || isChademoConn || isGbt || isExplicitDcType) && !isExplicitAcType;
+    var isFastPower = powerKW >= 20 || (powerKW === 0 && isDcConn);
+
+    if (isDcConn && isFastPower) {
+      isDcFast = true;
+      if (powerKW > maxDcKw) {
+        maxDcKw = powerKW;
+      }
+      if (isCcs && connectorTitles.indexOf('CCS (Type 2)') === -1) connectorTitles.push('CCS (Type 2)');
+      else if (isChademoConn && connectorTitles.indexOf('CHAdeMO') === -1) connectorTitles.push('CHAdeMO');
+      else if (isGbt && connectorTitles.indexOf('GB/T DC') === -1) connectorTitles.push('GB/T DC');
+      else if (c.ConnectionType && c.ConnectionType.Title && connectorTitles.indexOf(c.ConnectionType.Title) === -1) connectorTitles.push(c.ConnectionType.Title);
+    }
+  });
+
+  var poiTitle = ((poi.AddressInfo && poi.AddressInfo.Title) || poi.title || '').toUpperCase();
+  if (!isDcFast && (poiTitle.indexOf('DC FAST') !== -1 || poiTitle.indexOf('CCS2') !== -1 || poiTitle.indexOf('120KW') !== -1 || poiTitle.indexOf('60KW') !== -1 || poiTitle.indexOf('30KW') !== -1 || poiTitle.indexOf('25KW') !== -1)) {
+    if (poiTitle.indexOf('3.3') === -1 && poiTitle.indexOf('7.2') === -1 && poiTitle.indexOf('AC') === -1) {
+      isDcFast = true;
+    }
+  }
+
+  var powerDisplay = '';
+  var connDisplay = connectorTitles.length > 0 ? connectorTitles.join(' / ') : (hasCcs2 ? 'CCS (Type 2)' : 'DC Fast Connector');
+
+  if (maxDcKw > 0) {
+    powerDisplay = maxDcKw + ' kW DC Fast';
+  } else if (hasCcs2) {
+    powerDisplay = 'CCS (Type 2) DC Fast';
+  } else {
+    powerDisplay = 'DC Fast Charger';
+  }
+
+  var reasons = [];
+  if (hasCcs2) reasons.push('Verified CCS (Type 2) DC fast connector');
+  else if (hasChademo) reasons.push('Verified CHAdeMO DC fast connector');
+  else if (hasGbtDc) reasons.push('Verified GB/T DC fast connector');
+  else reasons.push('Verified Direct Current (DC) fast charging profile');
+
+  if (maxDcKw > 0) reasons.push('high power rating (' + maxDcKw + ' kW >= 20 kW threshold)');
+  else reasons.push('DC fast architecture');
+
+  return {
+    isDcFast: isDcFast,
+    maxDcKw: maxDcKw,
+    hasCcs2: hasCcs2,
+    powerDisplay: powerDisplay,
+    connDisplay: connDisplay,
+    qualificationReason: reasons.join(' with ')
+  };
+}
+
+async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numStops) {
+  var targetCount = Math.max(0, parseInt(numStops, 10) || 0);
+  if (targetCount === 0) return [];
+
+  if (!coordinates || !Array.isArray(coordinates) || coordinates.length < 2) {
+    var predefinedKey1 = (fromKey + '-' + toKey).toLowerCase();
+    var predefinedKey2 = (toKey + '-' + fromKey).toLowerCase();
+    var predefinedArr = ROUTE_STATIONS[predefinedKey1] || ROUTE_STATIONS[predefinedKey2] || [];
+    return predefinedArr.slice(0, targetCount).map(function(st) {
+      return {
+        title: st.title || (st.network + ' Charger - ' + st.city),
+        name: st.title || (st.network + ' Charger - ' + st.city),
+        address: st.address || (st.city + ' Highway Corridor'),
+        city: st.city || 'Highway Hub',
+        network: st.network || 'EV Charger',
+        cpo: st.network || 'EV Charger',
+        power: st.chargerType || '60 kW DC Fast',
+        chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
+        connectorType: 'CCS (Type 2)',
+        source: 'Predefined Route Dataset',
+        lat: parseFloat(st.lat),
+        lng: parseFloat(st.lng),
+        mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng),
+        qualificationReason: 'Pre-verified CCS (Type 2) DC Fast Charger (>= 25 kW)',
+        distToRoadKm: 0,
+        routeKm: 0,
+        routePct: 50
+      };
+    });
+  }
+
+  // 1. Compute cumulative distances along OSRM route polyline
+  var totalPoints = coordinates.length;
+  var cumDist = [0];
+  for (var c = 1; c < totalPoints; c++) {
+    var prev = coordinates[c - 1];
+    var curr = coordinates[c];
+    var d = calculateDistanceKm(prev[1], prev[0], curr[1], curr[0]);
+    cumDist.push(cumDist[c - 1] + d);
+  }
+  var totalDist = cumDist[totalPoints - 1];
+
+  var originPt = coordinates[0];
+  var destPt   = coordinates[totalPoints - 1];
+  var originLat = originPt[1], originLng = originPt[0];
+  var destLat   = destPt[1],   destLng   = destPt[0];
+
+  // Helper to project point onto polyline coordinates & find exact distance to road
+  function getPolylineInfo(cLat, cLng) {
+    var minDist = Infinity;
+    var bestIndex = 0;
+    // Step through coordinates to find closest point on polyline
+    for (var i = 0; i < totalPoints; i++) {
+      var pt = coordinates[i];
+      var dist = calculateDistanceKm(cLat, cLng, pt[1], pt[0]);
+      if (dist < minDist) {
+        minDist = dist;
+        bestIndex = i;
+      }
+    }
+    var routeKm = cumDist[bestIndex];
+    var routePct = totalDist > 0 ? (routeKm / totalDist) * 100 : 0;
+    return {
+      distToRoadKm: parseFloat(minDist.toFixed(2)),
+      routeKm: parseFloat(routeKm.toFixed(1)),
+      routePct: parseFloat(routePct.toFixed(1)),
+      bestIndex: bestIndex
+    };
+  }
+
+  // Sample route waypoints for target stop positions
+  var targetWaypoints = [];
+  for (var k = 1; k <= targetCount; k++) {
+    var targetKm = (k / (targetCount + 1)) * totalDist;
+    var closestIdx = 0;
+    var minDiff = Infinity;
+    for (var j = 0; j < totalPoints; j++) {
+      var diff = Math.abs(cumDist[j] - targetKm);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = j;
+      }
+    }
+    var wpt = coordinates[closestIdx];
+    targetWaypoints.push({
+      stopNum: k,
+      targetKm: targetKm,
+      lat: wpt[1],
+      lng: wpt[0]
+    });
+  }
+
+  // Gather raw candidates around all waypoints
+  var rawCandidates = [];
+  var candidateKeys = new Set();
+
+  for (var w = 0; w < targetWaypoints.length; w++) {
+    var wp = targetWaypoints[w];
+    var wpCandidates = [];
+
+    // Proxy endpoint call
+    try {
+      var baseUrl = (typeof window !== 'undefined' && window.location) ? '' : 'http://localhost:5000';
+      var apiRes = await fetch(baseUrl + '/api/chargers/openchargemap?latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=120&maxresults=35');
+      if (apiRes.ok) {
+        var apiData = await apiRes.json();
+        if (apiData && apiData.success && Array.isArray(apiData.data) && apiData.data.length > 0) {
+          wpCandidates = apiData.data.map(function(st) {
+            return {
+              title: st.title || st.name,
+              name: st.title || st.name,
+              address: st.address || st.location,
+              city: st.city || 'Highway Hub',
+              cpo: st.cpo || st.network,
+              network: st.network || st.cpo,
+              power: st.power || st.chargerType || 'DC Fast Charger',
+              chargerType: st.chargerType || st.power || 'DC Fast Charger',
+              connectorType: st.connectorType || (st.hasCcs2 ? 'CCS (Type 2)' : 'DC Fast Connector'),
+              hasCcs2: st.hasCcs2 || false,
+              maxDcKw: st.maxDcKw || 0,
+              source: 'OpenChargeMap API (Proxy)',
+              lat: parseFloat(st.lat),
+              lng: parseFloat(st.lng),
+              mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng)
+            };
+          });
+        }
+      }
+    } catch (e) {}
+
+    // Fallback to direct OpenChargeMap API
+    if (!wpCandidates || wpCandidates.length === 0) {
+      try {
+        var apiKey = (typeof process !== 'undefined' && process.env && process.env.OPENCHARGEMAP_API_KEY) ? process.env.OPENCHARGEMAP_API_KEY : '';
+        var directUrl = 'https://api.openchargemap.io/v3/poi/?output=json&latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=150&distanceunit=KM&maxresults=35&compact=true&verbose=false' + (apiKey ? '&key=' + apiKey : '');
+        var directRes = await fetch(directUrl);
+        if (directRes.ok) {
+          var rawJson = await directRes.json();
+          if (Array.isArray(rawJson)) {
+            wpCandidates = rawJson.map(function(p) {
+              var parsed = parseChargerDetails(p);
+              if (!parsed.isDcFast) return null;
+
+              var info = p.AddressInfo || {};
+              var t = info.Title || 'EV Fast Charger';
+              var addr = info.AddressLine1 || info.Town || 'India';
+              var lat = parseFloat(info.Latitude || wp.lat);
+              var lng = parseFloat(info.Longitude || wp.lng);
+              var op = (p.OperatorInfo && p.OperatorInfo.Title && p.OperatorInfo.Title !== '(Unknown Operator)') ? p.OperatorInfo.Title : 'Tata Power / ChargeZone';
+
+              return {
+                title: t,
+                name: t,
+                address: addr,
+                location: (addr + ', ' + (info.Town || '')).replace(/^,\s*/, ''),
+                city: info.Town || 'Highway Hub',
+                cpo: op,
+                network: op,
+                power: parsed.powerDisplay,
+                chargerType: parsed.powerDisplay,
+                connectorType: parsed.connDisplay,
+                hasCcs2: parsed.hasCcs2,
+                maxDcKw: parsed.maxDcKw,
+                source: 'OpenChargeMap API (Direct)',
+                lat: lat,
+                lng: lng,
+                mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng,
+                qualificationReason: parsed.qualificationReason
+              };
+            }).filter(Boolean);
+          }
+        }
+      } catch (e2) {}
+    }
+
+    // Add to pool
+    wpCandidates.forEach(function(cand) {
+      var cLat = parseFloat(cand.lat), cLng = parseFloat(cand.lng);
+      if (isNaN(cLat) || isNaN(cLng)) return;
+      var keyStr = (cand.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
+      if (!candidateKeys.has(keyStr)) {
+        candidateKeys.add(keyStr);
+        rawCandidates.push(cand);
+      }
+    });
+  }
+
+  // Also include local dataset
+  if (typeof OPENCHARGEMAP_STATIONS !== 'undefined') {
+    Object.keys(OPENCHARGEMAP_STATIONS).forEach(function(cityKey) {
+      var arr = OPENCHARGEMAP_STATIONS[cityKey];
+      if (Array.isArray(arr)) {
+        arr.forEach(function(st) {
+          var cLat = parseFloat(st.lat), cLng = parseFloat(st.lng);
+          if (isNaN(cLat) || isNaN(cLng)) return;
+          var keyStr = (st.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
+          if (!candidateKeys.has(keyStr)) {
+            candidateKeys.add(keyStr);
+            rawCandidates.push({
+              title: st.title || (st.network + ' Charger - ' + st.city),
+              name: st.title || (st.network + ' Charger - ' + st.city),
+              address: st.address || (st.city + ' Highway Corridor'),
+              city: st.city || cityKey,
+              cpo: st.network || 'TATA POWER / STATIQ',
+              network: st.network || 'TATA POWER / STATIQ',
+              power: st.chargerType || '60 kW DC Fast',
+              chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
+              connectorType: 'CCS (Type 2)',
+              hasCcs2: true,
+              maxDcKw: 60,
+              source: 'Local Catalog Dataset',
+              lat: cLat,
+              lng: cLng,
+              mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + cLat + ',' + cLng),
+              qualificationReason: 'Pre-verified CCS (Type 2) DC Fast Charger (>= 25 kW)'
+            });
+          }
+        });
+      }
+    });
+  }
+
+  // Filter and decorate candidates with route geometry metrics
+  var validRouteCandidates = [];
+  rawCandidates.forEach(function(cand) {
+    var cLat = parseFloat(cand.lat), cLng = parseFloat(cand.lng);
+    var pInfo = getPolylineInfo(cLat, cLng);
+
+    // 1. Tight Road Proximity Filter: Must be within 10 km (or 15 km max) of the actual OSRM road polyline
+    if (pInfo.distToRoadKm > 15) return;
+
+    // 2. Endpoint Exclusion Filter: Must NOT be within 6% or > 94% route progress, or within 30 km of origin/destination
+    if (pInfo.routePct < 6 || pInfo.routePct > 94) return;
+    var distToOrigin = calculateDistanceKm(cLat, cLng, originLat, originLng);
+    var distToDest   = calculateDistanceKm(cLat, cLng, destLat, destLng);
+    if (distToOrigin < 30 || distToDest < 30) return;
+
+    // 3. Fast Charger Filter: Power >= 20 kW DC, not 3.3 kW / 7.2 kW AC
+    var kwVal = cand.maxDcKw || parseFloat((cand.power || cand.chargerType || '').toString().match(/(\d+)\s*kw/i)?.[1] || 0);
+    var pwrLower = (cand.power || cand.chargerType || '').toString().toLowerCase();
+    if (kwVal > 0 && kwVal < 20) return;
+    if (pwrLower.indexOf('3.3') !== -1 || pwrLower.indexOf('7.2') !== -1 || pwrLower.indexOf('ac (single-phase)') !== -1) return;
+
+    validRouteCandidates.push({
+      title: cand.title,
+      name: cand.name,
+      address: cand.address,
+      city: cand.city,
+      network: cand.network,
+      cpo: cand.cpo,
+      power: cand.power,
+      chargerType: cand.chargerType,
+      connectorType: cand.connectorType || 'CCS (Type 2)',
+      source: cand.source || 'OpenChargeMap API',
+      lat: cLat,
+      lng: cLng,
+      mapUrl: cand.mapUrl,
+      qualificationReason: cand.qualificationReason || 'Verified DC fast charging connector (>= 20 kW)',
+      hasCcs2: cand.hasCcs2 || false,
+      maxDcKw: kwVal,
+      distToRoadKm: pInfo.distToRoadKm,
+      routeKm: pInfo.routeKm,
+      routePct: pInfo.routePct,
+      bestIndex: pInfo.bestIndex
+    });
+  });
+
+  // Minimum required route-distance separation between consecutive selected stops
+  var minSeparationKm = Math.min(75, Math.max(30, (totalDist / (targetCount + 1)) * 0.40));
+
+  // Select EXACTLY targetCount chargers for target stop positions with spacing enforcement
+  var selectedStops = [];
+  var usedStopKeys = new Set();
+
+  for (var s = 0; s < targetWaypoints.length; s++) {
+    var twp = targetWaypoints[s];
+    var bestCand = null;
+    var bestScore = -Infinity;
+
+    validRouteCandidates.forEach(function(cand) {
+      var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
+      if (usedStopKeys.has(candKey)) return;
+
+      // Tight Road Proximity Preference: Prefer chargers <= 10 km from road
+      if (cand.distToRoadKm > 10) return;
+
+      // Minimum Spacing Enforcement: Ensure candidate is at least minSeparationKm away from previously selected stops
+      var tooCloseToOtherStop = selectedStops.some(function(prevStop) {
+        return Math.abs(cand.routeKm - prevStop.routeKm) < minSeparationKm;
+      });
+      if (tooCloseToOtherStop) return;
+
+      var distFromTargetKm = Math.abs(cand.routeKm - twp.targetKm);
+      if (distFromTargetKm > (totalDist / (targetCount + 1)) * 1.35) return;
+
+      var score = 300 - distFromTargetKm - (cand.distToRoadKm * 10);
+      if (cand.hasCcs2 || (cand.connectorType && cand.connectorType.indexOf('CCS') !== -1)) score += 30;
+      if (cand.maxDcKw >= 100) score += 35;
+      else if (cand.maxDcKw >= 50) score += 20;
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestCand = cand;
+        bestCand._key = candKey;
+      }
+    });
+
+    // Fallback pass if no candidate found within 10 km road proximity & tight target window
+    if (!bestCand) {
+      validRouteCandidates.forEach(function(cand) {
+        var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
+        if (usedStopKeys.has(candKey)) return;
+
+        var tooCloseToOtherStop = selectedStops.some(function(prevStop) {
+          return Math.abs(cand.routeKm - prevStop.routeKm) < (minSeparationKm * 0.6);
+        });
+        if (tooCloseToOtherStop) return;
+
+        var distFromTargetKm = Math.abs(cand.routeKm - twp.targetKm);
+        var score = 200 - distFromTargetKm - (cand.distToRoadKm * 8);
+        if (score > bestScore) {
+          bestScore = score;
+          bestCand = cand;
+          bestCand._key = candKey;
+        }
+      });
+    }
+
+    if (bestCand) {
+      usedStopKeys.add(bestCand._key);
+      selectedStops.push(bestCand);
+    }
+  }
+
+  // 4. Sort strictly by route progress (routeKm) from origin to destination
+  selectedStops.sort(function(a, b) {
+    return a.routeKm - b.routeKm;
+  });
+
+  // Guarantee EXACTLY targetCount items by capping at targetCount
+  return selectedStops.slice(0, targetCount);
 }
 
 module.exports = {
@@ -1383,5 +1815,6 @@ module.exports = {
   TRIP_CITIES,
   getRouteData,
   getRouteStations,
-  findChargersAlongPolyline
+  findChargersAlongPolyline,
+  findChargersAlongPolylineAsync
 };
