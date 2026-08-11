@@ -760,6 +760,90 @@ const OPENCHARGEMAP_STATIONS = {
       "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=12.86196,79.13251"
     }
   ],
+  "ratlam": [
+    {
+      "title": "Shree Kanha International Chargezone",
+      "address": "Ratlam Bypass NH 79",
+      "city": "Ratlam",
+      "network": "ChargeZone / Tata Power",
+      "chargerType": "60 kW DC Fast",
+      "lat": 23.386513,
+      "lng": 75.059851,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=23.386513,75.059851"
+    }
+  ],
+  "shirdi": [
+    {
+      "title": "Shirdi Sai Fast Charger",
+      "address": "Ahmednagar - Shirdi Highway",
+      "city": "Shirdi",
+      "network": "Tata Power / ChargeZone",
+      "chargerType": "30 kW DC Fast",
+      "lat": 19.757594,
+      "lng": 74.476347,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=19.757594,74.476347"
+    }
+  ],
+  "solapur": [
+    {
+      "title": "Saguna Family Restaurant Fast Charger",
+      "address": "Solapur Bypass NH 65",
+      "city": "Solapur",
+      "network": "ChargeZone",
+      "chargerType": "60 kW DC Fast",
+      "lat": 17.877009,
+      "lng": 75.976022,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=17.877009,75.976022"
+    }
+  ],
+  "hosapete": [
+    {
+      "title": "Royal Orchid Central Kireeti",
+      "address": "Station Road, Hosapete",
+      "city": "Hosapete",
+      "network": "Tata Power",
+      "chargerType": "60 kW DC Fast",
+      "lat": 15.28683,
+      "lng": 76.38577,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=15.28683,76.38577"
+    }
+  ],
+  "betul": [
+    {
+      "title": "Midway Treat Betul Hotel",
+      "address": "NH 44 Sakadehi",
+      "city": "Betul",
+      "network": "Tata Power",
+      "chargerType": "120 kW DC Fast",
+      "lat": 21.997786,
+      "lng": 77.865382,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=21.997786,77.865382"
+    }
+  ],
+  "nalgonda": [
+    {
+      "title": "MobiLane SSKATPGCS",
+      "address": "NH 65 Nalgonda Bypass",
+      "city": "Nalgonda",
+      "network": "ChargeZone",
+      "chargerType": "60 kW DC Fast",
+      "lat": 17.170500,
+      "lng": 79.354761,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=17.170500,79.354761"
+    }
+  ],
+  "anantapur": [
+    {
+      "title": "Anantapur NH 44 Fast Charger",
+      "address": "NH 44 Anantapur Bypass",
+      "city": "Anantapur",
+      "network": "Jio-bp Pulse",
+      "chargerType": "120 kW DC Fast",
+      "lat": 14.6819,
+      "lng": 77.6006,
+      "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=14.6819,77.6006"
+    }
+  ],
   "asansol": [
     {
       "title": "FC - TataPower - TMSC Chandrani Enterprises",
@@ -1473,7 +1557,7 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
   if (!coordinates || !Array.isArray(coordinates) || coordinates.length < 2) {
     var predefinedKey1 = (fromKey + '-' + toKey).toLowerCase();
     var predefinedKey2 = (toKey + '-' + fromKey).toLowerCase();
-    var predefinedArr = ROUTE_STATIONS[predefinedKey1] || ROUTE_STATIONS[predefinedKey2] || [];
+    var predefinedArr = (typeof ROUTE_STATIONS !== 'undefined') ? (ROUTE_STATIONS[predefinedKey1] || ROUTE_STATIONS[predefinedKey2] || []) : [];
     return predefinedArr.slice(0, targetCount).map(function(st) {
       return {
         title: st.title || (st.network + ' Charger - ' + st.city),
@@ -1485,7 +1569,7 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
         power: st.chargerType || '60 kW DC Fast',
         chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
         connectorType: 'CCS (Type 2)',
-        source: 'Predefined Route Dataset',
+        source: 'Curated Route Dataset',
         lat: parseFloat(st.lat),
         lng: parseFloat(st.lng),
         mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng),
@@ -1513,11 +1597,9 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
   var originLat = originPt[1], originLng = originPt[0];
   var destLat   = destPt[1],   destLng   = destPt[0];
 
-  // Helper to project point onto polyline coordinates & find exact distance to road
   function getPolylineInfo(cLat, cLng) {
     var minDist = Infinity;
     var bestIndex = 0;
-    // Step through coordinates to find closest point on polyline
     for (var i = 0; i < totalPoints; i++) {
       var pt = coordinates[i];
       var dist = calculateDistanceKm(cLat, cLng, pt[1], pt[0]);
@@ -1536,8 +1618,10 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
     };
   }
 
-  // Sample route waypoints for target stop positions
-  var targetWaypoints = [];
+  // 2. Broad Waypoint Sampling: sample target stop positions + corridor search waypoints every ~100 km
+  var searchWaypoints = [];
+  var searchKeys = new Set();
+
   for (var k = 1; k <= targetCount; k++) {
     var targetKm = (k / (targetCount + 1)) * totalDist;
     var closestIdx = 0;
@@ -1550,30 +1634,49 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
       }
     }
     var wpt = coordinates[closestIdx];
-    targetWaypoints.push({
-      stopNum: k,
-      targetKm: targetKm,
-      lat: wpt[1],
-      lng: wpt[0]
-    });
+    var key = wpt[1].toFixed(3) + '_' + wpt[0].toFixed(3);
+    if (!searchKeys.has(key)) {
+      searchKeys.add(key);
+      searchWaypoints.push({ targetKm: targetKm, lat: wpt[1], lng: wpt[0], isTarget: true, stopNum: k });
+    }
   }
 
-  // Gather raw candidates around all waypoints
+  var stepKm = Math.min(100, Math.max(50, totalDist / 15));
+  for (var distVal = stepKm; distVal < totalDist; distVal += stepKm) {
+    var closestIdx2 = 0;
+    var minDiff2 = Infinity;
+    for (var j2 = 0; j2 < totalPoints; j2++) {
+      var diff2 = Math.abs(cumDist[j2] - distVal);
+      if (diff2 < minDiff2) {
+        minDiff2 = diff2;
+        closestIdx2 = j2;
+      }
+    }
+    var wpt2 = coordinates[closestIdx2];
+    var key2 = wpt2[1].toFixed(3) + '_' + wpt2[0].toFixed(3);
+    if (!searchKeys.has(key2)) {
+      searchKeys.add(key2);
+      searchWaypoints.push({ targetKm: distVal, lat: wpt2[1], lng: wpt2[0], isTarget: false });
+    }
+  }
+
+  // 3. Gather raw candidates from OpenChargeMap API proxy (concurrently)
   var rawCandidates = [];
   var candidateKeys = new Set();
 
-  for (var w = 0; w < targetWaypoints.length; w++) {
-    var wp = targetWaypoints[w];
-    var wpCandidates = [];
-
-    // Proxy endpoint call
+  var wpResults = await Promise.all(searchWaypoints.map(async function(wp) {
     try {
-      var baseUrl = (typeof window !== 'undefined' && window.location) ? '' : 'http://localhost:5000';
+      var baseUrl = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : 'http://localhost:5000';
       var apiRes = await fetch(baseUrl + '/api/chargers/openchargemap?latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=120&maxresults=35');
-      if (apiRes.ok) {
+      if (!apiRes.ok && baseUrl !== 'http://localhost:5000') {
+        try {
+          apiRes = await fetch('http://localhost:5000/api/chargers/openchargemap?latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=120&maxresults=35');
+        } catch (ePort) {}
+      }
+      if (apiRes && apiRes.ok) {
         var apiData = await apiRes.json();
         if (apiData && apiData.success && Array.isArray(apiData.data) && apiData.data.length > 0) {
-          wpCandidates = apiData.data.map(function(st) {
+          return apiData.data.map(function(st) {
             return {
               title: st.title || st.name,
               name: st.title || st.name,
@@ -1595,54 +1698,11 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
         }
       }
     } catch (e) {}
+    return [];
+  }));
 
-    // Fallback to direct OpenChargeMap API
-    if (!wpCandidates || wpCandidates.length === 0) {
-      try {
-        var apiKey = (typeof process !== 'undefined' && process.env && process.env.OPENCHARGEMAP_API_KEY) ? process.env.OPENCHARGEMAP_API_KEY : '';
-        var directUrl = 'https://api.openchargemap.io/v3/poi/?output=json&latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=150&distanceunit=KM&maxresults=35&compact=true&verbose=false' + (apiKey ? '&key=' + apiKey : '');
-        var directRes = await fetch(directUrl);
-        if (directRes.ok) {
-          var rawJson = await directRes.json();
-          if (Array.isArray(rawJson)) {
-            wpCandidates = rawJson.map(function(p) {
-              var parsed = parseChargerDetails(p);
-              if (!parsed.isDcFast) return null;
-
-              var info = p.AddressInfo || {};
-              var t = info.Title || 'EV Fast Charger';
-              var addr = info.AddressLine1 || info.Town || 'India';
-              var lat = parseFloat(info.Latitude || wp.lat);
-              var lng = parseFloat(info.Longitude || wp.lng);
-              var op = (p.OperatorInfo && p.OperatorInfo.Title && p.OperatorInfo.Title !== '(Unknown Operator)') ? p.OperatorInfo.Title : 'Tata Power / ChargeZone';
-
-              return {
-                title: t,
-                name: t,
-                address: addr,
-                location: (addr + ', ' + (info.Town || '')).replace(/^,\s*/, ''),
-                city: info.Town || 'Highway Hub',
-                cpo: op,
-                network: op,
-                power: parsed.powerDisplay,
-                chargerType: parsed.powerDisplay,
-                connectorType: parsed.connDisplay,
-                hasCcs2: parsed.hasCcs2,
-                maxDcKw: parsed.maxDcKw,
-                source: 'OpenChargeMap API (Direct)',
-                lat: lat,
-                lng: lng,
-                mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng,
-                qualificationReason: parsed.qualificationReason
-              };
-            }).filter(Boolean);
-          }
-        }
-      } catch (e2) {}
-    }
-
-    // Add to pool
-    wpCandidates.forEach(function(cand) {
+  wpResults.forEach(function(list) {
+    list.forEach(function(cand) {
       var cLat = parseFloat(cand.lat), cLng = parseFloat(cand.lng);
       if (isNaN(cLat) || isNaN(cLng)) return;
       var keyStr = (cand.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
@@ -1651,9 +1711,9 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
         rawCandidates.push(cand);
       }
     });
-  }
+  });
 
-  // Also include local dataset
+  // Include local dataset
   if (typeof OPENCHARGEMAP_STATIONS !== 'undefined') {
     Object.keys(OPENCHARGEMAP_STATIONS).forEach(function(cityKey) {
       var arr = OPENCHARGEMAP_STATIONS[cityKey];
@@ -1688,22 +1748,53 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
     });
   }
 
-  // Filter and decorate candidates with route geometry metrics
+  // Include curated route stations
+  var predefinedKey1 = (fromKey + '-' + toKey).toLowerCase();
+  var predefinedKey2 = (toKey + '-' + fromKey).toLowerCase();
+  var predefinedArr = (typeof ROUTE_STATIONS !== 'undefined') ? (ROUTE_STATIONS[predefinedKey1] || ROUTE_STATIONS[predefinedKey2] || []) : [];
+  predefinedArr.forEach(function(st) {
+    var cLat = parseFloat(st.lat), cLng = parseFloat(st.lng);
+    if (isNaN(cLat) || isNaN(cLng)) return;
+    var keyStr = (st.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
+    if (!candidateKeys.has(keyStr)) {
+      candidateKeys.add(keyStr);
+      rawCandidates.push({
+        title: st.title || (st.network + ' Charger - ' + st.city),
+        name: st.title || (st.network + ' Charger - ' + st.city),
+        address: st.address || (st.city + ' Highway Corridor'),
+        city: st.city || 'Highway Hub',
+        network: st.network || 'EV Charger',
+        cpo: st.network || 'EV Charger',
+        power: st.chargerType || '60 kW DC Fast',
+        chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
+        connectorType: 'CCS (Type 2)',
+        hasCcs2: true,
+        maxDcKw: 60,
+        source: 'Curated Route Dataset',
+        lat: cLat,
+        lng: cLng,
+        mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng),
+        qualificationReason: 'Curated Highway Corridor Charger'
+      });
+    }
+  });
+
+  // 4. Filter candidates to valid route chargers
   var validRouteCandidates = [];
   rawCandidates.forEach(function(cand) {
     var cLat = parseFloat(cand.lat), cLng = parseFloat(cand.lng);
     var pInfo = getPolylineInfo(cLat, cLng);
 
-    // 1. Tight Road Proximity Filter: Must be within 10 km (or 15 km max) of the actual OSRM road polyline
+    // Tight Road Proximity Filter: Must be within 15 km of actual OSRM polyline
     if (pInfo.distToRoadKm > 15) return;
 
-    // 2. Endpoint Exclusion Filter: Must NOT be within 6% or > 94% route progress, or within 30 km of origin/destination
-    if (pInfo.routePct < 6 || pInfo.routePct > 94) return;
+    // Endpoint Exclusion Filter: Not within 5% or > 95% route progress, or within 25 km of origin/destination
+    if (pInfo.routePct < 5 || pInfo.routePct > 95) return;
     var distToOrigin = calculateDistanceKm(cLat, cLng, originLat, originLng);
     var distToDest   = calculateDistanceKm(cLat, cLng, destLat, destLng);
-    if (distToOrigin < 30 || distToDest < 30) return;
+    if (distToOrigin < 25 || distToDest < 25) return;
 
-    // 3. Fast Charger Filter: Power >= 20 kW DC, not 3.3 kW / 7.2 kW AC
+    // Fast Charger Filter: Power >= 20 kW DC Fast, exclude AC slow chargers
     var kwVal = cand.maxDcKw || parseFloat((cand.power || cand.chargerType || '').toString().match(/(\d+)\s*kw/i)?.[1] || 0);
     var pwrLower = (cand.power || cand.chargerType || '').toString().toLowerCase();
     if (kwVal > 0 && kwVal < 20) return;
@@ -1725,7 +1816,7 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
       mapUrl: cand.mapUrl,
       qualificationReason: cand.qualificationReason || 'Verified DC fast charging connector (>= 20 kW)',
       hasCcs2: cand.hasCcs2 || false,
-      maxDcKw: kwVal,
+      maxDcKw: kwVal || 30,
       distToRoadKm: pInfo.distToRoadKm,
       routeKm: pInfo.routeKm,
       routePct: pInfo.routePct,
@@ -1733,15 +1824,13 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
     });
   });
 
-  // Minimum required route-distance separation between consecutive selected stops
-  var minSeparationKm = Math.min(75, Math.max(30, (totalDist / (targetCount + 1)) * 0.40));
-
-  // Select EXACTLY targetCount chargers for target stop positions with spacing enforcement
+  var minSeparationKm = Math.min(75, Math.max(25, (totalDist / (targetCount + 1)) * 0.35));
   var selectedStops = [];
   var usedStopKeys = new Set();
 
-  for (var s = 0; s < targetWaypoints.length; s++) {
-    var twp = targetWaypoints[s];
+  var targetWps = searchWaypoints.filter(function(w) { return w.isTarget; });
+  for (var s = 0; s < targetWps.length; s++) {
+    var twp = targetWps[s];
     var bestCand = null;
     var bestScore = -Infinity;
 
@@ -1749,19 +1838,17 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
       var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
       if (usedStopKeys.has(candKey)) return;
 
-      // Tight Road Proximity Preference: Prefer chargers <= 10 km from road
-      if (cand.distToRoadKm > 10) return;
+      if (cand.distToRoadKm > 12) return;
 
-      // Minimum Spacing Enforcement: Ensure candidate is at least minSeparationKm away from previously selected stops
       var tooCloseToOtherStop = selectedStops.some(function(prevStop) {
         return Math.abs(cand.routeKm - prevStop.routeKm) < minSeparationKm;
       });
       if (tooCloseToOtherStop) return;
 
       var distFromTargetKm = Math.abs(cand.routeKm - twp.targetKm);
-      if (distFromTargetKm > (totalDist / (targetCount + 1)) * 1.35) return;
+      if (distFromTargetKm > (totalDist / (targetCount + 1)) * 1.45) return;
 
-      var score = 300 - distFromTargetKm - (cand.distToRoadKm * 10);
+      var score = 300 - distFromTargetKm - (cand.distToRoadKm * 8);
       if (cand.hasCcs2 || (cand.connectorType && cand.connectorType.indexOf('CCS') !== -1)) score += 30;
       if (cand.maxDcKw >= 100) score += 35;
       else if (cand.maxDcKw >= 50) score += 20;
@@ -1773,19 +1860,19 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
       }
     });
 
-    // Fallback pass if no candidate found within 10 km road proximity & tight target window
     if (!bestCand) {
+      bestScore = -Infinity;
       validRouteCandidates.forEach(function(cand) {
         var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
         if (usedStopKeys.has(candKey)) return;
 
         var tooCloseToOtherStop = selectedStops.some(function(prevStop) {
-          return Math.abs(cand.routeKm - prevStop.routeKm) < (minSeparationKm * 0.6);
+          return Math.abs(cand.routeKm - prevStop.routeKm) < (minSeparationKm * 0.5);
         });
         if (tooCloseToOtherStop) return;
 
         var distFromTargetKm = Math.abs(cand.routeKm - twp.targetKm);
-        var score = 200 - distFromTargetKm - (cand.distToRoadKm * 8);
+        var score = 200 - distFromTargetKm - (cand.distToRoadKm * 6);
         if (score > bestScore) {
           bestScore = score;
           bestCand = cand;
@@ -1800,12 +1887,30 @@ async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numSt
     }
   }
 
-  // 4. Sort strictly by route progress (routeKm) from origin to destination
+  // Secondary fill pass: if fewer than targetCount stops were matched, add remaining candidates that are spaced appropriately
+  if (selectedStops.length < targetCount) {
+    validRouteCandidates.sort(function(a, b) { return a.routeKm - b.routeKm; });
+    for (var i = 0; i < validRouteCandidates.length && selectedStops.length < targetCount; i++) {
+      var cand = validRouteCandidates[i];
+      var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
+      if (usedStopKeys.has(candKey)) continue;
+
+      var tooClose = selectedStops.some(function(prevStop) {
+        return Math.abs(cand.routeKm - prevStop.routeKm) < (minSeparationKm * 0.4);
+      });
+      if (tooClose) continue;
+
+      selectedStops.push(cand);
+      usedStopKeys.add(candKey);
+    }
+  }
+
+  // Sort strictly by route progress (routeKm) from origin to destination
   selectedStops.sort(function(a, b) {
     return a.routeKm - b.routeKm;
   });
 
-  // Guarantee EXACTLY targetCount items by capping at targetCount
+  // Cap at targetCount (NO placeholders added if length < targetCount)
   return selectedStops.slice(0, targetCount);
 }
 

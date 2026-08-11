@@ -2,7 +2,7 @@ const express = require('express');
 const https = require('https');
 const router = express.Router();
 
-const OPENCHARGEMAP_API_KEY = process.env.OPENCHARGEMAP_API_KEY || '7af74de8-e43f-4b42-82a8-3842ffb9ea80';
+const OPENCHARGEMAP_API_KEY = process.env.OPENCHARGEMAP_API_KEY || '';
 
 function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth radius in km

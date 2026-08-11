@@ -270,7 +270,9 @@ function createApp(options = {}) {
     res.redirect(`${s3BaseUrl}/${cleanPath}`);
   });
 
-  // Inject API key into index.html
+  const { isSocialCrawler, getMetadataForPath, injectMetaTags } = require('./seoMeta');
+
+  // Inject API key and SEO meta tags into index.html
   function injectMapsKeyIntoHtml(req, res) {
     try {
       const candidatePaths = [
@@ -296,6 +298,15 @@ function createApp(options = {}) {
       let content = fs.readFileSync(targetPath, 'utf8');
       const mapsKey = process.env.GOOGLE_MAPS_API_KEY || env.GOOGLE_MAPS_API_KEY || '';
       content = content.replace(/__GOOGLE_MAPS_API_KEY__/g, mapsKey);
+
+      const userAgent = req.get('User-Agent') || '';
+      if (isSocialCrawler(userAgent)) {
+        const metadata = getMetadataForPath(req.path);
+        if (metadata) {
+          content = injectMetaTags(content, metadata);
+        }
+      }
+
       res.type('text/html').send(content);
     } catch (err) {
       console.error('[Server Error] Error reading index.html:', err);
@@ -309,11 +320,34 @@ function createApp(options = {}) {
   app.use('/insights', (req, res, next) => {
     let p = req.path;
     if (p === '/where-electricity-comes-from.html' || p === '/where-electricity-comes-from') {
-      return res.sendFile(path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html'));
+      const filePath = path.join(frontendRoot, 'insights', 'where-does-electricity-come-from.html');
+      const userAgent = req.get('User-Agent') || '';
+      if (isSocialCrawler(userAgent)) {
+        try {
+          let content = fs.readFileSync(filePath, 'utf8');
+          const metadata = getMetadataForPath(req.originalUrl);
+          if (metadata) {
+            content = injectMetaTags(content, metadata);
+          }
+          return res.type('text/html').send(content);
+        } catch (e) {}
+      }
+      return res.sendFile(filePath);
     }
     if (!p.endsWith('.html') && p !== '/') {
       const targetFile = path.join(frontendRoot, 'insights', p + '.html');
       if (fs.existsSync(targetFile)) {
+        const userAgent = req.get('User-Agent') || '';
+        if (isSocialCrawler(userAgent)) {
+          try {
+            let content = fs.readFileSync(targetFile, 'utf8');
+            const metadata = getMetadataForPath(req.originalUrl);
+            if (metadata) {
+              content = injectMetaTags(content, metadata);
+            }
+            return res.type('text/html').send(content);
+          } catch (e) {}
+        }
         return res.sendFile(targetFile);
       }
     }

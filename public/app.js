@@ -7446,6 +7446,499 @@ function getRouteStations(fromKey, toKey) {
   return ROUTE_STATIONS[k1] || ROUTE_STATIONS[k2] || [];
 }
 
+const OPENCHARGEMAP_STATIONS = {
+  "delhi": [
+    { "title": "Kartavya Path", "address": "Kartavya Path", "city": "Delhi", "network": "Tata Power EV / Statiq", "chargerType": "60 kW DC Fast", "lat": 28.614253, "lng": 77.203428, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=28.614253,77.203428" },
+    { "title": "Le Méridien", "address": "Raisina Road", "city": "Delhi", "network": "Tata Power EV / Statiq", "chargerType": "30 kW DC Fast", "lat": 28.618401, "lng": 77.217836, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=28.618401,77.217836" }
+  ],
+  "jaipur": [
+    { "title": "Jaipur Marriott Hotel", "address": "Ashram Marg", "city": "Jaipur", "network": "Tata Power EV / Statiq", "chargerType": "30 kW DC Fast", "lat": 26.842027, "lng": 75.796300, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=26.842027,75.796300" },
+    { "title": "Novotel Jaipur Convention Centre", "address": "Sitapur Industrial Area", "city": "Jaipur", "network": "Tata Power EV / Statiq", "chargerType": "30 kW DC Fast", "lat": 26.781055, "lng": 75.826831, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=26.781055,75.826831" }
+  ],
+  "ratlam": [
+    { "title": "Shree Kanha International Chargezone", "address": "Ratlam Bypass NH 79", "city": "Ratlam", "network": "ChargeZone / Tata Power", "chargerType": "60 kW DC Fast", "lat": 23.386513, "lng": 75.059851, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=23.386513,75.059851" }
+  ],
+  "shirdi": [
+    { "title": "Shirdi Sai Fast Charger", "address": "Ahmednagar - Shirdi Highway", "city": "Shirdi", "network": "Tata Power / ChargeZone", "chargerType": "30 kW DC Fast", "lat": 19.757594, "lng": 74.476347, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=19.757594,74.476347" }
+  ],
+  "solapur": [
+    { "title": "Saguna Family Restaurant Fast Charger", "address": "Solapur Bypass NH 65", "city": "Solapur", "network": "ChargeZone", "chargerType": "60 kW DC Fast", "lat": 17.877009, "lng": 75.976022, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=17.877009,75.976022" }
+  ],
+  "hosapete": [
+    { "title": "Royal Orchid Central Kireeti", "address": "Station Road, Hosapete", "city": "Hosapete", "network": "Tata Power", "chargerType": "60 kW DC Fast", "lat": 15.28683, "lng": 76.38577, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=15.28683,76.38577" }
+  ],
+  "betul": [
+    { "title": "Midway Treat Betul Hotel", "address": "NH 44 Sakadehi", "city": "Betul", "network": "Tata Power", "chargerType": "120 kW DC Fast", "lat": 21.997786, "lng": 77.865382, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=21.997786,77.865382" }
+  ],
+  "nalgonda": [
+    { "title": "MobiLane SSKATPGCS", "address": "NH 65 Nalgonda Bypass", "city": "Nalgonda", "network": "ChargeZone", "chargerType": "60 kW DC Fast", "lat": 17.170500, "lng": 79.354761, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=17.170500,79.354761" }
+  ],
+  "anantapur": [
+    { "title": "Anantapur NH 44 Fast Charger", "address": "NH 44 Anantapur Bypass", "city": "Anantapur", "network": "Jio-bp Pulse", "chargerType": "120 kW DC Fast", "lat": 14.6819, "lng": 77.6006, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=14.6819,77.6006" }
+  ],
+  "indore": [
+    { "title": "Jawahar Marg Station", "address": "Jawahar Marg", "city": "Indore", "network": "Tata Power EV / Statiq", "chargerType": "30 kW DC Fast", "lat": 22.716554, "lng": 75.854964, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=22.716554,75.854964" }
+  ],
+  "pune": [
+    { "title": "Tata Motors Tathawade", "address": "Ashok Nagar", "city": "Pune", "network": "Tata Power EV / Statiq", "chargerType": "25 kW DC Fast", "lat": 18.623488, "lng": 73.745481, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=18.623488,73.745481" }
+  ],
+  "vellore": [
+    { "title": "Park Inn by Radisson, Vellore", "address": "Katpadi Road", "city": "Vellore", "network": "Tata Power EV / Statiq", "chargerType": "60 kW DC Fast", "lat": 12.932172, "lng": 79.136880, "mapUrl": "https://www.google.com/maps/dir/?api=1&destination=12.932172,79.136880" }
+  ]
+};
+
+function parseChargerDetails(poi) {
+  var conns = poi.Connections || [];
+  var isDcFast = false;
+  var maxDcKw = 0;
+  var hasCcs2 = false;
+  var hasChademo = false;
+  var hasGbtDc = false;
+  var connectorTitles = [];
+
+  conns.forEach(function(c) {
+    var powerKW = parseFloat(c.PowerKW) || 0;
+    var connTitle = (c.ConnectionType && c.ConnectionType.Title ? c.ConnectionType.Title : '').toUpperCase();
+    var connTypeId = c.ConnectionTypeID || 0;
+    var currTitle = (c.CurrentType && c.CurrentType.Title ? c.CurrentType.Title : '').toUpperCase();
+    var currTypeId = c.CurrentTypeID || 0;
+
+    var isExplicitDcType = currTypeId === 30 || currTitle.indexOf('DC') !== -1 || currTitle.indexOf('DIRECT CURRENT') !== -1;
+    var isExplicitAcType = currTypeId === 10 || currTypeId === 20 || currTitle.indexOf('AC') !== -1 || currTitle.indexOf('SINGLE-PHASE') !== -1 || currTitle.indexOf('THREE-PHASE') !== -1;
+
+    var isCcs = connTypeId === 33 || connTitle.indexOf('CCS') !== -1;
+    var isChademoConn = connTypeId === 2 || connTitle.indexOf('CHADEMO') !== -1;
+    var isGbt = connTypeId === 1037 || connTitle.indexOf('GB/T DC') !== -1 || connTitle.indexOf('GBT DC') !== -1;
+
+    if (isCcs) hasCcs2 = true;
+    if (isChademoConn) hasChademo = true;
+    if (isGbt) hasGbtDc = true;
+
+    var isDcConn = (isCcs || isChademoConn || isGbt || isExplicitDcType) && !isExplicitAcType;
+    var isFastPower = powerKW >= 20 || (powerKW === 0 && isDcConn);
+
+    if (isDcConn && isFastPower) {
+      isDcFast = true;
+      if (powerKW > maxDcKw) maxDcKw = powerKW;
+      if (isCcs && connectorTitles.indexOf('CCS (Type 2)') === -1) connectorTitles.push('CCS (Type 2)');
+      else if (isChademoConn && connectorTitles.indexOf('CHAdeMO') === -1) connectorTitles.push('CHAdeMO');
+      else if (isGbt && connectorTitles.indexOf('GB/T DC') === -1) connectorTitles.push('GB/T DC');
+      else if (c.ConnectionType && c.ConnectionType.Title && connectorTitles.indexOf(c.ConnectionType.Title) === -1) connectorTitles.push(c.ConnectionType.Title);
+    }
+  });
+
+  var poiTitle = ((poi.AddressInfo && poi.AddressInfo.Title) || poi.title || '').toUpperCase();
+  if (!isDcFast && (poiTitle.indexOf('DC FAST') !== -1 || poiTitle.indexOf('CCS2') !== -1 || poiTitle.indexOf('120KW') !== -1 || poiTitle.indexOf('60KW') !== -1 || poiTitle.indexOf('30KW') !== -1 || poiTitle.indexOf('25KW') !== -1)) {
+    if (poiTitle.indexOf('3.3') === -1 && poiTitle.indexOf('7.2') === -1 && poiTitle.indexOf('AC') === -1) {
+      isDcFast = true;
+    }
+  }
+
+  var powerDisplay = '';
+  var connDisplay = connectorTitles.length > 0 ? connectorTitles.join(' / ') : (hasCcs2 ? 'CCS (Type 2)' : 'DC Fast Connector');
+
+  if (maxDcKw > 0) {
+    powerDisplay = maxDcKw + ' kW DC Fast';
+  } else if (hasCcs2) {
+    powerDisplay = 'CCS (Type 2) DC Fast';
+  } else {
+    powerDisplay = 'DC Fast Charger';
+  }
+
+  var reasons = [];
+  if (hasCcs2) reasons.push('Verified CCS (Type 2) DC fast connector');
+  else if (hasChademo) reasons.push('Verified CHAdeMO DC fast connector');
+  else if (hasGbtDc) reasons.push('Verified GB/T DC fast connector');
+  else reasons.push('Verified Direct Current (DC) fast charging profile');
+
+  if (maxDcKw > 0) reasons.push('high power rating (' + maxDcKw + ' kW >= 20 kW threshold)');
+  else reasons.push('DC fast architecture');
+
+  return {
+    isDcFast: isDcFast,
+    maxDcKw: maxDcKw,
+    hasCcs2: hasCcs2,
+    powerDisplay: powerDisplay,
+    connDisplay: connDisplay,
+    qualificationReason: reasons.join(' with ')
+  };
+}
+
+function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+async function findChargersAlongPolylineAsync(fromKey, toKey, coordinates, numStops) {
+  var targetCount = Math.max(0, parseInt(numStops, 10) || 0);
+  if (targetCount === 0) return [];
+
+  if (!coordinates || !Array.isArray(coordinates) || coordinates.length < 2) {
+    var predefinedKey1 = (fromKey + '-' + toKey).toLowerCase();
+    var predefinedKey2 = (toKey + '-' + fromKey).toLowerCase();
+    var predefinedArr = (typeof ROUTE_STATIONS !== 'undefined') ? (ROUTE_STATIONS[predefinedKey1] || ROUTE_STATIONS[predefinedKey2] || []) : [];
+    return predefinedArr.slice(0, targetCount).map(function(st) {
+      return {
+        title: st.title || (st.network + ' Charger - ' + st.city),
+        name: st.title || (st.network + ' Charger - ' + st.city),
+        address: st.address || (st.city + ' Highway Corridor'),
+        city: st.city || 'Highway Hub',
+        network: st.network || 'EV Charger',
+        cpo: st.network || 'EV Charger',
+        power: st.chargerType || '60 kW DC Fast',
+        chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
+        connectorType: 'CCS (Type 2)',
+        source: 'Curated Route Dataset',
+        lat: parseFloat(st.lat),
+        lng: parseFloat(st.lng),
+        mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng),
+        qualificationReason: 'Pre-verified CCS (Type 2) DC Fast Charger (>= 25 kW)',
+        distToRoadKm: 0,
+        routeKm: 0,
+        routePct: 50
+      };
+    });
+  }
+
+  // 1. Compute cumulative distances along OSRM route polyline
+  var totalPoints = coordinates.length;
+  var cumDist = [0];
+  for (var c = 1; c < totalPoints; c++) {
+    var prev = coordinates[c - 1];
+    var curr = coordinates[c];
+    var d = calculateDistanceKm(prev[1], prev[0], curr[1], curr[0]);
+    cumDist.push(cumDist[c - 1] + d);
+  }
+  var totalDist = cumDist[totalPoints - 1];
+
+  var originPt = coordinates[0];
+  var destPt   = coordinates[totalPoints - 1];
+  var originLat = originPt[1], originLng = originPt[0];
+  var destLat   = destPt[1],   destLng   = destPt[0];
+
+  function getPolylineInfo(cLat, cLng) {
+    var minDist = Infinity;
+    var bestIndex = 0;
+    for (var i = 0; i < totalPoints; i++) {
+      var pt = coordinates[i];
+      var dist = calculateDistanceKm(cLat, cLng, pt[1], pt[0]);
+      if (dist < minDist) {
+        minDist = dist;
+        bestIndex = i;
+      }
+    }
+    var routeKm = cumDist[bestIndex];
+    var routePct = totalDist > 0 ? (routeKm / totalDist) * 100 : 0;
+    return {
+      distToRoadKm: parseFloat(minDist.toFixed(2)),
+      routeKm: parseFloat(routeKm.toFixed(1)),
+      routePct: parseFloat(routePct.toFixed(1)),
+      bestIndex: bestIndex
+    };
+  }
+
+  // 2. Broad Waypoint Sampling: sample target stop positions + corridor search waypoints every ~100 km
+  var searchWaypoints = [];
+  var searchKeys = new Set();
+
+  for (var k = 1; k <= targetCount; k++) {
+    var targetKm = (k / (targetCount + 1)) * totalDist;
+    var closestIdx = 0;
+    var minDiff = Infinity;
+    for (var j = 0; j < totalPoints; j++) {
+      var diff = Math.abs(cumDist[j] - targetKm);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = j;
+      }
+    }
+    var wpt = coordinates[closestIdx];
+    var key = wpt[1].toFixed(3) + '_' + wpt[0].toFixed(3);
+    if (!searchKeys.has(key)) {
+      searchKeys.add(key);
+      searchWaypoints.push({ targetKm: targetKm, lat: wpt[1], lng: wpt[0], isTarget: true, stopNum: k });
+    }
+  }
+
+  var stepKm = Math.min(100, Math.max(50, totalDist / 15));
+  for (var distVal = stepKm; distVal < totalDist; distVal += stepKm) {
+    var closestIdx2 = 0;
+    var minDiff2 = Infinity;
+    for (var j2 = 0; j2 < totalPoints; j2++) {
+      var diff2 = Math.abs(cumDist[j2] - distVal);
+      if (diff2 < minDiff2) {
+        minDiff2 = diff2;
+        closestIdx2 = j2;
+      }
+    }
+    var wpt2 = coordinates[closestIdx2];
+    var key2 = wpt2[1].toFixed(3) + '_' + wpt2[0].toFixed(3);
+    if (!searchKeys.has(key2)) {
+      searchKeys.add(key2);
+      searchWaypoints.push({ targetKm: distVal, lat: wpt2[1], lng: wpt2[0], isTarget: false });
+    }
+  }
+
+  // 3. Gather raw candidates from OpenChargeMap API proxy (concurrently)
+  var rawCandidates = [];
+  var candidateKeys = new Set();
+
+  var wpResults = await Promise.all(searchWaypoints.map(async function(wp) {
+    try {
+      var baseUrl = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : 'http://localhost:5000';
+      var apiRes = await fetch(baseUrl + '/api/chargers/openchargemap?latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=120&maxresults=35');
+      if (!apiRes.ok && baseUrl !== 'http://localhost:5000') {
+        try {
+          apiRes = await fetch('http://localhost:5000/api/chargers/openchargemap?latitude=' + wp.lat + '&longitude=' + wp.lng + '&distance=120&maxresults=35');
+        } catch (ePort) {}
+      }
+      if (apiRes && apiRes.ok) {
+        var apiData = await apiRes.json();
+        if (apiData && apiData.success && Array.isArray(apiData.data) && apiData.data.length > 0) {
+          return apiData.data.map(function(st) {
+            return {
+              title: st.title || st.name,
+              name: st.title || st.name,
+              address: st.address || st.location,
+              city: st.city || 'Highway Hub',
+              cpo: st.cpo || st.network,
+              network: st.network || st.cpo,
+              power: st.power || st.chargerType || 'DC Fast Charger',
+              chargerType: st.chargerType || st.power || 'DC Fast Charger',
+              connectorType: st.connectorType || (st.hasCcs2 ? 'CCS (Type 2)' : 'DC Fast Connector'),
+              hasCcs2: st.hasCcs2 || false,
+              maxDcKw: st.maxDcKw || 0,
+              source: 'OpenChargeMap API (Proxy)',
+              lat: parseFloat(st.lat),
+              lng: parseFloat(st.lng),
+              mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng)
+            };
+          });
+        }
+      }
+    } catch (e) {}
+    return [];
+  }));
+
+  wpResults.forEach(function(list) {
+    list.forEach(function(cand) {
+      var cLat = parseFloat(cand.lat), cLng = parseFloat(cand.lng);
+      if (isNaN(cLat) || isNaN(cLng)) return;
+      var keyStr = (cand.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
+      if (!candidateKeys.has(keyStr)) {
+        candidateKeys.add(keyStr);
+        rawCandidates.push(cand);
+      }
+    });
+  });
+
+  // Include local dataset
+  if (typeof OPENCHARGEMAP_STATIONS !== 'undefined') {
+    Object.keys(OPENCHARGEMAP_STATIONS).forEach(function(cityKey) {
+      var arr = OPENCHARGEMAP_STATIONS[cityKey];
+      if (Array.isArray(arr)) {
+        arr.forEach(function(st) {
+          var cLat = parseFloat(st.lat), cLng = parseFloat(st.lng);
+          if (isNaN(cLat) || isNaN(cLng)) return;
+          var keyStr = (st.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
+          if (!candidateKeys.has(keyStr)) {
+            candidateKeys.add(keyStr);
+            rawCandidates.push({
+              title: st.title || (st.network + ' Charger - ' + st.city),
+              name: st.title || (st.network + ' Charger - ' + st.city),
+              address: st.address || (st.city + ' Highway Corridor'),
+              city: st.city || cityKey,
+              cpo: st.network || 'TATA POWER / STATIQ',
+              network: st.network || 'TATA POWER / STATIQ',
+              power: st.chargerType || '60 kW DC Fast',
+              chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
+              connectorType: 'CCS (Type 2)',
+              hasCcs2: true,
+              maxDcKw: 60,
+              source: 'Local Catalog Dataset',
+              lat: cLat,
+              lng: cLng,
+              mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + cLat + ',' + cLng),
+              qualificationReason: 'Pre-verified CCS (Type 2) DC Fast Charger (>= 25 kW)'
+            });
+          }
+        });
+      }
+    });
+  }
+
+  // Include curated route stations
+  var predefinedKey1 = (fromKey + '-' + toKey).toLowerCase();
+  var predefinedKey2 = (toKey + '-' + fromKey).toLowerCase();
+  var predefinedArr = (typeof ROUTE_STATIONS !== 'undefined') ? (ROUTE_STATIONS[predefinedKey1] || ROUTE_STATIONS[predefinedKey2] || []) : [];
+  predefinedArr.forEach(function(st) {
+    var cLat = parseFloat(st.lat), cLng = parseFloat(st.lng);
+    if (isNaN(cLat) || isNaN(cLng)) return;
+    var keyStr = (st.title || '').trim() + '_' + cLat.toFixed(3) + '_' + cLng.toFixed(3);
+    if (!candidateKeys.has(keyStr)) {
+      candidateKeys.add(keyStr);
+      rawCandidates.push({
+        title: st.title || (st.network + ' Charger - ' + st.city),
+        name: st.title || (st.network + ' Charger - ' + st.city),
+        address: st.address || (st.city + ' Highway Corridor'),
+        city: st.city || 'Highway Hub',
+        network: st.network || 'EV Charger',
+        cpo: st.network || 'EV Charger',
+        power: st.chargerType || '60 kW DC Fast',
+        chargerType: st.chargerType || 'CCS (Type 2) (60kW)',
+        connectorType: 'CCS (Type 2)',
+        hasCcs2: true,
+        maxDcKw: 60,
+        source: 'Curated Route Dataset',
+        lat: cLat,
+        lng: cLng,
+        mapUrl: st.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + st.lat + ',' + st.lng),
+        qualificationReason: 'Curated Highway Corridor Charger'
+      });
+    }
+  });
+
+  // 4. Filter candidates to valid route chargers
+  var validRouteCandidates = [];
+  rawCandidates.forEach(function(cand) {
+    var cLat = parseFloat(cand.lat), cLng = parseFloat(cand.lng);
+    var pInfo = getPolylineInfo(cLat, cLng);
+
+    // Tight Road Proximity Filter: Must be within 15 km of actual OSRM polyline
+    if (pInfo.distToRoadKm > 15) return;
+
+    // Endpoint Exclusion Filter: Not within 5% or > 95% route progress, or within 25 km of origin/destination
+    if (pInfo.routePct < 5 || pInfo.routePct > 95) return;
+    var distToOrigin = calculateDistanceKm(cLat, cLng, originLat, originLng);
+    var distToDest   = calculateDistanceKm(cLat, cLng, destLat, destLng);
+    if (distToOrigin < 25 || distToDest < 25) return;
+
+    // Fast Charger Filter: Power >= 20 kW DC Fast, exclude AC slow chargers
+    var kwVal = cand.maxDcKw || parseFloat((cand.power || cand.chargerType || '').toString().match(/(\d+)\s*kw/i)?.[1] || 0);
+    var pwrLower = (cand.power || cand.chargerType || '').toString().toLowerCase();
+    if (kwVal > 0 && kwVal < 20) return;
+    if (pwrLower.indexOf('3.3') !== -1 || pwrLower.indexOf('7.2') !== -1 || pwrLower.indexOf('ac (single-phase)') !== -1) return;
+
+    validRouteCandidates.push({
+      title: cand.title,
+      name: cand.name,
+      address: cand.address,
+      city: cand.city,
+      network: cand.network,
+      cpo: cand.cpo,
+      power: cand.power,
+      chargerType: cand.chargerType,
+      connectorType: cand.connectorType || 'CCS (Type 2)',
+      source: cand.source || 'OpenChargeMap API',
+      lat: cLat,
+      lng: cLng,
+      mapUrl: cand.mapUrl,
+      qualificationReason: cand.qualificationReason || 'Verified DC fast charging connector (>= 20 kW)',
+      hasCcs2: cand.hasCcs2 || false,
+      maxDcKw: kwVal || 30,
+      distToRoadKm: pInfo.distToRoadKm,
+      routeKm: pInfo.routeKm,
+      routePct: pInfo.routePct,
+      bestIndex: pInfo.bestIndex
+    });
+  });
+
+  var minSeparationKm = Math.min(75, Math.max(25, (totalDist / (targetCount + 1)) * 0.35));
+  var selectedStops = [];
+  var usedStopKeys = new Set();
+
+  var targetWps = searchWaypoints.filter(function(w) { return w.isTarget; });
+  for (var s = 0; s < targetWps.length; s++) {
+    var twp = targetWps[s];
+    var bestCand = null;
+    var bestScore = -Infinity;
+
+    validRouteCandidates.forEach(function(cand) {
+      var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
+      if (usedStopKeys.has(candKey)) return;
+
+      if (cand.distToRoadKm > 12) return;
+
+      var tooCloseToOtherStop = selectedStops.some(function(prevStop) {
+        return Math.abs(cand.routeKm - prevStop.routeKm) < minSeparationKm;
+      });
+      if (tooCloseToOtherStop) return;
+
+      var distFromTargetKm = Math.abs(cand.routeKm - twp.targetKm);
+      if (distFromTargetKm > (totalDist / (targetCount + 1)) * 1.45) return;
+
+      var score = 300 - distFromTargetKm - (cand.distToRoadKm * 8);
+      if (cand.hasCcs2 || (cand.connectorType && cand.connectorType.indexOf('CCS') !== -1)) score += 30;
+      if (cand.maxDcKw >= 100) score += 35;
+      else if (cand.maxDcKw >= 50) score += 20;
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestCand = cand;
+        bestCand._key = candKey;
+      }
+    });
+
+    if (!bestCand) {
+      bestScore = -Infinity;
+      validRouteCandidates.forEach(function(cand) {
+        var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
+        if (usedStopKeys.has(candKey)) return;
+
+        var tooCloseToOtherStop = selectedStops.some(function(prevStop) {
+          return Math.abs(cand.routeKm - prevStop.routeKm) < (minSeparationKm * 0.5);
+        });
+        if (tooCloseToOtherStop) return;
+
+        var distFromTargetKm = Math.abs(cand.routeKm - twp.targetKm);
+        var score = 200 - distFromTargetKm - (cand.distToRoadKm * 6);
+        if (score > bestScore) {
+          bestScore = score;
+          bestCand = cand;
+          bestCand._key = candKey;
+        }
+      });
+    }
+
+    if (bestCand) {
+      usedStopKeys.add(bestCand._key);
+      selectedStops.push(bestCand);
+    }
+  }
+
+  // Secondary fill pass: if fewer than targetCount stops were matched, add remaining candidates that are spaced appropriately
+  if (selectedStops.length < targetCount) {
+    validRouteCandidates.sort(function(a, b) { return a.routeKm - b.routeKm; });
+    for (var i = 0; i < validRouteCandidates.length && selectedStops.length < targetCount; i++) {
+      var cand = validRouteCandidates[i];
+      var candKey = cand.title + '_' + cand.lat.toFixed(3) + '_' + cand.lng.toFixed(3);
+      if (usedStopKeys.has(candKey)) continue;
+
+      var tooClose = selectedStops.some(function(prevStop) {
+        return Math.abs(cand.routeKm - prevStop.routeKm) < (minSeparationKm * 0.4);
+      });
+      if (tooClose) continue;
+
+      selectedStops.push(cand);
+      usedStopKeys.add(candKey);
+    }
+  }
+
+  // Sort strictly by route progress (routeKm) from origin to destination
+  selectedStops.sort(function(a, b) {
+    return a.routeKm - b.routeKm;
+  });
+
+  // Cap at targetCount (NO placeholders added if length < targetCount)
+  return selectedStops.slice(0, targetCount);
+}
+
 /**
  * Core trip calculation engine.
  * Adjusts real-world range from claimed range based on driving conditions,
@@ -10970,7 +11463,7 @@ function openCarDetails(carId) {
     window.savedHomeScrollY = curY;
     try { sessionStorage.setItem('homeScrollY', String(curY)); } catch(e) {}
   }
-  window.location.hash = `#/cars/${carId}`;
+  navigateTo(`/cars/${carId}`);
 }
 
 
@@ -11684,17 +12177,17 @@ function updateActiveNavTrigger(sectionId) {
   document.querySelectorAll('.mega-trigger, .mega-nav-item').forEach(el => {
     el.classList.remove('mega-active');
   });
-  
+
   if (!sectionId || sectionId === 'home') {
     const homeLink = document.querySelector('.mega-nav-item[href="#home"]');
     if (homeLink) homeLink.classList.add('mega-active');
-  } else if (['popular-evs', 'launches', 'upcoming', 'browse', 'compare'].includes(sectionId)) {
+  } else if (['popular-evs', 'launches', 'upcoming', 'browse', 'compare', 'discover'].includes(sectionId)) {
     const trigger = document.querySelector('.mega-trigger[data-mega="discover"]');
     if (trigger) trigger.classList.add('mega-active');
-  } else if (['trip-planner', 'emi', 'petrol-savings', 'stations'].includes(sectionId)) {
+  } else if (['trip-planner', 'emi', 'petrol-savings', 'stations', 'tools'].includes(sectionId)) {
     const trigger = document.querySelector('.mega-trigger[data-mega="tools"]');
     if (trigger) trigger.classList.add('mega-active');
-  } else if (['guide', 'faq'].includes(sectionId)) {
+  } else if (['guide', 'faq', 'learn'].includes(sectionId)) {
     const trigger = document.querySelector('.mega-trigger[data-mega="learn"]');
     if (trigger) trigger.classList.add('mega-active');
   } else if (['insights', 'videos'].includes(sectionId)) {
@@ -11888,8 +12381,7 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
       closeMegaPanels();
       closeMobileDrawer();
       activeRecentlyViewed = false;
-      window.location.hash = '#' + href;
-      handleRouting();
+      navigateTo(href);
       return;
     }
     
@@ -11916,8 +12408,7 @@ document.querySelectorAll('.mega-item, .mobile-sub-link, .mega-nav-item, .mobile
         }
         updateActiveNavTrigger(sectionId);
       } else {
-        window.location.hash = href;
-        handleRouting();
+        navigateTo(href);
       }
       return;
     }
@@ -12164,7 +12655,7 @@ function trackGAPageView(customPath) {
   try {
     if (typeof window.gtag === 'function') {
       const pagePath = customPath || (window.location.pathname + window.location.hash);
-      window.gtag('config', 'G-VX80WKG1WG', {
+      window.gtag('config', 'G-VVHNJRQTPN', {
         page_path: pagePath,
         page_title: document.title || 'EV Car Wale',
         page_location: window.location.href
@@ -12289,7 +12780,25 @@ async function handleRouting() {
   } else if (path === '/compare' || hash === '#/compare') {
     route = '/compare';
   }
-  
+
+  // Update active nav trigger based on route
+  if (route.startsWith('/insights/') || route === '/insights') {
+    updateActiveNavTrigger('insights');
+  } else if (route.startsWith('/hub/') || ['/charging-time', '/charging-time-calculator', '/emi-calculator', '/petrol-savings', '/charging-stations'].includes(route)) {
+    updateActiveNavTrigger('tools');
+  } else if (route.startsWith('/guide/') || route.startsWith('/learn/') || route === '/faq') {
+    updateActiveNavTrigger('learn');
+  } else if (route.startsWith('/cars/') || route.startsWith('/view-all/') || route === '/compare' || route.startsWith('/ev/')) {
+    updateActiveNavTrigger('discover');
+  } else if (route === '/' || route === '/search' || route === '/videos') {
+    updateActiveNavTrigger('home');
+  }
+
+  const clientMeta = getClientMetadataForRoute(route);
+  if (clientMeta) {
+    updateClientMetaTags(clientMeta.title, clientMeta.description, null);
+  }
+
   // Parse route parameters
   if (route.startsWith('/cars/')) {
     const carId = route.substring(6);
@@ -12553,6 +13062,79 @@ function restoreHomepage(keepScroll, skipScrollRestore, forceTop) {
   } else if (!keepScroll) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
+}
+
+// Client-side meta tag updates for SPA navigation
+function updateClientMetaTags(title, description, image) {
+  if (title) document.title = title;
+  if (description) {
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+  }
+  const metaMap = {
+    'og:title': title,
+    'og:description': description,
+    'og:image': image,
+    'twitter:title': title,
+    'twitter:description': description,
+    'twitter:image': image
+  };
+  Object.entries(metaMap).forEach(([prop, val]) => {
+    if (!val) return;
+    const sel = prop.startsWith('og:') ? `meta[property="${prop}"]` : `meta[name="${prop}"]`;
+    let tag = document.querySelector(sel);
+    if (tag) tag.setAttribute('content', val);
+  });
+}
+
+function getClientMetadataForRoute(route) {
+  if (route.startsWith('/cars/')) {
+    const carId = route.split('/')[2];
+    const car = EV_DATABASE.find(c => c.id === carId);
+    if (car) {
+      const brand = car.brand || car.Brand || '';
+      const model = car.name || car.Name || '';
+      return {
+        title: `${brand} ${model} — Price, Range, Battery & Charging | EV Car Wale`,
+        description: `Explore the ${brand} ${model} with price, real-world range, battery capacity, charging time, variants and specifications in India.`
+      };
+    }
+  }
+  if (route.startsWith('/insights/')) {
+    const key = route.split('/')[2];
+    const metaMap = {
+      'ev-cost-savings': { title: 'EV Cost & Savings — Total Cost of Ownership | EV Car Wale', description: 'Calculate EV running costs, charging expenses, maintenance savings and total cost of ownership compared with petrol cars.' },
+      'ev-charging-explained': { title: 'EV Charging Explained — Types, Speed & Costs | EV Car Wale', description: 'Understand AC and DC charging, charging speeds, connectors, charging time and EV charging costs in India.' },
+      'ev-infrastructure-india': { title: 'EV Charging Infrastructure in India | EV Car Wale', description: "Explore India's growing EV charging network, major charging operators, highway charging infrastructure and the future of electric mobility." },
+      'government-policies': { title: 'EV Government Policies & Subsidies in India | EV Car Wale', description: 'Latest EV government policies, FAME subsidies, state EV policies and incentives for electric vehicle buyers in India.' },
+      'where-electricity-comes-from': { title: 'Where Does EV Electricity Come From? | EV Car Wale', description: 'Learn about electricity generation in India, renewable energy sources and how clean EV charging really is.' },
+      'renewable-energy-evs': { title: 'Renewable Energy & EVs — Clean Mobility | EV Car Wale', description: 'Explore the intersection of renewable energy and electric vehicles, solar-powered charging and sustainable mobility.' },
+      'ev-guides': { title: 'EV Buying Guide & Ownership Tips | EV Car Wale', description: 'Complete guide to buying your first EV, ownership tips, maintenance advice and everything you need to know.' },
+      'companies-building-indias-network': { title: "Companies Building India's EV Network | EV Car Wale", description: 'Major EV charging companies in India including Tata Power, ChargeZone, Statiq, Jio-bp Pulse and more.' },
+      'latest-news': { title: 'Latest EV News & Updates | EV Car Wale', description: 'Stay updated with the latest electric vehicle news, launches, policy changes and industry developments in India.' }
+    };
+    if (metaMap[key]) return metaMap[key];
+  }
+  if (route.startsWith('/hub/') || route.startsWith('/tools/')) {
+    const key = route.split('/')[2];
+    const metaMap = {
+      'charging-time': { title: 'EV Charging Time Calculator | EV Car Wale', description: 'Calculate exact charging time for any EV based on battery capacity, charger type and current charge level.' },
+      'emi-calculator': { title: 'EV Loan EMI Calculator | EV Car Wale', description: 'Calculate monthly EMI for your electric vehicle loan based on loan amount, interest rate and tenure.' },
+      'petrol-savings': { title: 'EV vs Petrol Savings Calculator | EV Car Wale', description: 'Compare fuel costs between electric and petrol vehicles. Calculate how much you can save by switching to EV.' },
+      'charging-stations': { title: 'Find EV Charging Stations Near You | EV Car Wale', description: 'Locate DC fast charging stations, AC chargers and EV charging points near you in India.' }
+    };
+    if (metaMap[key]) return metaMap[key];
+  }
+  if (route.startsWith('/view-all/')) {
+    const sectionLabels = { popular: 'Popular', launches: 'Launches', upcoming: 'Upcoming', all: 'All' };
+    const section = route.split('/')[2];
+    const label = sectionLabels[section] || section;
+    return {
+      title: `${label} Electric Vehicles in India | EV Car Wale`,
+      description: `Browse ${label.toLowerCase()} electric vehicles in India with prices, range and specifications.`
+    };
+  }
+  return null;
 }
 
 // Re-route on browser back/forward buttons
@@ -16979,7 +17561,14 @@ async function renderTripResults(data) {
 
   var stationsList = document.getElementById('trip-stations-list');
   if (stations && stations.length > 0) {
-    stationsList.innerHTML = stations.map(function(s, i) {
+    var noticeHtml = '';
+    if (data.chargingStops > stations.length) {
+      noticeHtml = '<div class="col-span-full mb-3 p-3 bg-amber-50 border border-amber-200 text-amber-900 font-mono text-xs rounded-xl flex items-start gap-2 shadow-sm">' +
+        '<span class="text-sm">⚠️</span>' +
+        '<div><strong>' + data.chargingStops + ' charging stops</strong> may be required based on vehicle range, but <strong>' + stations.length + ' verified fast-charging stations</strong> were found along this route.</div>' +
+      '</div>';
+    }
+    stationsList.innerHTML = noticeHtml + stations.map(function(s, i) {
       var stationName = s.title || s.name || (s.network + ' Fast Charger - ' + s.city);
       var addressText = s.address ? (s.city + ' &nbsp;&middot;&nbsp; ' + s.address) : (s.city + ' Highway Plaza');
       var mapUrl = s.mapUrl || ('https://www.google.com/maps/dir/?api=1&destination=' + (s.lat || s.latitude) + ',' + (s.lng || s.longitude));
@@ -17533,6 +18122,130 @@ function renderTripMapRoute(fromKey, toKey, stations, routeGeometry) {
   }
 }
 
+function setCityValue(inputEl, cityKey) {
+  var city = (typeof TRIP_CITIES !== 'undefined') && TRIP_CITIES.find(function(c) { return c.key === cityKey; });
+  if (city) {
+    inputEl.value = city.label;
+    inputEl.setAttribute('data-city-key', city.key);
+  }
+}
+
+function initCityDropdown(inputEl, dropdownId) {
+  var dropdown = document.getElementById(dropdownId);
+  if (!inputEl || !dropdown) return;
+
+  inputEl.removeAttribute('readonly');
+  inputEl.value = '';
+  inputEl.removeAttribute('data-city-key');
+
+  function renderList(filter) {
+    dropdown.innerHTML = '';
+    var filterLower = (filter || '').toLowerCase().trim();
+    var cities = (typeof TRIP_CITIES !== 'undefined') ? TRIP_CITIES : [];
+    var filtered = filterLower
+      ? cities.filter(function(c) {
+          return c.label.toLowerCase().indexOf(filterLower) !== -1 || c.key.toLowerCase().indexOf(filterLower) !== -1;
+        })
+      : cities.slice();
+
+    if (filtered.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'px-3 py-2 text-xs text-zinc-400 font-mono';
+      empty.textContent = 'No cities found';
+      dropdown.appendChild(empty);
+      return;
+    }
+
+    filtered.forEach(function(city) {
+      var item = document.createElement('div');
+      item.className = 'trip-city-option px-3 py-2 text-xs font-mono cursor-pointer hover:bg-zinc-100 transition-colors';
+      item.textContent = city.label;
+      item.setAttribute('data-city-key', city.key);
+      item.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        inputEl.value = city.label;
+        inputEl.setAttribute('data-city-key', city.key);
+        dropdown.style.display = 'none';
+        inputEl.blur();
+      });
+      dropdown.appendChild(item);
+    });
+  }
+
+  function openDropdown() {
+    renderList(inputEl.value);
+    dropdown.style.display = 'block';
+  }
+
+  function closeDropdown() {
+    dropdown.style.display = 'none';
+  }
+
+  inputEl.addEventListener('focus', function() {
+    openDropdown();
+  });
+
+  inputEl.addEventListener('input', function() {
+    inputEl.removeAttribute('data-city-key');
+    renderList(inputEl.value);
+    dropdown.style.display = 'block';
+  });
+
+  inputEl.addEventListener('keydown', function(e) {
+    var items = dropdown.querySelectorAll('.trip-city-option');
+    var activeIdx = -1;
+    items.forEach(function(item, idx) {
+      if (item.classList.contains('trip-city-active')) activeIdx = idx;
+    });
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (activeIdx < items.length - 1) {
+        if (activeIdx >= 0) items[activeIdx].classList.remove('trip-city-active');
+        items[activeIdx + 1].classList.add('trip-city-active');
+        items[activeIdx + 1].scrollIntoView({ block: 'nearest' });
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (activeIdx > 0) {
+        items[activeIdx].classList.remove('trip-city-active');
+        items[activeIdx - 1].classList.add('trip-city-active');
+        items[activeIdx - 1].scrollIntoView({ block: 'nearest' });
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIdx >= 0 && items[activeIdx]) {
+        var cityKey = items[activeIdx].getAttribute('data-city-key');
+        var cityLabel = items[activeIdx].textContent;
+        inputEl.value = cityLabel;
+        inputEl.setAttribute('data-city-key', cityKey);
+        closeDropdown();
+        inputEl.blur();
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      closeDropdown();
+      inputEl.blur();
+    } else if (e.key === 'Backspace' || e.key === 'Delete') {
+      inputEl.removeAttribute('data-city-key');
+    }
+  });
+
+  inputEl.addEventListener('blur', function() {
+    setTimeout(function() {
+      if (!dropdown.contains(document.activeElement)) {
+        closeDropdown();
+      }
+    }, 150);
+  });
+
+  dropdown.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+  });
+
+  renderList('');
+}
+
 function initTripPlanner() {
   var vehicleSelect = document.getElementById('trip-vehicle');
   var fromSelect    = document.getElementById('trip-from');
@@ -17549,8 +18262,6 @@ function initTripPlanner() {
 
   // Clear existing options
   vehicleSelect.innerHTML = '';
-  fromSelect.innerHTML = '';
-  toSelect.innerHTML = '';
 
   // Placeholder option
   var placeholderOpt = document.createElement('option');
@@ -17576,24 +18287,13 @@ function initTripPlanner() {
     });
   }
 
-  // Populate city dropdowns
-  if (typeof TRIP_CITIES !== 'undefined' && TRIP_CITIES) {
-    TRIP_CITIES.forEach(function(city) {
-      var optA = document.createElement('option');
-      optA.value = city.key;
-      optA.textContent = city.label;
-      fromSelect.appendChild(optA);
-
-      var optB = document.createElement('option');
-      optB.value = city.key;
-      optB.textContent = city.label;
-      toSelect.appendChild(optB);
-    });
-  }
+  // Initialize searchable city dropdowns
+  initCityDropdown(fromSelect, 'trip-from-dropdown');
+  initCityDropdown(toSelect, 'trip-to-dropdown');
 
   // Defaults: Delhi -> Mumbai
-  fromSelect.value = 'delhi';
-  toSelect.value   = 'mumbai';
+  setCityValue(fromSelect, 'delhi');
+  setCityValue(toSelect, 'mumbai');
 
   // Slider live labels
   if (daysSlider && daysVal) {
@@ -17628,8 +18328,8 @@ function initTripPlanner() {
   // Plan My Trip button
   planBtn.onclick = function() {
     var carId   = vehicleSelect.value;
-    var fromKey = fromSelect.value;
-    var toKey   = toSelect.value;
+    var fromKey = fromSelect.getAttribute('data-city-key') || '';
+    var toKey   = toSelect.getAttribute('data-city-key') || '';
 
     if (!carId) {
       var tripAlert = document.getElementById('trip-alert-modal');
@@ -17666,6 +18366,12 @@ function initTripPlanner() {
     planBtn.disabled = true;
     planBtn.innerHTML = '<div class="flex items-center justify-center gap-2"><span>Calculating Route...</span><svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></div>';
 
+    // Clear previous route and charger markers before calculating new route
+    if (tripMapMarkers) { tripMapMarkers.clearLayers(); }
+    if (tripRoutePolyline && tripMapInstance) { tripMapInstance.removeLayer(tripRoutePolyline); tripRoutePolyline = null; }
+    var stationsListEl = document.getElementById('trip-stations-list');
+    if (stationsListEl) { stationsListEl.innerHTML = '<div class="col-span-2 font-mono text-xs text-zinc-500 border border-zinc-200 bg-zinc-50 p-4 rounded-xl text-center">Calculating route...</div>'; }
+
     fetch('/api/route?from=' + encodeURIComponent(fromKey) + '&to=' + encodeURIComponent(toKey))
       .then(function(res) {
         if (!res.ok) throw new Error('Route API failed with status ' + res.status);
@@ -17699,6 +18405,11 @@ function initTripPlanner() {
             return;
           }
         }
+
+        // Clear map to prevent stale route/charger markers from previous route
+        if (tripMapMarkers) { tripMapMarkers.clearLayers(); }
+        if (tripRoutePolyline && tripMapInstance) { tripMapInstance.removeLayer(tripRoutePolyline); tripRoutePolyline = null; }
+        if (tripMapInstance) { tripMapInstance.setView([20.5937, 78.9629], 5); }
 
         // Show clear error state as requested by User Directive #3 (never show hardcoded Delhi-Mumbai for unrelated pairs)
         alert('Unable to calculate road route for ' + fromKey.toUpperCase() + ' → ' + toKey.toUpperCase() + '. Please try again or select another city pair.');
@@ -18568,17 +19279,6 @@ function bindChargingStationsLogic() {
         map.invalidateSize();
       }
     }, 300);
-  }
-
-  function calculateDistanceKm(lat1, lon1, lat2, lon2) {
-    const R = 6371;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
   }
 
   // Render Google-style Autocomplete Dropdown Suggestions

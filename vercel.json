@@ -8,6 +8,10 @@
     {
       "source": "/auth/:path*",
       "destination": "/api/index.js"
+    },
+    {
+      "source": "/((?!api/|auth/|LOGO/|public/|.*\\.html$|.*\\.css$|.*\\.js$|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.ico$|.*\\.woff$|.*\\.woff2$|.*\\.ttf$|.*\\.eot$).*)",
+      "destination": "/index.html"
     }
   ]
 }

@@ -1,14 +1,17 @@
 const express = require('express');
 const axios = require('axios');
-const { XMLParser } = require('fast-xml-parser');
+let XMLParser;
+try {
+  XMLParser = require('fast-xml-parser').XMLParser;
+} catch (e) {}
 
 const router = express.Router();
 
-const parser = new XMLParser({
+const parser = XMLParser ? new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: '@_',
   textNodeName: '#text'
-});
+}) : null;
 
 let topicNewsCache = {};
 const CACHE_DURATION = 15 * 60 * 1000;
